@@ -1,5 +1,12 @@
 <header class="topbar">
 
+<!-- Mobile Sidebar Toggle -->
+<button id="mobileMenuToggle" class="mobile-menu-toggle">
+
+    <i class="bi bi-list"></i>
+
+</button>
+
     <!-- Left -->
     <div class="topbar-left">
 

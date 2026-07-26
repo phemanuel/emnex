@@ -23,6 +23,7 @@ class Payment extends Model
     */
 
     protected $fillable = [
+
         'company_id',
         'branch_id',
         'terminal_id',
@@ -38,7 +39,9 @@ class Payment extends Model
 
         'amount',
 
-        'reference_number',
+        'reference_no',
+        'transaction_reference',
+        'payment_gateway',
 
         'payment_status',
 
@@ -56,16 +59,19 @@ class Payment extends Model
     protected function casts(): array
     {
         return [
-            'company_id'   => 'integer',
-            'branch_id'    => 'integer',
-            'terminal_id'  => 'integer',
-            'order_id'     => 'integer',
-            'customer_id'  => 'integer',
-            'received_by'  => 'integer',
 
-            'amount'       => 'decimal:2',
+            'company_id'      => 'integer',
+            'branch_id'       => 'integer',
+            'terminal_id'     => 'integer',
 
-            'payment_date' => 'datetime',
+            'order_id'        => 'integer',
+            'customer_id'     => 'integer',
+
+            'received_by'     => 'integer',
+
+            'amount'          => 'decimal:2',
+
+            'payment_date'    => 'datetime',
         ];
     }
 
@@ -137,22 +143,20 @@ class Payment extends Model
         return $query->where('company_id', $companyId);
     }
 
-    /**
-     * Completed payments.
-     */
     public function scopeCompleted(Builder $query): Builder
     {
         return $query->where('payment_status', 'Completed');
     }
 
-    /**
-     * Filter by payment method.
-     */
+    public function scopePending(Builder $query): Builder
+    {
+        return $query->where('payment_status', 'Pending');
+    }
+
     public function scopeMethod(Builder $query, string $method): Builder
     {
         return $query->where('payment_method', $method);
     }
-
     /*
     |--------------------------------------------------------------------------
     | Helper Methods

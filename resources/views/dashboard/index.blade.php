@@ -141,6 +141,12 @@
                         Compared with yesterday
                     </small>
 
+                    <div class="kpi-footer">
+                        <a href="#">
+                            View Sales<i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+
 
                 </div>
 
@@ -193,6 +199,12 @@
                         Completed sales
                     </small>
 
+                    <div class="kpi-footer">
+                        <a href="#">
+                            View Orders <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+
 
                 </div>
 
@@ -200,10 +212,6 @@
             </div>
 
         </div>
-
-
-
-
 
         {{-- Customers --}}
         <div class="col-xl-3 col-md-6">
@@ -249,6 +257,12 @@
                     <small>
                         New customers today
                     </small>
+
+                    <div class="kpi-footer">
+                        <a href="#">
+                            Manage Customers <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
 
 
                 </div>
@@ -306,6 +320,12 @@
                         Current stock valuation
                     </small>
 
+                    <div class="kpi-footer">
+                        <a href="#">
+                            View Inventory <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+
 
                 </div>
 
@@ -338,22 +358,81 @@
                         Sales Performance
                     </h5>
 
-                    <button>
-                        This Week
-                        <i class="bi bi-chevron-down"></i>
-                    </button>
+                    <div class="dashboard-filter">
+
+                        <button id="dashboardFilterBtn">
+
+                            <span id="dashboardFilterLabel">
+                                {{ ucfirst($period ?? 'this_week') }}
+                            </span>
+
+                            <i class="bi bi-chevron-down"></i>
+
+                        </button>
+
+                        <div class="dashboard-filter-menu">
+
+                            <a href="{{ route('dashboard',['period'=>'today']) }}">
+                                Today
+                            </a>
+
+                            <a href="{{ route('dashboard',['period'=>'yesterday']) }}">
+                                Yesterday
+                            </a>
+
+                            <a href="{{ route('dashboard',['period'=>'this_week']) }}">
+                                This Week
+                            </a>
+
+                            <a href="{{ route('dashboard',['period'=>'this_month']) }}">
+                                This Month
+                            </a>
+
+                            <a href="{{ route('dashboard',['period'=>'this_year']) }}">
+                                This Year
+                            </a>
+
+                            <a href="#" id="customRangeBtn">
+                                Custom Range
+                            </a>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
 
-                <div class="sales-chart-placeholder">
+                @php
+                    $hasChartData = collect($salesChart)->sum('sales') > 0
+                        || collect($salesChart)->sum('transactions') > 0;
+                @endphp
 
-                    <div>
-                        <i class="bi bi-bar-chart-line"></i>
+                <div class="sales-chart-container">
 
-                       <canvas id="salesChart"></canvas>
+                    @if($hasChartData)
 
-                    </div>
+                        <canvas id="salesChart"></canvas>
+
+                    @else
+
+                        <div class="chart-empty-state">
+
+                            <div class="empty-icon">
+                                <i class="bi bi-bar-chart-line"></i>
+                            </div>
+
+                            <h5>No Sales Data Available</h5>
+
+                            <p>
+                                There are no completed sales for the selected period.
+                                Once transactions are recorded, your sales performance chart
+                                will appear here automatically.
+                            </p>
+
+                        </div>
+
+                    @endif
 
                 </div>
 
@@ -415,7 +494,7 @@
                         </span>
 
                         <strong>
-                            ₦{{ number_format($refund,2) }}
+                            ₦{{ number_format($refunds,2) }}
                         </strong>
                     </div>
 
@@ -472,7 +551,7 @@
                             <tr>
 
                                 <th>
-                                    Invoice
+                                    Order No
                                 </th>
 
                                 <th>
@@ -494,62 +573,35 @@
 
                         <tbody>
 
+                        @forelse($recentOrders as $order)
 
-                            @foreach($recentOrders as $order)
+                        <tr>
 
-                            <tr>
+                            <td>{{ $order->order_number }}</td>
 
-                            <td>
-                            {{ $order->order_number }}
-                            </td>
+                            <td>{{ $order->customer?->name ?? 'Walk-in Customer' }}</td>
 
-
-                            <td>
-                            {{ $order->customer?->name ?? 'Walk-in Customer' }}
-                            </td>
-
+                            <td>₦{{ number_format($order->total_amount, 2) }}</td>
 
                             <td>
-                            ₦{{ number_format($order->total,2) }}
+                                <span class="status success">
+                                    {{ $order->payment_status }}
+                                </span>
                             </td>
 
+                        </tr>
 
-                            <td>
+                        @empty
 
-                            <span class="status success">
+                        <tr>
 
-                            {{ $order->payment_status }}
-
-                            </span>
-
+                            <td colspan="4" class="text-center py-4">
+                                No transactions today.
                             </td>
 
-                            </tr>
+                        </tr>
 
-                            @endforeach
-
-                            <tr>
-
-                                <td>
-                                    #INV-1002
-                                </td>
-
-                                <td>
-                                    Mary James
-                                </td>
-
-                                <td>
-                                    ₦18,500
-                                </td>
-
-                                <td>
-                                    <span class="status success">
-                                        Paid
-                                    </span>
-                                </td>
-
-                            </tr>
-
+                        @endforelse
 
                         </tbody>
 
@@ -590,24 +642,27 @@
                 <div class="stock-list">
 
 
-                    @foreach($lowStockProducts as $stock)
+                    @forelse($lowStockProducts as $stock)
 
                     <div>
 
-                    <span>
-                    {{ $stock->product->name }}
-                    </span>
+                        <span>{{ $stock->product->name }}</span>
 
-
-                    <strong class="danger">
-
-                    {{ $stock->quantity }} left
-
-                    </strong>
+                        <strong class="danger">
+                            {{ $stock->quantity }} left
+                        </strong>
 
                     </div>
 
-                    @endforeach
+                    @empty
+
+                    <div class="text-center py-4">
+
+                        No low stock products.
+
+                    </div>
+
+                    @endforelse
                 </div>
 
 
@@ -639,28 +694,27 @@
 
 
 
-                @foreach($topProducts as $product)
+                @forelse($topProducts as $product)
 
                 <div class="product-row">
 
-                <span>
-                {{ $product->product_name }}
-                </span>
+                    <span>{{ $product->product_name }}</span>
 
+                    <strong>{{ number_format($product->total_quantity, 2) }} units</strong>
 
-                <strong>
-                {{ $product->total_quantity }} units
-                </strong>
-
-
-                <b>
-                ₦{{ number_format($product->total_sales,2) }}
-                </b>
-
+                    <b>₦{{ number_format($product->total_sales, 2) }}</b>
 
                 </div>
 
-                @endforeach
+                @empty
+
+                <div class="text-center py-4">
+
+                    No sales recorded yet.
+
+                </div>
+
+                @endforelse
 
 
 
@@ -722,5 +776,83 @@
 
 </div>
 
+<script>
+    const chartCanvas = document.getElementById('salesChart');
+
+if (chartCanvas) {
+
+    const chartData = @json($salesChart);
+
+    const labels = chartData.map(item => item.day);
+    const sales = chartData.map(item => item.sales);
+    const transactions = chartData.map(item => item.transactions);
+
+    new Chart(chartCanvas, {
+
+        type: 'line',
+
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: 'Sales',
+                    data: sales,
+                    tension: .35,
+                    borderWidth: 3,
+                    fill: true,
+                },
+                {
+                    label: 'Transactions',
+                    data: transactions,
+                    tension: .35,
+                    borderWidth: 2,
+                    yAxisID: 'y1',
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                },
+                y1: {
+                    position: 'right',
+                    grid: {
+                        drawOnChartArea: false
+                    }
+                }
+            }
+        }
+
+    });
+
+}
+</script>
+
+<script>
+    const filterBtn = document.getElementById('dashboardFilterBtn');
+const filterMenu = document.querySelector('.dashboard-filter-menu');
+
+filterBtn.addEventListener('click', function (e) {
+
+    e.stopPropagation();
+
+    filterMenu.classList.toggle('show');
+
+});
+
+document.addEventListener('click', function () {
+
+    filterMenu.classList.remove('show');
+
+});
+</script>
 
 @endsection

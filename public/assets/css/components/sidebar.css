@@ -723,3 +723,59 @@ Responsive
     color:var(--muted);
     margin-top:3px;
 }
+
+.mobile-sidebar-header{
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:18px 20px;
+
+    border-bottom:1px solid #ececec;
+
+    background:#fff;
+
+}
+
+.close-sidebar-btn{
+
+    width:40px;
+
+    height:40px;
+
+    border:none;
+
+    background:#f5f5f5;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.25s;
+
+}
+
+.close-sidebar-btn:hover{
+
+    background:#e9ecef;
+
+}
+
+@media (max-width:991px){
+
+    .mobile-sidebar-header{
+
+        display:flex;
+
+    }
+
+}

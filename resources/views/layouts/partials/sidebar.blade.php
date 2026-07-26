@@ -1,5 +1,14 @@
-<aside class="sidebar">
+<aside id="sidebar" class="sidebar">
 
+<div class="mobile-sidebar-header">    
+
+    <button id="closeSidebarBtn" class="close-sidebar-btn">
+
+        <i class="bi bi-x-lg"></i>
+
+    </button>
+
+</div>
     <!-- ==========================================
         Sidebar Header
     =========================================== -->
@@ -466,3 +475,5 @@
     </div>
 
 </aside>
+
+<div id="sidebarOverlay" class="sidebar-overlay"></div>
