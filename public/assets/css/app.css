@@ -1,0 +1,183 @@
+html,
+body {
+
+    height:100%;
+    margin:0;
+
+    background:#f6f7fb;
+
+    font-family:
+    "Inter",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+}
+
+
+body{
+
+    overflow:hidden;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Main Application Layout
+|--------------------------------------------------------------------------
+*/
+
+.app-layout{
+
+    display:flex;
+
+    height:100vh;
+
+    width:100%;
+
+    overflow:hidden;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Main Area
+|--------------------------------------------------------------------------
+*/
+
+.app-main{
+
+    flex:1;
+
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Body Wrapper
+|--------------------------------------------------------------------------
+*/
+
+.app-body{
+
+    flex:1;
+
+    min-height:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Content Workspace
+|--------------------------------------------------------------------------
+*/
+
+.app-content{
+
+    flex:1;
+
+    min-height:0;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+
+    padding:24px;
+
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Smooth Scrollbar
+|--------------------------------------------------------------------------
+*/
+
+
+.app-content::-webkit-scrollbar{
+
+    width:7px;
+
+}
+
+
+.app-content::-webkit-scrollbar-thumb{
+
+    background:#d1d5db;
+
+    border-radius:20px;
+
+}
+
+
+.app-content::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Footer
+|--------------------------------------------------------------------------
+*/
+
+.app-footer {
+
+    height:42px;
+
+
+    background:
+        linear-gradient(
+            135deg,
+            #e8eef9 0%,
+            #dbeafe 100%
+        );
+
+
+    border-top:1px solid #cbd5e1;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+
+    padding:0 24px;
+
+
+    color:#475569;
+
+
+    font-size:13px;
+
+
+    flex-shrink:0;
+
+}

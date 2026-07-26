@@ -65,6 +65,15 @@ class Permission extends Model
         return $this->hasMany(RolePermission::class, 'permission_id');
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(
+            Role::class,
+            'role_permissions'
+        )
+        ->withTimestamps();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Query Scopes

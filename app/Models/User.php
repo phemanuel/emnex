@@ -176,4 +176,20 @@ class User extends Authenticatable
     {
         return (bool) $this->force_password_change;
     }
+
+    public function permissionNames()
+    {
+        return cache()->remember(
+            'permissions_'.$this->id,
+            now()->addMinutes(30),
+            function () {
+                return $this->role
+                    ? $this->role->permissions()
+                        ->where('permissions.status', true)
+                        ->pluck('permissions.name')
+                        ->toArray()
+                    : [];
+            }
+        );
+    }
 }

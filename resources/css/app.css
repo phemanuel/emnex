@@ -1,3 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/*
+|--------------------------------------------------------------------------
+| Emnex Design System
+|--------------------------------------------------------------------------
+*/
+
+@theme {
+
+    --font-sans: "Inter", sans-serif;
+
+}

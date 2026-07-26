@@ -37,7 +37,7 @@ return new class extends Migration
                 'Daily',
                 'Monthly',
                 'Yearly',
-            ])->default('Never');
+            ])->default('Never');           
 
             // Status
             $table->boolean('status')->default(true);
