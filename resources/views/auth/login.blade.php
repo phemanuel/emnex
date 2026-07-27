@@ -7,7 +7,7 @@
 
 
     <!-- LEFT SIDE -->
-    <<div class="login-banner">
+    <div class="login-banner">
 
     <div class="overlay"></div>
 

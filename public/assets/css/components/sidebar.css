@@ -59,7 +59,7 @@ Sidebar Header
 Brand
 ====================================================*/
 
-.sidebar-brand{
+.sidebar-brand {
 
     display:flex;
 
@@ -67,17 +67,51 @@ Brand
 
     gap:12px;
 
+    width:100%;
+
     text-decoration:none;
 
 }
 
-.brand-icon{
 
-    width:42px;
+/* Logo */
 
-    height:42px;
+.sidebar-company-logo,
+.sidebar-brand-icon {
 
-    border-radius:12px;
+    width:48px;
+
+    height:48px;
+
+    min-width:48px;
+
+    border-radius:50%;
+
+}
+
+
+
+.sidebar-company-logo {
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+
+
+.sidebar-brand-icon {
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    color:white;
 
     display:flex;
 
@@ -85,37 +119,88 @@ Brand
 
     justify-content:center;
 
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    font-size:17px;
 
-    color:#fff;
-
-    font-size:18px;
+    font-weight:700;
 
 }
+.sidebar-brand img.sidebar-company-logo {
 
-.brand-title{
+    width:48px;
 
-    font-size:22px;
+    height:48px;
 
-    font-weight:800;
+    min-width:48px;
 
-    letter-spacing:.12em;
+    border-radius:50%;
 
-    color:var(--text);
+    object-fit:contain;
 
-    line-height:1;
+    background:#f8fafc;
 
-}
+    border:1px solid #e2e8f0;
 
-.brand-subtitle{
+    padding:4px;
 
     display:block;
 
-    font-size:11px;
+}
 
-    color:var(--muted);
+
+/* Text Area */
+
+.sidebar-brand-content {
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+}
+
+
+
+/* Company name */
+
+.sidebar-company-name {
+
+    color:#0f172a; /* dark text */
+
+    font-size:15px;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    max-width:170px;
+
+}
+
+
+
+
+/* Product name */
+
+.sidebar-product-name {
 
     margin-top:3px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    letter-spacing:.8px;
+
+    color:#2563eb;
 
 }
 
@@ -768,6 +853,14 @@ Responsive
 
     background:#e9ecef;
 
+}
+
+.nav-group.open .nav-children{
+    display:block;
+}
+
+.nav-group.open .nav-chevron{
+    transform:rotate(90deg);
 }
 
 @media (max-width:991px){

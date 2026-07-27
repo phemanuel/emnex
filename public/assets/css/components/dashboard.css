@@ -955,3 +955,125 @@
     }
 
 }
+
+.activity-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:14px;
+
+}
+
+.activity-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:16px;
+
+    border:1px solid #eef2f7;
+
+    border-radius:14px;
+
+    transition:.25s;
+
+    background:#fff;
+
+}
+
+.activity-item:hover{
+
+    border-color:#dbe4f0;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 20px rgba(15,23,42,.06);
+
+}
+
+.activity-icon{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+
+    flex-shrink:0;
+
+}
+
+.activity-content{
+
+    flex:1;
+
+}
+
+.activity-content span{
+
+    display:block;
+
+    color:#64748b;
+
+    font-size:.82rem;
+
+    margin-bottom:3px;
+
+}
+
+.activity-content h6{
+
+    margin:0;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.activity-icon.cash{
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+}
+
+.activity-icon.card{
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
+}
+
+.activity-icon.refund{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+.activity-icon.pending{
+
+    background:#fef3c7;
+
+    color:#d97706;
+
+}

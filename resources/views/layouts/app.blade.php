@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
 
     @include('layouts.partials.head')
@@ -12,6 +9,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/components/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components/topbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/company.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/branches.css') }}">
 
 </head>
 
@@ -19,6 +18,11 @@
 
 <div class="app-layout">
 
+
+<div class="toast-container position-fixed top-0 end-0 p-3"
+     style="z-index:9999">
+
+</div>
 
     @include('layouts.partials.sidebar')
 
@@ -53,8 +57,6 @@
 
 @include('layouts.partials.scripts')
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</body>
-</html>
 
+</body>
 </html>

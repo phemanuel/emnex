@@ -1,14 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Throwable;
+use App\Helpers\CompanyHelper;
 
 class BaseController extends Controller
 {
+    protected $company;
+    protected $companyId;
+
+    public function __construct()
+    {
+        $this->company = CompanyHelper::current();
+        $this->companyId = CompanyHelper::id();
+    }
+    
     /**
      * Success flash message.
      */

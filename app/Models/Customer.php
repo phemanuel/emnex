@@ -101,6 +101,11 @@ class Customer extends Model
         return $this->hasMany(Payment::class, 'customer_id');
     }
 
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Query Scopes

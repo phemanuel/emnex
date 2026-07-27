@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Customer;
 
 /**
  * Branch Model
@@ -115,6 +116,8 @@ class Branch extends Model
     {
         return $this->hasMany(ActivityLog::class, 'branch_id');
     }
+
+    
 
     /*
     |--------------------------------------------------------------------------

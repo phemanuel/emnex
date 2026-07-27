@@ -446,80 +446,103 @@
 
 
         {{-- Today's Activity --}}
-
         <div class="col-xl-4">
-
 
             <div class="dashboard-card">
 
-
                 <div class="card-header-custom">
 
-                    <h5>
-                        Today's Activity
-                    </h5>
+                    <h5>Today's Activity</h5>
+
+                    <small class="text-muted">
+                        {{ now()->format('d M Y') }}
+                    </small>
 
                 </div>
 
+                <div class="activity-grid">
 
+                    {{-- Cash --}}
+                    <div class="activity-item">
 
-                <div class="activity-list">
+                        <div class="activity-icon cash">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
 
+                        <div class="activity-content">
 
-                    <div>
-                        <span>
-                            Cash Sales
-                        </span>
+                            <span>Cash Sales</span>
 
-                        <strong>
-                           ₦{{ number_format($cashSales,2) }}
-                        </strong>
+                            <h6>
+                                ₦{{ number_format($cashSales,2) }}
+                            </h6>
+
+                        </div>
+
                     </div>
 
+                    {{-- Card --}}
+                    <div class="activity-item">
 
-                    <div>
-                        <span>
-                            Card Sales
-                        </span>
+                        <div class="activity-icon card">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
 
-                        <strong>
-                            ₦{{ number_format($cardSales,2) }}
-                        </strong>
+                        <div class="activity-content">
+
+                            <span>Card/POS</span>
+
+                            <h6>
+                                ₦{{ number_format($cardSales,2) }}
+                            </h6>
+
+                        </div>
+
                     </div>
 
+                    {{-- Refund --}}
+                    <div class="activity-item">
 
-                    <div>
-                        <span>
-                            Refunds
-                        </span>
+                        <div class="activity-icon refund">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </div>
 
-                        <strong>
-                            ₦{{ number_format($refunds,2) }}
-                        </strong>
+                        <div class="activity-content">
+
+                            <span>Refunds</span>
+
+                            <h6>
+                                ₦{{ number_format($refunds,2) }}
+                            </h6>
+
+                        </div>
+
                     </div>
 
+                    {{-- Pending --}}
+                    <div class="activity-item">
 
-                    <div>
-                        <span>
-                            Pending Orders
-                        </span>
+                        <div class="activity-icon pending">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
 
-                        <strong>
-                            ₦{{ number_format($pendingOrders,2) }}
-                        </strong>
+                        <div class="activity-content">
+
+                            <span>Pending Orders</span>
+
+                            <h6>
+                                {{ number_format($pendingOrders) }}
+                            </h6>
+
+                        </div>
+
                     </div>
-
 
                 </div>
-
 
             </div>
 
-
         </div>
-
-
-
 
 
         {{-- Recent Transactions --}}
