@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/components/topbar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/company.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/branches.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/components/modals.css') }}">
 
 </head>
 

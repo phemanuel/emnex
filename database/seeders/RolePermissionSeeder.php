@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Company;
 use App\Models\Permission;
 use App\Models\Role;
-use App\Models\RolePermission;
 use Illuminate\Database\Seeder;
 
 class RolePermissionSeeder extends Seeder
@@ -15,193 +14,112 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $company = Company::first();
+        $defaults = config('permissions.defaults');
+        $modules  = config('permissions.permissions');
 
-        if (!$company) {
-            $this->command->error('Company not found. Please run CompanySeeder first.');
-            return;
-        }
+        foreach (Company::all() as $company) {
 
-        /*
-        |--------------------------------------------------------------------------
-        | Load Roles
-        |--------------------------------------------------------------------------
-        */
+            foreach ($defaults as $roleCode => $permissionCodes) {
 
-        $roles = Role::where('company_id', $company->id)
-            ->get()
-            ->keyBy('name');
+                $role = Role::where('company_id', $company->id)
+                    ->where('code', $roleCode)
+                    ->first();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Load Permissions
-        |--------------------------------------------------------------------------
-        */
-
-        $permissions = Permission::whereNull('company_id')
-            ->get()
-            ->keyBy('name');
-
-        /*
-        |--------------------------------------------------------------------------
-        | Permission Map
-        |--------------------------------------------------------------------------
-        */
-
-        $map = [
-
-            /*
-            |--------------------------------------------------------------------------
-            | Owner
-            |--------------------------------------------------------------------------
-            */
-
-            'owner' => $permissions->keys()->toArray(),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Administrator
-            |--------------------------------------------------------------------------
-            */
-
-            'administrator' => $permissions->keys()->toArray(),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Manager
-            |--------------------------------------------------------------------------
-            */
-
-            'manager' => [
-
-                'dashboard.view',
-
-                'products.view',
-                'products.create',
-                'products.edit',
-
-                'categories.view',
-
-                'customers.view',
-                'customers.create',
-                'customers.edit',
-
-                'sales.view',
-                'sales.create',
-
-                'payments.view',
-
-                'inventory.view',
-                'inventory.adjust',
-
-                'reports.view',
-
-            ],
-
-            /*
-            |--------------------------------------------------------------------------
-            | Supervisor
-            |--------------------------------------------------------------------------
-            */
-
-            'supervisor' => [
-
-                'dashboard.view',
-
-                'products.view',
-
-                'customers.view',
-
-                'sales.view',
-
-                'inventory.view',
-
-                'reports.view',
-
-            ],
-
-            /*
-            |--------------------------------------------------------------------------
-            | Cashier
-            |--------------------------------------------------------------------------
-            */
-
-            'cashier' => [
-
-                'dashboard.view',
-
-                'products.view',
-
-                'customers.view',
-                'customers.create',
-
-                'sales.view',
-                'sales.create',
-
-                'payments.view',
-                'payments.create',
-
-            ],
-
-            /*
-            |--------------------------------------------------------------------------
-            | Store Keeper
-            |--------------------------------------------------------------------------
-            */
-
-            'store_keeper' => [
-
-                'dashboard.view',
-
-                'products.view',
-                'products.create',
-                'products.edit',
-
-                'categories.view',
-
-                'inventory.view',
-                'inventory.adjust',
-
-            ],
-
-        ];
-
-        /*
-        |--------------------------------------------------------------------------
-        | Save Role Permissions
-        |--------------------------------------------------------------------------
-        */
-
-        foreach ($map as $roleName => $permissionNames) {
-
-            $role = $roles->get($roleName);
-
-            if (!$role) {
-                continue;
-            }
-
-            foreach ($permissionNames as $permissionName) {
-
-                $permission = $permissions->get($permissionName);
-
-                if (!$permission) {
+                if (! $role) {
                     continue;
                 }
 
-                RolePermission::updateOrCreate(
+                $permissionIds = [];
 
-                    [
-                        'company_id'   => $company->id,
-                        'role_id'      => $role->id,
-                        'permission_id'=> $permission->id,
-                    ],
+                /*
+                |--------------------------------------------------------------------------
+                | Owner / Administrator (*)
+                |--------------------------------------------------------------------------
+                */
 
-                    [
-                        'company_id'   => $company->id,
-                        'role_id'      => $role->id,
-                        'permission_id'=> $permission->id,
-                    ]
+                if (in_array('*', $permissionCodes)) {
 
+                    $permissionIds = Permission::where('company_id', $company->id)
+                        ->pluck('id')
+                        ->toArray();
+
+                } else {
+
+                    foreach ($permissionCodes as $permission) {
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Module Wildcard
+                        |--------------------------------------------------------------------------
+                        | Example:
+                        | products.*
+                        | inventory.*
+                        */
+
+                        if (str_ends_with($permission, '.*')) {
+
+                            $module = str_replace('.*', '', $permission);
+
+                            if (isset($modules[$module])) {
+
+                                foreach ($modules[$module] as $action) {
+
+                                    $code = "{$module}.{$action}";
+
+                                    $id = Permission::where('company_id', $company->id)
+                                        ->where('code', $code)
+                                        ->value('id');
+
+                                    if ($id) {
+                                        $permissionIds[] = $id;
+                                    }
+
+                                }
+
+                            }
+
+                            continue;
+                        }
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Single Permission
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $id = Permission::where('company_id', $company->id)
+                            ->where('code', $permission)
+                            ->value('id');
+
+                        if ($id) {
+                            $permissionIds[] = $id;
+                        }
+                    }
+
+                }
+
+                /*
+                |--------------------------------------------------------------------------
+                | Sync Permissions
+                |--------------------------------------------------------------------------
+                */
+
+                $role->permissions()->sync(
+                    collect(array_unique($permissionIds))
+                        ->mapWithKeys(function ($permissionId) use ($company) {
+
+                            return [
+
+                                $permissionId => [
+
+                                    'company_id' => $company->id
+
+                                ]
+
+                            ];
+
+                        })
+                        ->toArray()
                 );
 
             }

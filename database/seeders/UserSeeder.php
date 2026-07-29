@@ -64,12 +64,22 @@ class UserSeeder extends Seeder
                 'last_name' => 'Manager',
                 'username' => 'manager',
                 'email' => 'manager@emmanexitconsult.com',
-                'role' => 'manager',
+                'role' => 'branch_manager',
                 'is_owner' => false,
             ],
 
             [
                 'employee_no' => 'EMP0004',
+                'first_name' => 'Branch',
+                'last_name' => 'Supervisor',
+                'username' => 'supervisor',
+                'email' => 'supervisor@emmanexitconsult.com',
+                'role' => 'supervisor',
+                'is_owner' => false,
+            ],
+
+            [
+                'employee_no' => 'EMP0005',
                 'first_name' => 'Main',
                 'last_name' => 'Cashier',
                 'username' => 'cashier',
@@ -79,12 +89,22 @@ class UserSeeder extends Seeder
             ],
 
             [
-                'employee_no' => 'EMP0005',
-                'first_name' => 'Store',
-                'last_name' => 'Keeper',
-                'username' => 'storekeeper',
-                'email' => 'storekeeper@emmanexitconsult.com',
-                'role' => 'store_keeper',
+                'employee_no' => 'EMP0006',
+                'first_name' => 'Inventory',
+                'last_name' => 'Manager',
+                'username' => 'inventory',
+                'email' => 'inventory@emmanexitconsult.com',
+                'role' => 'inventory_manager',
+                'is_owner' => false,
+            ],
+
+            [
+                'employee_no' => 'EMP0007',
+                'first_name' => 'Company',
+                'last_name' => 'Accountant',
+                'username' => 'accountant',
+                'email' => 'accountant@emmanexitconsult.com',
+                'role' => 'accountant',
                 'is_owner' => false,
             ],
 
@@ -93,6 +113,15 @@ class UserSeeder extends Seeder
         foreach ($users as $user) {
 
             $role = $roles->get($user['role']);
+
+            if (! $role) {
+
+                $this->command->warn(
+                    "Role [{$user['role']}] not found. Skipping {$user['username']}."
+                );
+
+                continue;
+            }
 
             User::updateOrCreate(
 

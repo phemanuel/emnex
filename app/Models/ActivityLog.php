@@ -35,11 +35,18 @@ class ActivityLog extends Model
         'record_type',
         'record_id',
 
+        'old_values',
+        'new_values',
+
         'url',
         'method',
 
         'ip_address',
         'user_agent',
+
+        'browser',
+        'platform',
+        'device',
     ];
 
     /*
@@ -56,6 +63,9 @@ class ActivityLog extends Model
             'terminal_id' => 'integer',
             'user_id'     => 'integer',
             'record_id'   => 'integer',
+
+            'old_values'  => 'array',
+            'new_values'  => 'array',
         ];
     }
 

@@ -161,35 +161,121 @@ class User extends Authenticatable
     {
         return (bool) $this->status;
     }
-
-    public function isOwner(): bool
-    {
-        return $this->role?->name === 'Owner';
-    }
-
-    public function hasRole(string $role): bool
-    {
-        return strtolower($this->role?->name ?? '') === strtolower($role);
-    }
-
+    
     public function forcePasswordReset(): bool
     {
         return (bool) $this->force_password_change;
     }
 
-    public function permissionNames()
+    /*
+    |--------------------------------------------------------------------------
+    | Authorization Helpers
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Check if user owns the company.
+     */
+    public function isOwner(): bool
+    {
+        return $this->role?->code === 'owner';
+    }
+
+
+    /**
+     * Check if user has a specific role.
+     */
+    public function hasRole(string $role): bool
+    {
+        return strtolower($this->role?->code ?? '') === strtolower($role);
+    }
+
+
+    /**
+     * Get all permission codes assigned to user.
+     */
+    public function permissionCodes(): array
     {
         return cache()->remember(
-            'permissions_'.$this->id,
+            'user_permissions_'.$this->id,
             now()->addMinutes(30),
             function () {
+
+                if (! $this->role) {
+                    return [];
+                }
+
                 return $this->role
-                    ? $this->role->permissions()
-                        ->where('permissions.status', true)
-                        ->pluck('permissions.name')
-                        ->toArray()
-                    : [];
+                    ->permissions()
+                    ->where('permissions.status', true)
+                    ->pluck('permissions.code')
+                    ->toArray();
+
             }
         );
     }
+
+
+    /**
+     * Check if user has a permission.
+     */
+    public function hasPermission(string $permission): bool
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Owner bypass
+        |--------------------------------------------------------------------------
+        */
+
+        if ($this->isOwner()) {
+            return true;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Direct permission check
+        |--------------------------------------------------------------------------
+        */
+
+        return in_array(
+            $permission,
+            $this->permissionCodes()
+        );
+    }
+
+
+    /**
+     * Check if user has any permission from list.
+     */
+    public function hasAnyPermission(array $permissions): bool
+    {
+        foreach ($permissions as $permission) {
+
+            if ($this->hasPermission($permission)) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Check if user has all permissions.
+     */
+    public function hasAllPermissions(array $permissions): bool
+    {
+        foreach ($permissions as $permission) {
+
+            if (! $this->hasPermission($permission)) {
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
 }

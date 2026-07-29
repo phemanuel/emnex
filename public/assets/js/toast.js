@@ -16,6 +16,7 @@ function showToast(message, type = 'success')
 
 
         case 'error':
+        case 'danger':
 
             icon = 'bi-x-circle-fill';
             bg = 'bg-danger';
@@ -32,6 +33,13 @@ function showToast(message, type = 'success')
 
 
         case 'info':
+
+            icon = 'bi-info-circle-fill';
+            bg = 'bg-primary';
+
+        break;
+
+        default:
 
             icon = 'bi-info-circle-fill';
             bg = 'bg-primary';

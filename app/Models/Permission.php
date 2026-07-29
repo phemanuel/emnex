@@ -27,6 +27,7 @@ class Permission extends Model
     protected $fillable = [
         'company_id',
         'module',
+        'code',
         'name',
         'display_name',
         'description',
@@ -71,6 +72,7 @@ class Permission extends Model
             Role::class,
             'role_permissions'
         )
+        ->withPivot('company_id')
         ->withTimestamps();
     }
 
@@ -94,6 +96,20 @@ class Permission extends Model
     public function scopeModule(Builder $query, string $module): Builder
     {
         return $query->where('module', $module);
+    }
+
+    public function scopeOrdered(Builder $query): Builder
+    {
+        return $query
+            ->orderBy('module')
+            ->orderBy('display_name');
+    }
+
+    public function statusBadge(): string
+    {
+        return $this->status
+            ? 'success'
+            : 'secondary';
     }
 
     /*

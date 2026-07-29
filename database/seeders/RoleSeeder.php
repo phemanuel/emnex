@@ -24,38 +24,51 @@ class RoleSeeder extends Seeder
 
             [
                 'name' => 'owner',
+                'code' => 'owner',
                 'display_name' => 'Owner',
-                'description' => 'System owner with full access.',
+                'description' => 'System owner with unrestricted access.',
             ],
 
             [
                 'name' => 'administrator',
+                'code' => 'administrator',
                 'display_name' => 'Administrator',
-                'description' => 'Manages all company operations.',
+                'description' => 'Company administrator.',
             ],
 
             [
-                'name' => 'manager',
-                'display_name' => 'Manager',
-                'description' => 'Oversees daily business activities.',
+                'name' => 'branch_manager',
+                'code' => 'branch_manager',
+                'display_name' => 'Branch Manager',
+                'description' => 'Manages a business branch.',
             ],
 
             [
                 'name' => 'supervisor',
+                'code' => 'supervisor',
                 'display_name' => 'Supervisor',
-                'description' => 'Supervises branch operations.',
+                'description' => 'Supervises daily business operations.',
             ],
 
             [
                 'name' => 'cashier',
+                'code' => 'cashier',
                 'display_name' => 'Cashier',
-                'description' => 'Processes sales transactions.',
+                'description' => 'Processes customer sales.',
             ],
 
             [
-                'name' => 'store_keeper',
-                'display_name' => 'Store Keeper',
+                'name' => 'inventory_manager',
+                'code' => 'inventory_manager',
+                'display_name' => 'Inventory Manager',
                 'description' => 'Manages inventory and stock.',
+            ],
+
+            [
+                'name' => 'accountant',
+                'code' => 'accountant',
+                'display_name' => 'Accountant',
+                'description' => 'Handles financial operations.',
             ],
 
         ];

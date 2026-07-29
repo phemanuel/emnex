@@ -107,13 +107,16 @@
 
             </div>
 
+            @permission('branches.create')
             <button class="btn btn-primary" id="addBranchBtn">
 
                 <i class="bi bi-plus-lg"></i>
 
                 New Branch
 
-            </button>
+            </button> 
+            @endpermission
+            
 
             <button class="btn btn-outline-secondary">
 
@@ -254,7 +257,9 @@
                 {{-- Footer --}}
                 <div class="branch-footer">
 
-                    <button
+                @permission('branches.view')
+
+                <button
                         class="btn btn-outline-primary view-branch"
                         data-id="{{ $branch->id }}">
 
@@ -263,6 +268,9 @@
                         View
 
                     </button>
+
+                @endpermission
+                    
 
                     <!-- <button
                         class="btn btn-light edit-branch"

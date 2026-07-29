@@ -8,6 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ asset('assets/js/components/sidebar.js') }}"></script>
 <script src="{{ asset('assets/js/emnex.js') }}"></script>
+<script src="{{ asset('assets/js/admin/roles.js') }}"></script>
 
 
 @stack('scripts')

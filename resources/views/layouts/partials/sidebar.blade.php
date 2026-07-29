@@ -709,18 +709,7 @@
 
         </button>
 
-        <div class="nav-children">
-
-            <a href="{{ route('users.index') }}"
-            class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
-
-                <span class="sub-icon">
-                    <i class="bi bi-person"></i>
-                </span>
-
-                <span>Users</span>
-
-            </a>
+        <div class="nav-children">            
 
             <a href="{{ route('roles.index') }}"
             class="{{ request()->routeIs('roles.*') ? 'active' : '' }}">
@@ -774,6 +763,17 @@
                 </span>
 
                 <span>Terminals</span>
+
+            </a>
+
+            <a href="{{ route('users.index') }}"
+            class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
+
+                <span class="sub-icon">
+                    <i class="bi bi-person"></i>
+                </span>
+
+                <span>Users</span>
 
             </a>
             

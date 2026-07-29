@@ -62,6 +62,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
@@ -222,7 +223,33 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class);
 
-    Route::resource('roles', RoleController::class);
+    /*
+    |--------------------------------------------------------------------------
+    | Roles
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource(
+        'roles',
+        RoleController::class
+    );
+
+
+    Route::get(
+        'roles/{role}/permissions',
+        [RoleController::class, 'permissions']
+    )
+    ->name('roles.permissions');
+
+
+    Route::put(
+        'roles/{role}/permissions',
+        [RoleController::class, 'updatePermissions']
+    )
+    ->name('roles.permissions.update');
+
+    // ------------------------------------------
+
 
     Route::resource('permissions', PermissionController::class);
 
@@ -270,6 +297,13 @@ Route::middleware('auth')->group(function () {
 
                 Route::get('/', 'index')
                     ->name('index');
+
+                Route::get('/test-permission', function () {
+
+                    return 'Permission Passed';
+
+                })
+                ->middleware('permission:branches.view');
 
 
                 Route::get('/{branch}/details', 'details')
@@ -341,5 +375,8 @@ Route::middleware('auth')->group(function () {
     );
 
 });
+
+
+
 
 
