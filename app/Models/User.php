@@ -31,6 +31,7 @@ class User extends Authenticatable
         'role_id',
         'first_name',
         'last_name',
+        'other_name',
         'email',
         'phone',
         'gender',
@@ -41,6 +42,9 @@ class User extends Authenticatable
         'force_password_change',
         'password_changed_at',
         'status',
+        'address',
+        'notes',
+        'last_activity_at',
     ];
 
     /*
@@ -63,13 +67,27 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at'      => 'datetime',
-            'password'               => 'hashed',
-            'date_of_birth'          => 'date',
-            'employment_date'        => 'date',
-            'password_changed_at'    => 'datetime',
-            'force_password_change'  => 'boolean',
-            'status'                 => 'boolean',
+
+            'email_verified_at' => 'datetime',
+
+            'date_of_birth' => 'date',
+
+            'employment_date' => 'date',
+
+            'last_login_at' => 'datetime',
+
+            'last_activity_at' => 'datetime',
+
+            'password_changed_at' => 'datetime',
+
+            'is_owner' => 'boolean',
+
+            'two_factor_enabled' => 'boolean',
+
+            'status' => 'boolean',
+
+            'force_password_change' => 'boolean',
+
         ];
     }
 
@@ -276,6 +294,13 @@ class User extends Authenticatable
         }
 
         return true;
+    }
+
+    public function getFullNameAttribute()
+    {
+        return trim(
+            "{$this->first_name} {$this->other_name} {$this->last_name}"
+        );
     }
 
 }

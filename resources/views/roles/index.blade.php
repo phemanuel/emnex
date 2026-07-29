@@ -799,7 +799,7 @@
 
 </div>
 
-
+<script src="{{ asset('assets/js/admin/roles.js') }}"></script>
 @endsection
 
 

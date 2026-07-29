@@ -720,18 +720,19 @@
 
                 <span>Roles</span>
 
-            </a>
-
-            <a href="{{ route('permissions.index') }}"
-            class="{{ request()->routeIs('permissions.*') ? 'active' : '' }}">
+            </a>   
+            
+                <a href="{{ route('users.index') }}"
+            class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
 
                 <span class="sub-icon">
-                    <i class="bi bi-shield-lock"></i>
+                    <i class="bi bi-person"></i>
                 </span>
 
-                <span>Permissions</span>
+                <span>Users</span>
 
             </a>
+            
 
             <a href="{{ route('company.index') }}"
             class="{{ request()->routeIs('company.*') ? 'active' : '' }}">
@@ -764,19 +765,7 @@
 
                 <span>Terminals</span>
 
-            </a>
-
-            <a href="{{ route('users.index') }}"
-            class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
-
-                <span class="sub-icon">
-                    <i class="bi bi-person"></i>
-                </span>
-
-                <span>Users</span>
-
-            </a>
-            
+            </a>        
 
         </div>
 

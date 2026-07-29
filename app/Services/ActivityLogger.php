@@ -10,12 +10,14 @@ class ActivityLogger
     /**
      * Create activity log entry.
      */
-    public function log(
-        string $module,
-        string $action,
-        string $description,
-        $record = null
-    ): ActivityLog {
+            public function log(
+            string $module,
+            string $action,
+            string $description,
+            $record = null,
+            ?array $oldValues = null,
+            ?array $newValues = null
+        ): ActivityLog {
 
 
         return ActivityLog::create([
@@ -26,9 +28,7 @@ class ActivityLogger
 
             'terminal_id' => session('terminal_id'),
 
-
             'user_id' => auth()->id(),
-
 
             'module' => $module,
 
@@ -36,26 +36,25 @@ class ActivityLogger
 
             'description' => $description,
 
-
             'record_type' => $record
                 ? class_basename($record)
                 : null,
 
-
             'record_id' => $record?->id,
 
+            'old_values' => $oldValues,
+
+            'new_values' => $newValues,
 
             'url' => request()->path(),
 
             'method' => request()->method(),
-
 
             'ip_address' => request()->ip(),
 
             'user_agent' => request()->userAgent(),
 
         ]);
-
     }
 
 }

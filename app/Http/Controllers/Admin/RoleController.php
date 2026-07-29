@@ -10,6 +10,7 @@ use App\Services\ActivityLogger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use App\Models\ActivityLog;
 
 class RoleController extends Controller
 {
@@ -79,44 +80,62 @@ class RoleController extends Controller
         $validated = $request->validate([
 
             'name' => [
-                'required',
-                'string',
-                'max:100'
-            ],
 
-            'code' => [
                 'required',
                 'string',
                 'max:100',
 
                 Rule::unique('roles')
-                    ->where(
-                        'company_id',
-                        $companyId
-                    )
+                    ->where(function ($query) use ($companyId) {
+
+                        return $query
+                            ->where('company_id', $companyId)
+                            ->whereNull('deleted_at');
+
+                    })
+
             ],
 
+            'code' => [
+
+                'required',
+                'string',
+                'max:100',
+
+                Rule::unique('roles')
+                    ->where(function ($query) use ($companyId) {
+
+                        return $query
+                            ->where('company_id', $companyId)
+                            ->whereNull('deleted_at');
+
+                    })
+
+            ],
 
             'display_name' => [
+
                 'required',
                 'string',
                 'max:150'
-            ],
 
+            ],
 
             'description' => [
+
                 'nullable',
                 'string'
+
             ],
 
-
             'status' => [
+
                 'required',
                 'boolean'
+
             ],
 
         ]);
-
 
 
         $role = Role::create([
@@ -150,7 +169,11 @@ class RoleController extends Controller
 
             "Created role {$role->display_name}",
 
-            $role
+            $role,
+
+            null,
+
+            $role->toArray()
 
         );
 
@@ -256,13 +279,23 @@ class RoleController extends Controller
 
         $validated = $request->validate([
 
-
             'name' => [
+
                 'required',
                 'string',
-                'max:100'
-            ],
+                'max:100',
 
+                Rule::unique('roles')
+                    ->where(function ($query) use ($companyId) {
+
+                        return $query
+                            ->where('company_id', $companyId)
+                            ->whereNull('deleted_at');
+
+                    })
+                    ->ignore($role->id)
+
+            ],
 
             'code' => [
 
@@ -271,38 +304,43 @@ class RoleController extends Controller
                 'max:100',
 
                 Rule::unique('roles')
-                    ->where(
-                        'company_id',
-                        $companyId
-                    )
+                    ->where(function ($query) use ($companyId) {
+
+                        return $query
+                            ->where('company_id', $companyId)
+                            ->whereNull('deleted_at');
+
+                    })
                     ->ignore($role->id)
 
             ],
 
-
             'display_name' => [
+
                 'required',
                 'string',
                 'max:150'
-            ],
 
+            ],
 
             'description' => [
+
                 'nullable',
                 'string'
+
             ],
 
-
             'status' => [
+
                 'required',
                 'boolean'
+
             ],
 
         ]);
 
-
-
         $oldName = $role->display_name;
+        $oldValues = $role->toArray();
 
 
 
@@ -334,9 +372,13 @@ class RoleController extends Controller
 
             'Updated',
 
-            "Updated role {$oldName}",
+            "Updated role {$role->display_name}",
 
-            $role
+            $role,
+
+            $oldValues,
+
+            $role->fresh()->toArray()
 
         );
 
@@ -403,16 +445,9 @@ class RoleController extends Controller
 
         DB::transaction(function () use ($role) {
 
+        $oldValues = $role->toArray();
 
-            RolePermission::where(
-                'role_id',
-                $role->id
-            )
-            ->delete();
-
-
-
-            $this->activityLogger->log(
+         $this->activityLogger->log(
 
                 'Authorization',
 
@@ -420,9 +455,19 @@ class RoleController extends Controller
 
                 "Deleted role {$role->display_name}",
 
-                $role
+                $role,
+
+                $oldValues,
+
+                null
 
             );
+
+            RolePermission::where(
+                'role_id',
+                $role->id
+            )
+            ->delete();         
 
 
 
@@ -430,10 +475,6 @@ class RoleController extends Controller
 
 
         });
-
-
-
-
 
         return response()->json([
 
@@ -458,39 +499,20 @@ class RoleController extends Controller
 
     public function permissions(Role $role)
     {
-        $this->authorizeCompany($role);
-
-
-
-        $companyId = auth()->user()->company_id;
-
-
-
-        $permissions = Permission::where(
-                'company_id',
-                $companyId
-            )
-            ->active()
-            ->ordered()
+        $permissions = Permission::query()
+            ->where('company_id', auth()->user()->company_id)
+            ->where('status', true)
+            ->orderBy('module')
+            ->orderBy('display_name')
             ->get()
             ->groupBy('module');
 
-
-
-
-        $assignedPermissions =
-            RolePermission::where([
-                'company_id'=>$companyId,
-                'role_id'=>$role->id,
-            ])
-            ->pluck('permission_id')
+        $assignedPermissions = $role->permissions()
+            ->pluck('permissions.id')
             ->toArray();
 
-
-
-
         return view(
-            'admin.roles.permissions',
+            'roles.permissions',
             compact(
                 'role',
                 'permissions',
@@ -500,85 +522,54 @@ class RoleController extends Controller
     }
 
 
-
-
-
-
-
     /*
     |--------------------------------------------------------------------------
     | Save Role Permissions
     |--------------------------------------------------------------------------
     */
 
-    public function updatePermissions(
-        Request $request,
-        Role $role
-    )
+
+    public function updatePermissions(Request $request, Role $role)
     {
+        $validated = $request->validate([
 
-        $this->authorizeCompany($role);
+            'permissions' => ['nullable', 'array'],
 
-
-
-        $request->validate([
-
-            'permissions'=>'nullable|array',
-
-            'permissions.*'=>
-                'exists:permissions,id',
+            'permissions.*' => ['exists:permissions,id'],
 
         ]);
 
+        $oldValues = [
 
+            'permissions' => $role
+                ->permissions()
+                ->pluck('permissions.id')
+                ->toArray(),
 
-        $companyId = auth()->user()->company_id;
+        ];
 
+        $syncData = [];
 
+        foreach ($validated['permissions'] ?? [] as $permissionId) {
 
-        DB::transaction(function () use (
-            $request,
-            $role,
-            $companyId
-        ) {
+            $syncData[$permissionId] = [
 
+                'company_id' => auth()->user()->company_id,
 
-            RolePermission::where([
+            ];
 
-                'company_id'=>$companyId,
+        }
 
-                'role_id'=>$role->id,
+        $role->permissions()->sync($syncData);
 
-            ])
-            ->delete();
+        $newValues = [
 
+            'permissions' => $role
+                ->permissions()
+                ->pluck('permissions.id')
+                ->toArray(),
 
-
-
-            foreach(
-                $request->permissions ?? []
-                as $permissionId
-            ) {
-
-
-                RolePermission::create([
-
-                    'company_id'=>$companyId,
-
-                    'role_id'=>$role->id,
-
-                    'permission_id'=>$permissionId,
-
-                ]);
-
-            }
-
-
-
-        });
-
-
-
+        ];
 
         $this->activityLogger->log(
 
@@ -588,31 +579,22 @@ class RoleController extends Controller
 
             "Updated permissions for role {$role->display_name}",
 
-            $role
+            $role,
+
+            $oldValues,
+
+            $newValues
 
         );
 
+        return response()->json([
 
+            'success' => true,
 
+            'message' => 'Permissions updated successfully.'
 
-
-        return redirect()
-            ->route(
-                'roles.permissions',
-                $role
-            )
-            ->with(
-                'success',
-                'Permissions updated successfully.'
-            );
-
+        ]);
     }
-
-
-
-
-
-
 
     /*
     |--------------------------------------------------------------------------

@@ -221,7 +221,53 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::resource('users', UserController::class);
+     /*
+    |--------------------------------------------------------------------------
+    | Users
+    |--------------------------------------------------------------------------
+    */
+
+    Route::prefix('users')
+    ->name('users.')
+    ->group(function(){
+
+
+        Route::get('/', 
+            [UserController::class,'index']
+        )->name('index');
+
+
+        Route::post('/store',
+            [UserController::class,'store']
+        )->name('store');
+
+
+        Route::get('/{user}/edit',
+            [UserController::class,'edit']
+        )->name('edit');
+
+
+        Route::put('/{user}',
+            [UserController::class,'update']
+        )->name('update');
+
+
+        Route::delete('/{user}',
+            [UserController::class,'destroy']
+        )->name('destroy');
+
+
+        Route::patch('/{user}/status',
+            [UserController::class,'toggleStatus']
+        )->name('toggleStatus');
+
+
+        Route::post('/{user}/reset-password',
+            [UserController::class,'resetPassword']
+        )->name('resetPassword');
+
+
+    });
 
     /*
     |--------------------------------------------------------------------------
@@ -236,22 +282,21 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get(
-        'roles/{role}/permissions',
+        '/roles/{role}/permissions',
         [RoleController::class, 'permissions']
     )
+    ->middleware('permission:roles.permissions')
     ->name('roles.permissions');
 
-
     Route::put(
-        'roles/{role}/permissions',
+        '/roles/{role}/permissions',
         [RoleController::class, 'updatePermissions']
     )
+    ->middleware('permission:roles.permissions')
     ->name('roles.permissions.update');
 
-    // ------------------------------------------
 
-
-    Route::resource('permissions', PermissionController::class);
+    // ------------------------------------------    
 
     Route::resource('terminals', TerminalController::class);
 
