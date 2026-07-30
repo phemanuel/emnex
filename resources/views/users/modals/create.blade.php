@@ -1,242 +1,583 @@
 <div class="modal fade"
      id="createUserModal"
-     tabindex="-1">
+     tabindex="-1"
+     aria-hidden="true">
 
+    <div class="modal-dialog modal-xl modal-dialog-centered emx-user-create-dialog">
 
-<div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content emx-user-create-container">
 
+            <form id="createUserForm">
 
-<div class="modal-content">
+                @csrf
 
+                {{-- =========================
+                    Header
+                ========================== --}}
+                <div class="emx-user-create-header">
 
-<form id="createUserForm">
+                    <div>
 
+                        <h4 class="emx-user-create-title">
 
-<div class="modal-header">
+                            <i class="bi bi-person-plus-fill"></i>
 
+                            Create New User
 
-<h5 class="modal-title">
+                        </h4>
 
-<i class="bi bi-person-plus me-2"></i>
+                        <p class="emx-user-create-subtitle">
 
-Create User
+                            Create a new employee account and assign access permissions.
 
-</h5>
+                        </p>
 
+                    </div>
 
-<button type="button"
-        class="btn-close"
-        data-bs-dismiss="modal">
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
 
-</button>
+                    </button>
 
+                </div>
 
-</div>
 
 
+                {{-- =========================
+                    Scrollable Content
+                ========================== --}}
+                <div class="emx-user-create-content">
 
 
 
-<div class="modal-body">
+                    {{-- PERSONAL INFORMATION --}}
+                    <div class="emx-user-card">
 
+                        <div class="emx-user-card-header">
 
-<div class="row g-3">
+                            <div class="emx-user-card-icon">
 
+                                <i class="bi bi-person"></i>
 
-<div class="col-md-6">
+                            </div>
 
-<label class="form-label">
-First Name
-</label>
+                            <div>
 
-<input type="text"
-name="first_name"
-class="form-control">
+                                <h6>
 
-</div>
+                                    Personal Information
 
+                                </h6>
 
+                                <small>
 
-<div class="col-md-6">
+                                    Basic personal details.
 
-<label class="form-label">
-Last Name
-</label>
+                                </small>
 
-<input type="text"
-name="last_name"
-class="form-control">
+                            </div>
 
-</div>
+                        </div>
 
+                        <div class="row g-4">
 
+                        <div class="col-md-4">
 
-<div class="col-md-6">
+                                <label class="form-label">
 
-<label class="form-label">
-Email
-</label>
+                                    Last Name
+                                    <span class="text-danger">*</span>
 
-<input type="email"
-name="email"
-class="form-control">
+                                </label>
 
-</div>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="last_name"
+                                    name="last_name">
 
+                                <div class="invalid-feedback"></div>
 
+                            </div>
 
-<div class="col-md-6">
 
-<label class="form-label">
-Username
-</label>
+                            <div class="col-md-4">
 
-<input type="text"
-name="username"
-class="form-control">
+                                <label class="form-label">
 
-</div>
+                                    First Name
+                                    <span class="text-danger">*</span>
 
+                                </label>
 
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="first_name"
+                                    name="first_name">
 
-<div class="col-md-6">
+                                <div class="invalid-feedback"></div>
 
-<label class="form-label">
-Role
-</label>
+                            </div>                           
 
-<select name="role_id"
-class="form-select">
 
+                            <div class="col-md-4">
 
-<option value="">
-Select Role
-</option>
+                                <label class="form-label">
 
+                                    Other Name
 
-@foreach($roles as $role)
+                                </label>
 
-<option value="{{ $role->id }}">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="other_name"
+                                    name="other_name">
 
-{{ $role->displayLabel() }}
+                            </div>
 
-</option>
 
-@endforeach
 
+                            <div class="col-md-4">
 
-</select>
+                                <label class="form-label">
 
-</div>
+                                    Gender
 
+                                </label>
 
+                                <select
+                                    class="form-select"
+                                    id="gender"
+                                    name="gender">
 
+                                    <option value="">
 
-<div class="col-md-6">
+                                        Select Gender
 
-<label class="form-label">
-Branch
-</label>
+                                    </option>
 
+                                    <option value="Male">
 
-<select name="branch_id"
-class="form-select">
+                                        Male
 
+                                    </option>
 
-<option value="">
-Select Branch
-</option>
+                                    <option value="Female">
 
+                                        Female
 
-@foreach($branches as $branch)
+                                    </option>
 
-<option value="{{ $branch->id }}">
+                                </select>
 
-{{ $branch->name }}
+                            </div>
 
-</option>
 
-@endforeach
 
+                            <div class="col-md-4">
 
-</select>
+                                <label class="form-label">
 
+                                    Date of Birth
 
-</div>
+                                </label>
 
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="date_of_birth"
+                                    name="date_of_birth">
 
+                            </div>
 
-<div class="col-md-6">
 
-<label class="form-label">
-Phone
-</label>
 
+                            <div class="col-md-4">
 
-<input type="text"
-name="phone"
-class="form-control">
+                                <label class="form-label">
 
+                                    Phone Number
 
-</div>
+                                </label>
 
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="phone"
+                                    name="phone">
 
+                            </div>
 
-<div class="col-md-6">
 
-<label class="form-label">
-Password
-</label>
 
+                            <div class="col-12">
 
-<input type="password"
-name="password"
-class="form-control">
+                                <label class="form-label">
 
+                                    Address
 
-</div>
+                                </label>
 
+                                <textarea
+                                    class="form-control"
+                                    rows="3"
+                                    id="address"
+                                    name="address"></textarea>
 
+                            </div>
 
-</div>
+                        </div>
 
+                    </div>
 
-</div>
 
 
+                    {{-- EMPLOYMENT --}}
+                    <div class="emx-user-card">
 
+                        <div class="emx-user-card-header">
 
+                            <div class="emx-user-card-icon">
 
-<div class="modal-footer">
+                                <i class="bi bi-briefcase"></i>
 
+                            </div>
 
-<button type="button"
-class="btn btn-light"
-data-bs-dismiss="modal">
+                            <div>
 
-Cancel
+                                <h6>
 
-</button>
+                                    Employment Information
 
+                                </h6>
 
-<button type="submit"
-class="btn btn-primary">
+                                <small>
 
-Save User
+                                    Branch and role assignment.
 
-</button>
+                                </small>
 
+                            </div>
 
-</div>
+                        </div>
 
+                        <div class="row g-4">
 
-</form>
+                            <div class="col-md-3">
 
+                                <label class="form-label">
 
-</div>
+                                    Employee No
 
+                                </label>
 
-</div>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="employee_no"
+                                    name="employee_no">
 
+                            </div>
+
+
+
+                            <div class="col-md-3">
+
+                                <label class="form-label">
+
+                                    Role
+
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="role_id"
+                                    name="role_id">
+
+                                    <option value="">
+
+                                        Select Role
+
+                                    </option>
+
+                                    @foreach($roles as $role)
+
+                                        <option value="{{ $role->id }}">
+
+                                            {{ $role->displayLabel() }}
+
+                                        </option>
+
+                                    @endforeach
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="col-md-3">
+
+                                <label class="form-label">
+
+                                    Branch
+
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="branch_id"
+                                    name="branch_id">
+
+                                    <option value="">
+
+                                        Select Branch
+
+                                    </option>
+
+                                    @foreach($branches as $branch)
+
+                                        <option value="{{ $branch->id }}">
+
+                                            {{ $branch->name }}
+
+                                        </option>
+
+                                    @endforeach
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="col-md-3">
+
+                                <label class="form-label">
+
+                                    Employment Date
+
+                                </label>
+
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="employment_date"
+                                    name="employment_date">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    {{-- ACCOUNT --}}
+                    <div class="emx-user-card">
+
+                        <div class="emx-user-card-header">
+
+                            <div class="emx-user-card-icon">
+
+                                <i class="bi bi-shield-lock"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h6>
+
+                                    Account Information
+
+                                </h6>
+
+                                <small>
+
+                                    Login credentials and status.
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row g-4">
+
+                            <div class="col-md-4">
+
+                                <label class="form-label">
+
+                                    Email Address
+                                    <span class="text-danger">*</span>
+
+                                </label>
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    name="email">
+
+                                <div class="invalid-feedback"></div>
+
+                            </div>
+
+
+
+                            <div class="col-md-4">
+
+                                <label class="form-label">
+
+                                    Username
+                                    <span class="text-danger">*</span>
+
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="username"
+                                    name="username">
+
+                                <div class="invalid-feedback"></div>
+
+                            </div>
+
+
+
+                            <div class="col-md-4">
+
+                                <label class="form-label">
+
+                                    Password
+                                    <span class="text-danger">*</span>
+
+                                </label>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    name="password">
+
+                                <div class="invalid-feedback"></div>
+
+                            </div>
+
+
+
+                            <div class="col-md-4">
+
+                                <label class="form-label">
+
+                                    Status
+
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="status"
+                                    name="status">
+
+                                    <option value="1">
+
+                                        Active
+
+                                    </option>
+
+                                    <option value="0">
+
+                                        Disabled
+
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    {{-- NOTES --}}
+                    <div class="emx-user-card">
+
+                        <div class="emx-user-card-header">
+
+                            <div class="emx-user-card-icon">
+
+                                <i class="bi bi-journal-text"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h6>
+
+                                    Additional Notes
+
+                                </h6>
+
+                                <small>
+
+                                    Optional internal remarks.
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <textarea
+                            class="form-control"
+                            rows="4"
+                            id="notes"
+                            name="notes"
+                            placeholder="Enter notes..."></textarea>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                {{-- =========================
+                    Footer
+                ========================== --}}
+                <div class="emx-user-create-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <button 
+                type="submit"
+                class="btn btn-primary">
+
+                Create User
+
+                </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </div>

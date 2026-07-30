@@ -724,3 +724,366 @@
 
 
 }
+
+
+/* ==========================================================
+   EMNEX CREATE USER MODAL
+========================================================== */
+
+.emx-user-create-dialog{
+
+    max-width:1200px;
+
+    height:calc(100vh - 40px);
+
+    margin:20px auto;
+
+}
+
+.emx-user-create-container{
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:100%;
+
+    border:0;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    box-shadow:0 20px 60px rgba(15,23,42,.18);
+
+}
+
+
+/* ==========================================================
+   FORM LAYOUT
+========================================================== */
+
+#createUserForm{
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:100%;
+
+    min-height:0;
+
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.emx-user-create-header{
+
+    flex:0 0 auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    padding:24px 30px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+.emx-user-create-title{
+
+    margin:0;
+
+    font-size:1.35rem;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.emx-user-create-title i{
+
+    color:#2563eb;
+
+    margin-right:10px;
+
+}
+
+.emx-user-create-subtitle{
+
+    margin:8px 0 0;
+
+    color:#64748b;
+
+    font-size:.92rem;
+
+}
+
+
+/* ==========================================================
+   SCROLLABLE BODY
+========================================================== */
+
+.emx-user-create-content{
+
+    flex:1 1 auto;
+
+    min-height:0;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    padding:28px;
+
+    background:#f8fafc;
+
+}
+
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.emx-user-create-footer{
+
+    flex:0 0 auto;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+    padding:18px 30px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e5e7eb;
+
+}
+
+
+/* ==========================================================
+   SECTION CARDS
+========================================================== */
+
+.emx-user-card{
+
+    background:#ffffff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    margin-bottom:24px;
+
+    box-shadow:0 4px 14px rgba(15,23,42,.05);
+
+}
+
+.emx-user-card:last-child{
+
+    margin-bottom:0;
+
+}
+
+.emx-user-card-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:22px;
+
+}
+
+.emx-user-card-icon{
+
+    width:48px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    font-size:1.2rem;
+
+}
+
+.emx-user-card-header h6{
+
+    margin:0;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.emx-user-card-header small{
+
+    color:#64748b;
+
+}
+
+
+/* ==========================================================
+   FORM CONTROLS
+========================================================== */
+
+.emx-user-create-container .form-label{
+
+    font-size:.88rem;
+
+    font-weight:600;
+
+    color:#334155;
+
+    margin-bottom:8px;
+
+}
+
+.emx-user-create-container .form-control,
+
+.emx-user-create-container .form-select{
+
+    height:48px;
+
+    border-radius:12px;
+
+    border:1px solid #dbe2ea;
+
+    box-shadow:none;
+
+    transition:.2s;
+
+}
+
+.emx-user-create-container textarea.form-control{
+
+    min-height:110px;
+
+    height:auto;
+
+    resize:vertical;
+
+}
+
+.emx-user-create-container .form-control:focus,
+
+.emx-user-create-container .form-select:focus{
+
+    border-color:#3b82f6;
+
+    box-shadow:0 0 0 .2rem rgba(59,130,246,.15);
+
+}
+
+
+/* ==========================================================
+   INVALID INPUTS
+========================================================== */
+
+.emx-user-create-container .invalid-feedback{
+
+    display:block;
+
+    font-size:.8rem;
+
+}
+
+.emx-user-create-container .is-invalid{
+
+    border-color:#dc3545;
+
+}
+
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+.emx-user-create-content::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.emx-user-create-content::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+
+    border-radius:20px;
+
+}
+
+.emx-user-create-content::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:991px){
+
+    .emx-user-create-dialog{
+
+        max-width:98%;
+
+        height:calc(100vh - 20px);
+
+        margin:10px auto;
+
+    }
+
+    .emx-user-create-header{
+
+        padding:20px;
+
+    }
+
+    .emx-user-create-content{
+
+        padding:20px;
+
+    }
+
+    .emx-user-create-footer{
+
+        padding:16px 20px;
+
+    }
+
+}
+

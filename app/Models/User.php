@@ -26,25 +26,45 @@ class User extends Authenticatable
     */
 
     protected $fillable = [
+
         'company_id',
+
         'branch_id',
+
         'role_id',
+
+        'employee_no',
+
         'first_name',
+
         'last_name',
+
         'other_name',
+
+        'username',
+
         'email',
+
         'phone',
+
         'gender',
+
         'date_of_birth',
+
         'employment_date',
-        'avatar',
-        'password',
-        'force_password_change',
-        'password_changed_at',
-        'status',
+
         'address',
+
         'notes',
-        'last_activity_at',
+
+        'password',
+
+        'status',
+
+        'force_password_change',
+
+        'password_changed_at',
+
     ];
 
     /*
@@ -296,11 +316,13 @@ class User extends Authenticatable
         return true;
     }
 
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
-        return trim(
-            "{$this->first_name} {$this->other_name} {$this->last_name}"
-        );
+        return trim(implode(' ', array_filter([
+            $this->first_name,
+            $this->other_name,
+            $this->last_name,
+        ])));
     }
 
 }

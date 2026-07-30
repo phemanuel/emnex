@@ -3,7 +3,6 @@
 
 @section('content')
 
-
 <div class="users-page">
 
 
@@ -36,14 +35,12 @@
 
 
 
-        <button class="btn btn-primary px-4"
-                onclick="openCreateUserModal()">
+        <button 
+            class="btn btn-primary"
+            id="openCreateUserModal">
 
-
-            <i class="bi bi-person-plus-fill me-2"></i>
-
-            Add User
-
+            <i class="bi bi-person-plus"></i>
+            New User
 
         </button>
 
@@ -688,71 +685,116 @@
 
             <ul class="dropdown-menu dropdown-menu-end">
 
+    {{-- View --}}
+    <li>
 
-            <li>
-
-            <button class="dropdown-item">
+        <button
+            class="dropdown-item"
+            onclick="viewUser({{ $user->id }})">
 
             <i class="bi bi-eye me-2"></i>
 
-            View
+            View Details
 
-            </button>
+        </button>
 
-            </li>
-
-
-
-            <li>
-
-            <button class="dropdown-item">
-
-            <i class="bi bi-pencil me-2"></i>
-
-            Edit
-
-            </button>
-
-            </li>
+    </li>
 
 
 
-            <li>
+    {{-- Edit --}}
+    <li>
 
-            <button class="dropdown-item">
+        <button
+            class="dropdown-item"
+            onclick="openEditUserModal({{ $user->id }})">
+
+            <i class="bi bi-pencil-square me-2"></i>
+
+            Edit User
+
+        </button>
+
+    </li>
+
+
+
+    <li>
+
+        <hr class="dropdown-divider">
+
+    </li>
+
+
+
+    {{-- Reset Password --}}
+    <li>
+
+        <button
+            class="dropdown-item"
+            onclick="confirmResetPassword({{ $user->id }})">
 
             <i class="bi bi-key me-2"></i>
 
             Reset Password
 
-            </button>
+        </button>
 
-            </li>
-
-
-
-            <li>
-
-            <hr class="dropdown-divider">
-
-            </li>
+    </li>
 
 
 
-            <li>
+    {{-- Toggle Status --}}
+    <li>
 
-            <button class="dropdown-item text-danger">
+        <button
+            class="dropdown-item"
+            onclick="toggleUserStatus({{ $user->id }})">
+
+            @if($user->status)
+
+                <i class="bi bi-person-x me-2 text-warning"></i>
+
+                Disable User
+
+            @else
+
+                <i class="bi bi-person-check me-2 text-success"></i>
+
+                Enable User
+
+            @endif
+
+        </button>
+
+    </li>
+
+
+
+    <li>
+
+        <hr class="dropdown-divider">
+
+    </li>
+
+
+
+    {{-- Delete --}}
+    <li>
+
+        <button
+            class="dropdown-item text-danger"
+            onclick="confirmDeleteUser({{ $user->id }})">
 
             <i class="bi bi-trash me-2"></i>
 
-            Delete
+            Delete User
 
-            </button>
+        </button>
 
-            </li>
+    </li>
 
-
-            </ul>
+</ul>
 
 
             </div>
@@ -838,9 +880,30 @@
 </div>
 
 
-@include('users.modals.create')
 
-@include('users.modals.edit')
 
-@include('users.modals.delete')
+    @include('users.modals.create')
+
+    @include('users.modals.edit')
+
+    @include('users.modals.delete')
+
+
+
+<script>
+
+const USERS = {
+
+    store: "{{ route('users.store') }}",
+
+    edit: "{{ url('users') }}/",
+
+    update: "{{ url('users') }}/"
+
+};
+
+</script>
+<script src="{{ asset('assets/js/users.js') }}"></script>
+
+
 @endsection

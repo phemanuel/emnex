@@ -417,62 +417,52 @@ class RoleController extends Controller
     {
         $this->authorizeCompany($role);
 
-
-
         if ($role->is_system) {
 
-            return back()
-                ->with(
-                    'error',
-                    'System roles cannot be deleted.'
-                );
+            return response()->json([
+                'success' => false,
+                'message' => 'System roles cannot be deleted.'
+            ], 422);
 
         }
-
-
 
         if ($role->users()->exists()) {
 
-            return back()
-                ->with(
-                    'error',
-                    'Cannot delete role assigned to users.'
-                );
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot delete a role assigned to users.'
+            ], 422);
 
         }
 
-
-
         DB::transaction(function () use ($role) {
 
-        $oldValues = $role->toArray();
+            $oldValues = $role->toArray();
 
-         $this->activityLogger->log(
+            $roleName = $role->display_name;
+
+            RolePermission::where(
+                'role_id',
+                $role->id
+            )->delete();
+
+            $role->delete();
+
+            $this->activityLogger->log(
 
                 'Authorization',
 
                 'Deleted',
 
-                "Deleted role {$role->display_name}",
+                "Deleted role {$roleName}",
 
-                $role,
+                null,
 
                 $oldValues,
 
                 null
 
             );
-
-            RolePermission::where(
-                'role_id',
-                $role->id
-            )
-            ->delete();         
-
-
-
-            $role->delete();
-
 
         });
 
@@ -485,12 +475,7 @@ class RoleController extends Controller
         ]);
     }
 
-
-
-
-
-
-
+    
     /*
     |--------------------------------------------------------------------------
     | Role Permissions

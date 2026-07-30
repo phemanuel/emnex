@@ -1,333 +1,752 @@
 <div class="modal fade"
      id="editUserModal"
-     tabindex="-1">
+     tabindex="-1"
+     aria-hidden="true">
 
+    <div class="modal-dialog modal-xl modal-dialog-centered emx-user-create-dialog">
 
-<div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content emx-user-create-container">
 
 
-<div class="modal-content">
+            <form id="editUserForm">
 
 
-<form id="editUserForm">
+                {{-- =========================
+                    Header
+                ========================== --}}
 
+                <div class="emx-user-create-header">
 
-<input type="hidden"
-       id="edit_user_id"
-       name="user_id">
 
+                    <div>
 
 
-<div class="modal-header">
+                        <h4 class="emx-user-create-title">
 
+                            <i class="bi bi-person-gear"></i>
 
-<h5 class="modal-title">
+                            Edit User
 
-<i class="bi bi-pencil-square me-2"></i>
+                        </h4>
 
-Edit User
 
-</h5>
+                        <p class="emx-user-create-subtitle">
 
+                            Update employee account details and access information.
 
+                        </p>
 
-<button type="button"
-        class="btn-close"
-        data-bs-dismiss="modal">
 
-</button>
+                    </div>
 
 
-</div>
 
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
 
+                    </button>
 
 
+                </div>
 
-<div class="modal-body">
 
 
-<div class="row g-3">
 
 
+                {{-- =========================
+                    Scrollable Content
+                ========================== --}}
 
-<div class="col-md-6">
+                <div class="emx-user-create-content">
 
 
-<label class="form-label">
 
-First Name
 
-</label>
 
+                    {{-- PERSONAL INFORMATION --}}
 
-<input type="text"
-       id="edit_first_name"
-       name="first_name"
-       class="form-control">
+                    <div class="emx-user-card">
 
 
-</div>
+                        <div class="emx-user-card-header">
 
 
+                            <div class="emx-user-card-icon">
 
+                                <i class="bi bi-person"></i>
 
+                            </div>
 
-<div class="col-md-6">
 
+                            <div>
 
-<label class="form-label">
+                                <h6>
 
-Last Name
+                                    Personal Information
 
-</label>
+                                </h6>
 
 
-<input type="text"
-       id="edit_last_name"
-       name="last_name"
-       class="form-control">
+                                <small>
 
+                                    Update personal details.
 
-</div>
+                                </small>
 
 
+                            </div>
 
 
+                        </div>
 
-<div class="col-md-6">
 
 
-<label class="form-label">
 
-Email
+                        <div class="row g-4">
 
-</label>
 
 
-<input type="email"
-       id="edit_email"
-       name="email"
-       class="form-control">
+                            <div class="col-md-4">
 
+                                <label class="form-label">
 
-</div>
+                                    Last Name
+                                    <span class="text-danger">*</span>
 
+                                </label>
 
 
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="last_name"
+                                    name="last_name">
 
 
-<div class="col-md-6">
+                                <div class="invalid-feedback"></div>
 
 
-<label class="form-label">
+                            </div>
 
-Username
 
-</label>
 
 
-<input type="text"
-       id="edit_username"
-       name="username"
-       class="form-control">
 
+                            <div class="col-md-4">
 
-</div>
+                                <label class="form-label">
 
+                                    First Name
+                                    <span class="text-danger">*</span>
 
+                                </label>
 
 
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="first_name"
+                                    name="first_name">
 
-<div class="col-md-6">
 
+                                <div class="invalid-feedback"></div>
 
-<label class="form-label">
 
-Role
+                            </div>
 
-</label>
 
 
-<select class="form-select"
-        id="edit_role_id"
-        name="role_id">
 
 
-<option value="">
+                            <div class="col-md-4">
 
-Select Role
+                                <label class="form-label">
 
-</option>
+                                    Other Name
 
+                                </label>
 
-@foreach($roles as $role)
 
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="other_name"
+                                    name="other_name">
 
-<option value="{{ $role->id }}">
 
-{{ $role->displayLabel() }}
+                            </div>
 
-</option>
 
 
-@endforeach
 
 
-</select>
+                            <div class="col-md-4">
 
+                                <label class="form-label">
 
-</div>
+                                    Gender
 
+                                </label>
 
 
+                                <select
+                                    class="form-select"
+                                    id="gender"
+                                    name="gender">
 
 
-<div class="col-md-6">
+                                    <option value="">
 
+                                        Select Gender
 
-<label class="form-label">
+                                    </option>
 
-Branch
 
-</label>
+                                    <option value="Male">
 
+                                        Male
 
-<select class="form-select"
-        id="edit_branch_id"
-        name="branch_id">
+                                    </option>
 
 
-<option value="">
+                                    <option value="Female">
 
-Select Branch
+                                        Female
 
-</option>
+                                    </option>
 
 
-@foreach($branches as $branch)
+                                </select>
 
 
-<option value="{{ $branch->id }}">
+                            </div>
 
-{{ $branch->name }}
 
-</option>
 
 
-@endforeach
 
+                            <div class="col-md-4">
 
-</select>
+                                <label class="form-label">
 
+                                    Date of Birth
 
-</div>
+                                </label>
 
 
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="date_of_birth"
+                                    name="date_of_birth">
 
 
+                            </div>
 
-<div class="col-md-6">
 
 
-<label class="form-label">
 
-Phone
 
-</label>
+                            <div class="col-md-4">
 
+                                <label class="form-label">
 
-<input type="text"
-       id="edit_phone"
-       name="phone"
-       class="form-control">
+                                    Phone Number
 
+                                </label>
 
-</div>
 
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="phone"
+                                    name="phone">
 
 
+                            </div>
 
 
-<div class="col-md-6">
 
 
-<label class="form-label">
 
-Status
+                            <div class="col-12">
 
-</label>
+                                <label class="form-label">
 
+                                    Address
 
-<select class="form-select"
-        id="edit_status"
-        name="status">
+                                </label>
 
 
-<option value="1">
+                                <textarea
+                                    class="form-control"
+                                    rows="3"
+                                    id="address"
+                                    name="address"></textarea>
 
-Active
 
-</option>
+                            </div>
 
 
-<option value="0">
 
-Disabled
+                        </div>
 
-</option>
 
+                    </div>
 
-</select>
 
 
-</div>
 
 
 
 
-</div>
+                    {{-- EMPLOYMENT INFORMATION --}}
 
+                    <div class="emx-user-card">
 
-</div>
 
+                        <div class="emx-user-card-header">
 
 
+                            <div class="emx-user-card-icon">
 
+                                <i class="bi bi-briefcase"></i>
 
+                            </div>
 
-<div class="modal-footer">
 
 
-<button type="button"
-        class="btn btn-light"
-        data-bs-dismiss="modal">
+                            <div>
 
-Cancel
 
-</button>
+                                <h6>
 
+                                    Employment Information
 
+                                </h6>
 
-<button type="submit"
-        class="btn btn-primary">
 
-Update User
+                                <small>
 
-</button>
+                                    Update branch and role assignment.
 
+                                </small>
 
-</div>
 
+                            </div>
 
 
-</form>
+                        </div>
 
 
-</div>
 
 
-</div>
+
+                        <div class="row g-4">
+
+
+
+                            <div class="col-md-3">
+
+
+                                <label class="form-label">
+
+                                    Employee No
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="employee_no"
+                                    name="employee_no">
+
+
+                            </div>
+
+
+
+
+
+                            <div class="col-md-3">
+
+
+                                <label class="form-label">
+
+                                    Role
+
+                                </label>
+
+
+                                <select
+                                    class="form-select"
+                                    id="role_id"
+                                    name="role_id">
+
+
+                                    <option value="">
+
+                                        Select Role
+
+                                    </option>
+
+
+
+                                    @foreach($roles as $role)
+
+                                        <option value="{{ $role->id }}">
+
+                                            {{ $role->displayLabel() }}
+
+                                        </option>
+
+
+                                    @endforeach
+
+
+                                </select>
+
+
+                            </div>
+
+
+
+
+
+                            <div class="col-md-3">
+
+
+                                <label class="form-label">
+
+                                    Branch
+
+                                </label>
+
+
+                                <select
+                                    class="form-select"
+                                    id="branch_id"
+                                    name="branch_id">
+
+
+                                    <option value="">
+
+                                        Select Branch
+
+                                    </option>
+
+
+
+                                    @foreach($branches as $branch)
+
+                                        <option value="{{ $branch->id }}">
+
+                                            {{ $branch->name }}
+
+                                        </option>
+
+
+                                    @endforeach
+
+
+                                </select>
+
+
+                            </div>
+
+
+
+
+
+                            <div class="col-md-3">
+
+
+                                <label class="form-label">
+
+                                    Employment Date
+
+                                </label>
+
+
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="employment_date"
+                                    name="employment_date">
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                    {{-- ACCOUNT INFORMATION --}}
+
+                    <div class="emx-user-card">
+
+
+                        <div class="emx-user-card-header">
+
+
+                            <div class="emx-user-card-icon">
+
+                                <i class="bi bi-shield-lock"></i>
+
+                            </div>
+
+
+                            <div>
+
+
+                                <h6>
+
+                                    Account Information
+
+                                </h6>
+
+
+                                <small>
+
+                                    Update login information and status.
+
+                                </small>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                        <div class="row g-4">
+
+
+
+                            <div class="col-md-4">
+
+
+                                <label class="form-label">
+
+                                    Email Address
+                                    <span class="text-danger">*</span>
+
+                                </label>
+
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    name="email">
+
+
+                                <div class="invalid-feedback"></div>
+
+
+                            </div>
+
+
+
+
+
+                            <div class="col-md-4">
+
+
+                                <label class="form-label">
+
+                                    Username
+                                    <span class="text-danger">*</span>
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="username"
+                                    name="username">
+
+
+                                <div class="invalid-feedback"></div>
+
+
+                            </div>
+
+
+
+
+
+                            <div class="col-md-4">
+
+
+                                <label class="form-label">
+
+                                    Status
+
+                                </label>
+
+
+                                <select
+                                    class="form-select"
+                                    id="status"
+                                    name="status">
+
+
+                                    <option value="1">
+
+                                        Active
+
+                                    </option>
+
+
+                                    <option value="0">
+
+                                        Disabled
+
+                                    </option>
+
+
+                                </select>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                    {{-- NOTES --}}
+
+                    <div class="emx-user-card">
+
+
+                        <div class="emx-user-card-header">
+
+
+                            <div class="emx-user-card-icon">
+
+                                <i class="bi bi-journal-text"></i>
+
+                            </div>
+
+
+                            <div>
+
+
+                                <h6>
+
+                                    Additional Notes
+
+                                </h6>
+
+
+                                <small>
+
+                                    Optional internal remarks.
+
+                                </small>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                        <textarea
+                            class="form-control"
+                            rows="4"
+                            id="notes"
+                            name="notes"
+                            placeholder="Enter notes..."></textarea>
+
+
+                    </div>
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+                {{-- =========================
+                    Footer
+                ========================== --}}
+
+                <div class="emx-user-create-footer">
+
+
+                    <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+
+                        Save Changes
+
+
+                    </button>
+
+
+                </div>
+
+
+
+
+            </form>
+
+
+
+        </div>
+
+
+    </div>
 
 
 </div>
