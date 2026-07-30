@@ -7,30 +7,44 @@
 
 const Users = {
 
+    createModal: null,
 
-    createModal:null,
+    editModal: null,
 
+    init()
+    {
 
-
-    init(){
-
-
-        const modalElement = document.getElementById(
-            'createUserModal'
-        );
-
-
-        if(modalElement){
-
-            this.createModal = new bootstrap.Modal(
-                modalElement
+        const createModalElement =
+            document.getElementById(
+                'createUserModal'
             );
+
+        if (createModalElement) {
+
+            this.createModal =
+                new bootstrap.Modal(
+                    createModalElement
+                );
 
         }
 
+        const editModalElement =
+            document.getElementById(
+                'editUserModal'
+            );
+
+        if (editModalElement) {
+
+            this.editModal =
+                new bootstrap.Modal(
+                    editModalElement
+                );
+
+        }
 
         this.bindEvents();
 
+        this.bindEditForm();
 
     },
 
@@ -662,7 +676,7 @@ if(editForm){
 
 
 
-    async edit(id)
+    async openEditUserModal(id)
 {
 
     try {
@@ -760,337 +774,266 @@ if(editForm){
 populateEditForm(user)
 {
 
+    const form =
+        document.getElementById(
+            'editUserForm'
+        );
+
+    if (!form) {
+
+        return;
+
+    }
+
+    form.dataset.userId = user.id;
+
+    document.getElementById(
+        'edit_branch_id'
+    ).value =
+        user.branch_id ?? '';
+
+    document.getElementById(
+        'edit_role_id'
+    ).value =
+        user.role_id ?? '';
+
+    document.getElementById(
+        'edit_employee_no'
+    ).value =
+        user.employee_no ?? '';
+
+    document.getElementById(
+        'edit_first_name'
+    ).value =
+        user.first_name ?? '';
+
+    document.getElementById(
+        'edit_last_name'
+    ).value =
+        user.last_name ?? '';
+
+    document.getElementById(
+        'edit_other_name'
+    ).value =
+        user.other_name ?? '';
+
+    document.getElementById(
+        'edit_username'
+    ).value =
+        user.username ?? '';
+
+    document.getElementById(
+        'edit_email'
+    ).value =
+        user.email ?? '';
+
+    document.getElementById(
+        'edit_phone'
+    ).value =
+        user.phone ?? '';
+
+    document.getElementById(
+        'edit_gender'
+    ).value =
+        user.gender ?? '';
+
+    document.getElementById(
+        'edit_date_of_birth'
+    ).value =
+        user.date_of_birth ?? '';
+
+    document.getElementById(
+        'edit_employment_date'
+    ).value =
+        user.employment_date ?? '';
+
+    document.getElementById(
+        'edit_address'
+    ).value =
+        user.address ?? '';
+
+    document.getElementById(
+        'edit_notes'
+    ).value =
+        user.notes ?? '';
+
+        console.log('User status:', user.status, typeof user.status);
+        
+    document.getElementById(
+        'edit_status'
+    ).value =
+        String(user.status ?? 1);
+
+},
+
+bindEditForm()
+{
 
     const form =
         document.getElementById(
             'editUserForm'
         );
 
-
-
-    if(!form){
+    if (!form) {
 
         return;
 
     }
 
+    form.addEventListener(
+        'submit',
+        (e) =>
+        {
 
+            e.preventDefault();
 
-    form.dataset.userId = user.id;
+            this.updateUser(form);
 
-
-
-    form.querySelector(
-        '[name="branch_id"]'
-    ).value =
-        user.branch_id ?? '';
-
-
-
-    form.querySelector(
-        '[name="role_id"]'
-    ).value =
-        user.role_id ?? '';
-
-
-
-    form.querySelector(
-        '[name="employee_no"]'
-    ).value =
-        user.employee_no ?? '';
-
-
-
-    form.querySelector(
-        '[name="first_name"]'
-    ).value =
-        user.first_name ?? '';
-
-
-
-    form.querySelector(
-        '[name="last_name"]'
-    ).value =
-        user.last_name ?? '';
-
-
-
-    form.querySelector(
-        '[name="other_name"]'
-    ).value =
-        user.other_name ?? '';
-
-
-
-    form.querySelector(
-        '[name="username"]'
-    ).value =
-        user.username ?? '';
-
-
-
-    form.querySelector(
-        '[name="email"]'
-    ).value =
-        user.email ?? '';
-
-
-
-    form.querySelector(
-        '[name="phone"]'
-    ).value =
-        user.phone ?? '';
-
-
-
-    form.querySelector(
-        '[name="gender"]'
-    ).value =
-        user.gender ?? '';
-
-
-
-    form.querySelector(
-        '[name="date_of_birth"]'
-    ).value =
-        user.date_of_birth ?? '';
-
-
-
-    form.querySelector(
-        '[name="employment_date"]'
-    ).value =
-        user.employment_date ?? '';
-
-
-
-    form.querySelector(
-        '[name="address"]'
-    ).value =
-        user.address ?? '';
-
-
-
-    form.querySelector(
-        '[name="notes"]'
-    ).value =
-        user.notes ?? '';
-
-
-
-    form.querySelector(
-        '[name="status"]'
-    ).value =
-        user.status;
-
+        }
+    );
 
 },
 
 async updateUser(form)
 {
 
+    this.clearErrors(form);
 
     const userId =
         form.dataset.userId;
 
+    if (!userId) {
 
+        showToast(
+            'Invalid user selected.',
+            'error'
+        );
+
+        return;
+
+    }
 
     const submitButton =
         form.querySelector(
             'button[type="submit"]'
         );
 
+    const originalHtml =
+        submitButton.innerHTML;
 
+    submitButton.disabled = true;
 
-    this.setLoading(
-        submitButton,
-        true
-    );
+    submitButton.innerHTML = `
 
+        <span
+            class="spinner-border spinner-border-sm me-2">
+        </span>
 
+        Saving Changes...
 
-    this.clearErrors();
-
-
-
-    const formData =
-        new FormData(form);
-
-
-
-    formData.append(
-        '_method',
-        'PUT'
-    );
-
-
+    `;
 
     try {
 
+        const formData =
+            new FormData(form);
 
-        const response = await fetch(
-
-            USERS.update + userId,
-
-            {
-
-                method:'POST',
-
-                headers:{
-
-                    'X-CSRF-TOKEN':
-
-                    document
-                    .querySelector(
-                        'meta[name="csrf-token"]'
-                    )
-                    .content,
-
-
-                    'Accept':'application/json'
-
-                },
-
-
-                body:formData
-
-            }
-
+        formData.append(
+            '_method',
+            'PUT'
         );
 
+        const response =
+            await fetch(
 
+                `${USERS.update}/${userId}`,
+
+                {
+
+                    method:'POST',
+
+                    headers:{
+
+                        'X-CSRF-TOKEN':
+                        document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content,
+
+                        'Accept':
+                        'application/json'
+
+                    },
+
+                    body:formData
+
+                }
+
+            );
 
         const data =
             await response.json();
 
+        if (!response.ok) {
 
+            if (data.errors) {
 
-
-        if(!response.ok){
-
-
-
-            this.setLoading(
-                submitButton,
-                false
-            );
-
-
-
-            if(data.errors){
-
-
-                this.showErrors(
+                this.showValidation(
+                    form,
                     data.errors
                 );
 
-
                 showToast(
-
                     'Please correct the highlighted fields.',
-
                     'warning'
-
                 );
 
-
-            }else{
-
+            }
+            else {
 
                 showToast(
-
                     data.message ??
                     'Unable to update user.',
-
                     'error'
-
                 );
-
 
             }
 
-
             return;
 
-
         }
 
-
-
-
-        this.setLoading(
-            submitButton,
-            false
-        );
-
-
+        this.editModal.hide();
 
         showToast(
-
             data.message,
-
             'success'
-
         );
 
-
-
-        const modal =
-            bootstrap.Modal.getInstance(
-
-                document.getElementById(
-                    'editUserModal'
-                )
-
-            );
-
-
-
-        if(modal){
-
-            modal.hide();
-
-        }
-
-
-
-        setTimeout(()=>{
-
+        setTimeout(() => {
 
             window.location.reload();
 
-
-        },1000);
-
-
+        }, 800);
 
     }
-    catch(error){
-
-
+    catch (error) {
 
         console.error(error);
 
-
-
-        this.setLoading(
-            submitButton,
-            false
-        );
-
-
-
         showToast(
-
-            'Something went wrong while updating user.',
-
+            'An unexpected error occurred.',
             'error'
-
         );
-
 
     }
+    finally {
 
+        submitButton.disabled = false;
+
+        submitButton.innerHTML =
+            originalHtml;
+
+    }
 
 },
 
@@ -1149,20 +1092,16 @@ document.addEventListener(
 
     'DOMContentLoaded',
 
-    ()=>{
-
+    () => {
 
         Users.init();
-
 
     }
 
 );
 
-
-function openEditUserModal(id)
+window.openEditUserModal = function (userId)
 {
+    Users.openEditUserModal(userId);
+};
 
-    Users.edit(id);
-
-}

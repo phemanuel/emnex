@@ -898,7 +898,7 @@ const USERS = {
 
     edit: "{{ url('users') }}/",
 
-    update: "{{ url('users') }}/"
+    update: "{{ url('users') }}"
 
 };
 

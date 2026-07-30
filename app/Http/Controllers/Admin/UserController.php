@@ -13,7 +13,7 @@ use App\Services\ActivityLogger;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
 
     public function __construct(
@@ -365,20 +365,149 @@ class UserController extends Controller
 
                     'gender' => $user->gender,
 
-                    'date_of_birth' => $user->date_of_birth,
+                    'date_of_birth' => $user->date_of_birth
+                    ? date('Y-m-d', strtotime($user->date_of_birth))
+                    : null,
 
-                    'employment_date' => $user->employment_date,
+                    'employment_date' => $user->employment_date
+                    ? date('Y-m-d', strtotime($user->employment_date))
+                    : null,
 
                     'address' => $user->address,
 
                     'notes' => $user->notes,
 
-                    'status' => $user->status,
+                    'status' => (int) $user->status,
 
                 ]
 
             ]);
 
+        }
+
+        public function update(Request $request, User $user)
+        {
+            abort_if(
+                $user->company_id !== auth()->user()->company_id,
+                403
+            );
+
+            $validated = $request->validate([
+
+                'branch_id' => [
+                    'nullable',
+                    'exists:branches,id'
+                ],
+
+                'role_id' => [
+                    'required',
+                    'exists:roles,id'
+                ],
+
+                'employee_no' => [
+                    'nullable',
+                    'string',
+                    'max:50'
+                ],
+
+                'first_name' => [
+                    'required',
+                    'string',
+                    'max:100'
+                ],
+
+                'last_name' => [
+                    'required',
+                    'string',
+                    'max:100'
+                ],
+
+                'other_name' => [
+                    'nullable',
+                    'string',
+                    'max:100'
+                ],
+
+                'username' => [
+                    'required',
+                    'string',
+                    'max:50',
+                    Rule::unique('users')
+                        ->ignore($user->id)
+                ],
+
+                'email' => [
+                    'required',
+                    'email',
+                    'max:255',
+                    Rule::unique('users')
+                        ->ignore($user->id)
+                ],
+
+                'phone' => [
+                    'nullable',
+                    'string',
+                    'max:30'
+                ],
+
+                'gender' => [
+                    'nullable',
+                    'in:Male,Female'
+                ],
+
+                'date_of_birth' => [
+                    'nullable',
+                    'date'
+                ],
+
+                'employment_date' => [
+                    'nullable',
+                    'date'
+                ],
+
+                'address' => [
+                    'nullable',
+                    'string'
+                ],
+
+                'notes' => [
+                    'nullable',
+                    'string'
+                ],
+
+                'status' => [
+                    'required',
+                    'boolean'
+                ],
+
+            ]);
+
+            DB::transaction(function () use ($validated, $user) {                
+
+                $validated['status'] = (bool) $validated['status'];
+
+                $oldValues = $user->toArray();
+
+                $user->update($validated);
+
+                $this->activityLogger->log(
+                    'User Management',
+                    'Updated',
+                    "Updated user {$user->full_name}",
+                    $user,
+                    $oldValues,
+                    $user->fresh()->toArray()
+                );
+
+            });
+
+            return response()->json([
+
+                'success' => true,
+
+                'message' => 'User updated successfully.'
+
+            ]);
         }
 
 

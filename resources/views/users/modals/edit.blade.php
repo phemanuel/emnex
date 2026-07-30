@@ -121,7 +121,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="last_name"
+                                    id="edit_last_name"
                                     name="last_name">
 
 
@@ -147,7 +147,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="first_name"
+                                    id="edit_first_name"
                                     name="first_name">
 
 
@@ -172,7 +172,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="other_name"
+                                    id="edit_other_name"
                                     name="other_name">
 
 
@@ -193,7 +193,7 @@
 
                                 <select
                                     class="form-select"
-                                    id="gender"
+                                    id="edit_gender"
                                     name="gender">
 
 
@@ -239,7 +239,7 @@
                                 <input
                                     type="date"
                                     class="form-control"
-                                    id="date_of_birth"
+                                    id="edit_date_of_birth"
                                     name="date_of_birth">
 
 
@@ -261,7 +261,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="phone"
+                                    id="edit_phone"
                                     name="phone">
 
 
@@ -283,7 +283,7 @@
                                 <textarea
                                     class="form-control"
                                     rows="3"
-                                    id="address"
+                                    id="edit_address"
                                     name="address"></textarea>
 
 
@@ -361,7 +361,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="employee_no"
+                                    id="edit_employee_no"
                                     name="employee_no">
 
 
@@ -383,7 +383,7 @@
 
                                 <select
                                     class="form-select"
-                                    id="role_id"
+                                    id="edit_role_id"
                                     name="role_id">
 
 
@@ -428,7 +428,7 @@
 
                                 <select
                                     class="form-select"
-                                    id="branch_id"
+                                    id="edit_branch_id"
                                     name="branch_id">
 
 
@@ -474,7 +474,7 @@
                                 <input
                                     type="date"
                                     class="form-control"
-                                    id="employment_date"
+                                    id="edit_employment_date"
                                     name="employment_date">
 
 
@@ -552,7 +552,7 @@
                                 <input
                                     type="email"
                                     class="form-control"
-                                    id="email"
+                                    id="edit_email"
                                     name="email">
 
 
@@ -579,7 +579,7 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="username"
+                                    id="edit_username"
                                     name="username">
 
 
@@ -604,7 +604,7 @@
 
                                 <select
                                     class="form-select"
-                                    id="status"
+                                    id="edit_status"
                                     name="status">
 
 
@@ -685,7 +685,7 @@
                         <textarea
                             class="form-control"
                             rows="4"
-                            id="notes"
+                            id="edit_notes"
                             name="notes"
                             placeholder="Enter notes..."></textarea>
 

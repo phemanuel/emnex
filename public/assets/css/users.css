@@ -1087,3 +1087,32 @@
 
 }
 
+/* Make the form fill the modal and become a flex layout */
+.emx-user-create-container > form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    flex:1;
+
+    min-height:0;
+
+    height:100%;
+
+}
+
+
+
+/* Scroll only the content area */
+.emx-user-create-content{
+
+    flex:1;
+
+    min-height:0;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+}
