@@ -1,105 +1,95 @@
 <div class="modal fade"
      id="deleteUserModal"
-     tabindex="-1">
+     tabindex="-1"
+     aria-hidden="true">
 
+    <div class="modal-dialog modal-dialog-centered">
 
-<div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
 
+            <div class="modal-header border-0">
 
-<div class="modal-content">
+                <h5 class="modal-title text-danger">
 
+                    <i class="bi bi-trash3-fill me-2"></i>
 
-<div class="modal-header">
+                    Delete User
 
+                </h5>
 
-<h5 class="modal-title text-danger">
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
 
-<i class="bi bi-trash me-2"></i>
+            </div>
 
-Delete User
+            <div class="modal-body">
 
-</h5>
+                <div class="text-center">
 
+                    <div class="mb-3">
 
-<button type="button"
-        class="btn-close"
-        onclick="closeDeleteUserModal()">
+                        <i class="bi bi-exclamation-triangle-fill text-warning"
+                           style="font-size:3rem;"></i>
 
-</button>
+                    </div>
 
+                    <h5>
 
-</div>
+                        Are you sure?
 
+                    </h5>
 
+                    <p class="text-muted mb-2">
 
+                        You are about to delete
 
+                    </p>
 
-<div class="modal-body text-center">
+                    <h6
+                        id="deleteUserName"
+                        class="fw-bold">
 
+                    </h6>
 
-<div class="mb-3">
+                    <p class="text-danger mt-3 mb-0">
 
+                        This action cannot be undone.
 
-<i class="bi bi-exclamation-triangle text-warning"
-   style="font-size:40px;"></i>
+                    </p>
 
+                </div>
 
-</div>
+            </div>
 
+            <div class="modal-footer">
 
+                <button
+                    type="button"
+                    class="btn btn-light"
+                    data-bs-dismiss="modal">
 
-<p class="mb-0">
+                    Cancel
 
+                </button>
 
-Are you sure you want to delete this user?
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="confirmDeleteUser">
 
+                    <i class="bi bi-trash3 me-1"></i>
 
-</p>
+                    Delete User
 
+                </button>
 
+            </div>
 
-<input type="hidden"
-       id="delete_user_id">
+        </div>
 
-
-</div>
-
-
-
-
-
-
-<div class="modal-footer justify-content-center">
-
-
-<button type="button"
-        class="btn btn-light"
-        onclick="closeDeleteUserModal()">
-
-Cancel
-
-</button>
-
-
-
-
-<button type="button"
-        class="btn btn-danger"
-        onclick="deleteUser()">
-
-Delete
-
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
+    </div>
 
 </div>

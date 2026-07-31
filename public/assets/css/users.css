@@ -1101,7 +1101,7 @@
     height:100%;
 
 }
-
+ 
 
 
 /* Scroll only the content area */
@@ -1114,5 +1114,356 @@
     overflow-y:auto;
 
     overflow-x:hidden;
+
+}
+
+
+/* ==========================================================
+   USER DETAILS SLIDE PANEL
+========================================================== */
+
+.emx-user-panel{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1065;
+
+    pointer-events:none;
+
+}
+
+.emx-user-panel.show{
+
+    pointer-events:auto;
+
+}
+
+/* ==========================================================
+   Backdrop
+========================================================== */
+
+.emx-user-panel-backdrop{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(15,23,42,.45);
+
+    opacity:0;
+
+    transition:.25s ease;
+
+}
+
+.emx-user-panel.show .emx-user-panel-backdrop{
+
+    opacity:1;
+
+}
+
+/* ==========================================================
+   Panel
+========================================================== */
+
+.emx-user-panel-content{
+
+    position:absolute;
+
+    top:0;
+
+    right:-520px;
+
+    width:500px;
+
+    max-width:100%;
+
+    height:100vh;
+
+    background:#ffffff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:right .30s ease;
+
+    box-shadow:-12px 0 40px rgba(15,23,42,.15);
+
+}
+
+.emx-user-panel.show .emx-user-panel-content{
+
+    right:0;
+
+}
+
+/* ==========================================================
+   Header
+========================================================== */
+
+.emx-user-panel-header{
+
+    flex:0 0 auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    padding:26px 28px;
+
+    border-bottom:1px solid #edf2f7;
+
+}
+
+.emx-user-panel-header h4{
+
+    margin:0;
+
+    font-size:1.15rem;
+
+    font-weight:700;
+
+}
+
+.emx-user-panel-header small{
+
+    display:block;
+
+    margin-top:4px;
+
+    color:#64748b;
+
+}
+
+/* ==========================================================
+   Profile
+========================================================== */
+
+.emx-user-profile{
+
+    padding:30px;
+
+    text-align:center;
+
+    border-bottom:1px solid #edf2f7;
+
+}
+
+.emx-user-avatar{
+
+    width:88px;
+
+    height:88px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    color:#fff;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.emx-user-profile h4{
+
+    margin-top:18px;
+
+    margin-bottom:10px;
+
+    font-weight:700;
+
+}
+
+.emx-user-profile-meta{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+}
+
+/* ==========================================================
+   Scroll Area
+========================================================== */
+
+.emx-user-panel-body{
+
+    flex:1;
+
+    min-height:0;
+
+    overflow-y:auto;
+
+    padding:24px;
+
+}
+
+/* ==========================================================
+   Cards
+========================================================== */
+
+.emx-user-info-card{
+
+    border:1px solid #e5e7eb;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    background:#fff;
+
+    margin-bottom:20px;
+
+}
+
+.emx-user-info-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+    font-size:.95rem;
+
+    font-weight:700;
+
+    color:#1e293b;
+
+}
+
+.emx-user-info-title i{
+
+    color:#2563eb;
+
+}
+
+/* ==========================================================
+   Grid
+========================================================== */
+
+.emx-info-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+
+}
+
+.emx-info-grid label{
+
+    display:block;
+
+    font-size:.75rem;
+
+    color:#94a3b8;
+
+    margin-bottom:5px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.05em;
+
+}
+
+.emx-info-grid span{
+
+    display:block;
+
+    font-weight:600;
+
+    color:#0f172a;
+
+}
+
+.emx-user-info-card p{
+
+    margin:0;
+
+    line-height:1.7;
+
+    color:#334155;
+
+}
+
+/* ==========================================================
+   Footer
+========================================================== */
+
+.emx-user-panel-footer{
+
+    flex:0 0 auto;
+
+    padding:20px 24px;
+
+    border-top:1px solid #edf2f7;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:12px;
+
+}
+
+/* ==========================================================
+   Scrollbar
+========================================================== */
+
+.emx-user-panel-body::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.emx-user-panel-body::-webkit-scrollbar-thumb{
+
+    background:#d1d5db;
+
+    border-radius:10px;
+
+}
+
+/* ==========================================================
+   Mobile
+========================================================== */
+
+@media(max-width:768px){
+
+    .emx-user-panel-content{
+
+        width:100%;
+
+    }
+
+    .emx-info-grid{
+
+        grid-template-columns:1fr;
+
+    }
 
 }

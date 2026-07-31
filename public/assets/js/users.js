@@ -11,6 +11,18 @@ const Users = {
 
     editModal: null,
 
+    detailsPanel: null,
+
+    currentUserId: null,
+
+    deleteModal: null,
+
+    resetPasswordModal: null,
+
+    toggleStatusModal: null,
+
+    currentUserStatus: null,
+
     init()
     {
 
@@ -42,6 +54,53 @@ const Users = {
 
         }
 
+        const resetModal =
+            document.getElementById(
+                'resetPasswordModal'
+            );
+
+        if(resetModal){
+
+            this.resetPasswordModal =
+                new bootstrap.Modal(
+                    resetModal
+                );
+
+        }
+
+        const toggleStatusModal =
+            document.getElementById(
+                'toggleStatusModal'
+            );
+
+        if(toggleStatusModal){
+
+            this.toggleStatusModal =
+                new bootstrap.Modal(
+                    toggleStatusModal
+                );
+
+        }
+
+        const deleteModal =
+            document.getElementById(
+                'deleteUserModal'
+            );
+
+        if(deleteModal){
+
+            this.deleteModal =
+                new bootstrap.Modal(
+                    deleteModal
+                );
+
+        }
+
+         this.detailsPanel =
+        document.getElementById(
+            'userDetailsPanel'
+        );
+
         this.bindEvents();
 
         this.bindEditForm();
@@ -58,125 +117,197 @@ const Users = {
      */
 
 
-    bindEvents(){
+   bindEvents()
+{
+
+    const createForm =
+        document.getElementById(
+            'createUserForm'
+        );
+
+    if (createForm) {
+
+        createForm.addEventListener(
+
+            'submit',
+
+            (event) => {
+
+                event.preventDefault();
+
+                this.storeUser(
+                    createForm
+                );
+
+            }
+
+        );
+
+    }
 
 
-        const createForm =
-            document.getElementById(
-                'createUserForm'
-            );
+
+    const editForm =
+        document.getElementById(
+            'editUserForm'
+        );
+
+    if (editForm) {
+
+        editForm.addEventListener(
+
+            'submit',
+
+            (event) => {
+
+                event.preventDefault();
+
+                this.updateUser(
+                    editForm
+                );
+
+            }
+
+        );
+
+    }
 
 
 
-        if(createForm){
-
-
-            createForm.addEventListener(
-                'submit',
-                (event)=>{
-
-
-                    event.preventDefault();
-
-
-                    this.storeUser(
-                        createForm
-                    );
-
-
-                }
-
-            );
-
-
-        }
-
-
-        const editForm =
-    document.getElementById(
-        'editUserForm'
-    );
-
-
-if(editForm){
-
-
-    editForm.addEventListener(
-        'submit',
-        (event)=>{
-
-
-            event.preventDefault();
-
-
-            this.updateUser(
-                editForm
-            );
-
-
-        }
-
-    );
-
-
-}
-
-        const createButton = document.getElementById(
+    const createButton =
+        document.getElementById(
             'openCreateUserModal'
         );
 
+    if (createButton) {
 
-        if(createButton){
+        createButton.addEventListener(
 
-            createButton.addEventListener(
-                'click',
-                ()=>{
+            'click',
 
+            () => {
 
-                    console.log('Open create user clicked');
+                this.resetCreateForm();
 
+                bootstrap
+                    .Modal
+                    .getOrCreateInstance(
 
-                    this.resetCreateForm();
-
-
-                    const modalElement =
                         document.getElementById(
                             'createUserModal'
-                        );
+                        )
+
+                    )
+                    .show();
+
+            }
+
+        );
+
+    }
 
 
-                    if(modalElement){
+
+    /* -----------------------------------
+       RESET PASSWORD
+    ----------------------------------- */
+
+    const resetButton =
+        document.getElementById(
+            'confirmResetPassword'
+        );
+
+    if(resetButton){
+
+        resetButton.addEventListener(
+
+            'click',
+
+            ()=>{
+
+                this.resetPassword();
+
+            }
+
+        );
+
+    }
+
+    const copyButton =
+        document.getElementById(
+            'copyPassword'
+        );
+
+    if(copyButton){
+
+        copyButton.addEventListener(
+
+            'click',
+
+            ()=>{
+
+                this.copyGeneratedPassword();
+
+            }
+
+        );
+
+    }
 
 
-                        const modal =
-                            bootstrap.Modal.getOrCreateInstance(
-                                modalElement
-                            );
+    /* -----------------------------------
+       DELETE USER
+    ----------------------------------- */
+
+    const deleteButton =
+        document.getElementById(
+            'confirmDeleteUser'
+        );
+
+    if (deleteButton) {
+
+        deleteButton.addEventListener(
+
+            'click',
+
+            () => {
+
+                this.deleteUser();
+
+            }
+
+        );
+
+    }
 
 
-                        modal.show();
 
+    /* -----------------------------------
+       TOGGLE STATUS
+    ----------------------------------- */
 
-                    }else{
+    const toggleButton =
+        document.getElementById(
+            'confirmToggleStatus'
+        );
 
+    if (toggleButton) {
 
-                        console.error(
-                            'createUserModal not found'
-                        );
+        toggleButton.addEventListener(
 
+            'click',
 
-                    }
+            () => {
 
+                this.toggleStatus();
 
-                }
+            }
 
-            );
+        );
 
-        }
+    }
 
-
-    },
-
+},
 
 
 
@@ -417,11 +548,6 @@ if(editForm){
 
     },
 
-
-
-
-
-
     /**
      * ======================================================
      * BUTTON LOADING STATE
@@ -567,12 +693,6 @@ if(editForm){
 
     },
 
-
-
-
-
-
-
     clearErrors(){
 
 
@@ -615,13 +735,6 @@ if(editForm){
 
     },
 
-
-
-
-
-
-
-
     resetCreateForm(){
 
 
@@ -650,11 +763,6 @@ if(editForm){
 
     },
 
-
-
-
-
-
     /**
      * ======================================================
      * FUTURE USER ACTIONS
@@ -672,7 +780,6 @@ if(editForm){
 
 
     },
-
 
 
 
@@ -897,7 +1004,7 @@ bindEditForm()
 async updateUser(form)
 {
 
-    this.clearErrors(form);
+    this.clearErrors(form); 
 
     const userId =
         form.dataset.userId;
@@ -1037,56 +1144,685 @@ async updateUser(form)
 
 },
 
+async details(id)
+{
 
+    try{
 
+        const response =
+            await fetch(
+                `${USERS.details}/${id}/details`,
+                {
+                    headers:{
+                        Accept:'application/json'
+                    }
+                }
+            );
 
-    delete(id){
+        const data =
+            await response.json();
 
+        if(!response.ok){
 
-        console.log(
-            'Delete user:',
-            id
+            throw new Error(
+                data.message ??
+                'Unable to load user.'
+            );
+
+        }
+
+        this.populateDetailsPanel(
+            data.user
         );
 
+        this.detailsPanel
+            .classList
+            .add('show');
 
-    },
+    }
+    catch(error){
 
-
-
-
-    resetPassword(id){
-
-
-        console.log(
-            'Reset password:',
-            id
+        showToast(
+            error.message,
+            'error'
         );
-
-
-    },
-
-
-
-
-    toggleStatus(id){
-
-
-        console.log(
-            'Toggle status:',
-            id
-        );
-
 
     }
 
+},
+
+populateDetailsPanel(user)
+{
+     this.currentUserId = user.id;
+
+    const initials =
+        `${user.first_name?.charAt(0) ?? ''}${user.last_name?.charAt(0) ?? ''}`;
+
+    document.getElementById('detailAvatar').textContent =
+        initials.toUpperCase();
+
+    document.getElementById('detailFullName').textContent =
+        `${user.first_name ?? ''} ${user.last_name ?? ''}`;
+
+    document.getElementById('detailRole').textContent =
+        user.role ?? '-';
+
+    document.getElementById('detailBranch').textContent =
+        user.branch ?? '-';
+
+    document.getElementById('detailStatus').textContent =
+        user.status
+            ? 'Active'
+            : 'Disabled';
+
+    document.getElementById('detailStatus').className =
+        user.status
+            ? 'badge bg-success'
+            : 'badge bg-danger';
+
+    document.getElementById('detailEmployeeNo').textContent =
+        user.employee_no ?? '-';
+
+    document.getElementById('detailUsername').textContent =
+        user.username ?? '-';
+
+    document.getElementById('detailEmail').textContent =
+        user.email ?? '-';
+
+    document.getElementById('detailPhone').textContent =
+        user.phone ?? '-';
+
+    document.getElementById('detailGender').textContent =
+        user.gender ?? '-';
+
+    document.getElementById('detailDOB').textContent =
+        user.date_of_birth ?? '-';
+
+    document.getElementById('detailBranchName').textContent =
+        user.branch ?? '-';
+
+    document.getElementById('detailRoleName').textContent =
+        user.role ?? '-';
+
+    document.getElementById('detailEmploymentDate').textContent =
+        user.employment_date ?? '-';
+
+    document.getElementById('detailAddress').textContent =
+        user.address ?? '-';
+
+    document.getElementById('detailNotes').textContent =
+        user.notes ?? '-';
+
+    document.getElementById('detailCreated').textContent =
+        user.created_at ?? '-';
+
+    document.getElementById('detailUpdated').textContent =
+        user.updated_at ?? '-';
+
+    document.getElementById('panelEditUser').onclick = () => {
+
+        closeUserDetailsPanel();
+
+        openEditUserModal(user.id);
+
+    };
+
+    document.getElementById('panelResetPassword').onclick = () => {
+
+        closeUserDetailsPanel();
+
+        openResetPasswordModal({
+
+            id: user.id,
+
+            first_name: user.first_name,
+
+            last_name: user.last_name
+
+        });
+
+    };
+
+    document.getElementById('panelDeleteUser').onclick = () => {
+
+        closeUserDetailsPanel();
+
+        openDeleteUserModal({
+
+            id: user.id,
+
+            first_name: user.first_name,
+
+            last_name: user.last_name
+
+        });
+
+    };
+
+    const statusButton =
+    document.getElementById(
+        'panelToggleStatus'
+    );
+
+    if (statusButton) {
+
+        if (user.status) {
+
+            statusButton.className =
+                'btn btn-outline-secondary';
+
+            statusButton.innerHTML = `
+
+                <i class="bi bi-person-lock"></i>
+
+                Disable
+
+            `;
+
+        }
+        else {
+
+            statusButton.className =
+                'btn btn-outline-success';
+
+            statusButton.innerHTML = `
+
+                <i class="bi bi-person-check"></i>
+
+                Enable
+
+            `;
+
+        }
+
+        statusButton.onclick = () => {
+
+            closeUserDetailsPanel();
+
+            this.openToggleStatusModal(user);
+
+        };
+
+    }
+
+    },   
 
 
-};
+    openDeleteUserModal(user)
+    {
+
+        this.currentUserId = user.id;
+
+        document.getElementById(
+            'deleteUserName'
+        ).textContent =
+            `${user.first_name} ${user.last_name}`;
+
+        this.deleteModal.show();
+
+    },
+
+    async deleteUser()
+{
+
+    const button =
+        document.getElementById(
+            'confirmDeleteUser'
+        );
+
+    const originalHtml =
+        button.innerHTML;
+
+    button.disabled = true;
+
+    button.innerHTML = `
+
+        <span class="spinner-border spinner-border-sm me-2"></span>
+
+        Deleting...
+
+    `;
+
+    try{
+
+        const response =
+            await fetch(
+
+                `${USERS.destroy}/${this.currentUserId}`,
+
+                {
+
+                    method:'POST',
+
+                    headers:{
+
+                        'X-CSRF-TOKEN':
+                        document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content,
+
+                        Accept:'application/json'
+
+                    },
+
+                    body:new URLSearchParams({
+
+                        _method:'DELETE'
+
+                    })
+
+                }
+
+            );
+
+        const data =
+            await response.json();
+
+        if(!response.ok){
+
+            throw new Error(
+
+                data.message ??
+
+                'Unable to delete user.'
+
+            );
+
+        }
+
+        this.deleteModal.hide();
+
+        showToast(
+
+            data.message,
+
+            'success'
+
+        );
+
+        setTimeout(()=>{
+
+            window.location.reload();
+
+        },600);
+
+    }
+    catch(error){
+
+        showToast(
+
+            error.message,
+
+            'error'
+
+        );
+
+    }
+    finally{
+
+        button.disabled = false;
+
+        button.innerHTML =
+
+            originalHtml;
+
+    }
+
+},
+
+openResetPasswordModal(user)
+{
+
+    this.currentUserId = user.id;
+
+    document.getElementById(
+        'resetUserName'
+    ).textContent =
+        `${user.first_name} ${user.last_name}`;
+
+    document
+        .getElementById(
+            'generatedPasswordWrapper'
+        )
+        .classList
+        .add('d-none');
+
+    document.getElementById(
+        'generatedPassword'
+    ).value = '';
+
+    this.resetPasswordModal.show();
+
+},
+
+async resetPassword()
+{
+
+    const button =
+        document.getElementById(
+            'confirmResetPassword'
+        );
+
+    const originalHtml =
+        button.innerHTML;
+
+    button.disabled = true;
+
+    button.innerHTML = `
+
+        <span class="spinner-border spinner-border-sm me-2"></span>
+
+        Resetting...
+
+    `;
+
+    try{
+
+        const response =
+            await fetch(
+
+                `${USERS.resetPassword}/${this.currentUserId}/reset-password`,
+
+                {
+
+                    method:'POST',
+
+                    headers:{
+
+                        'X-CSRF-TOKEN':
+                        document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content,
+
+                        Accept:'application/json'
+
+                    }
+
+                }
+
+            );
+
+        const data =
+            await response.json();
+
+        if(!response.ok){
+
+            throw new Error(
+
+                data.message
+
+            );
+
+        }
+
+        document
+            .getElementById(
+                'generatedPassword'
+            )
+            .value =
+            data.password;
+
+        document
+            .getElementById(
+                'generatedPasswordWrapper'
+            )
+            .classList
+            .remove('d-none');
+
+        showToast(
+
+            data.message,
+
+            'success'
+
+        );
+
+    }
+    catch(error){
+
+        showToast(
+
+            error.message,
+
+            'error'
+
+        );
+
+    }
+    finally{
+
+        button.disabled = false;
+
+        button.innerHTML =
+            originalHtml;
+
+    }
+
+},
+
+copyGeneratedPassword()
+{
+
+    const password =
+        document.getElementById(
+            'generatedPassword'
+        );
+
+    navigator.clipboard
+        .writeText(
+            password.value
+        );
+
+    showToast(
+
+        'Password copied.',
+
+        'success'
+
+    );
+
+},
 
 
 
 
+   openToggleStatusModal(user)
+{
 
+    this.currentUserId =
+        user.id;
+
+    this.currentUserStatus =
+        Boolean(user.status);
+
+    document.getElementById(
+        'toggleStatusUserName'
+    ).textContent =
+        `${user.first_name} ${user.last_name}`;
+
+    const title =
+        document.getElementById(
+            'toggleStatusTitle'
+        );
+
+    const heading =
+        document.getElementById(
+            'toggleStatusHeading'
+        );
+
+    const message =
+        document.getElementById(
+            'toggleStatusMessage'
+        );
+
+    const icon =
+        document.getElementById(
+            'toggleStatusIcon'
+        );
+
+    const largeIcon =
+        document.getElementById(
+            'toggleStatusLargeIcon'
+        );
+
+    const button =
+        document.getElementById(
+            'confirmToggleStatus'
+        );
+
+
+
+    if(this.currentUserStatus){
+
+        title.innerHTML = `
+
+            <i
+                class="bi bi-person-x-fill me-2 text-danger">
+            </i>
+
+            Disable User
+
+        `;
+
+        heading.textContent =
+            'Disable this user?';
+
+        message.textContent =
+            'The user will no longer be able to sign into the system until re-enabled.';
+
+        icon.className =
+            'bi bi-person-x-fill text-danger';
+
+        largeIcon.className =
+            'bi bi-person-x-fill text-danger';
+
+        button.className =
+            'btn btn-danger';
+
+        button.innerHTML = `
+
+            <i class="bi bi-person-x me-1"></i>
+
+            Disable User
+
+        `;
+
+    }
+    else{
+
+        title.innerHTML = `
+
+            <i
+                class="bi bi-person-check-fill me-2 text-success">
+            </i>
+
+            Enable User
+
+        `;
+
+        heading.textContent =
+            'Enable this user?';
+
+        message.textContent =
+            'The user will regain access to the system.';
+
+        icon.className =
+            'bi bi-person-check-fill text-success';
+
+        largeIcon.className =
+            'bi bi-person-check-fill text-success';
+
+        button.className =
+            'btn btn-success';
+
+        button.innerHTML = `
+
+            <i class="bi bi-person-check me-1"></i>
+
+            Enable User
+
+        `;
+
+    }
+
+    this.toggleStatusModal.show();
+
+},
+
+async toggleStatus()
+{
+
+    try{
+
+        const formData = new FormData();
+
+    formData.append('_method', 'PATCH');
+
+    const response =
+        await fetch(
+
+            `${USERS.toggleStatus}/${this.currentUserId}/toggle-status`,
+
+            {
+
+                method: 'POST',
+
+                headers:{
+
+                    'X-CSRF-TOKEN':
+                    document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content,
+
+                    'Accept':
+                    'application/json'
+
+                },
+
+                body: formData
+
+            }
+
+        );
+
+        const data =
+            await response.json();
+
+        if(!response.ok){
+
+            throw new Error(
+                data.message ??
+                'Unable to update user status.'
+            );
+
+        }
+
+        this.toggleStatusModal.hide();
+
+        showToast(
+            data.message,
+            'success'
+        );
+
+        setTimeout(() => {
+
+            window.location.reload();
+
+        }, 700);
+
+    }
+    catch(error){
+
+        showToast(
+            error.message,
+            'error'
+        );
+
+    }
+
+},
+
+};  
 
 document.addEventListener(
 
@@ -1103,5 +1839,40 @@ document.addEventListener(
 window.openEditUserModal = function (userId)
 {
     Users.openEditUserModal(userId);
+};
+
+window.openUserDetailsPanel =
+function(id)
+{
+    Users.details(id);
+};
+
+window.closeUserDetailsPanel =
+function()
+{
+    document
+        .getElementById(
+            'userDetailsPanel'
+        )
+        .classList
+        .remove('show');
+};
+
+window.openResetPasswordModal =
+function(user)
+{
+    Users.openResetPasswordModal(user);
+};
+
+window.openDeleteUserModal =
+function(user)
+{
+    Users.openDeleteUserModal(user);
+};
+
+window.openToggleStatusModal =
+function(user)
+{
+    Users.openToggleStatusModal(user);
 };
 

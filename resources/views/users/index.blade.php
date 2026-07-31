@@ -3,6 +3,7 @@
 
 @section('content')
 
+
 <div class="users-page">
 
 
@@ -690,7 +691,7 @@
 
         <button
             class="dropdown-item"
-            onclick="viewUser({{ $user->id }})">
+            onclick="openUserDetailsPanel({{ $user->id }})">
 
             <i class="bi bi-eye me-2"></i>
 
@@ -731,8 +732,13 @@
     <li>
 
         <button
+            type="button"
             class="dropdown-item"
-            onclick="confirmResetPassword({{ $user->id }})">
+            onclick='openResetPasswordModal(@json([
+                "id" => $user->id,
+                "first_name" => $user->first_name,
+                "last_name" => $user->last_name
+            ]))'>
 
             <i class="bi bi-key me-2"></i>
 
@@ -748,18 +754,24 @@
     <li>
 
         <button
+            type="button"
             class="dropdown-item"
-            onclick="toggleUserStatus({{ $user->id }})">
+            onclick="openToggleStatusModal({
+                id: {{ $user->id }},
+                first_name: '{{ e($user->first_name) }}',
+                last_name: '{{ e($user->last_name) }}',
+                status: {{ $user->status ? 'true' : 'false' }}
+            })">
 
             @if($user->status)
 
-                <i class="bi bi-person-x me-2 text-warning"></i>
+                <i class="bi bi-person-x me-2"></i>
 
                 Disable User
 
             @else
 
-                <i class="bi bi-person-check me-2 text-success"></i>
+                <i class="bi bi-person-check me-2"></i>
 
                 Enable User
 
@@ -784,7 +796,11 @@
 
         <button
             class="dropdown-item text-danger"
-            onclick="confirmDeleteUser({{ $user->id }})">
+            onclick="openDeleteUserModal({
+                id: {{ $user->id }},
+                first_name: '{{ addslashes($user->first_name) }}',
+                last_name: '{{ addslashes($user->last_name) }}'
+            })">
 
             <i class="bi bi-trash me-2"></i>
 
@@ -888,6 +904,12 @@
 
     @include('users.modals.delete')
 
+    @include('users.modals.reset-password')
+
+    @include('users.panels.details')
+
+    @include('users.modals.toggle-status')
+
 
 
 <script>
@@ -898,7 +920,15 @@ const USERS = {
 
     edit: "{{ url('users') }}/",
 
-    update: "{{ url('users') }}"
+    update: "{{ url('users') }}",
+
+    details: "{{ url('users') }}",
+
+    resetPassword: "{{ url('users') }}",
+
+    toggleStatus: "{{ url('users') }}",
+
+    destroy: "{{ url('users') }}"
 
 };
 

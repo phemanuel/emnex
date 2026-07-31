@@ -257,7 +257,7 @@ Route::middleware('auth')->group(function () {
         )->name('destroy');
 
 
-        Route::patch('/{user}/status',
+        Route::patch('/{user}/toggle-status',
             [UserController::class,'toggleStatus']
         )->name('toggleStatus');
 
@@ -265,6 +265,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/{user}/reset-password',
             [UserController::class,'resetPassword']
         )->name('resetPassword');
+
+        Route::get('/{user}/details',
+            [UserController::class, 'details']
+        )->name('details');
 
 
     });

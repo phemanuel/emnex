@@ -12,6 +12,8 @@ use Illuminate\Validation\Rule;
 use App\Services\ActivityLogger;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 class UserController extends BaseController
 {
@@ -101,53 +103,7 @@ class UserController extends BaseController
                 )
             );
         }
-
-        public function toggleStatus(User $user)
-        {
-            abort_if(
-                $user->company_id !== auth()->user()->company_id,
-                403
-            );
-
-            $oldValues = $user->toArray();
-
-            $user->update([
-
-                'status' => ! $user->status
-
-            ]);
-
-            $this->activityLogger->log(
-
-                'Users',
-
-                $user->status
-                    ? 'User Activated'
-                    : 'User Deactivated',
-
-                $user->status
-                    ? "Activated {$user->full_name}"
-                    : "Deactivated {$user->full_name}",
-
-                $user,
-
-                $oldValues
-
-            );
-
-            return response()->json([
-
-                'success' => true,
-
-                'status' => $user->status,
-
-                'message' => $user->status
-                    ? 'User activated successfully.'
-                    : 'User deactivated successfully.'
-
-            ]);
-        }
-
+        
         public function store(Request $request)
         {
             $companyId = auth()->user()->company_id;
@@ -195,7 +151,14 @@ class UserController extends BaseController
                     'max:100',
 
                     Rule::unique('users')
-                        ->where(fn ($query) => $query->where('company_id', $companyId))
+                        ->where(function ($query) use ($companyId) {
+
+                            return $query
+                                ->where('company_id', $companyId)
+                                ->whereNull('deleted_at');
+
+                        })
+
                 ],
 
                 'email' => [
@@ -205,7 +168,14 @@ class UserController extends BaseController
                     'max:150',
 
                     Rule::unique('users')
-                        ->where(fn ($query) => $query->where('company_id', $companyId))
+                        ->where(function ($query) use ($companyId) {
+
+                            return $query
+                                ->where('company_id', $companyId)
+                                ->whereNull('deleted_at');
+
+                        })
+
                 ],
 
                 'phone' => [
@@ -251,6 +221,99 @@ class UserController extends BaseController
                 ],
 
             ]);
+
+            $deletedUser = User::onlyTrashed()
+
+            ->where('company_id', $companyId)
+
+            ->where(function ($query) use ($validated) {
+
+                $query
+
+                    ->where('email', $validated['email'])
+
+                    ->orWhere('username', $validated['username']);
+
+            })
+
+            ->first();
+
+
+            if ($deletedUser) {
+
+                DB::transaction(function () use ($deletedUser, $validated) {
+
+                    $oldValues = $deletedUser->toArray();
+
+                    $deletedUser->restore();
+
+                    $deletedUser->update([
+
+                        'branch_id'             => $validated['branch_id'] ?? null,
+
+                        'role_id'               => $validated['role_id'] ?? null,
+
+                        'employee_no'           => $validated['employee_no'] ?? null,
+
+                        'first_name'            => $validated['first_name'],
+
+                        'last_name'             => $validated['last_name'],
+
+                        'other_name'            => $validated['other_name'] ?? null,
+
+                        'username'              => $validated['username'],
+
+                        'email'                 => $validated['email'],
+
+                        'phone'                 => $validated['phone'] ?? null,
+
+                        'gender'                => $validated['gender'] ?? null,
+
+                        'date_of_birth'         => $validated['date_of_birth'] ?? null,
+
+                        'employment_date'       => $validated['employment_date'] ?? null,
+
+                        'address'               => $validated['address'] ?? null,
+
+                        'notes'                 => $validated['notes'] ?? null,
+
+                        'password'              => Hash::make($validated['password']),
+
+                        'status'                => $validated['status'],
+
+                        'force_password_change' => true,
+
+                        'password_changed_at'   => null,
+
+                    ]);
+
+                    $this->activityLogger->log(
+
+                        'Users',
+
+                        'Restored',
+
+                        "Restored user {$deletedUser->full_name}",
+
+                        $deletedUser,
+
+                        $oldValues,
+
+                        $deletedUser->fresh()->toArray()
+
+                    );
+
+                });
+
+                return response()->json([
+
+                    'success' => true,
+
+                    'message' => 'Previously deleted user restored successfully.'
+
+                ]);
+
+            }
 
             DB::transaction(function () use ($validated, $companyId, &$user) {
 
@@ -506,6 +569,221 @@ class UserController extends BaseController
                 'success' => true,
 
                 'message' => 'User updated successfully.'
+
+            ]);
+        }
+
+        public function details(User $user)
+        {
+            if ($user->company_id !== auth()->user()->company_id) {
+
+                abort(403);
+
+            }
+
+            $user->load([
+                'branch',
+                'role'
+            ]);
+
+            return response()->json([
+
+                'user' => [
+
+                    'id' => $user->id,
+
+                    'employee_no' => $user->employee_no,
+
+                    'first_name' => $user->first_name,
+
+                    'last_name' => $user->last_name,
+
+                    'other_name' => $user->other_name,
+
+                    'username' => $user->username,
+
+                    'email' => $user->email,
+
+                    'phone' => $user->phone,
+
+                    'gender' => $user->gender,
+
+                    'date_of_birth' => optional($user->date_of_birth)->format('Y-m-d'),
+
+                    'employment_date' => optional($user->employment_date)->format('Y-m-d'),
+
+                    'address' => $user->address,
+
+                    'notes' => $user->notes,
+
+                    'status' => $user->status,
+
+                    'created_at' => $user->created_at?->format('d M Y'),
+
+                    'updated_at' => $user->updated_at?->format('d M Y'),
+
+                    'branch' => $user->branch?->name,
+
+                    'role' => $user->role?->displayLabel(),
+
+                ]
+
+            ]);
+
+        }
+
+        public function resetPassword(User $user)
+        {
+            if ($user->company_id !== auth()->user()->company_id) {
+
+                abort(403);
+
+            }
+
+            $password = Str::password(
+                10,
+                letters: true,
+                numbers: true,
+                symbols: false
+            );
+
+            $oldValues = [
+
+                'password' => '********',
+
+                'force_password_change' => $user->force_password_change,
+
+            ];
+
+            $user->update([
+
+                'password' => Hash::make($password),
+
+                'force_password_change' => true,
+
+                'password_changed_at' => null,
+
+            ]);
+
+            $this->activityLogger->log(
+
+                'Users',
+
+                'Password Reset',
+
+                "Reset password for {$user->full_name}",
+
+                $user,
+
+                $oldValues,
+
+                [
+
+                    'password' => '********',
+
+                    'force_password_change' => true,
+
+                ]
+
+            );
+
+            return response()->json([
+
+                'success' => true,
+
+                'message' => 'Password reset successfully.',
+
+                'password' => $password,
+
+            ]);
+        }
+
+        public function destroy(User $user)
+        {
+            if ($user->company_id !== auth()->user()->company_id) {
+
+                abort(403);
+
+            }
+
+            $oldValues =
+                $user->toArray();
+
+            $fullName =
+                $user->full_name;
+
+            $user->delete();
+
+            $this->activityLogger->log(
+
+                'User Management',
+
+                'Deleted',
+
+                "Deleted user {$fullName}",
+
+                $user,
+
+                $oldValues,
+
+                []
+
+            );
+
+            return response()->json([
+
+                'success' => true,
+
+                'message' => 'User deleted successfully.'
+
+            ]);
+        }
+
+        public function toggleStatus(User $user)
+        {
+            if ($user->company_id !== auth()->user()->company_id) {
+
+                abort(403);
+
+            }
+
+            $oldValues = [
+
+                'status' => $user->status,
+
+            ];
+
+            $user->update([
+
+                'status' => !$user->status,
+
+            ]);
+
+            $action = $user->status ? 'Enabled' : 'Disabled';
+
+            $this->activityLogger->log(
+
+                'Users',
+
+                $action,
+
+                "{$action} user {$user->full_name}",
+
+                $user,
+
+                $oldValues,
+
+                $user->fresh()->toArray()
+
+            );
+
+            return response()->json([
+
+                'success' => true,
+
+                'message' => "User {$action} successfully.",
+
+                'status' => $user->status,
 
             ]);
         }
