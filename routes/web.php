@@ -347,13 +347,14 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', 'index')
                     ->name('index');
 
-                Route::get('/test-permission', function () {
+                Route::post('/',[BranchController::class, 'store'])
+                ->name('store');
 
-                    return 'Permission Passed';
+                Route::get('/{branch}/edit',[BranchController::class, 'edit']
+                )->name('edit');
 
-                })
-                ->middleware('permission:branches.view');
-
+                Route::put('/{branch}',[BranchController::class, 'update']
+                )->name('update');    
 
                 Route::get('/{branch}/details', 'details')
                     ->name('details');

@@ -273,7 +273,9 @@
         <div class="d-flex gap-2">
 
 
-            <button class="btn btn-primary flex-fill">
+            <button
+                class="btn btn-primary flex-fill"
+                id="panelEditBranch">
 
                 <i class="bi bi-pencil-square"></i>
 

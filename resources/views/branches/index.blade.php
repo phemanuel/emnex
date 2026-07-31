@@ -108,7 +108,7 @@
             </div>
 
             @permission('branches.create')
-            <button class="btn btn-primary" id="addBranchBtn">
+            <button class="btn btn-primary" id="openCreateBranchModal">
 
                 <i class="bi bi-plus-lg"></i>
 
@@ -326,5 +326,18 @@
 
 @include('branches.partials.inspector')
 @include('branches.modals.preview-modal')
+@include('branches.modals.create')
+@include('branches.modals.edit')
 
+<script>
+    const BRANCHES = {
+
+    store: "{{ route('branches.store') }}",
+    
+    edit: "{{ url('branches') }}",
+
+    update: "{{ url('branches') }}"
+
+};
+</script>
 @endsection
