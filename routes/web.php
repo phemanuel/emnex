@@ -354,7 +354,13 @@ Route::middleware('auth')->group(function () {
                 )->name('edit');
 
                 Route::put('/{branch}',[BranchController::class, 'update']
-                )->name('update');    
+                )->name('update');   
+                
+                Route::delete('/{branch}', [BranchController::class, 'destroy'])
+                ->name('destroy');
+
+                Route::patch('/{branch}/toggle-status',[BranchController::class,'toggleStatus'])
+                ->name('toggleStatus');
 
                 Route::get('/{branch}/details', 'details')
                     ->name('details');

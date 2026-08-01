@@ -439,5 +439,311 @@ class BranchController extends BaseController
         ]);
     }
 
+    public function update(Request $request, Branch $branch)
+    {
+        abort_unless(
+            $branch->company_id === $this->companyId,
+            404
+        );
+
+        $validated = $request->validate([
+
+            'edit_name' => [
+                'required',
+                'string',
+                'max:150'
+            ],
+
+            'edit_branch_code' => [
+
+                'required',
+                'string',
+                'max:50',
+
+                Rule::unique(
+                    'branches',
+                    'branch_code'
+                )
+                ->ignore($branch->id)
+                ->where(function ($query) {
+
+                    return $query
+                        ->where('company_id', $this->companyId)
+                        ->whereNull('deleted_at');
+
+                })
+
+            ],
+
+            'edit_email' => [
+
+                'nullable',
+                'email',
+                'max:150',
+
+                Rule::unique(
+                    'branches',
+                    'email'
+                )
+                ->ignore($branch->id)
+                ->where(function ($query) {
+
+                    return $query
+                        ->where('company_id', $this->companyId)
+                        ->whereNull('deleted_at');
+
+                })
+
+            ],
+
+            'edit_phone' => [
+                'nullable',
+                'string',
+                'max:30'
+            ],
+
+            'edit_address' => [
+                'nullable',
+                'string'
+            ],
+
+            'edit_status' => [
+                'required',
+                'boolean'
+            ],
+
+            'edit_is_head_office' => [
+                'nullable',
+                'boolean'
+            ],
+
+        ]);
+
+        $oldValues = $branch->toArray();
+
+        DB::transaction(function () use (
+            $branch,
+            $validated,
+            $oldValues
+        ) {
+
+            $branch->update([
+
+                'name' => $validated['edit_name'],
+
+                'branch_code' => $validated['edit_branch_code'],
+
+                'email' => $validated['edit_email'],
+
+                'phone' => $validated['edit_phone'],
+
+                'address' => $validated['edit_address'],
+
+                'status' => $validated['edit_status'],
+
+                'is_head_office' => $validated['edit_is_head_office'] ?? false,
+
+            ]);
+
+            $this->activityLogger->log(
+
+                'Branch Management',
+
+                'Updated',
+
+                "Updated branch {$branch->name}",
+
+                $branch,
+
+                $oldValues,
+
+                $branch->fresh()->toArray()
+
+            );
+
+        });
+
+        return response()->json([
+
+            'success' => true,
+
+            'message' => 'Branch updated successfully.'
+
+        ]);
+    }
+
+    public function destroy(Branch $branch)
+    {
+        abort_unless(
+            $branch->company_id === $this->companyId,
+            404
+        );
+
+        if ($branch->is_head_office) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'message' => 'The Head Office branch cannot be deleted.'
+
+            ], 422);
+
+        }
+
+        if ($branch->users()->exists()) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'message' => 'This branch cannot be deleted because it has users assigned to it.'
+
+            ], 422);
+
+        }
+
+        if ($branch->terminals()->exists()) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'message' => 'This branch cannot be deleted because it has terminals assigned to it.'
+
+            ], 422);
+
+        }
+
+        if ($branch->orders()->exists()) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'message' => 'This branch cannot be deleted because it has sales transactions.'
+
+            ], 422);
+
+        }
+        
+
+        $oldValues = $branch->toArray();
+
+        DB::transaction(function () use (
+            $branch,
+            $oldValues
+        ) {
+
+            $branch->delete();
+
+            $this->activityLogger->log(
+
+                'Branch Management',
+
+                'Deleted',
+
+                "Deleted branch {$branch->name}",
+
+                $branch,
+
+                $oldValues,
+
+                null
+
+            );
+
+        });
+
+        return response()->json([
+
+            'success' => true,
+
+            'message' => 'Branch deleted successfully.'
+
+        ]);
+    }
+
+    public function toggleStatus(Branch $branch)
+    {
+        abort_unless(
+            $branch->company_id === $this->companyId,
+            404
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Prevent disabling Head Office
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $branch->is_head_office &&
+            $branch->status
+        ) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'message' => 'The Head Office branch cannot be disabled.'
+
+            ],422);
+
+        }
+
+        $newStatus = ! $branch->status;
+
+        $oldValues = $branch->toArray();
+
+        DB::transaction(function () use (
+            $branch,
+            $oldValues,
+            $newStatus
+        ) {
+
+            $branch->update([
+
+                'status' => $newStatus
+
+            ]);
+
+            $action =
+
+                $newStatus
+                    ? 'Enabled'
+                    : 'Disabled';
+
+            $this->activityLogger->log(
+
+                'Branch Management',
+
+                $action,
+
+                "{$action} branch {$branch->name}",
+
+                $branch,
+
+                $oldValues,
+
+                $branch->fresh()->toArray()
+
+            );
+
+        });
+
+        return response()->json([
+
+            'success' => true,
+
+            'message' =>
+
+                $newStatus
+                    ? 'Branch enabled successfully.'
+                    : 'Branch disabled successfully.'
+
+        ]);
+    }
+
 
 }

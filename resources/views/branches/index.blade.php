@@ -328,6 +328,8 @@
 @include('branches.modals.preview-modal')
 @include('branches.modals.create')
 @include('branches.modals.edit')
+@include('branches.modals.delete')
+@include('branches.modals.toggle-status')
 
 <script>
     const BRANCHES = {
@@ -336,7 +338,11 @@
     
     edit: "{{ url('branches') }}",
 
-    update: "{{ url('branches') }}"
+    update: "{{ url('branches') }}",
+
+    delete: '/branches',
+
+    toggleStatus:'/branches'
 
 };
 </script>

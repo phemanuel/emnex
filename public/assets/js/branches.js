@@ -8,7 +8,10 @@ const Branches = {
 
     currentBranchId: null,
 
+    toggleStatusModal: null,
+
     currentBranchStatus: null,
+   
 
     init()
     {
@@ -54,7 +57,23 @@ const Branches = {
                     deleteModalElement
                 );
 
-        }        
+        }    
+
+        const toggleStatusModal =
+
+            document.getElementById(
+                'toggleBranchStatusModal'
+            );
+
+        if(toggleStatusModal){
+
+            this.toggleStatusModal =
+
+                new bootstrap.Modal(
+                    toggleStatusModal
+                );
+
+        }
 
         this.bindEvents();
 
@@ -124,6 +143,74 @@ const Branches = {
                     this.store(
                         createForm
                     );
+
+                }
+
+            );
+
+        }
+
+        const editForm =
+            document.getElementById(
+                'editBranchForm'
+            );
+
+        if(editForm){
+
+            editForm.addEventListener(
+
+                'submit',
+
+                (event)=>{
+
+                    event.preventDefault();
+
+                    this.updateBranch(
+                        editForm
+                    );
+
+                }
+
+            );
+
+        }
+
+        const deleteButton =
+            document.getElementById(
+                'confirmDeleteBranch'
+            );
+
+        if(deleteButton){
+
+            deleteButton.addEventListener(
+
+                'click',
+
+                () => {
+
+                    this.delete();
+
+                }
+
+            );
+
+        }
+
+        const toggleButton =
+
+            document.getElementById(
+                'confirmToggleBranchStatus'
+            );
+
+        if(toggleButton){
+
+            toggleButton.addEventListener(
+
+                'click',
+
+                ()=>{
+
+                    this.toggleStatus();
 
                 }
 
@@ -306,37 +393,37 @@ async edit(id)
             branch.id;
 
         form.querySelector(
-            '[name="name"]'
+            '[name="edit_name"]'
         ).value =
             branch.name ?? '';
 
         form.querySelector(
-            '[name="branch_code"]'
+            '[name="edit_branch_code"]'
         ).value =
             branch.branch_code ?? '';
 
         form.querySelector(
-            '[name="email"]'
+            '[name="edit_email"]'
         ).value =
             branch.email ?? '';
 
         form.querySelector(
-            '[name="phone"]'
+            '[name="edit_phone"]'
         ).value =
             branch.phone ?? '';
 
         form.querySelector(
-            '[name="address"]'
+            '[name="edit_address"]'
         ).value =
             branch.address ?? '';
 
         form.querySelector(
-            '[name="status"]'
+            '[name="edit_status"]'
         ).value =
-            branch.status;
+            branch.status ? '1' : '0';
 
         form.querySelector(
-            '[name="is_head_office"]'
+            '[name="edit_is_head_office"]'
         ).checked =
             Boolean(
                 branch.is_head_office
@@ -345,6 +432,417 @@ async edit(id)
         this.clearErrors(form);
 
         this.editModal.show();
+
+    }
+    catch(error){
+
+        showToast(
+            error.message,
+            'error'
+        );
+
+    }
+
+},
+
+async updateBranch(form)
+{
+
+    this.clearErrors(form);
+
+    const branchId =
+        form.dataset.branchId;
+
+    if(!branchId){
+
+        showToast(
+            'Invalid branch selected.',
+            'error'
+        );
+
+        return;
+
+    }
+
+    const submitButton =
+        form.querySelector(
+            'button[type="submit"]'
+        );
+
+    const originalHtml =
+        submitButton.innerHTML;
+
+    submitButton.disabled = true;
+
+    submitButton.innerHTML = `
+
+        <span
+            class="spinner-border spinner-border-sm me-2">
+        </span>
+
+        Saving Changes...
+
+    `;
+
+    try{
+
+        const formData =
+            new FormData(form);
+
+        formData.append(
+            '_method',
+            'PUT'
+        );
+
+        const response =
+            await fetch(
+
+                `${BRANCHES.update}/${branchId}`,
+
+                {
+
+                    method:'POST',
+
+                    headers:{
+
+                        'X-CSRF-TOKEN':
+                        document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content,
+
+                        'Accept':
+                        'application/json'
+
+                    },
+
+                    body:formData
+
+                }
+
+            );
+
+        const data =
+            await response.json();
+
+        if(!response.ok){
+
+            if(data.errors){
+
+                this.showValidation(
+                    form,
+                    data.errors
+                );
+
+                showToast(
+                    'Please correct the highlighted fields.',
+                    'warning'
+                );
+
+            }else{
+
+                showToast(
+                    data.message ??
+                    'Unable to update branch.',
+                    'error'
+                );
+
+            }
+
+            return;
+
+        }
+
+        this.editModal.hide();
+
+        showToast(
+            data.message,
+            'success'
+        );
+
+        setTimeout(()=>{
+
+            window.location.reload();
+
+        },800);
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showToast(
+            'An unexpected error occurred.',
+            'error'
+        );
+
+    }
+    finally{
+
+        submitButton.disabled = false;
+
+        submitButton.innerHTML =
+            originalHtml;
+
+    }
+
+},
+
+openDeleteBranchModal(branch)
+{
+
+    this.currentBranchId =
+        branch.id;
+
+    document.getElementById(
+        'deleteBranchName'
+    ).textContent =
+        branch.name;
+
+    this.deleteModal.show();
+
+},
+
+async delete()
+{
+
+    try{
+
+        const response =
+            await fetch(
+
+                `${BRANCHES.delete}/${this.currentBranchId}`,
+
+                {
+
+                    method:'DELETE',
+
+                    headers:{
+
+                        'X-CSRF-TOKEN':
+                        document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content,
+
+                        'Accept':
+                        'application/json'
+
+                    }
+
+                }
+
+            );
+
+        const data =
+            await response.json();
+
+        if(!response.ok){
+
+            showToast(
+
+                data.message ??
+                'Unable to delete branch.',
+
+                'warning'
+
+            );
+
+            return;
+
+        }
+
+        this.deleteModal.hide();
+
+        this.currentBranchId = null;
+
+        showToast(
+            data.message,
+            'success'
+        );
+
+        setTimeout(()=>{
+
+            window.location.reload();
+
+        },800);
+
+    }
+    catch(error){
+
+        showToast(
+            error.message,
+            'error'
+        );
+
+    }
+
+},
+
+openToggleStatusModal(branch)
+{
+
+    this.currentBranchId =
+        branch.id;
+
+    this.currentBranchStatus =
+        Boolean(branch.status);
+
+    document.getElementById(
+        'toggleBranchStatusName'
+    ).textContent =
+        branch.name;
+
+    const title =
+        document.getElementById(
+            'toggleBranchStatusTitle'
+        );
+
+    const heading =
+        document.getElementById(
+            'toggleBranchStatusHeading'
+        );
+
+    const message =
+        document.getElementById(
+            'toggleBranchStatusMessage'
+        );
+
+    const icon =
+        document.getElementById(
+            'toggleBranchStatusIcon'
+        );
+
+    const button =
+        document.getElementById(
+            'confirmToggleBranchStatus'
+        );
+
+    if(this.currentBranchStatus){
+
+        title.innerHTML = `
+
+            <i class="bi bi-pause-circle-fill text-warning me-2"></i>
+
+            Disable Branch
+
+        `;
+
+        heading.textContent =
+            'Disable this branch?';
+
+        message.textContent =
+            'Users assigned to this branch will no longer be able to operate from it.';
+
+        icon.className =
+            'bi bi-pause-circle-fill text-warning display-3';
+
+        button.className =
+            'btn btn-warning';
+
+        button.innerHTML = `
+
+            <i class="bi bi-pause-circle me-1"></i>
+
+            Disable Branch
+
+        `;
+
+    }
+    else{
+
+        title.innerHTML = `
+
+            <i class="bi bi-play-circle-fill text-success me-2"></i>
+
+            Enable Branch
+
+        `;
+
+        heading.textContent =
+            'Enable this branch?';
+
+        message.textContent =
+            'The branch will become available for use again.';
+
+        icon.className =
+            'bi bi-play-circle-fill text-success display-3';
+
+        button.className =
+            'btn btn-success';
+
+        button.innerHTML = `
+
+            <i class="bi bi-play-circle me-1"></i>
+
+            Enable Branch
+
+        `;
+
+    }
+
+    this.toggleStatusModal.show();
+
+},
+
+async toggleStatus()
+{
+    try{
+
+        const response = await fetch(
+
+            `${BRANCHES.toggleStatus}/${this.currentBranchId}/toggle-status`,
+
+            {
+
+                method:'PATCH',
+
+                headers:{
+
+                    'X-CSRF-TOKEN':
+                    document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content,
+
+                    'Accept':'application/json'
+
+                }
+
+            }
+
+        );
+
+        const data =
+            await response.json();
+
+        if(!response.ok){
+
+            showToast(
+
+                data.message ??
+                'Unable to update branch status.',
+
+                'warning'
+
+            );
+
+            return;
+
+        }
+
+        this.toggleStatusModal.hide();
+
+        showToast(
+
+            data.message,
+
+            'success'
+
+        );
+
+        setTimeout(()=>{
+
+            window.location.reload();
+
+        },800);
 
     }
     catch(error){
@@ -383,109 +881,6 @@ clearErrors(form)
     });
 
 },
-
-
-async edit(id)
-{
-
-    try{
-
-        const response =
-            await fetch(
-
-                `${BRANCHES.edit}/${id}/edit`,
-
-                {
-
-                    headers:{
-
-                        Accept:'application/json'
-
-                    }
-
-                }
-
-            );
-
-        const data =
-            await response.json();
-
-        if(!response.ok){
-
-            throw new Error(
-
-                data.message ??
-
-                'Unable to load branch.'
-
-            );
-
-        }
-
-        const branch =
-            data.branch;
-
-        const form =
-            document.getElementById(
-                'editBranchForm'
-            );
-
-        form.dataset.branchId =
-            branch.id;
-
-        form.querySelector(
-            '[name="edit_name"]'
-        ).value =
-            branch.name ?? '';
-
-        form.querySelector(
-            '[name="edit_branch_code"]'
-        ).value =
-            branch.branch_code ?? '';
-
-        form.querySelector(
-            '[name="edit_email"]'
-        ).value =
-            branch.email ?? '';
-
-        form.querySelector(
-            '[name="edit_phone"]'
-        ).value =
-            branch.phone ?? '';
-
-        form.querySelector(
-            '[name="edit_address"]'
-        ).value =
-            branch.address ?? '';
-
-        form.querySelector(
-            '[name="edit_status"]'
-        ).value =
-            branch.status;
-
-        form.querySelector(
-            '[name="edit_is_head_office"]'
-        ).checked =
-            Boolean(
-                branch.is_head_office
-            );
-
-        this.clearErrors(form);
-
-    }
-    catch(error){
-
-        showToast(
-            error.message,
-            'error'
-        );
-
-    }
-
-},
-
-
-
 
 showValidation(form,errors)
 {
@@ -539,7 +934,7 @@ document.addEventListener(
 
 $(document).on('click','.view-branch',function(){
 
-    let id = $(this).data('id');
+    let id = $(this).data('id');   
 
 
     $.get(
@@ -553,7 +948,96 @@ $(document).on('click','.view-branch',function(){
             // Store selected branch for KPI previews
             window.currentBranchId = branch.id;
 
+            document.getElementById(
+                'panelEditBranch'
+            ).onclick = function () {
 
+                $('#branchInspector')
+                    .removeClass('open');
+
+                $('#branchInspectorOverlay')
+                    .removeClass('show');
+
+                openEditBranchModal(
+                    window.currentBranchId
+                );
+
+            };
+
+            document.getElementById(
+                'panelDeleteBranch'
+            ).onclick = function () {
+
+                $('#branchInspector')
+                    .removeClass('open');
+
+                $('#branchInspectorOverlay')
+                    .removeClass('show');
+
+                openDeleteBranchModal({
+
+                    id: branch.id,
+
+                    name: branch.name
+
+                });
+
+                
+            };
+
+            const toggleButton =
+
+                    document.getElementById(
+                        'panelToggleBranchStatus'
+                    );
+
+                if(branch.status){
+
+                    toggleButton.className =
+                        'btn btn-outline-warning flex-fill';
+
+                    toggleButton.innerHTML = `
+
+                        <i class="bi bi-pause-circle"></i>
+
+                        Disable
+
+                    `;
+
+                }
+                else{
+
+                    toggleButton.className =
+                        'btn btn-outline-success flex-fill';
+
+                    toggleButton.innerHTML = `
+
+                        <i class="bi bi-play-circle"></i>
+
+                        Enable
+
+                    `;
+
+                }
+
+                toggleButton.onclick = function () {
+
+                    $('#branchInspector').removeClass('open');
+                    $('#branchInspectorOverlay').removeClass('show');
+
+                    Branches.openToggleStatusModal({
+
+                        id: branch.id,
+
+                        name: branch.name,
+
+                        status: branch.status
+
+                    });
+
+                };
+
+            
 
             $('#inspectorBranchName')
                 .text(branch.name);
@@ -616,6 +1100,7 @@ $(document).on('click','.view-branch',function(){
     );
 
 
+
 });
 
 
@@ -635,6 +1120,7 @@ $('#closeBranchInspector, #branchInspectorOverlay')
     // optional clear
     window.currentBranchId = null;
 
+   
 
 });
 
@@ -645,7 +1131,7 @@ $(document).on('click','.branch-preview-btn',function(){
 
     let branchId = window.currentBranchId;
 
-    this.currentBranchId = branch.id;
+    
 
 
     if(!branchId){
@@ -946,6 +1432,8 @@ $(document).on('click','.branch-preview-btn',function(){
         }
     );
 
+   
+
 
 });
 
@@ -954,5 +1442,25 @@ function(id)
 {
 
     Branches.edit(id);
+
+};
+
+window.openDeleteBranchModal =
+function(branch)
+{
+
+    Branches.openDeleteBranchModal(
+        branch
+    );
+
+};
+
+window.openToggleBranchStatusModal =
+function(branch)
+{
+
+    Branches.openToggleStatusModal(
+        branch
+    );
 
 };

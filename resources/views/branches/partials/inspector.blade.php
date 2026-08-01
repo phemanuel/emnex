@@ -269,9 +269,7 @@
 
     <div class="branch-inspector-footer">
 
-
         <div class="d-flex gap-2">
-
 
             <button
                 class="btn btn-primary flex-fill"
@@ -283,9 +281,19 @@
 
             </button>
 
+            <button
+                class="btn btn-outline-warning flex-fill"
+                id="panelToggleBranchStatus">
 
+                <i class="bi bi-pause-circle"></i>
 
-            <button class="btn btn-outline-danger flex-fill">
+                Disable
+
+            </button>
+
+            <button
+                class="btn btn-outline-danger flex-fill"
+                id="panelDeleteBranch">
 
                 <i class="bi bi-trash"></i>
 
@@ -293,12 +301,9 @@
 
             </button>
 
-
         </div>
 
-
     </div>
-
 
 
 </div>
