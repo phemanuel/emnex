@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\TaxRateController;
 use App\Http\Controllers\Admin\DiscountController;
 
+use App\Http\Controllers\Admin\PosController;
+
 use App\Http\Controllers\Admin\StockOverviewController;
 use App\Http\Controllers\Admin\StockAdjustmentController;
 use App\Http\Controllers\Admin\StockTransferController;
@@ -426,11 +428,11 @@ Route::middleware('auth')->group(function () {
         ->controller(SettingController::class)
         ->group(function(){
 
-           Route::get('/settings', [SettingsController::class, 'index'])
+           Route::get('/general', [SettingsController::class, 'index'])
                 ->name('index');
 
 
-            Route::put('/settings', [SettingsController::class, 'update'])
+            Route::put('/general', [SettingsController::class, 'update'])
                 ->name('update');
 
 
@@ -441,10 +443,31 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::resource(
-        'document-sequences',
-        DocumentSequenceController::class
-    );
+    Route::prefix('document-sequences')
+    ->name('document-sequences.')
+    ->group(function () {
+
+        Route::get(
+            '/',
+            [DocumentSequenceController::class, 'index']
+        )->name('index');
+
+        Route::get(
+            '/{documentSequence}/edit',
+            [DocumentSequenceController::class, 'edit']
+        )->name('edit');
+
+        Route::put(
+            '/{documentSequence}',
+            [DocumentSequenceController::class, 'update']
+        )->name('update');
+
+        Route::patch(
+            '/{documentSequence}/toggle-status',
+            [DocumentSequenceController::class, 'toggleStatus']
+        )->name('toggle-status');
+
+    });
 
 
     Route::resource(

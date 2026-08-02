@@ -23,11 +23,27 @@ class DocumentSequence extends Model
     */
 
     protected $fillable = [
+
         'company_id',
+
         'document_type',
+
         'prefix',
+
+        'suffix',
+
+        'separator',
+
         'current_number',
+
         'number_length',
+
+        'reset_frequency',
+
+        'last_reset_at',
+
+        'status',
+
     ];
 
     /*
@@ -39,9 +55,17 @@ class DocumentSequence extends Model
     protected function casts(): array
     {
         return [
-            'company_id'     => 'integer',
-            'current_number' => 'integer',
-            'number_length'  => 'integer',
+
+            'company_id'      => 'integer',
+
+            'current_number'  => 'integer',
+
+            'number_length'   => 'integer',
+
+            'last_reset_at'   => 'datetime',
+
+            'status'          => 'boolean',
+
         ];
     }
 
@@ -73,6 +97,11 @@ class DocumentSequence extends Model
         return $query->where('document_type', $type);
     }
 
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('status', true);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Helper Methods
@@ -87,13 +116,19 @@ class DocumentSequence extends Model
      */
     public function nextNumber(): string
     {
-        return $this->prefix .
-            str_pad(
-                $this->current_number,
-                $this->number_length,
-                '0',
-                STR_PAD_LEFT
-            );
+        $number = str_pad(
+            $this->current_number,
+            $this->number_length,
+            '0',
+            STR_PAD_LEFT
+        );
+
+        return collect([
+            $this->prefix,
+            $number . ($this->suffix ?? ''),
+        ])
+        ->filter()
+        ->implode($this->separator);
     }
 
     /**
@@ -111,10 +146,47 @@ class DocumentSequence extends Model
      */
     public function generate(): string
     {
-        $number = $this->nextNumber();
+        $number = $this->formattedNumber(
+            $this->current_number
+        );
 
-        $this->incrementSequence();
+        $this->increment('current_number');
+
+        $this->refresh();
 
         return $number;
     }
+
+    public function formattedNumber(int $number): string
+    {
+        return
+            $this->prefix
+            . $this->separator
+            . str_pad(
+                $number,
+                $this->number_length,
+                '0',
+                STR_PAD_LEFT
+            )
+            . ($this->suffix ?? '');
+    }
+
+    public function shouldReset(): bool
+    {
+        // Reset logic will be implemented
+        // when integrating with POS, Sales,
+        // and Purchasing modules.
+
+        return false;
+    }
+
+    /**
+     * Determine if the sequence is enabled.
+     */
+    public function isEnabled(): bool
+    {
+        return $this->status;
+    }
+
+    
 }
