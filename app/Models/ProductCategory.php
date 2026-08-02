@@ -9,14 +9,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 /**
- * ProductCategory Model
+ * Product Category Model
  *
- * Represents a product category within a company.
+ * Handles product classification.
+ *
+ * Example:
+ *
+ * Electronics
+ *      |
+ *      Phones
+ *
  */
 class ProductCategory extends Model
 {
+
     use HasFactory, SoftDeletes;
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -25,11 +36,30 @@ class ProductCategory extends Model
     */
 
     protected $fillable = [
+
         'company_id',
+
+        'category_code',
+
         'name',
+
         'description',
+
+        'parent_id',
+
+        'image',
+
+        'sort_order',
+
         'status',
+
+        'created_by',
+
+        'updated_by',
+
     ];
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -40,10 +70,19 @@ class ProductCategory extends Model
     protected function casts(): array
     {
         return [
+
             'company_id' => 'integer',
-            'status'     => 'boolean',
+
+            'parent_id' => 'integer',
+
+            'sort_order' => 'integer',
+
+            'status' => 'boolean',
+
         ];
     }
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -51,21 +90,46 @@ class ProductCategory extends Model
     |--------------------------------------------------------------------------
     */
 
+
+
     /**
      * Company
      */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(Company::class);
     }
 
-    /**
-     * Products
-     */
-    public function products(): HasMany
+
+    public function parent(): BelongsTo
     {
-        return $this->hasMany(Product::class, 'category_id');
+        return $this->belongsTo(ProductCategory::class, 'parent_id');
     }
+
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(ProductCategory::class, 'parent_id');
+    }
+
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'created_by'
+        );
+    }
+
+
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'updated_by'
+        );
+    } 
+
 
     /*
     |--------------------------------------------------------------------------
@@ -73,21 +137,42 @@ class ProductCategory extends Model
     |--------------------------------------------------------------------------
     */
 
+
+
     /**
      * Active categories only.
      */
-    public function scopeActive(Builder $query): Builder
+    public function scopeActive(
+        Builder $query
+    ): Builder
     {
-        return $query->where('status', true);
+
+        return $query->where(
+            'status',
+            true
+        );
+
     }
+
+
 
     /**
      * Categories for a specific company.
      */
-    public function scopeForCompany(Builder $query, int $companyId): Builder
+    public function scopeForCompany(
+        Builder $query,
+        int $companyId
+    ): Builder
     {
-        return $query->where('company_id', $companyId);
+
+        return $query->where(
+            'company_id',
+            $companyId
+        );
+
     }
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -95,19 +180,30 @@ class ProductCategory extends Model
     |--------------------------------------------------------------------------
     */
 
+
+
     /**
      * Check if category is active.
      */
     public function isActive(): bool
     {
+
         return $this->status;
+
     }
+
+
 
     /**
      * Display category name.
      */
     public function displayName(): string
     {
+
         return $this->name;
+
     }
+
+
+
 }

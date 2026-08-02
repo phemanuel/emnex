@@ -268,8 +268,8 @@
 
             </a>
 
-            <a href="{{ route('categories.index') }}"
-            class="{{ request()->routeIs('categories.*') ? 'active' : '' }}">
+            <a href="{{ route('product-categories.index') }}"
+            class="{{ request()->routeIs('product-categories.*') ? 'active' : '' }}">
 
                 <span class="sub-icon">
                     <i class="bi bi-grid-3x3-gap"></i>

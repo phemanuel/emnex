@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/document-sequences.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/payment-method.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/activity-log.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/product-category.css') }}">
 
 </head>
 

@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\TaxRateController;
 use App\Http\Controllers\Admin\DiscountController;
@@ -111,7 +111,44 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('products', ProductController::class);
 
-    Route::resource('categories', CategoryController::class);
+    /*
+|--------------------------------------------------------------------------
+| Product Categories
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('product-categories')
+    ->name('product-categories.')
+    ->group(function () {
+
+        Route::get('/',[ProductCategoryController::class,'index'])
+        ->name('index');
+
+        Route::get('/statistics',[ProductCategoryController::class,'statistics'])
+        ->name('statistics');
+
+        Route::post('/',[ProductCategoryController::class,'store'])
+        ->name('store');  
+        
+        Route::get('/next-code',[ProductCategoryController::class,'nextCode'])
+        ->name('next-code');
+
+        Route::get('/{id}/edit',[ProductCategoryController::class,'edit'])
+        ->name('edit');        
+
+        Route::put('/{id}',[ProductCategoryController::class,'update'])
+        ->name('update');
+
+        Route::get('/{id}/details',[ProductCategoryController::class,'details'])
+        ->name('details');
+
+        Route::delete('/{id}',[ProductCategoryController::class,'destroy'])
+        ->name('destroy');
+
+        Route::patch('/{id}/toggle-status',[ProductCategoryController::class,'toggleStatus'])
+        ->name('toggle-status');
+
+    });
 
     Route::resource('units', UnitController::class);
 
