@@ -43,7 +43,7 @@ use App\Http\Controllers\Admin\TerminalController;
 
 use App\Http\Controllers\Admin\ReportController;
 
-use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DocumentSequenceController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\AuditLogController;
@@ -426,14 +426,16 @@ Route::middleware('auth')->group(function () {
         ->controller(SettingController::class)
         ->group(function(){
 
-            Route::get('/', 'index')
+           Route::get('/settings', [SettingsController::class, 'index'])
                 ->name('index');
 
-            Route::get('/pos','pos')
-                ->name('pos');
 
-            Route::get('/receipt','receipt')
-                ->name('receipt');
+            Route::put('/settings', [SettingsController::class, 'update'])
+                ->name('update');
+
+
+            Route::patch('/settings/toggle-status', [SettingsController::class, 'toggleStatus'])
+                ->name('toggle-status');
 
         });
 

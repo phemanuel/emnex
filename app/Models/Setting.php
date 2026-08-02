@@ -23,6 +23,7 @@ class Setting extends Model
     */
 
     protected $fillable = [
+
         'company_id',
 
         // Company
@@ -47,6 +48,8 @@ class Setting extends Model
         'receipt_header',
         'receipt_footer',
         'receipt_width',
+        'print_logo',
+        'print_barcode',
 
         // Inventory
         'low_stock_alert',
@@ -55,10 +58,13 @@ class Setting extends Model
         // Sales
         'allow_price_override',
         'allow_discount',
+        'enable_customer_credit',
         'default_customer_id',
 
-        // General
+        // System
+        'maintenance_mode',
         'status',
+
     ];
 
     /*
@@ -68,16 +74,33 @@ class Setting extends Model
     */
 
     protected function casts(): array
-    {
-        return [
-            'tax_enabled'          => 'boolean',
-            'allow_negative_stock' => 'boolean',
-            'allow_price_override' => 'boolean',
-            'allow_discount'       => 'boolean',
-            'status'               => 'boolean',
-            'tax_rate'             => 'decimal:2',
-        ];
-    }
+{
+    return [
+
+        'tax_enabled'            => 'boolean',
+
+        'print_logo'             => 'boolean',
+
+        'print_barcode'          => 'boolean',
+
+        'allow_negative_stock'   => 'boolean',
+
+        'allow_price_override'   => 'boolean',
+
+        'allow_discount'         => 'boolean',
+
+        'enable_customer_credit' => 'boolean',
+
+        'maintenance_mode'       => 'boolean',
+
+        'status'                 => 'boolean',
+
+        'tax_rate'               => 'decimal:2',
+
+        'low_stock_alert'        => 'integer',
+
+    ];
+}
 
     /*
     |--------------------------------------------------------------------------

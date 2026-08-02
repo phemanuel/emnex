@@ -813,29 +813,7 @@
 
             <span>General</span>
 
-        </a>
-
-        <a href="{{ route('settings.pos') }}"
-           class="{{ request()->routeIs('settings.pos') ? 'active' : '' }}">
-
-            <span class="sub-icon">
-                <i class="bi bi-display"></i>
-            </span>
-
-            <span>POS Settings</span>
-
-        </a>
-
-        <a href="{{ route('settings.receipt') }}"
-           class="{{ request()->routeIs('settings.receipt') ? 'active' : '' }}">
-
-            <span class="sub-icon">
-                <i class="bi bi-receipt-cutoff"></i>
-            </span>
-
-            <span>Receipt Settings</span>
-
-        </a>
+        </a>       
 
         <a href="{{ route('document-sequences.index') }}"
            class="{{ request()->routeIs('document-sequences.*') ? 'active' : '' }}">
