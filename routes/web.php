@@ -387,7 +387,33 @@ Route::middleware('auth')->group(function () {
 
             });
 
+    Route::prefix('terminals')
+    ->name('terminals.')
+    ->group(function () {       
 
+        Route::get('/', [TerminalController::class, 'index'])
+            ->name('index');
+
+        Route::post('/', [TerminalController::class, 'store'])
+            ->name('store');
+
+        Route::get('/{terminal}/details', [TerminalController::class, 'details'])
+            ->name('details');
+
+        Route::get('/{terminal}/edit', [TerminalController::class, 'edit'])
+            ->name('edit');
+
+
+        Route::put('/{terminal}', [TerminalController::class, 'update'])
+            ->name('update');
+
+        Route::delete('/{terminal}', [TerminalController::class, 'destroy'])
+            ->name('destroy');
+
+        Route::patch('/{terminal}/toggle-status', [TerminalController::class, 'toggleStatus'])
+            ->name('toggle-status');
+
+    });
 
     /*
     |--------------------------------------------------------------------------

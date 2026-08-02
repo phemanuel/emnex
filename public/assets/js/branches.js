@@ -290,17 +290,23 @@ const Branches = {
                 );
 
                 showToast(
+
                     'Please correct the highlighted fields.',
+
                     'warning'
+
                 );
 
             }
             else{
 
                 showToast(
+
                     data.message ??
                     'Unable to create branch.',
-                    'error'
+
+                    data.type ?? 'warning'
+
                 );
 
             }

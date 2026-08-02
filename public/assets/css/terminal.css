@@ -1,0 +1,789 @@
+/*
+|--------------------------------------------------------------------------
+| Terminal Management
+|--------------------------------------------------------------------------
+*/
+
+
+/* 
+|--------------------------------------------------------------------------
+| KPI Cards
+|--------------------------------------------------------------------------
+*/
+
+.terminal-stat-card {
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    height: 100%;
+
+    transition: all .25s ease;
+
+}
+
+
+.terminal-stat-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 25px rgba(15,23,42,.08);
+
+}
+
+
+
+.terminal-stat-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 24px;
+
+    background: #f1f5f9;
+
+}
+
+
+
+.terminal-stat-card span {
+
+    display:block;
+
+    font-size:13px;
+
+    color:#64748b;
+
+    margin-bottom:5px;
+
+}
+
+
+
+.terminal-stat-card h3 {
+
+    margin:0;
+
+    font-size:26px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Terminal Directory Card
+|--------------------------------------------------------------------------
+*/
+
+
+.terminal-card {
+
+    background:#ffffff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+
+
+.terminal-card-header {
+
+    padding:22px 24px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+
+
+.terminal-card-header h5 {
+
+    margin:0;
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+
+
+.terminal-card-header small {
+
+    color:#64748b;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Search
+|--------------------------------------------------------------------------
+*/
+
+
+.terminal-search {
+
+    position:relative;
+
+    width:280px;
+
+}
+
+
+
+.terminal-search i {
+
+    position:absolute;
+
+    left:14px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#94a3b8;
+
+}
+
+
+
+.terminal-search input {
+
+    padding-left:40px;
+
+    border-radius:12px;
+
+    border:1px solid #e2e8f0;
+
+    height:42px;
+
+}
+
+
+
+.terminal-search input:focus {
+
+    box-shadow:none;
+
+    border-color:#2563eb;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Table
+|--------------------------------------------------------------------------
+*/
+
+
+.terminal-table {
+
+    margin:0;
+
+}
+
+
+
+.terminal-table thead th {
+
+    background:#f8fafc;
+
+    color:#64748b;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.04em;
+
+    padding:14px 20px;
+
+}
+
+
+
+.terminal-table tbody td {
+
+    padding:18px 20px;
+
+    vertical-align:middle;
+
+}
+
+
+
+.terminal-row {
+
+    cursor:pointer;
+
+    transition:.2s ease;
+
+}
+
+
+
+.terminal-row:hover {
+
+    background:#f8fafc;
+
+}
+
+
+
+.terminal-name {
+
+    font-weight:600;
+
+    color:#0f172a;
+
+}
+
+
+
+.terminal-code {
+
+    font-size:13px;
+
+    color:#64748b;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Status Badge
+|--------------------------------------------------------------------------
+*/
+
+
+.terminal-status {
+
+    padding:6px 12px;
+
+    border-radius:50px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+
+
+.terminal-status.active {
+
+    background:#dcfce7;
+
+    color:#166534;
+
+}
+
+
+
+.terminal-status.disabled {
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Inspector Panel Trigger
+|--------------------------------------------------------------------------
+*/
+
+
+.terminal-action-btn {
+
+    width:36px;
+
+    height:36px;
+
+    border-radius:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:1px solid #e2e8f0;
+
+    background:white;
+
+    transition:.2s ease;
+
+}
+
+
+
+.terminal-action-btn:hover {
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Empty State
+|--------------------------------------------------------------------------
+*/
+
+
+.terminal-empty {
+
+    padding:60px 20px;
+
+    text-align:center;
+
+}
+
+
+
+.terminal-empty i {
+
+    font-size:55px;
+
+    color:#cbd5e1;
+
+}
+
+
+
+.terminal-empty h5 {
+
+    margin-top:15px;
+
+    font-weight:700;
+
+}
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+
+@media(max-width:768px){
+
+
+    .terminal-card-header {
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+
+    .terminal-search {
+
+        width:100%;
+
+    }
+
+
+    .terminal-table {
+
+        min-width:900px;
+
+    }
+
+}
+
+/* ======================================
+   Terminal Inspector
+====================================== */
+
+
+.terminal-profile{
+
+
+    padding:10px;
+
+
+}
+
+
+
+.terminal-header{
+
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:20px;
+
+    background:#f8fafc;
+
+    border-radius:16px;
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+.terminal-icon{
+
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:25px;
+
+    background:#0d6efd;
+
+    color:white;
+
+
+}
+
+
+
+.terminal-code{
+
+
+    color:#64748b;
+
+    font-size:13px;
+
+}
+
+
+
+
+.terminal-info-card{
+
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+/* =================================
+ Terminal Detail Grid
+================================= */
+
+
+.terminal-detail-grid{
+
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(2,1fr);
+
+    gap:15px;
+
+
+}
+
+
+
+
+.terminal-detail-item{
+
+
+    background:#f8fafc;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+
+}
+
+
+
+.detail-label{
+
+
+    font-size:12px;
+
+    color:#64748b;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+
+}
+
+
+
+.detail-value{
+
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#1e293b;
+
+    word-break:break-word;
+
+
+}
+
+
+
+
+.status-badge{
+
+
+    display:inline-flex;
+
+    width:max-content;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+
+}
+
+
+
+.status-badge.active{
+
+
+    background:#dcfce7;
+
+    color:#166534;
+
+
+}
+
+
+
+.status-badge.inactive{
+
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+
+}
+
+
+
+.info-item:last-child{
+
+    border-bottom:none;
+
+}
+
+
+
+.info-item span:first-child{
+
+    color:#64748b;
+
+}
+
+
+
+
+
+.terminal-actions h6{
+
+
+    font-weight:600;
+
+    margin-bottom:12px;
+
+
+}
+
+
+
+.action-grid{
+
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(2,1fr);
+
+    gap:12px;
+
+
+}
+
+
+
+.terminal-panel-btn{
+
+
+    border:none;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    font-weight:500;
+
+    transition:.2s;
+
+
+}
+
+
+
+.terminal-panel-btn:hover{
+
+
+    transform:translateY(-2px);
+
+
+}
+
+
+
+.terminal-panel-btn.primary{
+
+
+    background:#2563eb;
+
+    color:white;
+
+
+}
+
+
+
+.terminal-panel-btn.warning{
+
+
+    background:#f59e0b;
+
+    color:white;
+
+
+}
+
+
+
+.terminal-panel-btn.danger{
+
+
+    background:#dc2626;
+
+    color:white;
+
+
+}
+
+
+
+#panelDeleteTerminal{
+
+
+    grid-column:span 2;
+
+}

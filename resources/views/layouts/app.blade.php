@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/components/modals.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/role-permissions.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/users.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/terminal.css') }}">
 
 </head>
 

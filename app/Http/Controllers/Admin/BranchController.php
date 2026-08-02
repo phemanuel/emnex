@@ -282,11 +282,14 @@ class BranchController extends BaseController
 
                     'max:50',
 
-                    Rule::unique('branches')
+                    Rule::unique('branches', 'branch_code')
+
                         ->where(function ($query) use ($companyId) {
 
                             return $query
+
                                 ->where('company_id', $companyId)
+
                                 ->whereNull('deleted_at');
 
                         })
@@ -301,11 +304,14 @@ class BranchController extends BaseController
 
                     'max:150',
 
-                    Rule::unique('branches')
+                    Rule::unique('branches', 'name')
+
                         ->where(function ($query) use ($companyId) {
 
                             return $query
+
                                 ->where('company_id', $companyId)
+
                                 ->whereNull('deleted_at');
 
                         })
@@ -357,6 +363,145 @@ class BranchController extends BaseController
                 ]
 
             ]);
+
+           $existingBranch = Branch::where('company_id', $companyId)
+
+                ->whereNull('deleted_at')
+
+                ->where(function ($query) use ($validated) {
+
+                    $query
+
+                        ->where('branch_code', $validated['branch_code'])
+
+                        ->orWhere('name', $validated['name']);
+
+                    if (!empty($validated['email'])) {
+
+                        $query->orWhere('email', $validated['email']);
+
+                    }
+
+                })
+
+                ->first();
+
+            if ($existingBranch) {
+
+                if ($existingBranch->branch_code === $validated['branch_code']) {
+
+                    return response()->json([
+
+                        'success' => false,
+
+                        'type' => 'warning',
+
+                        'message' => 'The Branch Code "' . $validated['branch_code'] . '" is already assigned to another branch.'
+
+                    ], 409);
+
+                }
+
+                if ($existingBranch->name === $validated['name']) {
+
+                    return response()->json([
+
+                        'success' => false,
+
+                        'type' => 'warning',
+
+                        'message' => 'A branch with the name "' . $validated['name'] . '" already exists.'
+
+                    ], 409);
+
+                }
+
+                if (
+                    !empty($validated['email']) &&
+                    $existingBranch->email === $validated['email']
+                ) {
+
+                    return response()->json([
+
+                        'success' => false,
+
+                        'type' => 'warning',
+
+                        'message' => 'The email address "' . $validated['email'] . '" is already being used by another branch.'
+
+                    ], 409);
+
+                }
+
+            }
+
+            $deletedBranch = Branch::onlyTrashed()
+
+            ->where('company_id', $companyId)
+
+            ->where(function ($query) use ($validated) {
+
+                $query
+
+                    ->where('branch_code', $validated['branch_code'])
+
+                    ->orWhere('name', $validated['name']);
+
+            })
+
+            ->first();
+
+            if ($deletedBranch) {
+
+                $oldValues = $deletedBranch->toArray();
+
+                $deletedBranch->restore();
+
+                $deletedBranch->update([
+
+                    'branch_code'    => $validated['branch_code'],
+
+                    'name'           => $validated['name'],
+
+                    'email'          => $validated['email'],
+
+                    'phone'          => $validated['phone'],
+
+                    'address'        => $validated['address'],
+
+                    'status'         => $validated['status'],
+
+                    'is_head_office' => $validated['is_head_office'] ?? false,
+
+                ]);
+
+                $this->activityLogger->log(
+
+                    'Branch Management',
+
+                    'Restored',
+
+                    "Restored branch {$deletedBranch->name}",
+
+                    $deletedBranch,
+
+                    $oldValues,
+
+                    $deletedBranch->fresh()->toArray()
+
+                );
+
+                return response()->json([
+
+                    'success' => true,
+
+                    'type'    => 'success',
+
+                    'message' => 'A previously deleted branch has been restored successfully.'
+
+                ]);
+
+            }
 
             DB::transaction(function () use (
                 $validated,

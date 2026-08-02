@@ -25,13 +25,25 @@ class Terminal extends Model
     */
 
     protected $fillable = [
+
         'company_id',
+
         'branch_id',
+
         'terminal_code',
+
         'terminal_name',
+
+        'description',
+
         'device_name',
+
         'ip_address',
+
         'status',
+
+        'last_seen_at',
+
     ];
 
     /*
@@ -41,7 +53,11 @@ class Terminal extends Model
     */
 
     protected $casts = [
+
         'status' => 'boolean',
+
+        'last_seen_at' => 'datetime',
+
     ];
 
     /*
