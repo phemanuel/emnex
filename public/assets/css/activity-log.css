@@ -1,0 +1,1227 @@
+/*==========================================================
+    EMNEX POS
+    Audit Logs Module
+    Enterprise UI
+==========================================================*/
+
+
+/*==========================================================
+    Page Header
+==========================================================*/
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:2rem;
+
+    margin-bottom:2rem;
+
+}
+
+.page-title{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    margin-bottom:.45rem;
+
+}
+
+.page-subtitle{
+
+    color:#64748b;
+
+    margin-bottom:0;
+
+    font-size:.95rem;
+
+}
+
+
+/*==========================================================
+    Statistics
+==========================================================*/
+
+.audit-stat-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:1.35rem;
+
+    border:1px solid #edf2f7;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    height:100%;
+
+    transition:.25s;
+
+    box-shadow:0 2px 12px rgba(15,23,42,.04);
+
+}
+
+.audit-stat-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(15,23,42,.08);
+
+}
+
+.audit-stat-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:1.5rem;
+
+    flex-shrink:0;
+
+}
+
+.audit-stat-content{
+
+    flex:1;
+
+}
+
+.audit-stat-content span{
+
+    display:block;
+
+    color:#64748b;
+
+    font-size:.82rem;
+
+    margin-bottom:5px;
+
+}
+
+.audit-stat-content h3{
+
+    margin:0;
+
+    font-size:1.75rem;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+
+/*==========================================================
+    Main Panel
+==========================================================*/
+
+.audit-panel{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    border:1px solid #edf2f7;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 30px rgba(15,23,42,.05);
+
+}
+
+
+/*==========================================================
+    Toolbar
+==========================================================*/
+
+.audit-toolbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:1.5rem;
+
+    border-bottom:1px solid #edf2f7;
+
+    background:#fbfcfd;
+
+}
+
+.audit-toolbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.audit-title h4{
+
+    margin:0;
+
+    font-size:1.25rem;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.audit-title span{
+
+    display:block;
+
+    margin-top:4px;
+
+    color:#64748b;
+
+    font-size:.85rem;
+
+}
+
+.audit-toolbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+
+/*==========================================================
+    Search
+==========================================================*/
+
+.audit-search{
+
+    position:relative;
+
+    width:320px;
+
+}
+
+.audit-search i{
+
+    position:absolute;
+
+    left:16px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#94a3b8;
+
+    font-size:.9rem;
+
+}
+
+.audit-search input{
+
+    padding-left:44px;
+
+    border-radius:12px;
+
+    border:1px solid #dbe4ee;
+
+    height:46px;
+
+    box-shadow:none;
+
+}
+
+.audit-search input:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 .18rem rgba(37,99,235,.08);
+
+}
+
+
+/*==========================================================
+    Selects
+==========================================================*/
+
+.audit-toolbar select{
+
+    width:170px;
+
+    border-radius:12px;
+
+    height:46px;
+
+    border:1px solid #dbe4ee;
+
+    box-shadow:none;
+
+}
+
+.audit-toolbar select:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 .18rem rgba(37,99,235,.08);
+
+}
+
+
+/*==========================================================
+    Table Wrapper
+==========================================================*/
+
+.audit-panel .table-responsive{
+
+    overflow-x:auto;
+
+}
+
+.audit-modern-table{
+
+    margin:0;
+
+    min-width:1100px;
+
+}
+
+
+/*==========================================================
+    Table Header
+==========================================================*/
+
+.audit-modern-table thead{
+
+    background:#f8fafc;
+
+}
+
+.audit-modern-table thead th{
+
+    border:none;
+
+    color:#64748b;
+
+    font-size:.74rem;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+
+    font-weight:700;
+
+    padding:18px 24px;
+
+    white-space:nowrap;
+
+    position:sticky;
+
+    top:0;
+
+    background:#f8fafc;
+
+    z-index:2;
+
+}
+
+
+/*==========================================================
+    Table Rows
+==========================================================*/
+
+.audit-modern-table tbody tr{
+
+    transition:.2s;
+
+    border-bottom:1px solid #f1f5f9;
+
+}
+
+.audit-modern-table tbody tr:hover{
+
+    background:#f8fbff;
+
+}
+
+.audit-modern-table tbody td{
+
+    padding:22px 24px;
+
+    vertical-align:middle;
+
+    border:none;
+
+}
+
+
+/*==========================================================
+    Time
+==========================================================*/
+
+.audit-time{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.audit-time strong{
+
+    color:#0f172a;
+
+    font-size:.92rem;
+
+}
+
+.audit-time small{
+
+    color:#94a3b8;
+
+    margin-top:4px;
+
+}
+
+
+/*==========================================================
+    Footer
+==========================================================*/
+
+.audit-footer{
+
+    padding:1rem 1.5rem;
+
+    border-top:1px solid #edf2f7;
+
+    background:#fff;
+
+}
+
+
+/*==========================================================
+    Bootstrap Pagination
+==========================================================*/
+
+.audit-footer .pagination{
+
+    margin:0;
+
+}
+
+.audit-footer .page-link{
+
+    border-radius:10px;
+
+    margin:0 3px;
+
+    border:1px solid #dbe4ee;
+
+    color:#334155;
+
+    min-width:38px;
+
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.audit-footer .page-item.active .page-link{
+
+    background:#2563eb;
+
+    border-color:#2563eb;
+
+}
+
+.audit-footer svg{
+
+    width:14px !important;
+
+    height:14px !important;
+
+}
+
+/*==========================================================
+    Activity Column
+==========================================================*/
+
+.audit-activity{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:16px;
+
+}
+
+.activity-content{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.activity-description{
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    color:#0f172a;
+
+    line-height:1.5;
+
+    margin-bottom:8px;
+
+    word-break:break-word;
+
+}
+
+.activity-meta{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+}
+
+.activity-meta span{
+
+    background:#f8fafc;
+
+    color:#64748b;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:20px;
+
+    padding:4px 12px;
+
+    font-size:.75rem;
+
+    font-weight:500;
+
+}
+
+
+/*==========================================================
+    Action Badges
+==========================================================*/
+
+.activity-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:78px;
+
+    height:34px;
+
+    border-radius:30px;
+
+    font-size:.72rem;
+
+    font-weight:700;
+
+    letter-spacing:.05em;
+
+    flex-shrink:0;
+
+}
+
+.activity-create{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+.activity-update{
+
+    background:#fef3c7;
+
+    color:#b45309;
+
+}
+
+.activity-delete{
+
+    background:#fee2e2;
+
+    color:#b91c1c;
+
+}
+
+.activity-restore{
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+}
+
+.activity-login{
+
+    background:#ede9fe;
+
+    color:#6d28d9;
+
+}
+
+.activity-logout{
+
+    background:#f3f4f6;
+
+    color:#475569;
+
+}
+
+.activity-view{
+
+    background:#e0f2fe;
+
+    color:#0369a1;
+
+}
+
+.activity-export{
+
+    background:#ecfccb;
+
+    color:#4d7c0f;
+
+}
+
+.activity-import{
+
+    background:#cffafe;
+
+    color:#0f766e;
+
+}
+
+
+/*==========================================================
+    User Card
+==========================================================*/
+
+.audit-user-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.audit-avatar{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:700;
+
+    font-size:1rem;
+
+    flex-shrink:0;
+
+    box-shadow:0 6px 16px rgba(37,99,235,.18);
+
+}
+
+.audit-user-name{
+
+    font-weight:600;
+
+    color:#0f172a;
+
+    margin-bottom:3px;
+
+}
+
+.audit-user-role{
+
+    color:#64748b;
+
+    font-size:.82rem;
+
+}
+
+
+/*==========================================================
+    Location
+==========================================================*/
+
+.audit-location{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.audit-location div{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#475569;
+
+    font-size:.88rem;
+
+}
+
+.audit-location i{
+
+    color:#94a3b8;
+
+}
+
+
+/*==========================================================
+    Inspector Button
+==========================================================*/
+
+.btn-inspect{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:12px;
+
+    border:1px solid #dbe4ee;
+
+    background:#fff;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.25s;
+
+    color:#2563eb;
+
+}
+
+.btn-inspect:hover{
+
+    background:#2563eb;
+
+    color:#fff;
+
+    border-color:#2563eb;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(37,99,235,.18);
+
+}
+
+
+/*==========================================================
+    Empty State
+==========================================================*/
+
+.audit-empty{
+
+    padding:90px 30px;
+
+    text-align:center;
+
+}
+
+.audit-empty i{
+
+    font-size:4rem;
+
+    color:#cbd5e1;
+
+    margin-bottom:22px;
+
+}
+
+.audit-empty h5{
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    margin-bottom:10px;
+
+}
+
+.audit-empty p{
+
+    color:#64748b;
+
+    max-width:420px;
+
+    margin:auto;
+
+}
+
+
+/*==========================================================
+    Hover Animation
+==========================================================*/
+
+.audit-modern-table tbody tr{
+
+    position:relative;
+
+}
+
+.audit-modern-table tbody tr::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    bottom:0;
+
+    width:0;
+
+    background:#2563eb;
+
+    transition:.25s;
+
+}
+
+.audit-modern-table tbody tr:hover::after{
+
+    width:4px;
+
+}
+
+
+/*==========================================================
+    Scrollbar
+==========================================================*/
+
+.audit-panel .table-responsive::-webkit-scrollbar{
+
+    height:10px;
+
+}
+
+.audit-panel .table-responsive::-webkit-scrollbar-track{
+
+    background:#f8fafc;
+
+}
+
+.audit-panel .table-responsive::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+
+    border-radius:20px;
+
+}
+
+.audit-panel .table-responsive::-webkit-scrollbar-thumb:hover{
+
+    background:#94a3b8;
+
+}
+
+
+/*==========================================================
+    Responsive
+==========================================================*/
+
+@media (max-width:1200px){
+
+    .audit-toolbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .audit-toolbar-right{
+
+        width:100%;
+
+    }
+
+    .audit-search{
+
+        width:100%;
+
+    }
+
+}
+
+@media (max-width:992px){
+
+    .audit-toolbar-right{
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr 1fr;
+
+        gap:12px;
+
+        width:100%;
+
+    }
+
+    .audit-search{
+
+        grid-column:1/-1;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .page-header{
+
+        flex-direction:column;
+
+        gap:1rem;
+
+    }
+
+    .page-title{
+
+        font-size:1.65rem;
+
+    }
+
+    .audit-stat-card{
+
+        padding:1rem;
+
+    }
+
+    .audit-stat-icon{
+
+        width:52px;
+
+        height:52px;
+
+        font-size:1.25rem;
+
+    }
+
+    .audit-toolbar{
+
+        padding:1rem;
+
+    }
+
+    .audit-modern-table{
+
+        min-width:980px;
+
+    }
+
+    .audit-modern-table td{
+
+        padding:18px;
+
+    }
+
+}
+
+@media (max-width:576px){
+
+    .audit-toolbar-right{
+
+        display:flex;
+
+        flex-direction:column;
+
+    }
+
+    .audit-toolbar-right select{
+
+        width:100%;
+
+    }
+
+    .audit-search{
+
+        width:100%;
+
+    }
+
+    .audit-footer{
+
+        overflow:auto;
+
+    }
+
+}
+
+
+/*==========================================================
+    Utilities
+==========================================================*/
+
+.audit-text-muted{
+
+    color:#64748b;
+
+}
+
+.audit-shadow{
+
+    box-shadow:0 12px 35px rgba(15,23,42,.06);
+
+}
+
+.audit-rounded{
+
+    border-radius:18px;
+
+}
+
+.audit-border{
+
+    border:1px solid #edf2f7;
+
+}
+
+/*==========================================================
+    Audit Statistics Strip
+==========================================================*/
+
+
+.audit-stat-strip{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    padding:12px;
+
+    background:#fff;
+
+    border:1px solid #edf2f7;
+
+    border-radius:16px;
+
+    box-shadow:0 4px 15px rgba(15,23,42,.04);
+
+}
+
+
+
+.audit-mini-stat{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:8px 14px;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    min-height:52px;
+
+}
+
+
+
+.audit-mini-stat small{
+
+    display:block;
+
+    font-size:.68rem;
+
+    text-transform:uppercase;
+
+    color:#64748b;
+
+    letter-spacing:.04em;
+
+}
+
+
+
+.audit-mini-stat strong{
+
+    display:block;
+
+    font-size:1.05rem;
+
+    color:#0f172a;
+
+    line-height:1.1;
+
+}
+
+
+
+.audit-mini-icon{
+
+    width:32px;
+
+    height:32px;
+
+    border-radius:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:.9rem;
+
+}
+
+
+/* Colors */
+
+.audit-mini-icon.primary{
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
+}
+
+
+.audit-mini-icon.success{
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+}
+
+
+.audit-mini-icon.warning{
+
+    background:#fef3c7;
+
+    color:#d97706;
+
+}
+
+
+.audit-mini-icon.danger{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+
+.audit-mini-icon.info{
+
+    background:#cffafe;
+
+    color:#0891b2;
+
+}
+
+
+.audit-mini-icon.secondary{
+
+    background:#e2e8f0;
+
+    color:#475569;
+
+}
+
+
+.audit-mini-icon.purple{
+
+    background:#ede9fe;
+
+    color:#7c3aed;
+
+}
+
+
+.audit-mini-icon.dark{
+
+    background:#e5e7eb;
+
+    color:#111827;
+
+}

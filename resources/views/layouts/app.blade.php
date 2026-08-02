@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/terminal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/settings.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/document-sequences.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/payment-method.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/activity-log.css') }}">
 
 </head>
 

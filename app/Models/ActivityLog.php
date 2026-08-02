@@ -58,14 +58,25 @@ class ActivityLog extends Model
     protected function casts(): array
     {
         return [
+
             'company_id'  => 'integer',
+
             'branch_id'   => 'integer',
+
             'terminal_id' => 'integer',
+
             'user_id'     => 'integer',
+
             'record_id'   => 'integer',
 
             'old_values'  => 'array',
+
             'new_values'  => 'array',
+
+            'created_at'  => 'datetime',
+
+            'updated_at'  => 'datetime',
+
         ];
     }
 
@@ -137,6 +148,105 @@ class ActivityLog extends Model
         return $query->where('user_id', $userId);
     }
 
+    /**
+     * Filter by branch.
+     */
+    public function scopeBranch(
+        Builder $query,
+        int $branchId
+    ): Builder {
+
+        return $query->where(
+            'branch_id',
+            $branchId
+        );
+
+    }
+
+    /**
+     * Filter by terminal.
+     */
+    public function scopeTerminal(
+        Builder $query,
+        int $terminalId
+    ): Builder {
+
+        return $query->where(
+            'terminal_id',
+            $terminalId
+        );
+
+    }
+
+    /**
+     * Filter by date range.
+     */
+    public function scopeDateBetween(
+        Builder $query,
+        $from,
+        $to
+    ): Builder {
+
+        return $query
+            ->when($from, fn ($q) =>
+                $q->whereDate(
+                    'created_at',
+                    '>=',
+                    $from
+                )
+            )
+            ->when($to, fn ($q) =>
+                $q->whereDate(
+                    'created_at',
+                    '<=',
+                    $to
+                )
+            );
+
+    }
+
+    /**
+     * Search logs.
+     */
+    public function scopeSearch(
+        Builder $query,
+        ?string $search
+    ): Builder {
+
+        return $query->when(
+
+            $search,
+
+            function ($query) use ($search) {
+
+                $query->where(function ($q) use ($search) {
+
+                    $q->where(
+                        'module',
+                        'like',
+                        "%{$search}%"
+                    )
+
+                    ->orWhere(
+                        'action',
+                        'like',
+                        "%{$search}%"
+                    )
+
+                    ->orWhere(
+                        'description',
+                        'like',
+                        "%{$search}%"
+                    );
+
+                });
+
+            }
+
+        );
+
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Helper Methods
@@ -157,5 +267,24 @@ class ActivityLog extends Model
     public function isAction(string $action): bool
     {
         return strtolower($this->action) === strtolower($action);
+    }
+
+    public function getBadgeClassAttribute(): string
+    {
+        return match ($this->action) {
+
+            'Created' => 'success',
+
+            'Updated' => 'primary',
+
+            'Deleted' => 'danger',
+
+            'Enabled' => 'success',
+
+            'Disabled' => 'warning',
+
+            default => 'secondary',
+
+        };
     }
 }

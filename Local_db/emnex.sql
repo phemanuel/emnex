@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2026 at 11:26 AM
+-- Generation Time: Aug 02, 2026 at 12:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -100,7 +100,15 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (42, 1, 1, 1, 'Settings Management', 'Updated', 'Updated company settings', 'Setting', 1, '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"7.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":10,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:50:50.000000Z\"}', '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"7.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:50:57.000000Z\"}', 'settings/settings', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 00:50:57', '2026-08-02 00:50:57'),
 (43, 1, 1, 1, 'Settings Management', 'Updated', 'Updated company settings', 'Setting', 1, '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"7.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:50:57.000000Z\"}', '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"4.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:51:04.000000Z\"}', 'settings/settings', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 00:51:04', '2026-08-02 00:51:04'),
 (44, 1, 1, 1, 'Settings Management', 'Updated', 'Updated company settings', 'Setting', 1, '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"4.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:51:04.000000Z\"}', '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"4.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":false,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:52:25.000000Z\"}', 'settings/settings', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 00:52:25', '2026-08-02 00:52:25'),
-(45, 1, 1, 1, 'Settings Management', 'Updated', 'Updated company settings', 'Setting', 1, '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"4.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":false,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:52:25.000000Z\"}', '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"4.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:52:44.000000Z\"}', 'settings/settings', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 00:52:44', '2026-08-02 00:52:44');
+(45, 1, 1, 1, 'Settings Management', 'Updated', 'Updated company settings', 'Setting', 1, '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"4.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":false,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:52:25.000000Z\"}', '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"4.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:52:44.000000Z\"}', 'settings/settings', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 00:52:44', '2026-08-02 00:52:44'),
+(46, 1, 1, 1, 'Document Sequences', 'Updated', 'Updated category document sequence.', 'DocumentSequence', 1, '{\"id\":1,\"company_id\":1,\"document_type\":\"category\",\"prefix\":\"CAT\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"use_date_in_sequence\":0}', '{\"id\":1,\"company_id\":1,\"document_type\":\"category\",\"prefix\":\"CAT\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"use_date_in_sequence\":0}', 'document-sequences/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 08:38:45', '2026-08-02 08:38:45'),
+(47, 1, 1, 1, 'Document Sequences', 'Updated', 'Updated supplier document sequence.', 'DocumentSequence', 4, '{\"id\":4,\"company_id\":1,\"document_type\":\"supplier\",\"prefix\":\"SUP\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"use_date_in_sequence\":0}', '{\"id\":4,\"company_id\":1,\"document_type\":\"supplier\",\"prefix\":\"SUP\",\"suffix\":null,\"separator\":\"_\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T09:40:36.000000Z\",\"use_date_in_sequence\":0}', 'document-sequences/4', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 08:40:36', '2026-08-02 08:40:36'),
+(48, 1, 1, 1, 'Document Sequences', 'Updated', 'Updated supplier document sequence.', 'DocumentSequence', 4, '{\"id\":4,\"company_id\":1,\"document_type\":\"supplier\",\"prefix\":\"SUP\",\"suffix\":null,\"separator\":\"_\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T09:40:36.000000Z\",\"use_date_in_sequence\":0}', '{\"id\":4,\"company_id\":1,\"document_type\":\"supplier\",\"prefix\":\"SUP\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T10:31:00.000000Z\",\"use_date_in_sequence\":0}', 'document-sequences/4', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 09:31:00', '2026-08-02 09:31:00');
+INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module`, `action`, `description`, `record_type`, `record_id`, `old_values`, `new_values`, `url`, `method`, `user_agent`, `terminal_id`, `ip_address`, `browser`, `platform`, `device`, `created_at`, `updated_at`) VALUES
+(49, 1, 1, 1, 'Document Sequences', 'Updated', 'Updated supplier document sequence.', 'DocumentSequence', 4, '{\"id\":4,\"company_id\":1,\"document_type\":\"supplier\",\"prefix\":\"SUP\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T10:31:00.000000Z\",\"use_date_in_sequence\":0}', '{\"id\":4,\"company_id\":1,\"document_type\":\"supplier\",\"prefix\":\"SUP\",\"suffix\":null,\"separator\":\"_\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T10:31:21.000000Z\",\"use_date_in_sequence\":0}', 'document-sequences/4', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 09:31:21', '2026-08-02 09:31:21'),
+(50, 1, 1, 1, 'Document Sequences', 'Updated', 'Updated supplier document sequence.', 'DocumentSequence', 4, '{\"id\":4,\"company_id\":1,\"document_type\":\"supplier\",\"prefix\":\"SUP\",\"suffix\":null,\"separator\":\"_\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T10:31:21.000000Z\",\"use_date_in_sequence\":0}', '{\"id\":4,\"company_id\":1,\"document_type\":\"supplier\",\"prefix\":\"SUP\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T10:33:00.000000Z\",\"use_date_in_sequence\":0}', 'document-sequences/4', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 09:33:00', '2026-08-02 09:33:00'),
+(51, 1, 1, 1, 'Document Sequences', 'Disabled', 'Disabled category document sequence.', 'DocumentSequence', 1, '{\"id\":1,\"company_id\":1,\"document_type\":\"category\",\"prefix\":\"CAT\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"use_date_in_sequence\":0}', '{\"id\":1,\"company_id\":1,\"document_type\":\"category\",\"prefix\":\"CAT\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":false,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T10:33:07.000000Z\",\"use_date_in_sequence\":0}', 'document-sequences/1/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 09:33:07', '2026-08-02 09:33:07'),
+(52, 1, 1, 1, 'Document Sequences', 'Enabled', 'Enabled category document sequence.', 'DocumentSequence', 1, '{\"id\":1,\"company_id\":1,\"document_type\":\"category\",\"prefix\":\"CAT\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":false,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T10:33:07.000000Z\",\"use_date_in_sequence\":0}', '{\"id\":1,\"company_id\":1,\"document_type\":\"category\",\"prefix\":\"CAT\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T10:34:24.000000Z\",\"use_date_in_sequence\":0}', 'document-sequences/1/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 09:34:24', '2026-08-02 09:34:24');
 
 -- --------------------------------------------------------
 
@@ -308,10 +316,10 @@ CREATE TABLE `document_sequences` (
 --
 
 INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`, `suffix`, `separator`, `current_number`, `number_length`, `reset_frequency`, `last_reset_at`, `status`, `created_at`, `updated_at`, `use_date_in_sequence`) VALUES
-(1, 1, 'category', 'CAT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
+(1, 1, 'category', 'CAT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-08-02 09:34:24', 0),
 (2, 1, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
 (3, 1, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
+(4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-08-02 09:33:00', 0),
 (5, 1, 'order', 'ORD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
 (6, 1, 'payment', 'PAY', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
 (7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
@@ -431,7 +439,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (32, '2026_07_29_163213_add_additional_fields_to_users_table', 4),
 (33, '2026_08_01_224447_add_description_and_last_seen_at_to_terminals_table', 5),
 (34, '2026_08_02_010316_add_missing_fields_to_settings_table', 6),
-(35, '2026_08_02_092343_add_last_reset_at_to_document_sequences_table', 7);
+(35, '2026_08_02_092343_add_last_reset_at_to_document_sequences_table', 7),
+(36, '2026_08_02_103957_create_payment_methods_table', 8),
+(37, '2026_08_02_104254_add_payment_method_id_to_payments_table', 8),
+(38, '2026_08_02_104326_remove_payment_method_from_payments_table', 8);
 
 -- --------------------------------------------------------
 
@@ -520,8 +531,8 @@ CREATE TABLE `payments` (
   `customer_id` bigint(20) UNSIGNED DEFAULT NULL,
   `terminal_id` bigint(20) UNSIGNED DEFAULT NULL,
   `amount` decimal(15,2) NOT NULL,
-  `payment_method` enum('Cash','POS','Transfer','Wallet','Credit','Cheque') NOT NULL,
   `payment_status` enum('Pending','Completed','Failed','Cancelled','Refunded') NOT NULL DEFAULT 'Completed',
+  `payment_method_id` bigint(20) UNSIGNED NOT NULL,
   `payment_date` datetime NOT NULL,
   `transaction_reference` varchar(255) DEFAULT NULL,
   `payment_gateway` varchar(255) DEFAULT NULL,
@@ -531,6 +542,29 @@ CREATE TABLE `payments` (
   `payment_number` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_methods`
+--
+
+CREATE TABLE `payment_methods` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `color` varchar(255) NOT NULL DEFAULT 'primary',
+  `requires_reference` tinyint(1) NOT NULL DEFAULT 0,
+  `is_cash` tinyint(1) NOT NULL DEFAULT 0,
+  `allow_change` tinyint(1) NOT NULL DEFAULT 0,
+  `display_order` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1172,8 +1206,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('p1AJ83o9gaA5RTVQNmbLmkhnNTnlEOHlFmUFo3A7', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IndMMHo1V0tPTEZnYnUzT3dIN28xRHdiR3E2OUhFSXowZVozR2p5eXQiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zZXR0aW5ncy9zZXR0aW5ncyI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjQwOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZG9jdW1lbnQtc2VxdWVuY2VzIjtzOjU6InJvdXRlIjtzOjI0OiJkb2N1bWVudC1zZXF1ZW5jZXMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1785662383),
-('v3mhcktNwFlOs4ncX4k5acoWe30LDPOkvFbsasyh', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6Ink4bTdJbGhEM2FMdGlaR0pTcVNqQW5oeG5hSTlnZkZRTEoweVdzNGwiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozOToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3NldHRpbmdzL3NldHRpbmdzIjtzOjU6InJvdXRlIjtzOjE0OiJzZXR0aW5ncy5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1785635564);
+('p1AJ83o9gaA5RTVQNmbLmkhnNTnlEOHlFmUFo3A7', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IndMMHo1V0tPTEZnYnUzT3dIN28xRHdiR3E2OUhFSXowZVozR2p5eXQiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zZXR0aW5ncy9zZXR0aW5ncyI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjQwOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZG9jdW1lbnQtc2VxdWVuY2VzIjtzOjU6InJvdXRlIjtzOjI0OiJkb2N1bWVudC1zZXF1ZW5jZXMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1785666866);
 
 -- --------------------------------------------------------
 
@@ -1535,7 +1568,15 @@ ALTER TABLE `payments`
   ADD KEY `payments_order_id_foreign` (`order_id`),
   ADD KEY `payments_terminal_id_foreign` (`terminal_id`),
   ADD KEY `payments_received_by_foreign` (`received_by`),
-  ADD KEY `payments_customer_id_foreign` (`customer_id`);
+  ADD KEY `payments_customer_id_foreign` (`customer_id`),
+  ADD KEY `payments_payment_method_id_foreign` (`payment_method_id`);
+
+--
+-- Indexes for table `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `payment_methods_company_id_code_unique` (`company_id`,`code`);
 
 --
 -- Indexes for table `permissions`
@@ -1663,7 +1704,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -1717,7 +1758,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1735,6 +1776,12 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payment_methods`
+--
+ALTER TABLE `payment_methods`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1879,8 +1926,15 @@ ALTER TABLE `payments`
   ADD CONSTRAINT `payments_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `payments_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `payments_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `payments_payment_method_id_foreign` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`),
   ADD CONSTRAINT `payments_received_by_foreign` FOREIGN KEY (`received_by`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `payments_terminal_id_foreign` FOREIGN KEY (`terminal_id`) REFERENCES `terminals` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  ADD CONSTRAINT `payment_methods_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `permissions`

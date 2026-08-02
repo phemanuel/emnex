@@ -1,0 +1,265 @@
+/*
+|--------------------------------------------------------------------------
+| Payment Methods
+|--------------------------------------------------------------------------
+*/
+
+
+.payment-method-card {
+
+    border-radius: 16px;
+
+    transition: all .25s ease;
+
+}
+
+
+.payment-method-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Payment Icon
+|--------------------------------------------------------------------------
+*/
+
+.payment-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #fff;
+
+    font-size: 20px;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Icon Colors
+|--------------------------------------------------------------------------
+*/
+
+.bg-primary {
+
+    background-color: #0d6efd !important;
+
+}
+
+
+.bg-success {
+
+    background-color: #198754 !important;
+
+}
+
+
+.bg-info {
+
+    background-color: #0dcaf0 !important;
+
+}
+
+
+.bg-warning {
+
+    background-color: #ffc107 !important;
+
+}
+
+
+.bg-secondary {
+
+    background-color: #6c757d !important;
+
+}
+
+
+.bg-dark {
+
+    background-color: #212529 !important;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Feature Badges
+|--------------------------------------------------------------------------
+*/
+
+.payment-feature-badge {
+
+    font-size: .75rem;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Table
+|--------------------------------------------------------------------------
+*/
+
+.payment-methods-table tbody tr {
+
+    transition: background .2s ease;
+
+}
+
+
+.payment-methods-table tbody tr:hover {
+
+    background: rgba(0,0,0,.03);
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Status
+|--------------------------------------------------------------------------
+*/
+
+.payment-status {
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: .75rem;
+
+    font-weight: 600;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Modal
+|--------------------------------------------------------------------------
+*/
+
+.payment-method-modal .modal-content {
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+}
+
+
+.payment-method-modal .modal-header {
+
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #6610f2
+    );
+
+    color: #fff;
+
+}
+
+
+.payment-method-modal .modal-header .btn-close {
+
+    filter: brightness(0) invert(1);
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Preview
+|--------------------------------------------------------------------------
+*/
+
+.payment-preview {
+
+    padding: 15px;
+
+    border-radius: 14px;
+
+    background: #f8f9fa;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+
+.payment-preview-icon {
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#fff;
+
+    font-size:22px;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Empty State
+|--------------------------------------------------------------------------
+*/
+
+.payment-empty-state {
+
+    padding:60px 20px;
+
+    text-align:center;
+
+}
+
+
+.payment-empty-state i {
+
+    font-size:60px;
+
+    opacity:.35;
+
+}

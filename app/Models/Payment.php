@@ -35,7 +35,7 @@ class Payment extends Model
 
         'payment_number',
 
-        'payment_method',
+        'payment_method_id',
 
         'amount',
 
@@ -127,6 +127,14 @@ class Payment extends Model
     public function receivedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'received_by');
+    }
+
+    /**
+     * Payment Methods
+     */
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 
     /*

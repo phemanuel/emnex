@@ -48,7 +48,7 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DocumentSequenceController;
 use App\Http\Controllers\Admin\PaymentMethodController;
-use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\Admin\ActivityLogController;
 
 
 Route::middleware('guest')->group(function () {
@@ -470,16 +470,74 @@ Route::middleware('auth')->group(function () {
     });
 
 
-    Route::resource(
-        'payment-methods',
-        PaymentMethodController::class
-    );
+    Route::prefix('payment-methods')
+    ->name('payment-methods.')
+    ->group(function () {
+
+        Route::get(
+            '/',
+            [PaymentMethodController::class, 'index']
+        )
+        ->name('index');
+
+        Route::post(
+            '/',
+            [PaymentMethodController::class, 'store']
+        )
+        ->name('store');
+
+        Route::get(
+            '/{paymentMethod}/edit',
+            [PaymentMethodController::class, 'edit']
+        )
+        ->name('edit');
+
+        Route::put(
+            '/{paymentMethod}',
+            [PaymentMethodController::class, 'update']
+        )
+        ->name('update');
+
+        Route::delete(
+            '/{paymentMethod}',
+            [PaymentMethodController::class, 'destroy']
+        )
+        ->name('destroy');
+
+        Route::patch(
+            '/{paymentMethod}/toggle-status',
+            [
+                PaymentMethodController::class,
+                'toggleStatus'
+            ]
+        )
+        ->name('toggle-status');
+
+        Route::post(
+            '/{id}/restore',
+            [
+                PaymentMethodController::class,
+                'restore'
+            ]
+        )
+        ->name('restore');
 
 
-    Route::resource(
-        'audit-logs',
-        AuditLogController::class
-    );
+    });
+
+
+   Route::prefix('activity-logs')
+    ->name('activity-logs.')
+    ->controller(ActivityLogController::class)
+    ->group(function () {
+
+        Route::get('/', 'index')
+            ->name('index');
+
+        Route::get('/{activityLog}', 'show')
+            ->name('show');
+
+    });
 
 });
 

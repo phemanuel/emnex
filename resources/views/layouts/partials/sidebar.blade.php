@@ -837,8 +837,8 @@
 
         </a>
 
-        <a href="{{ route('audit-logs.index') }}"
-           class="{{ request()->routeIs('audit-logs.*') ? 'active' : '' }}">
+        <a href="{{ route('activity-logs.index') }}"
+           class="{{ request()->routeIs('activity-logs.*') ? 'active' : '' }}">
 
             <span class="sub-icon">
                 <i class="bi bi-journal-text"></i>
