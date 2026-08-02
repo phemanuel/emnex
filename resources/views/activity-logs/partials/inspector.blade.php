@@ -441,37 +441,39 @@
 
             <div class="card-body">
 
-                <div class="row">
+                <div id="changesTableWrapper">
 
-                    <div class="col-lg-6">
+                    <div class="table-responsive">
 
-                        <span class="audit-label">
+                        <table class="table table-sm align-middle mb-0">
 
-                            Previous Values
+                            <thead>
 
-                        </span>
+                                <tr>
 
-                        <pre
-                            class="bg-light rounded p-3 small mb-0"
-                            id="oldValues">
-—
-</pre>
+                                    <th>
+                                        Field
+                                    </th>
 
-                    </div>
+                                    <th>
+                                        Previous
+                                    </th>
 
-                    <div class="col-lg-6">
+                                    <th>
+                                        New
+                                    </th>
 
-                        <span class="audit-label">
+                                </tr>
 
-                            New Values
+                            </thead>
 
-                        </span>
 
-                        <pre
-                            class="bg-light rounded p-3 small mb-0"
-                            id="newValues">
-—
-</pre>
+                            <tbody id="changesTableBody">
+
+                            </tbody>
+
+
+                        </table>
 
                     </div>
 

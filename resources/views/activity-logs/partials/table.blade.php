@@ -187,12 +187,11 @@
                     <td class="text-center">
 
                         <button
+                            type="button"
+                            class="btn-inspect"
+                            data-id="{{ $log->id }}">
 
-                            class="btn btn-inspect"
-
-                            onclick="ActivityLogs.openInspector({{ $log->id }})">
-
-                            <i class="bi bi-arrow-right-circle"></i>
+                            <i class="bi bi-eye"></i>
 
                         </button>
 

@@ -455,13 +455,34 @@ console.log(
     bindInspector() {
 
 
-        window.ActivityLogs =
-            this;
+        window.ActivityLogs = this;
+
+
+        document
+            .querySelectorAll('.btn-inspect')
+            .forEach(button => {
+
+
+                button.addEventListener(
+                    'click',
+                    () => {
+
+
+                        const id =
+                            button.dataset.id;
+
+
+                        this.openInspector(id);
+
+
+                    }
+                );
+
+
+            });
 
 
     },
-
-
 
     /*
     |--------------------------------------------------------------------------
@@ -557,13 +578,301 @@ console.log(
     renderInspector(log) {
 
 
-        const panel =
-            document.getElementById(
-                'activityLogInspectorBody'
+    const panel =
+        document.getElementById(
+            'activityLogInspectorContent'
+        );
+
+
+    const template =
+        document.getElementById(
+            'activityLogInspectorTemplate'
+        );
+
+
+    const inspector =
+        document.getElementById(
+            'activityLogInspector'
+        );
+
+
+    if (!panel || !template || !inspector) {
+
+        console.error(
+            'Inspector elements missing'
+        );
+
+        return;
+
+    }
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Load Template
+    |--------------------------------------------------------------------------
+    */
+
+    panel.innerHTML =
+        template.innerHTML;
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Populate Data
+    |--------------------------------------------------------------------------
+    */
+
+
+    document.getElementById('logModule').innerHTML =
+        log.module ?? '-';
+
+
+    document.getElementById('logActionBadge').innerHTML =
+        log.action ?? '-';
+
+
+    document.getElementById('logDescription').innerHTML =
+        log.description ?? '-';
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | User
+    |--------------------------------------------------------------------------
+    */
+
+
+    document.getElementById('logUser').innerHTML =
+        log.user
+            ? `${log.user.first_name ?? ''} ${log.user.last_name ?? ''}`
+            : '-';
+
+
+    document.getElementById('logEmail').innerHTML =
+        log.user?.email ?? '-';
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch / Terminal
+    |--------------------------------------------------------------------------
+    */
+
+
+    document.getElementById('logBranch').innerHTML =
+        log.branch?.name ?? '-';
+
+
+    document.getElementById('logTerminal').innerHTML =
+        log.terminal?.name ?? '-';
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Record
+    |--------------------------------------------------------------------------
+    */
+
+
+    document.getElementById('logRecordType').innerHTML =
+        log.record_type ?? '-';
+
+
+    document.getElementById('logRecordId').innerHTML =
+        log.record_id ?? '-';
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Date
+    |--------------------------------------------------------------------------
+    */
+
+
+    if(log.created_at){
+
+
+        const date =
+            new Date(log.created_at);
+
+
+        document.getElementById('logDate').innerHTML =
+            date.toLocaleDateString();
+
+
+        document.getElementById('logTime').innerHTML =
+            date.toLocaleTimeString();
+
+
+    }
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Request
+    |--------------------------------------------------------------------------
+    */
+
+
+    document.getElementById('logMethod').innerHTML =
+        log.method ?? '-';
+
+
+    document.getElementById('logUrl').innerHTML =
+        log.url ?? '-';
+
+
+    document.getElementById('logIp').innerHTML =
+        log.ip_address ?? '-';
+
+
+    document.getElementById('logUserAgent').innerHTML =
+        log.user_agent ?? '-';
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Changes
+    |--------------------------------------------------------------------------
+    */
+
+
+    this.renderChanges(
+        log.old_values,
+        log.new_values
+    );
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Open Bootstrap Offcanvas
+    |--------------------------------------------------------------------------
+    */
+
+
+    const offcanvas =
+        bootstrap.Offcanvas.getOrCreateInstance(
+            inspector
+        );
+
+
+    offcanvas.show();
+
+
+},
+
+formatValue(value) {
+
+
+    if(value === null || value === undefined){
+
+        return '-';
+
+    }
+
+
+    if(typeof value === 'boolean'){
+
+        return value
+            ? 'Yes'
+            : 'No';
+
+    }
+
+
+    if(
+        typeof value === 'object'
+    ){
+
+        return JSON.stringify(
+            value
+        );
+
+    }
+
+
+    return value;
+
+},
+
+formatFieldName(field){
+
+
+    return field
+        .replaceAll('_',' ')
+        .replace(
+            /\b\w/g,
+            char => char.toUpperCase()
+        );
+
+
+},
+
+renderChanges(oldValues, newValues){
+
+
+    const tbody =
+        document.getElementById(
+            'changesTableBody'
+        );
+
+
+    if(!tbody){
+
+        return;
+
+    }
+
+
+
+    tbody.innerHTML = '';
+
+
+
+    const oldData =
+        oldValues ?? {};
+
+
+    const newData =
+        newValues ?? {};
+
+
+
+    const fields =
+        new Set([
+            ...Object.keys(oldData),
+            ...Object.keys(newData)
+        ]);
+
+
+
+    fields.forEach(field => {
+
+
+        const oldValue =
+            this.formatValue(
+                oldData[field]
             );
 
 
-        if (!panel) {
+        const newValue =
+            this.formatValue(
+                newData[field]
+            );
+
+
+
+        if(oldValue === newValue){
 
             return;
 
@@ -571,54 +880,40 @@ console.log(
 
 
 
-        panel.innerHTML = `
+        tbody.innerHTML += `
 
-            <div class="inspector-section">
+            <tr>
 
-                <label>Module</label>
+                <td class="fw-semibold">
 
-                <strong>
-                    ${log.module ?? '-'}
-                </strong>
+                    ${this.formatFieldName(field)}
 
-            </div>
+                </td>
 
 
-            <div class="inspector-section">
+                <td class="text-danger">
 
-                <label>Action</label>
+                    ${oldValue}
 
-                <strong>
-                    ${log.action ?? '-'}
-                </strong>
-
-            </div>
+                </td>
 
 
-            <div class="inspector-section">
+                <td class="text-success">
 
-                <label>Description</label>
+                    ${newValue}
 
-                <p>
-                    ${log.description ?? '-'}
-                </p>
+                </td>
 
-            </div>
-
+            </tr>
 
         `;
 
 
-
-        this.inspector.classList.add(
-            'active'
-        );
-
-
-    },
+    });
 
 
 
+},
     /*
     |--------------------------------------------------------------------------
     | Close Inspector
