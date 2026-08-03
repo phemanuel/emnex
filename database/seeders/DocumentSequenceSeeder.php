@@ -34,6 +34,9 @@ class DocumentSequenceSeeder extends Seeder
             ['document_type' => 'stock_movement',   'prefix' => 'STM'],
             ['document_type' => 'stock_adjustment', 'prefix' => 'ADJ'],
             ['document_type' => 'expense',          'prefix' => 'EXP'],
+            ['document_type' => 'unit',             'prefix' => 'UNT'],
+            ['document_type' => 'tax',              'prefix' => 'TAX'],
+            ['document_type' => 'discount',         'prefix' => 'DIS'],
 
         ];
 

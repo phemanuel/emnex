@@ -35,6 +35,8 @@ class Payment extends Model
 
         'payment_number',
 
+        'payment_method',
+
         'payment_method_id',
 
         'amount',

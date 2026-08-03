@@ -150,7 +150,39 @@ Route::prefix('product-categories')
 
     });
 
-    Route::resource('units', UnitController::class);
+    /*
+|--------------------------------------------------------------------------
+| Units
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('units')
+
+    ->name('units.')
+
+    ->controller(UnitController::class)
+
+    ->group(function () {
+
+        Route::get('/','index')->name('index');
+
+        Route::get('/table','table')->name('table');
+
+        Route::get('/next-code','nextCode')->name('nextCode');
+
+        Route::get('/{id}/details','details')->name('details');
+
+        Route::post('/','store')->name('store');
+
+        Route::get('/{id}/edit','edit')->name('edit');
+
+        Route::put('/{id}','update')->name('update');
+
+        Route::patch('/{id}/toggle-status','toggleStatus')->name('toggleStatus');
+
+        Route::delete('/{id}','destroy')->name('destroy');
+
+    });
 
     Route::resource('tax-rates', TaxRateController::class);
 

@@ -32,11 +32,14 @@ class Unit extends Model
 
     protected $fillable = [
         'company_id',
+        'unit_code',
         'name',
         'short_name',
+        'description',
         'status',
+        'created_by',
+        'updated_by',
     ];
-
     /*
     |--------------------------------------------------------------------------
     | Casts
@@ -47,6 +50,8 @@ class Unit extends Model
     {
         return [
             'company_id' => 'integer',
+            'created_by' => 'integer',
+            'updated_by' => 'integer',
             'status'     => 'boolean',
         ];
     }
@@ -68,11 +73,7 @@ class Unit extends Model
     /**
      * Products
      */
-    public function products(): HasMany
-    {
-        return $this->hasMany(Product::class, 'unit_id');
-    }
-
+    
     /*
     |--------------------------------------------------------------------------
     | Query Scopes
@@ -85,6 +86,14 @@ class Unit extends Model
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', true);
+    }
+
+    /**
+     * Units for a specific company.
+     */
+    public function scopeForCompany(Builder $query, int $companyId): Builder
+    {
+        return $query->where('company_id', $companyId);
     }
 
     /*
@@ -111,4 +120,22 @@ class Unit extends Model
     {
         return "{$this->name} ({$this->short_name})";
     }
+
+    /**
+     * Created By
+     */
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Updated By
+     */
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+
 }

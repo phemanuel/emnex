@@ -255,18 +255,7 @@
 
         </button>
 
-        <div class="nav-children">
-
-            <a href="{{ route('products.index') }}"
-            class="{{ request()->routeIs('products.*') ? 'active' : '' }}">
-
-                <span class="sub-icon">
-                    <i class="bi bi-box"></i>
-                </span>
-
-                <span>Products</span>
-
-            </a>
+        <div class="nav-children">            
 
             <a href="{{ route('product-categories.index') }}"
             class="{{ request()->routeIs('product-categories.*') ? 'active' : '' }}">
@@ -309,6 +298,17 @@
                 </span>
 
                 <span>Discounts</span>
+
+            </a>
+
+            <a href="{{ route('products.index') }}"
+            class="{{ request()->routeIs('products.*') ? 'active' : '' }}">
+
+                <span class="sub-icon">
+                    <i class="bi bi-box"></i>
+                </span>
+
+                <span>Products</span>
 
             </a>
 

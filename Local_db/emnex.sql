@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2026 at 04:44 PM
+-- Generation Time: Aug 03, 2026 at 12:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -117,7 +117,16 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (58, 1, 1, 1, 'Payment Methods', 'Enabled', 'Cash-Flow payment method status changed.', 'PaymentMethod', 7, NULL, NULL, 'payment-methods/7/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 11:23:48', '2026-08-02 11:23:48'),
 (59, 1, 1, 1, 'Payment Methods', 'Deleted', 'Deleted Cash-Flow payment method.', 'PaymentMethod', 7, NULL, NULL, 'payment-methods/7', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 11:33:09', '2026-08-02 11:33:09'),
 (60, 1, 1, 1, 'Payment Methods', 'Disabled', 'Cash payment method status changed.', 'PaymentMethod', 1, NULL, NULL, 'payment-methods/1/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 11:42:28', '2026-08-02 11:42:28'),
-(61, 1, 1, 1, 'Payment Methods', 'Enabled', 'Cash payment method status changed.', 'PaymentMethod', 1, NULL, NULL, 'payment-methods/1/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 11:43:07', '2026-08-02 11:43:07');
+(61, 1, 1, 1, 'Payment Methods', 'Enabled', 'Cash payment method status changed.', 'PaymentMethod', 1, NULL, NULL, 'payment-methods/1/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 11:43:07', '2026-08-02 11:43:07'),
+(62, 1, 1, 1, 'Product Categories', 'Created', 'Created product category: Building', 'ProductCategory', 13, NULL, '{\"id\":13,\"company_id\":1,\"category_code\":\"CAT000012\",\"name\":\"Building\",\"description\":\"Furniture and Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:18.000000Z\",\"updated_at\":\"2026-08-02T15:53:18.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 14:53:18', '2026-08-02 14:53:18'),
+(63, 1, 1, 1, 'Product Categories', 'Created', 'Created product category: Building', 'ProductCategory', 14, NULL, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture and Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T15:53:48.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 14:53:48', '2026-08-02 14:53:48'),
+(64, 1, 1, 1, 'Product Categories', 'Updated', 'Updated category: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery and Consultant.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T15:54:59.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T15:59:27.000000Z\",\"deleted_at\":null}', 'product-categories/14', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 14:59:27', '2026-08-02 14:59:27'),
+(65, 1, 1, 1, 'Product Categories', 'Disabled', 'Category status changed: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T15:59:27.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T15:59:32.000000Z\",\"deleted_at\":null}', 'product-categories/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 14:59:32', '2026-08-02 14:59:32'),
+(66, 1, 1, 1, 'Product Categories', 'Enabled', 'Category Enabled: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T15:59:32.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:02:13.000000Z\",\"deleted_at\":null}', 'product-categories/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:02:13', '2026-08-02 15:02:13'),
+(67, 1, 1, 1, 'Product Categories', 'Disabled', 'Category Disabled: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:02:13.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:09:47.000000Z\",\"deleted_at\":null}', 'product-categories/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:09:47', '2026-08-02 15:09:47'),
+(68, 1, 1, 1, 'Product Categories', 'Enabled', 'Category Enabled: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:09:47.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:10:44.000000Z\",\"deleted_at\":null}', 'product-categories/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:10:44', '2026-08-02 15:10:44'),
+(69, 1, 1, 1, 'Product Categories', 'Disabled', 'Category Disabled: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:10:44.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:10:50.000000Z\",\"deleted_at\":null}', 'product-categories/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:10:50', '2026-08-02 15:10:50'),
+(70, 1, 1, 1, 'Product Categories', 'Deleted', 'Deleted category: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:10:50.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:14:57.000000Z\",\"deleted_at\":\"2026-08-02T16:14:57.000000Z\"}', 'product-categories/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:14:57', '2026-08-02 15:14:57');
 
 -- --------------------------------------------------------
 
@@ -451,7 +460,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (35, '2026_08_02_092343_add_last_reset_at_to_document_sequences_table', 7),
 (36, '2026_08_02_103957_create_payment_methods_table', 8),
 (37, '2026_08_02_104254_add_payment_method_id_to_payments_table', 8),
-(38, '2026_08_02_104326_remove_payment_method_from_payments_table', 8);
+(38, '2026_08_02_104326_remove_payment_method_from_payments_table', 8),
+(39, '2026_08_03_100609_add_payment_method_to_payments_table', 9);
 
 -- --------------------------------------------------------
 
@@ -550,7 +560,8 @@ CREATE TABLE `payments` (
   `received_by` bigint(20) UNSIGNED NOT NULL,
   `payment_number` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `payment_method` enum('Cash','POS','Transfer','Wallet','Credit','Cheque') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -803,7 +814,8 @@ INSERT INTO `product_categories` (`id`, `company_id`, `category_code`, `name`, `
 (7, 1, 'CAT000007', 'Household', 'Cleaning materials and home essentials.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (8, 1, 'CAT000008', 'Toiletries', 'Personal care and hygiene products.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (9, 1, 'CAT000009', 'Baby Products', 'Baby food, diapers and accessories.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(10, 1, 'CAT000010', 'Stationery', 'Office and school supplies.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL);
+(10, 1, 'CAT000010', 'Stationery', 'Office and school supplies.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(14, 1, 'CAT000011', 'Building', 'Furniture , Upholstery.', NULL, NULL, 0, 0, 1, 1, '2026-08-02 14:53:48', '2026-08-02 15:14:57', '2026-08-02 15:14:57');
 
 -- --------------------------------------------------------
 
@@ -1228,7 +1240,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('p1AJ83o9gaA5RTVQNmbLmkhnNTnlEOHlFmUFo3A7', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IndMMHo1V0tPTEZnYnUzT3dIN28xRHdiR3E2OUhFSXowZVozR2p5eXQiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zZXR0aW5ncy9zZXR0aW5ncyI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjM1OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWN0aXZpdHktbG9ncyI7czo1OiJyb3V0ZSI7czoxOToiYWN0aXZpdHktbG9ncy5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1785681059);
+('p1AJ83o9gaA5RTVQNmbLmkhnNTnlEOHlFmUFo3A7', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IndMMHo1V0tPTEZnYnUzT3dIN28xRHdiR3E2OUhFSXowZVozR2p5eXQiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zZXR0aW5ncy9zZXR0aW5ncyI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjUxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcHJvZHVjdC1jYXRlZ29yaWVzL3N0YXRpc3RpY3MiO3M6NToicm91dGUiO3M6Mjk6InByb2R1Y3QtY2F0ZWdvcmllcy5zdGF0aXN0aWNzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjEwOiJjb21wYW55X2lkIjtpOjE7czoxMjoiY29tcGFueV9uYW1lIjtzOjE5OiJFbW1hbmV4IFN1cGVybWFya2V0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6OToiQ09NUC0wMDAxIjtzOjk6ImJyYW5jaF9pZCI7aToxO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1785688918),
+('VHxL0rsaQADjePb1RN4JqDHUdNZGOBcfi2UNIp4t', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IjRiaUdESTVWNk1yMWJySnZZd0ZsT1R2Wmw0SGx0VEFEU0ttMWgxMTMiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rhc2hib2FyZCI7czo1OiJyb3V0ZSI7czo5OiJkYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1785751338);
 
 -- --------------------------------------------------------
 
@@ -1627,7 +1640,6 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_categories`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `product_categories_company_id_category_code_unique` (`company_id`,`category_code`),
   ADD UNIQUE KEY `product_categories_company_id_name_unique` (`company_id`,`name`),
   ADD KEY `product_categories_parent_id_foreign` (`parent_id`),
   ADD KEY `product_categories_created_by_foreign` (`created_by`),
@@ -1726,7 +1738,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -1780,7 +1792,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1822,7 +1834,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `product_stocks`
