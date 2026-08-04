@@ -505,13 +505,11 @@ const TaxRates = {
                 throw result;
 
             }
+            
 
             showToast(
-
-                result.type,
-
-                result.message
-
+                result.message,
+                result.type
             );
 
             this.modal.hide();
@@ -542,9 +540,8 @@ const TaxRates = {
 
                 showToast(
 
-                    error.type ?? 'error',
-
-                    error.message ?? 'Unable to save tax rate.'
+                    error.message ?? 'Unable to save tax rate.',
+                    error.type ?? 'error'                
 
                 );
 
@@ -603,11 +600,8 @@ const TaxRates = {
             {
 
                 showToast(
-
-                    result.type,
-
-                    result.message
-
+                    result.message,
+                    result.type
                 );
 
                 return;
@@ -714,11 +708,8 @@ const TaxRates = {
             {
 
                 showToast(
-
-                    result.type,
-
-                    result.message
-
+                    result.message,
+                    result.type
                 );
 
                 return;
@@ -1040,11 +1031,8 @@ const TaxRates = {
                 await response.json();
 
             showToast(
-
-                result.type,
-
-                result.message
-
+                result.message,
+                result.type
             );
 
             if(result.success)
@@ -1155,11 +1143,8 @@ const TaxRates = {
                 await response.json();
 
             showToast(
-
-                result.type,
-
-                result.message
-
+                result.message,
+                result.type
             );
 
             if(result.success)

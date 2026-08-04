@@ -413,7 +413,7 @@ const Units = {
 
             console.error(error);
 
-            this.showToast(
+            showToast(
 
                 'Unable to load units.',
 
@@ -723,19 +723,16 @@ const Units = {
 
 
 
-                this.showToast(
-
-                    result.message,
-
-                    'success'
-
-                );
+                showToast(
+                result.message,
+                result.type
+            );
 
             }
             else
             {
 
-                this.showToast(
+                showToast(
 
                     result.message,
 
@@ -754,7 +751,7 @@ const Units = {
 
 
 
-            this.showToast(
+            showToast(
 
                 'Unable to save unit.',
 
@@ -879,7 +876,7 @@ const Units = {
 
 
 
-            this.showToast(
+            showToast(
 
                 'Unable to load unit.',
 
@@ -1129,7 +1126,7 @@ const Units = {
 
             console.error(error);
 
-            this.showToast(
+            showToast(
 
                 'Unable to load unit details.',
 
@@ -1333,7 +1330,7 @@ const Units = {
 
                 this.loadData();
 
-                this.showToast(
+                showToast(
 
                     result.message,
 
@@ -1345,7 +1342,7 @@ const Units = {
             else
             {
 
-                this.showToast(
+                showToast(
 
                     result.message,
 
@@ -1361,7 +1358,7 @@ const Units = {
 
             console.error(error);
 
-            this.showToast(
+            showToast(
 
                 'Unable to update unit status.',
 
@@ -1466,7 +1463,7 @@ const Units = {
 
                 this.loadData();
 
-                this.showToast(
+                showToast(
 
                     result.message,
 
@@ -1478,7 +1475,7 @@ const Units = {
             else
             {
 
-                this.showToast(
+                showToast(
 
                     result.message,
 
@@ -1496,7 +1493,7 @@ const Units = {
 
 
 
-            this.showToast(
+            showToast(
 
                 'Unable to delete unit.',
 
