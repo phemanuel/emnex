@@ -184,7 +184,36 @@ Route::prefix('units')
 
     });
 
-    Route::resource('tax-rates', TaxRateController::class);
+    /*
+|--------------------------------------------------------------------------
+| Tax Rates
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('tax-rates')
+
+    ->name('tax-rates.')
+
+    ->controller(TaxRateController::class)
+
+    ->group(function () {
+        Route::get('/','index')->name('index');
+
+        Route::get('/table','table')->name('table');
+
+        Route::post('/','store')->name('store');
+
+        Route::get('/{taxRate}/edit','edit')->name('edit');
+
+        Route::put('/{taxRate}','update')->name('update');
+
+        Route::get('/{taxRate}/details','details')->name('details');
+
+        Route::patch('/{taxRate}/toggle-status','toggleStatus')->name('toggle-status');
+
+        Route::delete('/{taxRate}','destroy')->name('destroy');
+
+    });
 
     Route::resource('discounts', DiscountController::class);
 

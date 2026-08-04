@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2026 at 12:08 PM
+-- Generation Time: Aug 04, 2026 at 07:45 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -126,7 +126,13 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (67, 1, 1, 1, 'Product Categories', 'Disabled', 'Category Disabled: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:02:13.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:09:47.000000Z\",\"deleted_at\":null}', 'product-categories/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:09:47', '2026-08-02 15:09:47'),
 (68, 1, 1, 1, 'Product Categories', 'Enabled', 'Category Enabled: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:09:47.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:10:44.000000Z\",\"deleted_at\":null}', 'product-categories/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:10:44', '2026-08-02 15:10:44'),
 (69, 1, 1, 1, 'Product Categories', 'Disabled', 'Category Disabled: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:10:44.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:10:50.000000Z\",\"deleted_at\":null}', 'product-categories/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:10:50', '2026-08-02 15:10:50'),
-(70, 1, 1, 1, 'Product Categories', 'Deleted', 'Deleted category: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:10:50.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:14:57.000000Z\",\"deleted_at\":\"2026-08-02T16:14:57.000000Z\"}', 'product-categories/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:14:57', '2026-08-02 15:14:57');
+(70, 1, 1, 1, 'Product Categories', 'Deleted', 'Deleted category: Building', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:10:50.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:14:57.000000Z\",\"deleted_at\":\"2026-08-02T16:14:57.000000Z\"}', 'product-categories/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-02 15:14:57', '2026-08-02 15:14:57'),
+(71, 1, 1, 1, 'Units', 'Created', 'Created unit: TEXT', 'Unit', 14, NULL, NULL, 'units', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:02:30', '2026-08-03 14:02:30'),
+(72, 1, 1, 1, 'Units', 'Updated', 'Updated unit: Piece', 'Unit', 1, '{\"id\":1,\"company_id\":1,\"unit_code\":\"UNT000001\",\"name\":\"Piece\",\"short_name\":\"PCS\",\"description\":null,\"status\":true,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-03T14:35:02.000000Z\",\"deleted_at\":null}', '{\"id\":1,\"company_id\":1,\"unit_code\":\"UNT000001\",\"name\":\"Piece\",\"short_name\":\"PCS\",\"description\":\"Piece\",\"status\":true,\"created_by\":null,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-03T15:02:59.000000Z\",\"deleted_at\":null}', 'units/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:02:59', '2026-08-03 14:02:59'),
+(73, 1, 1, 1, 'Units', 'Updated', 'Updated unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"TEXT\",\"short_name\":\"TXT\",\"description\":\"TEXT\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-03T15:02:30.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-03T15:03:28.000000Z\",\"deleted_at\":null}', 'units/14', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:03:28', '2026-08-03 14:03:28'),
+(74, 1, 1, 1, 'Units', 'Disabled', 'Unit Disabled: Text', 'Unit', 14, NULL, NULL, 'units/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:03:52', '2026-08-03 14:03:52'),
+(75, 1, 1, 1, 'Units', 'Enabled', 'Unit Enabled: Text', 'Unit', 14, NULL, NULL, 'units/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:03:56', '2026-08-03 14:03:56'),
+(76, 1, 1, 1, 'Units', 'Deleted', 'Deleted unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-03T15:03:56.000000Z\",\"deleted_at\":null}', '[]', 'units/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:04:02', '2026-08-03 14:04:02');
 
 -- --------------------------------------------------------
 
@@ -334,26 +340,21 @@ CREATE TABLE `document_sequences` (
 --
 
 INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`, `suffix`, `separator`, `current_number`, `number_length`, `reset_frequency`, `last_reset_at`, `status`, `created_at`, `updated_at`, `use_date_in_sequence`) VALUES
-(1, 1, 'category', 'CAT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-08-02 09:34:24', 0),
-(2, 1, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(3, 1, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-08-02 09:33:00', 0),
-(5, 1, 'order', 'ORD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(6, 1, 'payment', 'PAY', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(8, 1, 'purchase_return', 'PRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(9, 1, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(10, 1, 'stock_movement', 'STM', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(11, 1, 'stock_adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(12, 1, 'expense', 'EXP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', 0),
-(13, 1, 'Invoice', 'INV', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-02 08:15:26', '2026-08-02 08:15:26', 0),
-(14, 1, 'Receipt', 'REC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-02 08:15:26', '2026-08-02 08:15:26', 0),
-(15, 1, 'Sales Order', 'SO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-02 08:15:26', '2026-08-02 08:15:26', 0),
-(16, 1, 'Purchase Order', 'PO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-02 08:15:26', '2026-08-02 08:15:26', 0),
-(17, 1, 'Purchase Return', 'PR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-02 08:15:26', '2026-08-02 08:15:26', 0),
-(18, 1, 'Sales Return', 'SR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-02 08:15:26', '2026-08-02 08:15:26', 0),
-(19, 1, 'Stock Transfer', 'ST', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-02 08:15:26', '2026-08-02 08:15:26', 0),
-(20, 1, 'Stock Adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-02 08:15:26', '2026-08-02 08:15:26', 0);
+(1, 1, 'category', 'CAT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(2, 1, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(3, 1, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(5, 1, 'order', 'ORD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(6, 1, 'payment', 'PAY', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(8, 1, 'purchase_return', 'PRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(9, 1, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(10, 1, 'stock_movement', 'STM', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(11, 1, 'stock_adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(12, 1, 'expense', 'EXP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(13, 1, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(14, 1, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(15, 1, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0);
 
 -- --------------------------------------------------------
 
@@ -461,7 +462,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (36, '2026_08_02_103957_create_payment_methods_table', 8),
 (37, '2026_08_02_104254_add_payment_method_id_to_payments_table', 8),
 (38, '2026_08_02_104326_remove_payment_method_from_payments_table', 8),
-(39, '2026_08_03_100609_add_payment_method_to_payments_table', 9);
+(39, '2026_08_03_100609_add_payment_method_to_payments_table', 9),
+(40, '2026_08_03_101122_add_unit_metadata_to_units_table', 10);
 
 -- --------------------------------------------------------
 
@@ -1240,8 +1242,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('p1AJ83o9gaA5RTVQNmbLmkhnNTnlEOHlFmUFo3A7', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IndMMHo1V0tPTEZnYnUzT3dIN28xRHdiR3E2OUhFSXowZVozR2p5eXQiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zZXR0aW5ncy9zZXR0aW5ncyI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjUxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcHJvZHVjdC1jYXRlZ29yaWVzL3N0YXRpc3RpY3MiO3M6NToicm91dGUiO3M6Mjk6InByb2R1Y3QtY2F0ZWdvcmllcy5zdGF0aXN0aWNzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjEwOiJjb21wYW55X2lkIjtpOjE7czoxMjoiY29tcGFueV9uYW1lIjtzOjE5OiJFbW1hbmV4IFN1cGVybWFya2V0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6OToiQ09NUC0wMDAxIjtzOjk6ImJyYW5jaF9pZCI7aToxO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1785688918),
-('VHxL0rsaQADjePb1RN4JqDHUdNZGOBcfi2UNIp4t', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IjRiaUdESTVWNk1yMWJySnZZd0ZsT1R2Wmw0SGx0VEFEU0ttMWgxMTMiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rhc2hib2FyZCI7czo1OiJyb3V0ZSI7czo5OiJkYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1785751338);
+('b2CN6LlHZYf5hlIYYkkPL4Xz8BsUXXrdin1J67r3', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IlgxbmxPVEZ5b1hqZWNLMHRBdkpTSUlUNXp3TWRzUDJhR1d3dzhkTGUiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91bml0cyI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjMxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvdGF4LXJhdGVzIjtzOjU6InJvdXRlIjtzOjE1OiJ0YXgtcmF0ZXMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1785822293);
 
 -- --------------------------------------------------------
 
@@ -1381,9 +1382,13 @@ INSERT INTO `terminals` (`id`, `company_id`, `branch_id`, `terminal_code`, `term
 CREATE TABLE `units` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `company_id` bigint(20) UNSIGNED NOT NULL,
+  `unit_code` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `short_name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -1393,20 +1398,21 @@ CREATE TABLE `units` (
 -- Dumping data for table `units`
 --
 
-INSERT INTO `units` (`id`, `company_id`, `name`, `short_name`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Piece', 'PCS', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(2, 1, 'Pack', 'PK', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(3, 1, 'Carton', 'CTN', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(4, 1, 'Bottle', 'BTL', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(5, 1, 'Can', 'CAN', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(6, 1, 'Kilogram', 'KG', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(7, 1, 'Gram', 'G', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(8, 1, 'Litre', 'LTR', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(9, 1, 'Millilitre', 'ML', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(10, 1, 'Dozen', 'DOZ', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(11, 1, 'Bag', 'BAG', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(12, 1, 'Roll', 'ROL', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(13, 1, 'Box', 'BOX', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL);
+INSERT INTO `units` (`id`, `company_id`, `unit_code`, `name`, `short_name`, `description`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'UNT000001', 'Piece', 'PCS', 'Piece', 1, NULL, 1, '2026-07-29 10:37:13', '2026-08-03 14:02:59', NULL),
+(2, 1, 'UNT000002', 'Pack', 'PK', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(3, 1, 'UNT000003', 'Carton', 'CTN', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(4, 1, 'UNT000004', 'Bottle', 'BTL', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(5, 1, 'UNT000005', 'Can', 'CAN', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(6, 1, 'UNT000006', 'Kilogram', 'KG', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(7, 1, 'UNT000007', 'Gram', 'G', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(8, 1, 'UNT000008', 'Litre', 'LTR', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(9, 1, 'UNT000009', 'Millilitre', 'ML', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(10, 1, 'UNT000010', 'Dozen', 'DOZ', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(11, 1, 'UNT000011', 'Bag', 'BAG', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(12, 1, 'UNT000012', 'Roll', 'ROL', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(13, 1, 'UNT000013', 'Box', 'BOX', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(14, 1, 'UNT000014', 'Text', 'TXT', 'Text', 1, 1, 1, '2026-08-03 14:02:30', '2026-08-03 14:04:02', '2026-08-03 14:04:02');
 
 -- --------------------------------------------------------
 
@@ -1718,7 +1724,9 @@ ALTER TABLE `terminals`
 ALTER TABLE `units`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `units_company_id_name_unique` (`company_id`,`name`),
-  ADD UNIQUE KEY `units_company_id_short_name_unique` (`company_id`,`short_name`);
+  ADD UNIQUE KEY `units_company_id_short_name_unique` (`company_id`,`short_name`),
+  ADD KEY `units_created_by_foreign` (`created_by`),
+  ADD KEY `units_updated_by_foreign` (`updated_by`);
 
 --
 -- Indexes for table `users`
@@ -1738,7 +1746,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -1774,7 +1782,7 @@ ALTER TABLE `discounts`
 -- AUTO_INCREMENT for table `document_sequences`
 --
 ALTER TABLE `document_sequences`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1792,7 +1800,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1882,7 +1890,7 @@ ALTER TABLE `terminals`
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -2053,7 +2061,9 @@ ALTER TABLE `terminals`
 -- Constraints for table `units`
 --
 ALTER TABLE `units`
-  ADD CONSTRAINT `units_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `units_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `units_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `units_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `users`

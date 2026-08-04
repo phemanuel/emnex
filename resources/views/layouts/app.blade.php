@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/payment-method.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/activity-log.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/product-category.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/unit.css') }}"
->
+    <link rel="stylesheet" href="{{ asset('assets/css/unit.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/tax-rate.css') }}">
 
 </head>
 

@@ -1,0 +1,351 @@
+/*
+|--------------------------------------------------------------------------
+| PAGE HEADER
+|--------------------------------------------------------------------------
+*/
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    margin-bottom:1.5rem;
+    flex-wrap:wrap;
+}
+
+.page-title{
+    font-size:1.75rem;
+    font-weight:700;
+    color:#212529;
+    margin:0;
+}
+
+.page-subtitle{
+    color:#6c757d;
+    margin:0.35rem 0 0;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| SUMMARY CARDS
+|--------------------------------------------------------------------------
+*/
+
+.summary-card{
+    background:#fff;
+    border-radius:18px;
+    padding:1.25rem;
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+    transition:.25s;
+    height:100%;
+}
+
+.summary-card:hover{
+    transform:translateY(-3px);
+}
+
+.summary-icon{
+    width:58px;
+    height:58px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.4rem;
+}
+
+.summary-card small{
+    display:block;
+    color:#6c757d;
+}
+
+.summary-card h3{
+    margin:.35rem 0 0;
+    font-weight:700;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CARD
+|--------------------------------------------------------------------------
+*/
+
+.emnex-card{
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.card-header{
+    background:#fff;
+    border-bottom:1px solid #ececec;
+    padding:1rem 1.25rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TABLE
+|--------------------------------------------------------------------------
+*/
+
+.emnex-table{
+    margin-bottom:0;
+}
+
+.emnex-table thead th{
+    background:#f8f9fa;
+    font-weight:600;
+    border-bottom:none;
+    white-space:nowrap;
+}
+
+.emnex-table td{
+    vertical-align:middle;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| MODAL
+|--------------------------------------------------------------------------
+*/
+
+.emnex-modal{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.emnex-modal .modal-header{
+    padding:1.5rem;
+}
+
+.emnex-modal .modal-body{
+    padding:1.5rem;
+}
+
+.emnex-modal .modal-footer{
+    padding:1.25rem 1.5rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TAX PREVIEW
+|--------------------------------------------------------------------------
+*/
+
+.tax-preview-card{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    padding:1.25rem;
+    border:1px solid #e9ecef;
+    border-radius:16px;
+    background:#fafafa;
+}
+
+.tax-preview-icon{
+    width:60px;
+    height:60px;
+    border-radius:16px;
+    background:#0d6efd15;
+    color:#0d6efd;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.5rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| INSPECTOR
+|--------------------------------------------------------------------------
+*/
+
+.inspector-offcanvas{
+    width:470px !important;
+}
+
+.inspector-header{
+    border-bottom:1px solid #ececec;
+    padding:1.5rem;
+}
+
+.inspector-loading{
+    min-height:420px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| INSPECTOR HERO
+|--------------------------------------------------------------------------
+*/
+
+.inspector-hero{
+    padding:2rem;
+    background:linear-gradient(
+        135deg,
+        #0d6efd,
+        #4e8df5
+    );
+    color:#fff;
+    text-align:center;
+}
+
+.inspector-hero-icon{
+    width:70px;
+    height:70px;
+    margin:auto;
+    border-radius:20px;
+    background:rgba(255,255,255,.15);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.7rem;
+    margin-bottom:1rem;
+}
+
+.inspector-section{
+    padding:1.5rem;
+}
+
+.inspector-section-title{
+    font-size:.85rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:#6c757d;
+    margin-bottom:1rem;
+}
+
+.info-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:.9rem 0;
+    border-bottom:1px solid #f1f1f1;
+}
+
+.info-item:last-child{
+    border-bottom:none;
+}
+
+.info-label{
+    color:#6c757d;
+}
+
+.info-value{
+    font-weight:600;
+    text-align:right;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| ACTION ICONS
+|--------------------------------------------------------------------------
+*/
+
+.modal-action-icon{
+    width:56px;
+    height:56px;
+    border-radius:18px;
+    background:#fff8e1;
+    color:#f59e0b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.4rem;
+}
+
+.modal-action-icon.danger{
+    background:#fee2e2;
+    color:#dc3545;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CONFIRMATION CARD
+|--------------------------------------------------------------------------
+*/
+
+.confirmation-card{
+    border:1px solid #e9ecef;
+    background:#f8f9fa;
+    border-radius:14px;
+    padding:1rem 1.25rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| EMPTY STATE
+|--------------------------------------------------------------------------
+*/
+
+.empty-state{
+    text-align:center;
+    padding:3rem 1rem;
+}
+
+.empty-state i{
+    font-size:3.5rem;
+    color:#adb5bd;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE
+|--------------------------------------------------------------------------
+*/
+
+@media(max-width:992px){
+
+    .inspector-offcanvas{
+
+        width:100% !important;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .page-header{
+
+        flex-direction:column;
+        align-items:flex-start;
+
+    }
+
+    .summary-card{
+
+        padding:1rem;
+
+    }
+
+    .summary-icon{
+
+        width:50px;
+        height:50px;
+
+    }
+
+}
