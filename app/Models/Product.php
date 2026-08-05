@@ -26,7 +26,7 @@ class Product extends Model
 
     protected $fillable = [
         'company_id',
-        'category_id',
+        'product_category_id',
         'unit_id',
         'tax_rate_id',
         'discount_id',
@@ -104,7 +104,7 @@ class Product extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ProductCategory::class, 'category_id');
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
 
     /**
@@ -231,4 +231,124 @@ class Product extends Model
     {
         return $this->totalStock() <= $this->minimum_stock;
     }
+
+    /**
+     * Product display name.
+     */
+    public function displayName(): string
+    {
+        return "{$this->product_code} - {$this->name}";
+    }
+
+    /**
+     * Profit amount.
+     */
+    public function profitAmount(): float
+    {
+        return (float) (
+            $this->selling_price -
+            $this->cost_price
+        );
+    }
+
+    /**
+     * Profit margin (%)
+     */
+    public function profitMargin(): float
+    {
+        if ($this->cost_price <= 0) {
+            return 0;
+        }
+
+        return round(
+            (
+                ($this->selling_price - $this->cost_price)
+                / $this->cost_price
+            ) * 100,
+            2
+        );
+    }
+
+    /**
+     * Stock status.
+     */
+    public function stockStatus(): string
+    {
+        if ($this->isOutOfStock()) {
+            return 'Out of Stock';
+        }
+
+        if ($this->isLowStock()) {
+            return 'Low Stock';
+        }
+
+        return 'In Stock';
+    }
+
+    /**
+     * Stock badge class.
+     */
+    public function stockBadge(): string
+    {
+        if ($this->isOutOfStock()) {
+            return 'danger';
+        }
+
+        if ($this->isLowStock()) {
+            return 'warning';
+        }
+
+        return 'success';
+    }
+
+    /**
+     * Get product image URL.
+     */
+    public function imageUrl(): string
+    {
+        if (
+            $this->image &&
+            file_exists(public_path('uploads/products/' . $this->image))
+        ) {
+            return asset('uploads/products/' . $this->image);
+        }
+
+        return asset('uploads/products/no-image.png');
+    }
+
+    /**
+     * Upload product image.
+     */
+    private function uploadImage($image): string
+    {
+        $filename = time() . '_' . uniqid() . '.' .
+            $image->getClientOriginalExtension();
+
+        $image->move(
+            public_path('uploads/products'),
+            $filename
+        );
+
+        return $filename;
+    }
+
+    /**
+     * Delete product image.
+     */
+    private function deleteImage(?string $image): void
+    {
+        if (
+            !$image ||
+            !file_exists(public_path('uploads/products/' . $image))
+        ) {
+            return;
+        }
+
+        unlink(
+            public_path('uploads/products/' . $image)
+        );
+    }
+
+    
+    
 }

@@ -1,0 +1,682 @@
+/* ==========================================================================
+   DISCOUNTS MODULE
+   ========================================================================== */
+
+
+/* ==========================================================================
+   PAGE LAYOUT
+   ========================================================================== */
+
+.discount-page{
+    display:flex;
+    flex-direction:column;
+    gap:1.5rem;
+}
+
+
+/* ==========================================================================
+   PAGE HEADER
+   ========================================================================== */
+
+.discount-page .page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    flex-wrap:wrap;
+}
+
+.discount-page .page-title{
+    margin:0;
+    font-size:1.75rem;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.discount-page .page-subtitle{
+    margin-top:.35rem;
+    color:#64748b;
+    font-size:.95rem;
+}
+
+
+/* ==========================================================================
+   KPI CARDS
+   ========================================================================== */
+
+.kpi-card{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+    padding:22px;
+    overflow:hidden;
+    transition:.25s ease;
+    height:100%;
+}
+
+.kpi-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(15,23,42,.08);
+}
+
+.kpi-icon{
+    width:60px;
+    height:60px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.45rem;
+    flex-shrink:0;
+}
+
+.kpi-icon.primary{
+    background:rgba(13,110,253,.12);
+    color:#0d6efd;
+}
+
+.kpi-icon.success{
+    background:rgba(25,135,84,.12);
+    color:#198754;
+}
+
+.kpi-icon.warning{
+    background:rgba(255,193,7,.16);
+    color:#d39e00;
+}
+
+.kpi-icon.danger{
+    background:rgba(220,53,69,.12);
+    color:#dc3545;
+}
+
+.kpi-content{
+    display:flex;
+    flex-direction:column;
+}
+
+.kpi-label{
+    color:#64748b;
+    font-size:.82rem;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+}
+
+.kpi-content h3{
+    margin:4px 0 0;
+    font-size:1.9rem;
+    font-weight:700;
+    color:#0f172a;
+}
+
+
+/* ==========================================================================
+   MODULE CARD
+   ========================================================================== */
+
+.module-card{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    background:#ffffff;
+    box-shadow:0 10px 30px rgba(15,23,42,.05);
+}
+
+.module-card .card-header{
+    background:#ffffff;
+    border-bottom:1px solid #edf2f7;
+    padding:1.25rem 1.5rem;
+}
+
+.module-card .card-body{
+    background:#ffffff;
+}
+
+
+/* ==========================================================================
+   SEARCH BAR
+   ========================================================================== */
+
+.search-box{
+    position:relative;
+}
+
+.search-box i{
+    position:absolute;
+    top:50%;
+    left:16px;
+    transform:translateY(-50%);
+    color:#94a3b8;
+    pointer-events:none;
+}
+
+.search-box .form-control{
+    height:46px;
+    padding-left:46px;
+    border-radius:12px;
+    border:1px solid #dbe4ee;
+    box-shadow:none;
+    transition:.2s ease;
+}
+
+.search-box .form-control:focus{
+    border-color:#0d6efd;
+    box-shadow:0 0 0 .2rem rgba(13,110,253,.15);
+}
+
+
+/* ==========================================================================
+   FILTERS
+   ========================================================================== */
+
+.module-card .form-select{
+    height:46px;
+    border-radius:12px;
+    border:1px solid #dbe4ee;
+    box-shadow:none;
+}
+
+.module-card .form-select:focus{
+    border-color:#0d6efd;
+    box-shadow:0 0 0 .2rem rgba(13,110,253,.15);
+}
+
+/* ==========================================================================
+   TABLE
+   ========================================================================== */
+
+.module-table{
+    margin-bottom:0;
+    vertical-align:middle;
+}
+
+.module-table thead th{
+    background:#f8fafc;
+    color:#475569;
+    font-size:.82rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    border-bottom:1px solid #e2e8f0;
+    padding:16px 18px;
+    white-space:nowrap;
+}
+
+.module-table tbody td{
+    padding:18px;
+    border-bottom:1px solid #eef2f7;
+    vertical-align:middle;
+    color:#334155;
+}
+
+.module-table tbody tr{
+    transition:all .2s ease;
+}
+
+.module-table tbody tr:hover{
+    background:#f8fbff;
+}
+
+.module-table tbody tr:last-child td{
+    border-bottom:none;
+}
+
+.module-table strong{
+    color:#0f172a;
+    font-weight:600;
+}
+
+.module-table small{
+    display:block;
+    margin-top:2px;
+    color:#94a3b8;
+}
+
+.module-table .fw-semibold{
+    color:#1e293b;
+}
+
+
+/* ==========================================================================
+   BADGES
+   ========================================================================== */
+
+.module-table .badge{
+    font-size:.75rem;
+    font-weight:600;
+    border-radius:999px;
+    padding:.45rem .8rem;
+}
+
+.badge-status-active{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-status-inactive{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.badge-type-percentage{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.badge-type-fixed{
+    background:#ede9fe;
+    color:#6d28d9;
+}
+
+.badge-auto{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-manual{
+    background:#f1f5f9;
+    color:#475569;
+}
+
+.badge-current{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.badge-expired{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+
+/* ==========================================================================
+   ACTION DROPDOWN
+   ========================================================================== */
+
+.module-table .dropdown-toggle{
+    border:none;
+    background:transparent;
+    box-shadow:none;
+}
+
+.module-table .btn-light{
+    width:36px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    border:1px solid #e2e8f0;
+    background:#ffffff;
+    transition:.2s ease;
+}
+
+.module-table .btn-light:hover{
+    background:#f8fafc;
+    border-color:#cbd5e1;
+}
+
+.dropdown-menu{
+    border:none;
+    border-radius:14px;
+    padding:.45rem 0;
+    min-width:210px;
+    box-shadow:0 14px 35px rgba(15,23,42,.12);
+}
+
+.dropdown-item{
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+    padding:.7rem 1rem;
+    font-size:.9rem;
+    transition:.2s ease;
+}
+
+.dropdown-item i{
+    width:18px;
+    text-align:center;
+}
+
+.dropdown-item:hover{
+    background:#f8fafc;
+}
+
+.dropdown-item.text-danger:hover{
+    background:#fef2f2;
+}
+
+
+/* ==========================================================================
+   PAGINATION
+   ========================================================================== */
+
+.module-card .card-footer{
+    background:#ffffff;
+    border-top:1px solid #eef2f7;
+    padding:1rem 1.5rem;
+}
+
+.pagination{
+    margin-bottom:0;
+}
+
+.page-link{
+    border-radius:10px !important;
+    margin:0 .15rem;
+    border:1px solid #dbe4ee;
+    color:#475569;
+}
+
+.page-link:hover{
+    background:#eff6ff;
+    border-color:#bfdbfe;
+}
+
+.page-item.active .page-link{
+    background:#0d6efd;
+    border-color:#0d6efd;
+}
+
+
+/* ==========================================================================
+   EMPTY STATE
+   ========================================================================== */
+
+.empty-state{
+    padding:4rem 1rem;
+}
+
+.empty-state i{
+    font-size:3.5rem;
+    color:#cbd5e1;
+}
+
+.empty-state h5{
+    margin-top:1.25rem;
+    color:#1e293b;
+    font-weight:700;
+}
+
+.empty-state p{
+    max-width:420px;
+    margin:.75rem auto 0;
+    color:#64748b;
+}
+
+
+/* ==========================================================================
+   TABLE UTILITIES
+   ========================================================================== */
+
+.discount-value{
+    font-weight:700;
+    color:#0f172a;
+}
+
+.discount-date{
+    font-size:.85rem;
+    color:#64748b;
+}
+
+.discount-name{
+    font-weight:600;
+    color:#1e293b;
+}
+
+.discount-secondary{
+    font-size:.82rem;
+    color:#94a3b8;
+}
+
+/* ==========================================================================
+   MODAL
+   ========================================================================== */
+
+#discountModal .modal-content{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 25px 60px rgba(15,23,42,.15);
+}
+
+#discountModal .modal-header{
+    padding:1.5rem;
+    background:#ffffff;
+    border-bottom:1px solid #eef2f7;
+}
+
+#discountModal .modal-title{
+    font-size:1.2rem;
+    font-weight:700;
+    color:#1e293b;
+}
+
+#discountModal .modal-body{
+    padding:1.5rem;
+}
+
+#discountModal .modal-footer{
+    padding:1.25rem 1.5rem;
+    background:#f8fafc;
+    border-top:1px solid #eef2f7;
+}
+
+#discountModal .form-label{
+    font-weight:600;
+    color:#334155;
+}
+
+#discountModal .form-control,
+#discountModal .form-select{
+    height:46px;
+    border-radius:12px;
+    border:1px solid #dbe4ee;
+    box-shadow:none;
+}
+
+#discountModal textarea.form-control{
+    height:auto;
+}
+
+#discountModal .form-control:focus,
+#discountModal .form-select:focus{
+    border-color:#0d6efd;
+    box-shadow:0 0 0 .2rem rgba(13,110,253,.15);
+}
+
+
+/* ==========================================================================
+   INSPECTOR
+   ========================================================================== */
+
+.inspector-offcanvas{
+    width:420px;
+}
+
+.inspector-offcanvas .offcanvas-header{
+    border-bottom:1px solid #eef2f7;
+    padding:1.5rem;
+}
+
+.inspector-offcanvas .offcanvas-body{
+    padding:1.5rem;
+    background:#f8fafc;
+}
+
+.inspector-summary{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+    padding:1.5rem;
+    text-align:center;
+}
+
+.summary-icon{
+    width:72px;
+    height:72px;
+    margin:0 auto 1rem;
+    border-radius:18px;
+    background:#eff6ff;
+    color:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.8rem;
+}
+
+.summary-title{
+    font-size:1.25rem;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.inspector-section{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+    padding:1rem 1.25rem;
+}
+
+.section-title{
+    font-size:.9rem;
+    font-weight:700;
+    color:#334155;
+    margin-bottom:1rem;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+}
+
+.inspector-table{
+    margin-bottom:0;
+}
+
+.inspector-table th{
+    width:42%;
+    border:none;
+    padding:.7rem 0;
+    color:#64748b;
+    font-weight:600;
+}
+
+.inspector-table td{
+    border:none;
+    padding:.7rem 0;
+    text-align:right;
+    font-weight:600;
+    color:#1e293b;
+}
+
+
+/* ==========================================================================
+   CONFIRMATION MODALS
+   ========================================================================== */
+
+#statusModal .modal-content,
+#deleteModal .modal-content{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.confirmation-icon{
+    width:80px;
+    height:80px;
+    margin:auto;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;
+}
+
+.confirmation-icon.warning{
+    background:#fff7e6;
+    color:#d97706;
+}
+
+.confirmation-icon.danger{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+.btn{
+    border-radius:12px;
+    font-weight:600;
+}
+
+.btn-primary,
+.btn-success,
+.btn-danger,
+.btn-warning{
+    padding:.65rem 1.25rem;
+}
+
+
+/* ==========================================================================
+   LOADING
+   ========================================================================== */
+
+.table-loading{
+    padding:4rem;
+    text-align:center;
+}
+
+.table-loading .spinner-border{
+    width:3rem;
+    height:3rem;
+}
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width:991.98px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .page-header .btn{
+        width:100%;
+    }
+
+    .inspector-offcanvas{
+        width:100%;
+    }
+
+}
+
+@media (max-width:767.98px){
+
+    .module-table{
+        min-width:900px;
+    }
+
+    .kpi-card{
+        padding:18px;
+    }
+
+    .kpi-content h3{
+        font-size:1.5rem;
+    }
+
+    .summary-icon{
+        width:60px;
+        height:60px;
+        font-size:1.5rem;
+    }
+
+}

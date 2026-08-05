@@ -1,0 +1,777 @@
+/*
+|--------------------------------------------------------------------------
+| EMNEX POS - Products Module
+|--------------------------------------------------------------------------
+*/
+
+
+/* ==========================================================
+   PAGE
+========================================================== */
+
+
+.products-page {
+
+    width:100%;
+
+}
+
+
+
+.products-header {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.products-title {
+
+    font-size:28px;
+
+    font-weight:700;
+
+    margin:0;
+
+}
+
+
+
+.products-subtitle {
+
+    color:#6c757d;
+
+    margin-top:5px;
+
+}
+
+
+
+
+
+
+.products-create-btn {
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   KPI CARDS
+========================================================== */
+
+
+.product-kpi-card {
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:22px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    border:1px solid #eef0f3;
+
+    transition:.2s ease;
+
+}
+
+
+
+.product-kpi-card:hover {
+
+    transform:translateY(-3px);
+
+}
+
+
+
+.product-kpi-card span {
+
+    display:block;
+
+    font-size:14px;
+
+    color:#6c757d;
+
+}
+
+
+
+.product-kpi-card h3 {
+
+    margin:5px 0 0;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+
+
+
+.kpi-icon {
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+    background:#f1f5ff;
+
+}
+
+
+
+
+
+
+
+/* ==========================================================
+   PRODUCT CARD
+========================================================== */
+
+
+.product-card {
+
+    background:#fff;
+
+    border-radius:16px;
+
+    border:1px solid #eef0f3;
+
+    overflow:hidden;
+
+}
+
+
+
+.product-card-header {
+
+    padding:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+}
+
+
+
+.product-search-box {
+
+    position:relative;
+
+    width:350px;
+
+}
+
+
+
+.product-search-box i {
+
+    position:absolute;
+
+    left:14px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#9aa0a6;
+
+}
+
+
+
+.product-search-box input {
+
+    padding-left:42px;
+
+    border-radius:10px;
+
+}
+
+
+
+
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+
+.product-table-wrapper {
+
+    overflow-x:auto;
+
+}
+
+
+
+.product-table {
+
+    margin-bottom:0;
+
+}
+
+
+
+.product-table thead th {
+
+    background:#f8f9fa;
+
+    font-size:13px;
+
+    text-transform:uppercase;
+
+    color:#6c757d;
+
+    padding:15px;
+
+}
+
+
+
+.product-table tbody td {
+
+    padding:15px;
+
+}
+
+
+
+
+
+.product-info {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+
+.product-image {
+
+    width:45px;
+
+    height:45px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+}
+
+
+
+.product-name-btn {
+
+    border:0;
+
+    background:none;
+
+    padding:0;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+
+.product-details small {
+
+    display:block;
+
+    color:#6c757d;
+
+    font-size:12px;
+
+}
+
+
+
+
+
+.product-price {
+
+    font-size:15px;
+
+}
+
+
+
+
+
+/* ==========================================================
+   BADGES
+========================================================== */
+
+
+.stock-success {
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+
+
+.stock-warning {
+
+    background:#fef3c7;
+
+    color:#b45309;
+
+}
+
+
+
+.stock-danger {
+
+    background:#fee2e2;
+
+    color:#b91c1c;
+
+}
+
+
+
+
+
+.status-active {
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+
+
+.status-inactive {
+
+    background:#e5e7eb;
+
+    color:#374151;
+
+}
+
+
+
+
+
+
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
+
+
+.product-empty-state {
+
+    padding:50px;
+
+    text-align:center;
+
+    color:#6c757d;
+
+}
+
+
+
+.product-empty-state i {
+
+    font-size:40px;
+
+    display:block;
+
+    margin-bottom:10px;
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   MODAL
+========================================================== */
+
+
+.product-modal {
+
+    border-radius:18px;
+
+}
+
+
+
+.product-tabs .nav-link {
+
+    font-weight:600;
+
+}
+
+
+
+.product-tabs .nav-link.active {
+
+    color:#0d6efd;
+
+}
+
+
+
+
+
+
+.product-image-upload {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:30px;
+
+}
+
+
+
+.product-image-preview {
+
+    width:160px;
+
+    height:160px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    border:1px solid #ddd;
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   INSPECTOR
+========================================================== */
+
+
+.product-inspector {
+
+    width:420px;
+
+}
+
+
+
+.inspector-product-header {
+
+    padding-bottom:20px;
+
+}
+
+
+
+.inspector-image {
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:15px;
+
+    object-fit:cover;
+
+}
+
+
+
+.inspector-code {
+
+    color:#6c757d;
+
+}
+
+
+
+
+
+.inspector-card {
+
+    background:#f8f9fa;
+
+    border-radius:14px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.inspector-title {
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.inspector-item {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:8px 0;
+
+    border-bottom:1px solid #e9ecef;
+
+}
+
+
+
+.inspector-item:last-child {
+
+    border-bottom:0;
+
+}
+
+
+
+.inspector-item span {
+
+    color:#6c757d;
+
+}
+
+
+
+
+
+
+
+/* ==========================================================
+   ACTION MODALS
+========================================================== */
+
+
+.product-action-modal {
+
+    border-radius:18px;
+
+}
+
+
+
+.action-icon {
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:30px;
+
+    margin:auto;
+
+}
+
+
+
+.status-icon {
+
+    background:#e0f2fe;
+
+    color:#0369a1;
+
+}
+
+
+
+.delete-icon {
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+
+@media(max-width:768px){
+
+
+    .products-header {
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+    }
+
+
+
+    .product-card-header {
+
+        flex-direction:column;
+
+    }
+
+
+
+    .product-search-box {
+
+        width:100%;
+
+    }
+
+
+
+    .product-inspector {
+
+        width:100%;
+
+    }
+
+
+
+    .product-image-upload {
+
+        flex-direction:column;
+
+    }
+
+
+}
+
+/* ==========================================
+   Product Modal Scroll Layout
+========================================== */
+
+
+#productModal .modal-dialog {
+
+    max-height: 95vh;
+
+}
+
+
+
+#productModal .modal-content {
+
+    max-height: 95vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+
+
+#productModal .modal-header {
+
+    flex-shrink:0;
+
+}
+
+
+
+
+
+#productModal .modal-body {
+
+    overflow-y:auto;
+
+    flex:1;
+
+    max-height:calc(95vh - 140px);
+
+}
+
+
+
+
+
+#productModal .modal-footer {
+
+    flex-shrink:0;
+
+}
+
+
+.modal {
+    z-index: 9999 !important;
+}
+
+.modal-backdrop {
+    z-index: 9998 !important;
+}

@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/product-category.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/unit.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tax-rate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/discount.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/product.css') }}">
 
 </head>
 

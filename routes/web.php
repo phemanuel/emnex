@@ -107,9 +107,8 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     | Catalog
     |--------------------------------------------------------------------------
-    */
-
-    Route::resource('products', ProductController::class);
+      */
+   
 
     /*
 |--------------------------------------------------------------------------
@@ -215,7 +214,76 @@ Route::prefix('tax-rates')
 
     });
 
-    Route::resource('discounts', DiscountController::class);
+    /*
+|--------------------------------------------------------------------------
+| Discounts
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('discounts')
+    ->name('discounts.')
+    ->controller(DiscountController::class)
+    ->group(function () {
+
+        Route::get('/', 'index')->name('index');
+
+        Route::get('/table', 'table')->name('table');
+
+        Route::post('/', 'store')->name('store');
+
+        Route::get('/{discount}/edit', 'edit')->name('edit');
+
+        Route::put('/{discount}', 'update')->name('update');
+
+        Route::get('/{discount}/details', 'details')->name('details');
+
+        Route::patch('/{discount}/toggle-status', 'toggleStatus')
+            ->name('toggle-status');
+
+        Route::delete('/{discount}', 'destroy')->name('destroy');
+
+    });
+
+
+  /*
+|--------------------------------------------------------------------------
+| Products
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('products')
+    ->name('products.')
+    ->controller(ProductController::class)
+    ->group(function () {
+
+        Route::get('/', 'index')
+            ->name('index');
+
+        Route::get('/table', 'table')
+            ->name('table');
+
+        Route::post('/', 'store')
+            ->name('store');
+
+        Route::get('/{product}/edit', 'edit')
+            ->name('edit');
+
+        Route::put('/{product}', 'update')
+            ->name('update');
+
+        Route::get('/{product}/details', 'details')
+            ->name('details');
+
+        Route::patch('/{product}/toggle-status', 'toggleStatus')
+            ->name('toggle-status');
+
+        Route::delete('/{product}', 'destroy')
+            ->name('destroy');
+
+        Route::get('/next-code','nextCode')
+        ->name('next-code');
+
+    });
 
 
 

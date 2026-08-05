@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2026 at 07:45 AM
+-- Generation Time: Aug 04, 2026 at 12:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -132,7 +132,25 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (73, 1, 1, 1, 'Units', 'Updated', 'Updated unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"TEXT\",\"short_name\":\"TXT\",\"description\":\"TEXT\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-03T15:02:30.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-03T15:03:28.000000Z\",\"deleted_at\":null}', 'units/14', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:03:28', '2026-08-03 14:03:28'),
 (74, 1, 1, 1, 'Units', 'Disabled', 'Unit Disabled: Text', 'Unit', 14, NULL, NULL, 'units/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:03:52', '2026-08-03 14:03:52'),
 (75, 1, 1, 1, 'Units', 'Enabled', 'Unit Enabled: Text', 'Unit', 14, NULL, NULL, 'units/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:03:56', '2026-08-03 14:03:56'),
-(76, 1, 1, 1, 'Units', 'Deleted', 'Deleted unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-03T15:03:56.000000Z\",\"deleted_at\":null}', '[]', 'units/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:04:02', '2026-08-03 14:04:02');
+(76, 1, 1, 1, 'Units', 'Deleted', 'Deleted unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-03T15:03:56.000000Z\",\"deleted_at\":null}', '[]', 'units/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-03 14:04:02', '2026-08-03 14:04:02'),
+(77, 1, 1, 1, 'Tax Rates', 'Created', 'Created tax rate: Test  Rate', 'TaxRate', 5, NULL, NULL, 'tax-rates', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:12:59', '2026-08-04 08:12:59'),
+(78, 1, 1, 1, 'Tax Rates', 'Deleted', 'Deleted tax rate: Test  Rate', 'TaxRate', 5, NULL, NULL, 'tax-rates/5', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:30:41', '2026-08-04 08:30:41'),
+(79, 1, 1, 1, 'Tax Rates', 'Created', 'Created tax rate: Test  Rate', 'TaxRate', 6, NULL, NULL, 'tax-rates', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:30:58', '2026-08-04 08:30:58'),
+(80, 1, 1, 1, 'Tax Rates', 'Deleted', 'Deleted tax rate: Test  Rate', 'TaxRate', 6, NULL, NULL, 'tax-rates/6', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:41:21', '2026-08-04 08:41:21'),
+(81, 1, 1, 1, 'Tax Rates', 'Created', 'Created tax rate: Test  Rate', 'TaxRate', 7, NULL, NULL, 'tax-rates', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:41:38', '2026-08-04 08:41:38'),
+(82, 1, 1, 1, 'Tax Rates', 'Deleted', 'Deleted tax rate: Test  Rate', 'TaxRate', 7, NULL, NULL, 'tax-rates/7', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:41:46', '2026-08-04 08:41:46'),
+(83, 1, 1, 1, 'Units', 'Restored', 'Restored unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-03T15:04:02.000000Z\",\"deleted_at\":\"2026-08-03T15:04:02.000000Z\"}', '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-04T09:42:57.000000Z\",\"deleted_at\":null}', 'units', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:42:57', '2026-08-04 08:42:57'),
+(84, 1, 1, 1, 'Units', 'Deleted', 'Deleted unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-04T09:42:57.000000Z\",\"deleted_at\":null}', '[]', 'units/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:43:11', '2026-08-04 08:43:11'),
+(85, 1, 1, 1, 'Units', 'Restored', 'Restored unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-04T09:43:11.000000Z\",\"deleted_at\":\"2026-08-04T09:43:11.000000Z\"}', '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-04T09:43:28.000000Z\",\"deleted_at\":null}', 'units', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:43:28', '2026-08-04 08:43:28'),
+(86, 1, 1, 1, 'Units', 'Deleted', 'Deleted unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-04T09:43:28.000000Z\",\"deleted_at\":null}', '[]', 'units/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:45:31', '2026-08-04 08:45:31'),
+(87, 1, 1, 1, 'Units', 'Restored', 'Restored unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-04T09:45:31.000000Z\",\"deleted_at\":\"2026-08-04T09:45:31.000000Z\"}', '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-04T09:45:46.000000Z\",\"deleted_at\":null}', 'units', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:45:46', '2026-08-04 08:45:46'),
+(88, 1, 1, 1, 'Units', 'Deleted', 'Deleted unit: Text', 'Unit', 14, '{\"id\":14,\"company_id\":1,\"unit_code\":\"UNT000014\",\"name\":\"Text\",\"short_name\":\"TXT\",\"description\":\"Text\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-03T15:02:30.000000Z\",\"updated_at\":\"2026-08-04T09:45:46.000000Z\",\"deleted_at\":null}', '[]', 'units/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:48:18', '2026-08-04 08:48:18'),
+(89, 1, 1, 1, 'Product Categories', 'Restored', 'Restored product category: TEXT', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"Building\",\"description\":\"Furniture , Upholstery.\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-02T16:14:57.000000Z\",\"deleted_at\":\"2026-08-02T16:14:57.000000Z\"}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"TEXT\",\"description\":\"TEXT\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-04T09:48:40.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:48:40', '2026-08-04 08:48:40'),
+(90, 1, 1, 1, 'Product Categories', 'Deleted', 'Deleted category: TEXT', 'ProductCategory', 14, '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"TEXT\",\"description\":\"TEXT\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-04T09:48:40.000000Z\",\"deleted_at\":null}', '{\"id\":14,\"company_id\":1,\"category_code\":\"CAT000011\",\"name\":\"TEXT\",\"description\":\"TEXT\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-02T15:53:48.000000Z\",\"updated_at\":\"2026-08-04T09:48:45.000000Z\",\"deleted_at\":\"2026-08-04T09:48:45.000000Z\"}', 'product-categories/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:48:45', '2026-08-04 08:48:45'),
+(91, 1, 1, 1, 'Tax Rates', 'Updated', 'Updated tax rate: No Tax', 'TaxRate', 1, '{\"id\":1,\"company_id\":1,\"name\":\"No Tax\",\"rate\":\"0.00\",\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\"}', '{\"id\":1,\"company_id\":1,\"name\":\"No Tax\",\"rate\":\"0.10\",\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-04T09:49:00.000000Z\"}', 'tax-rates/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:49:00', '2026-08-04 08:49:00'),
+(92, 1, 1, 1, 'Tax Rates', 'Updated', 'Updated tax rate: No Tax', 'TaxRate', 1, '{\"id\":1,\"company_id\":1,\"name\":\"No Tax\",\"rate\":\"0.10\",\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-04T09:49:00.000000Z\"}', '{\"id\":1,\"company_id\":1,\"name\":\"No Tax\",\"rate\":\"0.00\",\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-04T09:49:11.000000Z\"}', 'tax-rates/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:49:11', '2026-08-04 08:49:11'),
+(93, 1, 1, 1, 'Tax Rates', 'Disabled', 'Tax rate Disabled: No Tax', 'TaxRate', 1, NULL, NULL, 'tax-rates/1/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:49:14', '2026-08-04 08:49:14'),
+(94, 1, 1, 1, 'Tax Rates', 'Enabled', 'Tax rate Enabled: No Tax', 'TaxRate', 1, NULL, NULL, 'tax-rates/1/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-04 08:49:18', '2026-08-04 08:49:18');
 
 -- --------------------------------------------------------
 
@@ -299,18 +317,19 @@ CREATE TABLE `discounts` (
   `end_date` date NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `discounts`
 --
 
-INSERT INTO `discounts` (`id`, `company_id`, `name`, `is_automatic`, `type`, `value`, `start_date`, `end_date`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'No Discount', 1, 'Percentage', 0.00, '2026-07-29', '2036-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(2, 1, 'Opening Promotion', 1, 'Percentage', 5.00, '2026-07-29', '2026-08-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(3, 1, 'Manager Discount', 0, 'Percentage', 10.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(4, 1, 'Special Customer', 0, 'Fixed', 500.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13');
+INSERT INTO `discounts` (`id`, `company_id`, `name`, `is_automatic`, `type`, `value`, `start_date`, `end_date`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'No Discount', 1, 'Percentage', 0.00, '2026-07-29', '2036-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(2, 1, 'Opening Promotion', 1, 'Percentage', 5.00, '2026-07-29', '2026-08-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(3, 1, 'Manager Discount', 0, 'Percentage', 10.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(4, 1, 'Special Customer', 0, 'Fixed', 500.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -463,7 +482,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (37, '2026_08_02_104254_add_payment_method_id_to_payments_table', 8),
 (38, '2026_08_02_104326_remove_payment_method_from_payments_table', 8),
 (39, '2026_08_03_100609_add_payment_method_to_payments_table', 9),
-(40, '2026_08_03_101122_add_unit_metadata_to_units_table', 10);
+(40, '2026_08_03_101122_add_unit_metadata_to_units_table', 10),
+(41, '2026_08_04_100012_add_soft_deletes_to_discounts_table', 11);
 
 -- --------------------------------------------------------
 
@@ -817,7 +837,7 @@ INSERT INTO `product_categories` (`id`, `company_id`, `category_code`, `name`, `
 (8, 1, 'CAT000008', 'Toiletries', 'Personal care and hygiene products.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (9, 1, 'CAT000009', 'Baby Products', 'Baby food, diapers and accessories.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (10, 1, 'CAT000010', 'Stationery', 'Office and school supplies.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(14, 1, 'CAT000011', 'Building', 'Furniture , Upholstery.', NULL, NULL, 0, 0, 1, 1, '2026-08-02 14:53:48', '2026-08-02 15:14:57', '2026-08-02 15:14:57');
+(14, 1, 'CAT000011', 'TEXT', 'TEXT', NULL, NULL, 0, 1, 1, 1, '2026-08-02 14:53:48', '2026-08-04 08:48:45', '2026-08-04 08:48:45');
 
 -- --------------------------------------------------------
 
@@ -1242,7 +1262,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('b2CN6LlHZYf5hlIYYkkPL4Xz8BsUXXrdin1J67r3', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IlgxbmxPVEZ5b1hqZWNLMHRBdkpTSUlUNXp3TWRzUDJhR1d3dzhkTGUiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91bml0cyI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjMxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvdGF4LXJhdGVzIjtzOjU6InJvdXRlIjtzOjE1OiJ0YXgtcmF0ZXMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1785822293);
+('c4PNmBm5VFjrGMh7j6vO8EhIP0hRGjw0tAMGm6bh', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6InVqbGlZQWIwZmN4MFdteTR5ZVprSFZ3eUFCUTk1R3QwY3plZm93Ym4iO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo0MToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3RheC1yYXRlcy8yL2RldGFpbHMiO3M6NToicm91dGUiO3M6MTc6InRheC1yYXRlcy5kZXRhaWxzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjEwOiJjb21wYW55X2lkIjtpOjE7czoxMjoiY29tcGFueV9uYW1lIjtzOjE5OiJFbW1hbmV4IFN1cGVybWFya2V0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6OToiQ09NUC0wMDAxIjtzOjk6ImJyYW5jaF9pZCI7aToxO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1785837372);
 
 -- --------------------------------------------------------
 
@@ -1336,7 +1356,7 @@ CREATE TABLE `tax_rates` (
 --
 
 INSERT INTO `tax_rates` (`id`, `company_id`, `name`, `rate`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'No Tax', 0.00, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
+(1, 1, 'No Tax', 0.00, 1, '2026-07-29 10:37:13', '2026-08-04 08:49:18'),
 (2, 1, 'VAT 7.5%', 7.50, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (3, 1, 'VAT 15%', 15.00, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (4, 1, 'Luxury Tax', 10.00, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13');
@@ -1412,7 +1432,7 @@ INSERT INTO `units` (`id`, `company_id`, `unit_code`, `name`, `short_name`, `des
 (11, 1, 'UNT000011', 'Bag', 'BAG', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
 (12, 1, 'UNT000012', 'Roll', 'ROL', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
 (13, 1, 'UNT000013', 'Box', 'BOX', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(14, 1, 'UNT000014', 'Text', 'TXT', 'Text', 1, 1, 1, '2026-08-03 14:02:30', '2026-08-03 14:04:02', '2026-08-03 14:04:02');
+(14, 1, 'UNT000014', 'Text', 'TXT', 'Text', 1, 1, 1, '2026-08-03 14:02:30', '2026-08-04 08:48:18', '2026-08-04 08:48:18');
 
 -- --------------------------------------------------------
 
@@ -1746,7 +1766,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -1800,7 +1820,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1878,7 +1898,7 @@ ALTER TABLE `stock_movements`
 -- AUTO_INCREMENT for table `tax_rates`
 --
 ALTER TABLE `tax_rates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `terminals`
