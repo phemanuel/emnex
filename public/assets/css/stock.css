@@ -1,0 +1,698 @@
+/*
+|--------------------------------------------------------------------------
+| Stock Page
+|--------------------------------------------------------------------------
+*/
+
+.stock-page {
+
+    padding: 10px;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+
+.stock-header h2 {
+
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+
+}
+
+
+
+.stock-header p {
+
+    font-size: 14px;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| KPI Cards
+|--------------------------------------------------------------------------
+*/
+
+.stock-kpi {
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+
+    height: 100%;
+
+}
+
+
+
+.stock-kpi-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+
+    background: #f1f3f5;
+
+}
+
+
+
+.stock-kpi small {
+
+    color: #6c757d;
+
+    font-size: 13px;
+
+}
+
+
+
+.stock-kpi h3 {
+
+    margin: 4px 0 0;
+
+    font-weight: 700;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Main Card
+|--------------------------------------------------------------------------
+*/
+
+.stock-card {
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 24px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Filters
+|--------------------------------------------------------------------------
+*/
+
+.stock-filter .form-control,
+
+.stock-filter .form-select {
+
+    border-radius: 12px;
+
+    min-height: 42px;
+
+}
+
+
+
+.stock-filter .input-group-text {
+
+    background: #ffffff;
+
+    border-radius: 12px 0 0 12px;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Table
+|--------------------------------------------------------------------------
+*/
+
+.stock-table {
+
+    margin-bottom: 0;
+
+}
+
+
+
+.stock-table thead th {
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #6c757d;
+
+    background: #f8f9fa;
+
+    border-bottom: none;
+
+}
+
+
+
+.stock-table tbody tr {
+
+    transition: .2s ease;
+
+}
+
+
+
+.stock-table tbody tr:hover {
+
+    background: #fafafa;
+
+}
+
+
+
+.stock-table td {
+
+    padding-top: 16px;
+
+    padding-bottom: 16px;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Product Image
+|--------------------------------------------------------------------------
+*/
+
+.stock-product-image {
+
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    background: #f8f9fa;
+
+}
+
+
+
+.stock-product-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+
+.stock-placeholder-image {
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #adb5bd;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Empty State
+|--------------------------------------------------------------------------
+*/
+
+.stock-empty-state {
+
+    color: #6c757d;
+
+}
+
+
+
+.stock-empty-state i {
+
+    color: #adb5bd;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Inspector
+|--------------------------------------------------------------------------
+*/
+
+.stock-inspector {
+
+    width: 420px;
+
+}
+
+
+
+.stock-inspector .offcanvas-header {
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+
+.stock-inspector-image {
+
+    width: 90px;
+
+    height: 90px;
+
+    border-radius: 18px;
+
+    background: #f8f9fa;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    font-size: 35px;
+
+    color: #adb5bd;
+
+}
+
+
+
+.stock-inspector-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+
+.stock-inspector-section {
+
+    background: #ffffff;
+
+    margin-bottom: 18px;
+
+}
+
+
+
+.stock-inspector-section h6 {
+
+    font-weight: 700;
+
+    margin-bottom: 14px;
+
+}
+
+
+
+.stock-info-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #f1f1f1;
+
+    font-size: 14px;
+
+}
+
+
+
+.stock-info-row span {
+
+    color: #6c757d;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Modal
+|--------------------------------------------------------------------------
+*/
+
+.stock-modal {
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+}
+
+
+
+.stock-modal .modal-header,
+
+.stock-modal .modal-footer {
+
+    border-color: #f1f1f1;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Delete / Status Icons
+|--------------------------------------------------------------------------
+*/
+
+.stock-delete-icon,
+
+.stock-status-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+    margin:auto;
+
+    border-radius: 50%;
+
+    background: #f8f9fa;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:26px;
+
+}
+
+.stock-movement-item {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #f1f1f1;
+
+    font-size:14px;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Stock Adjustment Modal
+|--------------------------------------------------------------------------
+*/
+
+
+.stock-adjustment-modal {
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+
+
+.stock-adjustment-modal .modal-header {
+
+    padding:20px 24px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #eeeeee;
+
+}
+
+
+
+.stock-adjustment-modal .modal-body {
+
+    background:#f8f9fa;
+
+    padding:24px;
+
+}
+
+
+
+.stock-adjustment-modal .modal-footer {
+
+    background:#ffffff;
+
+    padding:16px 24px;
+
+}
+
+.stock-table {
+
+    margin-bottom:0;
+
+}
+
+
+
+.stock-table thead th {
+
+    background:#f8f9fa;
+
+    border:none;
+
+    font-size:13px;
+
+    color:#6c757d;
+
+}
+
+
+
+.stock-product-avatar {
+
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:12px;
+
+    background:#f1f3f5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+
+}
+
+
+
+.stock-product-avatar img {
+
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Stock Inspector
+|--------------------------------------------------------------------------
+*/
+
+
+.stock-inspector {
+
+
+    width:420px;
+
+
+}
+
+
+
+.stock-inspector .offcanvas-header {
+
+
+    border-bottom:1px solid #eeeeee;
+
+
+}
+
+
+
+.stock-inspector-product {
+
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+
+}
+
+
+
+
+.stock-inspector-card {
+
+
+    background:#ffffff;
+
+
+    border-radius:16px;
+
+
+    padding:18px;
+
+
+    margin-bottom:16px;
+
+
+    box-shadow:
+
+        0 4px 15px rgba(0,0,0,.05);
+
+
+}
+
+
+
+.inspector-row {
+
+
+    display:flex;
+
+
+    justify-content:space-between;
+
+
+    padding:10px 0;
+
+
+    border-bottom:1px solid #f1f1f1;
+
+
+}
+
+
+
+.inspector-row:last-child {
+
+
+    border-bottom:none;
+
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Stock Adjustment Modal
+|--------------------------------------------------------------------------
+*/
+
+
+.stock-adjustment-modal
+{
+
+    min-height: 90vh;
+
+}
+
+
+
+.stock-adjustment-modal .modal-body
+{
+
+    height: calc(90vh - 170px);
+
+    overflow-y: auto;
+
+}
+
+.stock-product-table-wrapper
+{
+
+    max-height: 500px;
+
+    overflow-y: auto;
+
+}
+
+
+
+.stock-product-table-wrapper table
+{
+
+    margin-bottom:0;
+
+}

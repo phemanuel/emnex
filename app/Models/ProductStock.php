@@ -6,16 +6,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-/**
- * ProductStock Model
- *
- * Represents the current stock balance of a product
- * in a specific branch.
- */
 class ProductStock extends Model
 {
     use HasFactory;
+
 
     /*
     |--------------------------------------------------------------------------
@@ -24,14 +20,25 @@ class ProductStock extends Model
     */
 
     protected $fillable = [
+
         'company_id',
+
         'branch_id',
+
         'product_id',
+
         'quantity',
+
         'reserved_quantity',
+
+        'available_quantity',
+
         'reorder_level',
-        'last_stock_update',
+
+        'maximum_stock',
+
     ];
+
 
     /*
     |--------------------------------------------------------------------------
@@ -42,15 +49,28 @@ class ProductStock extends Model
     protected function casts(): array
     {
         return [
-            'company_id'       => 'integer',
-            'branch_id'        => 'integer',
-            'product_id'       => 'integer',
-            'quantity'         => 'decimal:2',
-            'reserved_quantity'=> 'decimal:2',
-            'reorder_level'    => 'decimal:2',
-            'last_stock_update'=> 'datetime',
+
+            'company_id' => 'integer',
+
+            'branch_id' => 'integer',
+
+            'product_id' => 'integer',
+
+
+            'quantity' => 'decimal:2',
+
+            'reserved_quantity' => 'decimal:2',
+
+            'available_quantity' => 'decimal:2',
+
+            'reorder_level' => 'decimal:2',
+
+            'maximum_stock' => 'decimal:2',
+
         ];
     }
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -58,29 +78,60 @@ class ProductStock extends Model
     |--------------------------------------------------------------------------
     */
 
+
     /**
      * Company
      */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(
+            Company::class,
+            'company_id'
+        );
     }
+
 
     /**
      * Branch
      */
     public function branch(): BelongsTo
     {
-        return $this->belongsTo(Branch::class, 'branch_id');
+        return $this->belongsTo(
+            Branch::class,
+            'branch_id'
+        );
     }
+
 
     /**
      * Product
      */
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(
+            Product::class,
+            'product_id'
+        );
     }
+
+    /**
+     * Stock Movements
+     */
+    public function movements(): HasMany
+    {
+        return $this->hasMany(
+            StockMovement::class,
+            'product_id',
+            'product_id'
+        )
+        ->where(
+            'branch_id',
+            $this->branch_id
+        )
+        ->latest('id');
+    }
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -88,29 +139,74 @@ class ProductStock extends Model
     |--------------------------------------------------------------------------
     */
 
-    /**
-     * Active company stock.
-     */
-    public function scopeForCompany(Builder $query, int $companyId): Builder
-    {
-        return $query->where('company_id', $companyId);
-    }
 
     /**
-     * Filter by branch.
+     * Company stock
      */
-    public function scopeBranch(Builder $query, int $branchId): Builder
-    {
-        return $query->where('branch_id', $branchId);
+    public function scopeForCompany(
+        Builder $query,
+        int $companyId
+    ): Builder {
+
+        return $query->where(
+            'company_id',
+            $companyId
+        );
+
     }
 
+
+
     /**
-     * Low stock items.
+     * Branch stock
      */
-    public function scopeLowStock(Builder $query): Builder
-    {
-        return $query->whereColumn('quantity', '<=', 'reorder_level');
+    public function scopeBranch(
+        Builder $query,
+        int $branchId
+    ): Builder {
+
+        return $query->where(
+            'branch_id',
+            $branchId
+        );
+
     }
+
+
+
+    /**
+     * Low stock
+     */
+    public function scopeLowStock(
+        Builder $query
+    ): Builder {
+
+        return $query->whereColumn(
+            'quantity',
+            '<=',
+            'reorder_level'
+        );
+
+    }
+
+
+
+    /**
+     * Out of stock
+     */
+    public function scopeOutOfStock(
+        Builder $query
+    ): Builder {
+
+        return $query->where(
+            'quantity',
+            '<=',
+            0
+        );
+
+    }
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -118,35 +214,109 @@ class ProductStock extends Model
     |--------------------------------------------------------------------------
     */
 
+
     /**
-     * Available stock after reservations.
+     * Synchronize available quantity.
+     */
+    public function syncAvailableQuantity(): void
+    {
+
+        $this->available_quantity =
+            $this->quantity -
+            $this->reserved_quantity;
+
+
+        $this->save();
+
+    }
+
+
+
+    /**
+     * Available stock.
      */
     public function availableQuantity(): float
     {
-        return (float) ($this->quantity - $this->reserved_quantity);
+        return (float) $this->available_quantity;
     }
 
+
+
     /**
-     * Check if stock is available.
+     * Check stock availability.
      */
-    public function hasStock(float $qty = 1): bool
-    {
-        return $this->availableQuantity() >= $qty;
+    public function hasStock(
+        float $quantity = 1
+    ): bool {
+
+        return $this->available_quantity >= $quantity;
+
     }
 
+
+
     /**
-     * Check if stock is low.
+     * Check low stock.
      */
     public function isLowStock(): bool
     {
+
         return $this->quantity <= $this->reorder_level;
+
     }
 
+
+
     /**
-     * Check if stock is empty.
+     * Check out of stock.
      */
     public function isOutOfStock(): bool
     {
+
         return $this->quantity <= 0;
+
     }
+
+
+
+    /**
+     * Stock status.
+     */
+    public function stockStatus(): string
+    {
+
+        if ($this->isOutOfStock()) {
+
+            return 'Out of Stock';
+
+        }
+
+
+        if ($this->isLowStock()) {
+
+            return 'Low Stock';
+
+        }
+
+
+        return 'In Stock';
+
+    }
+
+
+
+    /**
+     * Inventory value.
+     */
+    public function stockValue(): float
+    {
+
+        return (float)
+            (
+                $this->quantity *
+                $this->product->cost_price
+            );
+
+    }
+
 }

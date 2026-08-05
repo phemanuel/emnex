@@ -15,8 +15,7 @@ use App\Http\Controllers\Admin\DiscountController;
 
 use App\Http\Controllers\Admin\PosController;
 
-use App\Http\Controllers\Admin\StockOverviewController;
-use App\Http\Controllers\Admin\StockAdjustmentController;
+use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\Admin\StockTransferController;
 use App\Http\Controllers\Admin\StockCountController;
 use App\Http\Controllers\Admin\LowStockController;
@@ -251,6 +250,7 @@ Route::prefix('discounts')
 |--------------------------------------------------------------------------
 */
 
+
 Route::prefix('products')
     ->name('products.')
     ->controller(ProductController::class)
@@ -293,10 +293,30 @@ Route::prefix('products')
     |--------------------------------------------------------------------------
     */
 
-    Route::resource('stock-overview', StockOverviewController::class)
-        ->only(['index']);
+    Route::prefix('stock')
+    ->name('stock.')
+    ->controller(StockController::class)
+    ->group(function () {
 
-    Route::resource('stock-adjustments', StockAdjustmentController::class);
+        Route::get('/', 'index')
+            ->name('index');        
+
+        Route::get('/table', 'table')
+            ->name('table');        
+
+        Route::get('/{id}/details', 'details')
+            ->name('details');
+
+        Route::post('/', 'store')
+            ->name('store');
+
+        Route::get('products','products')
+        ->name('products');
+
+        Route::get('/adjustment-filters','adjustmentFilters')
+        ->name('stock.adjustment.filters');
+
+    });    
 
     Route::resource('stock-transfers', StockTransferController::class);
 

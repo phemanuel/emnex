@@ -138,6 +138,14 @@ class StockMovement extends Model
         return $query->where('movement_type', $type);
     }
 
+    /**
+     * Latest movements first.
+     */
+    public function scopeLatestMovement(Builder $query): Builder
+    {
+        return $query->latest('id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Helper Methods
@@ -171,5 +179,48 @@ class StockMovement extends Model
             'Expired',
             'Supplier Return',
         ]);
+    }
+
+    /**
+     * Human readable movement type.
+     */
+    public function movementLabel(): string
+    {
+        return match($this->movement_type) {
+
+            'Opening Stock' =>
+                'Opening Stock',
+
+            'Purchase' =>
+                'Purchase',
+
+            'Adjustment In' =>
+                'Stock Increase',
+
+            'Adjustment Out' =>
+                'Stock Decrease',
+
+            'Transfer In' =>
+                'Transfer Received',
+
+            'Transfer Out' =>
+                'Transfer Sent',
+
+            'Customer Return' =>
+                'Customer Return',
+
+            'Supplier Return' =>
+                'Supplier Return',
+
+            'Damaged' =>
+                'Damaged',
+
+            'Expired' =>
+                'Expired',
+
+            default =>
+                $this->movement_type
+
+        };
     }
 }

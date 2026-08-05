@@ -139,6 +139,11 @@ class Product extends Model
         return $this->hasMany(ProductStock::class, 'product_id');
     }
 
+    public function stocks()
+    {
+        return $this->hasMany(ProductStock::class);
+    }
+
     /**
      * Stock Movement History
      */

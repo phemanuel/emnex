@@ -341,27 +341,16 @@
 
         <div class="nav-children">
 
-            <a href="{{ route('stock-overview.index') }}"
-            class="{{ request()->routeIs('stock-overview.*') ? 'active' : '' }}">
+            <a href="{{ route('stock.index') }}"
+            class="{{ request()->routeIs('stock.*') ? 'active' : '' }}">
 
                 <span class="sub-icon">
                     <i class="bi bi-boxes"></i>
                 </span>
 
-                <span>Stock Overview</span>
+                <span>Stock</span>
 
-            </a>
-
-            <a href="{{ route('stock-adjustments.index') }}"
-            class="{{ request()->routeIs('stock-adjustments.*') ? 'active' : '' }}">
-
-                <span class="sub-icon">
-                    <i class="bi bi-sliders2"></i>
-                </span>
-
-                <span>Stock Adjustment</span>
-
-            </a>
+            </a>            
 
             <a href="{{ route('stock-transfers.index') }}"
             class="{{ request()->routeIs('stock-transfers.*') ? 'active' : '' }}">
