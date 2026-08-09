@@ -3,129 +3,124 @@
 
     <div class="branch-inspector-header">
 
+    <div>
 
-        <div>
+        <h5>
+            Branch Details
+        </h5>
 
-            <h5>
-                Branch Details
-            </h5>
-
-            <small>
-                Branch information and operations
-            </small>
-
-        </div>
-
-
-        <button class="inspector-close" id="closeBranchInspector">
-
-            <i class="bi bi-x-lg"></i>
-
-        </button>
-
+        <small>
+            Branch information and operations
+        </small>
 
     </div>
 
 
+    <button class="inspector-close" id="closeBranchInspector">
 
-    <div class="branch-inspector-body">
+        <i class="bi bi-x-lg"></i>
 
-
-        {{-- Branch Hero --}}
-
-        <div class="branch-profile">
+    </button>
 
 
-            <div class="branch-profile-icon">
-
-                <i class="bi bi-shop"></i>
-
-            </div>
+</div>
 
 
-            <div>
 
-                <h4 id="inspectorBranchName">
-                    --
-                </h4>
+<div class="branch-inspector-body">
 
 
-                <span id="inspectorBranchCode">
-                    --
-                </span>
+    {{-- Branch Hero --}}
 
-            </div>
+    <div class="branch-profile">
 
+
+        <div class="branch-profile-icon">
+
+            <i class="bi bi-shop"></i>
 
         </div>
 
 
+        <div>
 
-        {{-- Status --}}
+            <h4 id="inspectorBranchName">
+                --
+            </h4>
 
-        <div class="inspector-status mt-3">
 
-            <span id="inspectorBranchStatus">
+            <span id="inspectorBranchCode">
                 --
             </span>
 
         </div>
 
 
-
-        {{-- Information --}}
-
-
-        <div class="inspector-section">
-
-
-            <h6>
-                Branch Information
-            </h6>
+    </div>
 
 
 
-            <div class="inspector-grid">
+    {{-- Status --}}
+
+    <div class="inspector-status mt-3">
+
+        <span id="inspectorBranchStatus">
+            --
+        </span>
+
+    </div>
 
 
-                <div>
 
-                    <label>
-                        Phone
-                    </label>
+    {{-- Information --}}
 
-                    <strong id="inspectorPhone">
-                        --
-                    </strong>
-
-                </div>
+    <div class="inspector-section">
 
 
-                <div>
-
-                    <label>
-                        Email
-                    </label>
-
-                    <strong id="inspectorEmail">
-                        --
-                    </strong>
-
-                </div>
+        <h6>
+            Branch Information
+        </h6>
 
 
-                <div class="full">
 
-                    <label>
-                        Address
-                    </label>
+        <div class="inspector-grid">
 
-                    <strong id="inspectorAddress">
-                        --
-                    </strong>
 
-                </div>
+            <div>
 
+                <label>
+                    Phone
+                </label>
+
+                <strong id="inspectorPhone">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Email
+                </label>
+
+                <strong id="inspectorEmail">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="full">
+
+                <label>
+                    Address
+                </label>
+
+                <strong id="inspectorAddress">
+                    --
+                </strong>
 
             </div>
 
@@ -133,177 +128,194 @@
         </div>
 
 
-
-        {{-- Statistics --}}
-
-
-        <div class="inspector-section">
+    </div>
 
 
-            <h6>
-                Operations
-            </h6>
+
+    {{-- Statistics --}}
+
+    <div class="inspector-section">
 
 
-            <div class="inspector-kpis">
+        <h6>
+            Operations
+        </h6>
 
 
-        <button class="inspector-kpi-card branch-preview-btn"
+        <div class="inspector-kpis">
+
+
+            <button
+                class="inspector-kpi-card branch-preview-btn"
                 data-type="users">
 
+                <span>
 
-            <span>
+                    <i class="bi bi-people"></i>
 
-                <i class="bi bi-people"></i>
+                    Users
 
-                Users
-
-            </span>
-
-
-            <b id="inspectorUsers">
-                0
-            </b>
+                </span>
 
 
-            <small>
-                View
-            </small>
+                <b id="inspectorUsers">
+                    0
+                </b>
 
 
-        </button>
+                <small>
+                    View
+                </small>
 
+
+            </button>
 
 
 
-        <button class="inspector-kpi-card branch-preview-btn"
+
+            <button
+                class="inspector-kpi-card branch-preview-btn"
                 data-type="terminals">
 
+                <span>
 
-            <span>
+                    <i class="bi bi-display"></i>
 
-                <i class="bi bi-display"></i>
+                    Terminals
 
-                Terminals
-
-            </span>
-
-
-            <b id="inspectorTerminals">
-                0
-            </b>
+                </span>
 
 
-            <small>
-                View
-            </small>
+                <b id="inspectorTerminals">
+                    0
+                </b>
 
 
-        </button>
+                <small>
+                    View
+                </small>
 
+
+            </button>
 
 
 
-    <button class="inspector-kpi-card branch-preview-btn"
-            data-type="orders">
+
+            <button
+                class="inspector-kpi-card branch-preview-btn"
+                data-type="orders">
+
+                <span>
+
+                    <i class="bi bi-receipt"></i>
+
+                    Orders
+
+                </span>
 
 
-        <span>
-
-            <i class="bi bi-receipt"></i>
-
-            Orders
-
-        </span>
+                <b id="inspectorOrders">
+                    0
+                </b>
 
 
-        <b id="inspectorOrders">
-            0
-        </b>
+                <small>
+                    View
+                </small>
 
 
-        <small>
-            View
-        </small>
+            </button>
 
 
-    </button>
+            <button
+                class="inspector-kpi-card branch-preview-btn"
+                data-type="customers">
 
-    <button class="inspector-kpi-card branch-preview-btn"
-        data-type="customers">
+                <span>
 
+                    <i class="bi bi-person-heart"></i>
 
-    <span>
+                    Customers
 
-        <i class="bi bi-person-heart"></i>
-
-        Customers
-
-    </span>
+                </span>
 
 
-    <b id="inspectorCustomers">
-        0
-    </b>
+                <b id="inspectorCustomers">
+                    0
+                </b>
 
 
-    <small>
-        View
-    </small>
+                <small>
+                    View
+                </small>
 
 
-</button>
+            </button>
+
+
+        </div>
+
+
+    </div>
 
 
 </div>
 
 
-        </div>
 
+<div class="branch-inspector-footer">
+
+    <div class="d-flex gap-2">
+
+
+        @permission('branches.update')
+
+        <button
+            class="btn btn-primary flex-fill"
+            id="panelEditBranch">
+
+            <i class="bi bi-pencil-square"></i>
+
+            Edit
+
+        </button>
+
+        @endpermission
+
+
+        @permission('branches.update')
+
+        <button
+            class="btn btn-outline-warning flex-fill"
+            id="panelToggleBranchStatus">
+
+            <i class="bi bi-pause-circle"></i>
+
+            Disable
+
+        </button>
+
+        @endpermission
+
+
+        @permission('branches.delete')
+
+        <button
+            class="btn btn-outline-danger flex-fill"
+            id="panelDeleteBranch">
+
+            <i class="bi bi-trash"></i>
+
+            Delete
+
+        </button>
+
+        @endpermission
 
 
     </div>
 
-
-
-
-    <div class="branch-inspector-footer">
-
-        <div class="d-flex gap-2">
-
-            <button
-                class="btn btn-primary flex-fill"
-                id="panelEditBranch">
-
-                <i class="bi bi-pencil-square"></i>
-
-                Edit
-
-            </button>
-
-            <button
-                class="btn btn-outline-warning flex-fill"
-                id="panelToggleBranchStatus">
-
-                <i class="bi bi-pause-circle"></i>
-
-                Disable
-
-            </button>
-
-            <button
-                class="btn btn-outline-danger flex-fill"
-                id="panelDeleteBranch">
-
-                <i class="bi bi-trash"></i>
-
-                Delete
-
-            </button>
-
-        </div>
-
-    </div>
+</div>
 
 
 </div>

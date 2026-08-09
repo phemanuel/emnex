@@ -678,15 +678,16 @@ renderInspector(terminal){
 
     <div class="terminal-actions">
 
+    <h6>
+        Quick Actions
+    </h6>
 
-        <h6>
-            Quick Actions
-        </h6>
+    <div class="action-grid">
 
-
-        <div class="action-grid">
-
-
+        ${
+            window.terminalPermissions?.update
+            ?
+            `
             <button
                 id="panelEditTerminal"
                 class="terminal-panel-btn primary">
@@ -696,13 +697,19 @@ renderInspector(terminal){
                 Edit
 
             </button>
+            `
+            :
+            ''
+        }
 
 
-
+        ${
+            window.terminalPermissions?.update
+            ?
+            `
             <button
                 id="panelToggleTerminal"
                 class="terminal-panel-btn warning">
-
 
                 ${
                     terminal.status
@@ -718,11 +725,17 @@ renderInspector(terminal){
                     `
                 }
 
-
             </button>
+            `
+            :
+            ''
+        }
 
 
-
+        ${
+            window.terminalPermissions?.delete
+            ?
+            `
             <button
                 id="panelDeleteTerminal"
                 class="terminal-panel-btn danger">
@@ -732,12 +745,14 @@ renderInspector(terminal){
                 Delete
 
             </button>
-
-
-        </div>
-
+            `
+            :
+            ''
+        }
 
     </div>
+
+</div>
 
 
 

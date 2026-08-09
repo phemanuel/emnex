@@ -28,6 +28,12 @@ class PaymentMethodController extends BaseController
 
     public function index()
     {
+        if (! canAccess('payment_methods.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view payment methods.'
+            ], 403);
+        }
 
         $paymentMethods = PaymentMethod::where(
                 'company_id',
@@ -58,6 +64,12 @@ class PaymentMethodController extends BaseController
 
     public function store(Request $request)
     {
+        if (! canAccess('payment_methods.create')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to create payment methods.'
+            ], 403);
+        }
 
         $validated = $request->validate([
 
@@ -243,6 +255,13 @@ class PaymentMethodController extends BaseController
 
     public function edit(PaymentMethod $paymentMethod)
     {
+        if (! canAccess('payment_methods.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to edit payment methods.'
+            ], 403);
+        }
+
         /*
         |--------------------------------------------------------------------------
         | Company Ownership
@@ -290,11 +309,14 @@ class PaymentMethodController extends BaseController
     |--------------------------------------------------------------------------
     */
 
-    public function update(
-        Request $request,
-        PaymentMethod $paymentMethod
-    ) {
-
+    public function update( Request $request, PaymentMethod $paymentMethod ) 
+    {
+        if (! canAccess('payment_methods.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to edit payment methods.'
+            ], 403);
+        }
 
         if ($paymentMethod->company_id !== $this->companyId) {
 
@@ -513,9 +535,14 @@ class PaymentMethodController extends BaseController
     |--------------------------------------------------------------------------
     */
 
-    public function toggleStatus(
-        PaymentMethod $paymentMethod
-    ) {
+    public function toggleStatus(PaymentMethod $paymentMethod ) 
+    {
+        if (! canAccess('payment_methods.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to update payment method status.'
+            ], 403);
+        }
 
 
         if ($paymentMethod->company_id !== $this->companyId) {
@@ -583,9 +610,14 @@ class PaymentMethodController extends BaseController
     |--------------------------------------------------------------------------
     */
 
-    public function destroy(
-        PaymentMethod $paymentMethod
-    ) {
+    public function destroy( PaymentMethod $paymentMethod) 
+    {
+        if (! canAccess('payment_methods.delete')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to delete payment methods.'
+            ], 403);
+        }
 
 
         if ($paymentMethod->company_id !== $this->companyId) {
@@ -642,6 +674,13 @@ class PaymentMethodController extends BaseController
 
     public function restore($id)
     {
+
+        if (! canAccess('payment_methods.restore')) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You do not have permission to restore payment methods.'
+                ], 403);
+            }
 
         $paymentMethod = PaymentMethod::withTrashed()
             ->where(

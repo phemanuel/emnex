@@ -52,6 +52,8 @@
 
     <div class="permission-header-right">
 
+        @permission('roles.assign_permissions')
+
         <button
             class="btn btn-primary btn-lg"
             id="savePermissionsBtn">
@@ -61,6 +63,8 @@
             Save Changes
 
         </button>
+
+        @endpermission
 
     </div>
 
@@ -323,6 +327,8 @@
 
                 </button>
 
+                @permission('roles.assign_permissions')
+
                 <button
                     type="button"
                     class="btn btn-primary"
@@ -333,6 +339,8 @@
                     Save Changes
 
                 </button>
+
+                @endpermission
 
             </div>
 

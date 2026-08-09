@@ -138,6 +138,12 @@ class TerminalController extends BaseController
 
     public function store(Request $request)
     {
+        if (! canAccess('terminals.create')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to create a terminal.'
+            ], 403);
+        }
 
         $validator = Validator::make($request->all(), [
 
@@ -423,7 +429,12 @@ class TerminalController extends BaseController
 
     public function update(Request $request,$id)
     {
-
+        if (! canAccess('terminals.update')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to update a terminal.'
+            ], 403);
+        }
 
         $terminal = Terminal::where('company_id',$this->companyId)
             ->where('id',$id)
@@ -610,8 +621,12 @@ class TerminalController extends BaseController
 
     public function destroy($id)
     {
-
-
+        if (! canAccess('terminals.delete')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to delete a terminal.'
+            ], 403);
+        }
         $terminal =
             Terminal::where('company_id',$this->companyId)
             ->where('id',$id)
@@ -673,6 +688,12 @@ class TerminalController extends BaseController
 
     public function toggleStatus($id)
     {
+        if (! canAccess('terminals.update')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to change terminal status.'
+            ], 403);
+        }
 
         $terminal = Terminal::where('company_id',$this->companyId)
             ->where('id',$id)
@@ -760,6 +781,12 @@ class TerminalController extends BaseController
 
     public function details(Terminal $terminal)
     {
+        if (! canAccess('terminals.view')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to view terminal details.'
+            ], 403);
+        }
 
         if($terminal->company_id !== $this->companyId){
 

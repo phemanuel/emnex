@@ -33,8 +33,7 @@
 
         </div>
 
-
-
+        @permission('users.create')
 
         <button 
             class="btn btn-primary"
@@ -45,11 +44,10 @@
 
         </button>
 
+        @endpermission
+
 
     </div>
-
-
-
 
 
     {{-- Summary Cards --}}
@@ -687,6 +685,8 @@
             <ul class="dropdown-menu dropdown-menu-end">
 
     {{-- View --}}
+    @permission('users.view')
+
     <li>
 
         <button
@@ -701,9 +701,13 @@
 
     </li>
 
+    @endpermission
+
 
 
     {{-- Edit --}}
+    @permission('users.update')
+
     <li>
 
         <button
@@ -718,6 +722,7 @@
 
     </li>
 
+    @endpermission
 
 
     <li>
@@ -729,6 +734,8 @@
 
 
     {{-- Reset Password --}}
+    @permission('users.reset_password')
+
     <li>
 
         <button
@@ -748,9 +755,13 @@
 
     </li>
 
+    @endpermission
+
 
 
     {{-- Toggle Status --}}
+    @permission('users.update')
+
     <li>
 
         <button
@@ -781,7 +792,7 @@
 
     </li>
 
-
+    @endpermission
 
     <li>
 
@@ -792,6 +803,8 @@
 
 
     {{-- Delete --}}
+    @permission('users.delete')
+
     <li>
 
         <button
@@ -809,6 +822,8 @@
         </button>
 
     </li>
+
+    @endpermission
 
 </ul>
 

@@ -27,6 +27,14 @@ class SettingsController extends BaseController
      */
     public function index()
     {
+
+        if (! canAccess('settings.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view settings.'
+            ], 403);
+        }
+
         $settings = Setting::where(
             'company_id',
             $this->companyId
@@ -146,6 +154,13 @@ class SettingsController extends BaseController
      */
     public function update(Request $request)
     {
+
+        if (! canAccess('settings.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to update settings.'
+            ], 403);
+        }
 
         $validated = $request->validate([
 
@@ -378,6 +393,12 @@ class SettingsController extends BaseController
      */
     public function toggleStatus(Request $request)
     {
+        if (! canAccess('settings.toggle_status')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to change settings status.'
+            ], 403);
+        }
 
         try {
 

@@ -435,6 +435,8 @@
 
                                     <div class="btn-group">
 
+                                        @permission('document_sequences.update')
+
                                         <button
                                             type="button"
                                             class="btn btn-outline-primary btn-sequence edit-sequence-btn"
@@ -445,6 +447,10 @@
 
                                         </button>
 
+                                        @endpermission
+
+                                        @permission('document_sequences.toggle_status')
+
                                         <button
                                             type="button"
                                             class="btn btn-outline-secondary btn-sequence toggle-status-btn"
@@ -454,6 +460,8 @@
                                             <i class="bi {{ $sequence->status ? 'bi-pause-circle' : 'bi-play-circle' }}"></i>
 
                                         </button>
+
+                                        @endpermission
 
                                     </div>
 

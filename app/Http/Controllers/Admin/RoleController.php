@@ -31,6 +31,12 @@ class RoleController extends Controller
     {
         $companyId = auth()->user()->company_id;
 
+        if (! canAccess('roles.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view roles.'
+            ], 403);
+        }
 
         $roles = Role::where(
             'company_id',
@@ -74,6 +80,12 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+        if (! canAccess('roles.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view roles.'
+            ], 403);
+        }
         $companyId = auth()->user()->company_id;
 
 
@@ -209,6 +221,13 @@ class RoleController extends Controller
     {
         $this->authorizeCompany($role);
 
+        if (! canAccess('roles.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view roles.'
+            ], 403);
+        }
+
 
         $role->load([
             'permissions',
@@ -252,13 +271,16 @@ class RoleController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function update(
-        Request $request,
-        Role $role
-    )
+    public function update(Request $request, Role $role )
     {
         $this->authorizeCompany($role);
 
+        if (! canAccess('roles.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to update roles.'
+            ], 403);
+        }
 
 
         if ($role->is_system) {
@@ -416,6 +438,13 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $this->authorizeCompany($role);
+
+        if (! canAccess('roles.delete')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to delete roles.'
+            ], 403);
+        }
 
         if ($role->is_system) {
 

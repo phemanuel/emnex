@@ -238,7 +238,7 @@
 
 
 
-                                    @permission('roles.permissions')
+                                    @permission('roles.assign_permissions')
 
                                     <li>
 

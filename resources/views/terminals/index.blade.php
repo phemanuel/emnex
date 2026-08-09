@@ -27,7 +27,9 @@
 
 
 
-        <button 
+        @permission('terminals.create')
+
+        <button
             id="addTerminalBtn"
             class="btn btn-primary px-4">
 
@@ -36,6 +38,8 @@
             New Terminal
 
         </button>
+
+        @endpermission
 
 
     </div>
@@ -395,13 +399,17 @@
                         <td class="text-end">
 
 
+                            @permission('terminals.view')
+
                             <button
                                 class="terminal-action-btn viewTerminal"
                                 data-id="{{ $terminal->id }}">
-                                
+
                                 <i class="bi bi-eye"></i>
 
                             </button>
+
+                            @endpermission
 
 
 
@@ -439,18 +447,20 @@
                                 </p>
 
 
+                                @permission('terminals.create')
+
                                 <button
                                     class="btn btn-primary"
                                     data-bs-toggle="modal"
                                     data-bs-target="#createTerminalModal">
 
-
                                     <i class="bi bi-plus-circle me-2"></i>
 
                                     Create Terminal
 
-
                                 </button>
+
+                                @endpermission
 
 
                             </div>
@@ -512,6 +522,13 @@
  @include('terminals.partials.inspector')
  
 
-
+<script>
+    window.terminalPermissions = {
+        view: @json(canAccess('terminals.view')),
+        create: @json(canAccess('terminals.create')),
+        update: @json(canAccess('terminals.update')),
+        delete: @json(canAccess('terminals.delete')),
+    };
+</script>
  <script src="{{ asset('assets/js/terminal.js') }}"></script>
 @endsection

@@ -118,6 +118,8 @@
             @endpermission
             
 
+            @permission('branches.export')
+
             <button class="btn btn-outline-secondary">
 
                 <i class="bi bi-download"></i>
@@ -125,6 +127,8 @@
                 Export
 
             </button>
+
+            @endpermission
 
         </div>
 

@@ -532,93 +532,56 @@
 
 
     {{-- Quick Actions --}}
-    <div class="col-xl-4">
+    <div class="company-card">
 
-            <div class="company-card">
+        <div class="company-card-header">
 
-                <div class="company-card-header">
-
-                    <h5>
-                        Quick Actions
-                    </h5>
-
-                </div>
-
-                <div class="company-actions-grid">
-
-                    <button
-                        class="action-card"
-                        data-bs-toggle="modal"
-                        data-bs-target="#editCompanyModal">
-
-                        <div class="action-icon bg-primary">
-                            <i class="bi bi-pencil-square"></i>
-                        </div>
-
-                        <div class="action-text">
-                            <h6>Edit Company</h6>
-                            <small>Update company information</small>
-                        </div>
-
-                    </button>
-
-
-
-                    <button
-                        class="action-card"
-                        data-bs-toggle="modal"
-                        data-bs-target="#logoModal">
-
-                        <div class="action-icon bg-success">
-                            <i class="bi bi-image"></i>
-                        </div>
-
-                        <div class="action-text">
-                            <h6>Company Logo</h6>
-                            <small>Upload a new logo</small>
-                        </div>
-
-                    </button>
-
-
-
-                    <a
-                        href="{{ route('settings.index') }}"
-                        class="action-card">
-
-                        <div class="action-icon bg-warning">
-                            <i class="bi bi-gear"></i>
-                        </div>
-
-                        <div class="action-text">
-                            <h6>Settings</h6>
-                            <small>Configure the system</small>
-                        </div>
-
-                    </a>
-
-
-
-                    <a
-                        href="{{ route('branches.index') }}"
-                        class="action-card">
-
-                        <div class="action-icon bg-info">
-                            <i class="bi bi-shop"></i>
-                        </div>
-
-                        <div class="action-text">
-                            <h6>Branches</h6>
-                            <small>Manage company branches</small>
-                        </div>
-
-                    </a>
-
-                </div>
-            </div>
+            <h5>
+                Quick Actions
+            </h5>
 
         </div>
 
+        <div class="company-actions-grid">
+
+            @if(canAccess('company.update'))
+
+                <button
+                    class="action-card"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editCompanyModal">
+
+                    <div class="action-icon bg-primary">
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+
+                    <div class="action-text">
+                        <h6>Edit Company</h6>
+                        <small>Update company information</small>
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="action-card"
+                    data-bs-toggle="modal"
+                    data-bs-target="#logoModal">
+
+                    <div class="action-icon bg-success">
+                        <i class="bi bi-image"></i>
+                    </div>
+
+                    <div class="action-text">
+                        <h6>Company Logo</h6>
+                        <small>Upload a new logo</small>
+                    </div>
+
+                </button>
+
+            @endif
+
+        </div>
     </div>
 
     <div class="company-section mt-4">

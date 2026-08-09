@@ -4,7 +4,7 @@
 
 <div class="emnex-dashboard">
 
-```
+
 {{-- ==========================================================
     DASHBOARD HEADER
 =========================================================== --}}
@@ -111,59 +111,84 @@
 
 </div>
 
-
-
 {{-- ==========================================================
     KPI CARDS
 =========================================================== --}}
 
-<div class="row g-4 mb-4">
+<div class="row g-4 dashboard-kpi-row">
 
 
-    {{-- SALES --}}
+    {{-- ======================================================
+        SALES
+    ======================================================= --}}
 
     @if($canViewSales)
 
         <div class="col-xl-3 col-md-6">
 
-            <div class="kpi-card">
+            <div class="kpi-card kpi-card-sales">
 
-                <div class="kpi-top">
+                {{-- TOP ROW --}}
+                <div class="kpi-card-header">
 
-                    <div class="kpi-icon sales">
-                        <i class="bi bi-cash-stack"></i>
+                    <div class="kpi-card-heading">
+
+                        <div class="kpi-icon sales">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+
+                        <div>
+
+                            <span class="kpi-label">
+                                Sales
+                            </span>
+
+                            <small class="kpi-period">
+                                {{ ucfirst(str_replace('_', ' ', $period)) }}
+                            </small>
+
+                        </div>
+
                     </div>
 
+
                     <span class="kpi-trend positive">
+
                         <i class="bi bi-arrow-up"></i>
+
                         12.5%
+
                     </span>
 
                 </div>
 
 
-                <div class="kpi-content">
+                {{-- VALUE --}}
+                <div class="kpi-value-section">
 
-                    <span>
-                        Sales
-                    </span>
-
-                    <h2>
+                    <h2 class="kpi-value">
                         ₦{{ number_format($todaySales, 2) }}
                     </h2>
 
-                    <small>
-                        {{ ucfirst(str_replace('_', ' ', $period)) }}
-                    </small>
+                    <span class="kpi-description">
+                        Revenue generated
+                    </span>
 
-                    <div class="kpi-footer">
+                </div>
 
-                        <a href="{{ route('orders.index') }}">
+
+                {{-- FOOTER --}}
+                <div class="kpi-card-footer">
+
+                    <a href="{{ route('orders.index') }}">
+
+                        <span>
                             View Sales
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
+                        </span>
 
-                    </div>
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </a>
 
                 </div>
 
@@ -175,49 +200,77 @@
 
 
 
-    {{-- TRANSACTIONS --}}
+    {{-- ======================================================
+        TRANSACTIONS
+    ======================================================= --}}
 
     @if($canViewOrders)
 
         <div class="col-xl-3 col-md-6">
 
-            <div class="kpi-card">
+            <div class="kpi-card kpi-card-transactions">
 
-                <div class="kpi-top">
+                {{-- TOP ROW --}}
+                <div class="kpi-card-header">
 
-                    <div class="kpi-icon transaction">
-                        <i class="bi bi-receipt"></i>
+                    <div class="kpi-card-heading">
+
+                        <div class="kpi-icon transaction">
+                            <i class="bi bi-receipt"></i>
+                        </div>
+
+                        <div>
+
+                            <span class="kpi-label">
+                                Transactions
+                            </span>
+
+                            <small class="kpi-period">
+                                Today
+                            </small>
+
+                        </div>
+
                     </div>
 
+
                     <span class="kpi-trend neutral">
+
+                        <i class="bi bi-clock"></i>
+
                         Today
+
                     </span>
 
                 </div>
 
 
-                <div class="kpi-content">
+                {{-- VALUE --}}
+                <div class="kpi-value-section">
 
-                    <span>
-                        Transactions
-                    </span>
-
-                    <h2>
+                    <h2 class="kpi-value">
                         {{ number_format($todayTransactions) }}
                     </h2>
 
-                    <small>
+                    <span class="kpi-description">
                         Orders processed
-                    </small>
+                    </span>
 
-                    <div class="kpi-footer">
+                </div>
 
-                        <a href="{{ route('orders.index') }}">
+
+                {{-- FOOTER --}}
+                <div class="kpi-card-footer">
+
+                    <a href="{{ route('orders.index') }}">
+
+                        <span>
                             View Orders
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
+                        </span>
 
-                    </div>
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </a>
 
                 </div>
 
@@ -229,19 +282,39 @@
 
 
 
-    {{-- CUSTOMERS --}}
+    {{-- ======================================================
+        CUSTOMERS
+    ======================================================= --}}
 
     @if($canViewCustomers)
 
         <div class="col-xl-3 col-md-6">
 
-            <div class="kpi-card">
+            <div class="kpi-card kpi-card-customers">
 
-                <div class="kpi-top">
+                {{-- TOP ROW --}}
+                <div class="kpi-card-header">
 
-                    <div class="kpi-icon customer">
-                        <i class="bi bi-people"></i>
+                    <div class="kpi-card-heading">
+
+                        <div class="kpi-icon customer">
+                            <i class="bi bi-people"></i>
+                        </div>
+
+                        <div>
+
+                            <span class="kpi-label">
+                                Customers
+                            </span>
+
+                            <small class="kpi-period">
+                                Total
+                            </small>
+
+                        </div>
+
                     </div>
+
 
                     <span class="kpi-trend positive">
 
@@ -254,28 +327,32 @@
                 </div>
 
 
-                <div class="kpi-content">
+                {{-- VALUE --}}
+                <div class="kpi-value-section">
 
-                    <span>
-                        Customers
-                    </span>
-
-                    <h2>
+                    <h2 class="kpi-value">
                         {{ number_format($totalCustomers) }}
                     </h2>
 
-                    <small>
+                    <span class="kpi-description">
                         New customers this period
-                    </small>
+                    </span>
 
-                    <div class="kpi-footer">
+                </div>
 
-                        <a href="{{ route('customers.index') }}">
+
+                {{-- FOOTER --}}
+                <div class="kpi-card-footer">
+
+                    <a href="{{ route('customers.index') }}">
+
+                        <span>
                             Manage Customers
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
+                        </span>
 
-                    </div>
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </a>
 
                 </div>
 
@@ -287,49 +364,77 @@
 
 
 
-    {{-- INVENTORY --}}
+    {{-- ======================================================
+        INVENTORY
+    ======================================================= --}}
 
     @if($canViewInventory)
 
         <div class="col-xl-3 col-md-6">
 
-            <div class="kpi-card">
+            <div class="kpi-card kpi-card-inventory">
 
-                <div class="kpi-top">
+                {{-- TOP ROW --}}
+                <div class="kpi-card-header">
 
-                    <div class="kpi-icon inventory">
-                        <i class="bi bi-box-seam"></i>
+                    <div class="kpi-card-heading">
+
+                        <div class="kpi-icon inventory">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+
+                        <div>
+
+                            <span class="kpi-label">
+                                Inventory Value
+                            </span>
+
+                            <small class="kpi-period">
+                                Current
+                            </small>
+
+                        </div>
+
                     </div>
 
+
                     <span class="kpi-trend warning">
+
+                        <i class="bi bi-box"></i>
+
                         Stock
+
                     </span>
 
                 </div>
 
 
-                <div class="kpi-content">
+                {{-- VALUE --}}
+                <div class="kpi-value-section">
 
-                    <span>
-                        Inventory Value
-                    </span>
-
-                    <h2>
+                    <h2 class="kpi-value">
                         ₦{{ number_format($inventoryValue, 2) }}
                     </h2>
 
-                    <small>
+                    <span class="kpi-description">
                         Current stock valuation
-                    </small>
+                    </span>
 
-                    <div class="kpi-footer">
+                </div>
 
-                        <a href="{{ route('stock.index') }}">
+
+                {{-- FOOTER --}}
+                <div class="kpi-card-footer">
+
+                    <a href="{{ route('stock.index') }}">
+
+                        <span>
                             View Inventory
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
+                        </span>
 
-                    </div>
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </a>
 
                 </div>
 
@@ -339,9 +444,8 @@
 
     @endif
 
+
 </div>
-
-
 
 {{-- ==========================================================
     MAIN DASHBOARD GRID
@@ -847,7 +951,7 @@
     @endif
 
 </div>
-```
+
 
 </div>
 

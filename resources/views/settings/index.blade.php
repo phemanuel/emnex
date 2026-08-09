@@ -398,19 +398,19 @@
                     </div>
 
 
-
+                    @permission('settings.update')
 
                     <button type="submit"
 
                             class="btn btn-primary">
 
-
                         <i class="bi bi-save me-2"></i>
 
                         Save Settings
 
-
                     </button>
+
+                    @endpermission
 
 
                 </div>

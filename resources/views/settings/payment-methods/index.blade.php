@@ -33,6 +33,8 @@
 
 
 
+        @permission('payment_methods.create')
+
         <button
             class="btn btn-primary"
             onclick="PaymentMethods.openCreateModal()">
@@ -42,6 +44,8 @@
             New Payment Method
 
         </button>
+
+        @endpermission
 
 
     </div>
@@ -276,6 +280,8 @@
 
                                     <ul class="dropdown-menu dropdown-menu-end">
 
+                                        @permission('payment_methods.update')
+
                                         <li>
 
                                             <button
@@ -290,6 +296,11 @@
                                             </button>
 
                                         </li>
+
+                                        @endpermission
+
+
+                                        @permission('payment_methods.toggle_status')
 
                                         <li>
 
@@ -308,6 +319,11 @@
                                             </button>
 
                                         </li>
+
+                                        @endpermission
+
+
+                                        @permission('payment_methods.delete')
 
                                         <li>
 
@@ -329,6 +345,8 @@
                                             </button>
 
                                         </li>
+
+                                        @endpermission
 
                                     </ul>
 

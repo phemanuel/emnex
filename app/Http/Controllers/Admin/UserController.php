@@ -108,6 +108,13 @@ class UserController extends BaseController
         {
             $companyId = auth()->user()->company_id;
 
+            if (! canAccess('users.create')) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You do not have permission to create users.'
+                ], 403);
+            }
+
             $validated = $request->validate([
 
                 'branch_id' => [
@@ -455,6 +462,15 @@ class UserController extends BaseController
                 403
             );
 
+            // Update User
+
+            if (! canAccess('users.update')) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You do not have permission to update users.'
+                ], 403);
+            }
+
             $validated = $request->validate([
 
                 'branch_id' => [
@@ -581,6 +597,15 @@ class UserController extends BaseController
 
             }
 
+            // View User Details
+
+            if (! canAccess('users.view')) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You do not have permission to view users.'
+                ], 403);
+            }
+
             $user->load([
                 'branch',
                 'role'
@@ -638,6 +663,13 @@ class UserController extends BaseController
 
                 abort(403);
 
+            }
+
+            if (! canAccess('users.reset_password')) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You do not have permission to reset user passwords.'
+                ], 403);
             }
 
             $password = Str::password(
@@ -705,6 +737,14 @@ class UserController extends BaseController
                 abort(403);
 
             }
+                        // Delete User
+
+            if (! canAccess('users.delete')) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You do not have permission to delete users.'
+                ], 403);
+            }
 
             $oldValues =
                 $user->toArray();
@@ -745,6 +785,15 @@ class UserController extends BaseController
 
                 abort(403);
 
+            }
+
+            // Toggle Status
+
+            if (! canAccess('users.update')) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You do not have permission to update users.'
+                ], 403);
             }
 
             $oldValues = [

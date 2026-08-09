@@ -53,6 +53,14 @@ class DocumentSequenceController extends BaseController
      */
     public function index()
     {
+
+        if (! canAccess('document_sequences.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view document sequences.'
+            ], 403);
+        }
+
         foreach (self::DEFAULT_SEQUENCES as $type => $prefix) {
 
             DocumentSequence::firstOrCreate(
@@ -105,6 +113,13 @@ class DocumentSequenceController extends BaseController
      */
     public function edit(DocumentSequence $documentSequence)
     {
+        if (! canAccess('document_sequences.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to edit document sequences.'
+            ], 403);
+        }
+
         if ($documentSequence->company_id !== $this->companyId) {
 
             return response()->json([
@@ -133,6 +148,12 @@ class DocumentSequenceController extends BaseController
      */
     public function update(Request $request,DocumentSequence $documentSequence) 
     {
+        if (! canAccess('document_sequences.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to edit document sequences.'
+            ], 403);
+        }
                /*
         |--------------------------------------------------------------------------
         | Company Ownership
@@ -258,6 +279,12 @@ class DocumentSequenceController extends BaseController
      */
     public function toggleStatus(DocumentSequence $documentSequence) 
     {
+        if (! canAccess('document_sequences.toggle_status')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to change document sequence status.'
+            ], 403);
+        }
 
         /*
         |--------------------------------------------------------------------------

@@ -134,6 +134,13 @@ class BranchController extends BaseController
             403
         );
 
+        if (! canAccess('branches.view')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to view branch information.'
+            ], 403);
+        }
+
 
         $branch->load([
             'activityLogs'
@@ -271,6 +278,13 @@ class BranchController extends BaseController
         try {
 
             $companyId = auth()->user()->company_id;
+
+            if (! canAccess('branches.create')) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'You do not have permission to create a branch.'
+                ], 403);
+            }
 
             $validated = $request->validate([
 
@@ -591,6 +605,13 @@ class BranchController extends BaseController
             404
         );
 
+        if (! canAccess('branches.update')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to update a branch.'
+            ], 403);
+        }
+
         $validated = $request->validate([
 
             'edit_name' => [
@@ -724,6 +745,13 @@ class BranchController extends BaseController
             404
         );
 
+        if (! canAccess('branches.delete')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to delete a branch.'
+            ], 403);
+        }
+
         if ($branch->is_head_office) {
 
             return response()->json([
@@ -815,6 +843,13 @@ class BranchController extends BaseController
             $branch->company_id === $this->companyId,
             404
         );
+
+        if (! canAccess('branches.update')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to change branch status.'
+            ], 403);
+        }
 
         /*
         |--------------------------------------------------------------------------

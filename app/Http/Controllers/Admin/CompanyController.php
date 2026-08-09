@@ -141,6 +141,12 @@ class CompanyController extends BaseController
      */
     public function update(Request $request)
     {
+        if (! canAccess('company.update')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to update the company.'
+            ], 403);
+        }
 
         $company = $this->company;
 
@@ -170,6 +176,13 @@ class CompanyController extends BaseController
 
     public function updateLogo(Request $request)
     {
+        if (! canAccess('company.update')) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'You do not have permission to update the company.'
+            ], 403);
+        }
+
         $request->validate([
             'logo' => 'required|image|mimes:png,jpg,jpeg,webp|max:2048'
         ]);
