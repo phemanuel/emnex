@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
@@ -24,7 +25,69 @@ class DashboardController extends Controller
 
         $companyId = $user->company_id;
 
+        /*
+        |--------------------------------------------------------------------------
+        | Access Scope
+        |--------------------------------------------------------------------------
+        */
+
+        $role = $user->role?->code;
+
+        $canManageAllBranches = in_array($role, [
+            'owner',
+            'administrator',
+        ]);
+
+       $currentBranchId = $user->branch_id;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permissions
+        |--------------------------------------------------------------------------
+        */
+
+        $canViewSales =
+            canAccess('reports.sales') ||
+            canAccess('orders.view') ||
+            canAccess('pos.sell');
+
+        $canViewOrders =
+            canAccess('orders.view') ||
+            canAccess('pos.open_orders');
+
+        $canViewCustomers =
+            canAccess('customers.view');
+
+        $canViewInventory =
+            canAccess('inventory.view');
+
+        $canViewLowStock =
+            canAccess('inventory.low_stock') ||
+            canAccess('inventory.view');
+
+        $canViewPayments =
+            canAccess('payments.view');
+
+        $canViewReports =
+            canAccess('reports.sales') ||
+            canAccess('reports.inventory') ||
+            canAccess('reports.profit_loss') ||
+            canAccess('reports.tax');
+
+        $canViewTerminals =
+            canAccess('terminals.view') ||
+            canAccess('pos.cash_drawer');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Date Period
+        |--------------------------------------------------------------------------
+        */
+
         $period = request('period', 'this_week');
+
 
         switch ($period) {
 
@@ -35,6 +98,7 @@ class DashboardController extends Controller
 
                 break;
 
+
             case 'yesterday':
 
                 $startDate = Carbon::yesterday();
@@ -42,49 +106,154 @@ class DashboardController extends Controller
 
                 break;
 
+
             case 'this_month':
 
-                $startDate = Carbon::now()->startOfMonth();
-                $endDate = Carbon::now()->endOfMonth();
+                $startDate =
+                    Carbon::now()->startOfMonth();
+
+                $endDate =
+                    Carbon::now()->endOfMonth();
 
                 break;
+
 
             case 'this_year':
 
-                $startDate = Carbon::now()->startOfYear();
-                $endDate = Carbon::now()->endOfYear();
+                $startDate =
+                    Carbon::now()->startOfYear();
+
+                $endDate =
+                    Carbon::now()->endOfYear();
 
                 break;
 
+
             default:
 
-                $startDate = Carbon::now()->startOfWeek();
-                $endDate = Carbon::now()->endOfWeek();
+                $startDate =
+                    Carbon::now()->startOfWeek();
+
+                $endDate =
+                    Carbon::now()->endOfWeek();
+
+                break;
 
         }
-        /*
-        |--------------------------------------------------------------------------
-        | Today's Sales
-        |--------------------------------------------------------------------------
-        */
-
-        $todaySales = Order::forCompany($companyId)
-            ->completed()
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->sum('total');
-
 
 
         /*
         |--------------------------------------------------------------------------
-        | Today's Transactions
+        | Order Query
         |--------------------------------------------------------------------------
         */
 
-        $todayTransactions = Order::forCompany($companyId)
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
+        $orderQuery = Order::forCompany($companyId);
 
+
+        if (!$canManageAllBranches) {
+
+            $orderQuery->where(
+                'branch_id',
+                $currentBranchId
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Payment Query
+        |--------------------------------------------------------------------------
+        */
+
+        $paymentQuery =
+            Payment::forCompany($companyId);
+
+
+        if (!$canManageAllBranches) {
+
+            $paymentQuery->where(
+                'branch_id',
+                $currentBranchId
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Product Stock Query
+        |--------------------------------------------------------------------------
+        */
+
+        $stockQuery =
+            ProductStock::query()
+                ->where(
+                    'company_id',
+                    $companyId
+                );
+
+
+        if (!$canManageAllBranches) {
+
+            $stockQuery->where(
+                'branch_id',
+                $currentBranchId
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Today's / Selected Period Sales
+        |--------------------------------------------------------------------------
+        */
+
+        $todaySales = 0;
+
+
+        if ($canViewSales) {
+
+            $todaySales =
+                (clone $orderQuery)
+                    ->completed()
+                    ->whereBetween(
+                        'created_at',
+                        [
+                            $startDate,
+                            $endDate
+                        ]
+                    )
+                    ->sum('total');
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Transactions
+        |--------------------------------------------------------------------------
+        */
+
+        $todayTransactions = 0;
+
+
+        if ($canViewOrders) {
+
+            $todayTransactions =
+                (clone $orderQuery)
+                    ->whereBetween(
+                        'created_at',
+                        [
+                            $startDate,
+                            $endDate
+                        ]
+                    )
+                    ->count();
+
+        }
 
 
         /*
@@ -93,14 +262,60 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $totalCustomers = Customer::forCompany($companyId)
-            ->count();
+        $totalCustomers = 0;
+
+        $newCustomersToday = 0;
 
 
-        $newCustomersToday = Customer::forCompany($companyId)
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
+        if ($canViewCustomers) {
 
+            $customerQuery =
+                Customer::forCompany($companyId);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Branch Customer Scope
+            |--------------------------------------------------------------------------
+            |
+            | If your customers table has branch_id, this keeps customers
+            | branch-specific.
+            |
+            */
+
+            if (
+                !$canManageAllBranches &&
+                Schema::hasColumn(
+                    'customers',
+                    'branch_id'
+                )
+            ) {
+
+                $customerQuery->where(
+                    'branch_id',
+                    $currentBranchId
+                );
+
+            }
+
+
+            $totalCustomers =
+                (clone $customerQuery)
+                    ->count();
+
+
+            $newCustomersToday =
+                (clone $customerQuery)
+                    ->whereBetween(
+                        'created_at',
+                        [
+                            $startDate,
+                            $endDate
+                        ]
+                    )
+                    ->count();
+
+        }
 
 
         /*
@@ -109,21 +324,37 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $inventoryValue = ProductStock::where(
-        'product_stocks.company_id',
-        $companyId
-        )
-        ->join(
-            'products',
-            'products.id',
-            '=',
-            'product_stocks.product_id'
-        )
-        ->sum(
+        $inventoryQuery = ProductStock::query()
+
+            ->join(
+                'products',
+                'products.id',
+                '=',
+                'product_stocks.product_id'
+            )
+
+            ->where(
+                'product_stocks.company_id',
+                $companyId
+            );
+
+
+        if (! canManageAllBranches()) {
+
+            $inventoryQuery->where(
+                'product_stocks.branch_id',
+                currentBranchId()
+            );
+
+        }
+
+
+        $inventoryValue = $inventoryQuery->sum(
             DB::raw(
                 'product_stocks.available_quantity * products.cost_price'
             )
         );
+        
 
         /*
         |--------------------------------------------------------------------------
@@ -131,60 +362,95 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $todayPayments = Payment::forCompany($companyId)
-            ->completed()
-            ->whereBetween('created_at', [$startDate, $endDate]);
+        $cashSales = 0;
 
+        $cardSales = 0;
+
+        $transferSales = 0;
+
+
+        if ($canViewPayments) {
+
+            $todayPayments =
+                (clone $paymentQuery)
+                    ->completed()
+                    ->whereBetween(
+                        'created_at',
+                        [
+                            $startDate,
+                            $endDate
+                        ]
+                    );
+
+
+            /*
+            | Cash
+            */
+
+            $cashSales =
+                (clone $todayPayments)
+                    ->where(
+                        'payment_method',
+                        'Cash'
+                    )
+                    ->sum('amount');
+
+
+            /*
+            | Card / POS
+            */
+
+            $cardSales =
+                (clone $todayPayments)
+                    ->where(
+                        'payment_method',
+                        'Card'
+                    )
+                    ->sum('amount');
+
+
+            /*
+            | Bank Transfer
+            */
+
+            $transferSales =
+                (clone $todayPayments)
+                    ->where(
+                        'payment_method',
+                        'Bank Transfer'
+                    )
+                    ->sum('amount');
+
+        }
 
 
         /*
-        | Cash Sales
-        */
-
-        $cashSales = (clone $todayPayments)
-            ->where('payment_method', 'Cash')
-            ->sum('amount');
-
-
-
-        /*
-        | Card Sales
-        */
-
-        $cardSales = (clone $todayPayments)
-            ->where('payment_method', 'Card')
-            ->sum('amount');
-
-
-
-        /*
-        | Bank Transfer Sales
-        */
-
-        $transferSales = (clone $todayPayments)
-            ->where('payment_method', 'Bank Transfer')
-            ->sum('amount');
-
-
-
-        /*
+        |--------------------------------------------------------------------------
         | Refunds
-        |
-        | We will adjust this when Refund model/module is added.
-        | For now use 0.
+        |--------------------------------------------------------------------------
         */
 
         $refunds = 0;
 
 
-
         /*
+        |--------------------------------------------------------------------------
         | Pending Orders
+        |--------------------------------------------------------------------------
         */
 
-        $pendingOrders = Order::forCompany($companyId)
-            ->pending()
-            ->count();
+        $pendingOrders = 0;
+
+
+        if ($canViewOrders) {
+
+            $pendingOrders =
+                (clone $orderQuery)
+                    ->pending()
+                    ->count();
+
+        }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -192,14 +458,24 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $recentOrders = Order::forCompany($companyId)
-            ->with([
-                'customer',
-                'cashier',
-            ])
-            ->latest()
-            ->take(10)
-            ->get();
+        $recentOrders =
+            collect();
+
+
+        if ($canViewOrders) {
+
+            $recentOrders =
+                (clone $orderQuery)
+                    ->with([
+                        'customer',
+                        'cashier',
+                    ])
+                    ->latest()
+                    ->take(10)
+                    ->get();
+
+        }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -207,12 +483,22 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $lowStockProducts = ProductStock::forCompany($companyId)
-            ->lowStock()
-            ->with('product')
-            ->orderBy('quantity')
-            ->take(10)
-            ->get();
+        $lowStockProducts =
+            collect();
+
+
+        if ($canViewLowStock) {
+
+            $lowStockProducts =
+                (clone $stockQuery)
+                    ->lowStock()
+                    ->with('product')
+                    ->orderBy('quantity')
+                    ->take(10)
+                    ->get();
+
+        }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -220,87 +506,195 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $topProducts = OrderItem::forCompany($companyId)
-            ->selectRaw("
-                product_id,
-                product_name,
-                SUM(quantity) as total_quantity,
-                SUM(total) as total_sales
-            ")
-            ->groupBy(
-                'product_id',
-                'product_name'
-            )
-            ->orderByDesc('total_quantity')
-            ->take(10)
-            ->get();
+        $topProducts =
+            collect();
 
-       /*
+
+        if ($canViewSales) {
+
+            $orderItemQuery =
+                OrderItem::forCompany($companyId);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Branch Scope
+            |--------------------------------------------------------------------------
+            |
+            | Only apply this if order_items has branch_id.
+            |
+            */
+
+            if (
+                !$canManageAllBranches &&
+                Schema::hasColumn(
+                    'order_items',
+                    'branch_id'
+                )
+            ) {
+
+                $orderItemQuery->where(
+                    'branch_id',
+                    $currentBranchId
+                );
+
+            }
+
+
+            $topProducts =
+                $orderItemQuery
+                    ->selectRaw("
+                        product_id,
+                        product_name,
+                        SUM(quantity) as total_quantity,
+                        SUM(total) as total_sales
+                    ")
+                    ->groupBy(
+                        'product_id',
+                        'product_name'
+                    )
+                    ->orderByDesc(
+                        'total_quantity'
+                    )
+                    ->take(10)
+                    ->get();
+
+        }
+
+
+        /*
         |--------------------------------------------------------------------------
-        | Sales Chart (Last 7 Days)
+        | Sales Chart
         |--------------------------------------------------------------------------
         */
 
         $salesChart = [];
 
-        for ($i = 6; $i >= 0; $i--) {
 
-            $date = Carbon::today()->subDays($i);
+        if ($canViewSales) {
 
-            $sales = Order::where('company_id', $companyId)
-                ->whereDate('created_at', $date)
-                ->where('order_status', 'Completed')
-                ->sum('amount_paid');
+            for (
+                $i = 6;
+                $i >= 0;
+                $i--
+            ) {
 
-            $transactions = Order::where('company_id', $companyId)
-                ->whereDate('created_at', $date)
-                ->where('order_status', 'Completed')
-                ->count();
+                $date =
+                    Carbon::today()
+                        ->subDays($i);
 
-            $salesChart[] = [
 
-                'day' => $date->format('D'),
+                $sales =
+                    (clone $orderQuery)
+                        ->whereDate(
+                            'created_at',
+                            $date
+                        )
+                        ->where(
+                            'order_status',
+                            'Completed'
+                        )
+                        ->sum('amount_paid');
 
-                'sales' => (float) $sales,
 
-                'transactions' => $transactions,
+                $transactions =
+                    (clone $orderQuery)
+                        ->whereDate(
+                            'created_at',
+                            $date
+                        )
+                        ->where(
+                            'order_status',
+                            'Completed'
+                        )
+                        ->count();
 
-            ]; 
+
+                $salesChart[] = [
+
+                    'day' =>
+                        $date->format('D'),
+
+                    'sales' =>
+                        (float) $sales,
+
+                    'transactions' =>
+                        $transactions,
+
+                ];
+
+            }
 
         }
 
 
-        return view('dashboard.index', compact(
+        /*
+        |--------------------------------------------------------------------------
+        | Dashboard View
+        |--------------------------------------------------------------------------
+        */
 
-            'user',
+        return view(
+            'dashboard.index',
+            compact(
 
-            'todaySales',
-            'todayTransactions',
+                'user',
 
-            'totalCustomers',
-            'newCustomersToday',
+                'todaySales',
+                'todayTransactions',
 
-            'inventoryValue',
+                'totalCustomers',
+                'newCustomersToday',
 
-            'cashSales',
-            'cardSales',
-            'transferSales',
+                'inventoryValue',
 
-            'refunds',
+                'cashSales',
+                'cardSales',
+                'transferSales',
 
-            'pendingOrders',
+                'refunds',
 
-            'recentOrders',
+                'pendingOrders',
 
-            'lowStockProducts',
+                'recentOrders',
 
-            'topProducts',
-            'salesChart',
-            'period',
-            'startDate',
-            'endDate'
+                'lowStockProducts',
 
-        ));
+                'topProducts',
+
+                'salesChart',
+
+                'period',
+
+                'startDate',
+                'endDate',
+
+                /*
+                |--------------------------------------------------------------------------
+                | Permission Flags
+                |--------------------------------------------------------------------------
+                */
+
+                'canViewSales',
+                'canViewOrders',
+                'canViewCustomers',
+                'canViewInventory',
+                'canViewLowStock',
+                'canViewPayments',
+                'canViewReports',
+                'canViewTerminals',
+
+                /*
+                |--------------------------------------------------------------------------
+                | Branch Scope
+                |--------------------------------------------------------------------------
+                */
+
+                'canManageAllBranches',
+                'currentBranchId'
+
+            )
+        );
     }
     
 }

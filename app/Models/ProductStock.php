@@ -50,26 +50,32 @@ class ProductStock extends Model
     {
         return [
 
-            'company_id' => 'integer',
+            'company_id' =>
+                'integer',
 
-            'branch_id' => 'integer',
+            'branch_id' =>
+                'integer',
 
-            'product_id' => 'integer',
+            'product_id' =>
+                'integer',
 
+            'quantity' =>
+                'decimal:2',
 
-            'quantity' => 'decimal:2',
+            'reserved_quantity' =>
+                'decimal:2',
 
-            'reserved_quantity' => 'decimal:2',
+            'available_quantity' =>
+                'decimal:2',
 
-            'available_quantity' => 'decimal:2',
+            'reorder_level' =>
+                'decimal:2',
 
-            'reorder_level' => 'decimal:2',
-
-            'maximum_stock' => 'decimal:2',
+            'maximum_stock' =>
+                'decimal:2',
 
         ];
     }
-
 
 
     /*
@@ -114,8 +120,14 @@ class ProductStock extends Model
         );
     }
 
+
     /**
      * Stock Movements
+     *
+     * Movement history for this product.
+     *
+     * Branch filtering is applied when retrieving
+     * movements for a specific stock record.
      */
     public function movements(): HasMany
     {
@@ -123,14 +135,8 @@ class ProductStock extends Model
             StockMovement::class,
             'product_id',
             'product_id'
-        )
-        ->where(
-            'branch_id',
-            $this->branch_id
-        )
-        ->latest('id');
+        );
     }
-
 
 
     /*
@@ -156,7 +162,6 @@ class ProductStock extends Model
     }
 
 
-
     /**
      * Branch stock
      */
@@ -171,7 +176,6 @@ class ProductStock extends Model
         );
 
     }
-
 
 
     /**
@@ -190,7 +194,6 @@ class ProductStock extends Model
     }
 
 
-
     /**
      * Out of stock
      */
@@ -207,7 +210,6 @@ class ProductStock extends Model
     }
 
 
-
     /*
     |--------------------------------------------------------------------------
     | Helper Methods
@@ -217,13 +219,20 @@ class ProductStock extends Model
 
     /**
      * Synchronize available quantity.
+     *
+     * Available quantity is always:
+     *
+     * Quantity - Reserved Quantity
      */
     public function syncAvailableQuantity(): void
     {
 
         $this->available_quantity =
-            $this->quantity -
-            $this->reserved_quantity;
+            max(
+                0,
+                (float) $this->quantity -
+                (float) $this->reserved_quantity
+            );
 
 
         $this->save();
@@ -231,15 +240,14 @@ class ProductStock extends Model
     }
 
 
-
     /**
      * Available stock.
      */
     public function availableQuantity(): float
     {
-        return (float) $this->available_quantity;
+        return (float)
+            $this->available_quantity;
     }
-
 
 
     /**
@@ -249,10 +257,11 @@ class ProductStock extends Model
         float $quantity = 1
     ): bool {
 
-        return $this->available_quantity >= $quantity;
+        return
+            (float) $this->available_quantity
+            >= $quantity;
 
     }
-
 
 
     /**
@@ -261,10 +270,11 @@ class ProductStock extends Model
     public function isLowStock(): bool
     {
 
-        return $this->quantity <= $this->reorder_level;
+        return
+            (float) $this->quantity
+            <= (float) $this->reorder_level;
 
     }
-
 
 
     /**
@@ -273,10 +283,10 @@ class ProductStock extends Model
     public function isOutOfStock(): bool
     {
 
-        return $this->quantity <= 0;
+        return
+            (float) $this->quantity <= 0;
 
     }
-
 
 
     /**
@@ -304,7 +314,6 @@ class ProductStock extends Model
     }
 
 
-
     /**
      * Inventory value.
      */
@@ -313,10 +322,11 @@ class ProductStock extends Model
 
         return (float)
             (
-                $this->quantity *
-                $this->product->cost_price
+                (float) $this->quantity *
+                (float) (
+                    $this->product?->cost_price ?? 0
+                )
             );
 
     }
-
 }

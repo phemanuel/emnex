@@ -696,3 +696,627 @@
     margin-bottom:0;
 
 }
+
+
+/* ==========================================================
+   STOCK ADJUSTMENT MODAL
+========================================================== */
+
+.stock-adjustment-modal {
+    border: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .12);
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.stock-adjustment-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e9ecef;
+    background: #ffffff;
+}
+
+.stock-adjustment-header-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #eef4ff;
+    color: #0d6efd;
+    font-size: 20px;
+}
+
+.stock-adjustment-subtitle {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+
+/* ==========================================================
+   WORKSPACE
+========================================================== */
+
+.stock-adjustment-body {
+    padding: 0;
+    background: #f5f7fa;
+}
+
+.stock-adjustment-workspace {
+    min-height: 600px;
+}
+
+
+/* ==========================================================
+   LEFT PRODUCT SECTION
+========================================================== */
+
+.stock-product-section {
+    padding: 24px;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+}
+
+.stock-workspace-header,
+.stock-transaction-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.stock-step-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: #0d6efd;
+    margin-bottom: 4px;
+}
+
+.stock-workspace-header h6,
+.stock-transaction-header h6 {
+    font-weight: 700;
+    margin: 0;
+}
+
+.stock-workspace-header span,
+.stock-transaction-header span {
+    display: block;
+    color: #6c757d;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.stock-section-icon,
+.stock-transaction-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f3f5;
+    color: #495057;
+}
+
+
+/* ==========================================================
+   FILTERS
+========================================================== */
+
+.stock-adjustment-filters {
+    padding: 16px;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    background: #fafbfc;
+    margin-bottom: 18px;
+}
+
+.stock-filter-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.stock-search-box .input-group-text {
+    background: #ffffff;
+    border-right: 0;
+}
+
+.stock-search-box .form-control {
+    border-left: 0;
+}
+
+
+/* ==========================================================
+   PRODUCT TABLE
+========================================================== */
+
+.stock-product-table-wrapper {
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.stock-product-table thead th {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: #6c757d;
+    padding: 12px 14px;
+}
+
+.stock-product-table tbody td {
+    padding: 13px 14px;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.stock-product-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.stock-product-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+.stock-table-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.stock-empty-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f3f5;
+    color: #adb5bd;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.stock-table-empty strong {
+    color: #495057;
+}
+
+.stock-table-empty span {
+    margin-top: 3px;
+    font-size: 12px;
+}
+
+.stock-product-pagination {
+    padding-top: 14px;
+}
+
+
+/* ==========================================================
+   RIGHT TRANSACTION SECTION
+========================================================== */
+
+.stock-transaction-section {
+    padding: 0;
+    background: #f1f4f8;
+}
+
+.stock-transaction-panel {
+    height: 100%;
+    padding: 24px;
+}
+
+
+/* ==========================================================
+   TRANSACTION HEADER
+========================================================== */
+
+.stock-transaction-icon {
+    background: #e7f1ff;
+    color: #0d6efd;
+}
+
+
+/* ==========================================================
+   SELECTED PRODUCT
+========================================================== */
+
+.selected-product-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 14px;
+    margin-bottom: 16px;
+    border: 1px solid #dfe5ec;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .03);
+}
+
+.selected-product-image {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 11px;
+    background: #f1f3f5;
+    color: #adb5bd;
+    font-size: 21px;
+}
+
+.selected-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.selected-product-details {
+    min-width: 0;
+    padding-right: 25px;
+}
+
+.selected-product-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: #0d6efd;
+    margin-bottom: 3px;
+}
+
+.selected-product-details h6 {
+    margin: 0;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selected-product-details small {
+    display: block;
+    margin-top: 3px;
+    color: #6c757d;
+}
+
+.selected-product-check {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    color: #198754;
+    font-size: 15px;
+}
+
+
+/* ==========================================================
+   STOCK SNAPSHOT
+========================================================== */
+
+.stock-snapshot-card {
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid #dfe5ec;
+}
+
+.snapshot-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .07em;
+    color: #6c757d;
+}
+
+.snapshot-values {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.snapshot-value {
+    display: flex;
+    flex-direction: column;
+}
+
+.snapshot-value span {
+    font-size: 11px;
+    color: #6c757d;
+}
+
+.snapshot-value strong {
+    font-size: 25px;
+    line-height: 1.2;
+    color: #212529;
+}
+
+.snapshot-value small {
+    font-size: 10px;
+    color: #adb5bd;
+}
+
+.snapshot-value.projected strong {
+    color: #0d6efd;
+}
+
+.snapshot-arrow {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f1f3f5;
+    color: #6c757d;
+}
+
+
+/* ==========================================================
+   FORM SECTION
+========================================================== */
+
+.stock-form-section {
+    padding: 18px;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid #dfe5ec;
+}
+
+.stock-form-section-title {
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #edf0f2;
+    font-size: 12px;
+    font-weight: 700;
+    color: #343a40;
+}
+
+.stock-form-group {
+    margin-bottom: 16px;
+}
+
+.stock-form-group:last-child {
+    margin-bottom: 0;
+}
+
+.stock-form-group .form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.movement-help {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    margin-top: 7px;
+    color: #6c757d;
+    font-size: 11px;
+}
+
+.movement-help i {
+    margin-top: 1px;
+    color: #0d6efd;
+}
+
+
+/* ==========================================================
+   QUANTITY
+========================================================== */
+
+.quantity-input-wrapper {
+    position: relative;
+}
+
+.quantity-input-wrapper .form-control {
+    padding-right: 55px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.quantity-input-wrapper > span {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 11px;
+    pointer-events: none;
+}
+
+
+/* ==========================================================
+   NOTICE
+========================================================== */
+
+.stock-transaction-notice {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 11px;
+    background: #eef5ff;
+    border: 1px solid #d7e7ff;
+}
+
+.notice-icon {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #dcecff;
+    color: #0d6efd;
+}
+
+.stock-transaction-notice strong {
+    display: block;
+    font-size: 11px;
+    color: #164a8a;
+    margin-bottom: 2px;
+}
+
+.stock-transaction-notice p {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.5;
+    color: #55708f;
+}
+
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.stock-adjustment-footer {
+    padding: 15px 24px;
+    border-top: 1px solid #e5e7eb;
+    background: #ffffff;
+}
+
+.stock-footer-status {
+    margin-right: auto;
+    color: #6c757d;
+    font-size: 11px;
+}
+
+.stock-footer-status i {
+    color: #198754;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 991.98px) {
+
+    .stock-product-section {
+        border-right: 0;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .stock-transaction-section {
+        background: #f1f4f8;
+    }
+
+    .stock-adjustment-workspace {
+        display: block;
+    }
+
+}
+
+
+@media (max-width: 575.98px) {
+
+    .stock-product-section,
+    .stock-transaction-panel {
+        padding: 16px;
+    }
+
+    .stock-adjustment-header {
+        padding: 16px;
+    }
+
+    .stock-adjustment-footer {
+        padding: 12px 16px;
+    }
+
+    .stock-footer-status {
+        display: none;
+    }
+
+}
+
+
+.stock-section-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stock-filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.stock-filter-toggle:hover {
+    border-color: #cbd5e1;
+}
+
+.stock-filter-toggle i {
+    font-size: 14px;
+}
+
+.stock-branch-selection {
+    padding: 14px 16px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.stock-filter-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #64748b;
+}
+
+.stock-filter-note i {
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.stock-adjustment-filter-panel {
+    padding: 14px;
+    margin-bottom: 15px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+
+
+
+/* ==========================================================
+   GLOBAL TOAST — ALWAYS ABOVE MODALS
+========================================================== */
+
+body > .toast-container,
+.toast-container.position-fixed {
+    position: fixed !important;
+    z-index: 9999 !important;
+}
+
+.toast-container .toast {
+    position: relative;
+    z-index: 10000 !important;
+}
+

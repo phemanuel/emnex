@@ -9,11 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Product Model
- *
- * Represents a product sold by a company.
- */
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
@@ -56,6 +51,7 @@ class Product extends Model
         'status',
     ];
 
+
     /*
     |--------------------------------------------------------------------------
     | Casts
@@ -65,25 +61,28 @@ class Product extends Model
     protected function casts(): array
     {
         return [
-            'company_id'     => 'integer',
-            'category_id'    => 'integer',
-            'unit_id'        => 'integer',
-            'tax_rate_id'    => 'integer',
-            'discount_id'    => 'integer',
 
-            'cost_price'     => 'decimal:2',
-            'selling_price'  => 'decimal:2',
+            'company_id'         => 'integer',
+            'product_category_id' => 'integer',
+            'unit_id'            => 'integer',
+            'tax_rate_id'        => 'integer',
+            'discount_id'        => 'integer',
 
-            'minimum_stock'  => 'decimal:2',
-            'maximum_stock'  => 'decimal:2',
+            'cost_price'         => 'decimal:2',
+            'selling_price'      => 'decimal:2',
 
-            'weight'         => 'decimal:2',
+            'minimum_stock'      => 'decimal:2',
+            'maximum_stock'      => 'decimal:2',
 
-            'expiry_date'    => 'date',
+            'weight'             => 'decimal:2',
 
-            'status'         => 'boolean',
+            'expiry_date'        => 'date',
+
+            'status'             => 'boolean',
+
         ];
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -91,74 +90,116 @@ class Product extends Model
     |--------------------------------------------------------------------------
     */
 
+
     /**
      * Company
      */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(
+            Company::class,
+            'company_id'
+        );
     }
+
 
     /**
      * Category
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+        return $this->belongsTo(
+            ProductCategory::class,
+            'product_category_id'
+        );
     }
+
 
     /**
      * Unit
      */
     public function unit(): BelongsTo
     {
-        return $this->belongsTo(Unit::class, 'unit_id');
+        return $this->belongsTo(
+            Unit::class,
+            'unit_id'
+        );
     }
+
 
     /**
      * Tax Rate
      */
     public function taxRate(): BelongsTo
     {
-        return $this->belongsTo(TaxRate::class, 'tax_rate_id');
+        return $this->belongsTo(
+            TaxRate::class,
+            'tax_rate_id'
+        );
     }
+
 
     /**
      * Discount
      */
     public function discount(): BelongsTo
     {
-        return $this->belongsTo(Discount::class, 'discount_id');
+        return $this->belongsTo(
+            Discount::class,
+            'discount_id'
+        );
     }
 
+
     /**
-     * Stock Records
+     * Product Stock Records
+     *
+     * Contains the stock quantity for each branch.
+     */
+    public function stocks(): HasMany
+    {
+        return $this->hasMany(
+            ProductStock::class,
+            'product_id'
+        );
+    }
+
+
+    /**
+     * Alias for Product Stock Records
      */
     public function productStocks(): HasMany
     {
-        return $this->hasMany(ProductStock::class, 'product_id');
+        return $this->hasMany(
+            ProductStock::class,
+            'product_id'
+        );
     }
 
-    public function stocks()
-    {
-        return $this->hasMany(ProductStock::class);
-    }
 
     /**
      * Stock Movement History
      */
     public function stockMovements(): HasMany
     {
-        return $this->hasMany(StockMovement::class, 'product_id');
+        return $this->hasMany(
+            StockMovement::class,
+            'product_id'
+        );
     }
+
 
     /**
      * Order Items
      */
     public function orderItems(): HasMany
     {
-        return $this->hasMany(OrderItem::class, 'product_id');
+        return $this->hasMany(
+            OrderItem::class,
+            'product_id'
+        );
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -166,20 +207,53 @@ class Product extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function scopeActive(Builder $query): Builder
-    {
-        return $query->where('status', true);
+
+    /**
+     * Active products only.
+     */
+    public function scopeActive(
+        Builder $query
+    ): Builder {
+
+        return $query->where(
+            'status',
+            true
+        );
+
     }
 
-    public function scopeForCompany(Builder $query, int $companyId): Builder
-    {
-        return $query->where('company_id', $companyId);
+
+    /**
+     * Products belonging to company.
+     */
+    public function scopeForCompany(
+        Builder $query,
+        int $companyId
+    ): Builder {
+
+        return $query->where(
+            'company_id',
+            $companyId
+        );
+
     }
 
-    public function scopeCategory(Builder $query, int $categoryId): Builder
-    {
-        return $query->where('category_id', $categoryId);
+
+    /**
+     * Products belonging to category.
+     */
+    public function scopeCategory(
+        Builder $query,
+        int $categoryId
+    ): Builder {
+
+        return $query->where(
+            'product_category_id',
+            $categoryId
+        );
+
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -187,39 +261,52 @@ class Product extends Model
     |--------------------------------------------------------------------------
     */
 
+
     /**
      * Check if product is active.
      */
     public function isActive(): bool
     {
-        return $this->status;
+        return (bool) $this->status;
     }
+
 
     /**
      * Check if product has expired.
      */
     public function isExpired(): bool
     {
-        return $this->expiry_date !== null &&
-               $this->expiry_date->isPast();
+        return $this->expiry_date !== null
+            && $this->expiry_date->isPast();
     }
+
 
     /**
      * Check if expiry date is approaching.
      */
-    public function isNearExpiry(int $days = 30): bool
-    {
-        return $this->expiry_date !== null &&
-               now()->diffInDays($this->expiry_date, false) <= $days;
+    public function isNearExpiry(
+        int $days = 30
+    ): bool {
+
+        return $this->expiry_date !== null
+            && now()->diffInDays(
+                $this->expiry_date,
+                false
+            ) <= $days;
+
     }
+
 
     /**
      * Get current stock quantity across all branches.
      */
     public function totalStock(): float
     {
-        return (float) $this->productStocks()->sum('quantity');
+        return (float) $this
+            ->stocks()
+            ->sum('quantity');
     }
+
 
     /**
      * Check if product is out of stock.
@@ -229,13 +316,16 @@ class Product extends Model
         return $this->totalStock() <= 0;
     }
 
+
     /**
      * Check if stock is below minimum level.
      */
     public function isLowStock(): bool
     {
-        return $this->totalStock() <= $this->minimum_stock;
+        return $this->totalStock()
+            <= (float) $this->minimum_stock;
     }
+
 
     /**
      * Product display name.
@@ -244,6 +334,7 @@ class Product extends Model
     {
         return "{$this->product_code} - {$this->name}";
     }
+
 
     /**
      * Profit amount.
@@ -256,6 +347,7 @@ class Product extends Model
         );
     }
 
+
     /**
      * Profit margin (%)
      */
@@ -267,12 +359,16 @@ class Product extends Model
 
         return round(
             (
-                ($this->selling_price - $this->cost_price)
+                (
+                    $this->selling_price -
+                    $this->cost_price
+                )
                 / $this->cost_price
             ) * 100,
             2
         );
     }
+
 
     /**
      * Stock status.
@@ -290,6 +386,7 @@ class Product extends Model
         return 'In Stock';
     }
 
+
     /**
      * Stock badge class.
      */
@@ -306,6 +403,7 @@ class Product extends Model
         return 'success';
     }
 
+
     /**
      * Get product image URL.
      */
@@ -313,20 +411,33 @@ class Product extends Model
     {
         if (
             $this->image &&
-            file_exists(public_path('uploads/products/' . $this->image))
+            file_exists(
+                public_path(
+                    'uploads/products/' . $this->image
+                )
+            )
         ) {
-            return asset('uploads/products/' . $this->image);
+
+            return asset(
+                'uploads/products/' . $this->image
+            );
+
         }
 
-        return asset('uploads/products/no-image.png');
+        return asset(
+            'uploads/products/no-image.png'
+        );
     }
+
 
     /**
      * Upload product image.
      */
     private function uploadImage($image): string
     {
-        $filename = time() . '_' . uniqid() . '.' .
+        $filename =
+            time() . '_' .
+            uniqid() . '.' .
             $image->getClientOriginalExtension();
 
         $image->move(
@@ -337,23 +448,29 @@ class Product extends Model
         return $filename;
     }
 
+
     /**
      * Delete product image.
      */
-    private function deleteImage(?string $image): void
-    {
+    private function deleteImage(
+        ?string $image
+    ): void {
+
         if (
             !$image ||
-            !file_exists(public_path('uploads/products/' . $image))
+            !file_exists(
+                public_path(
+                    'uploads/products/' . $image
+                )
+            )
         ) {
             return;
         }
 
         unlink(
-            public_path('uploads/products/' . $image)
+            public_path(
+                'uploads/products/' . $image
+            )
         );
     }
-
-    
-    
 }

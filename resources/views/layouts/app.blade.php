@@ -33,11 +33,6 @@
 <div class="app-layout">
 
 
-<div class="toast-container position-fixed top-0 end-0 p-3"
-     style="z-index:9999">
-
-</div>
-
     @include('layouts.partials.sidebar')
 
 
@@ -69,8 +64,17 @@
 </div>
 
 
+{-- ==========================================================
+    GLOBAL TOAST NOTIFICATIONS
+=========================================================== --}}
+
+<div class="toast-container position-fixed top-0 end-0 p-3"
+     style="z-index: 99999;">
+
+</div>
+
 @include('layouts.partials.scripts')
-
-
+@include('layouts.partials.profile-modal')
+@include('layouts.partials.change-password-modal')
 </body>
 </html>

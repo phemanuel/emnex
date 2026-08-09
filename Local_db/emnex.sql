@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2026 at 01:04 PM
+-- Generation Time: Aug 09, 2026 at 12:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -163,7 +163,10 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (104, 1, 1, 1, 'Products', 'Updated', 'Updated product: Test Coke', 'Product', 14, '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4500.00\",\"selling_price\":\"5000.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-05T10:40:12.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-05T10:40:43.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/14', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-05 09:40:43', '2026-08-05 09:40:43'),
 (105, 1, 1, 1, 'Products', 'Disabled', 'Disabled product: Test Coke', 'Product', 14, '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-05T10:40:43.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":false,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-05T10:53:43.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-05 09:53:43', '2026-08-05 09:53:43'),
 (106, 1, 1, 1, 'Products', 'Enabled', 'Enabled product: Test Coke', 'Product', 14, '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":false,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-05T10:53:43.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-05T10:53:48.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/14/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-05 09:53:48', '2026-08-05 09:53:48'),
-(107, 1, 1, 1, 'Products', 'Deleted', 'Deleted product: Test Coke', 'Product', 14, '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-05T10:53:48.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', NULL, 'products/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-05 09:53:51', '2026-08-05 09:53:51');
+(107, 1, 1, 1, 'Products', 'Deleted', 'Deleted product: Test Coke', 'Product', 14, '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-05T10:53:48.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', NULL, 'products/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-05 09:53:51', '2026-08-05 09:53:51'),
+(108, 1, 1, 1, 'Account', 'Updated', 'User updated their profile.', 'User', 1, '{\"first_name\":\"System\",\"last_name\":\"Owner\",\"email\":\"owner@emmanexitconsult.com\"}', '{\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"owner@emmanexitconsult.com\"}', 'account/profile', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-08 08:27:42', '2026-08-08 08:27:42'),
+(109, 1, 1, 1, 'Account', 'Password Changed', 'User changed their password.', 'User', 1, NULL, NULL, 'account/password', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-08 08:30:00', '2026-08-08 08:30:00'),
+(110, 1, 1, 1, 'Users', 'Created', 'Created user Maxwell Akinkunmi Akinyooye', 'User', 17, NULL, '{\"company_id\":1,\"branch_id\":\"2\",\"role_id\":\"3\",\"employee_no\":\"MG-2026-001\",\"first_name\":\"Maxwell\",\"last_name\":\"Akinyooye\",\"other_name\":\"Akinkunmi\",\"username\":\"maxwell\",\"email\":\"maxwell@gmail.com\",\"phone\":\"08034271855\",\"gender\":\"Male\",\"date_of_birth\":\"2017-09-27T00:00:00.000000Z\",\"employment_date\":\"2026-08-03T00:00:00.000000Z\",\"address\":\"Ibadan\",\"notes\":\"Branch manager of lekki branch.\",\"status\":true,\"force_password_change\":true,\"password_changed_at\":null,\"updated_at\":\"2026-08-09T08:43:51.000000Z\",\"created_at\":\"2026-08-09T08:43:51.000000Z\",\"id\":17}', 'users/store', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 07:43:51', '2026-08-09 07:43:51');
 
 -- --------------------------------------------------------
 
@@ -497,7 +500,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (38, '2026_08_02_104326_remove_payment_method_from_payments_table', 8),
 (39, '2026_08_03_100609_add_payment_method_to_payments_table', 9),
 (40, '2026_08_03_101122_add_unit_metadata_to_units_table', 10),
-(41, '2026_08_04_100012_add_soft_deletes_to_discounts_table', 11);
+(41, '2026_08_04_100012_add_soft_deletes_to_discounts_table', 11),
+(42, '2026_08_09_103055_update_stock_movements_for_stock_adjustments', 12);
 
 -- --------------------------------------------------------
 
@@ -921,9 +925,7 @@ INSERT INTO `roles` (`id`, `company_id`, `name`, `code`, `display_name`, `descri
 (4, 1, 'supervisor', 'supervisor', 'Supervisor', 'Supervises daily business operations.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL),
 (5, 1, 'cashier', 'cashier', 'Cashier', 'Processes customer sales.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL),
 (6, 1, 'inventory_manager', 'inventory_manager', 'Inventory Manager', 'Manages inventory and stock.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL),
-(7, 1, 'accountant', 'accountant', 'Accountant', 'Handles financial operations.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL),
-(14, 1, 'Test Role', 'test_role_user', 'Test Role', 'This is just a test for a user.', 1, 0, '2026-07-29 14:33:17', '2026-07-29 14:34:00', '2026-07-29 14:34:00'),
-(15, 1, 'Test Role User', 'test_role_user', 'Test Role User', 'This is just a test role for a user.', 1, 0, '2026-07-29 15:09:14', '2026-07-29 15:09:14', NULL);
+(7, 1, 'accountant', 'accountant', 'Accountant', 'Handles financial operations.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -1251,11 +1253,7 @@ INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, 
 (304, 1, 7, 79, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
 (305, 1, 7, 80, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
 (306, 1, 7, 81, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
-(307, 1, 7, 82, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
-(308, 1, 15, 8, '2026-07-29 15:09:37', '2026-07-29 15:22:48'),
-(309, 1, 15, 5, '2026-07-29 15:09:37', '2026-07-29 15:22:48'),
-(310, 1, 15, 32, '2026-07-29 15:09:37', '2026-07-29 15:22:48'),
-(311, 1, 15, 36, '2026-07-29 15:22:48', '2026-07-29 15:22:48');
+(307, 1, 7, 82, '2026-07-29 11:20:43', '2026-07-29 11:20:43');
 
 -- --------------------------------------------------------
 
@@ -1277,8 +1275,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('c4PNmBm5VFjrGMh7j6vO8EhIP0hRGjw0tAMGm6bh', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6InVqbGlZQWIwZmN4MFdteTR5ZVprSFZ3eUFCUTk1R3QwY3plZm93Ym4iO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozMDoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3Byb2R1Y3RzIjtzOjU6InJvdXRlIjtzOjE0OiJwcm9kdWN0cy5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1785854420),
-('PjB073N8IUfn26E6wL45azCUbhOIAAFd0yfVWgyu', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6ImNHdzh0U1cxTVJVanozWGV5Ym84WVpNUUNjMjI4Q2w4a2JWSHV2WDMiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo0MDoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3Byb2R1Y3RzLzEvZGV0YWlscyI7czo1OiJyb3V0ZSI7czoxNjoicHJvZHVjdHMuZGV0YWlscyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1785927587);
+('JqHuAWRtBTT67E4Wo8MTpMGC4yhgvdAzEwSUUVkL', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6IjZwdGg0QlNRaDc1dXExMlRtb2FWYVlJZWIzMndMZGVTVjNGSnpsMEkiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjc3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3RvY2svcHJvZHVjdHM/YnJhbmNoPSZjYXRlZ29yeT0mcGFnZT0xJnNlYXJjaD0mc3RhdHVzPSI7czo1OiJyb3V0ZSI7czoxNDoic3RvY2sucHJvZHVjdHMiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1786271134);
 
 -- --------------------------------------------------------
 
@@ -1344,6 +1341,7 @@ CREATE TABLE `stock_movements` (
   `reference_no` varchar(255) DEFAULT NULL,
   `unit_cost` decimal(15,2) NOT NULL DEFAULT 0.00,
   `quantity` decimal(15,2) NOT NULL,
+  `stock_before` decimal(15,2) NOT NULL DEFAULT 0.00,
   `balance_after` decimal(15,2) NOT NULL,
   `remarks` text DEFAULT NULL,
   `created_by` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1495,14 +1493,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `employee_no`, `first_name`, `other_name`, `last_name`, `username`, `email`, `is_owner`, `email_verified_at`, `two_factor_enabled`, `phone`, `password`, `profile_photo`, `gender`, `date_of_birth`, `employment_date`, `address`, `notes`, `status`, `last_login_at`, `last_activity_at`, `last_login_ip`, `force_password_change`, `password_changed_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 1, 'EMP0001', 'System', NULL, 'Owner', 'owner', 'owner@emmanexitconsult.com', 1, '2026-07-29 10:37:10', 0, NULL, '$2y$12$L7/APL0EoI63ZWa9zNDoaOzuAwz//Q2.xHa22o.Iq5Of8Mvfpybby', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
+(1, 1, 1, 1, 'EMP0001', 'Femi', NULL, 'Akinyooye', 'owner', 'owner@emmanexitconsult.com', 1, '2026-07-29 10:37:10', 0, NULL, '$2y$12$TglPMRngPpJdy87jIqPCD.lS8NkqbWo.x4OzoBqn.OX/eY55OhJYy', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:10', '2026-08-08 08:30:00', NULL),
 (2, 1, 1, 2, 'EMP0002', 'System', NULL, 'Administrator', 'admin', 'admin@emmanexitconsult.com', 0, '2026-07-29 10:37:10', 0, NULL, '$2y$12$zPemhQB4t0by5HjwdteQX.Zfuas6VQ3BuaQzN8SALTxqhG6zQvRJ6', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:11', '2026-07-29 10:37:11', NULL),
 (3, 1, 1, 3, 'EMP0003', 'Branch', NULL, 'Manager', 'manager', 'manager@emmanexitconsult.com', 0, '2026-07-29 10:37:11', 0, NULL, '$2y$12$VG6ccScaNLrU.r011G.DMueH3D1TuNPUKaJa/eT3JWQe.PkUdy4cK', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:11', '2026-07-29 10:37:11', NULL),
 (4, 1, 1, 4, 'EMP0004', 'Branch', NULL, 'Supervisor', 'supervisor', 'supervisor@emmanexitconsult.com', 0, '2026-07-29 10:37:11', 0, NULL, '$2y$12$Mnb.9S7tdyOowvwKXTlK9edKlg0UC8jM4R.AOw5Y4.kwnHCf32Uz6', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:11', '2026-07-29 10:37:11', NULL),
 (5, 1, 1, 5, 'EMP0005', 'Main', NULL, 'Cashier', 'cashier', 'cashier@emmanexitconsult.com', 0, '2026-07-29 10:37:11', 0, NULL, '$2y$12$T1ovqUxatrDaNNgfTtkRUOGZtYbvmkVjao8EU/1LCJFH1KA0M.1qO', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:12', '2026-07-29 10:37:12', NULL),
 (6, 1, 1, 6, 'EMP0006', 'Inventory', NULL, 'Manager', 'inventory', 'inventory@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$lWJtwgUPhnO44mwKMNifgeZiD.oVJwv9QqHYPCMNMOSpP0IhCHNAC', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:12', '2026-07-29 10:37:12', NULL),
 (7, 1, 1, 7, 'EMP0007', 'Company', NULL, 'Accountant', 'accountant', 'accountant@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$Aj3KYFJ24AXQQWWE3taN.uWPk/7eQSkS9oH84LMpPHxJ6nq1vXS5i', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(15, 1, 2, 5, 'CH-2026-001', 'Paul', 'Olusogo', 'Awolola', 'paul', 'bizcare@gmail.com', 0, NULL, 0, '07038899203', '$2y$12$oiRFD5rOZ2yz1vUPcinKKOS0rE1v7HXXTZphze3o0z7fOTNfpidp6', NULL, 'Male', '1987-11-25', '2026-07-06', 'Adelu, Ido, Ibadan.', 'Transfered from Ajah branch', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-30 00:35:56', '2026-07-31 13:58:33', NULL);
+(15, 1, 2, 5, 'CH-2026-001', 'Paul', 'Olusogo', 'Awolola', 'paul', 'bizcare@gmail.com', 0, NULL, 0, '07038899203', '$2y$12$oiRFD5rOZ2yz1vUPcinKKOS0rE1v7HXXTZphze3o0z7fOTNfpidp6', NULL, 'Male', '1987-11-25', '2026-07-06', 'Adelu, Ido, Ibadan.', 'Transfered from Ajah branch', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-30 00:35:56', '2026-07-31 13:58:33', NULL),
+(17, 1, 2, 3, 'MG-2026-001', 'Maxwell', 'Akinkunmi', 'Akinyooye', 'maxwell', 'maxwell@gmail.com', 0, NULL, 0, '08034271855', '$2y$12$6H0IvKIF6TgHzAAZpR5Q1uomvytbt36RZi8z63bdACmTXUKHXEDrO', NULL, 'Male', '2017-09-27', '2026-08-03', 'Ibadan', 'Branch manager of lekki branch.', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-08-09 07:43:51', '2026-08-09 07:43:51', NULL);
 
 --
 -- Indexes for dumped tables
@@ -1782,7 +1781,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -1836,7 +1835,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1932,7 +1931,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables

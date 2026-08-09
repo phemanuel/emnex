@@ -32,21 +32,49 @@ class StockController extends BaseController
     |--------------------------------------------------------------------------
     */
 
-    public function index()
+    public function index(Request $request)
     {
+
         /*
         |--------------------------------------------------------------------------
-        | Statistics
+        | Base Stock Query
         |--------------------------------------------------------------------------
         */
-
 
         $stockQuery = ProductStock::query()
 
             ->where(
                 'company_id',
-                $this->companyId
+                companyId()
             );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
+
+        if (!canManageAllBranches()) {
+
+            $stockQuery->where(
+                'branch_id',
+                currentBranchId()
+            );
+
+        } elseif ($request->filled('branch')) {
+
+            $stockQuery->where(
+                'branch_id',
+                $request->branch
+            );
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Statistics
+        |--------------------------------------------------------------------------
+        */
 
         $stats = [
 
@@ -82,6 +110,7 @@ class StockController extends BaseController
                     )
                     ->count(),
 
+
             'out' =>
 
                 (clone $stockQuery)
@@ -92,8 +121,6 @@ class StockController extends BaseController
                     )
                     ->count(),
 
-
-
         ];
 
         /*
@@ -102,13 +129,32 @@ class StockController extends BaseController
         |--------------------------------------------------------------------------
         */
 
+        $categories = ProductCategory::query()
 
-        $categories =
-            ProductCategory::query()
+            ->where(
+                'company_id',
+                companyId()
+            )
+
+            ->orderBy(
+                'name'
+            )
+
+            ->get();
+
+
+        if (canManageAllBranches()) {
+
+            $branches = Branch::query()
 
                 ->where(
                     'company_id',
-                    $this->companyId
+                    companyId()
+                )
+
+                ->where(
+                    'status',
+                    true
                 )
 
                 ->orderBy(
@@ -117,52 +163,50 @@ class StockController extends BaseController
 
                 ->get();
 
-        $branches =
-            Branch::query()
+        } else {
+
+            $branches = Branch::query()
 
                 ->where(
                     'company_id',
-                    $this->companyId
+                    companyId()
                 )
 
-                ->orderBy(
-                    'name'
+                ->whereKey(
+                    currentBranchId()
                 )
 
                 ->get();
+
+        }
+
         /*
         |--------------------------------------------------------------------------
         | Initial Table Data
         |--------------------------------------------------------------------------
         */
 
+        $stocks = (clone $stockQuery)
 
-        $stocks =
-            ProductStock::query()
+            ->with([
 
+                'product.category',
 
-                ->where(
-                    'company_id',
-                    $this->companyId
-                )
+                'product.unit',
 
+                'branch',
 
-                ->with([
+            ])
 
-                    'product.category',
+            ->latest()
 
-                    'branch'
+            ->paginate(15);
 
-                ])
-
-
-                ->latest()
-
-
-                ->paginate(15);
 
         return view(
+
             'stock.index',
+
             compact(
 
                 'stats',
@@ -174,8 +218,8 @@ class StockController extends BaseController
                 'stocks'
 
             )
-        );
 
+        );
 
     }
 
@@ -184,205 +228,108 @@ class StockController extends BaseController
     | Stock Table
     |--------------------------------------------------------------------------
     */
-
-    public function table(Request $request)
-    {
-          $stocks = ProductStock::query()
-
-
-
-            ->where(
-                'company_id',
-                $this->companyId
-            )
-
-
-
-            ->with([
-
-
-                'product.category',
-
-
-                'branch',
-
-
-
-            ])
-            
-            /*
-            |--------------------------------------------------------------------------
-            | Search
-            |--------------------------------------------------------------------------
-            */
-
-            ->when(
-                $request->search,
-                function($query) use ($request){
-
-
-                    $search =
-                        $request->search;
-
-
-
-                    $query->whereHas(
-                        'product',
-                        function($q) use ($search){
-
-
-                            $q->where(
-                                'name',
-                                'like',
-                                "%{$search}%"
-                            )
-
-
-                            ->orWhere(
-                                'sku',
-                                'like',
-                                "%{$search}%"
-                            )
-
-
-                            ->orWhere(
-                                'barcode',
-                                'like',
-                                "%{$search}%"
-                            );
-
-
-                        }
-                    );
-
-
-                }
-            )
-
-            /*
-            |--------------------------------------------------------------------------
-            | Category Filter
-            |--------------------------------------------------------------------------
-            */
-
-            ->when(
-                $request->category_id,
-                function($query) use ($request){
-
-
-                    $query->whereHas(
-                        'product',
-                        function($q) use ($request){
-
-
-                            $q->where(
-                                'category_id',
-                                $request->category_id
-                            );
-
-
-                        }
-                    );
-
-
-                }
-            )
-
-            /*
-            |--------------------------------------------------------------------------
-            | Branch Filter
-            |--------------------------------------------------------------------------
-            */
-
-            ->when(
-                $request->branch_id,
-                function($query) use ($request){
-
-
-                    $query->where(
-                        'branch_id',
-                        $request->branch_id
-                    );
-
-
-                }
-            )
-
-            /*
-            |--------------------------------------------------------------------------
-            | Stock Status Filter
-            |--------------------------------------------------------------------------
-            */
-
-            ->when(
-                $request->status,
-                function($query) use ($request){
-
-
-                    if(
-                        $request->status === 'low'
-                    )
-                    {
-
-
-                        $query->whereColumn(
-                            'quantity',
-                            '<=',
-                            'reorder_level'
-                        );
-
-
-                    }
-
-                    if(
-                        $request->status === 'out'
-                    )
-                    {
-
-
-                        $query->where(
-                            'quantity',
-                            '<=',
-                            0
-                        );
-
-
-                    }
-
-
-
-                }
-            )
-
-            ->latest()
-
-            ->paginate(15)
-
-            ->withQueryString();
-
-        return view(
-            'stock.partials.table',
-            compact('stocks')
-        );
-
-    }
+    
 
     public function products(Request $request)
     {
-        \Log::info(
-            'Stock Product Filters',
-            $request->all()
-        );
+        /*
+        |--------------------------------------------------------------------------
+        | Determine Branch Scope
+        |--------------------------------------------------------------------------
+        */
 
-        $products = Product::query()
+        $branchId = null;
 
+        if (!canManageAllBranches()) {
+
+            $branchId = currentBranchId();
+
+        } elseif ($request->filled('branch')) {
+
+            $branchId = (int) $request->branch;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Assignment Validation
+        |--------------------------------------------------------------------------
+        */
+
+        if (!canManageAllBranches() && !$branchId) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'message' =>
+                    'Your account is not assigned to a branch.'
+
+            ], 422);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validate Selected Branch
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            canManageAllBranches() &&
+            $branchId
+        ) {
+
+            $branchExists = Branch::query()
+
+                ->where(
+                    'company_id',
+                    companyId()
+                )
+
+                ->where(
+                    'id',
+                    $branchId
+                )
+
+                ->where(
+                    'status',
+                    true
+                )
+
+                ->exists();
+
+
+            if (!$branchExists) {
+
+                return response()->json([
+
+                    'success' => false,
+
+                    'message' =>
+                        'Invalid branch selected.'
+
+                ], 422);
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Base Product Query
+        |--------------------------------------------------------------------------
+        */
+
+        $query = Product::query()
 
             ->where(
                 'company_id',
-                $this->companyId
+                companyId()
             )
-
-
 
             ->with([
 
@@ -390,205 +337,408 @@ class StockController extends BaseController
 
                 'unit',
 
-                'stocks'=>function($query) use ($request){
+                /*
+                |--------------------------------------------------------------------------
+                | Load Branch Stock
+                |--------------------------------------------------------------------------
+                */
 
-                    if($request->branch){
+                'stocks' => function ($stock) use ($branchId) {
 
-                        $query->where(
+                    if ($branchId !== null) {
+
+                        $stock->where(
                             'branch_id',
-                            $request->branch
+                            $branchId
                         );
 
                     }
 
-                }
+                    $stock->with('branch');
 
-            ])
+                },
 
-            /*
-            |--------------------------------------------------------------------------
-            | Search
-            |--------------------------------------------------------------------------
-            */
-
-            ->when(
-                $request->search,
-                function($query) use ($request){
+            ]);
 
 
-                    $search =
-                        $request->search;
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Stock Scope
+        |--------------------------------------------------------------------------
+        |
+        | When a branch is selected, only products having a stock
+        | record for that branch are returned.
+        |
+        */
 
+        if ($branchId !== null) {
 
+            $query->whereHas(
 
-                    $query->where(function($q) use ($search){
+                'stocks',
 
+                function ($stock) use ($branchId) {
 
-                        $q->where(
-                            'name',
-                            'like',
-                            "%{$search}%"
-                        )
-
-                        ->orWhere(
-                            'sku',
-                            'like',
-                            "%{$search}%"
-                        )
-
-                        ->orWhere(
-                            'barcode',
-                            'like',
-                            "%{$search}%"
-                        );
-
-
-
-                    });
-
-
-
-                }
-            )
-
-            /*
-            |--------------------------------------------------------------------------
-            | Category Filter
-            |--------------------------------------------------------------------------
-            */
-
-           ->when(
-                $request->category,
-                function($query) use ($request){
-
-
-                    $query->where(
-                        'product_category_id',
-                        $request->category
+                    $stock->where(
+                        'branch_id',
+                        $branchId
                     );
 
-
                 }
-            )
 
-            /*
-            |--------------------------------------------------------------------------
-            | Stock Status Filter
-            |--------------------------------------------------------------------------
-            */
+            );
 
-            ->when(
-                $request->status,
-                function($query) use ($request){
+        }
 
 
-                    $query->whereHas(
-                        'stocks',
-                        function($stock) use ($request)
-                        {
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('search')) {
+
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+
+                $q->where(
+                    'name',
+                    'like',
+                    "%{$search}%"
+                )
+
+                ->orWhere(
+                    'sku',
+                    'like',
+                    "%{$search}%"
+                )
+
+                ->orWhere(
+                    'barcode',
+                    'like',
+                    "%{$search}%"
+                );
+
+            });
+
+        }
 
 
-                            if($request->status === 'in_stock')
-                            {
+        /*
+        |--------------------------------------------------------------------------
+        | Category
+        |--------------------------------------------------------------------------
+        */
 
-                                $stock->where(
+        if ($request->filled('category')) {
+
+            $query->where(
+                'product_category_id',
+                $request->category
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Status
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('status')) {
+
+            $query->whereHas(
+
+                'stocks',
+
+                function ($stock) use (
+                    $request,
+                    $branchId
+                ) {
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Branch Scope
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if ($branchId !== null) {
+
+                        $stock->where(
+                            'branch_id',
+                            $branchId
+                        );
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Stock Status
+                    |--------------------------------------------------------------------------
+                    */
+
+                    switch ($request->status) {
+
+                        case 'in_stock':
+
+                            $stock->where(
+                                'quantity',
+                                '>',
+                                0
+                            );
+
+                            break;
+
+
+                        case 'low_stock':
+
+                            $stock
+
+                                ->whereColumn(
+                                    'quantity',
+                                    '<=',
+                                    'reorder_level'
+                                )
+
+                                ->where(
                                     'quantity',
                                     '>',
                                     0
                                 );
 
-                            }
+                            break;
 
 
+                        case 'out_stock':
 
-                            if($request->status === 'low_stock')
-                            {
+                            $stock->where(
+                                'quantity',
+                                '<=',
+                                0
+                            );
 
-                                $stock->whereColumn(
-                                    'quantity',
-                                    '<=',
-                                    'reorder_level'
-                                );
+                            break;
 
-                            }
-
-
-
-
-                            if($request->status === 'out_stock')
-                            {
-
-                                $stock->where(
-                                    'quantity',
-                                    '<=',
-                                    0
-                                );
-
-                            }
-
-
-                        }
-                    );
-
+                    }
 
                 }
-            )
 
-            /*
-            |--------------------------------------------------------------------------
-            | Price Search
-            |--------------------------------------------------------------------------
-            */
+            );
 
-            ->when(
-                $request->price,
-                function($query) use ($request){
+        }
 
 
-                    $query->where(
-                        'selling_price',
-                        $request->price
-                    );
+        /*
+        |--------------------------------------------------------------------------
+        | Pagination
+        |--------------------------------------------------------------------------
+        */
 
-
-                }
-            )
+        $products = $query
 
             ->latest()
 
             ->paginate(5);
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Normalize Product Stock Data
+        |--------------------------------------------------------------------------
+        |
+        | Instead of making JavaScript guess which stock belongs to
+        | the selected branch, expose a dedicated stock object.
+        |
+        */  
+        // if ($branchId !== null) {
+
+        //     $debugStock = ProductStock::query()
+        //         ->where('company_id', companyId())
+        //         ->where('branch_id', $branchId)
+        //         ->where('product_id', 1)
+        //         ->first();
+
+        //     \Log::info('STOCK DEBUG', [
+        //         'branch_id' => $branchId,
+        //         'product_id' => 1,
+        //         'stock' => $debugStock?->toArray(),
+        //     ]);
+
+        // }      
+
+        $data = collect($products->items())
+
+            ->map(function ($product) use ($branchId) {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Resolve Exact Branch Stock
+                |--------------------------------------------------------------------------
+                */
+
+                $stock = null;
+
+                if ($branchId !== null) {
+
+                    $stock = $product->stocks
+                        ->where(
+                            'branch_id',
+                            $branchId
+                        )
+                        ->first();
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Return Product
+                |--------------------------------------------------------------------------
+                */
+
+                return [
+
+                    'id' =>
+                        $product->id,
+
+                    'product_code' =>
+                        $product->product_code,
+
+                    'sku' =>
+                        $product->sku,
+
+                    'barcode' =>
+                        $product->barcode,
+
+                    'name' =>
+                        $product->name,
+
+                    'image' =>
+                        $product->image,
+
+                    'selling_price' =>
+                        $product->selling_price,
+
+                    'category' =>
+                        $product->category,
+
+                    'unit' =>
+                        $product->unit,
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Branch
+                    |--------------------------------------------------------------------------
+                    */
+
+                    'branch_id' =>
+                        $stock
+                            ? (int) $stock->branch_id
+                            : null,
+
+                    'branch' =>
+                        $stock?->branch,
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Stock
+                    |--------------------------------------------------------------------------
+                    */
+
+                    'stock' => $stock
+                        ? [
+
+                            'id' =>
+                                $stock->id,
+
+                            'company_id' =>
+                                $stock->company_id,
+
+                            'branch_id' =>
+                                $stock->branch_id,
+
+                            'product_id' =>
+                                $stock->product_id,
+
+                            'quantity' =>
+                                $stock->quantity,
+
+                            'reserved_quantity' =>
+                                $stock->reserved_quantity,
+
+                            'available_quantity' =>
+                                $stock->available_quantity,
+
+                            'reorder_level' =>
+                                $stock->reorder_level,
+
+                            'maximum_stock' =>
+                                $stock->maximum_stock,
+
+                        ]
+                        : null,
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Direct Quantity
+                    |--------------------------------------------------------------------------
+                    |
+                    | This makes the current stock immediately available to
+                    | the frontend without requiring JavaScript to traverse
+                    | relationships.
+                    |
+                    */
+
+                    'stock_quantity' =>
+                        $stock?->quantity ?? 0,
+
+                    'reserved_quantity' =>
+                        $stock?->reserved_quantity ?? 0,
+
+                    'available_quantity' =>
+                        $stock?->available_quantity ?? 0,
+
+                ];
+
+            })
+
+            ->values();          
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
         return response()->json([
 
+            'success' => true,
 
-            'success'=>true,
+            'data' => $data,
 
+            'pagination' => [
 
-            'data'=>$products->items(),
-
-
-            'pagination'=>[
-
-
-                'current_page'=>
+                'current_page' =>
                     $products->currentPage(),
 
-
-                'last_page'=>
+                'last_page' =>
                     $products->lastPage(),
 
+                'total' =>
+                    $products->total(),
 
-                'total'=>
-                    $products->total()
-
-
-            ]
-
-
+            ],
 
         ]);
-
-    }    
+    }
 
    /*
     |--------------------------------------------------------------------------
@@ -598,7 +748,7 @@ class StockController extends BaseController
 
     public function details($id)
     {
-        $stock = ProductStock::query()
+        $stockQuery = ProductStock::query()
 
             ->where(
                 'company_id',
@@ -611,11 +761,27 @@ class StockController extends BaseController
 
                 'branch',
 
-            ])
+            ]);
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
 
-            ->findOrFail($id);
+        if (!canManageAllBranches()) {
+
+            $stockQuery->where(
+                'branch_id',
+                currentBranchId()
+            );
+
+        }
+
+
+        $stock = $stockQuery->findOrFail($id);
+
 
         $movements = StockMovement::query()
 
@@ -635,18 +801,15 @@ class StockController extends BaseController
             )
 
             ->with([
-
                 'user'
-
             ])
 
             ->latest()
 
-
             ->limit(10)
 
-
             ->get();
+
 
         return response()->json([
 
@@ -655,7 +818,6 @@ class StockController extends BaseController
             'data' => [
 
                 'id' => $stock->id,
-
 
                 'product' => [
 
@@ -671,14 +833,12 @@ class StockController extends BaseController
                     'image' =>
                         $stock->product->image,
 
-
                     'category' => [
 
                         'name' =>
                             $stock->product->category->name ?? '-',
 
                     ],
-
 
                     'unit' => [
 
@@ -687,10 +847,7 @@ class StockController extends BaseController
 
                     ],
 
-
                 ],
-
-
 
                 'branch' => [
 
@@ -699,47 +856,35 @@ class StockController extends BaseController
 
                 ],
 
-
-
                 'quantity' =>
                     $stock->quantity,
-
 
                 'reserved_quantity' =>
                     $stock->reserved_quantity,
 
-
                 'available_quantity' =>
                     $stock->available_quantity,
-
-
 
                 'reorder_level' =>
                     $stock->reorder_level,
 
-
-
                 'movements' =>
 
-                    $movements->map(function($movement){
+                    $movements->map(function ($movement) {
 
                         return [
 
                             'movement_type' =>
                                 $movement->movement_type,
 
-
                             'quantity' =>
                                 $movement->quantity,
-
 
                             'stock_before' =>
                                 $movement->stock_before,
 
-
                             'stock_after' =>
                                 $movement->stock_after,
-
 
                             'user' => [
 
@@ -750,22 +895,67 @@ class StockController extends BaseController
 
                         ];
 
-                    })
+                    }),
 
-            ]
+            ],
 
         ]);
-
-    }
-
+    }    
+   
+   
     /**
      * Adjustment Filters
      */
     public function adjustmentFilters()
     {
+        /*
+        |--------------------------------------------------------------------------
+        | Categories
+        |--------------------------------------------------------------------------
+        */
 
-        $categories =
-            ProductCategory::query()
+        $categories = ProductCategory::query()
+
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+
+            ->where(
+                'status',
+                true
+            )
+
+            ->orderBy(
+                'name'
+            )
+
+            ->get([
+                'id',
+                'name'
+            ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branches
+        |--------------------------------------------------------------------------
+        |
+        | Owner / Administrator:
+        | Can select any active company branch.
+        |
+        | Branch-level users:
+        | Branch selection is not required because the backend
+        | automatically uses currentBranchId().
+        |
+        */
+
+        $branches = collect();
+
+
+        if (canManageAllBranches()) {
+
+            $branches = Branch::query()
 
                 ->where(
                     'company_id',
@@ -786,45 +976,24 @@ class StockController extends BaseController
                     'name'
                 ]);
 
-
-
-        $branches =
-            Branch::query()
-
-                ->where(
-                    'company_id',
-                    $this->companyId
-                )
-
-                ->where(
-                    'status',
-                    true
-                )
-
-                ->orderBy(
-                    'name'
-                )
-
-                ->get([
-                    'id',
-                    'name'
-                ]);
-
+        }
 
 
         return response()->json([
 
-            'success'=>true,
+            'success' => true,
 
+            'categories' => $categories,
 
-            'categories'=>$categories,
+            'branches' => $branches,
 
+            'can_manage_all_branches' =>
+                canManageAllBranches(),
 
-            'branches'=>$branches,
-
+            'current_branch_id' =>
+                currentBranchId(),
 
         ]);
-
     }
 
     /*
@@ -847,7 +1016,7 @@ class StockController extends BaseController
 
             'branch_id' => [
 
-                'required',
+                'nullable',
 
                 'integer',
 
@@ -883,76 +1052,212 @@ class StockController extends BaseController
 
             ],
 
-
-
         ]);
 
-        return DB::transaction(function() use ($validated){
+
+        /*
+        |--------------------------------------------------------------------------
+        | Determine Branch
+        |--------------------------------------------------------------------------
+        |
+        | Owner / Administrator:
+        | Use the submitted branch.
+        |
+        | Branch-level users:
+        | Completely ignore submitted branch_id and force
+        | the authenticated user's assigned branch.
+        |
+        */
+
+        if (canManageAllBranches()) {
+
+            if (empty($validated['branch_id'])) {
+
+                return response()->json([
+
+                    'success' => false,
+
+                    'message' =>
+                        'Please select a branch.'
+
+                ], 422);
+
+            }
+
+
+            $branchId =
+                $validated['branch_id'];
+
+        }
+        else {
+
+            $branchId =
+                currentBranchId();
+
+
+            if (!$branchId) {
+
+                return response()->json([
+
+                    'success' => false,
+
+                    'message' =>
+                        'Your account is not assigned to a branch.'
+
+                ], 422);
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Verify Branch Belongs To Company
+        |--------------------------------------------------------------------------
+        */
+
+        $branchExists = Branch::query()
+
+            ->where(
+                'company_id',
+                companyId()
+            )
+
+            ->where(
+                'id',
+                $branchId
+            )
+
+            ->where(
+                'status',
+                true
+            )
+
+            ->exists();
+
+
+        if (!$branchExists) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'message' =>
+                    'Invalid branch selected.'
+
+            ], 422);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Verify Product Belongs To Company
+        |--------------------------------------------------------------------------
+        */
+
+        $productExists = Product::query()
+
+            ->where(
+                'company_id',
+                companyId()
+            )
+
+            ->where(
+                'id',
+                $validated['product_id']
+            )
+
+            ->exists();
+
+
+        if (!$productExists) {
+
+            return response()->json([
+
+                'success' => false,
+
+                'message' =>
+                    'Invalid product selected.'
+
+            ], 422);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Transaction
+        |--------------------------------------------------------------------------
+        */
+
+        return DB::transaction(function () use (
+            $validated,
+            $branchId
+        ) {
+
             /*
             |--------------------------------------------------------------------------
             | Get Stock Record
             |--------------------------------------------------------------------------
             */
 
-
             $stock = ProductStock::query()
-
 
                 ->where(
                     'company_id',
-                    $this->companyId
+                    companyId()
                 )
-
 
                 ->where(
                     'branch_id',
-                    $validated['branch_id']
+                    $branchId
                 )
-
 
                 ->where(
                     'product_id',
                     $validated['product_id']
                 )
 
-
                 ->first();
 
-            if(!$stock)
-            {
 
+            /*
+            |--------------------------------------------------------------------------
+            | Create Stock Record If It Does Not Exist
+            |--------------------------------------------------------------------------
+            */
+
+            if (!$stock) {
 
                 $stock = ProductStock::create([
 
+                    'company_id' =>
+                        companyId(),
 
-                    'company_id'=>
-                        $this->companyId,
+                    'branch_id' =>
+                        $branchId,
 
-
-                    'branch_id'=>
-                        $validated['branch_id'],
-
-
-                    'product_id'=>
+                    'product_id' =>
                         $validated['product_id'],
 
+                    'quantity' =>
+                        0,
 
-                    'quantity'=>0,
+                    'reserved_quantity' =>
+                        0,
 
+                    'available_quantity' =>
+                        0,
 
-                    'reserved_quantity'=>0,
-
-
-                    'available_quantity'=>0,
-
-
-                    'reorder_level'=>0,
-
+                    'reorder_level' =>
+                        0,
 
                 ]);
 
-
             }
+
 
             /*
             |--------------------------------------------------------------------------
@@ -960,19 +1265,17 @@ class StockController extends BaseController
             |--------------------------------------------------------------------------
             */
 
-
             $oldQuantity =
                 $stock->quantity;
 
+
             /*
             |--------------------------------------------------------------------------
-            | Calculate New Quantity
+            | Determine Adjustment Direction
             |--------------------------------------------------------------------------
             */
 
-
             $increaseTypes = [
-
 
                 'Opening Stock',
 
@@ -982,52 +1285,54 @@ class StockController extends BaseController
 
                 'Customer Return',
 
-                'Transfer In'
-
+                'Transfer In',
 
             ];
 
 
-            if(
+            if (
                 in_array(
                     $validated['type'],
-                    $increaseTypes
+                    $increaseTypes,
+                    true
                 )
-            )
-            {
+            ) {
 
                 $newQuantity =
                     $oldQuantity
                     +
                     $validated['quantity'];
 
-
             }
-            else
-            {
+            else {
+
                 $newQuantity =
                     $oldQuantity
                     -
                     $validated['quantity'];
 
-
             }
 
-            if($newQuantity < 0)
-            {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Prevent Negative Stock
+            |--------------------------------------------------------------------------
+            */
+
+            if ($newQuantity < 0) {
 
                 return response()->json([
 
+                    'success' => false,
 
-                    'success'=>false,
+                    'message' =>
+                        'Insufficient stock quantity.'
 
-                    'message'=>
-                    'Insufficient stock quantity.'
-
-                ],422);
-
+                ], 422);
 
             }
+
 
             /*
             |--------------------------------------------------------------------------
@@ -1035,70 +1340,59 @@ class StockController extends BaseController
             |--------------------------------------------------------------------------
             */
 
-
             $stock->update([
 
-
-                'quantity'=>
+                'quantity' =>
                     $newQuantity,
 
-                'available_quantity'=>
-
+                'available_quantity' =>
                     $newQuantity
                     -
                     $stock->reserved_quantity,
 
-                'last_stock_update'=>
-
-                    now()
-
+                'last_stock_update' =>
+                    now(),
 
             ]);
+
 
             /*
             |--------------------------------------------------------------------------
-            | Create Movement
+            | Create Stock Movement
             |--------------------------------------------------------------------------
             */
 
-
             StockMovement::create([
 
-                'company_id'=>
-                    $this->companyId,
+                'company_id' =>
+                    companyId(),
 
-                'branch_id'=>
-                    $validated['branch_id'],
+                'branch_id' =>
+                    $branchId,
 
-                'product_id'=>
+                'product_id' =>
                     $validated['product_id'],
 
-                'user_id'=>
+                'user_id' =>
                     auth()->id(),
 
-                'movement_type'=>
-
+                'movement_type' =>
                     $validated['type'],
 
-                'quantity'=>
-
+                'quantity' =>
                     $validated['quantity'],
 
-                'stock_before'=>
-
+                'stock_before' =>
                     $oldQuantity,
 
-                'stock_after'=>
-
+                'balance_after' =>
                     $newQuantity,
 
-                'remarks'=>
-
+                'remarks' =>
                     $validated['reason'] ?? null,
 
-
-
             ]);
+
 
             /*
             |--------------------------------------------------------------------------
@@ -1106,63 +1400,47 @@ class StockController extends BaseController
             |--------------------------------------------------------------------------
             */
 
-
             $this->activityLogger->log(
-
 
                 'Stock',
 
-
                 'Updated',
 
-
                 'Stock adjusted for product ID '
-                .$validated['product_id'],
-
+                    . $validated['product_id']
+                    . ' at branch ID '
+                    . $branchId,
 
                 $stock,
 
-
                 [
 
-                    'quantity'=>
+                    'quantity' =>
                         $oldQuantity
 
                 ],
 
-
                 [
 
-                    'quantity'=>
+                    'quantity' =>
                         $newQuantity
 
                 ]
 
-
             );
+
 
             return response()->json([
 
+                'success' => true,
 
-                'success'=>true,
-
-
-                'message'=>
-
+                'message' =>
                     'Stock adjusted successfully.'
-
-
 
             ]);
 
-
-
         });
-
-
-
     }
-
 
     /*
     |--------------------------------------------------------------------------

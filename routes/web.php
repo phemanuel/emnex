@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Auth\AuthController;
 
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AccountController;
 
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductCategoryController;
@@ -68,9 +70,29 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
 
-        Route::post('/logout', [AuthController::class, 'logout'])
-            ->name('logout');
+    Route::put(
+        '/account/profile',
+        [AccountController::class, 'updateProfile']
+    )->name('account.profile.update');
 
+
+    Route::put(
+        '/account/password',
+        [AccountController::class, 'updatePassword']
+    )->name('account.password.update');
+
+    Route::post('/logout',function () {
+
+            Auth::logout();
+
+            request()->session()->invalidate();
+
+            request()->session()->regenerateToken();
+
+            return redirect()->route('login');
+
+        }
+    )->name('logout');
 
     /*
     |--------------------------------------------------------------------------

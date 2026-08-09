@@ -14,11 +14,12 @@ class BaseController extends Controller
 {
     protected $company;
     protected $companyId;
-
+    
     public function __construct()
     {
         $this->company = CompanyHelper::current();
         $this->companyId = CompanyHelper::id();
+        
     }
     
     /**
@@ -118,4 +119,6 @@ class BaseController extends Controller
                 : $exception->getMessage()
         );
     }
+
+    
 }

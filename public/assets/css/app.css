@@ -178,3 +178,281 @@ body {
 
 }
 
+/* =========================================================
+   USER ACCOUNT DROPDOWN
+========================================================= */
+
+.user-account-dropdown {
+    position: relative;
+}
+
+
+.user-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border: 0;
+    background: transparent;
+
+    padding: 6px 8px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+
+.user-dropdown:hover {
+    background: #f5f6f8;
+}
+
+
+.user-dropdown::after {
+    display: none;
+}
+
+
+.user-avatar,
+.user-menu-avatar,
+.profile-modal-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-weight: 600;
+
+    flex-shrink: 0;
+}
+
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+
+    background: #eef1f5;
+
+    font-size: 14px;
+}
+
+
+.user-info {
+    text-align: left;
+    line-height: 1.2;
+}
+
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.user-info small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #7a828c;
+
+    font-size: 11px;
+}
+
+
+.user-dropdown-icon {
+    margin-left: 4px;
+
+    font-size: 12px;
+
+    color: #7a828c;
+}
+
+
+/* =========================================================
+   USER MENU
+========================================================= */
+
+.user-menu {
+    width: 250px;
+
+    padding: 8px;
+
+    border: 1px solid #e8eaed;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, .10);
+}
+
+
+.user-menu-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px;
+}
+
+
+.user-menu-avatar {
+    width: 40px;
+    height: 40px;
+
+    background: #eef1f5;
+}
+
+
+.user-menu-header strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+
+.user-menu-header small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #7a828c;
+
+    font-size: 11px;
+
+    max-width: 165px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.user-menu .dropdown-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 10px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+}
+
+
+.user-menu .dropdown-item i {
+    width: 18px;
+
+    font-size: 16px;
+}
+
+
+.user-menu .dropdown-item:hover {
+    background: #f5f6f8;
+}
+
+
+.user-menu .dropdown-item.text-danger:hover {
+    background: #fff1f1;
+}
+
+
+/* =========================================================
+   ACCOUNT MODALS
+========================================================= */
+
+.account-modal {
+    border: 0;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .15);
+}
+
+
+.account-modal .modal-header {
+    padding: 18px 20px;
+
+    border-bottom: 1px solid #edf0f2;
+}
+
+
+.account-modal .modal-body {
+    padding: 20px;
+}
+
+
+.account-modal .modal-footer {
+    padding: 14px 20px;
+
+    border-top: 1px solid #edf0f2;
+}
+
+
+.account-modal .form-label {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 6px;
+}
+
+
+.account-modal .form-control {
+    min-height: 40px;
+
+    border-radius: 8px;
+}
+
+
+.profile-modal-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    margin-bottom: 20px;
+
+    background: #f8f9fa;
+
+    border-radius: 10px;
+}
+
+
+.profile-modal-avatar {
+    width: 46px;
+    height: 46px;
+
+    background: #eef1f5;
+
+    font-size: 16px;
+}
+
+
+/* ==========================================================
+   GLOBAL TOAST NOTIFICATIONS
+   Always above Bootstrap modals
+========================================================== */
+
+.toast-container {
+    position: fixed !important;
+    z-index: 99999 !important;
+}
+
+.toast-container .toast {
+    position: relative;
+    z-index: 100000 !important;
+}
+

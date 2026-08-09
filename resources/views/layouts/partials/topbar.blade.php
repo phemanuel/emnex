@@ -24,13 +24,13 @@
 
                     <div class="branch-name">
 
-                        Main Branch
+                        {{ auth()->user()->branch->name}}
 
                     </div>
 
                     <small>
 
-                        Lagos, Nigeria
+                        {{ auth()->user()->branch->address}}
 
                     </small>
 
@@ -98,34 +98,170 @@
         </button>
 
 
-        <!-- User -->
+        {{-- =========================================================
+            USER ACCOUNT DROPDOWN
+        ========================================================= --}}
 
-        <div class="user-dropdown">
+        <div class="dropdown user-account-dropdown">
 
-            <div class="user-avatar">
+            <button
+                type="button"
+                class="user-dropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
 
-                {{ strtoupper(substr(auth()->user()->first_name,0,1)) }}
+                {{-- Avatar --}}
+                <div class="user-avatar">
 
-            </div>
-
-            <div class="user-info">
-
-                <div class="user-name">
-
-                    {{ auth()->user()->first_name }}
-                    {{ auth()->user()->last_name }}
+                    {{ strtoupper(
+                        substr(
+                            auth()->user()->first_name ?? 'U',
+                            0,
+                            1
+                        )
+                    ) }}
 
                 </div>
 
-                <small>
 
-                    Administrator
+                {{-- User Info --}}
+                <div class="user-info">
 
-                </small>
+                    <div class="user-name">
+
+                        {{ auth()->user()->first_name }}
+                        {{ auth()->user()->last_name }}
+
+                    </div>
+
+
+                    <small>
+
+                        {{ auth()->user()->role?->display_name ?? 'User' }}
+
+                    </small>
+
+                </div>
+
+
+                <i class="bi bi-chevron-down user-dropdown-icon"></i>
+
+            </button>
+
+
+
+            {{-- =====================================================
+                DROPDOWN
+            ====================================================== --}}
+
+            <div class="dropdown-menu dropdown-menu-end user-menu">
+
+
+                {{-- Profile Header --}}
+                <div class="user-menu-header">
+
+                    <div class="user-menu-avatar">
+
+                        {{ strtoupper(
+                            substr(
+                                auth()->user()->first_name ?? 'U',
+                                0,
+                                1
+                            )
+                        ) }}
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+
+                            {{ auth()->user()->first_name }}
+                            {{ auth()->user()->last_name }}
+
+                        </strong>
+
+
+                        <small>
+
+                            {{ auth()->user()->email }}
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="dropdown-divider"></div>
+
+
+
+                {{-- My Profile --}}
+                <button
+                    type="button"
+                    class="dropdown-item"
+                    id="openProfileModalBtn"
+                >
+
+                    <i class="bi bi-person"></i>
+
+                    <span>
+                        My Profile
+                    </span>
+
+                </button>
+
+
+
+                {{-- Change Password --}}
+                <button
+                    type="button"
+                    class="dropdown-item"
+                    id="openPasswordModalBtn"
+                >
+
+                    <i class="bi bi-key"></i>
+
+                    <span>
+                        Change Password
+                    </span>
+
+                </button>
+
+
+
+                <div class="dropdown-divider"></div>
+
+
+
+                {{-- Logout --}}
+                <form
+                    method="POST"
+                    action="{{ route('logout') }}"
+                >
+
+                    @csrf
+
+                    <button
+                        type="submit"
+                        class="dropdown-item text-danger"
+                    >
+
+                        <i class="bi bi-box-arrow-right"></i>
+
+                        <span>
+                            Logout
+                        </span>
+
+                    </button>
+
+                </form>
 
             </div>
-
-            <i class="bi bi-chevron-down"></i>
 
         </div>
 

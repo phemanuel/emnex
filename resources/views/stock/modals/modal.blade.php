@@ -1,376 +1,458 @@
+
 <div class="modal fade"
      id="stockAdjustmentModal"
-     tabindex="-1">
-
+     tabindex="-1"
+     aria-labelledby="stockModalTitle"
+     aria-hidden="true">
 
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
 
-
-         <div class="modal-content stock-adjustment-modal">
-
+        <div class="modal-content stock-adjustment-modal">
 
 
-            {{-- HEADER --}}
+            {{-- ==========================================================
+                HEADER
+            =========================================================== --}}
 
-            <div class="modal-header">
+            <div class="modal-header stock-adjustment-header">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="stock-adjustment-header-icon">
+
+                        <i class="bi bi-boxes"></i>
+
+                    </div>
 
 
-                <div>
+                    <div>
 
-                    <h5 class="modal-title"
-                        id="stockModalTitle">
+                        <h5 class="modal-title mb-1"
+                            id="stockModalTitle">
 
-                        Stock Adjustment
+                            Stock Adjustment
 
-                    </h5>
+                        </h5>
 
 
-                    <small class="text-muted">
+                        <div class="stock-adjustment-subtitle">
 
-                        Search products and update inventory
+                            Manage inventory movements for your products
 
-                    </small>
+                        </div>
 
+                    </div>
 
                 </div>
 
 
-
                 <button type="button"
                         class="btn-close"
-                        data-bs-dismiss="modal">
-
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
                 </button>
-
 
             </div>
 
 
+            {{-- ==========================================================
+                BODY
+            =========================================================== --}}
+
+            <div class="modal-body stock-adjustment-body">
+
+                <div class="row g-0 stock-adjustment-workspace">
 
 
+                    {{-- ==================================================
+                        LEFT
+                        PRODUCT BROWSER
+                    =================================================== --}}
 
-            {{-- BODY --}}
-
-            <div class="modal-body">
-
-
-                <div class="row g-4">
-
+                    <div class="col-lg-7 stock-product-section">
 
 
+                        {{-- ==================================================
+                            STEP 1 HEADER
+                        =================================================== --}}
+
+                        <div class="stock-workspace-header">
+
+                            <div>
+
+                                <div class="stock-step-label">
+                                    STEP 1
+                                </div>
 
 
-                    {{-- PRODUCT BROWSER --}}
-
-                    <div class="col-lg-7">
-
-
-                        <div class="stock-product-browser">
-
-
-
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-
-
-                                <h6 class="mb-0">
-
+                                <h6 class="mb-1">
                                     Select Product
-
                                 </h6>
 
 
+                                <span>
+                                    Select a branch, then choose the product
+                                    you want to update.
+                                </span>
 
                             </div>
 
 
+                            {{-- FILTER TOGGLE --}}
+
+                            <div class="stock-section-actions">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-light stock-filter-toggle"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#stockAdjustmentFiltersPanel"
+                                    aria-expanded="false"
+                                    aria-controls="stockAdjustmentFiltersPanel"
+                                    title="Show filters">
+
+                                    <i class="bi bi-funnel"></i>
+
+                                    <span>
+                                        Filters
+                                    </span>
+
+                                </button>
 
 
+                                <div class="stock-section-icon">
 
-                            {{-- SEARCH --}}
-
-                            {{-- ==========================================================
-                                PRODUCT SEARCH & FILTERS
-                            =========================================================== --}}
-
-
-                            <div class="stock-adjustment-filters mb-4">
-
-
-
-                                {{-- SEARCH --}}
-
-                                <div class="row g-3 mb-3">
-
-
-                                    <div class="col-md-6">
-
-
-                                        <div class="input-group">
-
-
-                                            <span class="input-group-text">
-
-                                                <i class="bi bi-search"></i>
-
-                                            </span>
-
-
-
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="stockProductSearch"
-                                                placeholder="Search product name, SKU, barcode...">
-
-
-                                        </div>
-
-
-                                    </div>
-                                    
-                                    {{-- CATEGORY --}}
-
-                                    <div class="col-md-6">
-
-
-                                        <select
-                                            class="form-select"
-                                            id="stockAdjustmentCategoryFilter">
-
-
-                                            <option value="">
-
-                                                All Categories
-
-                                            </option>
-
-
-                                        </select>
-
-
-                                    </div>
-
-
+                                    <i class="bi bi-box-seam"></i>
 
                                 </div>
 
-                                {{-- BRANCH + STOCK STATUS --}}
+                            </div>
 
-                                <div class="row g-3">
-
-
-
-                                    <div class="col-md-6">
+                        </div>
 
 
-                                        <select
-                                            class="form-select"
-                                            id="stockAdjustmentBranchFilter">
+                        {{-- ==================================================
+                            BRANCH SELECTION
+                        =================================================== --}}
+
+                        @if(canManageAllBranches())
+
+                            <div class="stock-branch-selection mb-3">
 
 
-                                            <option value="">
+                                <label class="stock-filter-label">
 
-                                                All Branches
+                                    Branch
 
-                                            </option>
+                                    <span class="text-danger">
+                                        *
+                                    </span>
 
-
-                                        </select>
-
-
-                                    </div>
-
-                                    <div class="col-md-6">
+                                </label>
 
 
-                                        <select
-                                            class="form-select"
-                                            id="stockAdjustmentStatusFilter">
+                                <select
+                                    class="form-select"
+                                    id="stockAdjustmentBranchFilter">
+
+                                    <option value="">
+                                        Select Branch
+                                    </option>
+
+                                </select>
 
 
-                                            <option value="">
+                                <div class="stock-filter-note mt-2">
 
-                                                All Stock
+                                    <i class="bi bi-info-circle"></i>
 
-                                            </option>
+                                    <span>
 
+                                        Select a branch first. Only products
+                                        with stock records for the selected
+                                        branch will be available.
 
-                                            <option value="in_stock">
+                                    </span>
 
-                                                In Stock
-
-                                            </option>
-
-
-                                            <option value="low_stock">
-
-                                                Low Stock
-
-                                            </option>
-
-
-                                            <option value="out_stock">
-
-                                                Out Of Stock
-
-                                            </option>
-
-
-                                        </select>
-
-
-                                    </div>
                                 </div>
 
 
                             </div>
 
-                            {{-- PRODUCT TABLE --}}
+                        @endif
 
 
-                            <div class="stock-product-table-wrapper">
+                        {{-- ==================================================
+                            FILTER PANEL
+                        =================================================== --}}
+
+                        <div
+                            id="stockAdjustmentFiltersPanel"
+                            class="collapse stock-adjustment-filter-panel">
 
 
-                                <table class="table stock-product-table">
+                            {{-- ==================================================
+                                SEARCH
+                            =================================================== --}}
+
+                            <div class="stock-search-box mb-3">
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+
+                                        <i class="bi bi-search"></i>
+
+                                    </span>
 
 
-                                    <thead>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="stockProductSearch"
+                                        placeholder="Search by product, SKU or barcode...">
 
-
-                                        <tr>
-
-                                            <th>
-                                                Product
-                                            </th>
-
-
-                                            <th>
-                                                Stock
-                                            </th>
-
-
-                                            <th>
-                                                Price
-                                            </th>
-
-
-                                            <th>
-
-                                            </th>
-
-
-                                        </tr>
-
-
-                                    </thead>
-
-
-
-                                    <tbody id="stockProductTable">
-
-
-                                        <tr>
-
-                                            <td colspan="4"
-                                                class="text-center text-muted">
-
-
-                                                Search products
-
-
-                                            </td>
-
-
-                                        </tr>
-
-
-                                    </tbody>
-
-
-
-                                </table>
-
+                                </div>
 
                             </div>
 
 
+                            {{-- ==================================================
+                                CATEGORY
+                            =================================================== --}}
+
+                            <div class="mb-3">
+
+                                <label class="stock-filter-label">
+
+                                    Category
+
+                                </label>
 
 
+                                <select
+                                    class="form-select"
+                                    id="stockAdjustmentCategoryFilter">
 
+                                    <option value="">
+                                        All Categories
+                                    </option>
 
-                            {{-- PAGINATION --}}
-
-                            <div id="stockProductPagination"
-                                 class="mt-3">
-
+                                </select>
 
                             </div>
 
 
+                            {{-- ==================================================
+                                STOCK STATUS
+                            =================================================== --}}
 
+                            <div class="mb-3">
+
+                                <label class="stock-filter-label">
+
+                                    Stock Status
+
+                                </label>
+
+
+                                <select
+                                    class="form-select"
+                                    id="stockAdjustmentStatusFilter">
+
+                                    <option value="">
+                                        All Stock
+                                    </option>
+
+                                    <option value="in_stock">
+                                        In Stock
+                                    </option>
+
+                                    <option value="low_stock">
+                                        Low Stock
+                                    </option>
+
+                                    <option value="out_stock">
+                                        Out Of Stock
+                                    </option>
+
+                                </select>
+
+                            </div>
 
 
                         </div>
 
 
+                        {{-- ==================================================
+                            PRODUCT TABLE
+                        =================================================== --}}
+
+                        <div class="stock-product-table-wrapper">
+
+
+                            <table class="table stock-product-table align-middle mb-0">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Product
+                                        </th>
+
+                                        <th>
+                                            Stock
+                                        </th>
+
+                                        <th>
+                                            Price
+                                        </th>
+
+                                        <th class="text-end">
+                                            Action
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody id="stockProductTable">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="4"
+                                            class="text-center py-5">
+
+                                            <div class="stock-table-empty">
+
+
+                                                <div class="stock-empty-icon">
+
+                                                    <i class="bi bi-box-seam"></i>
+
+                                                </div>
+
+
+                                                <strong>
+                                                    Select a branch
+                                                </strong>
+
+
+                                                <span>
+
+                                                    Choose a branch above to
+                                                    load available products.
+
+                                                </span>
+
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+
+                        </div>
+
+
+                        {{-- ==================================================
+                            PAGINATION
+                        =================================================== --}}
+
+                        <div
+                            id="stockProductPagination"
+                            class="stock-product-pagination">
+
+                        </div>
+
 
                     </div>
 
 
+                    {{-- ==================================================
+                        RIGHT
+                        TRANSACTION WORKSPACE
+                    =================================================== --}}
+
+                    <div class="col-lg-5 stock-transaction-section">
 
 
+                        <div class="stock-transaction-panel">
 
 
+                            {{-- ==================================================
+                                TRANSACTION HEADER
+                            =================================================== --}}
+
+                            <div class="stock-transaction-header">
+
+                                <div>
+
+                                    <div class="stock-step-label">
+                                        STEP 2
+                                    </div>
 
 
+                                    <h6>
+                                        Adjustment Details
+                                    </h6>
 
 
-                    {{-- ADJUSTMENT PANEL --}}
-
-
-                    <div class="col-lg-5">
-
-
-
-                        <div class="stock-adjustment-panel">
-
-
-
-
-
-                            <h6>
-
-                                Adjustment Details
-
-                            </h6>
-
-
-
-
-                            {{-- Selected Product --}}
-
-
-                            <div class="selected-stock-product mb-4">
-
-
-                                <div class="stock-product-image">
-
-
-                                    <img id="selectedProductImage"
-                                         src=""
-                                         class="d-none">
-
-
-                                    <i class="bi bi-box-seam"
-                                       id="selectedProductPlaceholder"></i>
-
+                                    <span>
+                                        Define how the stock should change.
+                                    </span>
 
                                 </div>
 
 
+                                <div class="stock-transaction-icon">
+
+                                    <i class="bi bi-sliders2"></i>
+
+                                </div>
+
+                            </div>
 
 
-                                <div>
+                            {{-- ==================================================
+                                SELECTED PRODUCT CARD
+                            =================================================== --}}
+
+                            <div class="selected-product-card">
+
+
+                                <div class="selected-product-image">
+
+                                    <img
+                                        id="selectedProductImage"
+                                        src=""
+                                        class="d-none"
+                                        alt="Product image">
+
+
+                                    <i
+                                        class="bi bi-box-seam"
+                                        id="selectedProductPlaceholder">
+                                    </i>
+
+                                </div>
+
+
+                                <div class="selected-product-details">
+
+                                    <div class="selected-product-label">
+
+                                        SELECTED PRODUCT
+
+                                    </div>
 
 
                                     <h6 id="selectedProductName">
@@ -380,11 +462,112 @@
                                     </h6>
 
 
+                                    <small id="selectedProductInfo">
 
-                                    <small id="selectedProductInfo"
-                                           class="text-muted">
+                                        Choose a product from the list.
 
                                     </small>
+
+                                </div>
+
+
+                                <div class="selected-product-check">
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                </div>
+
+
+                            </div>
+
+
+                            {{-- ==================================================
+                                HIDDEN VALUES
+                            =================================================== --}}
+
+                            <input
+                                type="hidden"
+                                id="stockProductId">
+
+
+                            <input
+                                type="hidden"
+                                id="stockBranchId">
+
+
+                            {{-- ==================================================
+                                STOCK SNAPSHOT
+                            =================================================== --}}
+
+                            <div class="stock-snapshot-card">
+
+
+                                <div class="snapshot-header">
+
+                                    <span>
+                                        STOCK SNAPSHOT
+                                    </span>
+
+
+                                    <i class="bi bi-bar-chart-line"></i>
+
+                                </div>
+
+
+                                <div class="snapshot-values">
+
+
+                                    {{-- CURRENT STOCK --}}
+
+                                    <div class="snapshot-value">
+
+                                        <span>
+                                            Current Stock
+                                        </span>
+
+
+                                        <strong id="currentStockQuantity">
+
+                                            0
+
+                                        </strong>
+
+
+                                        <small>
+                                            units
+                                        </small>
+
+                                    </div>
+
+
+                                    <div class="snapshot-arrow">
+
+                                        <i class="bi bi-arrow-right"></i>
+
+                                    </div>
+
+
+                                    {{-- PROJECTED STOCK --}}
+
+                                    <div class="snapshot-value projected">
+
+                                        <span>
+                                            New Stock
+                                        </span>
+
+
+                                        <strong id="projectedStockQuantity">
+
+                                            0
+
+                                        </strong>
+
+
+                                        <small>
+                                            units
+                                        </small>
+
+                                    </div>
 
 
                                 </div>
@@ -393,173 +576,238 @@
                             </div>
 
 
+                            {{-- ==================================================
+                                MOVEMENT FORM
+                            =================================================== --}}
+
+                            <div class="stock-form-section">
 
 
+                                <div class="stock-form-section-title">
+
+                                    <span>
+                                        Movement Information
+                                    </span>
+
+                                </div>
 
 
+                                {{-- MOVEMENT TYPE --}}
+
+                                <div class="stock-form-group">
+
+                                    <label class="form-label">
+
+                                        Movement Type
+
+                                        <span class="text-danger">
+                                            *
+                                        </span>
+
+                                    </label>
 
 
+                                    <select
+                                        class="form-select"
+                                        id="stockType">
 
-                            <input type="hidden"
-                                   id="stockProductId">
-
-
-
-                            <input type="hidden"
-                                   id="stockBranchId">
-
+                                        <option value="">
+                                            Select movement type
+                                        </option>
 
 
+                                        <option value="Opening Stock">
+                                            Opening Stock
+                                        </option>
 
 
+                                        <option value="Purchase">
+                                            Purchase
+                                        </option>
 
 
-                            <div class="mb-3">
+                                        <option value="Return">
+                                            Return
+                                        </option>
 
 
-                                <label class="form-label">
-
-                                    Current Stock
-
-                                </label>
+                                        <option value="Transfer">
+                                            Transfer
+                                        </option>
 
 
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="currentStockQuantity"
-                                    readonly
-                                    value="0">
+                                        <option value="Damage">
+                                            Damage
+                                        </option>
+
+
+                                        <option value="Expired">
+                                            Expired
+                                        </option>
+
+                                    </select>
+
+
+                                    <div class="movement-help">
+
+                                        <i class="bi bi-info-circle"></i>
+
+
+                                        <span id="stockMovementHelp">
+
+                                            Select the reason for this
+                                            stock movement.
+
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- QUANTITY --}}
+
+                                <div class="stock-form-group">
+
+                                    <label class="form-label">
+
+                                        Quantity
+
+                                        <span class="text-danger">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="quantity-input-wrapper">
+
+                                        <input
+                                            type="number"
+                                            step="0.01"
+                                            min="0.01"
+                                            class="form-control"
+                                            id="stockQuantity"
+                                            placeholder="0.00">
+
+
+                                        <span>
+                                            units
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- REASON --}}
+
+                                <div class="stock-form-group">
+
+                                    <label class="form-label">
+
+                                        Reason / Remarks
+
+                                    </label>
+
+
+                                    <textarea
+                                        class="form-control"
+                                        id="stockReason"
+                                        rows="3"
+                                        maxlength="255"
+                                        placeholder="Explain the reason for this movement..."></textarea>
+
+                                </div>
 
 
                             </div>
 
 
+                            {{-- ==================================================
+                                TRANSACTION NOTICE
+                            =================================================== --}}
+
+                            <div class="stock-transaction-notice">
 
 
+                                <div class="notice-icon">
+
+                                    <i class="bi bi-shield-check"></i>
+
+                                </div>
 
 
+                                <div>
+
+                                    <strong>
+                                        Inventory control
+                                    </strong>
 
 
-                            <div class="mb-3">
+                                    <p>
 
+                                        This change will update the selected
+                                        branch's stock and create a movement
+                                        record for audit purposes.
 
-                                <label class="form-label">
+                                    </p>
 
-                                    Adjustment Type
-
-                                </label>
-
-
-                                <select
-                                    class="form-select"
-                                    id="stockType">
-
-
-                                    <option value="">
-
-                                        Select Type
-
-                                    </option>
-
-
-                                    <option value="Opening Stock">
-
-                                        Opening Stock
-
-                                    </option>
-
-
-                                    <option value="Adjustment In">
-
-                                        Adjustment In
-
-                                    </option>
-
-
-                                    <option value="Adjustment Out">
-
-                                        Adjustment Out
-
-                                    </option>
-
-
-                                    <option value="Damaged">
-
-                                        Damaged
-
-                                    </option>
-
-
-                                    <option value="Expired">
-
-                                        Expired
-
-                                    </option>
-
-
-                                </select>
+                                </div>
 
 
                             </div>
-
-
-
-
-
-
-
-                            <div class="mb-3">
-
-
-                                <label class="form-label">
-
-                                    Quantity
-
-                                </label>
-
-
-                                <input
-                                    type="number"
-                                    step="0.01"
-                                    class="form-control"
-                                    id="stockQuantity">
-
-
-                            </div>
-
-
-
-
-
-
-
-                            <div class="mb-3">
-
-
-                                <label class="form-label">
-
-                                    Reason
-
-                                </label>
-
-
-                                <textarea
-                                    class="form-control"
-                                    id="stockReason"
-                                    rows="3"></textarea>
-
-
-                            </div>
-
-
 
 
                         </div>
 
-
                     </div>
 
+                </div>
+
+            </div>
+
+
+            {{-- ==========================================================
+                FOOTER
+            =========================================================== --}}
+
+            <div class="modal-footer stock-adjustment-footer">
+
+
+                <div class="stock-footer-status">
+
+                    <i class="bi bi-lock-fill"></i>
+
+                    Inventory changes are tracked.
+
+                </div>
+
+
+                <div class="d-flex gap-2">
+
+
+                    <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-primary px-4"
+                        id="saveStockBtn"
+                        disabled>
+
+                        <i class="bi bi-check2-circle me-1"></i>
+
+                        Save Adjustment
+
+                    </button>
 
 
                 </div>
@@ -568,54 +816,9 @@
             </div>
 
 
-
-
-
-
-            {{-- FOOTER --}}
-
-
-            <div class="modal-footer">
-
-
-                <button type="button"
-                        class="btn btn-light"
-                        data-bs-dismiss="modal">
-
-
-                    Cancel
-
-
-                </button>
-
-
-
-
-
-                <button type="button"
-                        class="btn btn-primary"
-                        id="saveStockBtn"
-                        disabled>
-
-
-                    <i class="bi bi-check-circle me-1"></i>
-
-
-                    Save Adjustment
-
-
-                </button>
-
-
-
-            </div>
-
-
-
         </div>
-
 
     </div>
 
-
 </div>
+
