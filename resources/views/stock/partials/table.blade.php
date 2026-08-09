@@ -87,7 +87,7 @@
                             )
 
                                 <img
-                                src="{{ asset('storage/'.$stock->product->image) }}">
+                                src="{{ asset('uploads/products/'.$stock->product->image) }}">
 
 
                             @else
@@ -310,27 +310,24 @@
 
 
 
-                            <li>
+                            @permission('stock.view')
 
+                                <li>
 
-                                <button
+                                    <button
+                                        class="dropdown-item stock-view-btn"
+                                        data-id="{{ $stock->id }}"
+                                    >
 
-                                class="dropdown-item stock-view-btn"
+                                        <i class="bi bi-eye me-2"></i>
 
-                                data-id="{{ $stock->id }}"
+                                        View Details
 
-                                >
+                                    </button>
 
+                                </li>
 
-                                    <i class="bi bi-eye me-2"></i>
-
-                                    View Details
-
-
-                                </button>
-
-
-                            </li>
+                            @endpermission
 
 
 

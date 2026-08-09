@@ -172,147 +172,119 @@
                         <ul class="dropdown-menu dropdown-menu-end">
 
 
-                            <li>
+                           <li>
 
-                                <button
+                                @permissions('units.view')
 
-                                    class="dropdown-item"
+                                    <button
+                                        class="dropdown-item"
+                                        onclick="Units.openInspector({{ $unit->id }})"
+                                    >
 
-                                    onclick="Units.openInspector({{ $unit->id }})"
+                                        <i class="bi bi-eye me-2"></i>
 
-                                >
+                                        View
 
-                                    <i class="bi bi-eye me-2"></i>
+                                    </button>
 
-                                    View
-
-                                </button>
-
-                            </li>
-
-
-
-
-
-                            <li>
-
-                                <button
-
-                                    class="dropdown-item"
-
-                                    onclick="Units.edit({{ $unit->id }})"
-
-                                >
-
-                                    <i class="bi bi-pencil me-2"></i>
-
-                                    Edit
-
-                                </button>
+                                @endpermissions
 
                             </li>
 
 
-
-
-
                             <li>
 
+                                @permissions('units.edit')
 
-                                @if($unit->status)
+                                    <button
+                                        class="dropdown-item"
+                                        onclick="Units.edit({{ $unit->id }})"
+                                    >
 
+                                        <i class="bi bi-pencil me-2"></i>
 
-                                <button
+                                        Edit
 
-                                    class="dropdown-item text-warning"
+                                    </button>
 
-                                    onclick="Units.openStatusModal(
-
-                                        {{ $unit->id }},
-
-                                        'Disable',
-
-                                        '{{ addslashes($unit->name) }}'
-
-                                    )"
-
-                                >
-
-                                    <i class="bi bi-pause-circle me-2"></i>
-
-                                    Disable
-
-                                </button>
-
-
-                                @else
-
-
-                                <button
-
-                                    class="dropdown-item text-success"
-
-                                    onclick="Units.openStatusModal(
-
-                                        {{ $unit->id }},
-
-                                        'Enable',
-
-                                        '{{ addslashes($unit->name) }}'
-
-                                    )"
-
-                                >
-
-                                    <i class="bi bi-check-circle me-2"></i>
-
-                                    Enable
-
-                                </button>
-
-
-                                @endif
-
+                                @endpermissions
 
                             </li>
 
 
-
-
-
                             <li>
 
-                                <hr class="dropdown-divider">
+                                @permissions('units.toggle_status')
+
+                                    @if($unit->status)
+
+                                        <button
+                                            class="dropdown-item text-warning"
+                                            onclick="Units.openStatusModal(
+                                                {{ $unit->id }},
+                                                'Disable',
+                                                '{{ addslashes($unit->name) }}'
+                                            )"
+                                        >
+
+                                            <i class="bi bi-pause-circle me-2"></i>
+
+                                            Disable
+
+                                        </button>
+
+                                    @else
+
+                                        <button
+                                            class="dropdown-item text-success"
+                                            onclick="Units.openStatusModal(
+                                                {{ $unit->id }},
+                                                'Enable',
+                                                '{{ addslashes($unit->name) }}'
+                                            )"
+                                        >
+
+                                            <i class="bi bi-check-circle me-2"></i>
+
+                                            Enable
+
+                                        </button>
+
+                                    @endif
+
+                                @endpermissions
 
                             </li>
 
 
+                            @permissions('units.delete')
+
+                                <li>
+
+                                    <hr class="dropdown-divider">
+
+                                </li>
 
 
+                                <li>
 
-                            <li>
+                                    <button
+                                        class="dropdown-item text-danger"
+                                        onclick="Units.openDeleteModal(
+                                            {{ $unit->id }},
+                                            '{{ addslashes($unit->name) }}'
+                                        )"
+                                    >
 
-                                <button
+                                        <i class="bi bi-trash me-2"></i>
 
-                                    class="dropdown-item text-danger"
+                                        Delete
 
-                                    onclick="Units.openDeleteModal(
+                                    </button>
 
-                                        {{ $unit->id }},
+                                </li>
 
-                                        '{{ addslashes($unit->name) }}'
-
-                                    )"
-
-                                >
-
-                                    <i class="bi bi-trash me-2"></i>
-
-                                    Delete
-
-                                </button>
-
-                            </li>
+                            @endpermissions  
 
 
                         </ul>

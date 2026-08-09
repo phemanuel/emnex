@@ -210,7 +210,7 @@
                                     <input type="text"
                                            id="name"
                                            name="name"
-                                           class="form-control">
+                                           class="form-control" required>
 
                                 </div>
 
@@ -245,7 +245,7 @@
 
                                     <select id="product_category_id"
                                             name="product_category_id"
-                                            class="form-select">
+                                            class="form-select" required>
 
 
                                         <option value="">
@@ -279,7 +279,7 @@
 
                                     <select id="unit_id"
                                             name="unit_id"
-                                            class="form-select">
+                                            class="form-select" required>
 
 
                                         <option value="">
@@ -314,7 +314,7 @@
                                     <input type="text"
                                            id="brand"
                                            name="brand"
-                                           class="form-control">
+                                           class="form-control" required>
 
                                 </div>
 
@@ -363,7 +363,7 @@
                    step="0.01"
                    id="cost_price"
                    name="cost_price"
-                   class="form-control">
+                   class="form-control" required>
 
         </div>
 
@@ -381,7 +381,7 @@
                    step="0.01"
                    id="selling_price"
                    name="selling_price"
-                   class="form-control">
+                   class="form-control" required>
 
         </div>
 
@@ -492,7 +492,7 @@
                    id="minimum_stock"
                    name="minimum_stock"
                    value="0"
-                   class="form-control">
+                   class="form-control" required>
 
 
         </div>
@@ -513,14 +513,30 @@
                    step="0.01"
                    id="maximum_stock"
                    name="maximum_stock"
-                   class="form-control">
+                   class="form-control" required>
 
 
         </div>
 
+        <div class="col-md-6">
 
+            <label class="form-label">
+                Opening Stock
+            </label>
 
+            <input type="number"
+                step="0.01"
+                min="0"
+                id="opening_stock"
+                name="opening_stock"
+                value="0"
+                class="form-control" required>
 
+            <small class="text-muted">
+                Initial stock quantity for Head Office.
+            </small>
+
+        </div>
 
         <div class="col-md-6">
 
@@ -554,7 +570,7 @@
             <input type="date"
                    id="expiry_date"
                    name="expiry_date"
-                   class="form-control">
+                   class="form-control" required>
 
 
         </div>

@@ -98,6 +98,13 @@ class UnitController extends BaseController
 
     public function details($id)
     {
+        // Details
+        if (! canAccess('units.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view units.'
+            ], 403);
+        }
 
         $unit = Unit::with([
 
@@ -254,6 +261,13 @@ class UnitController extends BaseController
 
     public function store(Request $request)
     {
+
+        if (! canAccess('units.create')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to create units.'
+            ], 403);
+        }
 
         $validated = $request->validate([
 
@@ -637,6 +651,13 @@ class UnitController extends BaseController
 
     public function update(Request $request, $id)
     {
+        // Update
+        if (! canAccess('units.edit')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to edit units.'
+            ], 403);
+        }
 
         $validated = $request->validate([
 
@@ -911,6 +932,13 @@ class UnitController extends BaseController
 
     public function toggleStatus(Request $request, $id)
     {
+        // Toggle Status
+        if (! canAccess('units.toggle_status')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to change unit status.'
+            ], 403);
+        }
 
         try{
 
@@ -1009,6 +1037,13 @@ class UnitController extends BaseController
 
     public function destroy($id)
     {
+        // Destroy
+        if (! canAccess('units.delete')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to delete units.'
+            ], 403);
+        }
 
         DB::beginTransaction();
 

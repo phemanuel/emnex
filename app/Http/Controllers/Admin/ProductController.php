@@ -12,6 +12,9 @@ use App\Services\ActivityLogger;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\Branch;
+use App\Models\ProductStock;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends BaseController
 {
@@ -150,39 +153,100 @@ class ProductController extends BaseController
      */
     public function store(Request $request)
     {
+        if (! canAccess('products.create')) {
+
+            return response()->json([
+
+                'status' => false,
+
+                'message' =>
+                    'You do not have permission to create products.'
+
+            ], 403);
+
+        }
+
+
         try {
 
             $validated = $request->validate([
 
-                'product_category_id'   => ['required', 'exists:product_categories,id'],
-                'unit_id'       => ['required', 'exists:units,id'],
+                'product_category_id' =>
+                    ['required', 'exists:product_categories,id'],
 
-                'tax_rate_id'   => ['nullable', 'exists:tax_rates,id'],
-                'discount_id'   => ['nullable', 'exists:discounts,id'],
+                'unit_id' =>
+                    ['required', 'exists:units,id'],
 
-                'product_code' =>  ['required','string','max:50'],
-                'sku'           => ['nullable', 'string', 'max:100'],
-                'barcode'       => ['nullable', 'string', 'max:100'],
-                'qr_code'       => ['nullable', 'string', 'max:100'],
+                'tax_rate_id' =>
+                    ['nullable', 'exists:tax_rates,id'],
 
-                'name'          => ['required', 'string', 'max:255'],
-                'description'   => ['nullable', 'string'],
+                'discount_id' =>
+                    ['nullable', 'exists:discounts,id'],
 
-                'brand'         => ['nullable', 'string', 'max:150'],
-                'manufacturer'  => ['nullable', 'string', 'max:150'],
 
-                'cost_price'    => ['required', 'numeric', 'min:0'],
-                'selling_price' => ['required', 'numeric', 'min:0'],
+                'product_code' =>
+                    ['required', 'string', 'max:50'],
 
-                'minimum_stock' => ['required', 'numeric', 'min:0'],
-                'maximum_stock' => ['nullable', 'numeric', 'gte:minimum_stock'],
+                'sku' =>
+                    ['nullable', 'string', 'max:100'],
 
-                'weight'        => ['nullable', 'numeric', 'min:0'],
-                'expiry_date'   => ['nullable', 'date'],
+                'barcode' =>
+                    ['nullable', 'string', 'max:100'],
 
-                'status'        => ['nullable', 'boolean'],
+                'qr_code' =>
+                    ['nullable', 'string', 'max:100'],
 
-                'image'         => [
+
+                'name' =>
+                    ['required', 'string', 'max:255'],
+
+                'description' =>
+                    ['nullable', 'string'],
+
+
+                'brand' =>
+                    ['nullable', 'string', 'max:150'],
+
+                'manufacturer' =>
+                    ['nullable', 'string', 'max:150'],
+
+
+                'cost_price' =>
+                    ['required', 'numeric', 'min:0'],
+
+                'selling_price' =>
+                    ['required', 'numeric', 'min:0'],
+
+
+                'minimum_stock' =>
+                    ['required', 'numeric', 'min:0'],
+
+                'maximum_stock' =>
+                    ['nullable', 'numeric', 'gte:minimum_stock'],
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Opening Stock
+                |--------------------------------------------------------------------------
+                */
+
+                'opening_stock' =>
+                    ['nullable', 'numeric', 'min:0'],
+
+
+                'weight' =>
+                    ['nullable', 'numeric', 'min:0'],
+
+                'expiry_date' =>
+                    ['nullable', 'date'],
+
+
+                'status' =>
+                    ['nullable', 'boolean'],
+
+
+                'image' => [
                     'nullable',
                     'image',
                     'mimes:jpg,jpeg,png,webp',
@@ -190,6 +254,29 @@ class ProductController extends BaseController
                 ],
 
             ]);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Opening Stock
+            |--------------------------------------------------------------------------
+            */
+
+            $openingStock = (float) (
+                $validated['opening_stock'] ?? 0
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Opening Stock Does Not Belong To Product
+            |--------------------------------------------------------------------------
+            */
+
+            unset(
+                $validated['opening_stock']
+            );
+
 
             /*
             |--------------------------------------------------------------------------
@@ -203,6 +290,7 @@ class ProductController extends BaseController
                 true
             );
 
+
             if ($duplicate) {
 
                 /*
@@ -213,50 +301,226 @@ class ProductController extends BaseController
 
                 if ($duplicate->trashed()) {
 
-                    $duplicate->restore();
+                    return DB::transaction(
+                        function () use (
+                            $request,
+                            $validated,
+                            $duplicate,
+                            $openingStock
+                        ) {
 
-                    if ($request->hasFile('image')) {
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Restore Product
+                            |--------------------------------------------------------------------------
+                            */
 
-                        $this->deleteImage($duplicate->image);
+                            $duplicate->restore();
 
-                        $validated['image'] = $this->uploadImage(
-                            $request->file('image')
-                        );
 
-                    }
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Product Image
+                            |--------------------------------------------------------------------------
+                            */
 
-                    $validated['company_id'] = $this->companyId;
+                            if ($request->hasFile('image')) {
 
-                    $validated['status'] = $request->boolean('status');
+                                $this->deleteImage(
+                                    $duplicate->image
+                                );
 
-                    $oldValues = $duplicate->toArray();
 
-                    $duplicate->update($validated);
+                                $validated['image'] =
+                                    $this->uploadImage(
+                                        $request->file('image')
+                                    );
 
-                    $newValues = $duplicate->fresh()->toArray();
+                            }
 
-                    $this->activityLogger->log(
-                        'Products',
-                        'Restored',
-                        'Restored product: ' . $duplicate->name,
-                        $duplicate,
-                        $oldValues,
-                        $newValues
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Product Values
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $validated['company_id'] =
+                                $this->companyId;
+
+                            $validated['status'] =
+                                $request->boolean('status');
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Old Values
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $oldValues =
+                                $duplicate->toArray();
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Update Product
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $duplicate->update(
+                                $validated
+                            );
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Find Head Office
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $headOffice =
+                                Branch::query()
+
+                                    ->where(
+                                        'company_id',
+                                        $this->companyId
+                                    )
+
+                                    ->where(
+                                        'is_head_office',
+                                        true
+                                    )
+
+                                    ->first();
+
+
+                            if (! $headOffice) {
+
+                                throw new \RuntimeException(
+                                    'Head Office branch could not be found.'
+                                );
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Create / Restore Head Office Stock
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $productStock =
+                                ProductStock::firstOrNew([
+
+                                    'company_id' =>
+                                        $this->companyId,
+
+                                    'branch_id' =>
+                                        $headOffice->id,
+
+                                    'product_id' =>
+                                        $duplicate->id,
+
+                                ]);
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Opening Stock
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $productStock->quantity =
+                                $openingStock;
+
+                            $productStock->reserved_quantity =
+                                0;
+
+                            $productStock->available_quantity =
+                                $openingStock;
+
+                            $productStock->reorder_level =
+                                $validated['minimum_stock'] ?? 0;
+
+                            $productStock->maximum_stock =
+                                $validated['maximum_stock'] ?? null;
+
+
+                            $productStock->save();
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Refresh Product
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $duplicate->refresh();
+
+
+                            $newValues =
+                                $duplicate->toArray();
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Activity Log
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $this->activityLogger->log(
+
+                                'Products',
+
+                                'Restored',
+
+                                'Restored product: ' .
+                                    $duplicate->name,
+
+                                $duplicate,
+
+                                $oldValues,
+
+                                $newValues
+
+                            );
+
+
+                            return response()->json([
+
+                                'success' =>
+                                    true,
+
+                                'type' =>
+                                    'success',
+
+                                'message' =>
+                                    'Product restored successfully.',
+
+                            ]);
+
+                        }
                     );
 
-                    return response()->json([
-                        'success' => true,
-                        'type'    => 'success',
-                        'message' => 'Product restored successfully.',
-                    ]);
                 }
 
+
                 return response()->json([
-                    'success' => false,
-                    'type'    => 'warning',
-                    'message' => 'A product with the same Product Code, SKU or Barcode already exists.',
+
+                    'success' =>
+                        false,
+
+                    'type' =>
+                        'warning',
+
+                    'message' =>
+                        'A product with the same Product Code, SKU or Barcode already exists.',
+
                 ]);
+
             }
+
 
             /*
             |--------------------------------------------------------------------------
@@ -266,23 +530,108 @@ class ProductController extends BaseController
 
             if ($request->hasFile('image')) {
 
-                $validated['image'] = $this->uploadImage(
-                    $request->file('image')
-                );
+                $validated['image'] =
+                    $this->uploadImage(
+                        $request->file('image')
+                    );
 
             }
 
+
             /*
             |--------------------------------------------------------------------------
-            | Create Product
+            | Product Values
             |--------------------------------------------------------------------------
             */
 
-            $validated['company_id'] = $this->companyId;
-            $validated['product_code'] = $request->product_code;
-            $validated['status'] = $request->boolean('status');
+            $validated['company_id'] =
+                $this->companyId;
 
-            $product = Product::create($validated);
+            $validated['product_code'] =
+                $request->product_code;
+
+            $validated['status'] =
+                $request->boolean('status');
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Create Product + Head Office Stock
+            |--------------------------------------------------------------------------
+            */
+
+            DB::transaction(function () use (
+                &$product,
+                $validated,
+                $openingStock
+            ) {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Create Product
+                |--------------------------------------------------------------------------
+                */
+
+                $product =
+                    Product::create(
+                        $validated
+                    );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Find Head Office
+                |--------------------------------------------------------------------------
+                */
+
+                $headOffice = Branch::query()
+                    ->where('company_id', $this->companyId)
+                    ->headOffice()
+                    ->first();
+
+                if (! $headOffice) {
+
+                    throw new \RuntimeException(
+                        'No Head Office branch has been configured for this company.'
+                    );
+
+                }                
+                                /*
+                |--------------------------------------------------------------------------
+                | Create Head Office Stock
+                |--------------------------------------------------------------------------
+                */
+
+                ProductStock::create([
+
+                    'company_id' =>
+                        $this->companyId,
+
+                    'branch_id' =>
+                        $headOffice->id,
+
+                    'product_id' =>
+                        $product->id,
+
+                    'quantity' =>
+                        $openingStock,
+
+                    'reserved_quantity' =>
+                        0,
+
+                    'available_quantity' =>
+                        $openingStock,
+
+                    'reorder_level' =>
+                        $validated['minimum_stock'] ?? 0,
+
+                    'maximum_stock' =>
+                        $validated['maximum_stock'] ?? null,
+
+                ]);
+
+            });
+
 
             /*
             |--------------------------------------------------------------------------
@@ -291,29 +640,67 @@ class ProductController extends BaseController
             */
 
             $this->activityLogger->log(
+
                 'Products',
+
                 'Created',
-                'Created product: ' . $product->name,
+
+                'Created product: ' .
+                    $product->name,
+
                 $product
+
             );
 
-            return response()->json([
-                'success' => true,
-                'type'    => 'success',
-                'message' => 'Product created successfully.',
-            ]);
 
-        } catch (\Throwable $e) {
-
-            \Log::error('Product creation failed.', [
-                'company_id' => $this->companyId,
-                'error'      => $e->getMessage(),
-            ]);
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
 
             return response()->json([
-                'success' => false,
-                'type'    => 'danger',
-                'message' => $e->getMessage(),
+
+                'success' =>
+                    true,
+
+                'type' =>
+                    'success',
+
+                'message' =>
+                    'Product created successfully.',
+
+            ]);
+
+
+        }
+        catch (\Throwable $e) {
+
+            \Log::error(
+                'Product creation failed.',
+                [
+
+                    'company_id' =>
+                        $this->companyId,
+
+                    'error' =>
+                        $e->getMessage(),
+
+                ]
+            );
+
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'type' =>
+                    'danger',
+
+                'message' =>
+                    $e->getMessage(),
+
             ], 500);
 
         }
@@ -453,6 +840,12 @@ class ProductController extends BaseController
      */
     public function update(Request $request, Product $product)
     {
+        if (! canAccess('products.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to update products.'
+            ], 403);
+        }
         try {
 
             /*
@@ -619,6 +1012,13 @@ class ProductController extends BaseController
      */
     public function details(Product $product)
     {
+        if (! canAccess('products.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view products.'
+            ], 403);
+        }
+
         try {
 
             /*
@@ -763,6 +1163,12 @@ class ProductController extends BaseController
      */
     public function toggleStatus(Product $product)
     {
+        if (! canAccess('products.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to update product status.'
+            ], 403);
+        }
         try {
 
             if ($product->company_id !== $this->companyId) {
@@ -824,6 +1230,12 @@ class ProductController extends BaseController
      */
     public function destroy(Product $product)
     {
+        if (! canAccess('products.delete')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to delete products.'
+            ], 403);
+        }
         try {
 
             if ($product->company_id !== $this->companyId) {

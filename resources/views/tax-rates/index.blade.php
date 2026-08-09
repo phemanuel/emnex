@@ -31,17 +31,21 @@
 
 
 
-        <button
-            type="button"
-            class="btn btn-primary"
-            onclick="TaxRates.openCreateModal()"
-        >
+        @permissions('tax_rates.create')
 
-            <i class="bi bi-plus-circle me-1"></i>
+            <button
+                type="button"
+                class="btn btn-primary"
+                onclick="TaxRates.openCreateModal()"
+            >
 
-            New Tax Rate
+                <i class="bi bi-plus-circle me-1"></i>
 
-        </button>
+                New Tax Rate
+
+            </button>
+
+        @endpermissions 
 
     </div>
 

@@ -35,6 +35,8 @@
 
 
 
+        @permission('units.create')
+
         <button
             type="button"
             class="btn btn-primary"
@@ -47,6 +49,7 @@
 
         </button>
 
+        @endpermission
 
     </div>
 

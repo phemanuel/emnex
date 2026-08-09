@@ -32,6 +32,12 @@ class ProductCategoryController extends BaseController
 
     public function index(Request $request)
     {
+        if (! canAccess('categories.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view categories.'
+            ], 403);
+        }
 
 
         $query = ProductCategory::with([
@@ -339,6 +345,12 @@ class ProductCategoryController extends BaseController
 
     public function store(Request $request)
     {
+        if (! canAccess('categories.create')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to create categories.'
+            ], 403);
+        }
 
         /*
         |--------------------------------------------------------------------------
@@ -777,6 +789,13 @@ class ProductCategoryController extends BaseController
     )
     {
 
+            if (! canAccess('categories.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to update categories.'
+            ], 403);
+        }
+
 
         $category = ProductCategory::forCompany(
                 $this->companyId
@@ -929,6 +948,12 @@ class ProductCategoryController extends BaseController
 
     public function details($id)
     {
+        if (! canAccess('categories.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view categories.'
+            ], 403);
+        }
 
         $category = ProductCategory::with([
 
@@ -968,6 +993,12 @@ class ProductCategoryController extends BaseController
 
     public function destroy($id)
     {
+        if (! canAccess('categories.delete')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to delete categories.'
+            ], 403);
+        }
 
 
         $category = ProductCategory::forCompany(
@@ -1047,6 +1078,12 @@ class ProductCategoryController extends BaseController
 
     public function toggleStatus(Request $request, $id)
     {
+        if (! canAccess('categories.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to update category status.'
+            ], 403);
+        }
 
         try {
 

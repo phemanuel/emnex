@@ -265,6 +265,8 @@
 
                             <li>
 
+                                @permission('categories.view')
+
                                 <button 
                                     class="dropdown-item"
                                     onclick="ProductCategories.openInspector({{ $category->id }})"
@@ -276,10 +278,14 @@
 
                                 </button>
 
+                                @endpermission
 
                             </li>
 
+
                             <li>
+
+                                @permission('categories.update')
 
                                 <button 
                                     class="dropdown-item"
@@ -292,52 +298,57 @@
 
                                 </button>
 
+                                @endpermission
 
                             </li>
 
-                            <li>                               
 
-                            @if($category->status)
+                            <li>
 
-                                <button
-                                    class="dropdown-item text-warning"
-                                    onclick="ProductCategories.openStatusModal(
-                                        {{ $category->id }},
-                                        'Disable',
-                                        '{{ $category->name }}'
-                                    )"
-                                >
+                                @permission('categories.update')
 
-                                    <i class="bi bi-power"></i>
+                                @if($category->status)
 
-                                    Disable
+                                    <button
+                                        class="dropdown-item text-warning"
+                                        onclick="ProductCategories.openStatusModal(
+                                            {{ $category->id }},
+                                            'Disable',
+                                            '{{ $category->name }}'
+                                        )"
+                                    >
 
-                                </button>
+                                        <i class="bi bi-power"></i>
 
+                                        Disable
 
-                            @else
+                                    </button>
 
+                                @else
 
-                                <button
-                                    class="dropdown-item text-success"
-                                    onclick="ProductCategories.openStatusModal(
-                                        {{ $category->id }},
-                                        'Enable',
-                                        '{{ $category->name }}'
-                                    )"
-                                >
+                                    <button
+                                        class="dropdown-item text-success"
+                                        onclick="ProductCategories.openStatusModal(
+                                            {{ $category->id }},
+                                            'Enable',
+                                            '{{ $category->name }}'
+                                        )"
+                                    >
 
-                                    <i class="bi bi-check-circle"></i>
+                                        <i class="bi bi-check-circle"></i>
 
-                                    Enable
+                                        Enable
 
-                                </button>
+                                    </button>
 
+                                @endif
 
-                            @endif
-
+                                @endpermission
 
                             </li>
+
+
+                            @permission('categories.delete')
 
                             <li>
 
@@ -346,6 +357,7 @@
                             </li>
 
                             <li>
+
                                 <button 
                                     class="dropdown-item text-danger"
                                     onclick="ProductCategories.openDeleteModal(
@@ -359,7 +371,10 @@
                                     Delete
 
                                 </button>
+
                             </li>
+
+                            @endpermission
 
 
                         </ul>

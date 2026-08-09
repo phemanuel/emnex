@@ -228,10 +228,232 @@ class StockController extends BaseController
     | Stock Table
     |--------------------------------------------------------------------------
     */
+
+    public function table(Request $request)
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('stock.view')) {
+
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view stock.'
+            ], 403);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Base Query
+        |--------------------------------------------------------------------------
+        */
+
+        $stocks = ProductStock::query()
+
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+
+            ->with([
+                'product.category',
+                'product.unit',
+                'branch',
+            ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canManageAllBranches()) {
+
+            $stocks->where(
+                'branch_id',
+                currentBranchId()
+            );
+
+        } elseif ($request->filled('branch')) {
+
+            $stocks->where(
+                'branch_id',
+                $request->branch
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('search')) {
+
+            $search = $request->search;
+
+            $stocks->whereHas(
+                'product',
+                function ($query) use ($search) {
+
+                    $query->where(
+                        'name',
+                        'like',
+                        "%{$search}%"
+                    )
+
+                    ->orWhere(
+                        'sku',
+                        'like',
+                        "%{$search}%"
+                    )
+
+                    ->orWhere(
+                        'barcode',
+                        'like',
+                        "%{$search}%"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Category Filter
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('category')) {
+
+            $stocks->whereHas(
+                'product',
+                function ($query) use ($request) {
+
+                    $query->where(
+                        'product_category_id',
+                        $request->category
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Status
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('status')) {
+
+            switch ($request->status) {
+
+                case 'low':
+
+                    $stocks
+
+                        ->whereColumn(
+                            'quantity',
+                            '<=',
+                            'reorder_level'
+                        )
+
+                        ->where(
+                            'quantity',
+                            '>',
+                            0
+                        );
+
+                    break;
+
+
+                case 'out':
+
+                    $stocks->where(
+                        'quantity',
+                        '<=',
+                        0
+                    );
+
+                    break;
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pagination
+        |--------------------------------------------------------------------------
+        */
+
+        $stocks = $stocks
+
+            ->latest()
+
+            ->paginate(15)
+
+            ->withQueryString();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Render Table
+        |--------------------------------------------------------------------------
+        */
+
+        $html = view(
+            'stock.partials.table',
+            compact('stocks')
+        )->render();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
+        return response()->json([
+
+            'success' => true,
+
+            'html' => $html,
+
+            'pagination' => '',
+
+            'stats' => [
+
+                'total' => $stocks->total(),
+
+            ],
+
+        ]);
+    }
     
 
     public function products(Request $request)
     {
+        if (! canAccess('stock.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view stock products.'
+            ], 403);
+        }
         /*
         |--------------------------------------------------------------------------
         | Determine Branch Scope
@@ -748,6 +970,13 @@ class StockController extends BaseController
 
     public function details($id)
     {
+        if (! canAccess('stock.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view stock details.'
+            ], 403);
+        }
+        
         $stockQuery = ProductStock::query()
 
             ->where(
@@ -1004,6 +1233,13 @@ class StockController extends BaseController
 
     public function store(Request $request)
     {
+        if (! canAccess('stock.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to adjust stock.'
+            ], 403);
+        }
+
         $validated = $request->validate([
 
             'product_id' => [

@@ -126,97 +126,117 @@
 
                             <li>
 
-                                <button
-                                    class="dropdown-item"
-                                    onclick="TaxRates.openInspector({{ $taxRate->id }})"
-                                >
-
-                                    <i class="bi bi-eye"></i>
-
-                                    View
-
-                                </button>
-
-                            </li>
-
-                            <li>
-
-                                <button
-                                    class="dropdown-item"
-                                    onclick="TaxRates.edit({{ $taxRate->id }})"
-                                >
-
-                                    <i class="bi bi-pencil"></i>
-
-                                    Edit
-
-                                </button>
-
-                            </li>
-
-                            <li>
-
-                                @if($taxRate->status)
+                                @permissions('tax_rates.view')
 
                                     <button
-                                        class="dropdown-item text-warning"
-                                        onclick="TaxRates.openStatusModal(
+                                        class="dropdown-item"
+                                        onclick="TaxRates.openInspector({{ $taxRate->id }})"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                        View
+
+                                    </button>
+
+                                @endpermissions
+
+                            </li>
+
+
+                            <li>
+
+                                @permissions('tax_rates.edit')
+
+                                    <button
+                                        class="dropdown-item"
+                                        onclick="TaxRates.edit({{ $taxRate->id }})"
+                                    >
+
+                                        <i class="bi bi-pencil"></i>
+
+                                        Edit
+
+                                    </button>
+
+                                @endpermissions
+
+                            </li>
+
+
+                            <li>
+
+                                @permissions('tax_rates.toggle_status')
+
+                                    @if($taxRate->status)
+
+                                        <button
+                                            class="dropdown-item text-warning"
+                                            onclick="TaxRates.openStatusModal(
+                                                {{ $taxRate->id }},
+                                                'Disable',
+                                                '{{ $taxRate->name }}'
+                                            )"
+                                        >
+
+                                            <i class="bi bi-power"></i>
+
+                                            Disable
+
+                                        </button>
+
+                                    @else
+
+                                        <button
+                                            class="dropdown-item text-success"
+                                            onclick="TaxRates.openStatusModal(
+                                                {{ $taxRate->id }},
+                                                'Enable',
+                                                '{{ $taxRate->name }}'
+                                            )"
+                                        >
+
+                                            <i class="bi bi-check-circle"></i>
+
+                                            Enable
+
+                                        </button>
+
+                                    @endif
+
+                                @endpermissions
+
+                            </li>
+
+
+                            @permissions('tax_rates.delete')
+
+                                <li>
+
+                                    <hr class="dropdown-divider">
+
+                                </li>
+
+
+                                <li>
+
+                                    <button
+                                        class="dropdown-item text-danger"
+                                        onclick="TaxRates.openDeleteModal(
                                             {{ $taxRate->id }},
-                                            'Disable',
                                             '{{ $taxRate->name }}'
                                         )"
                                     >
 
-                                        <i class="bi bi-power"></i>
+                                        <i class="bi bi-trash"></i>
 
-                                        Disable
-
-                                    </button>
-
-                                @else
-
-                                    <button
-                                        class="dropdown-item text-success"
-                                        onclick="TaxRates.openStatusModal(
-                                            {{ $taxRate->id }},
-                                            'Enable',
-                                            '{{ $taxRate->name }}'
-                                        )"
-                                    >
-
-                                        <i class="bi bi-check-circle"></i>
-
-                                        Enable
+                                        Delete
 
                                     </button>
 
-                                @endif
+                                </li>
 
-                            </li>
-
-                            <li>
-
-                                <hr class="dropdown-divider">
-
-                            </li>
-
-                            <li>
-
-                                <button
-                                    class="dropdown-item text-danger"
-                                    onclick="TaxRates.openDeleteModal(
-                                        {{ $taxRate->id }},
-                                        '{{ $taxRate->name }}'
-                                    )"
-                                >
-
-                                    <i class="bi bi-trash"></i>
-
-                                    Delete
-
-                                </button>
-
-                            </li>
+                            @endpermissions
 
                         </ul>
 

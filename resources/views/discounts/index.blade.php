@@ -24,6 +24,7 @@
             </p>
 
         </div>
+         @permission('discounts.create')
 
         <button
             class="btn btn-primary"
@@ -35,6 +36,8 @@
             New Discount
 
         </button>
+
+        @endpermission
 
     </div>
 

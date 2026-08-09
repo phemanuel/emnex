@@ -155,6 +155,13 @@ class TaxRateController extends BaseController
 
     public function store(Request $request)
     {
+        if (! canAccess('tax_rates.create')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to create tax rates.'
+            ], 403);
+        }
+
         try {
 
             /*
@@ -306,6 +313,13 @@ class TaxRateController extends BaseController
 
     public function edit(TaxRate $taxRate)
     {
+        if (! canAccess('tax_rates.edit')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to edit tax rates.'
+            ], 403);
+        }
+
         try {
 
             /*
@@ -562,6 +576,13 @@ class TaxRateController extends BaseController
 
     public function details(TaxRate $taxRate)
     {
+        if (! canAccess('tax_rates.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view tax rates.'
+            ], 403);
+        }
+
         try {
 
             /*
@@ -629,6 +650,13 @@ class TaxRateController extends BaseController
 
     public function toggleStatus(Request $request, TaxRate $taxRate)
     {
+        if (! canAccess('tax_rates.toggle_status')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to change tax rate status.'
+            ], 403);
+        }
+        
         try {
 
             /*
@@ -730,6 +758,12 @@ class TaxRateController extends BaseController
 
     public function destroy(TaxRate $taxRate)
     {
+        if (! canAccess('tax_rates.delete')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to delete tax rates.'
+            ], 403);
+        }
         try {
 
             /*

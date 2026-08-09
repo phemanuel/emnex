@@ -199,64 +199,82 @@
 
                         <ul class="dropdown-menu dropdown-menu-end">
 
-                            <li>
+                            @permission('discounts.view')
 
-                                <button
-                                    class="dropdown-item btn-view"
-                                    data-id="{{ $discount->id }}">
+                                <li>
 
-                                    <i class="bi bi-eye me-2"></i>
+                                    <button
+                                        class="dropdown-item btn-view"
+                                        data-id="{{ $discount->id }}">
 
-                                    View
+                                        <i class="bi bi-eye me-2"></i>
 
-                                </button>
+                                        View
 
-                            </li>
+                                    </button>
 
-                            <li>
+                                </li>
 
-                                <button
-                                    class="dropdown-item btn-edit"
-                                    data-id="{{ $discount->id }}">
+                            @endpermission
 
-                                    <i class="bi bi-pencil-square me-2"></i>
+                            @permission('discounts.upodate')
 
-                                    Edit
+                                <li>
 
-                                </button>
+                                    <button
+                                        class="dropdown-item btn-edit"
+                                        data-id="{{ $discount->id }}">
 
-                            </li>
+                                        <i class="bi bi-pencil-square me-2"></i>
 
-                            <li>
+                                        Edit
 
-                                <button
-                                    class="dropdown-item btn-status"
-                                    data-id="{{ $discount->id }}"
-                                    data-status="{{ $discount->status }}">
+                                    </button>
 
-                                    <i class="bi bi-arrow-repeat me-2"></i>
+                                </li>
 
-                                    {{ $discount->status ? 'Disable' : 'Enable' }}
+                            @endpermission
 
-                                </button>
+                            @permission('discounts.update')
 
-                            </li>
+                                <li>
 
-                            <li><hr class="dropdown-divider"></li>
+                                    <button
+                                        class="dropdown-item btn-status"
+                                        data-id="{{ $discount->id }}"
+                                        data-status="{{ $discount->status }}">
 
-                            <li>
+                                        <i class="bi bi-arrow-repeat me-2"></i>
 
-                                <button
-                                    class="dropdown-item text-danger btn-delete"
-                                    data-id="{{ $discount->id }}">
+                                        {{ $discount->status ? 'Disable' : 'Enable' }}
 
-                                    <i class="bi bi-trash me-2"></i>
+                                    </button>
 
-                                    Delete
+                                </li>
 
-                                </button>
+                            @endpermission
 
-                            </li>
+                            @permission('discounts.delete')
+
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+
+                                <li>
+
+                                    <button
+                                        class="dropdown-item text-danger btn-delete"
+                                        data-id="{{ $discount->id }}">
+
+                                        <i class="bi bi-trash me-2"></i>
+
+                                        Delete
+
+                                    </button>
+
+                                </li>
+
+                            @endpermission
 
                         </ul>
 

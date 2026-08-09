@@ -93,9 +93,9 @@ cacheElements()
     */
 
     this.stockTable =
-        document.getElementById(
-            'stockTable'
-        );
+    document.getElementById(
+        'stockTableContainer'
+    );
 
 
     this.stockSearch =

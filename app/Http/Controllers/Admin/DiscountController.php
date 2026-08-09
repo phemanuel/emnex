@@ -108,6 +108,12 @@ class DiscountController extends BaseController
      */
     public function store(Request $request)
     {
+        if (! canAccess('discounts.create')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to create discounts.'
+            ], 403);
+        }
         try {
 
             $request->merge([
@@ -288,6 +294,12 @@ class DiscountController extends BaseController
      */
     public function update(Request $request, Discount $discount)
     {
+        if (! canAccess('discounts.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to edit discounts.'
+            ], 403);
+        }
         try {
 
             if ($discount->company_id !== $this->companyId) {
@@ -393,6 +405,12 @@ class DiscountController extends BaseController
      */
     public function details(Discount $discount)
     {
+        if (! canAccess('discounts.view')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to view discounts.'
+            ], 403);
+        }
         try {
 
             if ($discount->company_id !== $this->companyId) {
@@ -448,6 +466,12 @@ class DiscountController extends BaseController
      */
     public function toggleStatus(Discount $discount)
     {
+        if (! canAccess('discounts.update')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to change discount status.'
+            ], 403);
+        }
         try {
 
             if ($discount->company_id !== $this->companyId) {
@@ -513,6 +537,12 @@ class DiscountController extends BaseController
      */
     public function destroy(Discount $discount)
     {
+        if (! canAccess('discounts.delete')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You do not have permission to delete discounts.'
+            ], 403);
+        }
         try {
 
             if ($discount->company_id !== $this->companyId) {

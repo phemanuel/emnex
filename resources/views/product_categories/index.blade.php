@@ -36,6 +36,8 @@
 
 
 
+        @permission('categories.create')
+
         <button 
             class="btn btn-primary"
             onclick="ProductCategories.openCreateModal()"
@@ -46,6 +48,8 @@
             New Category
 
         </button>
+
+        @endpermission
 
 
     </div>

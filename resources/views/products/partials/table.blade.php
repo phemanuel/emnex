@@ -267,96 +267,83 @@
                         <ul class="dropdown-menu dropdown-menu-end">
 
 
-                            <li>
+                            @permission('products.view')
+
+                                <li>
+
+                                    <button class="dropdown-item"
+                                            onclick="Products.openInspector({{ $product->id }})">
+
+                                        <i class="bi bi-eye me-2"></i>
+
+                                        View
+
+                                    </button>
+
+                                </li>
+
+                            @endpermission
 
 
-                                <button class="dropdown-item"
-                                        onclick="Products.openInspector({{ $product->id }})">
+                            @permission('products.update')
+
+                                <li>
+
+                                    <button class="dropdown-item"
+                                            onclick="Products.edit({{ $product->id }})">
+
+                                        <i class="bi bi-pencil me-2"></i>
+
+                                        Edit
+
+                                    </button>
+
+                                </li>
+
+                            @endpermission
 
 
-                                    <i class="bi bi-eye me-2"></i>
+                            @permission('products.update')
 
-                                    View
+                                <li>
 
+                                    <button class="dropdown-item"
+                                            onclick="Products.openStatusModal(
+                                                {{ $product->id }},
+                                                {{ $product->status ? 'true':'false' }}
+                                            )">
 
-                                </button>
+                                        <i class="bi bi-toggle-on me-2"></i>
 
+                                        {{ $product->status ? 'Disable':'Enable' }}
 
-                            </li>
+                                    </button>
 
+                                </li>
 
-
-
-
-                            <li>
-
-
-                                <button class="dropdown-item"
-                                        onclick="Products.edit({{ $product->id }})">
-
-
-                                    <i class="bi bi-pencil me-2"></i>
-
-                                    Edit
+                            @endpermission
 
 
-                                </button>
+                            @permission('products.delete')
 
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
 
-                            </li>
+                                <li>
 
+                                    <button class="dropdown-item text-danger"
+                                            onclick="Products.openDeleteModal({{ $product->id }})">
 
+                                        <i class="bi bi-trash me-2"></i>
 
+                                        Delete
 
+                                    </button>
 
-                            <li>
+                                </li>
 
-
-                                <button class="dropdown-item"
-                                        onclick="Products.openStatusModal(
-                                            {{ $product->id }},
-                                            {{ $product->status ? 'true':'false' }}
-                                        )">
-
-
-                                    <i class="bi bi-toggle-on me-2"></i>
-
-
-                                    {{ $product->status ? 'Disable':'Enable' }}
-
-
-                                </button>
-
-
-                            </li>
-
-
-
-
-
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-
-
-
-                            <li>
-
-
-                                <button class="dropdown-item text-danger"
-                                        onclick="Products.openDeleteModal({{ $product->id }})">
-
-
-                                    <i class="bi bi-trash me-2"></i>
-
-                                    Delete
-
-
-                                </button>
-
-
-                            </li>
+                            @endpermission
 
 
 

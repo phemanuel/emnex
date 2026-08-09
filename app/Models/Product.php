@@ -326,7 +326,7 @@ class Product extends Model
             <= (float) $this->minimum_stock;
     }
 
-
+ 
     /**
      * Product display name.
      */

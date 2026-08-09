@@ -37,20 +37,19 @@
         <div>
 
 
-            <button
+            @permission('stock.update')
 
-                class="btn btn-primary"
+                <button
+                    class="btn btn-primary"
+                    id="openStockAdjustmentBtn">
 
-                id="openStockAdjustmentBtn"           >
+                    <i class="bi bi-sliders me-2"></i>
 
+                    Adjust Stock
 
-                <i class="bi bi-sliders me-2"></i>
+                </button>
 
-
-                Adjust Stock
-
-
-            </button>
+            @endpermission
 
 
         </div>
@@ -365,7 +364,7 @@
 
                     <option value="">
 
-                        Status
+                        All Status
 
                     </option>
 

@@ -33,15 +33,19 @@
         </div>
 
 
-        <button type="button"
-                class="btn btn-primary products-create-btn"
-                onclick="Products.openCreateModal()">
+        @permission('products.create')
 
-            <i class="bi bi-plus-circle me-2"></i>
+            <button type="button"
+                    class="btn btn-primary products-create-btn"
+                    onclick="Products.openCreateModal()">
 
-            New Product
+                <i class="bi bi-plus-circle me-2"></i>
 
-        </button>
+                New Product
+
+            </button>
+
+        @endpermission
 
 
     </div>
