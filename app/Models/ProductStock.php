@@ -135,6 +135,9 @@ class ProductStock extends Model
             StockMovement::class,
             'product_id',
             'product_id'
+        )->where(
+            'branch_id',
+            $this->branch_id
         );
     }
 

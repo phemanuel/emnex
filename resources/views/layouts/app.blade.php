@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tax-rate.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/discount.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/product.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/stock.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/stock.css') }}">    
+    <link rel="stylesheet" href="{{ asset('assets/css/stock-transfer.css') }}">
 
 </head>
 

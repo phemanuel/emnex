@@ -1,0 +1,3481 @@
+/* ==========================================================================
+   EMNEX POS — STOCK TRANSFER
+   ========================================================================== */
+
+   /* ==========================================================================
+EMNEX POS — STOCK TRANSFER
+PAGE HEADER + KPI CARDS
+========================================================================== */
+
+/* ==========================================================================
+PAGE HEADER
+========================================================================== */
+
+.st-page-header {
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+gap: 30px;
+margin-bottom: 22px;
+}
+
+.st-page-header-main {
+min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+Breadcrumb / Eyebrow
+-------------------------------------------------------------------------- */
+
+.st-page-eyebrow {
+display: flex;
+align-items: center;
+gap: 8px;
+
+
+margin-bottom: 8px;
+
+color: #98a2b3;
+
+font-size: 10px;
+font-weight: 700;
+
+letter-spacing: .06em;
+text-transform: uppercase;
+
+
+}
+
+.st-page-eyebrow > i {
+color: #c4cad3;
+font-size: 9px;
+}
+
+.st-page-eyebrow-current {
+color: #667085;
+}
+
+.st-page-eyebrow-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+
+width: 24px;
+height: 24px;
+
+margin-right: 2px;
+
+border-radius: 7px;
+
+background: #eef4ff;
+color: #356ae6;
+
+font-size: 12px;
+
+
+}
+
+/* --------------------------------------------------------------------------
+Page Title
+-------------------------------------------------------------------------- */
+
+.st-page-title-row {
+display: flex;
+align-items: center;
+}
+
+.st-page-title {
+margin: 0;
+
+
+color: #182230;
+
+font-size: 27px;
+font-weight: 750;
+
+line-height: 1.2;
+letter-spacing: -.6px;
+
+
+}
+
+/* --------------------------------------------------------------------------
+Page Subtitle
+-------------------------------------------------------------------------- */
+
+.st-page-subtitle {
+margin: 7px 0 0;
+
+
+color: #7a8494;
+
+font-size: 13px;
+line-height: 1.5;
+
+
+}
+
+/* ==========================================================================
+HEADER CART BUTTON
+========================================================================== */
+
+.st-page-header-actions {
+display: flex;
+align-items: center;
+
+
+flex-shrink: 0;
+
+padding-top: 26px;
+
+
+}
+
+.st-cart-header-btn {
+display: inline-flex;
+align-items: center;
+
+
+gap: 9px;
+
+min-height: 42px;
+
+padding: 6px 9px 6px 7px;
+
+border: 1px solid #e1e5eb;
+border-radius: 10px;
+
+background: #ffffff;
+color: #344054;
+
+font-size: 12px;
+font-weight: 650;
+
+box-shadow:
+    0 1px 2px rgba(16, 24, 40, .03);
+
+cursor: pointer;
+
+transition:
+    border-color .18s ease,
+    background-color .18s ease,
+    box-shadow .18s ease,
+    transform .18s ease;
+
+
+}
+
+.st-cart-header-btn:hover {
+border-color: #cfd6e0;
+
+
+background: #fafbfc;
+
+box-shadow:
+    0 4px 12px rgba(16, 24, 40, .06);
+
+transform: translateY(-1px);
+
+
+}
+
+.st-cart-header-btn:active {
+transform: translateY(0);
+}
+
+.st-cart-header-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+
+width: 30px;
+height: 30px;
+
+border-radius: 8px;
+
+background: #eef4ff;
+color: #356ae6;
+
+font-size: 14px;
+
+
+}
+
+.st-cart-header-text {
+white-space: nowrap;
+}
+
+.st-cart-header-count {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+
+min-width: 22px;
+height: 22px;
+
+padding: 0 6px;
+
+border-radius: 999px;
+
+background: #356ae6;
+color: #ffffff;
+
+font-size: 10px;
+font-weight: 700;
+
+
+}
+
+/* ==========================================================================
+KPI GRID
+========================================================================== */
+
+.st-kpi-grid {
+display: grid;
+
+
+grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+gap: 15px;
+
+margin-bottom: 24px;
+
+
+}
+
+/* ==========================================================================
+KPI CARD
+========================================================================== */
+
+.st-kpi-card {
+position: relative;
+
+
+min-width: 0;
+min-height: 128px;
+
+overflow: hidden;
+
+border: 1px solid #e7eaf0;
+border-radius: 14px;
+
+background: #ffffff;
+
+box-shadow:
+    0 1px 2px rgba(16, 24, 40, .025),
+    0 5px 16px rgba(16, 24, 40, .035);
+
+transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease;
+
+
+}
+
+.st-kpi-card::after {
+content: "";
+
+
+position: absolute;
+
+right: -35px;
+bottom: -45px;
+
+width: 110px;
+height: 110px;
+
+border-radius: 50%;
+
+background: #f8faff;
+
+pointer-events: none;
+
+
+}
+
+.st-kpi-card:hover {
+transform: translateY(-2px);
+
+
+border-color: #dde2ea;
+
+box-shadow:
+    0 3px 6px rgba(16, 24, 40, .04),
+    0 10px 24px rgba(16, 24, 40, .055);
+
+
+}
+
+/* ==========================================================================
+KPI CONTENT
+========================================================================== */
+
+.st-kpi-card-content {
+position: relative;
+z-index: 2;
+
+
+padding: 17px 18px;
+
+
+}
+
+.st-kpi-top {
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+
+gap: 12px;
+
+
+}
+
+.st-kpi-label {
+color: #667085;
+
+
+font-size: 12px;
+font-weight: 650;
+
+line-height: 1.3;
+
+
+}
+
+/* ==========================================================================
+KPI ICON
+========================================================================== */
+
+.st-kpi-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+
+width: 38px;
+height: 38px;
+
+flex: 0 0 38px;
+
+border-radius: 10px;
+
+font-size: 16px;
+
+
+}
+
+.st-kpi-icon.primary {
+background: #eef4ff;
+color: #356ae6;
+}
+
+.st-kpi-icon.success {
+background: #eaf8f0;
+color: #15945b;
+}
+
+.st-kpi-icon.warning {
+background: #fff7e8;
+color: #d88912;
+}
+
+.st-kpi-icon.danger {
+background: #fff0f0;
+color: #d64545;
+}
+
+/* ==========================================================================
+KPI VALUE
+========================================================================== */
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Supports BOTH:                                                             |
+|                                                                            |
+| class="st-kpi-value"                                                       |
+|                                                                            |
+| and the existing markup:                                                   |
+|                                                                            |
+| class="stock-transfer-kpi-value"                                           |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.st-kpi-value,
+.stock-transfer-kpi-value {
+display: block;
+
+
+margin-top: 10px;
+
+color: #182230;
+
+font-size: 27px;
+font-weight: 750;
+
+line-height: 1;
+letter-spacing: -.6px;
+
+
+}
+
+/* ==========================================================================
+KPI META
+========================================================================== */
+
+.st-kpi-meta {
+display: flex;
+align-items: center;
+
+
+gap: 6px;
+
+margin-top: 10px;
+
+color: #98a2b3;
+
+font-size: 10px;
+
+line-height: 1.35;
+
+
+}
+
+.st-kpi-meta-dot {
+width: 6px;
+height: 6px;
+
+
+flex: 0 0 6px;
+
+border-radius: 50%;
+
+
+}
+
+.st-kpi-meta-dot.primary {
+background: #356ae6;
+}
+
+.st-kpi-meta-dot.success {
+background: #15945b;
+}
+
+.st-kpi-meta-dot.warning {
+background: #d88912;
+}
+
+.st-kpi-meta-dot.danger {
+background: #d64545;
+}
+
+/* ==========================================================================
+RESPONSIVE — TABLET
+========================================================================== */
+
+@media (max-width: 1100px) {
+
+
+.st-kpi-grid {
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+}
+
+
+}
+
+/* ==========================================================================
+RESPONSIVE — MOBILE
+========================================================================== */
+
+@media (max-width: 768px) {
+
+
+.st-page-header {
+    align-items: stretch;
+
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+.st-page-header-actions {
+    padding-top: 0;
+}
+
+.st-cart-header-btn {
+    width: 100%;
+
+    justify-content: center;
+}
+
+.st-page-title {
+    font-size: 23px;
+}
+
+.st-kpi-grid {
+    gap: 10px;
+}
+
+.st-kpi-card {
+    min-height: 116px;
+}
+
+.st-kpi-card-content {
+    padding: 14px;
+}
+
+.st-kpi-value,
+.stock-transfer-kpi-value {
+    font-size: 23px;
+}
+
+
+}
+
+/* ==========================================================================
+RESPONSIVE — SMALL MOBILE
+========================================================================== */
+
+@media (max-width: 520px) {
+
+
+.st-kpi-grid {
+    grid-template-columns: 1fr;
+}
+
+.st-page-eyebrow {
+    font-size: 9px;
+}
+
+.st-page-subtitle {
+    font-size: 12px;
+}
+
+
+}
+
+/* ==========================================================================
+REDUCED MOTION
+========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+
+.st-kpi-card,
+.st-cart-header-btn {
+    transition: none;
+}
+
+
+}
+
+
+/* ==========================================================================
+   PAGE
+   ========================================================================== */
+
+.stock-transfer-page {
+    padding-bottom: 2rem;
+}
+
+.stock-transfer-page .page-header {
+    margin-bottom: 1.5rem;
+}
+
+.stock-transfer-page .page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.stock-transfer-page .page-subtitle {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================================
+   KPI CARDS
+   ========================================================================== */
+
+.stock-transfer-kpi {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.035);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.stock-transfer-kpi:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.07);
+}
+
+.stock-transfer-kpi-content {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.stock-transfer-kpi-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+
+    border-radius: 11px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.15rem;
+}
+
+.stock-transfer-kpi-icon.primary {
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+}
+
+.stock-transfer-kpi-icon.success {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+.stock-transfer-kpi-icon.warning {
+    background: rgba(255, 193, 7, 0.13);
+    color: #b58100;
+}
+
+.stock-transfer-kpi-icon.danger {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.stock-transfer-kpi-label {
+    display: block;
+
+    font-size: 0.75rem;
+    color: #6b7280;
+
+    margin-bottom: 0.15rem;
+}
+
+.stock-transfer-kpi-value {
+    display: block;
+
+    font-size: 1.25rem;
+    font-weight: 700;
+
+    color: #111827;
+    line-height: 1.2;
+}
+
+
+/* ==========================================================================
+   MAIN CARD
+   ========================================================================== */
+
+.stock-transfer-card {
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+    border-radius: 16px;
+
+    box-shadow:
+        0 3px 12px rgba(15, 23, 42, 0.04);
+
+    overflow: hidden;
+}
+
+.stock-transfer-card-header {
+    padding: 1.15rem 1.25rem;
+
+    border-bottom: 1px solid #edf0f2;
+}
+
+.stock-transfer-card-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+}
+
+.stock-transfer-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    color: #1f2937;
+
+    margin: 0;
+}
+
+.stock-transfer-card-description {
+    font-size: 0.78rem;
+    color: #6b7280;
+
+    margin: 0.2rem 0 0;
+}
+
+
+/* ==========================================================================
+   FILTER BAR
+   ========================================================================== */
+
+.stock-transfer-filter-bar {
+    display: grid;
+
+    grid-template-columns:
+        minmax(260px, 1fr)
+        190px
+        170px
+        82px;
+
+    gap: 12px;
+
+    align-items: end;
+
+    margin-bottom: 16px;
+    padding: 15px;
+
+    border: 1px solid #e9ecf1;
+    border-radius: 11px;
+
+    background: #fafbfc;
+}
+
+.stock-transfer-filter-search,
+.stock-transfer-filter-field,
+.stock-transfer-filter-action {
+    min-width: 0;
+}
+
+.stock-transfer-filter-label {
+    display: block;
+
+    margin: 0 0 6px;
+
+    color: #667085;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+.filter-label-hidden {
+    visibility: hidden;
+}
+
+
+/* --------------------------------------------------------------------------
+   Search
+   -------------------------------------------------------------------------- */
+
+.stock-transfer-search {
+    position: relative;
+    width: 100%;
+}
+
+.stock-transfer-search i {
+    position: absolute;
+
+    top: 50%;
+    left: 13px;
+
+    z-index: 2;
+
+    color: #98a2b3;
+    font-size: 13px;
+
+    transform: translateY(-50%);
+
+    pointer-events: none;
+}
+
+.stock-transfer-search input {
+    width: 100%;
+    height: 40px;
+
+    padding: 8px 12px 8px 35px;
+
+    border: 1px solid #dfe3e9;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #344054;
+    font-size: 11px;
+
+    box-shadow: none;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.stock-transfer-search input::placeholder {
+    color: #a1a9b5;
+}
+
+.stock-transfer-search input:focus {
+    border-color: #8daef5;
+
+    box-shadow:
+        0 0 0 3px rgba(53, 106, 230, 0.08);
+}
+
+
+/* --------------------------------------------------------------------------
+   Selects
+   -------------------------------------------------------------------------- */
+
+.stock-transfer-filter-field .form-select {
+    width: 100%;
+    height: 40px;
+
+    padding: 8px 32px 8px 11px;
+
+    border: 1px solid #dfe3e9;
+    border-radius: 8px;
+
+    background-color: #ffffff;
+
+    color: #475467;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    box-shadow: none;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.stock-transfer-filter-field .form-select:focus {
+    border-color: #8daef5;
+
+    box-shadow:
+        0 0 0 3px rgba(53, 106, 230, 0.08);
+}
+
+
+/* --------------------------------------------------------------------------
+   Reset
+   -------------------------------------------------------------------------- */
+
+.stock-transfer-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    width: 100%;
+    height: 40px;
+
+    padding: 7px 10px;
+
+    border: 1px solid #dfe3e9;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #667085;
+
+    font-size: 11px;
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
+}
+
+.stock-transfer-reset:hover {
+    border-color: #cdd3dc;
+
+    background: #f5f7fa;
+    color: #344054;
+
+    transform: translateY(-1px);
+}
+
+.stock-transfer-reset i {
+    font-size: 12px;
+}
+
+
+/* ==========================================================================
+   SELECTION TOOLBAR
+   ========================================================================== */
+
+.stock-transfer-selection-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    min-height: 52px;
+
+    margin-bottom: 12px;
+    padding: 9px 12px;
+
+    border: 1px solid #e7eaf0;
+    border-radius: 10px;
+
+    background: #ffffff;
+}
+
+.stock-transfer-selection-info {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+.stock-transfer-select-all {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin: 0;
+
+    color: #475467;
+
+    font-size: 11px;
+    font-weight: 650;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.stock-transfer-select-all .form-check-input {
+    width: 16px;
+    height: 16px;
+
+    margin: 0;
+
+    border: 1px solid #c9ced8;
+    border-radius: 4px;
+
+    box-shadow: none;
+
+    cursor: pointer;
+}
+
+.stock-transfer-select-all .form-check-input:checked {
+    border-color: #356ae6;
+    background-color: #356ae6;
+}
+
+.stock-transfer-select-all .form-check-input:focus {
+    border-color: #8daef5;
+
+    box-shadow:
+        0 0 0 3px rgba(53, 106, 230, 0.09);
+}
+
+.stock-transfer-selection-divider {
+    width: 1px;
+    height: 20px;
+
+    background: #e7eaf0;
+}
+
+.stock-transfer-selected-count {
+    color: #667085;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    white-space: nowrap;
+}
+
+.stock-transfer-selected-count.has-selection {
+    color: #356ae6;
+    font-weight: 650;
+}
+
+
+/* ==========================================================================
+   ADD TO CART
+   ========================================================================== */
+
+.stock-transfer-add-cart-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 36px;
+
+    padding: 7px 13px;
+
+    border: 1px solid #356ae6;
+    border-radius: 8px;
+
+    background: #356ae6;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 2px 4px rgba(53, 106, 230, 0.12);
+
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.stock-transfer-add-cart-btn i {
+    font-size: 13px;
+}
+
+.stock-transfer-add-cart-btn:hover:not(:disabled) {
+    border-color: #2e5dcc;
+    background: #2e5dcc;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 9px rgba(53, 106, 230, 0.17);
+}
+
+.stock-transfer-add-cart-btn:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(53, 106, 230, 0.12);
+}
+
+.stock-transfer-add-cart-btn:disabled {
+    border-color: #dfe3e9;
+
+    background: #f1f3f5;
+    color: #a1a9b5;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+.stock-transfer-selection-toolbar.has-selection {
+    border-color: #d7e2fb;
+    background: #f9fbff;
+}
+
+
+/* ==========================================================================
+   PRODUCT TABLE
+   ========================================================================== */
+
+.stock-transfer-table-wrapper {
+    overflow-x: auto;
+}
+
+.stock-transfer-table {
+    width: 100%;
+    margin: 0;
+
+    vertical-align: middle;
+}
+
+.stock-transfer-table thead th {
+    background: #f8f9fa;
+
+    color: #6b7280;
+
+    font-size: 0.7rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    padding: 0.85rem 0.9rem;
+}
+
+.stock-transfer-table tbody td {
+    padding: 0.85rem 0.9rem;
+
+    border-bottom: 1px solid #f0f1f3;
+
+    color: #374151;
+
+    font-size: 0.82rem;
+}
+
+.stock-transfer-table tbody tr {
+    transition:
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.stock-transfer-table tbody tr:hover {
+    background: #fafcff;
+}
+
+.stock-transfer-table tbody tr.selected {
+    background: rgba(13, 110, 253, 0.045);
+}
+
+.stock-transfer-table tbody tr.selected td:first-child {
+    box-shadow: inset 3px 0 0 #0d6efd;
+}
+
+.stock-transfer-table .selection-cell {
+    width: 42px;
+    text-align: center;
+}
+
+.stock-transfer-table .form-check-input {
+    width: 16px;
+    height: 16px;
+
+    cursor: pointer;
+}
+
+.stock-transfer-table .form-check-input:focus {
+    box-shadow:
+        0 0 0 0.2rem rgba(13, 110, 253, 0.12);
+}
+
+
+/* ==========================================================================
+   PRODUCT CELL
+   ========================================================================== */
+
+.stock-transfer-product {
+    display: flex;
+    align-items: center;
+
+    gap: 0.75rem;
+
+    min-width: 220px;
+}
+
+.stock-transfer-product-image {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    background: #f3f4f6;
+
+    border: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #9ca3af;
+}
+
+.stock-transfer-product-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.stock-transfer-product-info {
+    min-width: 0;
+}
+
+.stock-transfer-product-name {
+    display: block;
+
+    font-weight: 600;
+    color: #1f2937;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    max-width: 240px;
+}
+
+.stock-transfer-product-meta {
+    display: flex;
+    align-items: center;
+
+    gap: 0.45rem;
+
+    margin-top: 0.15rem;
+
+    color: #9ca3af;
+
+    font-size: 0.7rem;
+}
+
+.stock-transfer-product-meta span {
+    white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   STOCK VALUES
+   ========================================================================== */
+
+.stock-transfer-stock-value {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.stock-transfer-stock-value.available {
+    color: #198754;
+}
+
+.stock-transfer-stock-value.low {
+    color: #b58100;
+}
+
+.stock-transfer-stock-value.out {
+    color: #dc3545;
+}
+
+
+/* ==========================================================================
+   STATUS
+   ========================================================================== */
+
+.stock-transfer-status {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 0.35rem;
+
+    border-radius: 999px;
+
+    padding: 0.3rem 0.55rem;
+
+    font-size: 0.68rem;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.stock-transfer-status::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+}
+
+.stock-transfer-status.in-stock {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+.stock-transfer-status.in-stock::before {
+    background: #198754;
+}
+
+.stock-transfer-status.low-stock {
+    background: rgba(255, 193, 7, 0.13);
+    color: #a87500;
+}
+
+.stock-transfer-status.low-stock::before {
+    background: #ffc107;
+}
+
+.stock-transfer-status.out-stock {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.stock-transfer-status.out-stock::before {
+    background: #dc3545;
+}
+
+
+/* ==========================================================================
+   ROW ACTIONS
+   ========================================================================== */
+
+.stock-transfer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 0.35rem;
+
+    white-space: nowrap;
+}
+
+.stock-transfer-action-btn {
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+
+    border-radius: 8px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ==========================================================================
+   CART
+   ========================================================================== */
+
+.stock-transfer-cart {
+    background: #ffffff;
+
+    border: 1px solid #e1e5ea;
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 16px rgba(15, 23, 42, 0.05);
+
+    overflow: hidden;
+}
+
+.stock-transfer-cart-header {
+    padding: 1rem 1.1rem;
+
+    border-bottom: 1px solid #edf0f2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 0.75rem;
+}
+
+.stock-transfer-cart-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    color: #1f2937;
+
+    margin: 0;
+}
+
+.stock-transfer-cart-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 22px;
+    height: 22px;
+
+    padding-inline: 0.35rem;
+
+    border-radius: 999px;
+
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.stock-transfer-cart-body {
+    max-height: 440px;
+
+    overflow-y: auto;
+}
+
+.stock-transfer-cart-item {
+    padding: 0.9rem 1rem;
+
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.stock-transfer-cart-item:last-child {
+    border-bottom: 0;
+}
+
+.stock-transfer-cart-item-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 0.75rem;
+}
+
+.stock-transfer-cart-product {
+    min-width: 0;
+}
+
+.stock-transfer-cart-product-name {
+    font-size: 0.8rem;
+    font-weight: 650;
+
+    color: #1f2937;
+
+    margin-bottom: 0.15rem;
+}
+
+.stock-transfer-cart-product-meta {
+    font-size: 0.68rem;
+    color: #9ca3af;
+}
+
+.stock-transfer-cart-remove {
+    border: 0;
+
+    background: transparent;
+
+    color: #9ca3af;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 7px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stock-transfer-cart-remove:hover {
+    background: rgba(220, 53, 69, 0.08);
+    color: #dc3545;
+}
+
+.stock-transfer-cart-controls {
+    display: flex;
+    align-items: center;
+
+    gap: 0.75rem;
+
+    margin-top: 0.65rem;
+}
+
+.stock-transfer-quantity-control {
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    height: 34px;
+}
+
+.stock-transfer-quantity-control button {
+    width: 32px;
+    height: 100%;
+
+    border: 0;
+
+    background: #f8f9fa;
+
+    color: #4b5563;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stock-transfer-quantity-control button:hover {
+    background: #eef1f4;
+}
+
+.stock-transfer-quantity-control input {
+    width: 65px;
+    height: 100%;
+
+    border: 0;
+
+    border-left: 1px solid #dfe3e8;
+    border-right: 1px solid #dfe3e8;
+
+    text-align: center;
+
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    outline: none;
+}
+
+.stock-transfer-cart-available {
+    font-size: 0.7rem;
+    color: #6b7280;
+}
+
+.stock-transfer-cart-available strong {
+    color: #198754;
+}
+
+.stock-transfer-cart-empty {
+    padding: 3rem 1rem;
+
+    text-align: center;
+
+    color: #9ca3af;
+}
+
+.stock-transfer-cart-empty i {
+    font-size: 2rem;
+
+    display: block;
+
+    margin-bottom: 0.7rem;
+}
+
+.stock-transfer-cart-empty h6 {
+    font-size: 0.82rem;
+
+    color: #4b5563;
+
+    margin-bottom: 0.25rem;
+}
+
+.stock-transfer-cart-empty p {
+    font-size: 0.72rem;
+
+    margin: 0;
+}
+
+
+/* ==========================================================================
+   CART SUMMARY
+   ========================================================================== */
+
+.stock-transfer-cart-summary {
+    border-top: 1px solid #edf0f2;
+
+    padding: 1rem;
+
+    background: #fafbfc;
+}
+
+.stock-transfer-summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    font-size: 0.78rem;
+    color: #6b7280;
+
+    margin-bottom: 0.45rem;
+}
+
+.stock-transfer-summary-row:last-child {
+    margin-bottom: 0;
+}
+
+.stock-transfer-summary-value {
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.stock-transfer-summary-total {
+    padding-top: 0.65rem;
+
+    margin-top: 0.65rem;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.stock-transfer-summary-total .stock-transfer-summary-value {
+    font-size: 1rem;
+    color: #0d6efd;
+}
+
+
+/* ==========================================================================
+   CART FOOTER
+   ========================================================================== */
+
+.stock-transfer-cart-footer {
+    padding: 1rem;
+
+    border-top: 1px solid #edf0f2;
+}
+
+.stock-transfer-cart-footer .btn {
+    width: 100%;
+
+    min-height: 42px;
+
+    border-radius: 9px;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================================================
+   GENERATED TRANSFER REFERENCE
+   ========================================================================== */
+
+.stock-transfer-reference-info {
+    min-height: 38px;
+    padding: 0.55rem 0.7rem;
+
+    display: flex;
+    align-items: center;
+
+    gap: 0.6rem;
+
+    border: 1px solid #e9edf2;
+    border-radius: 8px;
+
+    background: #f8fafc;
+}
+
+.stock-transfer-reference-info-icon {
+    width: 28px;
+    height: 28px;
+
+    flex: 0 0 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #eef4ff;
+    color: #356ae6;
+
+    font-size: 12px;
+}
+
+.stock-transfer-reference-info-content {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+.stock-transfer-reference-info-title {
+    color: #475467;
+
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.stock-transfer-reference-info-text {
+    color: #98a2b3;
+
+    font-size: 9px;
+    line-height: 1.35;
+}
+
+
+/* ==========================================================================
+   STOCK TRANSFER — TRANSFER MODAL
+   ========================================================================== */
+
+.stock-transfer-modal {
+    display: flex;
+    flex-direction: column;
+
+    height: 88vh;
+    max-height: 88vh;
+
+    border: 0;
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+}
+
+
+/* ==========================================================================
+   MODAL HEADER
+   ========================================================================== */
+
+.stock-transfer-modal .modal-header {
+    flex: 0 0 auto;
+
+    min-height: 76px;
+
+    padding: 15px 20px;
+
+    border-bottom: 1px solid #edf0f4;
+
+    background: #ffffff;
+}
+
+
+/* ==========================================================================
+   MODAL BODY
+   ========================================================================== */
+
+.stock-transfer-modal .modal-body {
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    padding: 20px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: #fafbfc;
+
+    scrollbar-width: thin;
+    scrollbar-color: #d5dae2 transparent;
+}
+
+
+/* Chrome / Edge / Safari */
+
+.stock-transfer-modal .modal-body::-webkit-scrollbar {
+    width: 7px;
+}
+
+.stock-transfer-modal .modal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.stock-transfer-modal .modal-body::-webkit-scrollbar-thumb {
+    background: #d5dae2;
+    border-radius: 999px;
+}
+
+.stock-transfer-modal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #c3c9d2;
+}
+
+
+/* ==========================================================================
+   MODAL FOOTER
+   ========================================================================== */
+
+.stock-transfer-modal .modal-footer {
+    flex: 0 0 auto;
+
+    min-height: 72px;
+
+    padding: 12px 20px;
+
+    border-top: 1px solid #edf0f4;
+
+    background: #ffffff;
+}
+
+
+/* ==========================================================================
+   MODAL HEADING
+   ========================================================================== */
+
+.stock-transfer-modal-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+
+.stock-transfer-modal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    min-width: 38px;
+
+    border: 1px solid #dfe8fb;
+    border-radius: 10px;
+
+    background: #eef4ff;
+    color: #356ae6;
+
+    font-size: 15px;
+}
+
+
+.stock-transfer-modal-subtitle {
+    margin: 3px 0 0;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+
+/* ==========================================================================
+   MODAL SECTIONS
+   ========================================================================== */
+
+.stock-transfer-modal-section {
+    padding: 16px;
+
+    margin-bottom: 16px;
+
+    border: 1px solid #e7eaf0;
+    border-radius: 12px;
+
+    background: #ffffff;
+}
+
+
+.stock-transfer-modal-section:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================================
+   SECTION HEADING
+   ========================================================================== */
+
+.stock-transfer-section-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 16px;
+}
+
+
+.stock-transfer-section-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    min-width: 32px;
+
+    border-radius: 8px;
+
+    background: #f1f5ff;
+    color: #356ae6;
+
+    font-size: 13px;
+}
+
+
+.stock-transfer-section-heading h6 {
+    margin: 0;
+
+    color: #1d2939;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+
+.stock-transfer-section-heading p {
+    margin: 3px 0 0;
+
+    color: #98a2b3;
+
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — TABLET
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    .stock-transfer-modal {
+        height: 94vh;
+        max-height: 94vh;
+
+        border-radius: 14px;
+    }
+
+    .stock-transfer-modal .modal-header {
+        min-height: 68px;
+
+        padding: 13px 15px;
+    }
+
+    .stock-transfer-modal .modal-body {
+        padding: 15px;
+    }
+
+    .stock-transfer-modal .modal-footer {
+        min-height: 68px;
+
+        padding: 11px 15px;
+    }
+
+    .stock-transfer-modal-section {
+        padding: 14px;
+
+        margin-bottom: 14px;
+    }
+
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — SMALL MOBILE
+   ========================================================================== */
+
+@media (max-width: 480px) {
+
+    .stock-transfer-modal-heading {
+        gap: 9px;
+    }
+
+    .stock-transfer-modal-icon {
+        width: 34px;
+        height: 34px;
+
+        min-width: 34px;
+
+        border-radius: 9px;
+
+        font-size: 14px;
+    }
+
+    .stock-transfer-modal-subtitle {
+        font-size: 10px;
+    }
+
+    .stock-transfer-section-heading {
+        gap: 8px;
+
+        margin-bottom: 13px;
+    }
+
+    .stock-transfer-section-icon {
+        width: 30px;
+        height: 30px;
+
+        min-width: 30px;
+
+        font-size: 12px;
+    }
+
+}
+
+
+
+/* ==========================================================================
+   SOURCE FIELD
+   ========================================================================== */
+
+.stock-transfer-source-field {
+    display: flex;
+    align-items: center;
+
+    gap: 0.65rem;
+
+    min-height: 40px;
+
+    padding: 0.45rem 0.65rem;
+
+    border: 1px solid #dfe3e9;
+    border-radius: 8px;
+
+    background: #f8f9fb;
+}
+
+.stock-transfer-source-icon {
+    width: 28px;
+    height: 28px;
+
+    min-width: 28px;
+
+    border-radius: 7px;
+
+    background: #eef4ff;
+    color: #356ae6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+}
+
+.stock-transfer-source-label {
+    display: block;
+
+    color: #98a2b3;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.stock-transfer-source-field strong {
+    display: block;
+
+    color: #344054;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.stock-transfer-source-badge {
+    margin-left: auto;
+
+    padding: 3px 7px;
+
+    border-radius: 999px;
+
+    background: #eef4ff;
+    color: #356ae6;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   MODAL FORM CONTROLS
+   ========================================================================== */
+
+.stock-transfer-modal .form-label {
+    margin-bottom: 0.4rem;
+
+    color: #475467;
+
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.stock-transfer-modal .form-control,
+.stock-transfer-modal .form-select {
+    min-height: 40px;
+
+    border: 1px solid #dfe3e9;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #344054;
+
+    font-size: 11px;
+
+    box-shadow: none;
+}
+
+.stock-transfer-modal .form-control:focus,
+.stock-transfer-modal .form-select:focus {
+    border-color: #8daef5;
+
+    box-shadow:
+        0 0 0 3px rgba(53, 106, 230, 0.08);
+}
+
+.stock-transfer-modal textarea.form-control {
+    min-height: 90px;
+}
+
+
+/* ==========================================================================
+   SELECTED PRODUCTS HEADER
+   ========================================================================== */
+
+.stock-transfer-products-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 0.85rem;
+}
+
+.stock-transfer-selection-summary {
+    flex-shrink: 0;
+}
+
+.stock-transfer-product-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 25px;
+
+    padding: 4px 9px;
+
+    border-radius: 999px;
+
+    background: #eef4ff;
+    color: #356ae6;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   SELECTED PRODUCTS GRID
+   --------------------------------------------------------------------------
+   IMPORTANT:
+   Keep these classes unchanged because the JS populates this container.
+   ========================================================================== */
+
+.stock-transfer-review-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 10px;
+
+    width: 100%;
+
+    max-height: 360px;
+
+    padding: 2px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #d8dde5 transparent;
+}
+
+.stock-transfer-review-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.stock-transfer-review-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.stock-transfer-review-list::-webkit-scrollbar-thumb {
+    background: #d8dde5;
+
+    border-radius: 999px;
+}
+
+
+/* ==========================================================================
+   SELECTED PRODUCT CARD
+   ========================================================================== */
+
+.stock-transfer-review-item {
+    min-width: 0;
+
+    padding: 9px;
+
+    border: 1px solid #e5e8ed;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+}
+
+.stock-transfer-review-item:hover {
+    border-color: #d3d9e2;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.06);
+
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================================================
+   SMALL PRODUCT IMAGE
+   ========================================================================== */
+
+.stock-transfer-review-image {
+    width: 44px;
+    height: 44px;
+
+    min-width: 44px;
+
+    margin: 0 auto 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    background: #f7f8fa;
+
+    border: 1px solid #edf0f2;
+}
+
+.stock-transfer-review-image img {
+    width: 100%;
+    height: 100%;
+
+    padding: 4px;
+
+    object-fit: contain;
+}
+
+.stock-transfer-review-image i {
+    color: #adb5bd;
+
+    font-size: 17px;
+}
+
+
+/* ==========================================================================
+   PRODUCT INFORMATION
+   ========================================================================== */
+
+.stock-transfer-review-info {
+    width: 100%;
+    min-width: 0;
+
+    text-align: center;
+}
+
+.stock-transfer-review-info strong {
+    display: -webkit-box;
+
+    margin-bottom: 2px;
+
+    color: #252a31;
+
+    font-size: 10.5px;
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+.stock-transfer-review-info small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #8a939e;
+
+    font-size: 8.5px;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stock-transfer-review-info small strong {
+    display: inline;
+
+    margin: 0;
+
+    color: #495057;
+
+    font-size: inherit;
+
+    -webkit-line-clamp: unset;
+}
+
+
+/* ==========================================================================
+   AVAILABLE STOCK
+   ========================================================================== */
+
+.stock-transfer-review-available {
+    width: 100%;
+
+    margin-top: 7px;
+    padding-top: 6px;
+
+    border-top: 1px solid #f0f1f3;
+
+    text-align: center;
+}
+
+.stock-transfer-review-available span {
+    display: block;
+
+    margin-bottom: 1px;
+
+    color: #98a2b3;
+
+    font-size: 8px;
+    font-weight: 650;
+
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.stock-transfer-review-available strong {
+    color: #198754;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* ==========================================================================
+   TRANSFER QUANTITY
+   ========================================================================== */
+
+.stock-transfer-review-quantity {
+    width: 100%;
+
+    margin-top: 7px;
+}
+
+.stock-transfer-review-quantity label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #667085;
+
+    font-size: 8.5px;
+    font-weight: 650;
+
+    text-align: left;
+}
+
+.stock-transfer-review-quantity .form-control {
+    width: 100%;
+
+    height: 32px;
+    min-height: 32px;
+
+    padding: 4px 6px;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #344054;
+
+    text-align: center;
+
+    font-size: 10.5px;
+    font-weight: 650;
+
+    box-shadow: none;
+}
+
+.stock-transfer-review-quantity .form-control:focus {
+    border-color: #86b7fe;
+
+    box-shadow:
+        0 0 0 3px rgba(13, 110, 253, 0.08);
+}
+
+
+/* ==========================================================================
+   QUANTITY WARNING
+   ========================================================================== */
+
+.stock-transfer-quantity-warning {
+    display: none;
+
+    margin-top: 3px;
+
+    color: #dc3545;
+
+    font-size: 7.5px;
+
+    line-height: 1.25;
+}
+
+.stock-transfer-quantity-warning.show {
+    display: block;
+}
+
+.stock-transfer-quantity-input.is-invalid {
+    border-color: #dc3545 !important;
+
+    background-color: #fff8f8;
+}
+
+
+/* ==========================================================================
+   EMPTY SELECTED PRODUCTS
+   ========================================================================== */
+
+.stock-transfer-review-empty {
+    grid-column: 1 / -1;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    border: 1px dashed #dce1e6;
+    border-radius: 10px;
+
+    background: #fafbfc;
+}
+
+.stock-transfer-review-empty-icon {
+    width: 42px;
+    height: 42px;
+
+    margin: 0 auto 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f0f2f5;
+    color: #9aa2ab;
+
+    font-size: 17px;
+}
+
+.stock-transfer-review-empty h6 {
+    margin-bottom: 4px;
+
+    color: #495057;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.stock-transfer-review-empty p {
+    max-width: 390px;
+
+    margin: 0 auto;
+
+    color: #8a939e;
+
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+
+/* ==========================================================================
+   MODAL FOOTER
+   ========================================================================== */
+
+.stock-transfer-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+}
+
+.stock-transfer-total {
+    display: flex;
+    align-items: center;
+
+    gap: 0.65rem;
+}
+
+.stock-transfer-total-icon {
+    width: 34px;
+    height: 34px;
+
+    min-width: 34px;
+
+    border-radius: 8px;
+
+    background: #eef4ff;
+    color: #356ae6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 13px;
+}
+
+.stock-transfer-total span {
+    display: block;
+
+    color: #98a2b3;
+
+    font-size: 8px;
+    font-weight: 650;
+
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.stock-transfer-total strong {
+    display: block;
+
+    margin-top: 1px;
+
+    color: #182230;
+
+    font-size: 16px;
+    font-weight: 750;
+
+    line-height: 1.1;
+}
+
+.stock-transfer-footer-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.stock-transfer-cancel-btn,
+.stock-transfer-submit-btn {
+    min-height: 38px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.stock-transfer-cancel-btn {
+    padding-inline: 13px;
+}
+
+.stock-transfer-submit-btn {
+    padding-inline: 15px;
+}
+
+
+/* ==========================================================================
+   BRANCH TRANSFER FLOW
+   ========================================================================== */
+
+.stock-transfer-flow {
+    display: grid;
+
+    grid-template-columns:
+        1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 0.9rem;
+
+    margin-bottom: 1.25rem;
+}
+
+.stock-transfer-flow-branch {
+    padding: 0.85rem;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    background: #ffffff;
+}
+
+.stock-transfer-flow-label {
+    display: block;
+
+    font-size: 0.67rem;
+    font-weight: 600;
+
+    color: #9ca3af;
+
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+
+    margin-bottom: 0.25rem;
+}
+
+.stock-transfer-flow-value {
+    font-size: 0.82rem;
+    font-weight: 650;
+
+    color: #374151;
+}
+
+.stock-transfer-flow-arrow {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ==========================================================================
+   AVAILABLE STOCK PANEL
+   ========================================================================== */
+
+.stock-transfer-available-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding: 0.85rem 1rem;
+
+    background: rgba(25, 135, 84, 0.06);
+
+    border: 1px solid rgba(25, 135, 84, 0.14);
+
+    border-radius: 10px;
+
+    margin-bottom: 1.25rem;
+}
+
+.stock-transfer-available-label {
+    font-size: 0.72rem;
+
+    color: #6b7280;
+}
+
+.stock-transfer-available-value {
+    font-size: 1rem;
+    font-weight: 700;
+
+    color: #198754;
+}
+
+
+/* ==========================================================================
+   HISTORY MODAL
+   ========================================================================== */
+
+.stock-transfer-history-modal .modal-dialog {
+    max-width: 1100px;
+}
+
+.stock-transfer-history-modal .modal-content {
+    border: 0;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+}
+
+.stock-transfer-history-modal .modal-header {
+    padding: 1rem 1.25rem;
+
+    border-bottom: 1px solid #edf0f2;
+}
+
+.stock-transfer-history-modal .modal-body {
+    padding: 0;
+}
+
+.stock-transfer-history-header {
+    padding: 1rem 1.25rem;
+
+    background: #f8f9fa;
+
+    border-bottom: 1px solid #edf0f2;
+}
+
+.stock-transfer-history-product {
+    display: flex;
+    align-items: center;
+
+    gap: 0.75rem;
+}
+
+.stock-transfer-history-product-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    color: #1f2937;
+}
+
+.stock-transfer-history-product-sku {
+    font-size: 0.7rem;
+
+    color: #9ca3af;
+}
+
+.stock-transfer-history-table-wrapper {
+    overflow-x: auto;
+}
+
+.stock-transfer-history-table {
+    width: 100%;
+    margin: 0;
+}
+
+.stock-transfer-history-table th {
+    background: #fafbfc;
+
+    color: #6b7280;
+
+    font-size: 0.68rem;
+
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+
+    white-space: nowrap;
+
+    padding: 0.8rem 0.9rem;
+}
+
+.stock-transfer-history-table td {
+    font-size: 0.78rem;
+
+    padding: 0.8rem 0.9rem;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   HISTORY FILTERS
+   ========================================================================== */
+
+.stock-transfer-history-filters {
+    padding: 0.9rem 1.25rem;
+
+    border-bottom: 1px solid #edf0f2;
+
+    background: #ffffff;
+}
+
+.stock-transfer-history-filter-row {
+    display: flex;
+    align-items: center;
+
+    gap: 0.7rem;
+
+    flex-wrap: wrap;
+}
+
+.stock-transfer-history-filter-row .form-control,
+.stock-transfer-history-filter-row .form-select {
+    min-height: 38px;
+
+    border-radius: 8px;
+
+    font-size: 0.75rem;
+}
+
+
+/* ==========================================================================
+   LOADING
+   ========================================================================== */
+
+.stock-transfer-loading {
+    padding: 4rem 1rem;
+
+    text-align: center;
+
+    color: #6b7280;
+}
+
+.stock-transfer-loading .spinner-border {
+    width: 1.35rem;
+    height: 1.35rem;
+}
+
+
+/* ==========================================================================
+   CART SELECTION HIGHLIGHT
+   ========================================================================== */
+
+.stock-transfer-table tr.in-cart {
+    background: rgba(13, 110, 253, 0.035);
+}
+
+.stock-transfer-table tr.in-cart:hover {
+    background: rgba(13, 110, 253, 0.065);
+}
+
+.stock-transfer-table tr.in-cart .stock-transfer-product-name {
+    color: #0d6efd;
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — SELECTED PRODUCTS
+   ========================================================================== */
+
+@media (max-width: 1399.98px) {
+
+    .stock-transfer-review-list {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 1199.98px) {
+
+    .stock-transfer-review-list {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 991.98px) {
+
+    .stock-transfer-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .stock-transfer-flow-arrow {
+        transform: rotate(90deg);
+
+        margin: 0 auto;
+    }
+
+    .stock-transfer-cart-body {
+        max-height: 350px;
+    }
+
+    .stock-transfer-review-list {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — FILTERS
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+
+    .stock-transfer-filter-bar {
+        grid-template-columns:
+            minmax(220px, 1fr)
+            170px
+            155px
+            80px;
+    }
+
+}
+
+
+@media (max-width: 992px) {
+
+    .stock-transfer-filter-bar {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(160px, 0.6fr)
+            minmax(150px, 0.55fr)
+            80px;
+    }
+
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — TABLET
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    .st-page-header {
+        align-items: stretch;
+
+        flex-direction: column;
+
+        gap: 16px;
+    }
+
+    .st-page-header-actions {
+        padding-top: 0;
+    }
+
+    .st-cart-header-btn {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .st-page-title {
+        font-size: 23px;
+    }
+
+    .st-kpi-grid {
+        gap: 10px;
+    }
+
+    .st-kpi-card {
+        min-height: 116px;
+    }
+
+    .st-kpi-card-content {
+        padding: 14px;
+    }
+
+    .st-kpi-value {
+        font-size: 23px;
+    }
+
+
+    .stock-transfer-filter-bar {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+        padding: 13px;
+    }
+
+    .filter-label-hidden {
+        display: none;
+    }
+
+    .stock-transfer-reset {
+        width: 100%;
+    }
+
+
+    .stock-transfer-selection-toolbar {
+        align-items: stretch;
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        padding: 11px;
+    }
+
+    .stock-transfer-selection-info {
+        justify-content: space-between;
+
+        width: 100%;
+    }
+
+    .stock-transfer-add-cart-btn {
+        width: 100%;
+    }
+
+
+    .stock-transfer-review-list {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 9px;
+
+        max-height: 390px;
+    }
+
+
+    .stock-transfer-modal .modal-body {
+        padding: 1rem;
+    }
+
+    .stock-transfer-modal-footer {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+    .stock-transfer-total {
+        width: 100%;
+    }
+
+    .stock-transfer-footer-actions {
+        width: 100%;
+    }
+
+    .stock-transfer-cancel-btn,
+    .stock-transfer-submit-btn {
+        flex: 1;
+    }
+
+
+    .stock-transfer-panel-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 15px;
+    }
+
+    .stock-transfer-source {
+        align-items: flex-start;
+
+        width: 100%;
+    }
+
+    .stock-transfer-source-value {
+        width: 100%;
+    }
+
+
+    .stock-transfer-product {
+        min-width: 180px;
+    }
+
+    .stock-transfer-product-name {
+        max-width: 160px;
+    }
+
+
+    .stock-transfer-available-panel {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — SMALL MOBILE
+   ========================================================================== */
+
+@media (max-width: 575.98px) {
+
+    .stock-transfer-kpi {
+        padding: 0.85rem;
+    }
+
+    .stock-transfer-kpi-icon {
+        width: 38px;
+        height: 38px;
+
+        min-width: 38px;
+    }
+
+    .stock-transfer-kpi-value {
+        font-size: 1.1rem;
+    }
+
+    .stock-transfer-card-header,
+    .stock-transfer-filters,
+    .stock-transfer-selection-toolbar {
+        padding-inline: 0.9rem;
+    }
+
+    .stock-transfer-cart-header,
+    .stock-transfer-cart-footer {
+        padding: 0.85rem;
+    }
+
+    .stock-transfer-review-list {
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+    }
+
+    .stock-transfer-review-item {
+        display: grid;
+
+        grid-template-columns: 48px minmax(0, 1fr);
+
+        column-gap: 9px;
+
+        padding: 9px;
+    }
+
+    .stock-transfer-review-image {
+        grid-row: span 3;
+
+        width: 44px;
+        height: 44px;
+
+        margin: 0;
+    }
+
+    .stock-transfer-review-info {
+        text-align: left;
+    }
+
+    .stock-transfer-review-available {
+        text-align: left;
+    }
+
+    .stock-transfer-review-quantity {
+        text-align: left;
+    }
+
+    .stock-transfer-review-quantity label {
+        text-align: left;
+    }
+
+    .stock-transfer-modal-section {
+        padding: 0.85rem;
+    }
+
+}
+
+
+/* ==========================================================================
+   VERY SMALL SCREENS
+   ========================================================================== */
+
+@media (max-width: 480px) {
+
+    .stock-transfer-selection-info {
+        flex-wrap: wrap;
+
+        gap: 8px;
+    }
+
+    .stock-transfer-selection-divider {
+        display: none;
+    }
+
+    .stock-transfer-modal-heading {
+        align-items: flex-start;
+    }
+
+    .stock-transfer-modal-subtitle {
+        max-width: 230px;
+    }
+
+    .stock-transfer-source-badge {
+        display: none;
+    }
+
+}
+
+
+/* ==========================================================================
+   STOCK TRANSFER — PANEL HEADER
+   ========================================================================== */
+
+.stock-transfer-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    min-height: 76px;
+
+    padding: 16px 20px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #edf0f4;
+}
+
+
+/* ==========================================================================
+   PANEL INFORMATION
+   ========================================================================== */
+
+.stock-transfer-panel-heading {
+    min-width: 0;
+}
+
+.stock-transfer-panel-title-row {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+/* ==========================================================================
+   PANEL TITLE ICON
+   ========================================================================== */
+
+.stock-transfer-panel-title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    border: 1px solid #dfe8fb;
+    border-radius: 10px;
+
+    background: #eef4ff;
+    color: #356ae6;
+
+    font-size: 16px;
+}
+
+
+/* ==========================================================================
+   PANEL TITLE
+   ========================================================================== */
+
+.stock-transfer-panel-title {
+    margin: 0;
+
+    color: #1d2939;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+
+/* ==========================================================================
+   PANEL SUBTITLE
+   ========================================================================== */
+
+.stock-transfer-panel-subtitle {
+    margin: 4px 0 0;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+    font-weight: 400;
+
+    line-height: 1.45;
+}
+
+
+/* ==========================================================================
+   TRANSFER SOURCE
+   ========================================================================== */
+
+.stock-transfer-source {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    flex-shrink: 0;
+
+    min-width: 190px;
+}
+
+
+/* ==========================================================================
+   SOURCE LABEL
+   ========================================================================== */
+
+.stock-transfer-source-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #98a2b3;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    letter-spacing: .05em;
+
+    text-transform: uppercase;
+}
+
+
+/* ==========================================================================
+   SOURCE VALUE
+   ========================================================================== */
+
+.stock-transfer-source-value {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    min-height: 36px;
+
+    padding: 5px 10px 5px 6px;
+
+    border: 1px solid #e6eaf0;
+    border-radius: 9px;
+
+    background: #f8f9fb;
+
+    color: #344054;
+
+    font-size: 11px;
+    font-weight: 650;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   SOURCE ICON
+   ========================================================================== */
+
+.stock-transfer-source-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 25px;
+    height: 25px;
+
+    flex: 0 0 25px;
+
+    border-radius: 7px;
+
+    background: #eef4ff;
+    color: #356ae6;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================================================
+   HOVER STATE
+   ========================================================================== */
+
+.stock-transfer-source-value {
+    transition:
+        border-color .18s ease,
+        background-color .18s ease,
+        box-shadow .18s ease;
+}
+
+.stock-transfer-source-value:hover {
+    border-color: #d7deea;
+
+    background: #f6f8fb;
+
+    box-shadow:
+        0 2px 6px rgba(16, 24, 40, .04);
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — TABLET / MOBILE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    .stock-transfer-panel-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 15px;
+    }
+
+    .stock-transfer-panel-heading {
+        width: 100%;
+    }
+
+    .stock-transfer-source {
+        align-items: flex-start;
+
+        width: 100%;
+
+        min-width: 0;
+    }
+
+    .stock-transfer-source-value {
+        width: 100%;
+
+        max-width: 100%;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .stock-transfer-panel-title-row {
+        align-items: flex-start;
+
+        gap: 9px;
+    }
+
+    .stock-transfer-panel-title-icon {
+        width: 34px;
+        height: 34px;
+
+        flex-basis: 34px;
+
+        border-radius: 9px;
+
+        font-size: 14px;
+    }
+
+    .stock-transfer-panel-title {
+        font-size: 14px;
+    }
+
+    .stock-transfer-panel-subtitle {
+        max-width: 280px;
+
+        font-size: 10.5px;
+    }
+
+}
+
+
+/* ==========================================================================
+   ACCESSIBILITY / REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .stock-transfer-kpi,
+    .stock-transfer-add-cart-btn,
+    .stock-transfer-review-item,
+    .stock-transfer-reset {
+        transition: none;
+    }
+
+}

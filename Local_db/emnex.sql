@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2026 at 12:34 PM
+-- Generation Time: Aug 10, 2026 at 05:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -166,7 +166,24 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (107, 1, 1, 1, 'Products', 'Deleted', 'Deleted product: Test Coke', 'Product', 14, '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-05T10:53:48.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', NULL, 'products/14', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-05 09:53:51', '2026-08-05 09:53:51'),
 (108, 1, 1, 1, 'Account', 'Updated', 'User updated their profile.', 'User', 1, '{\"first_name\":\"System\",\"last_name\":\"Owner\",\"email\":\"owner@emmanexitconsult.com\"}', '{\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"owner@emmanexitconsult.com\"}', 'account/profile', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-08 08:27:42', '2026-08-08 08:27:42'),
 (109, 1, 1, 1, 'Account', 'Password Changed', 'User changed their password.', 'User', 1, NULL, NULL, 'account/password', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-08 08:30:00', '2026-08-08 08:30:00'),
-(110, 1, 1, 1, 'Users', 'Created', 'Created user Maxwell Akinkunmi Akinyooye', 'User', 17, NULL, '{\"company_id\":1,\"branch_id\":\"2\",\"role_id\":\"3\",\"employee_no\":\"MG-2026-001\",\"first_name\":\"Maxwell\",\"last_name\":\"Akinyooye\",\"other_name\":\"Akinkunmi\",\"username\":\"maxwell\",\"email\":\"maxwell@gmail.com\",\"phone\":\"08034271855\",\"gender\":\"Male\",\"date_of_birth\":\"2017-09-27T00:00:00.000000Z\",\"employment_date\":\"2026-08-03T00:00:00.000000Z\",\"address\":\"Ibadan\",\"notes\":\"Branch manager of lekki branch.\",\"status\":true,\"force_password_change\":true,\"password_changed_at\":null,\"updated_at\":\"2026-08-09T08:43:51.000000Z\",\"created_at\":\"2026-08-09T08:43:51.000000Z\",\"id\":17}', 'users/store', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 07:43:51', '2026-08-09 07:43:51');
+(110, 1, 1, 1, 'Users', 'Created', 'Created user Maxwell Akinkunmi Akinyooye', 'User', 17, NULL, '{\"company_id\":1,\"branch_id\":\"2\",\"role_id\":\"3\",\"employee_no\":\"MG-2026-001\",\"first_name\":\"Maxwell\",\"last_name\":\"Akinyooye\",\"other_name\":\"Akinkunmi\",\"username\":\"maxwell\",\"email\":\"maxwell@gmail.com\",\"phone\":\"08034271855\",\"gender\":\"Male\",\"date_of_birth\":\"2017-09-27T00:00:00.000000Z\",\"employment_date\":\"2026-08-03T00:00:00.000000Z\",\"address\":\"Ibadan\",\"notes\":\"Branch manager of lekki branch.\",\"status\":true,\"force_password_change\":true,\"password_changed_at\":null,\"updated_at\":\"2026-08-09T08:43:51.000000Z\",\"created_at\":\"2026-08-09T08:43:51.000000Z\",\"id\":17}', 'users/store', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 07:43:51', '2026-08-09 07:43:51'),
+(111, 1, 1, 1, 'Stock', 'Updated', 'Stock adjusted for product ID 1 at branch ID 1', 'ProductStock', 1, '{\"quantity\":\"100.00\"}', '{\"quantity\":110}', 'stock', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 11:06:03', '2026-08-09 11:06:03'),
+(112, 1, 1, 1, 'Stock', 'Updated', 'Stock adjusted for product ID 1 at branch ID 1', 'ProductStock', 1, '{\"quantity\":\"110.00\"}', '{\"quantity\":90}', 'stock', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 11:37:17', '2026-08-09 11:37:17'),
+(113, 1, 1, 1, 'Terminal Management', 'Updated', 'Updated terminal BR001-POS01', 'Terminal', 1, '{\"id\":1,\"company_id\":1,\"branch_id\":1,\"terminal_code\":\"BR001-POS01\",\"terminal_name\":\"Head Office POS 1\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null}', '{\"id\":1,\"company_id\":1,\"branch_id\":1,\"terminal_code\":\"BR001-POS01\",\"terminal_name\":\"Head Office POS 1\",\"description\":\"Main Checkout\",\"device_name\":\"Desktop POS\",\"ip_address\":\"192.168.0.23\",\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-08-09T15:46:14.000000Z\",\"deleted_at\":null}', 'terminals/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 14:46:14', '2026-08-09 14:46:14');
+INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module`, `action`, `description`, `record_type`, `record_id`, `old_values`, `new_values`, `url`, `method`, `user_agent`, `terminal_id`, `ip_address`, `browser`, `platform`, `device`, `created_at`, `updated_at`) VALUES
+(114, 1, 1, 1, 'Terminal Management', 'Updated', 'Updated terminal BR001-POS01', 'Terminal', 1, '{\"id\":1,\"company_id\":1,\"branch_id\":1,\"terminal_code\":\"BR001-POS01\",\"terminal_name\":\"Head Office POS 1\",\"description\":\"Main Checkout\",\"device_name\":\"Desktop POS\",\"ip_address\":\"192.168.0.23\",\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-08-09T15:46:14.000000Z\",\"deleted_at\":null}', '{\"id\":1,\"company_id\":1,\"branch_id\":1,\"terminal_code\":\"BR001-POS01\",\"terminal_name\":\"Head Office POS 1\",\"description\":\"Main Checkout\",\"device_name\":\"Desktop POS\",\"ip_address\":\"192.168.0.23\",\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-08-09T15:46:14.000000Z\",\"deleted_at\":null}', 'terminals/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 14:46:15', '2026-08-09 14:46:15'),
+(115, 1, 1, 1, 'User Management', 'Updated', 'Updated user Main Cashier', 'User', 5, '{\"id\":5,\"company_id\":1,\"branch_id\":1,\"role_id\":5,\"employee_no\":\"EMP0005\",\"first_name\":\"Main\",\"other_name\":null,\"last_name\":\"Cashier\",\"username\":\"cashier\",\"email\":\"cashier@emmanexitconsult.com\",\"is_owner\":false,\"email_verified_at\":\"2026-07-29T11:37:11.000000Z\",\"two_factor_enabled\":false,\"phone\":null,\"profile_photo\":null,\"gender\":null,\"date_of_birth\":null,\"employment_date\":\"2026-07-29T00:00:00.000000Z\",\"address\":null,\"notes\":null,\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-29T11:37:12.000000Z\",\"updated_at\":\"2026-07-29T11:37:12.000000Z\",\"deleted_at\":null}', '{\"id\":5,\"company_id\":1,\"branch_id\":1,\"role_id\":5,\"employee_no\":\"EMP0005\",\"first_name\":\"Main\",\"other_name\":null,\"last_name\":\"Cashier\",\"username\":\"cashier\",\"email\":\"cashier@emmanexitconsult.com\",\"is_owner\":false,\"email_verified_at\":\"2026-07-29T11:37:11.000000Z\",\"two_factor_enabled\":false,\"phone\":null,\"profile_photo\":null,\"gender\":null,\"date_of_birth\":\"1991-06-12T00:00:00.000000Z\",\"employment_date\":\"2026-07-29T00:00:00.000000Z\",\"address\":null,\"notes\":null,\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-29T11:37:12.000000Z\",\"updated_at\":\"2026-08-09T15:53:48.000000Z\",\"deleted_at\":null}', 'users/5', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 14:53:48', '2026-08-09 14:53:48'),
+(116, 1, 1, 1, 'User Management', 'Updated', 'Updated user Main Cashier', 'User', 5, '{\"id\":5,\"company_id\":1,\"branch_id\":1,\"role_id\":5,\"employee_no\":\"EMP0005\",\"first_name\":\"Main\",\"other_name\":null,\"last_name\":\"Cashier\",\"username\":\"cashier\",\"email\":\"cashier@emmanexitconsult.com\",\"is_owner\":false,\"email_verified_at\":\"2026-07-29T11:37:11.000000Z\",\"two_factor_enabled\":false,\"phone\":null,\"profile_photo\":null,\"gender\":null,\"date_of_birth\":\"1991-06-12T00:00:00.000000Z\",\"employment_date\":\"2026-07-29T00:00:00.000000Z\",\"address\":null,\"notes\":null,\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-29T11:37:12.000000Z\",\"updated_at\":\"2026-08-09T15:53:48.000000Z\",\"deleted_at\":null}', '{\"id\":5,\"company_id\":1,\"branch_id\":1,\"role_id\":5,\"employee_no\":\"EMP0005\",\"first_name\":\"Main\",\"other_name\":null,\"last_name\":\"Cashier\",\"username\":\"cashier\",\"email\":\"cashier@emmanexitconsult.com\",\"is_owner\":false,\"email_verified_at\":\"2026-07-29T11:37:11.000000Z\",\"two_factor_enabled\":false,\"phone\":null,\"profile_photo\":null,\"gender\":null,\"date_of_birth\":\"1991-06-12T00:00:00.000000Z\",\"employment_date\":\"2026-07-29T00:00:00.000000Z\",\"address\":null,\"notes\":null,\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-29T11:37:12.000000Z\",\"updated_at\":\"2026-08-09T15:53:48.000000Z\",\"deleted_at\":null}', 'users/5', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 14:53:49', '2026-08-09 14:53:49'),
+(117, 1, 1, 1, 'Settings Management', 'Updated', 'Updated company settings', 'Setting', 1, '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"4.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-02T01:52:44.000000Z\"}', '{\"id\":1,\"company_id\":1,\"company_name\":\"Emmanex Supermarket Ng\",\"company_email\":\"info@emmanexitconsult.com\",\"company_phone\":\"08012345678\",\"company_address\":\"Lagos, Nigeria\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"4.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"Emmanex Supermarket\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":true,\"allow_negative_stock\":false,\"low_stock_alert\":5,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":\"Walk-in Customer\",\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"m\\/d\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-09T16:23:25.000000Z\"}', 'settings/general', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 15:23:25', '2026-08-09 15:23:25'),
+(118, 1, 1, 1, 'Document Sequences', 'Disabled', 'Disabled order document sequence.', 'DocumentSequence', 5, '{\"id\":5,\"company_id\":1,\"document_type\":\"order\",\"prefix\":\"ORD\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-08-03T14:22:19.000000Z\",\"updated_at\":\"2026-08-03T14:22:19.000000Z\",\"use_date_in_sequence\":0}', '{\"id\":5,\"company_id\":1,\"document_type\":\"order\",\"prefix\":\"ORD\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":false,\"created_at\":\"2026-08-03T14:22:19.000000Z\",\"updated_at\":\"2026-08-09T16:34:55.000000Z\",\"use_date_in_sequence\":0}', 'document-sequences/5/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 15:34:55', '2026-08-09 15:34:55'),
+(119, 1, 1, 1, 'Document Sequences', 'Enabled', 'Enabled order document sequence.', 'DocumentSequence', 5, '{\"id\":5,\"company_id\":1,\"document_type\":\"order\",\"prefix\":\"ORD\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":false,\"created_at\":\"2026-08-03T14:22:19.000000Z\",\"updated_at\":\"2026-08-09T16:34:55.000000Z\",\"use_date_in_sequence\":0}', '{\"id\":5,\"company_id\":1,\"document_type\":\"order\",\"prefix\":\"ORD\",\"suffix\":null,\"separator\":\"-\",\"current_number\":1,\"number_length\":6,\"reset_frequency\":\"Never\",\"last_reset_at\":null,\"status\":true,\"created_at\":\"2026-08-03T14:22:19.000000Z\",\"updated_at\":\"2026-08-09T16:34:59.000000Z\",\"use_date_in_sequence\":0}', 'document-sequences/5/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 15:34:59', '2026-08-09 15:34:59'),
+(120, 1, 1, 1, 'Payment Methods', 'Disabled', 'POS payment method status changed.', 'PaymentMethod', 2, NULL, NULL, 'payment-methods/2/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 15:43:36', '2026-08-09 15:43:36'),
+(121, 1, 1, 1, 'Payment Methods', 'Enabled', 'POS payment method status changed.', 'PaymentMethod', 2, NULL, NULL, 'payment-methods/2/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 15:43:40', '2026-08-09 15:43:40'),
+(122, 1, 1, 1, 'Products', 'Updated', 'Updated product: Peak Milk 500g', 'Product', 4, '{\"id\":4,\"company_id\":1,\"product_category_id\":5,\"product_code\":\"PRD000004\",\"barcode\":\"100000000004\",\"sku\":\"PEAK500\",\"qr_code\":null,\"name\":\"Peak Milk 500g\",\"description\":null,\"image\":null,\"cost_price\":\"4200.00\",\"selling_price\":\"4800.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Peak\",\"manufacturer\":\"FrieslandCampina\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":4,\"company_id\":1,\"product_category_id\":5,\"product_code\":\"PRD000004\",\"barcode\":\"100000000004\",\"sku\":\"PEAK500\",\"qr_code\":null,\"name\":\"Peak Milk 500g\",\"description\":\"Peak Milk 500g\",\"image\":null,\"cost_price\":\"4200.00\",\"selling_price\":\"4800.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Peak\",\"manufacturer\":\"FrieslandCampina\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-09T17:32:26.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/4', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 16:32:26', '2026-08-09 16:32:26'),
+(123, 1, 1, 1, 'Products', 'Restored', 'Restored product: Three Crown Evaporated Milk', 'Product', 14, '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-09T18:19:44.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":14,\"company_id\":1,\"product_category_id\":5,\"product_code\":\"PRD000011\",\"barcode\":\"TH123456\",\"sku\":\"3crown\",\"qr_code\":null,\"name\":\"Three Crown Evaporated Milk\",\"description\":\"Three Crown Evaporated Milk\",\"image\":\"1786299584_6a78c4c0726c3.png\",\"cost_price\":\"1500.00\",\"selling_price\":\"1700.00\",\"discount_id\":null,\"unit_id\":5,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Three Crown\",\"manufacturer\":\"Three Crown Ltd\",\"expiry_date\":\"2026-08-27T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"500.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-09T18:19:44.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 17:19:44', '2026-08-09 17:19:44'),
+(124, 1, 1, 1, 'Products', 'Created', 'Created product: Three Crown Evaporated Milk', 'Product', 15, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 17:39:05', '2026-08-09 17:39:05'),
+(125, 1, 1, 1, 'Products', 'Created', 'Created product: Three Crown Evaporated Milk', 'Product', 16, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 17:44:33', '2026-08-09 17:44:33'),
+(126, 1, 1, 1, 'Products', 'Created', 'Created product: Three Crown Evaporated Milk', 'Product', 19, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-09 17:52:05');
 
 -- --------------------------------------------------------
 
@@ -196,7 +213,7 @@ CREATE TABLE `branches` (
 INSERT INTO `branches` (`id`, `company_id`, `branch_code`, `name`, `phone`, `email`, `address`, `is_head_office`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 'BR001', 'Head Office', '08012345678', 'headoffice@emmanexitconsult.com', 'Lagos, Nigeria', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
 (2, 1, 'BR002', 'Lekki Branch', '08087654321', 'lekki@emmanexitconsult.com', 'Lekki, Lagos', 0, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(4, 1, 'BR003', 'Ajah Outlet New', '07034657383', 'ajah@emmanexitconsult.com', 'Agbado, Ajah express way, Lagos.', 1, 1, '2026-07-31 14:47:21', '2026-08-01 20:36:13', NULL),
+(4, 1, 'BR003', 'Ajah Outlet New', '07034657383', 'ajah@emmanexitconsult.com', 'Agbado, Ajah express way, Lagos.', 0, 1, '2026-07-31 14:47:21', '2026-08-01 20:36:13', NULL),
 (6, 1, 'BR004', 'Ikorodu Outlet', '07038899203', 'Ikd@emmanexitconsult.com', 'Odogunyan, Ikorodu, Lagos.', 0, 1, '2026-07-31 14:52:50', '2026-08-01 21:41:51', NULL);
 
 -- --------------------------------------------------------
@@ -380,7 +397,7 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (2, 1, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (3, 1, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(5, 1, 'order', 'ORD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(5, 1, 'order', 'ORD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-09 15:34:59', 0),
 (6, 1, 'payment', 'PAY', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (8, 1, 'purchase_return', 'PRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
@@ -390,7 +407,15 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (12, 1, 'expense', 'EXP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (13, 1, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (14, 1, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(15, 1, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0);
+(15, 1, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(16, 1, 'Invoice', 'INV', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
+(17, 1, 'Receipt', 'REC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
+(18, 1, 'Sales Order', 'SO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
+(19, 1, 'Purchase Order', 'PO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
+(20, 1, 'Purchase Return', 'PR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
+(21, 1, 'Sales Return', 'SR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
+(22, 1, 'Stock Transfer', 'ST', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
+(23, 1, 'Stock Adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0);
 
 -- --------------------------------------------------------
 
@@ -633,7 +658,7 @@ CREATE TABLE `payment_methods` (
 
 INSERT INTO `payment_methods` (`id`, `company_id`, `name`, `code`, `icon`, `color`, `requires_reference`, `is_cash`, `allow_change`, `display_order`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 'Cash', 'CASH', 'bi-cash', 'success', 0, 1, 1, 1, 1, '2026-08-02 09:51:36', '2026-08-02 11:43:07', NULL),
-(2, 1, 'POS', 'POS', 'bi-credit-card', 'primary', 1, 0, 0, 2, 1, '2026-08-02 09:51:36', '2026-08-02 09:51:36', NULL),
+(2, 1, 'POS', 'POS', 'bi-credit-card', 'primary', 1, 0, 0, 2, 1, '2026-08-02 09:51:36', '2026-08-09 15:43:40', NULL),
 (3, 1, 'Transfer', 'TRANSFER', 'bi-bank', 'info', 1, 0, 0, 3, 1, '2026-08-02 09:51:36', '2026-08-02 09:51:36', NULL),
 (4, 1, 'Wallet', 'WALLET', 'bi-wallet2', 'warning', 0, 0, 0, 4, 1, '2026-08-02 09:51:36', '2026-08-02 09:51:36', NULL),
 (5, 1, 'Credit', 'CREDIT', 'bi-person-lines-fill', 'secondary', 0, 0, 0, 5, 1, '2026-08-02 09:51:36', '2026-08-02 09:51:36', NULL),
@@ -809,14 +834,14 @@ INSERT INTO `products` (`id`, `company_id`, `product_category_id`, `product_code
 (1, 1, 1, 'PRD000001', '100000000001', 'COKE50CL', NULL, 'Coca-Cola 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Coca-Cola', 'NBC', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (2, 1, 1, 'PRD000002', '100000000002', 'FANTA50CL', NULL, 'Fanta 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Fanta', 'NBC', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (3, 1, 1, 'PRD000003', '100000000003', 'SPRITE50CL', NULL, 'Sprite 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Sprite', 'NBC', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(4, 1, 5, 'PRD000004', '100000000004', 'PEAK500', NULL, 'Peak Milk 500g', NULL, NULL, 4200.00, 4800.00, 1, 1, NULL, 1, 'Peak', 'FrieslandCampina', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
+(4, 1, 5, 'PRD000004', '100000000004', 'PEAK500', NULL, 'Peak Milk 500g', 'Peak Milk 500g', NULL, 4200.00, 4800.00, 1, 1, NULL, 1, 'Peak', 'FrieslandCampina', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-09 16:32:26', NULL, 20.00),
 (5, 1, 2, 'PRD000005', '100000000005', 'INDM70', NULL, 'Indomie Chicken Noodles', NULL, NULL, 180.00, 250.00, 1, 1, NULL, 1, 'Indomie', 'Dufil', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (6, 1, 2, 'PRD000006', '100000000006', 'SUG1KG', NULL, 'Dangote Sugar 1kg', NULL, NULL, 1450.00, 1650.00, 1, 1, NULL, 1, 'Dangote', 'Dangote', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (7, 1, 3, 'PRD000007', '100000000007', 'BREAD001', NULL, 'Family Bread', NULL, NULL, 900.00, 1200.00, 1, 1, NULL, 1, 'Local', 'Bakery', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (8, 1, 2, 'PRD000008', '100000000008', 'RICE50KG', NULL, 'Mama Gold Rice 50kg', NULL, NULL, 82000.00, 90000.00, 1, 11, NULL, 1, 'Mama Gold', 'Mama Gold', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (9, 1, 7, 'PRD000009', '100000000009', 'SOAP001', NULL, 'Premier Soap', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Premier', 'PZ', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (10, 1, 9, 'PRD000010', '100000000010', 'PAMP001', NULL, 'Pampers Size 3', NULL, NULL, 7800.00, 8600.00, 1, 2, NULL, 1, 'Pampers', 'P&G', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(14, 1, 1, 'PRD000011', '123456', 'Tcoke50cl', NULL, 'Test Coke', 'Test Coke', '1785926412_6a73130c53070.jpg', 4000.00, 4200.00, NULL, 8, NULL, 1, 'Coke', 'Cocacola', '2028-12-31', 1, NULL, 1, 5.00, 10.00, NULL, NULL, NULL, NULL, '2026-08-05 09:40:12', '2026-08-05 09:53:51', '2026-08-05 09:53:51', 0.00);
+(19, 1, 5, 'PRD000011', 'TH123456', NULL, NULL, 'Three Crown Evaporated Milk', 'Three Crown Evaporated Milk', '1786301525_6a78cc5535908.png', 1000.00, 1200.00, NULL, 5, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-11-25', 1, NULL, 1, 100.00, 500.00, NULL, NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-09 17:52:05', NULL, 0.00);
 
 -- --------------------------------------------------------
 
@@ -883,7 +908,7 @@ CREATE TABLE `product_stocks` (
 --
 
 INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `quantity`, `reserved_quantity`, `available_quantity`, `reorder_level`, `maximum_stock`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
+(1, 1, 1, 1, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-09 11:37:17'),
 (2, 1, 1, 2, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (3, 1, 1, 3, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (4, 1, 1, 4, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
@@ -892,7 +917,8 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (7, 1, 1, 7, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (8, 1, 1, 8, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (9, 1, 1, 9, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(10, 1, 1, 10, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13');
+(10, 1, 1, 10, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
+(13, 1, 1, 19, 150.00, 0.00, 150.00, 100.00, 500.00, '2026-08-09 17:52:05', '2026-08-09 17:52:05');
 
 -- --------------------------------------------------------
 
@@ -1275,7 +1301,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('JqHuAWRtBTT67E4Wo8MTpMGC4yhgvdAzEwSUUVkL', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6IjZwdGg0QlNRaDc1dXExMlRtb2FWYVlJZWIzMndMZGVTVjNGSnpsMEkiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjc3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3RvY2svcHJvZHVjdHM/YnJhbmNoPSZjYXRlZ29yeT0mcGFnZT0xJnNlYXJjaD0mc3RhdHVzPSI7czo1OiJyb3V0ZSI7czoxNDoic3RvY2sucHJvZHVjdHMiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1786271134);
+('4za7O66DNDbWR7YbdavQpcVWvxymDodNl09PI1b9', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6ImNyNk5yWVNwTm1rUFNrUjdKempCTDFmUVBFZXMxMlFoSXQ1V05VYXIiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozNjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3N0b2NrLXRyYW5zZmVyIjtzOjU6InJvdXRlIjtzOjIwOiJzdG9jay10cmFuc2Zlci5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1786374144);
 
 -- --------------------------------------------------------
 
@@ -1323,7 +1349,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `company_id`, `company_name`, `company_email`, `company_phone`, `company_address`, `company_logo`, `currency`, `currency_symbol`, `tax_rate`, `tax_enabled`, `receipt_footer`, `receipt_header`, `receipt_width`, `print_logo`, `print_barcode`, `allow_negative_stock`, `low_stock_alert`, `allow_price_change`, `allow_price_override`, `enable_discounts`, `allow_discount`, `enable_customer_credit`, `default_customer`, `default_customer_id`, `timezone`, `date_format`, `time_format`, `maintenance_mode`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Emmanex Supermarket', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', NULL, 'NGN', '₦', 4.50, 1, 'Thank you for shopping with us.', 'Emmanex Supermarket', 80, 1, 1, 0, 5, 0, 0, 1, 1, 0, 'Walk-in Customer', NULL, 'Africa/Lagos', 'm/d/Y', 'h:i A', 0, 1, '2026-07-29 10:37:13', '2026-08-02 00:52:44');
+(1, 1, 'Emmanex Supermarket Ng', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', NULL, 'NGN', '₦', 4.50, 1, 'Thank you for shopping with us.', 'Emmanex Supermarket', 80, 1, 1, 0, 5, 0, 0, 1, 1, 0, 'Walk-in Customer', NULL, 'Africa/Lagos', 'm/d/Y', 'h:i A', 0, 1, '2026-07-29 10:37:13', '2026-08-09 15:23:25');
 
 -- --------------------------------------------------------
 
@@ -1348,6 +1374,14 @@ CREATE TABLE `stock_movements` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `stock_movements`
+--
+
+INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `movement_type`, `order_id`, `reference_no`, `unit_cost`, `quantity`, `stock_before`, `balance_after`, `remarks`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 'Purchase', NULL, NULL, 0.00, 10.00, 100.00, 110.00, '10 units received.', NULL, '2026-08-09 11:06:03', '2026-08-09 11:06:03'),
+(2, 1, 1, 1, 'Expired', NULL, NULL, 0.00, 20.00, 110.00, 90.00, '20 expired products', NULL, '2026-08-09 11:37:17', '2026-08-09 11:37:17');
 
 -- --------------------------------------------------------
 
@@ -1402,7 +1436,7 @@ CREATE TABLE `terminals` (
 --
 
 INSERT INTO `terminals` (`id`, `company_id`, `branch_id`, `terminal_code`, `terminal_name`, `description`, `device_name`, `ip_address`, `status`, `last_seen_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'BR001-POS01', 'Head Office POS 1', NULL, 'Desktop POS', NULL, 1, NULL, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
+(1, 1, 1, 'BR001-POS01', 'Head Office POS 1', 'Main Checkout', 'Desktop POS', '192.168.0.23', 1, NULL, '2026-07-29 10:37:09', '2026-08-09 14:46:14', NULL),
 (2, 1, 1, 'BR001-POS02', 'Head Office POS 2', NULL, 'Desktop POS', NULL, 1, NULL, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
 (3, 1, 2, 'BR002-POS01', 'Lekki Branch POS 1', NULL, 'Desktop POS', NULL, 1, NULL, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
 (11, 1, 4, 'Ajah-Pos1', 'Front Counter POS', 'Main Checkout', 'Dell Optilex', '192.168.0.24', 1, NULL, '2026-08-01 22:42:04', '2026-08-01 23:42:15', '2026-08-01 23:42:15');
@@ -1497,7 +1531,7 @@ INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `employee_no`, 
 (2, 1, 1, 2, 'EMP0002', 'System', NULL, 'Administrator', 'admin', 'admin@emmanexitconsult.com', 0, '2026-07-29 10:37:10', 0, NULL, '$2y$12$zPemhQB4t0by5HjwdteQX.Zfuas6VQ3BuaQzN8SALTxqhG6zQvRJ6', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:11', '2026-07-29 10:37:11', NULL),
 (3, 1, 1, 3, 'EMP0003', 'Branch', NULL, 'Manager', 'manager', 'manager@emmanexitconsult.com', 0, '2026-07-29 10:37:11', 0, NULL, '$2y$12$VG6ccScaNLrU.r011G.DMueH3D1TuNPUKaJa/eT3JWQe.PkUdy4cK', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:11', '2026-07-29 10:37:11', NULL),
 (4, 1, 1, 4, 'EMP0004', 'Branch', NULL, 'Supervisor', 'supervisor', 'supervisor@emmanexitconsult.com', 0, '2026-07-29 10:37:11', 0, NULL, '$2y$12$Mnb.9S7tdyOowvwKXTlK9edKlg0UC8jM4R.AOw5Y4.kwnHCf32Uz6', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:11', '2026-07-29 10:37:11', NULL),
-(5, 1, 1, 5, 'EMP0005', 'Main', NULL, 'Cashier', 'cashier', 'cashier@emmanexitconsult.com', 0, '2026-07-29 10:37:11', 0, NULL, '$2y$12$T1ovqUxatrDaNNgfTtkRUOGZtYbvmkVjao8EU/1LCJFH1KA0M.1qO', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:12', '2026-07-29 10:37:12', NULL),
+(5, 1, 1, 5, 'EMP0005', 'Main', NULL, 'Cashier', 'cashier', 'cashier@emmanexitconsult.com', 0, '2026-07-29 10:37:11', 0, NULL, '$2y$12$T1ovqUxatrDaNNgfTtkRUOGZtYbvmkVjao8EU/1LCJFH1KA0M.1qO', NULL, NULL, '1991-06-12', '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:12', '2026-08-09 14:53:48', NULL),
 (6, 1, 1, 6, 'EMP0006', 'Inventory', NULL, 'Manager', 'inventory', 'inventory@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$lWJtwgUPhnO44mwKMNifgeZiD.oVJwv9QqHYPCMNMOSpP0IhCHNAC', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:12', '2026-07-29 10:37:12', NULL),
 (7, 1, 1, 7, 'EMP0007', 'Company', NULL, 'Accountant', 'accountant', 'accountant@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$Aj3KYFJ24AXQQWWE3taN.uWPk/7eQSkS9oH84LMpPHxJ6nq1vXS5i', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (15, 1, 2, 5, 'CH-2026-001', 'Paul', 'Olusogo', 'Awolola', 'paul', 'bizcare@gmail.com', 0, NULL, 0, '07038899203', '$2y$12$oiRFD5rOZ2yz1vUPcinKKOS0rE1v7HXXTZphze3o0z7fOTNfpidp6', NULL, 'Male', '1987-11-25', '2026-07-06', 'Adelu, Ido, Ibadan.', 'Transfered from Ajah branch', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-30 00:35:56', '2026-07-31 13:58:33', NULL),
@@ -1781,7 +1815,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -1817,7 +1851,7 @@ ALTER TABLE `discounts`
 -- AUTO_INCREMENT for table `document_sequences`
 --
 ALTER TABLE `document_sequences`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1871,7 +1905,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
@@ -1883,7 +1917,7 @@ ALTER TABLE `product_categories`
 -- AUTO_INCREMENT for table `product_stocks`
 --
 ALTER TABLE `product_stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1907,7 +1941,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tax_rates`

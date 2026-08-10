@@ -340,7 +340,27 @@ Route::prefix('products')
 
     });    
 
-    Route::resource('stock-transfers', StockTransferController::class);
+    Route::prefix('stock-transfer')
+    ->name('stock-transfer.')
+    ->controller(StockTransferController::class)
+    ->group(function () {
+
+        Route::get('/', 'index')
+            ->name('index');
+
+        Route::get('/table', 'table')
+            ->name('table');
+
+        Route::get('/details/{stock}', 'details')
+            ->name('details');
+
+        Route::get('/history/{product}', 'history')
+            ->name('history');
+
+        Route::post('/transfer', 'transfer')
+            ->name('transfer');
+
+    });
 
     Route::resource('stock-counts', StockCountController::class);
 

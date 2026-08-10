@@ -108,7 +108,7 @@
         $inventoryOpen =
             request()->routeIs(
                 'stock.*',
-                'stock-transfers.*',
+                'stock-transfer.*',
                 'stock-counts.*',
                 'low-stock.*'
             );
@@ -723,8 +723,8 @@
                     @if(canAccess('inventory.transfer_stock'))
 
                         <a
-                            href="{{ route('stock-transfers.index') }}"
-                            class="{{ request()->routeIs('stock-transfers.*') ? 'active' : '' }}"
+                            href="{{ route('stock-transfer.index') }}"
+                            class="{{ request()->routeIs('stock-transfer.*') ? 'active' : '' }}"
                         >
 
                             <span class="sub-icon">
