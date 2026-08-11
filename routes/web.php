@@ -358,10 +358,27 @@ Route::prefix('products')
             ->name('history');
 
         Route::post('/transfer', 'transfer')
-            ->name('transfer');
+            ->name('transfer');  
+            
+        /*
+    |--------------------------------------------------------------------------
+    | Stock Movement Routes
+    |--------------------------------------------------------------------------
+    */
 
-    });
+    Route::get('/stock-movement',[StockTransferController::class, 'stockMovement'])
+    ->name('stock-movement.index');
 
+    Route::get('/stock-movement/table',[StockTransferController::class, 'stockMovementTable'])
+    ->name('stock-movement.table');
+
+    Route::get('/stock-movement/{reference}',[StockTransferController::class, 'stockMovementDetails'])
+    ->name('stock-movement.details');
+
+
+    });  
+
+    
     Route::resource('stock-counts', StockCountController::class);
 
     Route::resource('low-stock', LowStockController::class)

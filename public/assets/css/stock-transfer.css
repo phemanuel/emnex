@@ -3602,3 +3602,56 @@ REDUCED MOTION
     }
 
 }
+
+.st-history-header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+
+    min-height: 40px;
+    padding: 0.55rem 0.85rem;
+
+    border: 1px solid #e3e7ed;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #344054;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.st-history-header-btn:hover {
+    background: #f8fafc;
+    border-color: #d0d5dd;
+    color: #1d2939;
+    box-shadow: 0 2px 8px rgba(16, 24, 40, 0.06);
+}
+
+.st-history-header-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 8px;
+
+    background: #f2f4f7;
+    color: #667085;
+
+    font-size: 13px;
+}
+
+.st-history-header-text {
+    white-space: nowrap;
+}

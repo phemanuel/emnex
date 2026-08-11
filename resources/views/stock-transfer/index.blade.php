@@ -14,69 +14,89 @@ STOCK TRANSFER HEADER
 <div class="st-page-header">
 
 
-<div class="st-page-header-main">
+    <div class="st-page-header-main">
 
-    <div class="st-page-eyebrow">
+        <div class="st-page-eyebrow">
 
-        <span class="st-page-eyebrow-icon">
-            <i class="bi bi-arrow-left-right"></i>
-        </span>
+            <span class="st-page-eyebrow-icon">
+                <i class="bi bi-arrow-left-right"></i>
+            </span>
 
-        <span>
-            INVENTORY
-        </span>
+            <span>
+                INVENTORY
+            </span>
 
-        <i class="bi bi-chevron-right"></i>
+            <i class="bi bi-chevron-right"></i>
 
-        <span class="st-page-eyebrow-current">
-            STOCK TRANSFER
-        </span>
+            <span class="st-page-eyebrow-current">
+                STOCK TRANSFER
+            </span>
+
+        </div>
+
+
+        <div class="st-page-title-row">
+
+            <h1 class="st-page-title">
+                Stock Transfer
+            </h1>
+
+        </div>
+
+
+        <p class="st-page-subtitle">
+            Transfer products from the Head Office to your branches.
+        </p>
 
     </div>
 
 
-    <div class="st-page-title-row">
+    <div class="st-page-header-actions">
 
-        <h1 class="st-page-title">
-            Stock Transfer
-        </h1>
+        {{-- Transfer History --}}
 
-    </div>
-
-
-    <p class="st-page-subtitle">
-        Transfer products from the Head Office to your branches.
-    </p>
-
-</div>
-
-
-<div class="st-page-header-actions">
-
-    <button
-        type="button"
-        class="st-cart-header-btn"
-        id="openTransferCartBtn"
-    >
-
-        <span class="st-cart-header-icon">
-            <i class="bi bi-cart3"></i>
-        </span>
-
-        <span class="st-cart-header-text">
-            Transfer Cart
-        </span>
-
-        <span
-            class="st-cart-header-count"
-            id="transferCartCount"
+        <a
+            href="{{ route('stock-transfer.stock-movement.index') }}"
+            class="st-cart-header-btn st-history-back-btn"
         >
-            0
-        </span>
 
-    </button>
+            <span class="st-cart-header-icon">
+                <i class="bi bi-clock-history"></i>
+            </span>
 
-</div>
+            <span class="st-cart-header-text">
+                Stock Movement History
+            </span>
+
+        </a>
+
+
+        {{-- Transfer Cart --}}
+
+        <button
+            type="button"
+            class="st-cart-header-btn"
+            id="openTransferCartBtn"
+        >
+
+            <span class="st-cart-header-icon">
+                <i class="bi bi-cart3"></i>
+            </span>
+
+            <span class="st-cart-header-text">
+                Transfer Cart
+            </span>
+
+            <span
+                class="st-cart-header-count"
+                id="transferCartCount"
+            >
+                0
+            </span>
+
+        </button>
+
+    </div>
 
 
 </div>
@@ -777,10 +797,7 @@ STOCK TRANSFER KPI CARDS
             @json(url('stock-transfer/details/:id')),
 
         transferUrl:
-            @json(route('stock-transfer.transfer')),
-
-        historyUrl:
-            @json(route('stock-transfer.history', ':id')),
+            @json(route('stock-transfer.transfer')),       
 
     };
 

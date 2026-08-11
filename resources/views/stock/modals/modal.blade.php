@@ -631,10 +631,13 @@
                                         </option>
 
 
-                                        <option value="Transfer">
-                                            Transfer
+                                        <!-- <option value="Transfer In">
+                                            Transfer In
                                         </option>
 
+                                        <option value="Transfer Out">
+                                            Transfer Out
+                                        </option> -->
 
                                         <option value="Damage">
                                             Damage

@@ -1115,7 +1115,7 @@ class StockTransferController extends BaseController
                                 $unitCost,
 
                             'quantity' =>
-                                -$quantity,
+                                $quantity,
 
                             'stock_before' =>
                                 $sourceBefore,
@@ -1356,305 +1356,833 @@ class StockTransferController extends BaseController
             ], 422);
 
         }
+    }      
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Stock Movement
+|--------------------------------------------------------------------------
+*/
+
+public function stockMovement()
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
+
+    if (! canAccess('inventory.transfer_stock')) {
+
+        abort(
+            403,
+            'You do not have permission to view stock movements.'
+        );
+
     }
 
 
     /*
     |--------------------------------------------------------------------------
-    | Transfer History
+    | Branches
     |--------------------------------------------------------------------------
     */
 
-    public function history(
-        Request $request,
-        int $product
+    $branches = Branch::query()
+
+        ->where(
+            'company_id',
+            $this->companyId
+        )
+
+        ->where(
+            'status',
+            true
+        )
+
+        ->orderBy(
+            'name'
+        )
+
+        ->get();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Movement Types
+    |--------------------------------------------------------------------------
+    */
+
+    $movementTypes = StockMovement::query()
+
+        ->where(
+            'company_id',
+            $this->companyId
+        )
+
+        ->whereNotNull(
+            'movement_type'
+        )
+
+        ->distinct()
+
+        ->orderBy(
+            'movement_type'
+        )
+
+        ->pluck(
+            'movement_type'
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Initial Movement Query
+    |--------------------------------------------------------------------------
+    */
+
+    $movementQuery = StockMovement::query()
+
+        ->where(
+            'company_id',
+            $this->companyId
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | KPIs
+    |--------------------------------------------------------------------------
+    */
+
+    $totalMovements = (clone $movementQuery)
+        ->count();
+
+
+    $totalProducts = (clone $movementQuery)
+
+        ->whereNotNull(
+            'product_id'
+        )
+
+        ->distinct(
+            'product_id'
+        )
+
+        ->count(
+            'product_id'
+        );
+
+
+    $totalQuantity = (clone $movementQuery)
+        ->sum('quantity');
+
+
+    $totalBranches = (clone $movementQuery)
+
+        ->whereNotNull(
+            'branch_id'
+        )
+
+        ->distinct(
+            'branch_id'
+        )
+
+        ->count(
+            'branch_id'
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Initial Movements
+    |--------------------------------------------------------------------------
+    */
+
+    $movements = (clone $movementQuery)
+
+        ->with([
+            'product:id,name,sku',
+            'branch:id,name',
+            'createdBy:id,first_name,last_name',
+        ])
+
+        ->latest(
+            'created_at'
+        )
+
+        ->paginate(
+            15
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | View
+    |--------------------------------------------------------------------------
+    */
+
+    return view(
+        'stock-transfer.movement.index',
+        compact(
+
+            'branches',
+
+            'movementTypes',
+
+            'movements',
+
+            'totalMovements',
+
+            'totalProducts',
+
+            'totalQuantity',
+
+            'totalBranches'
+
+        )
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Stock Movement Table
+|--------------------------------------------------------------------------
+*/
+
+public function stockMovementTable(Request $request)
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
+
+    if (! canAccess('inventory.transfer_stock')) {
+
+        abort(
+            403,
+            'You do not have permission to view stock movements.'
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Query
+    |--------------------------------------------------------------------------
+    */
+
+    $query = StockMovement::query()
+
+        ->where(
+            'company_id',
+            $this->companyId
+        )
+
+        ->with([
+            'product:id,name,sku',
+            'branch:id,name',
+            'createdBy:id,first_name,last_name',
+        ]);
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Search
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('search')
     ) {
-        if (! canAccess('inventory.transfer_stock')) {
-            abort(403);
-        }
+
+        $search =
+            trim(
+                $request->input('search')
+            );
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Verify Product Belongs To Company
-        |--------------------------------------------------------------------------
-        */
+        $query->where(
+            function ($q) use ($search) {
 
-        $productStock =
-            ProductStock::query()
-
-                ->where(
-                    'company_id',
-                    $this->companyId
+                $q->where(
+                    'reference_no',
+                    'like',
+                    '%' . $search . '%'
                 )
 
-                ->where(
-                    'product_id',
-                    $product
-                )
-
-                ->with([
-                    'product.category',
-                    'product.unit',
-                ])
-
-                ->first();
-
-
-        if (! $productStock) {
-
-            return response()->json([
-
-                'status' =>
-                    false,
-
-                'message' =>
-                    'Product stock could not be found.'
-
-            ], 404);
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Transfer Movements
-        |--------------------------------------------------------------------------
-        */
-
-        $movements =
-            StockMovement::query()
-
-                ->where(
-                    'company_id',
-                    $this->companyId
-                )
-
-                ->where(
-                    'product_id',
-                    $product
-                )
-
-                ->where(
+                ->orWhere(
                     'movement_type',
-                    'Transfer'
+                    'like',
+                    '%' . $search . '%'
                 )
 
-                ->with([
-                    'branch',
-                    'creator',
-                ]);
+                ->orWhereHas(
+                    'product',
+                    function ($productQuery) use ($search) {
 
+                        $productQuery->where(
+                            'name',
+                            'like',
+                            '%' . $search . '%'
+                        )
 
-        /*
-        |--------------------------------------------------------------------------
-        | Branch Filter
-        |--------------------------------------------------------------------------
-        */
+                        ->orWhere(
+                            'sku',
+                            'like',
+                            '%' . $search . '%'
+                        );
 
-        if ($request->filled('branch')) {
-
-            $movements->where(
-                'branch_id',
-                $request->branch
-            );
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Date From
-        |--------------------------------------------------------------------------
-        */
-
-        if ($request->filled('date_from')) {
-
-            $movements->whereDate(
-                'created_at',
-                '>=',
-                $request->date_from
-            );
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Date To
-        |--------------------------------------------------------------------------
-        */
-
-        if ($request->filled('date_to')) {
-
-            $movements->whereDate(
-                'created_at',
-                '<=',
-                $request->date_to
-            );
-
-        }
-
-
-        $movements =
-            $movements
-
-                ->latest('id')
-
-                ->get();
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Group By Transfer Reference
-        |--------------------------------------------------------------------------
-        |
-        | Every product transfer creates two movements:
-        |
-        | 1. Negative movement at source.
-        | 2. Positive movement at destination.
-        |
-        | Both share the same reference number.
-        |
-        */
-
-        $history = [];
-
-
-        foreach (
-            $movements->groupBy('reference_no')
-            as $referenceNo => $transferMovements
-        ) {
-
-            $source =
-                $transferMovements->first(
-                    fn ($movement) =>
-                        (float) $movement->quantity < 0
+                    }
                 );
-
-
-            $destination =
-                $transferMovements->first(
-                    fn ($movement) =>
-                        (float) $movement->quantity > 0
-                );
-
-
-            if (
-                ! $source ||
-                ! $destination
-            ) {
-
-                continue;
 
             }
+        );
+
+    }
 
 
-            $history[] = [
+    /*
+    |--------------------------------------------------------------------------
+    | Movement Type
+    |--------------------------------------------------------------------------
+    */
 
-                'id' =>
-                    $source->id,
+    if (
+        $request->filled('movement_type')
+    ) {
 
-                'reference_no' =>
-                    $referenceNo,
+        $query->where(
+            'movement_type',
+            $request->input('movement_type')
+        );
 
-                'date' =>
-                    $source->created_at
-                        ?->format(
-                            'd M Y, h:i A'
-                        ),
-
-                'from' => [
-
-                    'id' =>
-                        $source->branch_id,
-
-                    'name' =>
-                        $source->branch?->name ?? '-',
-
-                ],
-
-                'to' => [
-
-                    'id' =>
-                        $destination->branch_id,
-
-                    'name' =>
-                        $destination->branch?->name ?? '-',
-
-                ],
-
-                'quantity' =>
-                    abs(
-                        (float)
-                        $source->quantity
-                    ),
-
-                'stock_before' =>
-                    (float)
-                    $source->stock_before,
-
-                'balance_after' =>
-                    (float)
-                    $destination->balance_after,
-
-                'user' =>
-                    $source->creator?->name ?? '-',
-
-                'remarks' =>
-                    $source->remarks,
-
-            ];
-
-        }
+    }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Response
-        |--------------------------------------------------------------------------
-        */
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('branch_id')
+    ) {
+
+        $query->where(
+            'branch_id',
+            $request->input('branch_id')
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pagination
+    |--------------------------------------------------------------------------
+    */
+
+    $perPage =
+        min(
+            max(
+                (int) $request->input(
+                    'per_page',
+                    15
+                ),
+                1
+            ),
+            100
+        );
+
+
+    $movements =
+        $query
+
+            ->latest(
+                'created_at'
+            )
+
+            ->paginate(
+                $perPage
+            );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | KPIs
+    |--------------------------------------------------------------------------
+    |
+    | These are recalculated from the filtered query so the dashboard
+    | reflects the currently selected search/filter criteria.
+    |
+    */
+
+    $filteredQuery = StockMovement::query()
+
+        ->where(
+            'company_id',
+            $this->companyId
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Apply Search To KPI Query
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('search')
+    ) {
+
+        $search =
+            trim(
+                $request->input('search')
+            );
+
+
+        $filteredQuery->where(
+            function ($q) use ($search) {
+
+                $q->where(
+                    'reference_no',
+                    'like',
+                    '%' . $search . '%'
+                )
+
+                ->orWhere(
+                    'movement_type',
+                    'like',
+                    '%' . $search . '%'
+                )
+
+                ->orWhereHas(
+                    'product',
+                    function ($productQuery) use ($search) {
+
+                        $productQuery->where(
+                            'name',
+                            'like',
+                            '%' . $search . '%'
+                        )
+
+                        ->orWhere(
+                            'sku',
+                            'like',
+                            '%' . $search . '%'
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Apply Movement Type To KPI Query
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('movement_type')
+    ) {
+
+        $filteredQuery->where(
+            'movement_type',
+            $request->input('movement_type')
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Apply Branch To KPI Query
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('branch_id')
+    ) {
+
+        $filteredQuery->where(
+            'branch_id',
+            $request->input('branch_id')
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate KPIs
+    |--------------------------------------------------------------------------
+    */
+
+    $kpis = [
+
+        'total_movements' =>
+            (clone $filteredQuery)
+                ->count(),
+
+        'total_products' =>
+            (clone $filteredQuery)
+                ->whereNotNull(
+                    'product_id'
+                )
+                ->distinct(
+                    'product_id'
+                )
+                ->count(
+                    'product_id'
+                ),
+
+        'total_quantity' =>
+            (clone $filteredQuery)
+                ->sum(
+                    'quantity'
+                ),
+
+        'total_branches' =>
+            (clone $filteredQuery)
+                ->whereNotNull(
+                    'branch_id'
+                )
+                ->distinct(
+                    'branch_id'
+                )
+                ->count(
+                    'branch_id'
+                ),
+
+    ];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Transform Rows
+    |--------------------------------------------------------------------------
+    */
+
+    $data =
+        $movements
+            ->getCollection()
+            ->map(
+                function ($movement) {
+
+                    return [
+
+                        'id' =>
+                            $movement->id,
+
+                        'reference_no' =>
+                            $movement->reference_no,
+
+                        'movement_type' =>
+                            $movement->movement_type,
+
+                        'quantity' =>
+                            $movement->quantity,
+
+                        'date' =>
+                            $movement->created_at,
+
+                        'product' => [
+
+                            'id' =>
+                                $movement->product?->id,
+
+                            'name' =>
+                                $movement->product?->name,
+
+                            'sku' =>
+                                $movement->product?->sku,
+
+                        ],
+
+                        'branch' => [
+
+                            'id' =>
+                                $movement->branch?->id,
+
+                            'name' =>
+                                $movement->branch?->name,
+
+                        ],
+
+                        'created_by' => [
+
+                            'id' =>
+                                $movement->createdBy?->id,
+
+                            'name' =>
+                                $movement->createdBy
+                                    ? trim(
+                                        $movement->createdBy->first_name
+                                        . ' '
+                                        . $movement->createdBy->last_name
+                                    )
+                                    : 'System',
+
+                        ],
+
+                    ];
+
+                }
+            )
+            ->values();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Response
+    |--------------------------------------------------------------------------
+    */
+
+    return response()->json([
+
+        'status' =>
+            true,
+
+        'data' =>
+            $data,
+
+        'pagination' => [
+
+            'current_page' =>
+                $movements->currentPage(),
+
+            'last_page' =>
+                $movements->lastPage(),
+
+            'per_page' =>
+                $movements->perPage(),
+
+            'total' =>
+                $movements->total(),
+
+        ],
+
+        'kpis' =>
+            $kpis,
+
+    ]);
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Stock Movement Details
+|--------------------------------------------------------------------------
+*/
+
+public function stockMovementDetails(
+    $reference
+) {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
+
+    if (! canAccess('inventory.transfer_stock')) {
+
+        abort(
+            403,
+            'You do not have permission to view stock movement details.'
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Movements
+    |--------------------------------------------------------------------------
+    */
+
+    $movements = StockMovement::query()
+
+        ->where(
+            'company_id',
+            $this->companyId
+        )
+
+        ->where(
+            'reference_no',
+            $reference
+        )
+
+        ->with([
+            'product:id,name,sku',
+            'product.category:id,name',
+            'product.unit:id,name',
+            'branch:id,name',
+            'createdBy:id,first_name,last_name',
+        ])
+
+        ->orderBy(
+            'created_at'
+        )
+
+        ->get();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Not Found
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $movements->isEmpty()
+    ) {
 
         return response()->json([
 
             'status' =>
-                true,
+                false,
 
-            'success' =>
-                true,
+            'message' =>
+                'Stock movement not found.',
 
-            'data' => [
+        ], 404);
 
-                'product' => [
-
-                    'id' =>
-                        $productStock->product->id,
-
-                    'name' =>
-                        $productStock->product->name,
-
-                    'product_code' =>
-                        $productStock->product->product_code,
-
-                    'sku' =>
-                        $productStock->product->sku,
-
-                    'category' =>
-                        $productStock->product->category?->name,
-
-                    'unit' =>
-                        $productStock->product->unit?->name,
-
-                    'image_url' =>
-                        $productStock->product->imageUrl(),
-
-                ],
-
-                'history' =>
-                    $history,
-
-            ],
-
-        ]);
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Summary
+    |--------------------------------------------------------------------------
+    */
+
+    $first =
+        $movements->first();
+
+
+    $details = [
+
+        'reference_no' =>
+            $reference,
+
+        'movement_type' =>
+            $first->movement_type,
+
+        'branch' => [
+
+            'id' =>
+                $first->branch?->id,
+
+            'name' =>
+                $first->branch?->name,
+
+        ],
+
+        'created_by' => [
+
+            'id' =>
+                $first->createdBy?->id,
+
+            'name' =>
+                $first->createdBy
+                    ? trim(
+                        $first->createdBy->first_name
+                        . ' '
+                        . $first->createdBy->last_name
+                    )
+                    : 'System',
+
+        ],
+
+        'created_at' =>
+            $first->created_at,
+
+        'total_products' =>
+            $movements
+                ->whereNotNull('product_id')
+                ->unique('product_id')
+                ->count(),
+
+        'total_quantity' =>
+            $movements->sum('quantity'),
+
+        'items' =>
+            $movements->map(
+                function ($movement) {
+
+                    return [
+
+                        'product' => [
+
+                            'id' =>
+                                $movement->product?->id,
+
+                            'name' =>
+                                $movement->product?->name
+                                ?? '-',
+
+                            'sku' =>
+                                $movement->product?->sku
+                                ?? '-',
+
+                            'category' =>
+                                $movement->product?->category?->name
+                                ?? '-',
+
+                            'unit' =>
+                                $movement->product?->unit?->name
+                                ?? '-',
+
+                        ],
+
+                        'quantity' =>
+                            $movement->quantity,
+
+                        'movement_type' =>
+                            $movement->movement_type,
+
+                        'remarks' =>
+                            $movement->remarks,
+
+                    ];
+
+                }
+            )
+            ->values(),
+
+    ];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Response
+    |--------------------------------------------------------------------------
+    */
+
+    return response()->json([
+
+        'status' =>
+            true,
+
+        'data' =>
+            $details,
+
+    ]);
+
+}
+
 }

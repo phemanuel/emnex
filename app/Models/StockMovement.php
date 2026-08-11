@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\User;
 
 
 class StockMovement extends Model
@@ -156,18 +157,32 @@ class StockMovement extends Model
     }
 
     /*
-|--------------------------------------------------------------------------
-| User
-|--------------------------------------------------------------------------
-*/
+    |--------------------------------------------------------------------------
+    | User
+    |--------------------------------------------------------------------------
+    */
 
-public function user(): BelongsTo
-{
-    return $this->belongsTo(
-        User::class,
-        'user_id'
-    );
-}
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'user_id'
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Created By
+    |--------------------------------------------------------------------------
+    */
+
+    public function createdBy()
+    {
+        return $this->belongsTo(
+            User::class,
+            'created_by'
+        );
+    }
 
 
     /*

@@ -61,9 +61,9 @@
                     </th>
 
 
-                    <th class="text-end">
+                    <!-- <th class="text-end">
                         Actions
-                    </th>
+                    </th> -->
 
                 </tr>
 
@@ -311,7 +311,7 @@
                             ACTIONS
                         =================================================== --}}
 
-                        <td class="text-end">
+                        <!-- <td class="text-end">
 
                             <div class="dropdown">
 
@@ -349,7 +349,7 @@
 
                             </div>
 
-                        </td>
+                        </td> -->
 
                     </tr>
 
