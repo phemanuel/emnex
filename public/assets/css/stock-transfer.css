@@ -1098,6 +1098,129 @@ REDUCED MOTION
 
 
 /* ==========================================================================
+   FLOATING ADD SELECTED TO CART
+   ========================================================================== */
+
+.stock-transfer-add-cart-btn {
+    position: fixed;
+
+    right: 28px;
+    bottom: 28px;
+
+    z-index: 1050;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 0.55rem;
+
+    min-height: 42px;
+
+    padding: 0.5rem 0.55rem 0.5rem 0.7rem;
+
+    border: 0;
+    border-radius: 11px;
+
+    background: #356ae6;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.stock-transfer-add-cart-btn:hover:not(:disabled) {
+    background: #2858c7;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 32px rgba(15, 23, 42, 0.22);
+}
+
+
+.stock-transfer-add-cart-btn:disabled {
+    background: #d0d5dd;
+    color: #98a2b3;
+
+    box-shadow: none;
+
+    cursor: not-allowed;
+}
+
+
+.stock-transfer-add-cart-icon {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: rgba(255, 255, 255, 0.16);
+}
+
+
+.stock-transfer-add-cart-icon i {
+    font-size: 14px;
+}
+
+
+.stock-transfer-add-cart-text {
+    line-height: 1;
+}
+
+
+.stock-transfer-add-cart-count {
+    min-width: 26px;
+    height: 26px;
+
+    padding: 0 7px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+
+/* ==========================================================================
+   MOBILE
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+
+    .stock-transfer-add-cart-btn {
+        right: 16px;
+        bottom: 16px;
+    }
+
+}
+
+
+/* ==========================================================================
    PRODUCT TABLE
    ========================================================================== */
 

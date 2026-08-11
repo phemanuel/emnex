@@ -11,9 +11,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Services\DocumentNumberService;
+use App\Services\ActivityLogger;
 
 class StockTransferController extends BaseController
 {
+    protected ActivityLogger $activityLogger;
+
+
+    public function __construct(ActivityLogger $activityLogger)
+    {
+        parent::__construct();
+
+        $this->activityLogger = $activityLogger;
+    }
     /*
     |--------------------------------------------------------------------------
     | Index
@@ -1093,7 +1103,7 @@ class StockTransferController extends BaseController
                                 $productId,
 
                             'movement_type' =>
-                                'Transfer',
+                                'Transfer Out',
 
                             'order_id' =>
                                 null,
@@ -1142,7 +1152,7 @@ class StockTransferController extends BaseController
                                 $productId,
 
                             'movement_type' =>
-                                'Transfer',
+                                'Transfer In',
 
                             'order_id' =>
                                 null,

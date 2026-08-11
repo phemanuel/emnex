@@ -101,6 +101,11 @@ const StockTransfer = {
             document.getElementById( 
                 'selectedProductsLabel' 
             ), 
+
+            selectedProductsCartCount:
+            document.getElementById(
+                'selectedProductsCartCount'
+            ),
             /* |-------------------------------------------------------------------------- | Cart |-------------------------------------------------------------------------- */ 
             cartContainer: 
             document.getElementById( 
@@ -162,41 +167,35 @@ const StockTransfer = {
 
 
             /*
-            |------------------------------------------------------------------
-            | Transfer Modal
-            |------------------------------------------------------------------
-            */
+        |--------------------------------------------------------------------------
+        | Transfer Modal
+        |--------------------------------------------------------------------------
+        */
 
-            transferForm:
-                document.getElementById(
-                    'stockTransferForm'
-                ),
+        transferForm:
+            document.getElementById(
+                'stockTransferForm'
+            ),
 
-            destinationBranch:
-                document.getElementById(
-                    'transferDestinationBranch'
-                ),
+        destinationBranch:
+            document.getElementById(
+                'destinationBranch'
+            ),
 
-            referenceNo:
-                document.getElementById(
-                    'transferReferenceNo'
-                ),
+        remarks:
+            document.getElementById(
+                'remarks'
+            ),
 
-            remarks:
-                document.getElementById(
-                    'transferRemarks'
-                ),
+        transferItemsContainer:
+            document.getElementById(
+                'transferItemsContainer'
+            ),
 
-            transferItemsContainer:
-                document.getElementById(
-                    'transferItemsContainer'
-                ),
-
-            submitTransfer:
-                document.getElementById(
-                    'submitStockTransferBtn'
-                ),
-
+        submitTransfer:
+            document.getElementById(
+                'submitTransfer'
+            ),
 
             /*
             |------------------------------------------------------------------
@@ -381,6 +380,7 @@ const StockTransfer = {
             );
 
         }
+       
 
 
         /*
@@ -622,14 +622,6 @@ const StockTransfer = {
 
             }
         );
-
-
-        /*
-        |----------------------------------------------------------------------
-        | Cart Quantity
-        |----------------------------------------------------------------------
-        */
-
        /*
 |--------------------------------------------------------------------------
 | Cart & Transfer Quantities
@@ -695,6 +687,25 @@ document.addEventListener(
                 (event) => {
 
                     event.preventDefault();
+
+                    this.submitTransfer();
+
+                }
+            );
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Complete Transfer Button
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.elements.submitTransfer) {
+
+            this.elements.submitTransfer.addEventListener(
+                'click',
+                () => {
 
                     this.submitTransfer();
 
@@ -933,7 +944,7 @@ document.addEventListener(
 
             this.updateSelectionCounters();
              
-            this.updateKpis();
+            // this.updateKpis();
 
         }
         catch (error) {
@@ -1978,72 +1989,114 @@ addSelectedProductsToCart() {
 
 
     /*
+|--------------------------------------------------------------------------
+| Change Cart Quantity
+|--------------------------------------------------------------------------
+*/
+
+changeCartQuantity(
+    stockId,
+    direction
+) {
+
+    const product =
+        this.state.selectedProducts.find(
+            item =>
+                String(item.stock_id) ===
+                String(stockId)
+        );
+
+
+    if (!product) {
+
+        return;
+
+    }
+
+
+    let quantity =
+        parseFloat(
+            product.quantity
+        );
+
+
+    /*
     |--------------------------------------------------------------------------
-    | Change Cart Quantity
+    | Empty Quantity
     |--------------------------------------------------------------------------
+    |
+    | If no quantity has been entered yet, use the
+    | requested direction as the first quantity.
+    |
     */
 
-    changeCartQuantity(
-        stockId,
-        direction
+    if (
+        Number.isNaN(quantity)
     ) {
 
-        const product =
-            this.state.selectedProducts.find(
-                item =>
-                    String(item.stock_id) ===
-                    String(stockId)
-            );
+        quantity =
+            direction > 0
+                ? direction
+                : 0;
 
-
-        if (!product) {
-
-            return;
-
-        }
-
-
-        let quantity =
-            parseFloat(
-                product.quantity
-            ) || 1;
-
+    }
+    else {
 
         quantity +=
             direction;
 
-
-        if (quantity < 0.01) {
-
-            quantity = 0.01;
-
-        }
+    }
 
 
-        if (
-            quantity >
-            product.available
-        ) {
+    /*
+    |--------------------------------------------------------------------------
+    | Prevent Negative / Zero Quantity
+    |--------------------------------------------------------------------------
+    */
 
-            quantity =
-                product.available;
-
-            showToast(
-                `Cannot exceed available stock of ${this.formatNumber(product.available)}.`,
-                'warning'
-            );
-
-        }
-
+    if (
+        quantity <= 0
+    ) {
 
         product.quantity =
-            quantity;
-
+            '';
 
         this.renderCart();
 
-    },
+        return;
 
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Prevent Exceeding Available Stock
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        quantity >
+        product.available
+    ) {
+
+        quantity =
+            product.available;
+
+        showToast(
+            `Cannot exceed available stock of ${this.formatNumber(product.available)}.`,
+            'warning'
+        );
+
+    }
+
+
+    product.quantity =
+        quantity;
+
+
+    this.renderCart();
+
+},
 
     /*
     |--------------------------------------------------------------------------
@@ -2152,6 +2205,14 @@ updateSelectionCounters() {
 
         this.elements.selectedProductsLabel.textContent =
             `${count} ${count === 1 ? 'product' : 'products'} selected`;
+
+    }
+
+
+    if (this.elements.selectedProductsCartCount) {
+
+        this.elements.selectedProductsCartCount.textContent =
+            count;
 
     }
 
@@ -3038,38 +3099,107 @@ updateTransferQuantity(input) {
 },
 
 
+   /*
+|--------------------------------------------------------------------------
+| Submit Transfer
+|--------------------------------------------------------------------------
+*/
+
+async submitTransfer() {
+
+    if (this.state.submitting) {
+
+        return;
+
+    }
+
+
     /*
     |--------------------------------------------------------------------------
-    | Submit Transfer
+    | Validate Cart
     |--------------------------------------------------------------------------
     */
 
-    async submitTransfer() {
+    if (!this.validateCart()) {
 
-        if (this.state.submitting) {
+        return;
 
-            return;
-
-        }
+    }
 
 
-        if (
-            !this.validateCart()
-        ) {
+    /*
+    |--------------------------------------------------------------------------
+    | Destination Branch
+    |--------------------------------------------------------------------------
+    */
 
-            return;
-
-        }
-
-
-        const destination =
-            this.elements.destinationBranch?.value;
+    const destination =
+        this.elements.destinationBranch?.value;
 
 
-        if (!destination) {
+    if (!destination) {
+
+        showToast(
+            'Please select a destination branch.',
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Selected Products
+    |--------------------------------------------------------------------------
+    */
+
+    const products =
+        this.state.selectedProducts;
+
+
+    if (
+        !Array.isArray(products) ||
+        !products.length
+    ) {
+
+        showToast(
+            'Please select at least one product to transfer.',
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Quantities
+    |--------------------------------------------------------------------------
+    */
+
+    for (
+        const product of products
+    ) {
+
+        const quantity =
+            parseFloat(
+                product.quantity
+            ) || 0;
+
+
+        const available =
+            parseFloat(
+                product.available
+            ) || 0;
+
+
+        if (quantity <= 0) {
 
             showToast(
-                'Please select a destination branch.',
+                `Please enter a valid transfer quantity for ${product.name}.`,
                 'warning'
             );
 
@@ -3078,183 +3208,296 @@ updateTransferQuantity(input) {
         }
 
 
-        const button =
-            this.elements.submitTransfer;
+        if (quantity > available) {
+
+            showToast(
+                `Transfer quantity for ${product.name} cannot exceed available stock.`,
+                'warning'
+            );
+
+            return;
+
+        }
+
+    }
 
 
-        const originalHtml =
-            button?.innerHTML;
+    /*
+    |--------------------------------------------------------------------------
+    | Submit Button
+    |--------------------------------------------------------------------------
+    */
+
+    const button =
+        this.elements.submitTransfer;
 
 
-        this.state.submitting =
-            true;
+    const originalHtml =
+        button?.innerHTML;
 
 
-        try {
-
-            if (button) {
-
-                button.disabled = true;
-
-                button.innerHTML = `
-
-                    <span
-                        class="spinner-border spinner-border-sm me-2"
-                    ></span>
-
-                    Transferring...
-
-                `;
-
-            }
+    this.state.submitting =
+        true;
 
 
-            const payload = {
+    try {
 
-                branch_id:
+        /*
+        |--------------------------------------------------------------------------
+        | Loading State
+        |--------------------------------------------------------------------------
+        */
+
+        if (button) {
+
+            button.disabled = true;
+
+            button.innerHTML = `
+
+                <span
+                    class="spinner-border spinner-border-sm me-2"
+                ></span>
+
+                Transferring...
+
+            `;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Build Payload
+        |--------------------------------------------------------------------------
+        */
+
+        const payload = {
+
+            destination_branch_id:
+                parseInt(
                     destination,
+                    10
+                ),
 
-                reference_no:
-                    this.elements.referenceNo?.value ||
-                    null,
+            remarks:
+                this.elements.remarks?.value?.trim()
+                || null,
 
-                remarks:
-                    this.elements.remarks?.value ||
-                    null,
+            items:
+                products.map(
+                    product => ({
 
-                products:
-                    this.state.selectedProducts.map(
-                        product => ({
-
-                            stock_id:
+                        stock_id:
+                            parseInt(
                                 product.stock_id,
-
-                            product_id:
-                                product.product_id,
-
-                            quantity:
-                                parseFloat(
-                                    product.quantity
-                                ),
-
-                        })
-                    ),
-
-            };
-
-
-            const response =
-                await fetch(
-                    this.transferUrl(),
-                    {
-                        method: 'POST',
-
-                        headers: {
-
-                            'Content-Type':
-                                'application/json',
-
-                            'X-CSRF-TOKEN':
-                                this.csrfToken(),
-
-                            'X-Requested-With':
-                                'XMLHttpRequest',
-
-                            'Accept':
-                                'application/json',
-
-                        },
-
-                        body:
-                            JSON.stringify(
-                                payload
+                                10
                             ),
 
-                    }
-                );
+                        product_id:
+                            parseInt(
+                                product.product_id,
+                                10
+                            ),
+
+                        quantity:
+                            parseFloat(
+                                product.quantity
+                            ),
+
+                    })
+                ),
+
+        };
 
 
-            const data =
-                await response.json();
+        console.log(
+            'Stock transfer payload:',
+            payload
+        );
 
 
-            if (
-                !response.ok ||
-                !data.success
-            ) {
+        /*
+        |--------------------------------------------------------------------------
+        | Submit Request
+        |--------------------------------------------------------------------------
+        */
 
-                throw new Error(
-                    data.message ||
-                    'Stock transfer failed.'
-                );
+        const response =
+            await fetch(
+                this.transferUrl(),
+                {
 
-            }
+                    method: 'POST',
+
+                    headers: {
+
+                        'Content-Type':
+                            'application/json',
+
+                        'X-CSRF-TOKEN':
+                            this.csrfToken(),
+
+                        'X-Requested-With':
+                            'XMLHttpRequest',
+
+                        'Accept':
+                            'application/json',
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            payload
+                        ),
+
+                }
+            );
 
 
-            if (this.transferModal) {
+        /*
+        |--------------------------------------------------------------------------
+        | Parse Response
+        |--------------------------------------------------------------------------
+        */
 
-                this.transferModal.hide();
+        const data =
+            await response.json();
 
-            }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Handle Failure
+        |--------------------------------------------------------------------------
+        */
 
-            showToast(
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
                 data.message ||
-                'Stock transferred successfully.',
-                'success'
-            );
-
-
-            this.state.selectedProducts =
-                [];
-
-
-            this.state.destinationBranchId =
-                null;
-
-
-            this.resetTransferForm();
-
-            this.renderCart();
-
-            this.syncVisibleSelections();
-
-            this.loadTable();
-
-        }
-        catch (error) {
-
-            console.error(
-                'Stock transfer error:',
-                error
-            );
-
-
-            showToast(
-                error.message ||
-                'Unable to complete stock transfer.',
-                'danger'
+                'Stock transfer failed.'
             );
 
         }
-        finally {
-
-            this.state.submitting =
-                false;
 
 
-            if (button) {
+        /*
+        |--------------------------------------------------------------------------
+        | Close Modal
+        |--------------------------------------------------------------------------
+        */
 
-                button.disabled = false;
+        if (this.transferModal) {
 
-                button.innerHTML =
-                    originalHtml;
-
-            }
+            this.transferModal.hide();
 
         }
 
-    },
+
+        /*
+        |--------------------------------------------------------------------------
+        | Clear Transfer State
+        |--------------------------------------------------------------------------
+        */
+
+        this.state.selectedProducts =
+            [];
+
+
+        this.state.destinationBranchId =
+            null;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Transfer Form
+        |--------------------------------------------------------------------------
+        */
+
+        this.resetTransferForm();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Cart
+        |--------------------------------------------------------------------------
+        */
+
+        this.renderCart();
+
+
+        this.syncVisibleSelections();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Stock Table
+        |--------------------------------------------------------------------------
+        */
+
+        await this.loadTable();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Success Message
+        |--------------------------------------------------------------------------
+        */
+
+        showToast(
+            data.message ||
+            'Stock transferred successfully.',
+            'success'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Debug Response
+        |--------------------------------------------------------------------------
+        */
+
+        console.log(
+            'Stock transfer completed:',
+            data
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            'Stock transfer error:',
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            'Unable to complete stock transfer.',
+            'danger'
+        );
+
+    }
+    finally {
+
+        this.state.submitting =
+            false;
+
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.innerHTML =
+                originalHtml;
+
+        }
+
+    }
+
+},
 
 
     /*
@@ -3666,134 +3909,22 @@ updateTransferQuantity(input) {
     },
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | KPI
-    |--------------------------------------------------------------------------
-    */
-
     updateKpis() {
 
-        const table =
-            this.elements.tableContainer;
+    /*
+    |--------------------------------------------------------------------------
+    | KPI values are server-rendered.
+    |--------------------------------------------------------------------------
+    |
+    | The index() controller calculates the authoritative KPI values.
+    | Do not recalculate them from the currently visible table rows,
+    | because the table may be paginated or filtered.
+    |
+    */
 
+    return;
 
-        if (!table) {
-
-            return;
-
-        }
-
-
-        const rows =
-            table.querySelectorAll(
-                'tbody tr'
-            );
-
-
-        let products = 0;
-
-        let available = 0;
-
-        let lowStock = 0;
-
-        let outStock = 0;
-
-
-        rows.forEach(
-            row => {
-
-                const checkbox =
-                    row.querySelector(
-                        '.transfer-product-checkbox'
-                    );
-
-
-                if (!checkbox) {
-
-                    return;
-
-                }
-
-
-                products++;
-
-
-                const quantity =
-                    parseFloat(
-                        checkbox.dataset.available ||
-                        row.dataset.available ||
-                        0
-                    );
-
-
-                available +=
-                    quantity;
-
-
-                const status =
-                    (
-                        checkbox.dataset.status ||
-                        row.dataset.status ||
-                        ''
-                    ).toLowerCase();
-
-
-                if (
-                    status === 'low_stock'
-                ) {
-
-                    lowStock++;
-
-                }
-
-
-                if (
-                    status === 'out_stock'
-                ) {
-
-                    outStock++;
-
-                }
-
-            }
-        );
-
-
-        if (this.elements.productCount) {
-
-            this.elements.productCount.textContent =
-                products;
-
-        }
-
-
-        if (this.elements.availableStock) {
-
-            this.elements.availableStock.textContent =
-                this.formatNumber(
-                    available
-                );
-
-        }
-
-
-        if (this.elements.lowStock) {
-
-            this.elements.lowStock.textContent =
-                lowStock;
-
-        }
-
-
-        if (this.elements.outStock) {
-
-            this.elements.outStock.textContent =
-                outStock;
-
-        }
-
-    },
+},
 
 
     /*
@@ -3827,7 +3958,7 @@ updateTransferQuantity(input) {
 
         return (
             window.STOCK_TRANSFER_TABLE_URL ||
-            '/admin/stock-transfer/table'
+            '/stock-transfer/table'
         );
 
     },
@@ -3837,7 +3968,7 @@ updateTransferQuantity(input) {
 
         return (
             window.STOCK_TRANSFER_TRANSFER_URL ||
-            '/admin/stock-transfer/transfer'
+            '/stock-transfer/transfer'
         );
 
     },

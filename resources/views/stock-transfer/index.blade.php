@@ -506,10 +506,19 @@ STOCK TRANSFER KPI CARDS
                 disabled
             >
 
-                <i class="bi bi-cart-plus"></i>
+                <span class="stock-transfer-add-cart-icon">
+                    <i class="bi bi-cart-plus"></i>
+                </span>
 
-                <span>
+                <span class="stock-transfer-add-cart-text">
                     Add Selected to Cart
+                </span>
+
+                <span
+                    class="stock-transfer-add-cart-count"
+                    id="selectedProductsCartCount"
+                >
+                    0
                 </span>
 
             </button>
@@ -765,7 +774,7 @@ STOCK TRANSFER KPI CARDS
             @json(route('stock-transfer.table')),
 
         detailsUrl:
-            @json(url('/admin/stock-transfer/details/:id')),
+            @json(url('stock-transfer/details/:id')),
 
         transferUrl:
             @json(route('stock-transfer.transfer')),
