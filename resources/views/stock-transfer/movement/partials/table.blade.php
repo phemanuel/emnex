@@ -226,16 +226,10 @@ $transfers->count()
                         <button
                             type="button"
                             class="btn btn-sm st-history-view-btn"
-                            data-transfer-id="{{ $transfer->transfer_id }}"
-                            onclick="StockTransferHistory.viewDetails(
-                                {{ $transfer->transfer_id }}
-                            )"
+                            data-movement-id="{{ $transfer->id }}"
                         >
-
                             <i class="bi bi-eye me-1"></i>
-
                             View
-
                         </button>
 
                     </td>

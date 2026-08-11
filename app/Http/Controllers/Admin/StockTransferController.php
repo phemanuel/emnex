@@ -1987,10 +1987,8 @@ public function stockMovementTable(Request $request)
 | Stock Movement Details
 |--------------------------------------------------------------------------
 */
-
-public function stockMovementDetails(
-    $reference
-) {
+public function stockMovementDetails($id)
+{
 
     /*
     |--------------------------------------------------------------------------
@@ -2010,11 +2008,11 @@ public function stockMovementDetails(
 
     /*
     |--------------------------------------------------------------------------
-    | Movements
+    | Selected Movement
     |--------------------------------------------------------------------------
     */
 
-    $movements = StockMovement::query()
+    $movement = StockMovement::query()
 
         ->where(
             'company_id',
@@ -2022,23 +2020,25 @@ public function stockMovementDetails(
         )
 
         ->where(
-            'reference_no',
-            $reference
+            'id',
+            $id
         )
 
         ->with([
-            'product:id,name,sku',
-            'product.category:id,name',
-            'product.unit:id,name',
-            'branch:id,name',
-            'createdBy:id,first_name,last_name',
-        ])
 
-        ->orderBy(
-            'created_at'
-        )
+                'product:id,name,sku,product_category_id,unit_id',
 
-        ->get();
+                'product.category:id,name',
+
+                'product.unit:id,name',
+
+                'branch:id,name',
+
+                'createdBy:id,first_name,last_name',
+
+            ])
+
+        ->first();
 
 
     /*
@@ -2047,9 +2047,7 @@ public function stockMovementDetails(
     |--------------------------------------------------------------------------
     */
 
-    if (
-        $movements->isEmpty()
-    ) {
+    if (! $movement) {
 
         return response()->json([
 
@@ -2066,103 +2064,413 @@ public function stockMovementDetails(
 
     /*
     |--------------------------------------------------------------------------
-    | Summary
+    | Created By
     |--------------------------------------------------------------------------
     */
 
-    $first =
-        $movements->first();
+    $creatorName =
+        $movement->createdBy
 
+            ? trim(
+                $movement->createdBy->first_name
+                . ' '
+                . $movement->createdBy->last_name
+            )
+
+            : 'System';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Source / Destination Branch
+    |--------------------------------------------------------------------------
+    |
+    | Transfer movements normally exist as a pair:
+    |
+    | Transfer Out -> source branch
+    | Transfer In  -> destination branch
+    |
+    | Both records share the same reference_no.
+    |
+    */
+
+    $sourceBranch = null;
+
+    $destinationBranch = null;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Resolve Transfer Route
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $movement->reference_no &&
+        in_array(
+            $movement->movement_type,
+            [
+                'Transfer',
+                'Transfer In',
+                'Transfer Out',
+            ],
+            true
+        )
+    ) {
+
+        $transferMovements =
+            StockMovement::query()
+
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+
+                ->where(
+                    'reference_no',
+                    $movement->reference_no
+                )
+
+                ->whereIn(
+                    'movement_type',
+                    [
+                        'Transfer',
+                        'Transfer In',
+                        'Transfer Out',
+                    ]
+                )
+
+                ->with(
+                    'branch:id,name'
+                )
+
+                ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Transfer Out = Source
+        |--------------------------------------------------------------------------
+        */
+
+        $transferOut =
+            $transferMovements->first(
+                function ($item) {
+
+                    return $item->movement_type ===
+                        'Transfer Out';
+
+                }
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Transfer In = Destination
+        |--------------------------------------------------------------------------
+        */
+
+        $transferIn =
+            $transferMovements->first(
+                function ($item) {
+
+                    return $item->movement_type ===
+                        'Transfer In';
+
+                }
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Source Branch
+        |--------------------------------------------------------------------------
+        */
+
+        if ($transferOut?->branch) {
+
+            $sourceBranch = [
+
+                'id' =>
+                    $transferOut->branch->id,
+
+                'name' =>
+                    $transferOut->branch->name,
+
+            ];
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Destination Branch
+        |--------------------------------------------------------------------------
+        */
+
+        if ($transferIn?->branch) {
+
+            $destinationBranch = [
+
+                'id' =>
+                    $transferIn->branch->id,
+
+                'name' =>
+                    $transferIn->branch->name,
+
+            ];
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Fallback
+        |--------------------------------------------------------------------------
+        |
+        | If the movement data does not contain explicit
+        | Transfer In / Transfer Out records, use the
+        | selected movement's branch where appropriate.
+        |
+        */
+
+        if (
+            ! $sourceBranch &&
+            $movement->movement_type === 'Transfer Out' &&
+            $movement->branch
+        ) {
+
+            $sourceBranch = [
+
+                'id' =>
+                    $movement->branch->id,
+
+                'name' =>
+                    $movement->branch->name,
+
+            ];
+
+        }
+
+
+        if (
+            ! $destinationBranch &&
+            $movement->movement_type === 'Transfer In' &&
+            $movement->branch
+        ) {
+
+            $destinationBranch = [
+
+                'id' =>
+                    $movement->branch->id,
+
+                'name' =>
+                    $movement->branch->name,
+
+            ];
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    |
+    | Keep the selected movement's branch as a generic
+    | branch value for non-transfer movements.
+    |
+    */
+
+    $branch = [
+
+        'id' =>
+            $movement->branch?->id,
+
+        'name' =>
+            $movement->branch?->name
+            ?? '-',
+
+    ];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Details
+    |--------------------------------------------------------------------------
+    */
 
     $details = [
 
+        /*
+        |--------------------------------------------------------------------------
+        | Movement ID
+        |--------------------------------------------------------------------------
+        */
+
+        'id' =>
+            $movement->id,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reference
+        |--------------------------------------------------------------------------
+        */
+
         'reference_no' =>
-            $reference,
+            $movement->reference_no
+            ?? '-',
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Movement Type
+        |--------------------------------------------------------------------------
+        */
 
         'movement_type' =>
-            $first->movement_type,
+            $movement->movement_type
+            ?? '-',
 
-        'branch' => [
 
-            'id' =>
-                $first->branch?->id,
+        /*
+        |--------------------------------------------------------------------------
+        | Date
+        |--------------------------------------------------------------------------
+        */
 
-            'name' =>
-                $first->branch?->name,
+        'created_at' =>
+            $movement->created_at,
 
-        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Generic Branch
+        |--------------------------------------------------------------------------
+        */
+
+        'branch' =>
+            $branch,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Transfer Source
+        |--------------------------------------------------------------------------
+        */
+
+        'source_branch' =>
+            $sourceBranch,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Transfer Destination
+        |--------------------------------------------------------------------------
+        */
+
+        'destination_branch' =>
+            $destinationBranch,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Created By
+        |--------------------------------------------------------------------------
+        */
 
         'created_by' => [
 
             'id' =>
-                $first->createdBy?->id,
+                $movement->createdBy?->id,
 
             'name' =>
-                $first->createdBy
-                    ? trim(
-                        $first->createdBy->first_name
-                        . ' '
-                        . $first->createdBy->last_name
-                    )
-                    : 'System',
+                $creatorName,
 
         ],
 
-        'created_at' =>
-            $first->created_at,
 
-        'total_products' =>
-            $movements
-                ->whereNotNull('product_id')
-                ->unique('product_id')
-                ->count(),
+        /*
+        |--------------------------------------------------------------------------
+        | Product
+        |--------------------------------------------------------------------------
+        */
 
-        'total_quantity' =>
-            $movements->sum('quantity'),
+        'product' => [
 
-        'items' =>
-            $movements->map(
-                function ($movement) {
+            'id' =>
+                $movement->product?->id,
 
-                    return [
+            'name' =>
+                $movement->product?->name
+                ?? '-',
 
-                        'product' => [
+            'sku' =>
+                $movement->product?->sku
+                ?? '-',
 
-                            'id' =>
-                                $movement->product?->id,
+            'category' =>
+                $movement->product?->category?->name
+                ?? '-',
 
-                            'name' =>
-                                $movement->product?->name
-                                ?? '-',
+            'unit' =>
+                $movement->product?->unit?->name
+                ?? '-',
 
-                            'sku' =>
-                                $movement->product?->sku
-                                ?? '-',
+        ],
 
-                            'category' =>
-                                $movement->product?->category?->name
-                                ?? '-',
 
-                            'unit' =>
-                                $movement->product?->unit?->name
-                                ?? '-',
+        /*
+        |--------------------------------------------------------------------------
+        | Quantity
+        |--------------------------------------------------------------------------
+        */
 
-                        ],
+        'quantity' =>
+            (float) (
+                $movement->quantity
+                ?? 0
+            ),
 
-                        'quantity' =>
-                            $movement->quantity,
 
-                        'movement_type' =>
-                            $movement->movement_type,
+        /*
+        |--------------------------------------------------------------------------
+        | Balance After
+        |--------------------------------------------------------------------------
+        */
 
-                        'remarks' =>
-                            $movement->remarks,
+        'balance_after' =>
+            (float) (
+                $movement->balance_after
+                ?? 0
+            ),
 
-                    ];
 
-                }
-            )
-            ->values(),
+        /*
+        |--------------------------------------------------------------------------
+        | Unit Cost
+        |--------------------------------------------------------------------------
+        */
+
+        'unit_cost' =>
+            (float) (
+                $movement->unit_cost
+                ?? 0
+            ),
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Remarks
+        |--------------------------------------------------------------------------
+        */
+
+        'remarks' =>
+            $movement->remarks
+            ?? '',
 
     ];
 

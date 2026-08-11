@@ -555,6 +555,7 @@
 
 </div>
 
+@include('stock-transfer.movement.partials.inspector')
 
 {{-- ==========================================================
     STOCK MOVEMENT CONFIG
@@ -571,11 +572,11 @@
                 )
             ),
 
-        detailsUrl:
+         detailsUrl:
             @json(
                 route(
                     'stock-transfer.stock-movement.details',
-                    ':reference'
+                    ':id'
                 )
             ),
 

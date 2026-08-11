@@ -9,7 +9,10 @@ STOCK MOVEMENT INSPECTOR
     aria-labelledby="stockMovementInspectorLabel"
 >
 
-```
+{{-- ======================================================
+    HEADER
+======================================================= --}}
+
 <div class="offcanvas-header">
 
     <div>
@@ -43,7 +46,9 @@ STOCK MOVEMENT INSPECTOR
 
 <div class="offcanvas-body">
 
-    {{-- Loading --}}
+    {{-- ==================================================
+        LOADING
+    =================================================== --}}
 
     <div
         id="stockMovementInspectorLoading"
@@ -62,11 +67,44 @@ STOCK MOVEMENT INSPECTOR
     </div>
 
 
-    {{-- Content --}}
+    {{-- ==================================================
+        ERROR
+    =================================================== --}}
+
+    <div
+        id="stockMovementInspectorError"
+        class="text-center py-5 d-none"
+    >
+
+        <div class="text-danger fs-2 mb-3">
+
+            <i class="bi bi-exclamation-circle"></i>
+
+        </div>
+
+        <h6>
+            Unable to Load Movement
+        </h6>
+
+        <p
+            class="text-muted small mb-0"
+            id="stockMovementInspectorErrorMessage"
+        >
+            Unable to load movement details.
+        </p>
+
+    </div>
+
+
+    {{-- ==================================================
+        CONTENT
+    =================================================== --}}
 
     <div id="stockMovementInspectorContent">
 
-        {{-- Movement Summary --}}
+        {{-- ==================================================
+            MOVEMENT SUMMARY
+        =================================================== --}}
 
         <div class="mb-4">
 
@@ -80,6 +118,7 @@ STOCK MOVEMENT INSPECTOR
                     <i class="bi bi-arrow-left-right"></i>
 
                 </div>
+
 
                 <div>
 
@@ -104,50 +143,260 @@ STOCK MOVEMENT INSPECTOR
         </div>
 
 
-        {{-- Product --}}
+        {{-- ==================================================
+            TRANSFER ROUTE
+        =================================================== --}}
+
+        <div
+            id="stockMovementTransferRoute"
+            class="mb-4 d-none"
+        >
+
+            <div class="card border-0 bg-light">
+
+                <div class="card-body">
+
+                    {{-- FROM --}}
+
+                    <div class="mb-3">
+
+                        <small
+                            class="text-muted d-block mb-1"
+                        >
+                            From
+                        </small>
+
+                        <div
+                            class="d-flex align-items-center gap-2"
+                        >
+
+                            <span class="text-primary">
+
+                                <i class="bi bi-building"></i>
+
+                            </span>
+
+                            <strong
+                                id="stockMovementInspectorSourceBranch"
+                            >
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- ROUTE ARROW --}}
+
+                    <div
+                        class="d-flex align-items-center gap-2 text-muted my-2"
+                    >
+
+                        <div
+                            style="
+                                width: 1px;
+                                height: 20px;
+                                background: #d1d5db;
+                                margin-left: 5px;
+                            "
+                        ></div>
+
+                        <i class="bi bi-arrow-down"></i>
+
+                    </div>
+
+
+                    {{-- TO --}}
+
+                    <div>
+
+                        <small
+                            class="text-muted d-block mb-1"
+                        >
+                            To
+                        </small>
+
+                        <div
+                            class="d-flex align-items-center gap-2"
+                        >
+
+                            <span class="text-success">
+
+                                <i class="bi bi-building"></i>
+
+                            </span>
+
+                            <strong
+                                id="stockMovementInspectorDestinationBranch"
+                            >
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {{-- ==================================================
+            NORMAL BRANCH
+        =================================================== --}}
+
+        <div
+            id="stockMovementInspectorBranchSection"
+            class="mb-3"
+        >
+
+            <small
+                class="text-muted d-block mb-1"
+            >
+                Branch
+            </small>
+
+            <div
+                class="d-flex align-items-center gap-2"
+            >
+
+                <span class="text-primary">
+
+                    <i class="bi bi-building"></i>
+
+                </span>
+
+                <strong
+                    id="stockMovementInspectorBranch"
+                >
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        {{-- ==================================================
+            PRODUCT
+        =================================================== --}}
 
         <div class="card border-0 bg-light mb-3">
 
             <div class="card-body">
 
-                <small class="text-muted d-block mb-1">
-                    Product
-                </small>
-
-                <strong
-                    id="stockMovementInspectorProduct"
+                <div
+                    class="d-flex align-items-start gap-3"
                 >
-                    -
-                </strong>
 
-                <small
-                    class="text-muted d-block mt-1"
-                    id="stockMovementInspectorSku"
+                    <div
+                        class="st-history-header-icon"
+                    >
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </div>
+
+
+                    <div class="flex-grow-1">
+
+                        <small
+                            class="text-muted d-block mb-1"
+                        >
+                            Product
+                        </small>
+
+                        <strong
+                            id="stockMovementInspectorProduct"
+                            class="d-block"
+                        >
+                            -
+                        </strong>
+
+                        <small
+                            class="text-muted d-block mt-1"
+                            id="stockMovementInspectorSku"
+                        >
+                            -
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="row g-3 mt-2"
                 >
-                    -
-                </small>
+
+                    <div class="col-6">
+
+                        <small
+                            class="text-muted d-block"
+                        >
+                            Category
+                        </small>
+
+                        <span
+                            id="stockMovementInspectorCategory"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-6">
+
+                        <small
+                            class="text-muted d-block"
+                        >
+                            Unit
+                        </small>
+
+                        <span
+                            id="stockMovementInspectorUnit"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
 
-        {{-- Movement Information --}}
+        {{-- ==================================================
+            MOVEMENT VALUES
+        =================================================== --}}
 
         <div class="row g-3 mb-3">
 
+            {{-- QUANTITY --}}
+
             <div class="col-6">
 
-                <div class="card border-0 bg-light h-100">
+                <div
+                    class="card border-0 bg-light h-100"
+                >
 
                     <div class="card-body">
 
-                        <small class="text-muted d-block">
+                        <small
+                            class="text-muted d-block mb-1"
+                        >
                             Quantity
                         </small>
 
                         <strong
                             id="stockMovementInspectorQuantity"
+                            class="fs-5"
                         >
                             -
                         </strong>
@@ -159,18 +408,25 @@ STOCK MOVEMENT INSPECTOR
             </div>
 
 
+            {{-- BALANCE AFTER --}}
+
             <div class="col-6">
 
-                <div class="card border-0 bg-light h-100">
+                <div
+                    class="card border-0 bg-light h-100"
+                >
 
                     <div class="card-body">
 
-                        <small class="text-muted d-block">
+                        <small
+                            class="text-muted d-block mb-1"
+                        >
                             Balance After
                         </small>
 
                         <strong
                             id="stockMovementInspectorBalance"
+                            class="fs-5"
                         >
                             -
                         </strong>
@@ -184,62 +440,79 @@ STOCK MOVEMENT INSPECTOR
         </div>
 
 
-        {{-- Branch --}}
+        {{-- ==================================================
+            UNIT COST
+        =================================================== --}}
 
-        <div class="mb-3">
+        <div class="card border-0 bg-light mb-3">
 
-            <small class="text-muted d-block mb-1">
-                Branch
-            </small>
+            <div class="card-body">
 
-            <strong
-                id="stockMovementInspectorBranch"
-            >
-                -
-            </strong>
+                <small
+                    class="text-muted d-block mb-1"
+                >
+                    Unit Cost
+                </small>
 
-        </div>
+                <strong
+                    id="stockMovementInspectorUnitCost"
+                >
+                    -
+                </strong>
 
-
-        {{-- Unit Cost --}}
-
-        <div class="mb-3">
-
-            <small class="text-muted d-block mb-1">
-                Unit Cost
-            </small>
-
-            <strong
-                id="stockMovementInspectorUnitCost"
-            >
-                -
-            </strong>
+            </div>
 
         </div>
 
 
-        {{-- Created By --}}
+        {{-- ==================================================
+            CREATED BY
+        =================================================== --}}
 
         <div class="mb-3">
 
-            <small class="text-muted d-block mb-1">
+            <small
+                class="text-muted d-block mb-1"
+            >
                 Created By
             </small>
 
-            <strong
-                id="stockMovementInspectorCreatedBy"
+            <div
+                class="d-flex align-items-center gap-2"
             >
-                -
-            </strong>
+
+                <span
+                    class="rounded-circle bg-light d-flex align-items-center justify-content-center"
+                    style="
+                        width: 32px;
+                        height: 32px;
+                    "
+                >
+
+                    <i class="bi bi-person"></i>
+
+                </span>
+
+                <strong
+                    id="stockMovementInspectorCreatedBy"
+                >
+                    -
+                </strong>
+
+            </div>
 
         </div>
 
 
-        {{-- Remarks --}}
+        {{-- ==================================================
+            REMARKS
+        =================================================== --}}
 
         <div class="mb-3">
 
-            <small class="text-muted d-block mb-1">
+            <small
+                class="text-muted d-block mb-1"
+            >
                 Remarks
             </small>
 
@@ -255,6 +528,6 @@ STOCK MOVEMENT INSPECTOR
     </div>
 
 </div>
-```
+
 
 </div>

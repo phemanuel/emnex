@@ -82,7 +82,126 @@ const StockMovement = {
                     'stockMovementSearch'
                 ),
 
+            /*
+            |--------------------------------------------------------------------------
+            | Inspector
+            |--------------------------------------------------------------------------
+            */
 
+            inspector:
+                document.getElementById(
+                    'stockMovementInspector'
+                ),
+
+            inspectorLoading:
+                document.getElementById(
+                    'stockMovementInspectorLoading'
+                ),
+
+            inspectorContent:
+                document.getElementById(
+                    'stockMovementInspectorContent'
+                ),
+
+            inspectorError:
+                document.getElementById(
+                    'stockMovementInspectorError'
+                ),
+
+            inspectorErrorMessage:
+                document.getElementById(
+                    'stockMovementInspectorErrorMessage'
+                ),
+
+            inspectorReference:
+                document.getElementById(
+                    'stockMovementInspectorReference'
+                ),
+
+            inspectorIcon:
+                document.getElementById(
+                    'stockMovementInspectorIcon'
+                ),
+
+            inspectorType:
+                document.getElementById(
+                    'stockMovementInspectorType'
+                ),
+
+            inspectorDate:
+                document.getElementById(
+                    'stockMovementInspectorDate'
+                ),
+
+            inspectorTransferRoute:
+                document.getElementById(
+                    'stockMovementTransferRoute'
+                ),
+
+            inspectorSourceBranch:
+                document.getElementById(
+                    'stockMovementInspectorSourceBranch'
+                ),
+
+            inspectorDestinationBranch:
+                document.getElementById(
+                    'stockMovementInspectorDestinationBranch'
+                ),
+
+            inspectorBranchSection:
+                document.getElementById(
+                    'stockMovementInspectorBranchSection'
+                ),
+
+            inspectorBranch:
+                document.getElementById(
+                    'stockMovementInspectorBranch'
+                ),
+
+            inspectorProduct:
+                document.getElementById(
+                    'stockMovementInspectorProduct'
+                ),
+
+            inspectorSku:
+                document.getElementById(
+                    'stockMovementInspectorSku'
+                ),
+
+            inspectorCategory:
+                document.getElementById(
+                    'stockMovementInspectorCategory'
+                ),
+
+            inspectorUnit:
+                document.getElementById(
+                    'stockMovementInspectorUnit'
+                ),
+
+            inspectorQuantity:
+                document.getElementById(
+                    'stockMovementInspectorQuantity'
+                ),
+
+            inspectorBalance:
+                document.getElementById(
+                    'stockMovementInspectorBalance'
+                ),
+
+            inspectorUnitCost:
+                document.getElementById(
+                    'stockMovementInspectorUnitCost'
+                ),
+
+            inspectorCreatedBy:
+                document.getElementById(
+                    'stockMovementInspectorCreatedBy'
+                ),
+
+            inspectorRemarks:
+                document.getElementById(
+                    'stockMovementInspectorRemarks'
+                ),
             /*
             |--------------------------------------------------------------------------
             | Movement Type
@@ -253,42 +372,46 @@ const StockMovement = {
         |--------------------------------------------------------------------------
         */
 
-        this.elements.tableBody
-            ?.addEventListener(
-                'click',
-                (event) => {
+       this.elements.tableBody?.addEventListener(
+            'click',
+            (event) => {
 
-                    const button =
-                        event.target.closest(
-                            '[data-reference]'
-                        );
-
-
-                    if (!button) {
-
-                        return;
-
-                    }
-
-
-                    const reference =
-                        button.dataset.reference;
-
-
-                    if (!reference) {
-
-                        return;
-
-                    }
-
-
-                    this.openInspector(
-                        reference
+                const button =
+                    event.target.closest(
+                        '.st-history-view-btn'
                     );
 
-                }
-            );
 
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                const movementId =
+                    button.getAttribute(
+                        'data-movement-id'
+                    );
+
+
+                if (!movementId) {
+
+                    console.warn(
+                        'Stock movement ID is missing.'
+                    );
+
+                    return;
+
+                }
+
+
+                this.openInspector(
+                    movementId
+                );
+
+            }
+        );
 
         /*
         |--------------------------------------------------------------------------
@@ -375,7 +498,7 @@ const StockMovement = {
             true;
 
 
-        this.showLoading();
+        this.showInspectorLoading();
 
 
         try {
@@ -800,16 +923,11 @@ const StockMovement = {
                             <button
                                 type="button"
                                 class="btn btn-sm st-history-view-btn"
-                                data-reference="${this.escapeHtml(
-                                    reference
-                                )}"
+                                data-movement-id="${movement.id}"
                             >
-
                                 <i class="bi bi-eye me-1"></i>
-
                                 View
-
-                            </button>
+                            </button>                                
 
                         </td>
 
@@ -1023,162 +1141,962 @@ const StockMovement = {
     },
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Open Inspector
-    |--------------------------------------------------------------------------
-    */
 
-    async openInspector(
-        reference
+/*
+|--------------------------------------------------------------------------
+| Open Inspector
+|--------------------------------------------------------------------------
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Open Inspector
+|--------------------------------------------------------------------------
+*/
+
+async openInspector(id) {
+
+    if (!id) {
+
+        console.warn(
+            'Stock movement ID is missing.'
+        );
+
+        return;
+
+    }
+
+
+    const detailsUrl =
+        window.STOCK_MOVEMENT?.detailsUrl;
+
+
+    if (!detailsUrl) {
+
+        console.error(
+            'Stock movement details URL is not configured.'
+        );
+
+        return;
+
+    }
+
+
+    const url =
+        detailsUrl.replace(
+            ':id',
+            encodeURIComponent(
+                id
+            )
+        );
+
+
+    this.showInspectorLoading();
+
+
+    const offcanvasElement =
+        this.elements.inspector;
+
+
+    if (!offcanvasElement) {
+
+        console.error(
+            'Stock movement inspector was not found.'
+        );
+
+        return;
+
+    }
+
+
+    const offcanvas =
+        bootstrap.Offcanvas.getOrCreateInstance(
+            offcanvasElement
+        );
+
+
+    offcanvas.show();
+
+
+    try {
+
+        const response =
+            await fetch(
+                url,
+                {
+
+                    method: 'GET',
+
+                    headers: {
+
+                        'X-Requested-With':
+                            'XMLHttpRequest',
+
+                        'Accept':
+                            'application/json',
+
+                    },
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            ! response.ok ||
+            ! data.status
+        ) {
+
+            throw new Error(
+                data.message ||
+                'Unable to load stock movement details.'
+            );
+
+        }
+
+
+        this.populateInspector(
+            data.data
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            'Stock movement inspector error:',
+            error
+        );
+
+
+        this.showInspectorError(
+            error.message ||
+            'Unable to load stock movement details.'
+        );
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Populate Inspector
+|--------------------------------------------------------------------------
+*/
+
+populateInspector(
+    movement
+) {
+
+    if (!movement) {
+
+        return;
+
+    }
+
+
+    if (this.elements.inspectorReference) {
+
+        this.elements.inspectorReference.textContent =
+            movement.reference_no ||
+            '-';
+
+    }
+
+
+    if (this.elements.inspectorType) {
+
+        this.elements.inspectorType.textContent =
+            movement.movement_type ||
+            '-';
+
+    }
+
+
+    if (this.elements.inspectorDate) {
+
+        this.elements.inspectorDate.textContent =
+            movement.created_at_formatted ||
+            movement.created_at ||
+            '-';
+
+    }
+
+
+    if (this.elements.inspectorProduct) {
+
+        this.elements.inspectorProduct.textContent =
+            movement.product?.name ||
+            movement.product_name ||
+            '-';
+
+    }
+
+
+    if (this.elements.inspectorSku) {
+
+        this.elements.inspectorSku.textContent =
+            movement.product?.sku ||
+            movement.sku ||
+            '-';
+
+    }
+
+
+    if (this.elements.inspectorQuantity) {
+
+        this.elements.inspectorQuantity.textContent =
+            this.formatNumber(
+                movement.quantity
+            );
+
+    }
+
+
+    if (this.elements.inspectorBalance) {
+
+        this.elements.inspectorBalance.textContent =
+            this.formatNumber(
+                movement.balance_after
+            );
+
+    }
+
+
+    if (this.elements.inspectorBranch) {
+
+        this.elements.inspectorBranch.textContent =
+            movement.branch?.name ||
+            movement.branch_name ||
+            '-';
+
+    }
+
+
+    if (this.elements.inspectorUnitCost) {
+
+        this.elements.inspectorUnitCost.textContent =
+            this.formatNumber(
+                movement.unit_cost
+            );
+
+    }
+
+
+    if (this.elements.inspectorCreatedBy) {
+
+        this.elements.inspectorCreatedBy.textContent =
+            movement.created_by?.name ||
+            movement.created_by_name ||
+            '-';
+
+    }
+
+
+    if (this.elements.inspectorRemarks) {
+
+        this.elements.inspectorRemarks.textContent =
+            movement.remarks ||
+            '-';
+
+    }
+
+
+    if (this.elements.inspectorIcon) {
+
+        const icon =
+            this.getMovementIcon(
+                movement.movement_type
+            );
+
+
+        this.elements.inspectorIcon.innerHTML =
+            `<i class="bi ${icon}"></i>`;
+
+    }
+
+},
+
+
+/*
+|--------------------------------------------------------------------------
+| Movement Icon
+|--------------------------------------------------------------------------
+*/
+
+getMovementIcon(
+    movementType
+) {
+
+    switch (
+        String(
+            movementType || ''
+        ).toLowerCase()
     ) {
 
-        if (!reference) {
+        case 'transfer':
 
-            return;
-
-        }
+            return 'bi-arrow-left-right';
 
 
-        const detailsUrl =
-            window.STOCK_MOVEMENT
-                ?.detailsUrl;
+        case 'adjustment':
+
+            return 'bi-sliders';
 
 
-        if (!detailsUrl) {
+        case 'purchase':
 
-            console.warn(
-                'Stock movement details URL is not configured.'
-            );
-
-            return;
-
-        }
+            return 'bi-cart-plus';
 
 
-        const url =
-            detailsUrl.replace(
-                ':reference',
-                encodeURIComponent(
-                    reference
-                )
-            );
+        case 'sale':
+
+            return 'bi-cart-dash';
 
 
-        try {
+        case 'return':
 
-            const response =
-                await fetch(
-                    url,
-                    {
-
-                        method: 'GET',
-
-                        headers: {
-
-                            'X-Requested-With':
-                                'XMLHttpRequest',
-
-                            'Accept':
-                                'application/json',
-
-                        },
-
-                    }
-                );
+            return 'bi-arrow-return-left';
 
 
-            const data =
-                await response.json();
+        case 'opening':
+
+            return 'bi-box-arrow-in-down';
 
 
-            if (
-                !response.ok ||
-                !data.status
-            ) {
+        case 'count':
 
-                throw new Error(
-                    data.message ||
-                    'Unable to load movement details.'
-                );
-
-            }
+            return 'bi-clipboard-check';
 
 
-            console.log(
-                'Stock movement details:',
-                data.data
-            );
+        default:
 
-        }
-        catch (error) {
+            return 'bi-box-seam';
 
-            console.error(
-                'Stock movement details error:',
-                error
-            );
+    }
 
-        }
+},
 
-    },
+
+
+   /*
+|--------------------------------------------------------------------------
+| Show Inspector Loading
+|--------------------------------------------------------------------------
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Inspector Loading
+|--------------------------------------------------------------------------
+*/
+
+showInspectorLoading() {
+
+    if (
+        this.elements.inspectorLoading
+    ) {
+
+        this.elements.inspectorLoading
+            .classList
+            .remove('d-none');
+
+    }
+
+
+    if (
+        this.elements.inspectorContent
+    ) {
+
+        this.elements.inspectorContent
+            .classList
+            .add('d-none');
+
+    }
+
+
+    if (
+        this.elements.inspectorError
+    ) {
+
+        this.elements.inspectorError
+            .classList
+            .add('d-none');
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Inspector Error
+|--------------------------------------------------------------------------
+*/
+
+showInspectorError(
+    message
+) {
+
+    if (
+        this.elements.inspectorLoading
+    ) {
+
+        this.elements.inspectorLoading
+            .classList
+            .add('d-none');
+
+    }
+
+
+    if (
+        this.elements.inspectorContent
+    ) {
+
+        this.elements.inspectorContent
+            .classList
+            .add('d-none');
+
+    }
+
+
+    if (
+        this.elements.inspectorError
+    ) {
+
+        this.elements.inspectorError
+            .classList
+            .remove('d-none');
+
+    }
+
+
+    if (
+        this.elements.inspectorErrorMessage
+    ) {
+
+        this.elements.inspectorErrorMessage
+            .textContent =
+                message ||
+                'Unable to load movement details.';
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Hide Inspector Loading
+|--------------------------------------------------------------------------
+*/
+
+hideInspectorLoading() {
+
+    if (this.elements.inspectorLoading) {
+
+        this.elements.inspectorLoading.classList.add(
+            'd-none'
+        );
+
+    }
+
+
+    if (this.elements.inspectorContent) {
+
+        this.elements.inspectorContent.classList.remove(
+            'd-none'
+        );
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Inspector Content
+|--------------------------------------------------------------------------
+*/
+
+showInspectorContent() {
+
+    if (
+        this.elements.inspectorLoading
+    ) {
+
+        this.elements.inspectorLoading
+            .classList
+            .add('d-none');
+
+    }
+
+
+    if (
+        this.elements.inspectorError
+    ) {
+
+        this.elements.inspectorError
+            .classList
+            .add('d-none');
+
+    }
+
+
+    if (
+        this.elements.inspectorContent
+    ) {
+
+        this.elements.inspectorContent
+            .classList
+            .remove('d-none');
+
+    }
+
+},
+
+
+/*
+|--------------------------------------------------------------------------
+| Populate Inspector
+|--------------------------------------------------------------------------
+*/
+
+populateInspector(
+    movement
+) {
+
+    if (! movement) {
+
+        this.showInspectorError(
+            'Movement details are unavailable.'
+        );
+
+        return;
+
+    }
 
 
     /*
     |--------------------------------------------------------------------------
-    | Loading
+    | Basic Information
     |--------------------------------------------------------------------------
     */
 
-    showLoading() {
+    const movementType =
+        movement.movement_type ||
+        '-';
 
-        const tableBody =
-            this.elements.tableBody;
+
+    const reference =
+        movement.reference_no ||
+        '-';
 
 
-        if (!tableBody) {
+    /*
+    |--------------------------------------------------------------------------
+    | Reference
+    |--------------------------------------------------------------------------
+    */
 
-            return;
+    if (
+        this.elements.inspectorReference
+    ) {
+
+        this.elements.inspectorReference
+            .textContent =
+                reference;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Movement Type
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorType
+    ) {
+
+        this.elements.inspectorType
+            .textContent =
+                movementType;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Movement Icon
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorIcon
+    ) {
+
+        let icon =
+            'bi-arrow-left-right';
+
+
+        if (
+            movementType ===
+            'Transfer Out'
+        ) {
+
+            icon =
+                'bi-box-arrow-up-right';
+
+        }
+        else if (
+            movementType ===
+            'Transfer In'
+        ) {
+
+            icon =
+                'bi-box-arrow-in-down';
+
+        }
+        else if (
+            movementType
+                .toLowerCase()
+                .includes('adjust')
+        ) {
+
+            icon =
+                'bi-sliders';
+
+        }
+        else if (
+            movementType
+                .toLowerCase()
+                .includes('sale')
+        ) {
+
+            icon =
+                'bi-cart-check';
+
+        }
+        else if (
+            movementType
+                .toLowerCase()
+                .includes('purchase')
+        ) {
+
+            icon =
+                'bi-bag-check';
 
         }
 
 
-        tableBody.innerHTML = `
+        this.elements.inspectorIcon.innerHTML =
+            `<i class="bi ${icon}"></i>`;
 
-            <tr>
+    }
 
-                <td
-                    colspan="8"
-                    class="st-history-empty-cell"
-                >
 
-                    <div class="st-history-empty">
+    /*
+    |--------------------------------------------------------------------------
+    | Date
+    |--------------------------------------------------------------------------
+    */
 
-                        <div class="st-history-empty-icon">
+    if (
+        this.elements.inspectorDate
+    ) {
 
-                            <span
-                                class="spinner-border spinner-border-sm"
-                            ></span>
+        const formattedDate =
+            this.formatDate(
+                movement.created_at
+            );
 
-                        </div>
 
-                        <h6>
-                            Loading Stock Movements
-                        </h6>
+        this.elements.inspectorDate
+            .textContent =
+                formattedDate.date !== '-'
+                    ? `${formattedDate.date} ${formattedDate.time}`
+                    : '-';
 
-                        <p>
-                            Please wait...
-                        </p>
+    }
 
-                    </div>
 
-                </td>
+    /*
+    |--------------------------------------------------------------------------
+    | Transfer Route / Branch
+    |--------------------------------------------------------------------------
+    */
 
-            </tr>
+    const isTransfer =
+        [
+            'Transfer',
+            'Transfer In',
+            'Transfer Out',
+        ].includes(
+            movementType
+        );
 
-        `;
 
-    },
+    if (isTransfer) {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Show Transfer Route
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.inspectorTransferRoute
+            ?.classList
+            .remove('d-none');
+
+
+        this.elements.inspectorBranchSection
+            ?.classList
+            .add('d-none');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Source
+        |--------------------------------------------------------------------------
+        */
+
+        const source =
+            movement.source_branch?.name ||
+            '-';
+
+
+        if (
+            this.elements.inspectorSourceBranch
+        ) {
+
+            this.elements.inspectorSourceBranch
+                .textContent =
+                    source;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Destination
+        |--------------------------------------------------------------------------
+        */
+
+        const destination =
+            movement.destination_branch?.name ||
+            '-';
+
+
+        if (
+            this.elements.inspectorDestinationBranch
+        ) {
+
+            this.elements.inspectorDestinationBranch
+                .textContent =
+                    destination;
+
+        }
+
+    }
+    else {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Normal Branch
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.inspectorTransferRoute
+            ?.classList
+            .add('d-none');
+
+
+        this.elements.inspectorBranchSection
+            ?.classList
+            .remove('d-none');
+
+
+        if (
+            this.elements.inspectorBranch
+        ) {
+
+            this.elements.inspectorBranch
+                .textContent =
+                    movement.branch?.name ||
+                    '-';
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product
+    |--------------------------------------------------------------------------
+    */
+
+    const product =
+        movement.product ||
+        {};
+
+
+    if (
+        this.elements.inspectorProduct
+    ) {
+
+        this.elements.inspectorProduct
+            .textContent =
+                product.name ||
+                '-';
+
+    }
+
+
+    if (
+        this.elements.inspectorSku
+    ) {
+
+        this.elements.inspectorSku
+            .textContent =
+                product.sku
+                    ? `SKU: ${product.sku}`
+                    : '-';
+
+    }
+
+
+    if (
+        this.elements.inspectorCategory
+    ) {
+
+        this.elements.inspectorCategory
+            .textContent =
+                product.category ||
+                '-';
+
+    }
+
+
+    if (
+        this.elements.inspectorUnit
+    ) {
+
+        this.elements.inspectorUnit
+            .textContent =
+                product.unit ||
+                '-';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Quantity
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorQuantity
+    ) {
+
+        this.elements.inspectorQuantity
+            .textContent =
+                this.formatNumber(
+                    movement.quantity
+                );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Balance After
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorBalance
+    ) {
+
+        this.elements.inspectorBalance
+            .textContent =
+                this.formatNumber(
+                    movement.balance_after
+                );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Unit Cost
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorUnitCost
+    ) {
+
+        const unitCost =
+            parseFloat(
+                movement.unit_cost
+            ) || 0;
+
+
+        this.elements.inspectorUnitCost
+            .textContent =
+                `₦${this.formatNumber(unitCost)}`;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Created By
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorCreatedBy
+    ) {
+
+        this.elements.inspectorCreatedBy
+            .textContent =
+                movement.created_by?.name ||
+                'System';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Remarks
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorRemarks
+    ) {
+
+        this.elements.inspectorRemarks
+            .textContent =
+                movement.remarks ||
+                'No remarks provided.';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Show Content
+    |--------------------------------------------------------------------------
+    */
+
+    this.showInspectorContent();
+
+},
 
     /*
     |--------------------------------------------------------------------------

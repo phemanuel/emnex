@@ -366,13 +366,13 @@ Route::prefix('products')
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/stock-movement',[StockTransferController::class, 'stockMovement'])
+    Route::get('/stock-movement', 'stockMovement')
     ->name('stock-movement.index');
 
-    Route::get('/stock-movement/table',[StockTransferController::class, 'stockMovementTable'])
+    Route::get('/stock-movement/table', 'stockMovementTable')
     ->name('stock-movement.table');
 
-    Route::get('/stock-movement/{reference}',[StockTransferController::class, 'stockMovementDetails'])
+    Route::get('/stock-movement/{id}', 'stockMovementDetails')
     ->name('stock-movement.details');
 
 
