@@ -361,28 +361,98 @@ Route::prefix('products')
             ->name('transfer');  
             
         /*
-    |--------------------------------------------------------------------------
-    | Stock Movement Routes
-    |--------------------------------------------------------------------------
-    */
+        |--------------------------------------------------------------------------
+        | Stock Movement Routes
+        |--------------------------------------------------------------------------
+        */
 
-    Route::get('/stock-movement', 'stockMovement')
-    ->name('stock-movement.index');
+        Route::get('/stock-movement', 'stockMovement')
+        ->name('stock-movement.index');
 
-    Route::get('/stock-movement/table', 'stockMovementTable')
-    ->name('stock-movement.table');
+        Route::get('/stock-movement/table', 'stockMovementTable')
+        ->name('stock-movement.table');
 
-    Route::get('/stock-movement/{id}', 'stockMovementDetails')
-    ->name('stock-movement.details');
+        Route::get('/stock-movement/{id}', 'stockMovementDetails')
+        ->name('stock-movement.details');
+
+        });  
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Count
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/stock-count',
+            [StockCountController::class, 'index']
+        )->name('stock-count.index');
 
 
-    });  
+        Route::get(
+            '/stock-count/table',
+            [StockCountController::class, 'table']
+        )->name('stock-count.table');
 
+
+        Route::get(
+            '/stock-count/{id}',
+            [StockCountController::class, 'details']
+        )->name('stock-count.details');
+
+
+        Route::post(
+            '/stock-count',
+            [StockCountController::class, 'store']
+        )->name('stock-count.store');
+
+
+        Route::put(
+            '/stock-count/{id}',
+            [StockCountController::class, 'update']
+        )->name('stock-count.update');
+
+
+        Route::delete(
+            '/stock-count/{id}',
+            [StockCountController::class, 'destroy']
+        )->name('stock-count.destroy');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Count Workflow
+        |--------------------------------------------------------------------------
+        */
+
+        Route::post(
+            '/stock-count/{id}/start',
+            [StockCountController::class, 'start']
+        )->name('stock-count.start');
+
+
+        Route::get(
+            '/stock-count/{id}/items',
+            [StockCountController::class, 'items']
+        )->name('stock-count.items');
+
+
+        Route::post(
+            '/stock-count/{id}/items',
+            [StockCountController::class, 'saveItems']
+        )->name('stock-count.items.save');
+
+
+        Route::post(
+            '/stock-count/{id}/complete',
+            [StockCountController::class, 'complete']
+        )->name('stock-count.complete');
+            
+        
     
-    Route::resource('stock-counts', StockCountController::class);
 
-    Route::resource('low-stock', LowStockController::class)
-        ->only(['index']);
+        Route::resource('low-stock', LowStockController::class)
+            ->only(['index']);
 
 
 

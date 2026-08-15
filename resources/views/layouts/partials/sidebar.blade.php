@@ -109,7 +109,7 @@
             request()->routeIs(
                 'stock.*',
                 'stock-transfer.*',
-                'stock-counts.*',
+                'stock-count.*',
                 'low-stock.*'
             );
 
@@ -747,8 +747,8 @@
                     @if(canAccess('inventory.stock_count'))
 
                         <a
-                            href="{{ route('stock-counts.index') }}"
-                            class="{{ request()->routeIs('stock-counts.*') ? 'active' : '' }}"
+                            href="{{ route('stock-count.index') }}"
+                            class="{{ request()->routeIs('stock-count.*') ? 'active' : '' }}"
                         >
 
                             <span class="sub-icon">

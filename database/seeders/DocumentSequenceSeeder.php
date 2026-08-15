@@ -33,6 +33,8 @@ class DocumentSequenceSeeder extends Seeder
             ['document_type' => 'sales_return',     'prefix' => 'SRN'],
             ['document_type' => 'stock_movement',   'prefix' => 'STM'],
             ['document_type' => 'stock_adjustment', 'prefix' => 'ADJ'],
+            ['document_type' => 'stock_transfer',   'prefix' => 'ST'],
+            ['document_type' => 'stock_count',      'prefix' => 'SC'], 
             ['document_type' => 'expense',          'prefix' => 'EXP'],
             ['document_type' => 'unit',             'prefix' => 'UNT'],
             ['document_type' => 'tax',              'prefix' => 'TAX'],
