@@ -571,6 +571,14 @@
                 )
             ),
 
+        completeUrl:
+            @json(
+                route(
+                    'stock-count.complete',
+                    ':id'
+                )
+            ),
+
     };
 
 </script>
@@ -580,6 +588,8 @@
 @include('stock-count.modals.modal')
 
 @include('stock-count.modals.count')
+
+@include('stock-count.modals.complete')
 
 @include('stock-count.modals.delete')
 

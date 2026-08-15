@@ -336,7 +336,7 @@ Route::prefix('products')
         ->name('products');
 
         Route::get('/adjustment-filters','adjustmentFilters')
-        ->name('stock.adjustment.filters');
+        ->name('stock.adjustment.filters');       
 
     });    
 
@@ -448,12 +448,16 @@ Route::prefix('products')
             [StockCountController::class, 'complete']
         )->name('stock-count.complete');
             
+         // Low stock routes----------------------------------------
         
-    
+        Route::get('/low-stock',[LowStockController::class, 'index'])
+            ->name('low-stock.index');
 
-        Route::resource('low-stock', LowStockController::class)
-            ->only(['index']);
+        Route::get('/low-stock/table', [LowStockController::class, 'table'])
+            ->name('low-stock.table');
 
+        Route::get('/low-stock/{id}/details', [LowStockController::class, 'details'])
+            ->name('low-stock.details');
 
 
     /*

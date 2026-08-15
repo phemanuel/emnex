@@ -59,6 +59,8 @@ const StockCount = {
 
         countingStartedAt:  null,
 
+        countingId: null,
+
     },
 
 
@@ -358,6 +360,37 @@ const StockCount = {
                     'stockCountDeleteIcon'
                 ),
 
+            /*
+            |--------------------------------------------------------------------------
+            | Complete
+            |--------------------------------------------------------------------------
+            */
+
+            completeButton:
+                document.getElementById(
+                    'stockCountCompleteButton'
+                ),
+
+            completeModal:
+                document.getElementById(
+                    'stockCountCompleteModal'
+                ),
+
+            confirmComplete:
+                document.getElementById(
+                    'confirmStockCountComplete'
+                ),
+
+            completeSpinner:
+                document.getElementById(
+                    'stockCountCompleteSpinner'
+                ),
+
+            completeIcon:
+                document.getElementById(
+                    'stockCountCompleteIcon'
+                ),
+
 
             /*
             |--------------------------------------------------------------------------
@@ -601,6 +634,24 @@ const StockCount = {
 
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Complete Modal
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.completeModal
+            && window.bootstrap
+        ) {
+
+            this.components.completeModal =
+                bootstrap.Modal.getOrCreateInstance(
+                    this.elements.completeModal
+                );
+
+        }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -801,6 +852,35 @@ const StockCount = {
             this.elements.confirmDelete.addEventListener(
                 'click',
                 () => this.deleteStockCount()
+            );
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Complete Counting
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.elements.completeButton) {
+
+            this.elements.completeButton.addEventListener(
+                'click',
+                () => {
+
+                    this.components.completeModal?.show();
+
+                }
+            );
+
+        }
+
+
+        if (this.elements.confirmComplete) {
+
+            this.elements.confirmComplete.addEventListener(
+                'click',
+                () => this.completeCounting()
             );
 
         }
@@ -2017,6 +2097,8 @@ const StockCount = {
     },
 
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Open Edit Modal
@@ -2858,127 +2940,208 @@ const StockCount = {
 
 
     /*
+|--------------------------------------------------------------------------
+| Render Inspector Items
+|--------------------------------------------------------------------------
+*/
+
+renderInspectorItems(items) {
+
+    if (! this.elements.inspectorItems) {
+        return;
+    }
+
+
+    this.elements.inspectorItems.innerHTML =
+        '';
+
+
+    /*
     |--------------------------------------------------------------------------
-    | Render Inspector Items
+    | Badge
     |--------------------------------------------------------------------------
     */
 
-    renderInspectorItems(items) {
+    if (this.elements.inspectorItemsBadge) {
 
-        if (! this.elements.inspectorItems) {
-            return;
-        }
+        this.elements.inspectorItemsBadge.textContent =
+            items.length;
 
-
-        this.elements.inspectorItems.innerHTML =
-            '';
+    }
 
 
-        if (
-            this.elements.inspectorItemsBadge
-        ) {
+    /*
+    |--------------------------------------------------------------------------
+    | Empty
+    |--------------------------------------------------------------------------
+    */
 
-            this.elements.inspectorItemsBadge.textContent =
-                items.length;
+    if (! items.length) {
 
-        }
+        this.elements.inspectorItems.innerHTML = `
 
+            <div class="stock-count-inspector-empty">
 
-        if (! items.length) {
+                <div class="stock-count-inspector-empty-icon">
 
-            this.elements.inspectorItems.innerHTML = `
-
-                <div class="text-center py-4">
-
-                    <div class="stock-count-state-icon mb-2">
-
-                        <i class="bi bi-box-seam"></i>
-
-                    </div>
-
-                    <div class="fw-semibold">
-                        No Count Items
-                    </div>
-
-                    <div class="small text-muted">
-                        No products have been added to this count yet.
-                    </div>
+                    <i class="bi bi-box-seam"></i>
 
                 </div>
 
-            `;
+                <div class="fw-semibold">
+                    No Count Items
+                </div>
 
-            return;
+                <div class="small text-muted">
+                    No products have been added to this count yet.
+                </div>
 
-        }
+            </div>
 
+        `;
 
-        items.forEach(
-            item => {
+        return;
 
-                const product =
-                    item.product || {};
-
-
-                const variance =
-                    Number(
-                        item.variance || 0
-                    );
+    }
 
 
-                const varianceValue =
-                    Number(
-                        item.variance_value || 0
-                    );
+    /*
+    |--------------------------------------------------------------------------
+    | Items
+    |--------------------------------------------------------------------------
+    */
+
+    items.forEach(
+        item => {
+
+            const product =
+                item.product || {};
 
 
-                const varianceClass =
-                    variance > 0
-                        ? 'text-success'
-                        : (
-                            variance < 0
-                                ? 'text-danger'
-                                : 'text-muted'
-                        );
+            const variance =
+                Number(
+                    item.variance || 0
+                );
 
 
-                const varianceIcon =
-                    variance > 0
-                        ? 'bi-arrow-up'
-                        : (
-                            variance < 0
-                                ? 'bi-arrow-down'
-                                : 'bi-dash'
-                        );
+            const varianceValue =
+                Number(
+                    item.variance_value || 0
+                );
 
 
-                const wrapper =
-                    document.createElement(
-                        'div'
-                    );
+            /*
+            |--------------------------------------------------------------------------
+            | Variance Styling
+            |--------------------------------------------------------------------------
+            */
+
+            let varianceClass =
+                'stock-count-variance-neutral';
 
 
-                wrapper.className =
-                    'stock-count-inspector-item';
+            let varianceIcon =
+                'bi-dash';
 
 
-                wrapper.innerHTML = `
-
-                    <div class="d-flex justify-content-between gap-3">
-
-                        <div class="min-width-0">
-
-                            <div class="fw-semibold text-truncate">
-
-                                ${this.escapeHtml(
-                                    product.name
-                                    || 'Deleted Product'
-                                )}
-
-                            </div>
+            let varianceLabel =
+                'No Variance';
 
 
-                            <div class="small text-muted">
+            if (variance > 0) {
+
+                varianceClass =
+                    'stock-count-variance-positive';
+
+                varianceIcon =
+                    'bi-arrow-up';
+
+                varianceLabel =
+                    'Over';
+
+            } else if (variance < 0) {
+
+                varianceClass =
+                    'stock-count-variance-negative';
+
+                varianceIcon =
+                    'bi-arrow-down';
+
+                varianceLabel =
+                    'Short';
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Product Initial
+            |--------------------------------------------------------------------------
+            */
+
+            const productName =
+                product.name
+                || 'Deleted Product';
+
+
+            const productInitial =
+                productName
+                    .charAt(0)
+                    .toUpperCase();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Wrapper
+            |--------------------------------------------------------------------------
+            */
+
+            const wrapper =
+                document.createElement(
+                    'div'
+                );
+
+
+            wrapper.className =
+                'stock-count-inspector-item';
+
+
+            wrapper.innerHTML = `
+
+                
+
+                <div class="stock-count-inspector-item-header">
+
+                    <div
+                        class="stock-count-product-avatar"
+                    >
+
+                        ${this.escapeHtml(
+                            productInitial
+                        )}
+
+                    </div>
+
+
+                    <div class="stock-count-product-info">
+
+                        <div
+                            class="stock-count-product-name"
+                            title="${this.escapeHtml(
+                                productName
+                            )}"
+                        >
+
+                            ${this.escapeHtml(
+                                productName
+                            )}
+
+                        </div>
+
+
+                        <div class="stock-count-product-meta">
+
+                            <span>
 
                                 ${this.escapeHtml(
                                     product.sku
@@ -2986,111 +3149,118 @@ const StockCount = {
                                     || '—'
                                 )}
 
-                                ${
-                                    product.category
-                                        ? ` · ${this.escapeHtml(
-                                            product.category
-                                        )}`
-                                        : ''
-                                }
-
-                            </div>
-
-                        </div>
+                            </span>
 
 
-                        <div class="text-end">
+                            ${
+                                product.category
+                                    ? `
 
-                            <div class="small text-muted">
-                                Variance
-                            </div>
+                                        <span class="stock-count-meta-separator">
+                                            ·
+                                        </span>
 
-                            <div class="fw-semibold ${varianceClass}">
+                                        <span>
+                                            ${this.escapeHtml(
+                                                product.category
+                                            )}
+                                        </span>
 
-                                <i class="bi ${varianceIcon}"></i>
-
-                                ${this.formatQuantity(
-                                    variance
-                                )}
-
-                            </div>
+                                    `
+                                    : ''
+                            }
 
                         </div>
 
                     </div>
 
 
-                    <div class="row g-2 mt-2">
+                    <div
+                        class="stock-count-variance ${varianceClass}"
+                    >
 
-                        <div class="col-4">
+                        <div class="stock-count-variance-label">
 
-                            <div class="stock-count-item-stat">
-
-                                <span>
-                                    System
-                                </span>
-
-                                <strong>
-                                    ${this.formatQuantity(
-                                        item.system_quantity
-                                    )}
-                                </strong>
-
-                            </div>
+                            ${varianceLabel}
 
                         </div>
 
+                        <div class="stock-count-variance-value">
 
-                        <div class="col-4">
+                            <i class="bi ${varianceIcon}"></i>
 
-                            <div class="stock-count-item-stat">
-
-                                <span>
-                                    Counted
-                                </span>
-
-                                <strong>
-                                    ${this.formatQuantity(
-                                        item.counted_quantity
-                                    )}
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="col-4">
-
-                            <div class="stock-count-item-stat">
-
-                                <span>
-                                    Value
-                                </span>
-
-                                <strong>
-                                    ${this.formatCurrency(
-                                        varianceValue
-                                    )}
-                                </strong>
-
-                            </div>
+                            ${this.formatQuantity(
+                                variance
+                            )}
 
                         </div>
 
                     </div>
 
-                `;
+                </div>
 
 
-                this.elements.inspectorItems.appendChild(
-                    wrapper
-                );
+                
 
-            }
-        );
+                <div class="stock-count-item-stats">
 
-    },  
+                    <div class="stock-count-item-stat">
+
+                        <span>
+                            System
+                        </span>
+
+                        <strong>
+                            ${this.formatQuantity(
+                                item.system_quantity
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stock-count-item-stat">
+
+                        <span>
+                            Counted
+                        </span>
+
+                        <strong>
+                            ${this.formatQuantity(
+                                item.counted_quantity
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stock-count-item-stat">
+
+                        <span>
+                            Variance Value
+                        </span>
+
+                        <strong>
+                            ${this.formatCurrency(
+                                varianceValue
+                            )}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            this.elements.inspectorItems.appendChild(
+                wrapper
+            );
+
+        }
+    );
+
+}, 
 
 /*
 |--------------------------------------------------------------------------
@@ -4012,6 +4182,303 @@ updateCountingItemVariance(input) {
     */
 
     this.updateCountingProgress();
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Set Complete Loading
+|--------------------------------------------------------------------------
+*/
+
+setCompleteLoading(loading) {
+
+    if (
+        this.elements.completeSpinner
+        && this.elements.completeIcon
+    ) {
+
+        this.elements.completeSpinner.classList.toggle(
+            'd-none',
+            ! loading
+        );
+
+        this.elements.completeIcon.classList.toggle(
+            'd-none',
+            loading
+        );
+
+    }
+
+
+    if (this.elements.confirmComplete) {
+
+        this.elements.confirmComplete.disabled =
+            loading;
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Complete Counting
+|--------------------------------------------------------------------------
+*/
+
+async completeCounting() {
+
+    const id =
+        this.state.countingId;
+
+
+    if (! id) {
+
+        this.showToast(
+            'Unable to complete Stock Count.',
+            'danger'
+        );
+
+        return;
+
+    }
+
+
+    this.setCompleteLoading(
+        true
+    );
+
+
+    try {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Collect Items
+        |--------------------------------------------------------------------------
+        */
+
+        const inputs =
+            this.elements.countingItems
+                ?.querySelectorAll(
+                    '.stock-count-physical-input'
+                );
+
+
+        if (! inputs || ! inputs.length) {
+
+            throw new Error(
+                'This Stock Count has no items.'
+            );
+
+        }
+
+
+        const items = [];
+
+
+        inputs.forEach(
+            input => {
+
+                items.push({
+
+                    id:
+                        Number(
+                            input.dataset.itemId
+                        ),
+
+                    counted_quantity:
+                        Number(
+                            input.value
+                        ),
+
+                });
+
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validate Quantities
+        |--------------------------------------------------------------------------
+        */
+
+        const incomplete =
+            items.some(
+                item =>
+                    ! Number.isFinite(
+                        item.counted_quantity
+                    )
+            );
+
+
+        if (incomplete) {
+
+            throw new Error(
+                'Please enter a physical quantity for every item.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Request
+        |--------------------------------------------------------------------------
+        */
+
+        const url =
+            window.STOCK_COUNT.completeUrl.replace(
+                ':id',
+                id
+            );
+
+
+        const response =
+            await fetch(
+                url,
+                {
+
+                    method: 'POST',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'Content-Type':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest',
+
+                        'X-CSRF-TOKEN':
+                            this.getCsrfToken(),
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            items:
+                                items,
+
+                        }),
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (! response.ok) {
+
+            throw new Error(
+                result.message
+                || 'Unable to complete Stock Count.'
+            );
+
+        }
+
+
+        if (! result.status) {
+
+            throw new Error(
+                result.message
+                || 'Unable to complete Stock Count.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stop Timer
+        |--------------------------------------------------------------------------
+        */
+
+        this.stopCountingTimer();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close Confirmation
+        |--------------------------------------------------------------------------
+        */
+
+        this.components.completeModal?.hide();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close Counting Modal
+        |--------------------------------------------------------------------------
+        */
+
+        this.components.countingModal?.hide();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Success
+        |--------------------------------------------------------------------------
+        */
+
+        this.showToast(
+            result.message
+            || 'Stock Count completed successfully.',
+            'success'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Table
+        |--------------------------------------------------------------------------
+        */
+
+        this.loadTable(
+            this.state.page
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Inspector
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.state.selectedId) {
+
+            await this.openInspector(
+                this.state.selectedId
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            'Stock Count completion error:',
+            error
+        );
+
+
+        this.showToast(
+            error.message
+            || 'Unable to complete Stock Count.',
+            'danger'
+        );
+
+    } finally {
+
+        this.setCompleteLoading(
+            false
+        );
+
+    }
 
 },
 

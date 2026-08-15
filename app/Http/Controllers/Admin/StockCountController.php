@@ -711,6 +711,12 @@ class StockCountController extends BaseController
                     'created_by' =>
                         $creatorName,
 
+                    'created_at' =>
+                        $stockCount->created_at
+                            ? $stockCount->created_at
+                                ->format('d M Y H:i')
+                            : null,
+
                     'completed_by' =>
                         $completedByName,
 
@@ -1845,6 +1851,524 @@ class StockCountController extends BaseController
                 'message' =>
                     $e->getMessage()
                     ?: 'Unable to start Stock Count.',
+
+            ], 500);
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Complete
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Complete a Stock Count.
+     */
+    public function complete(
+        Request $request,
+        int $id
+    ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('inventory.stock_count')) {
+
+            return response()->json([
+
+                'status' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to complete Stock Counts.',
+
+            ], 403);
+
+        }
+
+
+        try {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Validation
+            |--------------------------------------------------------------------------
+            */
+
+            $validated =
+                $request->validate([
+
+                    'items' => [
+
+                        'required',
+
+                        'array',
+
+                        'min:1',
+
+                    ],
+
+                    'items.*.id' => [
+
+                        'required',
+
+                        'integer',
+
+                    ],
+
+                    'items.*.counted_quantity' => [
+
+                        'required',
+
+                        'numeric',
+
+                        'min:0',
+
+                    ],
+
+                ]);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Load Stock Count
+            |--------------------------------------------------------------------------
+            */
+
+            $stockCount =
+                StockCount::query()
+
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+
+                    ->where(
+                        'id',
+                        $id
+                    )
+
+                    ->with('items')
+                    ->first();
+
+
+            if (! $stockCount) {
+
+                return response()->json([
+
+                    'status' =>
+                        false,
+
+                    'message' =>
+                        'Stock Count not found.',
+
+                ], 404);
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Status Validation
+            |--------------------------------------------------------------------------
+            */
+
+            if ($stockCount->status !== 'In Progress') {
+
+                return response()->json([
+
+                    'status' =>
+                        false,
+
+                    'message' =>
+                        'Only Stock Counts that are In Progress can be completed.',
+
+                ], 422);
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Complete Transaction
+            |--------------------------------------------------------------------------
+            */
+
+            $result =
+                DB::transaction(
+                    function () use (
+                        $stockCount,
+                        $validated
+                    ) {
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Lock Stock Count
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $stockCount =
+                            StockCount::query()
+
+                                ->where(
+                                    'company_id',
+                                    $this->companyId
+                                )
+
+                                ->where(
+                                    'id',
+                                    $stockCount->id
+                                )
+
+                                ->lockForUpdate()
+
+                                ->first();
+
+
+                        if (
+                            ! $stockCount
+                            || $stockCount->status !== 'In Progress'
+                        ) {
+
+                            throw new \RuntimeException(
+                                'This Stock Count is no longer available for completion.'
+                            );
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Load Items
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $items =
+                            StockCountItem::query()
+
+                                ->where(
+                                    'stock_count_id',
+                                    $stockCount->id
+                                )
+
+                                ->lockForUpdate()
+
+                                ->get();
+
+
+                        if ($items->isEmpty()) {
+
+                            throw new \RuntimeException(
+                                'This Stock Count has no items to complete.'
+                            );
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Submitted Quantities
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $submittedItems =
+                            collect(
+                                $validated['items']
+                            )
+                            ->keyBy('id');
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Update Count Items
+                        |--------------------------------------------------------------------------
+                        */
+
+                        foreach ($items as $item) {
+
+                            if (
+                                ! $submittedItems->has(
+                                    $item->id
+                                )
+                            ) {
+
+                                throw new \RuntimeException(
+                                    'All Stock Count items must be counted before completing.'
+                                );
+
+                            }
+
+
+                            $countedQuantity =
+                                (float)
+                                $submittedItems->get(
+                                    $item->id
+                                )['counted_quantity'];
+
+
+                            $systemQuantity =
+                                (float)
+                                $item->system_quantity;
+
+
+                            $variance =
+                                $countedQuantity
+                                -
+                                $systemQuantity;
+
+
+                            $item->update([
+
+                                'counted_quantity' =>
+                                    $countedQuantity,
+
+                                'variance' =>
+                                    $variance,
+
+                            ]);
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Update Actual Stock
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $stock =
+                                ProductStock::query()
+
+                                    ->where(
+                                        'company_id',
+                                        $this->companyId
+                                    )
+
+                                    ->where(
+                                        'branch_id',
+                                        $stockCount->branch_id
+                                    )
+
+                                    ->where(
+                                        'product_id',
+                                        $item->product_id
+                                    )
+
+                                    ->lockForUpdate()
+
+                                    ->first();
+
+
+                            if (! $stock) {
+
+                                throw new \RuntimeException(
+                                    'Stock record not found for product ID '
+                                    . $item->product_id
+                                    . '.'
+                                );
+
+                            }
+
+
+                            $stockBefore =
+                                (float)
+                                $stock->quantity;
+
+
+                            $stock->update([
+
+                                'quantity' =>
+                                    $countedQuantity,
+
+                            ]);
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Stock Movement
+                            |--------------------------------------------------------------------------
+                            */
+
+                            StockMovement::create([
+
+                                'company_id' =>
+                                    $this->companyId,
+
+                                'branch_id' =>
+                                    $stockCount->branch_id,
+
+                                'product_id' =>
+                                    $item->product_id,
+
+                                'movement_type' =>
+                                    'Adjustment',
+
+                                'order_id' =>
+                                    null,
+
+                                'reference_no' =>
+                                    $stockCount->reference_no,
+
+                                'unit_cost' =>
+                                    $item->unit_cost,
+
+                                'quantity' =>
+                                    $variance,
+
+                                'balance_after' =>
+                                    $countedQuantity,
+
+                                'remarks' =>
+                                    'Stock Count adjustment - '
+                                    . $stockCount->reference_no,
+
+                                'created_by' =>
+                                    auth()->id(),
+
+                                'stock_before' =>
+                                    $stockBefore,
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Complete Stock Count
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $stockCount->update([
+
+                            'status' =>
+                                'Completed',
+
+                            'completed_by' =>
+                                auth()->id(),
+
+                            'completed_at' =>
+                                now(),
+
+                        ]);
+
+
+                        return $stockCount->fresh();
+
+                    }
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Activity Log
+            |--------------------------------------------------------------------------
+            */
+
+            $this->activityLogger->log(
+
+                'Stock Count',
+
+                'Completed',
+
+                'Completed stock count ' .
+                    $result->reference_no,
+
+                $result,
+
+                [
+
+                    'status' =>
+                        'In Progress',
+
+                ],
+
+                [
+
+                    'status' =>
+                        'Completed',
+
+                    'completed_by' =>
+                        auth()->id(),
+
+                    'completed_at' =>
+                        $result->completed_at,
+
+                ]
+
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
+            return response()->json([
+
+                'status' =>
+                    true,
+
+                'message' =>
+                    'Stock Count completed successfully.',
+
+                'data' => [
+
+                    'id' =>
+                        $result->id,
+
+                    'reference_no' =>
+                        $result->reference_no,
+
+                    'status' =>
+                        $result->status,
+
+                ],
+
+            ]);
+
+        } catch (
+            ValidationException $e
+        ) {
+
+            throw $e;
+
+        } catch (\Throwable $e) {
+
+            \Log::error(
+                'Stock Count completion failed.',
+                [
+
+                    'company_id' =>
+                        $this->companyId,
+
+                    'stock_count_id' =>
+                        $id,
+
+                    'user_id' =>
+                        auth()->id(),
+
+                    'error' =>
+                        $e->getMessage(),
+
+                ]
+            );
+
+
+            return response()->json([
+
+                'status' =>
+                    false,
+
+                'message' =>
+                    $e->getMessage()
+                    ?: 'Unable to complete Stock Count.',
 
             ], 500);
 

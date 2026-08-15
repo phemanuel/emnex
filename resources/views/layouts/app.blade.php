@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/stock-transfer.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/stock-movement.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/stock-count.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/low-stock.css') }}">
 
 </head>
 
