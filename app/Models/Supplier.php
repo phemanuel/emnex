@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
+use App\Models\PurchaseOrder;
+use App\Models\GoodsReceived;
+use App\Models\PurchaseReturn;
 
 class Supplier extends Model
 {
@@ -116,6 +119,48 @@ class Supplier extends Model
         return $this->belongsTo(
             User::class,
             'updated_by'
+        );
+    }
+
+        /*
+    |--------------------------------------------------------------------------
+    | Purchasing Relationships
+    |--------------------------------------------------------------------------
+    */
+
+
+    /**
+     * Purchase Orders
+     */
+    public function purchaseOrders()
+    {
+        return $this->hasMany(
+            PurchaseOrder::class,
+            'supplier_id'
+        );
+    }
+
+
+    /**
+     * Goods Received
+     */
+    public function goodsReceived()
+    {
+        return $this->hasMany(
+            GoodsReceived::class,
+            'supplier_id'
+        );
+    }
+
+
+    /**
+     * Purchase Returns
+     */
+    public function purchaseReturns()
+    {
+        return $this->hasMany(
+            PurchaseReturn::class,
+            'supplier_id'
         );
     }
 

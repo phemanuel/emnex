@@ -321,10 +321,6 @@
 
 @include('purchase.supplier.modals.modal')
 
-@include('purchase.supplier.modals.delete')
-
-@include('purchase.supplier.modals.toggle-status')
-
 @include('purchase.supplier.modals.confirmation-modal')
 
 @include('purchase.supplier.partials.inspector')

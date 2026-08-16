@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/low-stock.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/customer-management.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/supplier.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/purchase.css') }}">
 
 </head>
 

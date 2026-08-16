@@ -1,0 +1,579 @@
+/*
+|--------------------------------------------------------------------------
+| Purchasing Workspace
+|--------------------------------------------------------------------------
+*/
+
+.purchase-page {
+    padding-bottom: 2rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Page Header
+|--------------------------------------------------------------------------
+*/
+
+.purchase-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+
+.purchase-page-title {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #172033;
+}
+
+
+.purchase-page-subtitle {
+    margin: 0.35rem 0 0;
+    color: #7a8498;
+    font-size: 0.875rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Navigation Tabs
+|--------------------------------------------------------------------------
+*/
+
+.purchase-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem;
+    margin-bottom: 1rem;
+    background: #f3f5f8;
+    border: 1px solid #e7eaf0;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+}
+
+
+.purchase-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 38px;
+    padding: 0.45rem 0.9rem;
+    border: 0;
+    border-radius: 0.55rem;
+    background: transparent;
+    color: #687386;
+    font-size: 0.825rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+.purchase-tab:hover {
+    color: #263247;
+}
+
+
+.purchase-tab.active {
+    background: #ffffff;
+    color: #172033;
+    box-shadow: 0 1px 4px rgba(16, 24, 40, 0.08);
+}
+
+
+.purchase-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: #eef1f5;
+    color: #687386;
+    font-size: 0.7rem;
+}
+
+
+.purchase-tab.active .purchase-tab-count {
+    background: #e9edf3;
+    color: #263247;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| KPI Cards
+|--------------------------------------------------------------------------
+*/
+
+.purchase-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+.purchase-kpi-card {
+    position: relative;
+    padding: 1rem;
+    background: #ffffff;
+    border: 1px solid #e9ecf1;
+    border-radius: 0.85rem;
+    box-shadow: 0 2px 8px rgba(16, 24, 40, 0.035);
+}
+
+
+.purchase-kpi-label {
+    margin-bottom: 0.45rem;
+    color: #7a8498;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+
+.purchase-kpi-value {
+    color: #172033;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+
+.purchase-kpi-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 0.65rem;
+    background: #f3f5f8;
+    color: #526078;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Workspace Card
+|--------------------------------------------------------------------------
+*/
+
+.purchase-workspace-card {
+    background: #ffffff;
+    border: 1px solid #e7eaf0;
+    border-radius: 0.9rem;
+    box-shadow: 0 2px 8px rgba(16, 24, 40, 0.035);
+}
+
+
+.purchase-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #edf0f4;
+}
+
+
+.purchase-toolbar-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 0.65rem;
+}
+
+
+.purchase-search {
+    min-width: 260px;
+}
+
+
+.purchase-table-wrapper {
+    overflow-x: auto;
+}
+
+
+.purchase-table {
+    margin-bottom: 0;
+}
+
+
+.purchase-table th {
+    padding: 0.8rem 1rem;
+    background: #fafbfc;
+    border-bottom: 1px solid #e7eaf0;
+    color: #7a8498;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+
+.purchase-table td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f2f5;
+    color: #354052;
+    font-size: 0.82rem;
+}
+
+
+.purchase-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Empty State
+|--------------------------------------------------------------------------
+*/
+
+.purchase-empty-state {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+
+.purchase-empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.85rem;
+    border-radius: 0.8rem;
+    background: #f3f5f8;
+    color: #7a8498;
+    font-size: 1.25rem;
+}
+
+
+.purchase-empty-title {
+    margin-bottom: 0.3rem;
+    color: #354052;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+
+.purchase-empty-text {
+    margin: 0;
+    color: #8a93a3;
+    font-size: 0.8rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Status Badges
+|--------------------------------------------------------------------------
+*/
+
+.purchase-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+
+.purchase-status-badge.pending {
+    background: #fff7e6;
+    color: #9a6700;
+}
+
+
+.purchase-status-badge.approved {
+    background: #edf7f0;
+    color: #287a45;
+}
+
+
+.purchase-status-badge.completed {
+    background: #edf7f0;
+    color: #287a45;
+}
+
+
+.purchase-status-badge.cancelled {
+    background: #fef0f0;
+    color: #b42318;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 991.98px) {
+
+    .purchase-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .purchase-page-header {
+        flex-direction: column;
+    }
+
+
+    .purchase-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+
+    .purchase-toolbar-left {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    .purchase-search {
+        width: 100%;
+        min-width: 0;
+    }
+
+
+    .purchase-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Purchase Forms
+|--------------------------------------------------------------------------
+*/
+
+.purchase-order-summary {
+    padding: 1rem;
+    background: #f8f9fb;
+    border: 1px solid #e9ecf1;
+    border-radius: 0.75rem;
+}
+
+
+.purchase-order-item td {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+}
+
+
+.purchase-no-items-row td {
+    border-bottom: 0;
+}
+
+
+.purchase-confirm-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #fff4e5;
+    color: #a15c00;
+    font-size: 1.35rem;
+}
+
+
+#purchaseGlobalActionMenu {
+    position: fixed;
+    z-index: 1080;
+    min-width: 190px;
+    padding: 0.35rem;
+    border: 1px solid #e7eaf0;
+}
+
+
+#purchaseGlobalActionItems .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 0.4rem;
+    font-size: 0.8rem;
+}
+
+
+#purchaseGlobalActionItems .dropdown-item:hover {
+    background: #f4f6f8;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Inspector
+|--------------------------------------------------------------------------
+*/
+
+#purchaseInspector {
+    width: min(480px, 100vw);
+}
+
+
+.purchase-inspector-section {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #edf0f4;
+}
+
+
+.purchase-inspector-section:last-child {
+    border-bottom: 0;
+}
+
+
+.purchase-inspector-label {
+    margin-bottom: 0.25rem;
+    color: #8a93a3;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+
+.purchase-inspector-value {
+    color: #273247;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Purchase Order Modal
+|--------------------------------------------------------------------------
+*/
+
+#purchaseOrderModal .modal-content {
+
+    max-height: calc(100vh - 1rem);
+
+}
+
+
+#purchaseOrderModal #purchaseOrderForm {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-height: 0;
+
+    flex: 1 1 auto;
+
+}
+
+
+#purchaseOrderModal .modal-body {
+
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+}
+
+
+#purchaseOrderModal .modal-footer {
+
+    flex-shrink: 0;
+
+}
+
+.purchase-product-picker {
+    min-width: 260px;
+}
+
+.purchase-product-results {
+    z-index: 1080;
+}
+
+.purchase-product-results .dropdown-item {
+    white-space: normal;
+}
+
+.purchase-product-results .dropdown-item:hover {
+    background: #f8f9fa;
+}
+
+.purchase-product-results .dropdown-item.active {
+    background: #e9ecef;
+    color: inherit;
+}
+
+.purchase-product-no-results {
+    padding: 0.75rem;
+    color: #6c757d;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+
+.purchase-product-option {
+    width: 100%;
+    display: block;
+    padding: 0.65rem 0.75rem;
+    border: 0;
+    background: #fff;
+    text-align: left;
+}
+
+
+.purchase-product-option:hover {
+    background: #f8f9fa;
+}
+
+
+.purchase-product-option.active {
+    background: #f1f3f5;
+}
+
+
+.purchase-product-option-name {
+    font-weight: 500;
+    color: #212529;
+}
+
+
+.purchase-product-option-meta {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.2rem;
+    color: #6c757d;
+    font-size: 0.75rem;
+}
+

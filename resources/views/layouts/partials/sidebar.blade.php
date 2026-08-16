@@ -134,7 +134,7 @@
         $purchaseOpen =
             request()->routeIs(
                 'purchase.suppliers.*',
-                'purchase-orders.*',
+                'purchase.*',
             );
 
 
@@ -1025,7 +1025,7 @@
 
                         <span class="nav-title">
 
-                            Purchases
+                            Purchase
 
                         </span>
 
@@ -1066,8 +1066,8 @@
                     @if(canAccess('purchases.view'))
 
                         <a
-                            href="{{ route('purchase-orders.index') }}"
-                            class="{{ request()->routeIs('purchase-orders.*') ? 'active' : '' }}"
+                            href="{{ route('purchase.index') }}"
+                            class="{{ request()->routeIs('purchase.*') ? 'active' : '' }}"
                         >
 
                             <span class="sub-icon">
@@ -1078,7 +1078,7 @@
 
                             <span>
 
-                                Purchase Orders
+                                Purchase Center
 
                             </span>
 

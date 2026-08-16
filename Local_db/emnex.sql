@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2026 at 01:05 PM
+-- Generation Time: Aug 16, 2026 at 03:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -231,7 +231,22 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (170, 1, 1, 1, 'customer_groups', 'disable', 'Disabled customer group: Staff (STAFF)', 'CustomerGroup', 13, '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:33:45.000000Z\"}', '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:45:11.000000Z\"}', 'customers/groups/13/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:45:11', '2026-08-16 04:45:11'),
 (171, 1, 1, 1, 'customer_groups', 'enable', 'Enabled customer group: Staff (STAFF)', 'CustomerGroup', 13, '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:45:11.000000Z\"}', '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:45:14.000000Z\"}', 'customers/groups/13/enable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:45:14', '2026-08-16 04:45:14'),
 (172, 1, 1, 1, 'customers', 'enable', 'Enabled customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:37:42.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:53:50.000000Z\",\"deleted_at\":null}', 'customers/6/enable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:53:50', '2026-08-16 04:53:50'),
-(173, 1, 1, 1, 'customers', 'disable', 'Disabled customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:53:50.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:53:54.000000Z\",\"deleted_at\":null}', 'customers/6/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:53:54', '2026-08-16 04:53:54');
+(173, 1, 1, 1, 'customers', 'disable', 'Disabled customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:53:50.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:53:54.000000Z\",\"deleted_at\":null}', 'customers/6/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:53:54', '2026-08-16 04:53:54'),
+(174, 1, 1, 1, 'customers', 'enable', 'Enabled customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:53:54.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T11:06:44.000000Z\",\"deleted_at\":null}', 'customers/6/enable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 10:06:44', '2026-08-16 10:06:44'),
+(175, 1, 1, 1, 'customers', 'delete', 'Deleted customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T11:06:44.000000Z\",\"deleted_at\":null}', NULL, 'customers/6', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 10:14:45', '2026-08-16 10:14:45'),
+(176, 1, 1, 1, 'customers', 'create', 'Created customer: Femi Akinyooye', 'Customer', 7, NULL, '{\"company_id\":1,\"customer_group_id\":7,\"customer_code\":\"CUS-00002\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"5000000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Business\",\"loyalty_points\":0,\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T11:18:38.000000Z\",\"created_at\":\"2026-08-16T11:18:38.000000Z\",\"id\":7}', 'customers', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 10:18:38', '2026-08-16 10:18:38'),
+(177, 1, 1, 1, 'customers', 'update', 'Updated customer: Clement Elugbaju', 'Customer', 7, '{\"id\":7,\"company_id\":1,\"customer_group_id\":7,\"branch_id\":null,\"customer_code\":\"CUS-00002\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"5000000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Business\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-16T11:18:38.000000Z\",\"updated_at\":\"2026-08-16T11:18:38.000000Z\",\"deleted_at\":null}', '{\"id\":7,\"company_id\":1,\"customer_group_id\":7,\"branch_id\":null,\"customer_code\":\"CUS-00002\",\"first_name\":\"Clement\",\"last_name\":\"Elugbaju\",\"email\":\"clement@gmail.com\",\"phone\":\"07038899203\",\"address\":\"Ibadan\",\"credit_limit\":\"5000000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Business\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T11:18:38.000000Z\",\"updated_at\":\"2026-08-16T11:19:57.000000Z\",\"deleted_at\":null}', 'customers/7', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 10:19:57', '2026-08-16 10:19:57'),
+(178, 1, 1, 1, 'customers', 'delete', 'Deleted customer: Clement Elugbaju', 'Customer', 7, '{\"id\":7,\"company_id\":1,\"customer_group_id\":7,\"branch_id\":null,\"customer_code\":\"CUS-00002\",\"first_name\":\"Clement\",\"last_name\":\"Elugbaju\",\"email\":\"clement@gmail.com\",\"phone\":\"07038899203\",\"address\":\"Ibadan\",\"credit_limit\":\"5000000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Business\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T11:18:38.000000Z\",\"updated_at\":\"2026-08-16T11:19:57.000000Z\",\"deleted_at\":null}', NULL, 'customers/7', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 10:25:12', '2026-08-16 10:25:12'),
+(179, 1, 1, 1, 'customers', 'create', 'Created customer: Clement Elugbaju', 'Customer', 8, NULL, '{\"company_id\":1,\"customer_group_id\":7,\"customer_code\":\"CUS-00003\",\"first_name\":\"Clement\",\"last_name\":\"Elugbaju\",\"email\":\"clement@gmail.com\",\"phone\":\"07038899203\",\"address\":\"Ibadan\",\"credit_limit\":\"5000000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Business\",\"loyalty_points\":0,\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T11:25:41.000000Z\",\"created_at\":\"2026-08-16T11:25:41.000000Z\",\"id\":8}', 'customers', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 10:25:41', '2026-08-16 10:25:41'),
+(180, 1, 1, 1, 'customers', 'restore', 'Restored customer: Femi Akinyooye', 'Customer', 6, NULL, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T11:34:35.000000Z\",\"deleted_at\":null}', 'customers', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 10:34:35', '2026-08-16 10:34:35'),
+(181, 1, 1, 1, 'customers', 'create', 'Created customer: Clement Elugbaju', 'Customer', 9, NULL, '{\"company_id\":1,\"customer_group_id\":7,\"customer_code\":\"CUS-00007\",\"first_name\":\"Clement\",\"last_name\":\"Elugbaju\",\"email\":\"clement@gmail.com\",\"phone\":\"07038899203\",\"address\":\"Ibadan\",\"credit_limit\":\"5000000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Business\",\"loyalty_points\":0,\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T11:35:39.000000Z\",\"created_at\":\"2026-08-16T11:35:39.000000Z\",\"id\":9}', 'customers', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 10:35:39', '2026-08-16 10:35:39'),
+(182, 1, 1, 1, 'Suppliers', 'Created', 'Created supplier: Friezland Group of Companies', 'Supplier', 1, NULL, '{\"company_id\":1,\"supplier_code\":\"SUP-00001\",\"name\":\"Friezland Group of Companies\",\"contact_person\":\"Mr Adeleke Abayomi\",\"email\":\"info@friezland.com\",\"phone\":\"07032109983\",\"alternate_phone\":\"07032109983\",\"address\":\"17, Ojokoro avenue, abeokuta, Ogun State.\",\"city\":\"Abeokuta\",\"state\":\"Ogun\",\"country\":\"Nigeria\",\"tax_number\":\"29839393\",\"payment_terms\":\"30 days\",\"credit_limit\":\"1000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Friezland.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"updated_at\":\"2026-08-16T12:27:31.000000Z\",\"created_at\":\"2026-08-16T12:27:31.000000Z\",\"id\":1}', 'purchase/suppliers', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 11:27:31', '2026-08-16 11:27:31'),
+(183, 1, 1, 1, 'Suppliers', 'Created', 'Created supplier: Nigerian Breweries', 'Supplier', 2, NULL, '{\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Bunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerian Breweries, Off Alakia Road, Ibadan.\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"updated_at\":\"2026-08-16T12:35:20.000000Z\",\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"id\":2}', 'purchase/suppliers', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 11:35:20', '2026-08-16 11:35:20'),
+(184, 1, 1, 1, 'Suppliers', 'Updated', 'Updated supplier: Nigerian Breweries', 'Supplier', 2, '{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Bunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerian Breweries, Off Alakia Road, Ibadan.\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:35:20.000000Z\",\"deleted_at\":null}', '{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Omowunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerian Breweries, Off Alakia Road, Ibadan.\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:38:43.000000Z\",\"deleted_at\":null}', 'purchase/suppliers/2', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 11:38:43', '2026-08-16 11:38:43'),
+(185, 1, 1, 1, 'Suppliers', 'Disabled', 'Disabled supplier: Nigerian Breweries', 'Supplier', 2, '{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Omowunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerian Breweries, Off Alakia Road, Ibadan.\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:38:43.000000Z\",\"deleted_at\":null}', '{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Omowunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerian Breweries, Off Alakia Road, Ibadan.\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:44:11.000000Z\",\"deleted_at\":null}', 'purchase/suppliers/2/status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 11:44:11', '2026-08-16 11:44:11'),
+(186, 1, 1, 1, 'Suppliers', 'Enabled', 'Enabled supplier: Nigerian Breweries', 'Supplier', 2, '{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Omowunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerian Breweries, Off Alakia Road, Ibadan.\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:44:11.000000Z\",\"deleted_at\":null}', '{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Omowunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerian Breweries, Off Alakia Road, Ibadan.\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:44:16.000000Z\",\"deleted_at\":null}', 'purchase/suppliers/2/status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 11:44:16', '2026-08-16 11:44:16'),
+(187, 1, 1, 1, 'Suppliers', 'Deleted', 'Deleted supplier: Nigerian Breweries', 'Supplier', 2, '{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Omowunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerian Breweries, Off Alakia Road, Ibadan.\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:44:16.000000Z\",\"deleted_at\":null}', NULL, 'purchase/suppliers/2', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 11:44:19', '2026-08-16 11:44:19'),
+(188, 1, 1, 1, 'Suppliers', 'Restored', 'Restored supplier: Nigerian Breweries', 'Supplier', 2, '{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Omowunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerian Breweries, Off Alakia Road, Ibadan.\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:44:19.000000Z\",\"deleted_at\":\"2026-08-16T12:44:19.000000Z\"}', '{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Omowunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerial Breweries, Off Alakia Road, Ibadan\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:45:37.000000Z\",\"deleted_at\":null}', 'purchase/suppliers', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 11:45:37', '2026-08-16 11:45:37');
 
 -- --------------------------------------------------------
 
@@ -376,7 +391,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `company_id`, `customer_group_id`, `branch_id`, `customer_code`, `first_name`, `last_name`, `email`, `phone`, `address`, `credit_limit`, `current_balance`, `customer_type`, `loyalty_points`, `last_purchase_date`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '07032689329', 'Ibadan', 50000.00, 0.00, 'Walk-in', 0, NULL, 0, 1, 1, '2026-08-16 02:50:25', '2026-08-16 04:53:54', NULL);
+(6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '07032689329', 'Ibadan', 50000.00, 0.00, 'Walk-in', 0, NULL, 1, 1, 1, '2026-08-16 02:50:25', '2026-08-16 10:34:35', NULL),
+(9, 1, 7, NULL, 'CUS-00007', 'Clement', 'Elugbaju', 'clement@gmail.com', '07038899203', 'Ibadan', 5000000.00, 0.00, 'Business', 0, NULL, 1, 1, NULL, '2026-08-16 10:35:39', '2026-08-16 10:35:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -515,6 +531,46 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `goods_received`
+--
+
+CREATE TABLE `goods_received` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED NOT NULL,
+  `purchase_order_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `supplier_id` bigint(20) UNSIGNED NOT NULL,
+  `receipt_number` varchar(100) NOT NULL,
+  `received_date` date NOT NULL,
+  `status` varchar(30) NOT NULL DEFAULT 'Draft',
+  `notes` text DEFAULT NULL,
+  `received_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `goods_received_items`
+--
+
+CREATE TABLE `goods_received_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `goods_received_id` bigint(20) UNSIGNED NOT NULL,
+  `purchase_order_item_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `ordered_quantity` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `received_quantity` decimal(15,2) NOT NULL,
+  `unit_cost` decimal(15,2) NOT NULL,
+  `total` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `jobs`
 --
 
@@ -610,7 +666,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (44, '2026_08_14_093916_create_stock_counts_table', 14),
 (45, '2026_08_14_093949_create_stock_count_items_table', 14),
 (46, '2026_08_15_133231_create_customer_groups_table', 15),
-(47, '2026_08_15_134244_add_customer_group_id_to_customers_table', 16);
+(47, '2026_08_15_134244_add_customer_group_id_to_customers_table', 16),
+(48, '2026_08_16_120215_create_suppliers_table', 17),
+(49, '2026_08_16_125844_create_purchase_orders_table', 18),
+(50, '2026_08_16_125923_create_purchase_order_items_table', 18),
+(51, '2026_08_16_125944_create_goods_receiveds_table', 18),
+(52, '2026_08_16_130015_create_goods_received_items_table', 18),
+(53, '2026_08_16_130034_create_purchase_returns_table', 18),
+(54, '2026_08_16_130056_create_purchase_return_items_table', 18);
 
 -- --------------------------------------------------------
 
@@ -1015,6 +1078,98 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `purchase_orders`
+--
+
+CREATE TABLE `purchase_orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED NOT NULL,
+  `supplier_id` bigint(20) UNSIGNED NOT NULL,
+  `order_number` varchar(100) NOT NULL,
+  `order_date` date NOT NULL,
+  `expected_date` date DEFAULT NULL,
+  `status` varchar(30) NOT NULL DEFAULT 'Draft',
+  `subtotal` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `discount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `tax` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `shipping` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `total` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `notes` text DEFAULT NULL,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `approved_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `approved_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_order_items`
+--
+
+CREATE TABLE `purchase_order_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `purchase_order_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `quantity` decimal(15,2) NOT NULL,
+  `unit_cost` decimal(15,2) NOT NULL,
+  `discount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `tax` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `total` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_returns`
+--
+
+CREATE TABLE `purchase_returns` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED NOT NULL,
+  `supplier_id` bigint(20) UNSIGNED NOT NULL,
+  `purchase_order_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `goods_received_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `return_number` varchar(100) NOT NULL,
+  `return_date` date NOT NULL,
+  `status` varchar(30) NOT NULL DEFAULT 'Draft',
+  `reason` varchar(255) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `approved_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `approved_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_return_items`
+--
+
+CREATE TABLE `purchase_return_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `purchase_return_id` bigint(20) UNSIGNED NOT NULL,
+  `goods_received_item_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `quantity` decimal(15,2) NOT NULL,
+  `unit_cost` decimal(15,2) NOT NULL,
+  `total` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
@@ -1393,10 +1548,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Ct4dBvoW6H24iRluYkeJdRI4Zu8TwXJxsb9YGics', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IkFHMnc2cFM4U2JVNk5rOTFURHdDdDRJSWpUNUY4N1RzVlQwYUpDVUwiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo2NjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2N1c3RvbWVycy90YWJsZT9wYWdlPTEmc2VhcmNoPSZzdGF0dXM9JnR5cGU9IjtzOjU6InJvdXRlIjtzOjE1OiJjdXN0b21lcnMudGFibGUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1786854450),
-('hp1AqKZt9a3ltGuiUJ8epIe7oZypSiPNdk4Fy5R0', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6Imt2N2E5ZDdDZHJrUEhNaWFzNGx5RlJDVEJHRjliRnI4bExKR3NBSVciO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jdXN0b21lcnMiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo2NjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2N1c3RvbWVycy90YWJsZT9wYWdlPTEmc2VhcmNoPSZzdGF0dXM9JnR5cGU9IjtzOjU6InJvdXRlIjtzOjE1OiJjdXN0b21lcnMudGFibGUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1786854707),
-('HPBHk6fpDvFDM5Yw7ZlOGzhyI5SgIryctHciNGWj', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiREtTY3lhNWlPcmJkZVR4RnZvUDJyVThOcnBFYmVZakVQcm5nekNscSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rhc2hib2FyZCI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjI3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvbG9naW4iO3M6NToicm91dGUiO3M6NToibG9naW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1786878322),
-('ttcM9XVEGYaxUH8kc4pfk1GgebghOJGJ3rBtXIJe', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IlN1d2c5dnJ2NlhBc0tlcUpzb2RyTUtLMnFKVTBQck8xTmRLN2tMYVQiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jdXN0b21lcnMiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo2NzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2N1c3RvbWVycy9ncm91cHMvdGFibGU/cGFnZT0xJnNlYXJjaD0mc3RhdHVzPSI7czo1OiJyb3V0ZSI7czoyMjoiY3VzdG9tZXJzLmdyb3Vwcy50YWJsZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1786859829);
+('vuvVLbwPUFM0IFvRgSmQuC3C7I9hsxqjsxv1yCKa', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6ImU1YjFZcE52VnBNMFBUOUZDSFBBUW1URmFhUk1pZzVzRDJQT29FZHQiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo3NzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3N0b2NrL3Byb2R1Y3RzP2JyYW5jaD0mY2F0ZWdvcnk9JnBhZ2U9MSZzZWFyY2g9JnN0YXR1cz0iO3M6NToicm91dGUiO3M6MTQ6InN0b2NrLnByb2R1Y3RzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjEwOiJjb21wYW55X2lkIjtpOjE7czoxMjoiY29tcGFueV9uYW1lIjtzOjE5OiJFbW1hbmV4IFN1cGVybWFya2V0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6OToiQ09NUC0wMDAxIjtzOjk6ImJyYW5jaF9pZCI7aToxO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1786884926);
 
 -- --------------------------------------------------------
 
@@ -1554,6 +1706,46 @@ INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `m
 (33, 1, 4, 7, 'Adjustment', NULL, 'SC-000003', 900.00, -1.00, 5.00, 4.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
 (34, 1, 4, 8, 'Adjustment', NULL, 'SC-000003', 82000.00, -2.00, 5.00, 3.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
 (35, 1, 4, 9, 'Adjustment', NULL, 'SC-000003', 500.00, -1.00, 10.00, 9.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppliers`
+--
+
+CREATE TABLE `suppliers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `supplier_code` varchar(50) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `contact_person` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(30) DEFAULT NULL,
+  `alternate_phone` varchar(30) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `tax_number` varchar(100) DEFAULT NULL,
+  `payment_terms` varchar(100) DEFAULT NULL,
+  `credit_limit` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `current_balance` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `notes` text DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `suppliers`
+--
+
+INSERT INTO `suppliers` (`id`, `company_id`, `supplier_code`, `name`, `contact_person`, `email`, `phone`, `alternate_phone`, `address`, `city`, `state`, `country`, `tax_number`, `payment_terms`, `credit_limit`, `current_balance`, `notes`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'SUP-00001', 'Friezland Group of Companies', 'Mr Adeleke Abayomi', 'info@friezland.com', '07032109983', '07032109983', '17, Ojokoro avenue, abeokuta, Ogun State.', 'Abeokuta', 'Ogun', 'Nigeria', '29839393', '30 days', 1000000.00, 0.00, 'Friezland.', 1, 1, 1, '2026-08-16 11:27:31', '2026-08-16 11:27:31', NULL),
+(2, 1, 'SUP-00002', 'Nigerian Breweries', 'Mrs Afonja Omowunmi', 'info@nigbreweries.com', '08034271855', '08034271855', 'Nigerial Breweries, Off Alakia Road, Ibadan', 'Ibadan', 'Oyo', 'Nigeria', '09030922', '30 days', 2000000.00, 0.00, 'Nigerian Breweries.', 1, 1, 1, '2026-08-16 11:35:20', '2026-08-16 11:45:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -1801,6 +1993,31 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `goods_received`
+--
+ALTER TABLE `goods_received`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `goods_received_company_id_receipt_number_unique` (`company_id`,`receipt_number`),
+  ADD KEY `goods_received_branch_id_foreign` (`branch_id`),
+  ADD KEY `goods_received_purchase_order_id_foreign` (`purchase_order_id`),
+  ADD KEY `goods_received_supplier_id_foreign` (`supplier_id`),
+  ADD KEY `goods_received_received_by_foreign` (`received_by`),
+  ADD KEY `goods_received_company_id_branch_id_index` (`company_id`,`branch_id`),
+  ADD KEY `goods_received_company_id_supplier_id_index` (`company_id`,`supplier_id`),
+  ADD KEY `goods_received_company_id_purchase_order_id_index` (`company_id`,`purchase_order_id`),
+  ADD KEY `goods_received_company_id_status_index` (`company_id`,`status`),
+  ADD KEY `goods_received_company_id_received_date_index` (`company_id`,`received_date`);
+
+--
+-- Indexes for table `goods_received_items`
+--
+ALTER TABLE `goods_received_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `goods_received_items_goods_received_id_index` (`goods_received_id`),
+  ADD KEY `goods_received_items_purchase_order_item_id_index` (`purchase_order_item_id`),
+  ADD KEY `goods_received_items_product_id_index` (`product_id`);
+
+--
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -1912,6 +2129,57 @@ ALTER TABLE `product_stocks`
   ADD KEY `product_stocks_product_id_foreign` (`product_id`);
 
 --
+-- Indexes for table `purchase_orders`
+--
+ALTER TABLE `purchase_orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `purchase_orders_company_id_order_number_unique` (`company_id`,`order_number`),
+  ADD KEY `purchase_orders_branch_id_foreign` (`branch_id`),
+  ADD KEY `purchase_orders_supplier_id_foreign` (`supplier_id`),
+  ADD KEY `purchase_orders_created_by_foreign` (`created_by`),
+  ADD KEY `purchase_orders_approved_by_foreign` (`approved_by`),
+  ADD KEY `purchase_orders_company_id_branch_id_index` (`company_id`,`branch_id`),
+  ADD KEY `purchase_orders_company_id_supplier_id_index` (`company_id`,`supplier_id`),
+  ADD KEY `purchase_orders_company_id_status_index` (`company_id`,`status`),
+  ADD KEY `purchase_orders_company_id_order_date_index` (`company_id`,`order_date`);
+
+--
+-- Indexes for table `purchase_order_items`
+--
+ALTER TABLE `purchase_order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_order_items_purchase_order_id_index` (`purchase_order_id`),
+  ADD KEY `purchase_order_items_product_id_index` (`product_id`);
+
+--
+-- Indexes for table `purchase_returns`
+--
+ALTER TABLE `purchase_returns`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `purchase_returns_company_id_return_number_unique` (`company_id`,`return_number`),
+  ADD KEY `purchase_returns_branch_id_foreign` (`branch_id`),
+  ADD KEY `purchase_returns_supplier_id_foreign` (`supplier_id`),
+  ADD KEY `purchase_returns_purchase_order_id_foreign` (`purchase_order_id`),
+  ADD KEY `purchase_returns_goods_received_id_foreign` (`goods_received_id`),
+  ADD KEY `purchase_returns_created_by_foreign` (`created_by`),
+  ADD KEY `purchase_returns_approved_by_foreign` (`approved_by`),
+  ADD KEY `purchase_returns_company_id_branch_id_index` (`company_id`,`branch_id`),
+  ADD KEY `purchase_returns_company_id_supplier_id_index` (`company_id`,`supplier_id`),
+  ADD KEY `purchase_returns_company_id_purchase_order_id_index` (`company_id`,`purchase_order_id`),
+  ADD KEY `purchase_returns_company_id_goods_received_id_index` (`company_id`,`goods_received_id`),
+  ADD KEY `purchase_returns_company_id_status_index` (`company_id`,`status`),
+  ADD KEY `purchase_returns_company_id_return_date_index` (`company_id`,`return_date`);
+
+--
+-- Indexes for table `purchase_return_items`
+--
+ALTER TABLE `purchase_return_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_return_items_purchase_return_id_index` (`purchase_return_id`),
+  ADD KEY `purchase_return_items_goods_received_item_id_index` (`goods_received_item_id`),
+  ADD KEY `purchase_return_items_product_id_index` (`product_id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -1975,6 +2243,19 @@ ALTER TABLE `stock_movements`
   ADD KEY `stock_movements_created_by_foreign` (`created_by`);
 
 --
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `suppliers_company_id_supplier_code_unique` (`company_id`,`supplier_code`),
+  ADD KEY `suppliers_created_by_foreign` (`created_by`),
+  ADD KEY `suppliers_updated_by_foreign` (`updated_by`),
+  ADD KEY `suppliers_company_id_name_index` (`company_id`,`name`),
+  ADD KEY `suppliers_company_id_status_index` (`company_id`,`status`),
+  ADD KEY `suppliers_company_id_email_index` (`company_id`,`email`),
+  ADD KEY `suppliers_company_id_phone_index` (`company_id`,`phone`);
+
+--
 -- Indexes for table `tax_rates`
 --
 ALTER TABLE `tax_rates`
@@ -2017,7 +2298,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -2041,7 +2322,7 @@ ALTER TABLE `currencies`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `customer_groups`
@@ -2068,6 +2349,18 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `goods_received`
+--
+ALTER TABLE `goods_received`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `goods_received_items`
+--
+ALTER TABLE `goods_received_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -2077,7 +2370,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -2128,6 +2421,30 @@ ALTER TABLE `product_stocks`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
+-- AUTO_INCREMENT for table `purchase_orders`
+--
+ALTER TABLE `purchase_orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `purchase_order_items`
+--
+ALTER TABLE `purchase_order_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `purchase_returns`
+--
+ALTER TABLE `purchase_returns`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `purchase_return_items`
+--
+ALTER TABLE `purchase_return_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
@@ -2162,6 +2479,12 @@ ALTER TABLE `stock_count_items`
 --
 ALTER TABLE `stock_movements`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tax_rates`
@@ -2235,6 +2558,24 @@ ALTER TABLE `discounts`
 --
 ALTER TABLE `document_sequences`
   ADD CONSTRAINT `document_sequences_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `goods_received`
+--
+ALTER TABLE `goods_received`
+  ADD CONSTRAINT `goods_received_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
+  ADD CONSTRAINT `goods_received_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `goods_received_purchase_order_id_foreign` FOREIGN KEY (`purchase_order_id`) REFERENCES `purchase_orders` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `goods_received_received_by_foreign` FOREIGN KEY (`received_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `goods_received_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`);
+
+--
+-- Constraints for table `goods_received_items`
+--
+ALTER TABLE `goods_received_items`
+  ADD CONSTRAINT `goods_received_items_goods_received_id_foreign` FOREIGN KEY (`goods_received_id`) REFERENCES `goods_received` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `goods_received_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `goods_received_items_purchase_order_item_id_foreign` FOREIGN KEY (`purchase_order_item_id`) REFERENCES `purchase_order_items` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `orders`
@@ -2312,6 +2653,43 @@ ALTER TABLE `product_stocks`
   ADD CONSTRAINT `product_stocks_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `purchase_orders`
+--
+ALTER TABLE `purchase_orders`
+  ADD CONSTRAINT `purchase_orders_approved_by_foreign` FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `purchase_orders_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
+  ADD CONSTRAINT `purchase_orders_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `purchase_orders_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `purchase_orders_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`);
+
+--
+-- Constraints for table `purchase_order_items`
+--
+ALTER TABLE `purchase_order_items`
+  ADD CONSTRAINT `purchase_order_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `purchase_order_items_purchase_order_id_foreign` FOREIGN KEY (`purchase_order_id`) REFERENCES `purchase_orders` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `purchase_returns`
+--
+ALTER TABLE `purchase_returns`
+  ADD CONSTRAINT `purchase_returns_approved_by_foreign` FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `purchase_returns_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
+  ADD CONSTRAINT `purchase_returns_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `purchase_returns_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `purchase_returns_goods_received_id_foreign` FOREIGN KEY (`goods_received_id`) REFERENCES `goods_received` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `purchase_returns_purchase_order_id_foreign` FOREIGN KEY (`purchase_order_id`) REFERENCES `purchase_orders` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `purchase_returns_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`);
+
+--
+-- Constraints for table `purchase_return_items`
+--
+ALTER TABLE `purchase_return_items`
+  ADD CONSTRAINT `purchase_return_items_goods_received_item_id_foreign` FOREIGN KEY (`goods_received_item_id`) REFERENCES `goods_received_items` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `purchase_return_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `purchase_return_items_purchase_return_id_foreign` FOREIGN KEY (`purchase_return_id`) REFERENCES `purchase_returns` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `roles`
 --
 ALTER TABLE `roles`
@@ -2357,6 +2735,14 @@ ALTER TABLE `stock_movements`
   ADD CONSTRAINT `stock_movements_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `stock_movements_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `stock_movements_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD CONSTRAINT `suppliers_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `suppliers_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `suppliers_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `tax_rates`

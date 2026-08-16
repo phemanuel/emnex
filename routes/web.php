@@ -30,9 +30,7 @@ use App\Http\Controllers\Admin\SalesReturnController;
 use App\Http\Controllers\Admin\CustomerController;
 
 use App\Http\Controllers\Admin\SupplierController;
-use App\Http\Controllers\Admin\PurchaseOrderController;
-use App\Http\Controllers\Admin\GoodsReceivedController;
-use App\Http\Controllers\Admin\PurchaseReturnController;
+use App\Http\Controllers\Admin\PurchaseController;
 
 use App\Http\Controllers\Admin\CashDrawerController;
 
@@ -533,46 +531,126 @@ Route::prefix('products')
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Purchases
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-|--------------------------------------------------------------------------
-| Purchasing - Suppliers
-|--------------------------------------------------------------------------
-*/
-
-Route::prefix('purchase/suppliers')
+   Route::prefix('purchase')
     ->group(function () {
-        
-        Route::get('/',[SupplierController::class, 'index'])->name('purchase.suppliers.index');
 
-        Route::get('/table',[SupplierController::class, 'table'])->name('purchase.suppliers.table');
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Workspace
+        |--------------------------------------------------------------------------
+        */
 
-        Route::get('/{id}/details',[SupplierController::class, 'details'])
-        ->name('purchase.suppliers.details');       
+        Route::get('/', [PurchaseController::class, 'index'])->name('purchase.index');
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Sections
+        |--------------------------------------------------------------------------        */
 
-        Route::post('/',[SupplierController::class, 'store'])->name('purchase.suppliers.store');
+        // Route::get('/orders', [PurchaseController::class, 'orders'])->name('purchase.orders');
 
-        Route::put('/{id}',[SupplierController::class, 'update'])->name('purchaseg.suppliers.update');
+        // Route::get('/received', [PurchaseController::class, 'received'])->name('purchase.received');
 
-        Route::delete('/{id}',[SupplierController::class, 'destroy'])->name('purchasesuppliers.destroy');
+        // Route::get('/returns', [PurchaseController::class, 'returns'])->name('purchase.returns');
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Orders
+        |--------------------------------------------------------------------------        */
 
-        Route::patch('/{id}/status',[SupplierController::class, 'toggleStatus'])
-        ->name('purchase.suppliers.status');
+        Route::get('/orders/table', [PurchaseController::class, 'orderTable'])
+        ->name('purchase.orders.table');
+
+        Route::get('/orders/{id}/details', [PurchaseController::class, 'orderDetails'])
+        ->name('purchase.orders.details');
+
+        Route::post('/orders', [PurchaseController::class, 'storeOrder'])
+        ->name('purchase.orders.store');
+
+        Route::put('/orders/{id}', [PurchaseController::class, 'updateOrder'])
+        ->name('purchase.orders.update');
+
+        Route::delete('/orders/{id}', [PurchaseController::class, 'destroyOrder'])
+        ->name('purchase.orders.destroy');
+
+        Route::patch('/orders/{id}/approve', [PurchaseController::class, 'approveOrder'])
+        ->name('purchase.orders.approve');
+        /*
+        |--------------------------------------------------------------------------
+        | Goods Received
+        |--------------------------------------------------------------------------        */
+
+        Route::get('/received/table', [PurchaseController::class, 'receivedTable'])
+        ->name('purchase.received.table');
+
+        Route::get('/received/{id}/details', [PurchaseController::class, 'receivedDetails'])
+        ->name('purchase.received.details');
+
+        Route::post('/received', [PurchaseController::class, 'storeReceived'])
+        ->name('purchase.received.store');
+
+        Route::put('/received/{id}', [PurchaseController::class, 'updateReceived'])
+        ->name('purchase.received.update');
+
+        Route::delete('/received/{id}', [PurchaseController::class, 'destroyReceived'])
+        ->name('purchase.received.destroy');
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Returns
+        |--------------------------------------------------------------------------        */
+
+        Route::get('/returns/table', [PurchaseController::class, 'returnTable'])
+        ->name('purchase.returns.table');
+
+        Route::get('/returns/{id}/details', [PurchaseController::class, 'returnDetails'])
+        ->name('purchase.returns.details');
+
+        Route::post('/returns', [PurchaseController::class, 'storeReturn'])
+        ->name('purchase.returns.store');
+
+        Route::put('/returns/{id}', [PurchaseController::class, 'updateReturn'])
+        ->name('purchase.returns.update');
+
+        Route::delete('/returns/{id}', [PurchaseController::class, 'destroyReturn'])
+        ->name('purchase.returns.destroy');
+        /*
+        |--------------------------------------------------------------------------
+        | Shared Purchase Data
+        |--------------------------------------------------------------------------        */
+
+        Route::get('/suppliers/options',[PurchaseController::class,'supplierOptions'])
+        ->name('purchase.suppliers.options');
+        Route::get('/branches/options',[PurchaseController::class,'branchOptions'])
+        ->name('purchase.branches.options');
+        Route::get('/products/options',[PurchaseController::class,'productOptions'])
+        ->name('purchase.products.options');
 
     });
 
-    Route::resource('purchase-orders', PurchaseOrderController::class);
+    /*
+    |--------------------------------------------------------------------------
+    | Purchasing - Suppliers
+    |--------------------------------------------------------------------------
+    */
 
-    Route::resource('goods-received', GoodsReceivedController::class);
+    Route::prefix('purchase/suppliers')
+        ->group(function () {
+            
+            Route::get('/',[SupplierController::class, 'index'])->name('purchase.suppliers.index');
 
-    Route::resource('purchase-returns', PurchaseReturnController::class);
+            Route::get('/table',[SupplierController::class, 'table'])->name('purchase.suppliers.table');
 
+            Route::get('/{id}/details',[SupplierController::class, 'details'])
+            ->name('purchase.suppliers.details');       
 
+            Route::post('/',[SupplierController::class, 'store'])->name('purchase.suppliers.store');
+
+            Route::put('/{id}',[SupplierController::class, 'update'])->name('purchaseg.suppliers.update');
+
+            Route::delete('/{id}',[SupplierController::class, 'destroy'])->name('purchasesuppliers.destroy');
+
+            Route::patch('/{id}/status',[SupplierController::class, 'toggleStatus'])
+            ->name('purchase.suppliers.status');
+
+        });
 
     /*
     |--------------------------------------------------------------------------
