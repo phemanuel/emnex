@@ -29,8 +29,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/stock-movement.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/stock-count.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/low-stock.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/customer-management.css') }}"
-    >
+    <link rel="stylesheet" href="{{ asset('assets/css/customer-management.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/supplier.css') }}">
 
 </head>
 

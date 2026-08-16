@@ -539,7 +539,32 @@ Route::prefix('products')
     |--------------------------------------------------------------------------
     */
 
-    Route::resource('suppliers', SupplierController::class);
+    /*
+|--------------------------------------------------------------------------
+| Purchasing - Suppliers
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('purchase/suppliers')
+    ->group(function () {
+        
+        Route::get('/',[SupplierController::class, 'index'])->name('purchase.suppliers.index');
+
+        Route::get('/table',[SupplierController::class, 'table'])->name('purchase.suppliers.table');
+
+        Route::get('/{id}/details',[SupplierController::class, 'details'])
+        ->name('purchase.suppliers.details');       
+
+        Route::post('/',[SupplierController::class, 'store'])->name('purchase.suppliers.store');
+
+        Route::put('/{id}',[SupplierController::class, 'update'])->name('purchaseg.suppliers.update');
+
+        Route::delete('/{id}',[SupplierController::class, 'destroy'])->name('purchasesuppliers.destroy');
+
+        Route::patch('/{id}/status',[SupplierController::class, 'toggleStatus'])
+        ->name('purchase.suppliers.status');
+
+    });
 
     Route::resource('purchase-orders', PurchaseOrderController::class);
 

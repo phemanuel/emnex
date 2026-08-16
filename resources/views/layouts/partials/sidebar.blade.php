@@ -133,10 +133,8 @@
 
         $purchaseOpen =
             request()->routeIs(
-                'suppliers.*',
+                'purchase.suppliers.*',
                 'purchase-orders.*',
-                'goods-received.*',
-                'purchase-returns.*'
             );
 
 
@@ -1044,8 +1042,8 @@
                     @if(canAccess('suppliers.view'))
 
                         <a
-                            href="{{ route('suppliers.index') }}"
-                            class="{{ request()->routeIs('suppliers.*') ? 'active' : '' }}"
+                            href="{{ route('purchase.suppliers.index') }}"
+                            class="{{ request()->routeIs('purchase.suppliers.*') ? 'active' : '' }}"
                         >
 
                             <span class="sub-icon">
@@ -1081,46 +1079,6 @@
                             <span>
 
                                 Purchase Orders
-
-                            </span>
-
-                        </a>
-
-
-                        <a
-                            href="{{ route('goods-received.index') }}"
-                            class="{{ request()->routeIs('goods-received.*') ? 'active' : '' }}"
-                        >
-
-                            <span class="sub-icon">
-
-                                <i class="bi bi-box-arrow-in-down"></i>
-
-                            </span>
-
-                            <span>
-
-                                Goods Received
-
-                            </span>
-
-                        </a>
-
-
-                        <a
-                            href="{{ route('purchase-returns.index') }}"
-                            class="{{ request()->routeIs('purchase-returns.*') ? 'active' : '' }}"
-                        >
-
-                            <span class="sub-icon">
-
-                                <i class="bi bi-arrow-return-left"></i>
-
-                            </span>
-
-                            <span>
-
-                                Purchase Returns
 
                             </span>
 

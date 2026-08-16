@@ -1,0 +1,550 @@
+/* ==========================================================================
+   Suppliers
+   ========================================================================== */
+
+/*
+|--------------------------------------------------------------------------
+| Page
+|--------------------------------------------------------------------------
+*/
+
+#suppliersPage {
+    min-width: 0;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Page Icon
+|--------------------------------------------------------------------------
+*/
+
+#suppliersPage .page-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 18px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| KPI Cards
+|--------------------------------------------------------------------------
+*/
+
+.supplier-kpi-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 92px;
+    padding: 18px;
+    background: #ffffff;
+    border: 1px solid #eef1f5;
+    border-radius: 14px;
+    box-shadow: 0 3px 14px rgba(15, 23, 42, 0.04);
+}
+
+.supplier-kpi-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 18px;
+}
+
+.supplier-kpi-icon-success {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+.supplier-kpi-icon-warning {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.supplier-kpi-icon-danger {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.supplier-kpi-content {
+    min-width: 0;
+}
+
+.supplier-kpi-label {
+    display: block;
+    margin-bottom: 3px;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.supplier-kpi-value {
+    display: block;
+    color: #0f172a;
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Main Card
+|--------------------------------------------------------------------------
+*/
+
+.supplier-main-card {
+    overflow: visible;
+    border-radius: 15px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Toolbar
+|--------------------------------------------------------------------------
+*/
+
+.supplier-toolbar {
+    padding: 14px 16px;
+}
+
+.supplier-search {
+    position: relative;
+}
+
+.supplier-search > i {
+    position: absolute;
+    top: 50%;
+    left: 13px;
+    z-index: 2;
+    color: #94a3b8;
+    transform: translateY(-50%);
+}
+
+.supplier-search .form-control {
+    min-height: 40px;
+    padding-left: 38px;
+    border-color: #e2e8f0;
+    border-radius: 9px;
+}
+
+.supplier-toolbar .form-select {
+    min-height: 40px;
+    border-color: #e2e8f0;
+    border-radius: 9px;
+}
+
+.supplier-toolbar .btn {
+    min-height: 40px;
+    border-radius: 9px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Table
+|--------------------------------------------------------------------------
+*/
+
+.supplier-table-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.supplier-table {
+    min-width: 980px;
+}
+
+.supplier-table thead th {
+    padding: 12px 16px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e9edf2;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.supplier-table tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    vertical-align: middle;
+}
+
+.supplier-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.supplier-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.supplier-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.supplier-avatar {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.supplier-contact-cell {
+    min-width: 145px;
+}
+
+.supplier-payment-term {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 9px;
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 12px;
+}
+
+.supplier-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.supplier-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.supplier-status-active {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+.supplier-status-active .supplier-status-dot {
+    background: #22c55e;
+}
+
+.supplier-status-inactive {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.supplier-status-inactive .supplier-status-dot {
+    background: #94a3b8;
+}
+
+.supplier-action-trigger {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-color: #e2e8f0;
+    border-radius: 8px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Loading / Empty
+|--------------------------------------------------------------------------
+*/
+
+.supplier-loading-state {
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.supplier-empty-state {
+    padding: 20px;
+}
+
+.supplier-empty-icon {
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #f8fafc;
+    color: #94a3b8;
+    font-size: 20px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Form
+|--------------------------------------------------------------------------
+*/
+
+.supplier-form-body {
+    max-height: 68vh;
+    overflow-y: auto;
+    background: #fafbfc;
+}
+
+.supplier-form-section {
+    margin-bottom: 20px;
+    padding: 17px;
+    background: #ffffff;
+    border: 1px solid #eef1f5;
+    border-radius: 12px;
+}
+
+.supplier-form-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.supplier-form-section-title i {
+    color: #64748b;
+}
+
+.supplier-form-body .form-label {
+    margin-bottom: 6px;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.supplier-form-body .form-control {
+    min-height: 40px;
+    border-color: #dfe5ec;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.supplier-form-body textarea.form-control {
+    min-height: auto;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Inspector
+|--------------------------------------------------------------------------
+*/
+
+.supplier-inspector {
+    width: min(430px, 100vw);
+    border: 0;
+    box-shadow: -10px 0 35px rgba(15, 23, 42, 0.10);
+}
+
+.supplier-inspector .offcanvas-header {
+    padding: 22px 22px 17px;
+    border-bottom: 1px solid #eef1f5;
+}
+
+.supplier-inspector .offcanvas-body {
+    padding: 22px;
+    background: #ffffff;
+}
+
+.supplier-inspector-eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.supplier-inspector-status {
+    display: flex;
+    align-items: center;
+}
+
+.supplier-inspector-section {
+    padding: 18px 0;
+    border-top: 1px solid #eef1f5;
+}
+
+.supplier-inspector-section:first-of-type {
+    border-top: 0;
+}
+
+.supplier-inspector-section-title {
+    margin-bottom: 13px;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.supplier-detail-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 8px 0;
+}
+
+.supplier-detail-row span {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.supplier-detail-row strong {
+    max-width: 62%;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.supplier-inspector-address,
+.supplier-inspector-notes {
+    padding: 12px;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.supplier-financial-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.supplier-financial-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 12px 13px;
+    border: 1px solid #eef1f5;
+    border-radius: 9px;
+}
+
+.supplier-financial-item span {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.supplier-financial-item strong {
+    color: #0f172a;
+    font-size: 13px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Confirmation
+|--------------------------------------------------------------------------
+*/
+
+.supplier-confirm-icon {
+    width: 52px;
+    height: 52px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fef2f2;
+    color: #dc2626;
+    font-size: 22px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Global Action Menu
+|--------------------------------------------------------------------------
+*/
+
+#supplierGlobalActionMenu {
+    position: fixed;
+    z-index: 1080;
+    min-width: 190px;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+#supplierGlobalActionMenu .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+#supplierGlobalActionMenu .dropdown-item:hover {
+    background: #f8fafc;
+}
+
+#supplierGlobalActionMenu .dropdown-divider {
+    margin: 5px 0;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 575.98px) {
+
+    .supplier-kpi-card {
+        min-height: 82px;
+        padding: 14px;
+    }
+
+    .supplier-kpi-value {
+        font-size: 18px;
+    }
+
+    .supplier-form-body {
+        max-height: 65vh;
+    }
+
+    .supplier-inspector {
+        width: 100%;
+    }
+
+}
