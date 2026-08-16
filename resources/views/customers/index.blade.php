@@ -1098,8 +1098,6 @@
 
 @include('customers.modals.group-modal')
 
-@include('customers.modals.group-delete-modal')
-
 @include('customers.modals.delete-modal')
 
 @include('customers.modals.confirmation-modal')

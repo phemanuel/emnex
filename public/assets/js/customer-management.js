@@ -54,6 +54,10 @@ const CustomerManagement = {
 
     customerActionCustomerName: null,
 
+    customerDeleteAction: null,
+
+    customerDeleteConfirmModal: null,
+
 
     /*
     |--------------------------------------------------------------------------
@@ -123,6 +127,11 @@ const CustomerManagement = {
                 'groupsTabCount'
             );
 
+        this.customersTabCount =
+            document.getElementById(
+                'customersTabCount'
+            );
+
 
         /*
         |--------------------------------------------------------------------------
@@ -157,6 +166,11 @@ const CustomerManagement = {
         this.customerPagination =
             document.getElementById(
                 'customerPagination'
+            );
+
+        this.customerGroupFilter =
+            document.getElementById(
+                'customerGroupFilter'
             );
 
 
@@ -450,6 +464,41 @@ const CustomerManagement = {
                 'customerConfirmBtn'
             );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Customer Delete Confirmation
+        |--------------------------------------------------------------------------
+        */
+
+        this.customerDeleteConfirmModalElement =
+            document.getElementById(
+                'customerDeleteConfirmModal'
+            );
+
+
+        this.customerDeleteConfirmTitle =
+            document.getElementById(
+                'customerDeleteConfirmTitle'
+            );
+
+
+        this.customerDeleteConfirmMessage =
+            document.getElementById(
+                'customerDeleteConfirmMessage'
+            );
+
+
+        this.customerDeleteConfirmDescription =
+            document.getElementById(
+                'customerDeleteConfirmDescription'
+            );
+
+
+        this.customerDeleteConfirmBtn =
+            document.getElementById(
+                'customerDeleteConfirmBtn'
+            );
+
 
         /*
         |--------------------------------------------------------------------------
@@ -625,6 +674,16 @@ const CustomerManagement = {
 
             }
 
+            if(this.customerDeleteConfirmModalElement)
+            {
+
+                this.customerDeleteConfirmModal =
+                    new bootstrap.Modal(
+                        this.customerDeleteConfirmModalElement
+                    );
+
+            }
+
         } ,
 
     /*
@@ -689,7 +748,17 @@ const CustomerManagement = {
             }
         );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Customer Group Filter
+        |--------------------------------------------------------------------------
+        */
 
+        this.customerGroupFilter?.addEventListener(
+            'change',
+            () => this.loadCustomers(1)
+        );
+        
         /*
         |--------------------------------------------------------------------------
         | Group Status
@@ -796,6 +865,16 @@ const CustomerManagement = {
             () => {
 
                 this.executeCustomerStatusConfirmation();
+
+            }
+        );
+
+
+        this.customerDeleteConfirmBtn?.addEventListener(
+            'click',
+            () => {
+
+                this.executeCustomerDelete();
 
             }
         );
@@ -1404,6 +1483,9 @@ const CustomerManagement = {
                 search:
                     this.customerSearch?.value ?? '',
 
+                group:
+                    this.customerGroupFilter?.value ?? '',
+
                 status:
                     this.customerStatusFilter?.value ?? '',
 
@@ -1455,6 +1537,20 @@ const CustomerManagement = {
 
                 this.customerPagination.innerHTML =
                     result.pagination ?? '';
+
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update Customers Tab Count
+            |--------------------------------------------------------------------------
+            */
+
+            if(this.customersTabCount)
+            {
+
+                this.customersTabCount.textContent =
+                    result.stats?.customers ?? 0;
 
             }
 
@@ -1730,7 +1826,7 @@ const CustomerManagement = {
         {
 
             total.innerText =
-                stats.total ?? 0;
+                stats.customers ?? 0;
 
         }
 
@@ -1771,9 +1867,15 @@ const CustomerManagement = {
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Total Points
+        |--------------------------------------------------------------------------
+        */
+
         const points =
             document.getElementById(
-                'totalLoyaltyPoints'
+                'loyaltyTotalPoints'
             );
 
 
@@ -1781,7 +1883,61 @@ const CustomerManagement = {
         {
 
             points.innerText =
-                stats.points ?? 0;
+                Number(
+                    stats.points ?? 0
+                ).toLocaleString();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Loyalty Customers
+        |--------------------------------------------------------------------------
+        */
+
+        const customers =
+            document.getElementById(
+                'loyaltyCustomerCount'
+            );
+
+
+        if(customers)
+        {
+
+            customers.innerText =
+                Number(
+                    stats.customers ?? 0
+                ).toLocaleString();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Average Points
+        |--------------------------------------------------------------------------
+        */
+
+        const average =
+            document.getElementById(
+                'loyaltyAveragePoints'
+            );
+
+
+        if(average)
+        {
+
+            average.innerText =
+                Number(
+                    stats.average ?? 0
+                ).toLocaleString(
+                    'en-NG',
+                    {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }
+                );
 
         }
 
@@ -2581,7 +2737,7 @@ handleCustomerAction(action)
 
         case 'delete':
 
-            this.confirmDelete(
+            this.confirmCustomerDelete(
                 id,
                 name
             );
@@ -3446,172 +3602,207 @@ handleCustomerAction(action)
 
     },
 
-
-
-    /*
+   /*
     |--------------------------------------------------------------------------
-    | Delete Confirmation
+    | Confirm Customer Delete
     |--------------------------------------------------------------------------
     */
 
-    confirmDelete()
+    confirmCustomerDelete(
+        id,
+        name
+    )
     {
 
-        return new Promise(
-            resolve => {
+        this.customerDeleteAction = {
 
-                const confirmed =
-                    window.confirm(
-                        'Are you sure you want to delete this customer?'
-                    );
+            id:
+                id,
 
+            name:
+                name
 
-                resolve(
-                    confirmed
-                );
-
-            }
-        );
-
-    },
-
-    confirmGroupDelete(id, name)
-    {
-
-        this.groupConfirmAction = {
-            type: 'delete',
-            id: id,
-            name: name
         };
 
 
-        if(this.customerGroupConfirmTitle)
+        /*
+        |--------------------------------------------------------------------------
+        | Title
+        |--------------------------------------------------------------------------
+        */
+
+        if(this.customerDeleteConfirmTitle)
         {
 
-            this.customerGroupConfirmTitle.innerText =
-                'Delete Customer Group';
+            this.customerDeleteConfirmTitle.innerText =
+                'Delete Customer';
 
         }
 
 
-        if(this.customerGroupConfirmMessage)
+        /*
+        |--------------------------------------------------------------------------
+        | Message
+        |--------------------------------------------------------------------------
+        */
+
+        if(this.customerDeleteConfirmMessage)
         {
 
-            this.customerGroupConfirmMessage.innerText =
+            this.customerDeleteConfirmMessage.innerText =
                 `Delete "${name}"?`;
 
         }
 
 
-        if(this.customerGroupConfirmDescription)
+        /*
+        |--------------------------------------------------------------------------
+        | Description
+        |--------------------------------------------------------------------------
+        */
+
+        if(this.customerDeleteConfirmDescription)
         {
 
-            this.customerGroupConfirmDescription.innerText =
-                'This action cannot be undone. The group can only be deleted when no customers are assigned to it.';
+            this.customerDeleteConfirmDescription.innerText =
+                'This action cannot be undone. All customer account data associated with this record will be deleted.';
 
         }
 
 
-        if(this.customerGroupConfirmIcon)
-        {
+        /*
+        |--------------------------------------------------------------------------
+        | Show Modal
+        |--------------------------------------------------------------------------
+        */
 
-            this.customerGroupConfirmIcon.className =
-                'bi bi-trash fs-4 text-danger';
-
-        }
-
-
-        if(this.customerGroupConfirmBtn)
-        {
-
-            this.customerGroupConfirmBtn.className =
-                'btn btn-danger';
-
-            this.customerGroupConfirmBtn.innerText =
-                'Delete Group';
-
-        }
-
-
-        this.customerGroupConfirmModal?.show();
+        this.customerDeleteConfirmModal?.show();
 
     },
 
-    confirmGroupStatus(id, name, action)
+
+    /*
+    |--------------------------------------------------------------------------
+    | Execute Customer Delete
+    |--------------------------------------------------------------------------
+    */
+
+    async executeCustomerDelete()
     {
 
-        this.groupConfirmAction = {
-            type: action,
-            id: id,
-            name: name
-        };
+        const action =
+            this.customerDeleteAction;
 
 
-        const isEnable =
-            action === 'enable';
+        if(!action)
+        {
+            return;
+        }
 
 
-        if(this.customerGroupConfirmTitle)
+        if(this.customerDeleteConfirmBtn)
         {
 
-            this.customerGroupConfirmTitle.innerText =
-                isEnable
-                    ? 'Enable Customer Group'
-                    : 'Disable Customer Group';
+            this.customerDeleteConfirmBtn.disabled =
+                true;
 
         }
 
 
-        if(this.customerGroupConfirmMessage)
+        try
         {
 
-            this.customerGroupConfirmMessage.innerText =
-                isEnable
-                    ? `Enable "${name}"?`
-                    : `Disable "${name}"?`;
+            const response =
+                await fetch(
+                    `/customers/${action.id}`,
+                    {
+
+                        method:
+                            'DELETE',
+
+                        headers: {
+
+                            'Accept':
+                                'application/json',
+
+                            'X-CSRF-TOKEN':
+                                document
+                                    .querySelector(
+                                        'meta[name="csrf-token"]'
+                                    )
+                                    .content,
+
+                        }
+
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if(result.success)
+            {
+
+                showToast(
+                    result.message ??
+                    'Customer deleted successfully.',
+                    'success'
+                );
+
+
+                this.customerDeleteConfirmModal?.hide();
+
+
+                this.customerDeleteAction =
+                    null;
+
+
+                await this.loadCustomers(
+                    1
+                );
+
+            }
+            else
+            {
+
+                showToast(
+                    result.message ??
+                    'Unable to delete customer.',
+                    'error'
+                );
+
+            }
 
         }
-
-
-        if(this.customerGroupConfirmDescription)
+        catch(error)
         {
 
-            this.customerGroupConfirmDescription.innerText =
-                isEnable
-                    ? 'Customers will be able to use this group.'
-                    : 'This group will no longer be available for active customer group usage.';
+            console.error(
+                'Customer delete error:',
+                error
+            );
+
+
+            showToast(
+                'Something went wrong.',
+                'error'
+            );
 
         }
-
-
-        if(this.customerGroupConfirmIcon)
+        finally
         {
 
-            this.customerGroupConfirmIcon.className =
-                isEnable
-                    ? 'bi bi-check-circle fs-4 text-success'
-                    : 'bi bi-pause-circle fs-4 text-warning';
+            if(this.customerDeleteConfirmBtn)
+            {
+
+                this.customerDeleteConfirmBtn.disabled =
+                    false;
+
+            }
 
         }
-
-
-        if(this.customerGroupConfirmBtn)
-        {
-
-            this.customerGroupConfirmBtn.className =
-                isEnable
-                    ? 'btn btn-success'
-                    : 'btn btn-warning';
-
-            this.customerGroupConfirmBtn.innerText =
-                isEnable
-                    ? 'Enable Group'
-                    : 'Disable Group';
-
-        }
-
-
-        this.customerGroupConfirmModal?.show();
 
     },
 

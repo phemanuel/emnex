@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2026 at 05:03 PM
+-- Generation Time: Aug 16, 2026 at 01:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -183,7 +183,55 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (123, 1, 1, 1, 'Products', 'Restored', 'Restored product: Three Crown Evaporated Milk', 'Product', 14, '{\"id\":14,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000011\",\"barcode\":\"123456\",\"sku\":\"Tcoke50cl\",\"qr_code\":null,\"name\":\"Test Coke\",\"description\":\"Test Coke\",\"image\":\"1785926412_6a73130c53070.jpg\",\"cost_price\":\"4000.00\",\"selling_price\":\"4200.00\",\"discount_id\":null,\"unit_id\":8,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coke\",\"manufacturer\":\"Cocacola\",\"expiry_date\":\"2028-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"10.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-09T18:19:44.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":14,\"company_id\":1,\"product_category_id\":5,\"product_code\":\"PRD000011\",\"barcode\":\"TH123456\",\"sku\":\"3crown\",\"qr_code\":null,\"name\":\"Three Crown Evaporated Milk\",\"description\":\"Three Crown Evaporated Milk\",\"image\":\"1786299584_6a78c4c0726c3.png\",\"cost_price\":\"1500.00\",\"selling_price\":\"1700.00\",\"discount_id\":null,\"unit_id\":5,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Three Crown\",\"manufacturer\":\"Three Crown Ltd\",\"expiry_date\":\"2026-08-27T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"500.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-05T10:40:12.000000Z\",\"updated_at\":\"2026-08-09T18:19:44.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 17:19:44', '2026-08-09 17:19:44'),
 (124, 1, 1, 1, 'Products', 'Created', 'Created product: Three Crown Evaporated Milk', 'Product', 15, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 17:39:05', '2026-08-09 17:39:05'),
 (125, 1, 1, 1, 'Products', 'Created', 'Created product: Three Crown Evaporated Milk', 'Product', 16, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 17:44:33', '2026-08-09 17:44:33'),
-(126, 1, 1, 1, 'Products', 'Created', 'Created product: Three Crown Evaporated Milk', 'Product', 19, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-09 17:52:05');
+(126, 1, 1, 1, 'Products', 'Created', 'Created product: Three Crown Evaporated Milk', 'Product', 19, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-09 17:52:05'),
+(127, 1, 1, 1, 'Inventory', 'Stock Transferred', 'Transferred 2 product(s) from Head Office to Ajah Outlet New. Reference: TRF-20260811095105-Z8MMFQ', 'Branch', 1, NULL, '{\"reference_no\":\"TRF-20260811095105-Z8MMFQ\",\"source_branch_id\":1,\"destination_branch_id\":4,\"items\":[{\"stock_id\":13,\"product_id\":19,\"product_name\":\"Three Crown Evaporated Milk\",\"quantity\":10,\"source_balance\":140,\"destination_balance\":10},{\"stock_id\":10,\"product_id\":10,\"product_name\":\"Pampers Size 3\",\"quantity\":10,\"source_balance\":90,\"destination_balance\":10}]}', 'stock-transfer/transfer', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-11 08:51:05', '2026-08-11 08:51:05'),
+(128, 1, 1, 1, 'Inventory', 'Stock Transferred', 'Transferred 3 product(s) from Head Office to Ikorodu Outlet. Reference: TRF-20260811103939-GTPV70', 'Branch', 1, NULL, '{\"reference_no\":\"TRF-20260811103939-GTPV70\",\"source_branch_id\":1,\"destination_branch_id\":6,\"items\":[{\"stock_id\":13,\"product_id\":19,\"product_name\":\"Three Crown Evaporated Milk\",\"quantity\":5,\"source_balance\":135,\"destination_balance\":5},{\"stock_id\":10,\"product_id\":10,\"product_name\":\"Pampers Size 3\",\"quantity\":5,\"source_balance\":85,\"destination_balance\":5},{\"stock_id\":9,\"product_id\":9,\"product_name\":\"Premier Soap\",\"quantity\":10,\"source_balance\":90,\"destination_balance\":10}]}', 'stock-transfer/transfer', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(129, 1, 1, 1, 'Inventory', 'Stock Transferred', 'Transferred 5 product(s) from Head Office to Ajah Outlet New. Reference: TRF-20260814111511-MPNNZ9', 'Branch', 1, NULL, '{\"reference_no\":\"TRF-20260814111511-MPNNZ9\",\"source_branch_id\":1,\"destination_branch_id\":4,\"items\":[{\"stock_id\":9,\"product_id\":9,\"product_name\":\"Premier Soap\",\"quantity\":10,\"source_balance\":80,\"destination_balance\":10},{\"stock_id\":8,\"product_id\":8,\"product_name\":\"Mama Gold Rice 50kg\",\"quantity\":5,\"source_balance\":95,\"destination_balance\":5},{\"stock_id\":7,\"product_id\":7,\"product_name\":\"Family Bread\",\"quantity\":5,\"source_balance\":95,\"destination_balance\":5},{\"stock_id\":6,\"product_id\":6,\"product_name\":\"Dangote Sugar 1kg\",\"quantity\":5,\"source_balance\":95,\"destination_balance\":5},{\"stock_id\":5,\"product_id\":5,\"product_name\":\"Indomie Chicken Noodles\",\"quantity\":10,\"source_balance\":90,\"destination_balance\":10}]}', 'stock-transfer/transfer', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(130, 1, 1, 1, 'Stock Count', 'Created', 'Created stock count SC-000001', 'StockCount', 1, NULL, '{\"company_id\":1,\"branch_id\":4,\"reference_no\":\"SC-000001\",\"count_date\":\"2026-08-14T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":\"Stock Count\",\"created_by\":1,\"updated_at\":\"2026-08-14T11:18:15.000000Z\",\"created_at\":\"2026-08-14T11:18:15.000000Z\",\"id\":1}', 'stock-count', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-14 10:18:15', '2026-08-14 10:18:15'),
+(131, 1, 1, 1, 'Stock Count', 'Updated', 'Updated stock count SC-000001', 'StockCount', 1, '{\"id\":1,\"company_id\":1,\"branch_id\":4,\"reference_no\":\"SC-000001\",\"count_date\":\"2026-08-14T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":\"Stock Count\",\"created_by\":1,\"completed_by\":null,\"completed_at\":null,\"created_at\":\"2026-08-14T11:18:15.000000Z\",\"updated_at\":\"2026-08-14T11:18:15.000000Z\"}', '{\"id\":1,\"company_id\":1,\"branch_id\":4,\"reference_no\":\"SC-000001\",\"count_date\":\"2026-08-14T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":\"Test Stock Count\",\"created_by\":1,\"completed_by\":null,\"completed_at\":null,\"created_at\":\"2026-08-14T11:18:15.000000Z\",\"updated_at\":\"2026-08-14T12:54:30.000000Z\"}', 'stock-count/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-14 11:54:30', '2026-08-14 11:54:30'),
+(132, 1, 1, 1, 'Stock Count', 'Deleted', 'Deleted stock count SC-000001', 'StockCount', 1, '{\"id\":1,\"company_id\":1,\"branch_id\":4,\"reference_no\":\"SC-000001\",\"count_date\":\"2026-08-14T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":\"Test Stock Count\",\"created_by\":1,\"completed_by\":null,\"completed_at\":null,\"created_at\":\"2026-08-14T11:18:15.000000Z\",\"updated_at\":\"2026-08-14T12:54:30.000000Z\"}', NULL, 'stock-count/1', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-14 11:55:02', '2026-08-14 11:55:02'),
+(133, 1, 1, 1, 'Stock Count', 'Created', 'Created stock count SC-000002', 'StockCount', 2, NULL, '{\"company_id\":1,\"branch_id\":4,\"reference_no\":\"SC-000002\",\"count_date\":\"2026-08-15T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":\"Stock count\",\"created_by\":1,\"updated_at\":\"2026-08-15T09:50:57.000000Z\",\"created_at\":\"2026-08-15T09:50:57.000000Z\",\"id\":2}', 'stock-count', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-15 08:50:57', '2026-08-15 08:50:57'),
+(134, 1, 1, 1, 'Stock Count', 'Updated', 'Updated stock count SC-000002', 'StockCount', 2, '{\"id\":2,\"company_id\":1,\"branch_id\":4,\"reference_no\":\"SC-000002\",\"count_date\":\"2026-08-15T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":\"Stock count\",\"created_by\":1,\"completed_by\":null,\"completed_at\":null,\"created_at\":\"2026-08-15T09:50:57.000000Z\",\"updated_at\":\"2026-08-15T09:50:57.000000Z\"}', '{\"id\":2,\"company_id\":1,\"branch_id\":4,\"reference_no\":\"SC-000002\",\"count_date\":\"2026-08-15T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":\"Test Stock count\",\"created_by\":1,\"completed_by\":null,\"completed_at\":null,\"created_at\":\"2026-08-15T09:50:57.000000Z\",\"updated_at\":\"2026-08-15T09:51:11.000000Z\"}', 'stock-count/2', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-15 08:51:11', '2026-08-15 08:51:11'),
+(135, 1, 1, 1, 'Stock Count', 'Deleted', 'Deleted stock count SC-000002', 'StockCount', 2, '{\"id\":2,\"company_id\":1,\"branch_id\":4,\"reference_no\":\"SC-000002\",\"count_date\":\"2026-08-15T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":\"Test Stock count\",\"created_by\":1,\"completed_by\":null,\"completed_at\":null,\"created_at\":\"2026-08-15T09:50:57.000000Z\",\"updated_at\":\"2026-08-15T09:51:11.000000Z\"}', NULL, 'stock-count/2', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-15 08:51:15', '2026-08-15 08:51:15'),
+(136, 1, 1, 1, 'Stock Count', 'Created', 'Created stock count SC-000003', 'StockCount', 3, NULL, '{\"company_id\":1,\"branch_id\":4,\"reference_no\":\"SC-000003\",\"count_date\":\"2026-08-15T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":\"Test stock count\",\"created_by\":1,\"updated_at\":\"2026-08-15T09:53:31.000000Z\",\"created_at\":\"2026-08-15T09:53:31.000000Z\",\"id\":3}', 'stock-count', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-15 08:53:31', '2026-08-15 08:53:31'),
+(137, 1, 1, 1, 'Stock Count', 'Started', 'Started stock count SC-000003', 'StockCount', 3, '{\"status\":\"Draft\"}', '{\"status\":\"In Progress\"}', 'stock-count/3/start', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-15 10:11:18', '2026-08-15 10:11:18'),
+(138, 1, 1, 1, 'Stock Count', 'Completed', 'Completed stock count SC-000003', 'StockCount', 3, '{\"status\":\"In Progress\"}', '{\"status\":\"Completed\",\"completed_by\":1,\"completed_at\":\"2026-08-15T12:11:39.000000Z\"}', 'stock-count/3/complete', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
+(139, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Regular Customers (REGULAR)', 'CustomerGroup', 2, NULL, '{\"company_id\":1,\"name\":\"Regular Customers\",\"code\":\"REGULAR\",\"description\":\"Customers who purchase regularly\",\"discount_percentage\":\"2.00\",\"credit_limit\":\"50000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:09:30.000000Z\",\"created_at\":\"2026-08-16T03:09:30.000000Z\",\"id\":2}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:09:30', '2026-08-16 02:09:30'),
+(140, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: VIP Customers (VIP)', 'CustomerGroup', 3, NULL, '{\"company_id\":1,\"name\":\"VIP Customers\",\"code\":\"VIP\",\"description\":\"High-value customers\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"200000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:10:10.000000Z\",\"created_at\":\"2026-08-16T03:10:10.000000Z\",\"id\":3}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:10:10', '2026-08-16 02:10:10'),
+(141, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Wholesale Customers (WHOLESALE)', 'CustomerGroup', 4, NULL, '{\"company_id\":1,\"name\":\"Wholesale Customers\",\"code\":\"WHOLESALE\",\"description\":\"Bulk\\/wholesale buyers\",\"discount_percentage\":\"8.00\",\"credit_limit\":\"1000000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:10:56.000000Z\",\"created_at\":\"2026-08-16T03:10:56.000000Z\",\"id\":4}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:10:56', '2026-08-16 02:10:56'),
+(142, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Retailers (RETAILER)', 'CustomerGroup', 5, NULL, '{\"company_id\":1,\"name\":\"Retailers\",\"code\":\"RETAILER\",\"description\":\"Businesses buying for resale\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"500000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:14:03.000000Z\",\"created_at\":\"2026-08-16T03:14:03.000000Z\",\"id\":5}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:14:03', '2026-08-16 02:14:03'),
+(143, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Corporate Customers (CORPORATE)', 'CustomerGroup', 6, NULL, '{\"company_id\":1,\"name\":\"Corporate Customers\",\"code\":\"CORPORATE\",\"description\":\"Companies and organizations\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"2000000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:14:42.000000Z\",\"created_at\":\"2026-08-16T03:14:42.000000Z\",\"id\":6}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:14:42', '2026-08-16 02:14:42'),
+(144, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Distributors (DISTRIBUTOR)', 'CustomerGroup', 7, NULL, '{\"company_id\":1,\"name\":\"Distributors\",\"code\":\"DISTRIBUTOR\",\"description\":\"Large-volume distribution customers\",\"discount_percentage\":\"10.00\",\"credit_limit\":\"5000000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:15:27.000000Z\",\"created_at\":\"2026-08-16T03:15:27.000000Z\",\"id\":7}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:15:27', '2026-08-16 02:15:27'),
+(145, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Staff (STAFF)', 'CustomerGroup', 8, NULL, '{\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employees\\/staff purchases\",\"discount_percentage\":\"10.00\",\"credit_limit\":\"50000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:16:13.000000Z\",\"created_at\":\"2026-08-16T03:16:13.000000Z\",\"id\":8}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:16:13', '2026-08-16 02:16:13'),
+(146, 1, 1, 1, 'customer_groups', 'update', 'Updated customer group: Staff (STAFF)', 'CustomerGroup', 8, '{\"id\":8,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employees\\/staff purchases\",\"discount_percentage\":\"10.00\",\"credit_limit\":\"50000.00\",\"status\":true,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-16T03:16:13.000000Z\",\"updated_at\":\"2026-08-16T03:16:13.000000Z\"}', '{\"id\":8,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employees\\/staff purchases\",\"discount_percentage\":\"10.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:16:13.000000Z\",\"updated_at\":\"2026-08-16T03:21:19.000000Z\"}', 'customers/groups/8', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:21:19', '2026-08-16 02:21:19'),
+(147, 1, 1, 1, 'customer_groups', 'disable', 'Disabled customer group: Staff (STAFF)', 'CustomerGroup', 8, '{\"id\":8,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employees\\/staff purchases\",\"discount_percentage\":\"10.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:16:13.000000Z\",\"updated_at\":\"2026-08-16T03:21:19.000000Z\"}', '{\"id\":8,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employees\\/staff purchases\",\"discount_percentage\":\"10.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:16:13.000000Z\",\"updated_at\":\"2026-08-16T03:23:51.000000Z\"}', 'customers/groups/8/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:23:51', '2026-08-16 02:23:51'),
+(148, 1, 1, 1, 'customer_groups', 'enable', 'Enabled customer group: Staff (STAFF)', 'CustomerGroup', 8, '{\"id\":8,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employees\\/staff purchases\",\"discount_percentage\":\"10.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:16:13.000000Z\",\"updated_at\":\"2026-08-16T03:23:51.000000Z\"}', '{\"id\":8,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employees\\/staff purchases\",\"discount_percentage\":\"10.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:16:13.000000Z\",\"updated_at\":\"2026-08-16T03:23:56.000000Z\"}', 'customers/groups/8/enable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:23:56', '2026-08-16 02:23:56'),
+(149, 1, 1, 1, 'customer_groups', 'delete', 'Deleted customer group: Staff (STAFF)', 'CustomerGroup', 8, '{\"id\":8,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employees\\/staff purchases\",\"discount_percentage\":\"10.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:16:13.000000Z\",\"updated_at\":\"2026-08-16T03:23:56.000000Z\"}', NULL, 'customers/groups/8', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:24:11', '2026-08-16 02:24:11'),
+(150, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Staff (STAFF)', 'CustomerGroup', 9, NULL, '{\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"30000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:24:39.000000Z\",\"created_at\":\"2026-08-16T03:24:39.000000Z\",\"id\":9}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:24:39', '2026-08-16 02:24:39'),
+(151, 1, 1, 1, 'customer_groups', 'delete', 'Deleted customer group: Staff (STAFF)', 'CustomerGroup', 9, '{\"id\":9,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"30000.00\",\"status\":true,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-16T03:24:39.000000Z\",\"updated_at\":\"2026-08-16T03:24:39.000000Z\"}', NULL, 'customers/groups/9', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:32:48', '2026-08-16 02:32:48'),
+(152, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Staff (STAFF)', 'CustomerGroup', 10, NULL, '{\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:33:12.000000Z\",\"created_at\":\"2026-08-16T03:33:12.000000Z\",\"id\":10}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:33:12', '2026-08-16 02:33:12'),
+(153, 1, 1, 1, 'customer_groups', 'delete', 'Deleted customer group: Staff (STAFF)', 'CustomerGroup', 10, '{\"id\":10,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-16T03:33:12.000000Z\",\"updated_at\":\"2026-08-16T03:33:12.000000Z\"}', NULL, 'customers/groups/10', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:34:10', '2026-08-16 02:34:10'),
+(154, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Staff (STAFF)', 'CustomerGroup', 11, NULL, '{\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:34:32.000000Z\",\"created_at\":\"2026-08-16T03:34:32.000000Z\",\"id\":11}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:34:32', '2026-08-16 02:34:32'),
+(155, 1, 1, 1, 'customer_groups', 'delete', 'Deleted customer group: Staff (STAFF)', 'CustomerGroup', 11, '{\"id\":11,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-16T03:34:32.000000Z\",\"updated_at\":\"2026-08-16T03:34:32.000000Z\"}', NULL, 'customers/groups/11', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:37:21', '2026-08-16 02:37:21'),
+(156, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Staff (STAFF)', 'CustomerGroup', 12, NULL, '{\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:40:11.000000Z\",\"created_at\":\"2026-08-16T03:40:11.000000Z\",\"id\":12}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:40:11', '2026-08-16 02:40:11'),
+(157, 1, 1, 1, 'customer_groups', 'delete', 'Deleted customer group: Staff (STAFF)', 'CustomerGroup', 12, '{\"id\":12,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-16T03:40:11.000000Z\",\"updated_at\":\"2026-08-16T03:40:11.000000Z\"}', NULL, 'customers/groups/12', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:40:18', '2026-08-16 02:40:18'),
+(158, 1, 1, 1, 'customer_groups', 'create', 'Created customer group: Staff (STAFF)', 'CustomerGroup', 13, NULL, '{\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:40:32.000000Z\",\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"id\":13}', 'customers/groups', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:40:32', '2026-08-16 02:40:32'),
+(159, 1, 1, 1, 'customers', 'create', 'Created customer: Femi Akinyooye', 'Customer', 6, NULL, '{\"company_id\":1,\"customer_group_id\":2,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"status\":true,\"created_by\":1,\"updated_at\":\"2026-08-16T03:50:25.000000Z\",\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"id\":6}', 'customers', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 02:50:25', '2026-08-16 02:50:25'),
+(160, 1, 1, 1, 'customers', 'update', 'Updated customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T03:50:25.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Registered\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T04:44:09.000000Z\",\"deleted_at\":null}', 'customers/6', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 03:44:09', '2026-08-16 03:44:09'),
+(161, 1, 1, 1, 'customer_groups', 'disable', 'Disabled customer group: Corporate Customers (CORPORATE)', 'CustomerGroup', 6, '{\"id\":6,\"company_id\":1,\"name\":\"Corporate Customers\",\"code\":\"CORPORATE\",\"description\":\"Companies and organizations\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"2000000.00\",\"status\":true,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-16T03:14:42.000000Z\",\"updated_at\":\"2026-08-16T03:14:42.000000Z\"}', '{\"id\":6,\"company_id\":1,\"name\":\"Corporate Customers\",\"code\":\"CORPORATE\",\"description\":\"Companies and organizations\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"2000000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:14:42.000000Z\",\"updated_at\":\"2026-08-16T05:12:09.000000Z\"}', 'customers/groups/6/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:12:09', '2026-08-16 04:12:09'),
+(162, 1, 1, 1, 'customer_groups', 'enable', 'Enabled customer group: Corporate Customers (CORPORATE)', 'CustomerGroup', 6, '{\"id\":6,\"company_id\":1,\"name\":\"Corporate Customers\",\"code\":\"CORPORATE\",\"description\":\"Companies and organizations\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"2000000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:14:42.000000Z\",\"updated_at\":\"2026-08-16T05:12:09.000000Z\"}', '{\"id\":6,\"company_id\":1,\"name\":\"Corporate Customers\",\"code\":\"CORPORATE\",\"description\":\"Companies and organizations\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"2000000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:14:42.000000Z\",\"updated_at\":\"2026-08-16T05:12:23.000000Z\"}', 'customers/groups/6/enable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:12:23', '2026-08-16 04:12:23'),
+(163, 1, 1, 1, 'customers', 'update', 'Updated customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Registered\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T04:44:09.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:13:14.000000Z\",\"deleted_at\":null}', 'customers/6', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:13:14', '2026-08-16 04:13:14'),
+(164, 1, 1, 1, 'customer_groups', 'disable', 'Disabled customer group: Staff (STAFF)', 'CustomerGroup', 13, '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T03:40:32.000000Z\"}', '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:30:32.000000Z\"}', 'customers/groups/13/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:30:32', '2026-08-16 04:30:32'),
+(165, 1, 1, 1, 'customer_groups', 'enable', 'Enabled customer group: Staff (STAFF)', 'CustomerGroup', 13, '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:30:32.000000Z\"}', '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:30:36.000000Z\"}', 'customers/groups/13/enable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:30:36', '2026-08-16 04:30:36'),
+(166, 1, 1, 1, 'customer_groups', 'disable', 'Disabled customer group: Staff (STAFF)', 'CustomerGroup', 13, '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:30:36.000000Z\"}', '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:33:42.000000Z\"}', 'customers/groups/13/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:33:42', '2026-08-16 04:33:42'),
+(167, 1, 1, 1, 'customer_groups', 'enable', 'Enabled customer group: Staff (STAFF)', 'CustomerGroup', 13, '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:33:42.000000Z\"}', '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:33:45.000000Z\"}', 'customers/groups/13/enable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:33:45', '2026-08-16 04:33:45'),
+(168, 1, 1, 1, 'customers', 'disable', 'Disabled customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:13:14.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:37:42.000000Z\",\"deleted_at\":null}', 'customers/6/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:37:42', '2026-08-16 04:37:42');
+INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module`, `action`, `description`, `record_type`, `record_id`, `old_values`, `new_values`, `url`, `method`, `user_agent`, `terminal_id`, `ip_address`, `browser`, `platform`, `device`, `created_at`, `updated_at`) VALUES
+(169, 1, 1, 1, 'customers', 'disable', 'Disabled customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:37:42.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:37:42.000000Z\",\"deleted_at\":null}', 'customers/6/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:42:06', '2026-08-16 04:42:06'),
+(170, 1, 1, 1, 'customer_groups', 'disable', 'Disabled customer group: Staff (STAFF)', 'CustomerGroup', 13, '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:33:45.000000Z\"}', '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:45:11.000000Z\"}', 'customers/groups/13/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:45:11', '2026-08-16 04:45:11'),
+(171, 1, 1, 1, 'customer_groups', 'enable', 'Enabled customer group: Staff (STAFF)', 'CustomerGroup', 13, '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:45:11.000000Z\"}', '{\"id\":13,\"company_id\":1,\"name\":\"Staff\",\"code\":\"STAFF\",\"description\":\"Employee\",\"discount_percentage\":\"5.00\",\"credit_limit\":\"20000.00\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:40:32.000000Z\",\"updated_at\":\"2026-08-16T05:45:14.000000Z\"}', 'customers/groups/13/enable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:45:14', '2026-08-16 04:45:14'),
+(172, 1, 1, 1, 'customers', 'enable', 'Enabled customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:37:42.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:53:50.000000Z\",\"deleted_at\":null}', 'customers/6/enable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:53:50', '2026-08-16 04:53:50'),
+(173, 1, 1, 1, 'customers', 'disable', 'Disabled customer: Femi Akinyooye', 'Customer', 6, '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:53:50.000000Z\",\"deleted_at\":null}', '{\"id\":6,\"company_id\":1,\"customer_group_id\":2,\"branch_id\":null,\"customer_code\":\"CUS-00001\",\"first_name\":\"Femi\",\"last_name\":\"Akinyooye\",\"email\":\"emmakinyooye@gmail.com\",\"phone\":\"07032689329\",\"address\":\"Ibadan\",\"credit_limit\":\"50000.00\",\"current_balance\":\"0.00\",\"customer_type\":\"Walk-in\",\"loyalty_points\":0,\"last_purchase_date\":null,\"status\":false,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T03:50:25.000000Z\",\"updated_at\":\"2026-08-16T05:53:54.000000Z\",\"deleted_at\":null}', 'customers/6/disable', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-16 04:53:54', '2026-08-16 04:53:54');
 
 -- --------------------------------------------------------
 
@@ -302,6 +350,7 @@ CREATE TABLE `currencies` (
 CREATE TABLE `customers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `company_id` bigint(20) UNSIGNED NOT NULL,
+  `customer_group_id` bigint(20) UNSIGNED DEFAULT NULL,
   `branch_id` bigint(20) UNSIGNED DEFAULT NULL,
   `customer_code` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
@@ -326,12 +375,43 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `company_id`, `branch_id`, `customer_code`, `first_name`, `last_name`, `email`, `phone`, `address`, `credit_limit`, `current_balance`, `customer_type`, `loyalty_points`, `last_purchase_date`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, NULL, 'CUS000001', 'Walk-in', 'Customer', NULL, NULL, NULL, 0.00, 0.00, 'Walk-in', 0, NULL, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(2, 1, NULL, 'CUS000002', 'John', 'Doe', 'john@example.com', '08030000001', NULL, 0.00, 0.00, 'Regular', 0, NULL, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(3, 1, NULL, 'CUS000003', 'Jane', 'Smith', 'jane@example.com', '08030000002', NULL, 0.00, 0.00, 'Regular', 0, NULL, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(4, 1, NULL, 'CUS000004', 'Michael', 'Johnson', 'michael@example.com', '08030000003', NULL, 0.00, 0.00, 'Wholesale', 0, NULL, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(5, 1, NULL, 'CUS000005', 'Sarah', 'Williams', 'sarah@example.com', '08030000004', NULL, 0.00, 0.00, 'VIP', 0, NULL, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL);
+INSERT INTO `customers` (`id`, `company_id`, `customer_group_id`, `branch_id`, `customer_code`, `first_name`, `last_name`, `email`, `phone`, `address`, `credit_limit`, `current_balance`, `customer_type`, `loyalty_points`, `last_purchase_date`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '07032689329', 'Ibadan', 50000.00, 0.00, 'Walk-in', 0, NULL, 0, 1, 1, '2026-08-16 02:50:25', '2026-08-16 04:53:54', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_groups`
+--
+
+CREATE TABLE `customer_groups` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `discount_percentage` decimal(5,2) NOT NULL DEFAULT 0.00,
+  `credit_limit` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customer_groups`
+--
+
+INSERT INTO `customer_groups` (`id`, `company_id`, `name`, `code`, `description`, `discount_percentage`, `credit_limit`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Walk-in Customers', 'WALKIN', 'Normal one-time/general customers', 0.00, 0.00, 1, 1, NULL, '2026-08-16 02:03:13', '2026-08-16 02:03:13'),
+(2, 1, 'Regular Customers', 'REGULAR', 'Customers who purchase regularly', 2.00, 50000.00, 1, 1, NULL, '2026-08-16 02:09:30', '2026-08-16 02:09:30'),
+(3, 1, 'VIP Customers', 'VIP', 'High-value customers', 5.00, 200000.00, 1, 1, NULL, '2026-08-16 02:10:10', '2026-08-16 02:10:10'),
+(4, 1, 'Wholesale Customers', 'WHOLESALE', 'Bulk/wholesale buyers', 8.00, 1000000.00, 1, 1, NULL, '2026-08-16 02:10:56', '2026-08-16 02:10:56'),
+(5, 1, 'Retailers', 'RETAILER', 'Businesses buying for resale', 5.00, 500000.00, 1, 1, NULL, '2026-08-16 02:14:03', '2026-08-16 02:14:03'),
+(6, 1, 'Corporate Customers', 'CORPORATE', 'Companies and organizations', 5.00, 2000000.00, 1, 1, 1, '2026-08-16 02:14:42', '2026-08-16 04:12:23'),
+(7, 1, 'Distributors', 'DISTRIBUTOR', 'Large-volume distribution customers', 10.00, 5000000.00, 1, 1, NULL, '2026-08-16 02:15:27', '2026-08-16 02:15:27'),
+(13, 1, 'Staff', 'STAFF', 'Employee', 5.00, 20000.00, 1, 1, 1, '2026-08-16 02:40:32', '2026-08-16 04:45:14');
 
 -- --------------------------------------------------------
 
@@ -413,9 +493,8 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (18, 1, 'Sales Order', 'SO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (19, 1, 'Purchase Order', 'PO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (20, 1, 'Purchase Return', 'PR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
-(21, 1, 'Sales Return', 'SR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
-(22, 1, 'Stock Transfer', 'ST', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
-(23, 1, 'Stock Adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0);
+(22, 1, 'stock_transfer', 'ST', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
+(23, 1, 'stock_count', 'SC', NULL, '-', 4, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-15 08:53:31', 0);
 
 -- --------------------------------------------------------
 
@@ -526,7 +605,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (39, '2026_08_03_100609_add_payment_method_to_payments_table', 9),
 (40, '2026_08_03_101122_add_unit_metadata_to_units_table', 10),
 (41, '2026_08_04_100012_add_soft_deletes_to_discounts_table', 11),
-(42, '2026_08_09_103055_update_stock_movements_for_stock_adjustments', 12);
+(42, '2026_08_09_103055_update_stock_movements_for_stock_adjustments', 12),
+(43, '2026_08_11_100444_update_stock_movement_types', 13),
+(44, '2026_08_14_093916_create_stock_counts_table', 14),
+(45, '2026_08_14_093949_create_stock_count_items_table', 14),
+(46, '2026_08_15_133231_create_customer_groups_table', 15),
+(47, '2026_08_15_134244_add_customer_group_id_to_customers_table', 16);
 
 -- --------------------------------------------------------
 
@@ -912,13 +996,21 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (2, 1, 1, 2, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (3, 1, 1, 3, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (4, 1, 1, 4, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(5, 1, 1, 5, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(6, 1, 1, 6, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(7, 1, 1, 7, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(8, 1, 1, 8, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(9, 1, 1, 9, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(10, 1, 1, 10, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(13, 1, 1, 19, 150.00, 0.00, 150.00, 100.00, 500.00, '2026-08-09 17:52:05', '2026-08-09 17:52:05');
+(5, 1, 1, 5, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
+(6, 1, 1, 6, 95.00, 0.00, 95.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
+(7, 1, 1, 7, 95.00, 0.00, 95.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
+(8, 1, 1, 8, 95.00, 0.00, 95.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
+(9, 1, 1, 9, 80.00, 0.00, 80.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
+(10, 1, 1, 10, 85.00, 0.00, 85.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-11 09:39:39'),
+(13, 1, 1, 19, 135.00, 0.00, 135.00, 100.00, 500.00, '2026-08-09 17:52:05', '2026-08-11 09:39:39'),
+(20, 1, 6, 19, 5.00, 0.00, 5.00, 100.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(21, 1, 6, 10, 5.00, 0.00, 5.00, 20.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(22, 1, 6, 9, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(23, 1, 4, 9, 9.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
+(24, 1, 4, 8, 3.00, 0.00, 5.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
+(25, 1, 4, 7, 4.00, 0.00, 5.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
+(26, 1, 4, 6, 4.00, 0.00, 5.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
+(27, 1, 4, 5, 15.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39');
 
 -- --------------------------------------------------------
 
@@ -1301,7 +1393,10 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('4za7O66DNDbWR7YbdavQpcVWvxymDodNl09PI1b9', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6ImNyNk5yWVNwTm1rUFNrUjdKempCTDFmUVBFZXMxMlFoSXQ1V05VYXIiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozNjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3N0b2NrLXRyYW5zZmVyIjtzOjU6InJvdXRlIjtzOjIwOiJzdG9jay10cmFuc2Zlci5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1786374144);
+('Ct4dBvoW6H24iRluYkeJdRI4Zu8TwXJxsb9YGics', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IkFHMnc2cFM4U2JVNk5rOTFURHdDdDRJSWpUNUY4N1RzVlQwYUpDVUwiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo2NjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2N1c3RvbWVycy90YWJsZT9wYWdlPTEmc2VhcmNoPSZzdGF0dXM9JnR5cGU9IjtzOjU6InJvdXRlIjtzOjE1OiJjdXN0b21lcnMudGFibGUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1786854450),
+('hp1AqKZt9a3ltGuiUJ8epIe7oZypSiPNdk4Fy5R0', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6Imt2N2E5ZDdDZHJrUEhNaWFzNGx5RlJDVEJHRjliRnI4bExKR3NBSVciO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jdXN0b21lcnMiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo2NjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2N1c3RvbWVycy90YWJsZT9wYWdlPTEmc2VhcmNoPSZzdGF0dXM9JnR5cGU9IjtzOjU6InJvdXRlIjtzOjE1OiJjdXN0b21lcnMudGFibGUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1786854707),
+('HPBHk6fpDvFDM5Yw7ZlOGzhyI5SgIryctHciNGWj', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiREtTY3lhNWlPcmJkZVR4RnZvUDJyVThOcnBFYmVZakVQcm5nekNscSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rhc2hib2FyZCI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjI3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvbG9naW4iO3M6NToicm91dGUiO3M6NToibG9naW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1786878322),
+('ttcM9XVEGYaxUH8kc4pfk1GgebghOJGJ3rBtXIJe', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IlN1d2c5dnJ2NlhBc0tlcUpzb2RyTUtLMnFKVTBQck8xTmRLN2tMYVQiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jdXN0b21lcnMiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo2NzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2N1c3RvbWVycy9ncm91cHMvdGFibGU/cGFnZT0xJnNlYXJjaD0mc3RhdHVzPSI7czo1OiJyb3V0ZSI7czoyMjoiY3VzdG9tZXJzLmdyb3Vwcy50YWJsZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1786859829);
 
 -- --------------------------------------------------------
 
@@ -1354,6 +1449,64 @@ INSERT INTO `settings` (`id`, `company_id`, `company_name`, `company_email`, `co
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stock_counts`
+--
+
+CREATE TABLE `stock_counts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED NOT NULL,
+  `reference_no` varchar(255) NOT NULL,
+  `count_date` date NOT NULL,
+  `status` enum('Draft','In Progress','Completed','Cancelled') NOT NULL DEFAULT 'Draft',
+  `notes` text DEFAULT NULL,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `completed_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `completed_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `stock_counts`
+--
+
+INSERT INTO `stock_counts` (`id`, `company_id`, `branch_id`, `reference_no`, `count_date`, `status`, `notes`, `created_by`, `completed_by`, `completed_at`, `created_at`, `updated_at`) VALUES
+(3, 1, 4, 'SC-000003', '2026-08-15', 'Completed', 'Test stock count', 1, 1, '2026-08-15 11:11:39', '2026-08-15 08:53:31', '2026-08-15 11:11:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock_count_items`
+--
+
+CREATE TABLE `stock_count_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `stock_count_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `system_quantity` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `counted_quantity` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `variance` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `unit_cost` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `notes` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `stock_count_items`
+--
+
+INSERT INTO `stock_count_items` (`id`, `stock_count_id`, `product_id`, `system_quantity`, `counted_quantity`, `variance`, `unit_cost`, `notes`, `created_at`, `updated_at`) VALUES
+(1, 3, 5, 10.00, 15.00, 5.00, 180.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39'),
+(2, 3, 6, 5.00, 4.00, -1.00, 1450.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39'),
+(3, 3, 7, 5.00, 4.00, -1.00, 900.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39'),
+(4, 3, 8, 5.00, 3.00, -2.00, 82000.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39'),
+(5, 3, 9, 10.00, 9.00, -1.00, 500.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stock_movements`
 --
 
@@ -1362,7 +1515,7 @@ CREATE TABLE `stock_movements` (
   `company_id` bigint(20) UNSIGNED NOT NULL,
   `branch_id` bigint(20) UNSIGNED NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
-  `movement_type` enum('Opening Stock','Purchase','Sale','Return','Adjustment','Transfer','Damage','Expired') NOT NULL,
+  `movement_type` enum('Opening Stock','Purchase','Sale','Return','Adjustment','Transfer In','Transfer Out','Damage','Expired') NOT NULL,
   `order_id` bigint(20) UNSIGNED DEFAULT NULL,
   `reference_no` varchar(255) DEFAULT NULL,
   `unit_cost` decimal(15,2) NOT NULL DEFAULT 0.00,
@@ -1380,8 +1533,27 @@ CREATE TABLE `stock_movements` (
 --
 
 INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `movement_type`, `order_id`, `reference_no`, `unit_cost`, `quantity`, `stock_before`, `balance_after`, `remarks`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 'Purchase', NULL, NULL, 0.00, 10.00, 100.00, 110.00, '10 units received.', NULL, '2026-08-09 11:06:03', '2026-08-09 11:06:03'),
-(2, 1, 1, 1, 'Expired', NULL, NULL, 0.00, 20.00, 110.00, 90.00, '20 expired products', NULL, '2026-08-09 11:37:17', '2026-08-09 11:37:17');
+(15, 1, 1, 19, 'Transfer Out', NULL, 'TRF-20260811103939-GTPV70', 1000.00, 5.00, 140.00, 135.00, 'Items transferred by Femi.', 1, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(16, 1, 6, 19, 'Transfer In', NULL, 'TRF-20260811103939-GTPV70', 1000.00, 5.00, 0.00, 5.00, 'Items transferred by Femi.', 1, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(17, 1, 1, 10, 'Transfer Out', NULL, 'TRF-20260811103939-GTPV70', 7800.00, 5.00, 90.00, 85.00, 'Items transferred by Femi.', 1, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(18, 1, 6, 10, 'Transfer In', NULL, 'TRF-20260811103939-GTPV70', 7800.00, 5.00, 0.00, 5.00, 'Items transferred by Femi.', 1, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(19, 1, 1, 9, 'Transfer Out', NULL, 'TRF-20260811103939-GTPV70', 500.00, 10.00, 100.00, 90.00, 'Items transferred by Femi.', 1, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(20, 1, 6, 9, 'Transfer In', NULL, 'TRF-20260811103939-GTPV70', 500.00, 10.00, 0.00, 10.00, 'Items transferred by Femi.', 1, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(21, 1, 1, 9, 'Transfer Out', NULL, 'TRF-20260814111511-MPNNZ9', 500.00, 10.00, 90.00, 80.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(22, 1, 4, 9, 'Transfer In', NULL, 'TRF-20260814111511-MPNNZ9', 500.00, 10.00, 0.00, 10.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(23, 1, 1, 8, 'Transfer Out', NULL, 'TRF-20260814111511-MPNNZ9', 82000.00, 5.00, 100.00, 95.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(24, 1, 4, 8, 'Transfer In', NULL, 'TRF-20260814111511-MPNNZ9', 82000.00, 5.00, 0.00, 5.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(25, 1, 1, 7, 'Transfer Out', NULL, 'TRF-20260814111511-MPNNZ9', 900.00, 5.00, 100.00, 95.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(26, 1, 4, 7, 'Transfer In', NULL, 'TRF-20260814111511-MPNNZ9', 900.00, 5.00, 0.00, 5.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(27, 1, 1, 6, 'Transfer Out', NULL, 'TRF-20260814111511-MPNNZ9', 1450.00, 5.00, 100.00, 95.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(28, 1, 4, 6, 'Transfer In', NULL, 'TRF-20260814111511-MPNNZ9', 1450.00, 5.00, 0.00, 5.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(29, 1, 1, 5, 'Transfer Out', NULL, 'TRF-20260814111511-MPNNZ9', 180.00, 10.00, 100.00, 90.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(30, 1, 4, 5, 'Transfer In', NULL, 'TRF-20260814111511-MPNNZ9', 180.00, 10.00, 0.00, 10.00, '#5 item transfered', 1, '2026-08-14 10:15:11', '2026-08-14 10:15:11'),
+(31, 1, 4, 5, 'Adjustment', NULL, 'SC-000003', 180.00, 5.00, 10.00, 15.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
+(32, 1, 4, 6, 'Adjustment', NULL, 'SC-000003', 1450.00, -1.00, 5.00, 4.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
+(33, 1, 4, 7, 'Adjustment', NULL, 'SC-000003', 900.00, -1.00, 5.00, 4.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
+(34, 1, 4, 8, 'Adjustment', NULL, 'SC-000003', 82000.00, -2.00, 5.00, 3.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
+(35, 1, 4, 9, 'Adjustment', NULL, 'SC-000003', 500.00, -1.00, 10.00, 9.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39');
 
 -- --------------------------------------------------------
 
@@ -1595,7 +1767,17 @@ ALTER TABLE `customers`
   ADD UNIQUE KEY `customers_company_id_customer_code_unique` (`company_id`,`customer_code`),
   ADD KEY `customers_created_by_foreign` (`created_by`),
   ADD KEY `customers_updated_by_foreign` (`updated_by`),
-  ADD KEY `customers_branch_id_foreign` (`branch_id`);
+  ADD KEY `customers_branch_id_foreign` (`branch_id`),
+  ADD KEY `customers_customer_group_id_foreign` (`customer_group_id`);
+
+--
+-- Indexes for table `customer_groups`
+--
+ALTER TABLE `customer_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `customer_groups_company_id_code_unique` (`company_id`,`code`),
+  ADD KEY `customer_groups_created_by_foreign` (`created_by`),
+  ADD KEY `customer_groups_updated_by_foreign` (`updated_by`);
 
 --
 -- Indexes for table `discounts`
@@ -1762,6 +1944,26 @@ ALTER TABLE `settings`
   ADD KEY `settings_default_customer_id_foreign` (`default_customer_id`);
 
 --
+-- Indexes for table `stock_counts`
+--
+ALTER TABLE `stock_counts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `stock_counts_branch_id_foreign` (`branch_id`),
+  ADD KEY `stock_counts_created_by_foreign` (`created_by`),
+  ADD KEY `stock_counts_completed_by_foreign` (`completed_by`),
+  ADD KEY `stock_counts_company_id_branch_id_index` (`company_id`,`branch_id`),
+  ADD KEY `stock_counts_company_id_status_index` (`company_id`,`status`),
+  ADD KEY `stock_counts_reference_no_index` (`reference_no`);
+
+--
+-- Indexes for table `stock_count_items`
+--
+ALTER TABLE `stock_count_items`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `stock_count_items_stock_count_id_product_id_unique` (`stock_count_id`,`product_id`),
+  ADD KEY `stock_count_items_product_id_index` (`product_id`);
+
+--
 -- Indexes for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
@@ -1815,7 +2017,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -1839,7 +2041,13 @@ ALTER TABLE `currencies`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `customer_groups`
+--
+ALTER TABLE `customer_groups`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `discounts`
@@ -1869,7 +2077,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1917,7 +2125,7 @@ ALTER TABLE `product_categories`
 -- AUTO_INCREMENT for table `product_stocks`
 --
 ALTER TABLE `product_stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1938,10 +2146,22 @@ ALTER TABLE `settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `stock_counts`
+--
+ALTER TABLE `stock_counts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `stock_count_items`
+--
+ALTER TABLE `stock_count_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tax_rates`
@@ -1993,7 +2213,16 @@ ALTER TABLE `customers`
   ADD CONSTRAINT `customers_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `customers_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `customers_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `customers_customer_group_id_foreign` FOREIGN KEY (`customer_group_id`) REFERENCES `customer_groups` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `customers_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `customer_groups`
+--
+ALTER TABLE `customer_groups`
+  ADD CONSTRAINT `customer_groups_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `customer_groups_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `customer_groups_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `discounts`
@@ -2102,6 +2331,22 @@ ALTER TABLE `role_permissions`
 ALTER TABLE `settings`
   ADD CONSTRAINT `settings_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `settings_default_customer_id_foreign` FOREIGN KEY (`default_customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `stock_counts`
+--
+ALTER TABLE `stock_counts`
+  ADD CONSTRAINT `stock_counts_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `stock_counts_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `stock_counts_completed_by_foreign` FOREIGN KEY (`completed_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `stock_counts_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `stock_count_items`
+--
+ALTER TABLE `stock_count_items`
+  ADD CONSTRAINT `stock_count_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `stock_count_items_stock_count_id_foreign` FOREIGN KEY (`stock_count_id`) REFERENCES `stock_counts` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `stock_movements`

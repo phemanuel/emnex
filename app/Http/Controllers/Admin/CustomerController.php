@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Services\ActivityLogger;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends BaseController
 {
@@ -81,47 +82,90 @@ class CustomerController extends BaseController
             );
 
 
-        $stats = [
+        /*
+|--------------------------------------------------------------------------
+| Initial Customer Statistics
+|--------------------------------------------------------------------------
+*/
 
-            'total' =>
-                (clone $customerQuery)
-                    ->count(),
+$customerStatsQuery =
+    Customer::query()
 
-            'active' =>
-                (clone $customerQuery)
-                    ->where(
-                        'status',
-                        true
+        ->where(
+            'company_id',
+            $this->companyId
+        );
+
+
+            $stats = [
+
+                'customers' =>
+                    (clone $customerStatsQuery)
+                        ->count(),
+
+                'active' =>
+                    (clone $customerStatsQuery)
+                        ->where(
+                            'status',
+                            true
+                        )
+                        ->count(),
+
+                'inactive' =>
+                    (clone $customerStatsQuery)
+                        ->where(
+                            'status',
+                            false
+                        )
+                        ->count(),
+
+                'balance' =>
+                    (float) (
+                        clone $customerStatsQuery
                     )
-                    ->count(),
+                    ->sum(
+                        'current_balance'
+                    ),
 
-            'inactive' =>
-                (clone $customerQuery)
-                    ->where(
-                        'status',
-                        false
+                'loyalty_points' =>
+                    (int) (
+                        clone $customerStatsQuery
                     )
-                    ->count(),
+                    ->sum(
+                        'loyalty_points'
+                    ),
 
-            'balance' =>
-                (float) (
-                    clone $customerQuery
-                )
-                ->sum('current_balance'),
+                'loyalty_customers' =>
+                    (clone $customerStatsQuery)
+                        ->where(
+                            'loyalty_points',
+                            '>',
+                            0
+                        )
+                        ->count(),
 
-            'loyalty' =>
-                (int) (
-                    clone $customerQuery
-                )
-                ->sum('loyalty_points'),
-
-            'groups' =>
-                CustomerGroup::query()
-                    ->where(
-                        'company_id',
-                        $this->companyId
+                'average_loyalty' =>
+                    (float) (
+                        clone $customerStatsQuery
                     )
-                    ->count(),
+                    ->where(
+                        'loyalty_points',
+                        '>',
+                        0
+                    )
+                    ->avg(
+                        'loyalty_points'
+                    ),
+
+                'groups' =>
+                    CustomerGroup::query()
+                        ->where(
+                            'company_id',
+                            $this->companyId
+                        )
+                        ->count(),
+
+
 
         ];
 
@@ -389,55 +433,60 @@ class CustomerController extends BaseController
             ->withQueryString();
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Statistics
-        |--------------------------------------------------------------------------
-        */
+       /*
+            |--------------------------------------------------------------------------
+            | Statistics
+            |--------------------------------------------------------------------------
+            */
 
-        $statsQuery = Customer::query()
+            $statsQuery =
+                Customer::query()
 
-            ->where(
-                'company_id',
-                $this->companyId
-            );
-
-
-        $stats = [
-
-            'total' =>
-                (clone $statsQuery)
-                    ->count(),
-
-            'active' =>
-                (clone $statsQuery)
                     ->where(
-                        'status',
-                        true
+                        'company_id',
+                        $this->companyId
+                    );
+
+
+            $stats = [
+
+                'customers' =>
+                    (clone $statsQuery)
+                        ->count(),
+
+                'active' =>
+                    (clone $statsQuery)
+                        ->where(
+                            'status',
+                            true
+                        )
+                        ->count(),
+
+                'inactive' =>
+                    (clone $statsQuery)
+                        ->where(
+                            'status',
+                            false
+                        )
+                        ->count(),
+
+                'balance' =>
+                    (float) (
+                        clone $statsQuery
                     )
-                    ->count(),
+                    ->sum(
+                        'current_balance'
+                    ),
 
-            'inactive' =>
-                (clone $statsQuery)
-                    ->where(
-                        'status',
-                        false
+                'loyalty_points' =>
+                    (int) (
+                        clone $statsQuery
                     )
-                    ->count(),
+                    ->sum(
+                        'loyalty_points'
+                    ),
 
-            'balance' =>
-                (float) (
-                    clone $statsQuery
-                )
-                ->sum('current_balance'),
-
-            'loyalty' =>
-                (int) (
-                    clone $statsQuery
-                )
-                ->sum('loyalty_points'),
-
-        ];
+            ];
 
 
         /*
@@ -634,7 +683,7 @@ class CustomerController extends BaseController
     }
 
 
-    /*
+   /*
     |--------------------------------------------------------------------------
     | Store Customer
     |--------------------------------------------------------------------------
@@ -674,27 +723,6 @@ class CustomerController extends BaseController
         $validated =
             $request->validate([
 
-                'customer_code' => [
-
-                    'nullable',
-
-                    'string',
-
-                    'max:255',
-
-                    Rule::unique(
-                        'customers',
-                        'customer_code'
-                    )->where(
-                        fn ($query) =>
-                            $query->where(
-                                'company_id',
-                                $this->companyId
-                            )
-                    ),
-
-                ],
-
                 'customer_group_id' => [
 
                     'nullable',
@@ -706,14 +734,15 @@ class CustomerController extends BaseController
                         'id'
                     )->where(
                         fn ($query) =>
-                            $query->where(
-                                'company_id',
-                                $this->companyId
-                            )
-                            ->where(
-                                'status',
-                                true
-                            )
+                            $query
+                                ->where(
+                                    'company_id',
+                                    $this->companyId
+                                )
+                                ->where(
+                                    'status',
+                                    true
+                                )
                     ),
 
                 ],
@@ -758,31 +787,27 @@ class CustomerController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | Generate Customer Code
+        | Normalize Contact Values
         |--------------------------------------------------------------------------
         */
 
-        $customerCode =
-            $validated['customer_code']
-            ??
-            'CUS-' .
-            strtoupper(
-                str_pad(
-                    (string) (
-                        Customer::withTrashed()
-                            ->where(
-                                'company_id',
-                                $this->companyId
-                            )
-                            ->count() + 1
-                    ),
-                    5,
-                    '0',
-                    STR_PAD_LEFT
-                )
-            );
+        $phone =
+            ! empty($validated['phone'])
+                ? trim($validated['phone'])
+                : null;
 
-            /*
+
+        $email =
+            ! empty($validated['email'])
+                ? strtolower(
+                    trim(
+                        $validated['email']
+                    )
+                )
+                : null;
+
+
+        /*
         |--------------------------------------------------------------------------
         | Customer Group
         |--------------------------------------------------------------------------
@@ -801,11 +826,298 @@ class CustomerController extends BaseController
                         $this->companyId
                     )
 
+                    ->where(
+                        'status',
+                        true
+                    )
+
                     ->findOrFail(
                         $validated['customer_group_id']
                     );
 
         }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Archived Customer Detection
+        |--------------------------------------------------------------------------
+        */
+
+        $archivedCustomer = null;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Match By Phone + Email
+        |--------------------------------------------------------------------------
+        */
+
+        if ($phone && $email) {
+
+            $archivedCustomer =
+                Customer::onlyTrashed()
+
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+
+                    ->where(
+                        'phone',
+                        $phone
+                    )
+
+                    ->where(
+                        'email',
+                        $email
+                    )
+
+                    ->latest(
+                        'deleted_at'
+                    )
+
+                    ->first();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Match By Phone
+        |--------------------------------------------------------------------------
+        */
+
+        if (! $archivedCustomer && $phone) {
+
+            $archivedCustomer =
+                Customer::onlyTrashed()
+
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+
+                    ->where(
+                        'phone',
+                        $phone
+                    )
+
+                    ->latest(
+                        'deleted_at'
+                    )
+
+                    ->first();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Match By Email
+        |--------------------------------------------------------------------------
+        */
+
+        if (! $archivedCustomer && $email) {
+
+            $archivedCustomer =
+                Customer::onlyTrashed()
+
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+
+                    ->where(
+                        'email',
+                        $email
+                    )
+
+                    ->latest(
+                        'deleted_at'
+                    )
+
+                    ->first();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Restore Archived Customer
+        |--------------------------------------------------------------------------
+        */
+
+        if ($archivedCustomer) {
+
+            $restoredCustomer =
+                DB::transaction(
+                    function () use (
+                        $archivedCustomer,
+                        $validated,
+                        $customerGroup,
+                        $phone,
+                        $email
+                    ) {
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Restore
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $archivedCustomer->restore();
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Update Customer Information
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $archivedCustomer->update([
+
+                            'customer_group_id' =>
+                                $validated['customer_group_id']
+                                ?? null,
+
+                            'first_name' =>
+                                $validated['first_name'],
+
+                            'last_name' =>
+                                $validated['last_name']
+                                ?? null,
+
+                            'email' =>
+                                $email,
+
+                            'phone' =>
+                                $phone,
+
+                            'address' =>
+                                $validated['address']
+                                ?? null,
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Group Controlled Credit Limit
+                            |--------------------------------------------------------------------------
+                            */
+
+                            'credit_limit' =>
+                                $customerGroup
+                                    ? (float) $customerGroup->credit_limit
+                                    : 0,
+
+                            'customer_type' =>
+                                $validated['customer_type'],
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Restore As Active
+                            |--------------------------------------------------------------------------
+                            */
+
+                            'status' =>
+                                true,
+
+                            'updated_by' =>
+                                auth()->id(),
+
+                        ]);
+
+
+                        return $archivedCustomer->fresh();
+
+                    }
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Activity Log
+            |--------------------------------------------------------------------------
+            */
+
+            $this->activityLogger->log(
+
+                'customers',
+
+                'restore',
+
+                'Restored customer: ' .
+                    $restoredCustomer->displayName(),
+
+                $restoredCustomer,
+
+                null,
+
+                $restoredCustomer->toArray()
+
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
+            return response()->json([
+
+                'success' =>
+                    true,
+
+                'message' =>
+                    'Existing archived customer restored successfully.',
+
+                'data' =>
+                    $restoredCustomer,
+
+                'restored' =>
+                    true,
+
+            ]);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Generate Customer Code
+        |--------------------------------------------------------------------------
+        */
+
+        $lastCustomer =
+            Customer::withTrashed()
+
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+
+                ->latest(
+                    'id'
+                )
+
+                ->first();
+
+
+        $nextCustomerNumber =
+            $lastCustomer
+                ? $lastCustomer->id + 1
+                : 1;
+
+
+        $customerCode =
+            'CUS-' .
+            str_pad(
+                (string) $nextCustomerNumber,
+                5,
+                '0',
+                STR_PAD_LEFT
+            );
+
 
         /*
         |--------------------------------------------------------------------------
@@ -814,78 +1126,80 @@ class CustomerController extends BaseController
         */
 
         $customer =
-            Customer::create([
-
-                'company_id' =>
-                    $this->companyId,
-
-                'customer_group_id' =>
-                    $validated['customer_group_id']
-                    ?? null,
-
-                'customer_code' =>
+            DB::transaction(
+                function () use (
+                    $validated,
+                    $customerGroup,
                     $customerCode,
+                    $phone,
+                    $email
+                ) {
 
-                'first_name' =>
-                    $validated['first_name'],
+                    return Customer::create([
 
-                'last_name' =>
-                    $validated['last_name']
-                    ?? null,
+                        'company_id' =>
+                            $this->companyId,
 
-                'email' =>
-                    $validated['email']
-                    ?? null,
+                        'customer_group_id' =>
+                            $validated['customer_group_id']
+                            ?? null,
 
-                'phone' =>
-                    $validated['phone']
-                    ?? null,
+                        'customer_code' =>
+                            $customerCode,
 
-                'address' =>
-                    $validated['address']
-                    ?? null,
+                        'first_name' =>
+                            $validated['first_name'],
 
-                /*
-                |--------------------------------------------------------------------------
-                | Credit
-                |--------------------------------------------------------------------------
-                |
-                | Credit limit is now controlled by the customer's group.
-                | Customer starts with zero outstanding balance.
-                |
-                */
+                        'last_name' =>
+                            $validated['last_name']
+                            ?? null,
 
-                'credit_limit' =>
-                $customerGroup
-                    ? (float) $customerGroup->credit_limit
-                    : 0,
+                        'email' =>
+                            $email,
 
-                'current_balance' =>
-                    0,
+                        'phone' =>
+                            $phone,
 
-                'customer_type' =>
-                    $validated['customer_type'],
+                        'address' =>
+                            $validated['address']
+                            ?? null,
 
-                'loyalty_points' =>
-                    0,
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Credit
+                        |--------------------------------------------------------------------------
+                        */
 
-                /*
-                |--------------------------------------------------------------------------
-                | Status
-                |--------------------------------------------------------------------------
-                |
-                | Every newly created customer starts as Active.
-                | Enable/Disable is handled separately.
-                |
-                */
+                        'credit_limit' =>
+                            $customerGroup
+                                ? (float) $customerGroup->credit_limit
+                                : 0,
 
-                'status' =>
-                    true,
+                        'current_balance' =>
+                            0,
 
-                'created_by' =>
-                    auth()->id(),
+                        'customer_type' =>
+                            $validated['customer_type'],
 
-            ]);
+                        'loyalty_points' =>
+                            0,
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Status
+                        |--------------------------------------------------------------------------
+                        */
+
+                        'status' =>
+                            true,
+
+                        'created_by' =>
+                            auth()->id(),
+
+                    ]);
+
+                }
+            );
 
 
         /*
@@ -928,6 +1242,9 @@ class CustomerController extends BaseController
 
             'data' =>
                 $customer,
+
+            'restored' =>
+                false,
 
         ]);
 
@@ -1199,6 +1516,49 @@ class CustomerController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
+        | Existing Records
+        |--------------------------------------------------------------------------
+        |
+        | Orders and payments are the known customer-linked
+        | transactional relationships in the current model.
+        |
+        */
+
+        $hasOrders =
+            $customer
+                ->orders()
+                ->exists();
+
+
+        $hasPayments =
+            $customer
+                ->payments()
+                ->exists();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Prevent Deletion
+        |--------------------------------------------------------------------------
+        */
+
+        if ($hasOrders || $hasPayments) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'This customer cannot be deleted because transaction or payment records are associated with the customer.',
+
+            ], 422);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
         | Old Values
         |--------------------------------------------------------------------------
         */
@@ -1209,7 +1569,7 @@ class CustomerController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | Delete
+        | Soft Delete
         |--------------------------------------------------------------------------
         */
 
@@ -1257,7 +1617,6 @@ class CustomerController extends BaseController
         ]);
 
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -2575,12 +2934,31 @@ class CustomerController extends BaseController
                         ->count(),
 
                 'points' =>
-                    Customer::query()
+                    (int) Customer::query()
                         ->where(
                             'company_id',
                             $this->companyId
                         )
-                        ->sum('loyalty_points'),
+                        ->sum(
+                            'loyalty_points'
+                        ),
+
+                'average' =>
+                    (float) (
+                        Customer::query()
+                            ->where(
+                                'company_id',
+                                $this->companyId
+                            )
+                            ->where(
+                                'loyalty_points',
+                                '>',
+                                0
+                            )
+                            ->avg(
+                                'loyalty_points'
+                            )
+                    ),
 
             ],
 
