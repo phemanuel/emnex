@@ -1,0 +1,2172 @@
+/*
+|--------------------------------------------------------------------------
+| EMNEX POS - CUSTOMER MANAGEMENT
+|--------------------------------------------------------------------------
+|
+| Handles:
+|
+| - Customer Management Page
+| - KPI Cards
+| - Customer / Group / Loyalty Tabs
+| - Filters
+| - Tables
+| - Loyalty Summary
+| - Inspector
+| - Modals
+| - Responsive Layout
+|
+|--------------------------------------------------------------------------
+*/
+
+
+/*
+|--------------------------------------------------------------------------
+| PAGE
+|--------------------------------------------------------------------------
+*/
+
+.customer-management-page {
+
+    width: 100%;
+
+    min-height: 100%;
+
+    padding: 0;
+
+    background: #f6f7f9;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| PAGE HEADER
+|--------------------------------------------------------------------------
+*/
+
+.customer-page-header {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 1.5rem;
+
+    margin-bottom: 1.5rem;
+
+}
+
+
+.customer-page-eyebrow {
+
+    margin-bottom: .35rem;
+
+    color: #6b7280;
+
+    font-size: .7rem;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+}
+
+
+.customer-page-title {
+
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 1.5rem;
+
+    font-weight: 700;
+
+    line-height: 1.25;
+
+}
+
+
+.customer-page-description {
+
+    margin: .4rem 0 0;
+
+    color: #6b7280;
+
+    font-size: .875rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| KPI ROW
+|--------------------------------------------------------------------------
+*/
+
+.customer-kpi-row {
+
+    margin-bottom: 1.5rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| KPI CARDS
+|--------------------------------------------------------------------------
+*/
+
+.customer-kpi-card {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 1rem;
+
+    height: 100%;
+
+    min-height: 128px;
+
+    overflow: hidden;
+
+    padding: 1.25rem;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 8px rgba(15, 23, 42, .035);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+
+}
+
+
+.customer-kpi-card::after {
+
+    content: '';
+
+    position: absolute;
+
+    width: 90px;
+
+    height: 90px;
+
+    right: -35px;
+
+    bottom: -40px;
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, .035);
+
+}
+
+
+.customer-kpi-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color: #dbe1e8;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, .08);
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| KPI ICON
+|--------------------------------------------------------------------------
+*/
+
+.customer-kpi-icon {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: 46px;
+
+    height: 46px;
+
+    min-width: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+    font-size: 1.25rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| KPI CONTENT
+|--------------------------------------------------------------------------
+*/
+
+.customer-kpi-content {
+
+    position: relative;
+
+    z-index: 1;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.customer-kpi-label {
+
+    color: #6b7280;
+
+    font-size: .72rem;
+
+    font-weight: 700;
+
+    letter-spacing: .04em;
+
+    text-transform: uppercase;
+
+}
+
+
+.customer-kpi-value {
+
+    margin-top: .3rem;
+
+    color: #111827;
+
+    font-size: 1.6rem;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+.customer-kpi-meta {
+
+    margin-top: .35rem;
+
+    color: #9ca3af;
+
+    font-size: .75rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| MANAGEMENT CARD
+|--------------------------------------------------------------------------
+*/
+
+.customer-management-card {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 8px rgba(15, 23, 42, .035);
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TAB WRAPPER
+|--------------------------------------------------------------------------
+*/
+
+.customer-tabs-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-bottom: 1px solid #e5e7eb;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| MANAGEMENT TABS
+|--------------------------------------------------------------------------
+*/
+
+.customer-management-tabs {
+
+    display: flex;
+
+    align-items: stretch;
+
+    gap: .25rem;
+
+    min-width: max-content;
+
+    margin: 0;
+
+    padding: 0 1.25rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TAB
+|--------------------------------------------------------------------------
+*/
+
+.customer-tab {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .1rem;
+
+    padding: 1rem 1rem;
+
+    border: 0;
+
+    border-bottom: 2px solid transparent;
+
+    background: transparent;
+
+    color: #6b7280;
+
+    font-size: .875rem;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        color .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+
+}
+
+
+.customer-tab:hover {
+
+    color: #2563eb;
+
+    background: #fafbfc;
+
+}
+
+
+.customer-tab.active {
+
+    color: #2563eb;
+
+    border-bottom-color: #2563eb;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TAB COUNT
+|--------------------------------------------------------------------------
+*/
+
+.customer-tab-count {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 24px;
+
+    height: 22px;
+
+    margin-left: .35rem;
+
+    padding: 0 .4rem;
+
+    border-radius: 999px;
+
+    background: #f3f4f6;
+
+    color: #6b7280;
+
+    font-size: .7rem;
+
+    font-weight: 700;
+
+}
+
+
+.customer-tab.active .customer-tab-count {
+
+    background: #e8f0ff;
+
+    color: #2563eb;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| MANAGEMENT SECTIONS
+|--------------------------------------------------------------------------
+*/
+
+.customer-management-section {
+
+    display: none;
+
+}
+
+
+.customer-management-section.active {
+
+    display: block;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| SECTION HEADER
+|--------------------------------------------------------------------------
+*/
+
+.customer-section-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding: 1.25rem;
+
+}
+
+
+.customer-section-header h5 {
+
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+}
+
+
+.customer-section-header p {
+
+    margin: .3rem 0 0;
+
+    color: #6b7280;
+
+    font-size: .8rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| FILTER BAR
+|--------------------------------------------------------------------------
+*/
+
+.customer-filter-bar {
+
+    padding: 1rem 1.25rem;
+
+    background: #fafbfc;
+
+    border-top: 1px solid #edf0f2;
+
+    border-bottom: 1px solid #edf0f2;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| SEARCH BOX
+|--------------------------------------------------------------------------
+*/
+
+.customer-search-box {
+
+    position: relative;
+
+}
+
+
+.customer-search-box > i {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: .9rem;
+
+    z-index: 2;
+
+    color: #9ca3af;
+
+    font-size: .9rem;
+
+    pointer-events: none;
+
+    transform: translateY(-50%);
+
+}
+
+
+.customer-search-box .form-control {
+
+    padding-left: 2.45rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| FORM CONTROLS
+|--------------------------------------------------------------------------
+*/
+
+.customer-filter-bar .form-control,
+.customer-filter-bar .form-select {
+
+    min-height: 40px;
+
+    border: 1px solid #dfe3e8;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    font-size: .875rem;
+
+    box-shadow: none;
+
+}
+
+
+.customer-filter-bar .form-control::placeholder {
+
+    color: #9ca3af;
+
+}
+
+
+.customer-filter-bar .form-control:focus,
+.customer-filter-bar .form-select:focus {
+
+    border-color: #86b7fe;
+
+    box-shadow:
+        0 0 0 .2rem rgba(13, 110, 253, .08);
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TABLE CONTAINER
+|--------------------------------------------------------------------------
+*/
+
+.customer-table-container {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    background: #ffffff;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TABLE
+|--------------------------------------------------------------------------
+*/
+
+.customer-table {
+
+    width: 100%;
+
+    margin-bottom: 0;
+
+}
+
+
+.customer-table thead th {
+
+    padding: .85rem 1rem;
+
+    background: #f8f9fa;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    color: #6b7280;
+
+    font-size: .7rem;
+
+    font-weight: 700;
+
+    letter-spacing: .04em;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+
+}
+
+
+.customer-table tbody td {
+
+    padding: .9rem 1rem;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #f0f1f3;
+
+    color: #374151;
+
+    font-size: .875rem;
+
+    vertical-align: middle;
+
+}
+
+
+.customer-table tbody tr {
+
+    transition: background .15s ease;
+
+}
+
+
+.customer-table tbody tr:hover td {
+
+    background: #fafbfc;
+
+}
+
+
+.customer-table tbody tr:last-child td {
+
+    border-bottom: 0;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER AVATAR
+|--------------------------------------------------------------------------
+*/
+
+.customer-avatar {
+
+    width: 40px;
+
+    height: 40px;
+
+    min-width: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+    font-size: .8rem;
+
+    font-weight: 700;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER CODE
+|--------------------------------------------------------------------------
+*/
+
+.customer-code {
+
+    color: #6b7280;
+
+    font-family: monospace;
+
+    font-size: .8rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| LOYALTY SUMMARY
+|--------------------------------------------------------------------------
+*/
+
+.loyalty-summary-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .9rem;
+
+    height: 100%;
+
+    padding: 1rem;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, .025);
+
+}
+
+
+.loyalty-summary-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #fff7df;
+
+    color: #d97706;
+
+    font-size: 1.1rem;
+
+}
+
+
+.loyalty-summary-card span {
+
+    display: block;
+
+    color: #6b7280;
+
+    font-size: .72rem;
+
+    font-weight: 600;
+
+}
+
+
+.loyalty-summary-card strong {
+
+    display: block;
+
+    margin-top: .2rem;
+
+    color: #111827;
+
+    font-size: 1.2rem;
+
+    font-weight: 700;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| LOYALTY POINTS
+|--------------------------------------------------------------------------
+*/
+
+.loyalty-points {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: .3rem;
+
+    color: #b7791f;
+
+    font-weight: 600;
+
+}
+
+
+.loyalty-points i {
+
+    font-size: .8rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| PAGINATION
+|--------------------------------------------------------------------------
+*/
+
+.customer-pagination {
+
+    padding: 1rem 1.25rem;
+
+    background: #ffffff;
+
+}
+
+
+.customer-pagination .pagination {
+
+    margin: 0;
+
+}
+
+
+.customer-pagination .page-link {
+
+    min-width: 34px;
+
+    height: 34px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 7px;
+
+    color: #4b5563;
+
+    font-size: .8rem;
+
+}
+
+
+.customer-pagination .page-item.active .page-link {
+
+    background: #0d6efd;
+
+    border-color: #0d6efd;
+
+    color: #ffffff;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| EMPTY STATE
+|--------------------------------------------------------------------------
+*/
+
+.customer-empty-state {
+
+    padding: 3rem 1rem;
+
+    text-align: center;
+
+}
+
+
+.customer-empty-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0 auto 1rem;
+
+    border-radius: 16px;
+
+    background: #f3f4f6;
+
+    color: #9ca3af;
+
+    font-size: 1.5rem;
+
+}
+
+
+.customer-empty-state h6 {
+
+    margin-bottom: .35rem;
+
+    color: #374151;
+
+    font-weight: 700;
+
+}
+
+
+.customer-empty-state p {
+
+    margin: 0;
+
+    color: #9ca3af;
+
+    font-size: .875rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| DROPDOWN ACTIONS
+|--------------------------------------------------------------------------
+*/
+
+.customer-table .dropdown .btn {
+
+    width: 34px;
+
+    height: 34px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #6b7280;
+
+}
+
+
+.customer-table .dropdown .btn:hover {
+
+    background: #f8f9fa;
+
+    color: #2563eb;
+
+}
+
+
+.customer-table .dropdown-menu {
+
+    min-width: 180px;
+
+    padding: .35rem;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, .10);
+
+}
+
+
+.customer-table .dropdown-item {
+
+    padding: .55rem .75rem;
+
+    border-radius: 7px;
+
+    color: #374151;
+
+    font-size: .875rem;
+
+}
+
+
+.customer-table .dropdown-item:hover {
+
+    background: #f3f4f6;
+
+}
+
+
+.customer-table .dropdown-item i {
+
+    width: 18px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| INSPECTOR
+|--------------------------------------------------------------------------
+*/
+
+.customer-inspector {
+
+    width: 430px;
+
+    max-width: 100%;
+
+}
+
+
+.customer-inspector-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-bottom: 1.5rem;
+
+}
+
+
+.customer-avatar-large {
+
+    width: 56px;
+
+    height: 56px;
+
+    min-width: 56px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+    font-size: 1.4rem;
+
+}
+
+
+.customer-inspector-profile h5 {
+
+    color: #111827;
+
+    font-weight: 700;
+
+}
+
+
+.customer-inspector-card {
+
+    margin-bottom: 1rem;
+
+    padding: 1rem;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+}
+
+
+.customer-inspector-card h6 {
+
+    margin-bottom: 1rem;
+
+    color: #374151;
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+}
+
+
+.inspector-row {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding: .65rem 0;
+
+    border-bottom: 1px solid #f0f1f3;
+
+}
+
+
+.inspector-row:last-child {
+
+    border-bottom: 0;
+
+}
+
+
+.inspector-row span {
+
+    color: #6b7280;
+
+    font-size: .8rem;
+
+}
+
+
+.inspector-row strong {
+
+    max-width: 60%;
+
+    color: #374151;
+
+    font-size: .8rem;
+
+    text-align: right;
+
+    word-break: break-word;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| MODALS
+|--------------------------------------------------------------------------
+*/
+
+#customerModal .modal-content,
+#customerGroupModal .modal-content {
+
+    overflow: hidden;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 20px 60px rgba(15, 23, 42, .15);
+
+}
+
+
+#customerModal .modal-header,
+#customerGroupModal .modal-header {
+
+    padding: 1.1rem 1.25rem;
+
+    border-bottom: 1px solid #edf0f2;
+
+}
+
+
+#customerModal .modal-footer,
+#customerGroupModal .modal-footer {
+
+    padding: 1rem 1.25rem;
+
+    border-top: 1px solid #edf0f2;
+
+}
+
+
+#customerModal .form-label,
+#customerGroupModal .form-label {
+
+    margin-bottom: .4rem;
+
+    color: #374151;
+
+    font-size: .8rem;
+
+    font-weight: 600;
+
+}
+
+
+#customerModal .form-control,
+#customerModal .form-select,
+#customerModal .input-group-text,
+#customerGroupModal .form-control,
+#customerGroupModal .form-select {
+
+    border-color: #dfe3e8;
+
+    border-radius: 8px;
+
+    font-size: .875rem;
+
+}
+
+
+#customerModal .form-control:focus,
+#customerModal .form-select:focus,
+#customerGroupModal .form-control:focus,
+#customerGroupModal .form-select:focus {
+
+    border-color: #86b7fe;
+
+    box-shadow:
+        0 0 0 .2rem rgba(13, 110, 253, .08);
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 991.98px) {
+
+    .customer-page-header {
+
+        align-items: flex-start;
+
+    }
+
+
+    .customer-section-header {
+
+        align-items: flex-start;
+
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .customer-management-page {
+
+        padding: 0;
+
+    }
+
+
+    .customer-page-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .customer-page-title {
+
+        font-size: 1.3rem;
+
+    }
+
+
+    .customer-page-description {
+
+        font-size: .8rem;
+
+    }
+
+
+    .customer-kpi-card {
+
+        min-height: 115px;
+
+        padding: 1rem;
+
+    }
+
+
+    .customer-kpi-value {
+
+        font-size: 1.4rem;
+
+    }
+
+
+    .customer-section-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        padding: 1rem;
+
+    }
+
+
+    .customer-filter-bar {
+
+        padding: .85rem;
+
+    }
+
+
+    .customer-management-tabs {
+
+        padding: 0 .75rem;
+
+    }
+
+
+    .customer-tab {
+
+        padding: .8rem .75rem;
+
+        font-size: .8rem;
+
+    }
+
+
+    .customer-table {
+
+        min-width: 900px;
+
+    }
+
+
+    .customer-pagination {
+
+        padding: .85rem;
+
+        overflow-x: auto;
+
+    }
+
+
+    .customer-inspector {
+
+        width: 100%;
+
+    }
+
+
+    .loyalty-summary-card {
+
+        min-height: 80px;
+
+    }
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Management Sections
+|--------------------------------------------------------------------------
+*/
+
+.customer-management-section {
+
+    display: none;
+
+}
+
+
+.customer-management-section.active {
+
+    display: block;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Customer Modal
+|--------------------------------------------------------------------------
+*/
+
+.customer-modal-content {
+
+    height: 80vh;
+
+    max-height: 80vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Customer Modal Header
+|--------------------------------------------------------------------------
+*/
+
+.customer-modal-content .modal-header {
+
+    flex-shrink: 0;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Customer Modal Form
+|--------------------------------------------------------------------------
+*/
+
+.customer-modal-content form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+
+    min-height: 0;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Customer Modal Body
+|--------------------------------------------------------------------------
+*/
+
+.customer-modal-body {
+
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    padding: 1.5rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Customer Modal Footer
+|--------------------------------------------------------------------------
+*/
+
+.customer-modal-content .modal-footer {
+
+    flex-shrink: 0;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER ACTIONS
+|--------------------------------------------------------------------------
+*/
+
+.customer-actions {
+
+    position: relative;
+
+}
+
+
+.customer-actions-menu {
+
+    position: absolute !important;
+
+    z-index: 1055 !important;
+
+    min-width: 180px;
+
+    padding: .4rem;
+
+    margin-top: .35rem !important;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: .65rem;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .10);
+
+}
+
+
+.customer-actions-menu .dropdown-item {
+
+    padding: .55rem .75rem;
+
+    border-radius: .45rem;
+
+    font-size: .875rem;
+
+    white-space: nowrap;
+
+}
+
+
+.customer-actions-menu .dropdown-divider {
+
+    margin: .35rem 0;
+
+}
+
+
+.customer-actions-btn {
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER TABLE DROPDOWN OVERFLOW
+|--------------------------------------------------------------------------
+*/
+
+.customer-table {
+
+    overflow: visible !important;
+
+}
+
+
+.customer-table tbody {
+
+    overflow: visible !important;
+
+}
+
+
+.customer-table tbody tr {
+
+    overflow: visible !important;
+
+}
+
+
+.customer-table tbody td {
+
+    overflow: visible !important;
+
+}
+
+
+.customer-actions {
+
+    overflow: visible !important;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER TABLE CONTAINER
+|--------------------------------------------------------------------------
+*/
+
+.customer-table-container {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    overflow-y: visible;
+
+    -webkit-overflow-scrolling: touch;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER TABLE
+|--------------------------------------------------------------------------
+*/
+
+.customer-table-container .customer-table {
+
+    min-width: 900px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER ACTION
+|--------------------------------------------------------------------------
+*/
+
+.customer-actions {
+
+    position: relative;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER ACTION DROPDOWN
+|--------------------------------------------------------------------------
+*/
+
+.customer-actions-menu {
+
+    z-index: 1055;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER GROUP INSPECTOR
+|--------------------------------------------------------------------------
+*/
+
+.customer-group-inspector {
+
+    width: 430px;
+
+    max-width: 100%;
+
+    background: #ffffff;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| HEADER
+|--------------------------------------------------------------------------
+*/
+
+.customer-group-inspector-header {
+
+    padding: 1.25rem 1.5rem;
+
+    border-bottom: 1px solid #eef0f2;
+
+}
+
+
+.customer-group-inspector-eyebrow {
+
+    margin-bottom: .2rem;
+
+    color: #9ca3af;
+
+    font-size: .68rem;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| PROFILE
+|--------------------------------------------------------------------------
+*/
+
+.customer-group-profile {
+
+    padding: 1.35rem;
+
+    margin-bottom: 1.5rem;
+
+    border: 1px solid #edf0f2;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fafbfc,
+            #ffffff
+        );
+
+}
+
+
+.customer-group-profile-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+}
+
+
+.customer-group-inspector-avatar {
+
+    width: 58px;
+
+    height: 58px;
+
+    flex: 0 0 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+    font-size: 1.35rem;
+
+}
+
+
+.customer-group-profile-info {
+
+    min-width: 0;
+
+}
+
+
+.customer-group-profile-name {
+
+    margin: 0 0 .3rem;
+
+    color: #111827;
+
+    font-size: 1.1rem;
+
+    font-weight: 700;
+
+}
+
+
+.customer-group-profile-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .45rem;
+
+    color: #9ca3af;
+
+    font-size: .78rem;
+
+}
+
+
+.customer-group-code {
+
+    color: #4b5563;
+
+    font-weight: 600;
+
+}
+
+
+.customer-group-meta-dot {
+
+    color: #d1d5db;
+
+}
+
+
+.customer-group-profile-status {
+
+    margin-top: 1rem;
+
+}
+
+
+.customer-group-status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: .35rem .7rem;
+
+    border-radius: 999px;
+
+    background: #ecfdf3;
+
+    color: #15803d;
+
+    font-size: .72rem;
+
+    font-weight: 700;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| SECTIONS
+|--------------------------------------------------------------------------
+*/
+
+.customer-group-inspector-section {
+
+    margin-bottom: 1.5rem;
+
+}
+
+
+.customer-group-section-label {
+
+    margin-bottom: .7rem;
+
+    color: #9ca3af;
+
+    font-size: .68rem;
+
+    font-weight: 700;
+
+    letter-spacing: .07em;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| DESCRIPTION
+|--------------------------------------------------------------------------
+*/
+
+.customer-group-description {
+
+    padding: .9rem 1rem;
+
+    border-radius: 12px;
+
+    background: #f8f9fa;
+
+    color: #4b5563;
+
+    font-size: .85rem;
+
+    line-height: 1.55;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| METRICS
+|--------------------------------------------------------------------------
+*/
+
+.customer-group-metrics {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: .75rem;
+
+}
+
+
+.customer-group-metric-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .75rem;
+
+    padding: .95rem;
+
+    border: 1px solid #edf0f2;
+
+    border-radius: 13px;
+
+    background: #ffffff;
+
+}
+
+
+.customer-group-metric-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #f3f4f6;
+
+    color: #4b5563;
+
+}
+
+
+.customer-group-metric-label {
+
+    margin-bottom: .2rem;
+
+    color: #9ca3af;
+
+    font-size: .7rem;
+
+}
+
+
+.customer-group-metric-value {
+
+    color: #111827;
+
+    font-size: .95rem;
+
+    font-weight: 700;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CREDIT CARD
+|--------------------------------------------------------------------------
+*/
+
+.customer-group-credit-card {
+
+    display: flex;
+
+    gap: .9rem;
+
+    padding: 1rem;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    background: #fafafa;
+
+}
+
+
+.customer-group-credit-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+}
+
+
+.customer-group-credit-content {
+
+    min-width: 0;
+
+}
+
+
+.customer-group-credit-value {
+
+    margin-top: .1rem;
+
+    color: #111827;
+
+    font-size: 1.1rem;
+
+    font-weight: 700;
+
+}
+
+
+.customer-group-credit-description {
+
+    margin-top: .25rem;
+
+    color: #9ca3af;
+
+    font-size: .72rem;
+
+    line-height: 1.4;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| RECORD INFORMATION
+|--------------------------------------------------------------------------
+*/
+
+.customer-group-record {
+
+    border: 1px solid #edf0f2;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+}
+
+
+.customer-group-record-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding: .85rem 1rem;
+
+}
+
+
+.customer-group-record-row span {
+
+    color: #9ca3af;
+
+    font-size: .78rem;
+
+}
+
+
+.customer-group-record-row strong {
+
+    color: #374151;
+
+    font-size: .8rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| MOBILE
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 576px) {
+
+    .customer-group-inspector {
+
+        width: 100%;
+
+    }
+
+
+    .customer-group-profile {
+
+        padding: 1rem;
+
+    }
+
+}

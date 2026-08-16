@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Customer extends Model
+
+class CustomerGroup extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
 
     /*
@@ -24,35 +24,21 @@ class Customer extends Model
 
         'company_id',
 
-        'customer_code',
+        'name',
 
-        'first_name',
+        'code',
 
-        'last_name',
+        'description',
 
-        'email',
-
-        'phone',
-
-        'address',
+        'discount_percentage',
 
         'credit_limit',
-
-        'current_balance',
-
-        'customer_type',
-
-        'loyalty_points',
-
-        'last_purchase_date',
 
         'status',
 
         'created_by',
 
         'updated_by',
-
-        'customer_group_id',
 
     ];
 
@@ -70,17 +56,11 @@ class Customer extends Model
             'company_id' =>
                 'integer',
 
+            'discount_percentage' =>
+                'decimal:2',
+
             'credit_limit' =>
                 'decimal:2',
-
-            'current_balance' =>
-                'decimal:2',
-
-            'loyalty_points' =>
-                'integer',
-
-            'last_purchase_date' =>
-                'date',
 
             'status' =>
                 'boolean',
@@ -90,8 +70,6 @@ class Customer extends Model
 
             'updated_by' =>
                 'integer',
-
-            'customer_group_id' => 'integer',
 
         ];
     }
@@ -112,30 +90,6 @@ class Customer extends Model
         return $this->belongsTo(
             Company::class,
             'company_id'
-        );
-    }
-
-
-    /**
-     * Orders
-     */
-    public function orders(): HasMany
-    {
-        return $this->hasMany(
-            Order::class,
-            'customer_id'
-        );
-    }
-
-
-    /**
-     * Payments
-     */
-    public function payments(): HasMany
-    {
-        return $this->hasMany(
-            Payment::class,
-            'customer_id'
         );
     }
 
@@ -163,13 +117,17 @@ class Customer extends Model
         );
     }
 
+
     /**
-     * Customer Group
+     * Customers
+     *
+     * This relationship will be used when
+     * the Customers module is created.
      */
-    public function customerGroup(): BelongsTo
+    public function customers(): HasMany
     {
-        return $this->belongsTo(
-            CustomerGroup::class,
+        return $this->hasMany(
+            Customer::class,
             'customer_group_id'
         );
     }
@@ -183,7 +141,7 @@ class Customer extends Model
 
 
     /**
-     * Active customers.
+     * Active customer groups only.
      */
     public function scopeActive(
         Builder $query
@@ -198,7 +156,7 @@ class Customer extends Model
 
 
     /**
-     * Company customers.
+     * Customer groups belonging to company.
      */
     public function scopeForCompany(
         Builder $query,
@@ -221,13 +179,43 @@ class Customer extends Model
 
 
     /**
-     * Customer full name.
+     * Check if customer group is active.
      */
-    public function fullName(): string
+    public function isActive(): bool
     {
-        return trim(
-            $this->first_name . ' ' .
-            ($this->last_name ?? '')
+        return (bool) $this->status;
+    }
+
+
+    /**
+     * Get customer count.
+     */
+    public function customerCount(): int
+    {
+        return $this->customers()->count();
+    }
+
+
+    /**
+     * Get formatted discount percentage.
+     */
+    public function formattedDiscount(): string
+    {
+        return number_format(
+            (float) $this->discount_percentage,
+            2
+        ) . '%';
+    }
+
+
+    /**
+     * Get formatted credit limit.
+     */
+    public function formattedCreditLimit(): string
+    {
+        return '₦' . number_format(
+            (float) $this->credit_limit,
+            2
         );
     }
 
@@ -237,61 +225,10 @@ class Customer extends Model
      */
     public function displayName(): string
     {
-        return $this->fullName();
-    }
-
-
-    /**
-     * Check if customer is active.
-     */
-    public function isActive(): bool
-    {
-        return (bool) $this->status;
-    }
-
-
-    /**
-     * Check if customer has available credit.
-     */
-    public function hasCredit(
-        float $amount
-    ): bool {
-
-        return (
-            (float) $this->current_balance +
-            $amount
-        ) <=
-        (float) $this->credit_limit;
-
-    }
-
-
-    /**
-     * Check if customer has outstanding balance.
-     */
-    public function hasOutstandingBalance(): bool
-    {
-        return (float) $this->current_balance > 0;
-    }
-
-
-    /**
-     * Customer type label.
-     */
-    public function customerType(): string
-    {
-        return $this->customer_type ?: 'Walk-in';
-    }
-
-
-    /**
-     * Customer status label.
-     */
-    public function statusLabel(): string
-    {
-        return $this->isActive()
-            ? 'Active'
-            : 'Inactive';
+        return $this->name .
+            ' (' .
+            $this->code .
+            ')';
     }
 
 }

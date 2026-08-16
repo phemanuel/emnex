@@ -160,6 +160,13 @@ return [
             'export',
         ],
 
+        'customer_groups' => [
+            'view',
+            'create',
+            'update',
+            'delete',
+        ],
+
         'suppliers' => [
             'view',
             'create',

@@ -987,7 +987,7 @@
 
                             <span>
 
-                                Customer List
+                                Customer Center
 
                             </span>
 

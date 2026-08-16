@@ -28,8 +28,6 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\SalesReturnController;
 
 use App\Http\Controllers\Admin\CustomerController;
-use App\Http\Controllers\Admin\CustomerGroupController;
-use App\Http\Controllers\Admin\LoyaltyController;
 
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\PurchaseOrderController;
@@ -478,18 +476,60 @@ Route::prefix('products')
 
     /*
     |--------------------------------------------------------------------------
-    | Customers
+    | Customer Management
     |--------------------------------------------------------------------------
     */
 
-    Route::resource('customers', CustomerController::class);
+    Route::controller(CustomerController::class)
+        ->group(function () {
 
-    Route::resource('customer-groups', CustomerGroupController::class);
+        /*
+        |--------------------------------------------------------------------------
+        | Customer Management Index
+        |--------------------------------------------------------------------------
+        */
 
+        Route::get('/customers','index')->name('customers.index');
 
-    Route::get('/loyalty',
-        [LoyaltyController::class,'index']
-    )->name('loyalty.index');
+        Route::get('/customers/table','table')->name('customers.table');
+
+        Route::get('/customers/groups/table','groups')->name('customers.groups.table');
+
+        Route::get('/customers/loyalty/table','loyalty')->name('customers.loyalty.table');       
+
+        Route::get('/customers/{id}/details','details')->name('customers.details');
+
+        Route::post('/customers','store')->name('customers.store');
+
+        Route::put('/customers/{id}','update')->name('customers.update');
+
+        Route::delete('/customers/{id}','destroy')->name('customers.destroy');       
+
+        Route::patch('/customers/{id}/enable','enable')->name('customers.enable');
+
+        Route::patch('/customers/{id}/disable','disable')->name('customers.disable');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Customer Groups
+        |--------------------------------------------------------------------------
+        */
+
+        Route::post('/customers/groups','storeGroup')->name('customers.groups.store');
+
+        Route::put('/customers/groups/{id}','updateGroup')->name('customers.groups.update');
+
+        Route::delete('/customers/groups/{id}','destroyGroup')->name('customers.groups.destroy');
+
+        Route::get('/customers/groups/table', 'groups')->name('customers.groups.table');
+
+        Route::get('/customers/groups/{id}/details', 'groupDetails')->name('customers.groups.details');
+
+        Route::patch('/customers/groups/{id}/enable','enableGroup')->name('customers.groups.enable');
+
+        Route::patch('/customers/groups/{id}/disable','disableGroup')->name('customers.groups.disable');
+
+    });
 
 
 
