@@ -3,28 +3,44 @@
 ============================================================== --}}
 
 <div
-    class="offcanvas offcanvas-end"
+    class="offcanvas offcanvas-end purchase-order-inspector"
     tabindex="-1"
     id="purchaseOrderInspector"
     aria-labelledby="purchaseOrderInspectorLabel"
 >
 
-    <div class="offcanvas-header border-bottom">
+    {{-- ==========================================================
+        Header
+    =========================================================== --}}
 
-        <div>
+    <div class="offcanvas-header purchase-inspector-header">
 
-            <div class="text-muted small mb-1">
+        <div class="purchase-inspector-header-content">
+
+            <div class="purchase-inspector-eyebrow">
+
+                <i class="bi bi-receipt me-1"></i>
+
                 Purchase Order
+
             </div>
 
             <h5
-                class="offcanvas-title fw-semibold"
+                class="offcanvas-title purchase-inspector-title"
                 id="purchaseOrderInspectorLabel"
             >
                 —
             </h5>
 
+            <div
+                class="purchase-inspector-subtitle"
+                id="purchaseOrderInspectorSubtitle"
+            >
+                Purchase order details
+            </div>
+
         </div>
+
 
         <button
             type="button"
@@ -36,39 +52,84 @@
     </div>
 
 
-    <div class="offcanvas-body">
+    {{-- ==========================================================
+        Body
+    =========================================================== --}}
 
-        {{-- ==================================================
-            Status
-        ================================================== --}}
+    <div class="offcanvas-body purchase-inspector-body">
 
-        <div
-            class="d-flex align-items-center justify-content-between mb-4"
-        >
 
-            <span class="text-muted small">
-                Status
-            </span>
+        {{-- ======================================================
+            Status / Quick Summary
+        ======================================================= --}}
 
-            <span
-                id="inspectorPurchaseOrderStatus"
-                class="badge bg-secondary-subtle text-secondary"
-            >
-                —
-            </span>
+        <div class="purchase-inspector-top-card">
+
+            <div>
+
+                <div class="purchase-inspector-label">
+                    Status
+                </div>
+
+                <span
+                    id="inspectorPurchaseOrderStatus"
+                    class="purchase-inspector-status"
+                >
+                    —
+                </span>
+
+            </div>
+
+
+            <!-- <div class="purchase-inspector-reference">
+
+                <div class="purchase-inspector-label">
+                    Order ID
+                </div>
+
+                <strong
+                    id="inspectorPurchaseOrderId"
+                >
+                    —
+                </strong>
+
+            </div> -->
 
         </div>
 
 
-        {{-- ==================================================
-            Summary
-        ================================================== --}}
+        {{-- ======================================================
+            Supplier / Branch
+        ======================================================= --}}
 
-        <div class="purchase-inspector-card mb-4">
+        <div class="purchase-inspector-section">
 
-            <div class="purchase-inspector-grid">
+            <div class="purchase-inspector-section-header">
+
+                <div class="purchase-inspector-section-icon">
+
+                    <i class="bi bi-building"></i>
+
+                </div>
 
                 <div>
+
+                    <div class="purchase-inspector-section-title">
+                        Supplier & Branch
+                    </div>
+
+                    <div class="purchase-inspector-section-description">
+                        Purchasing and receiving information
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="purchase-inspector-info-grid">
+
+                <div class="purchase-inspector-info-item">
 
                     <span class="purchase-inspector-label">
                         Supplier
@@ -76,6 +137,7 @@
 
                     <strong
                         id="inspectorPurchaseOrderSupplier"
+                        class="purchase-inspector-value"
                     >
                         —
                     </strong>
@@ -83,22 +145,58 @@
                 </div>
 
 
-                <div>
+                <div class="purchase-inspector-info-item">
 
                     <span class="purchase-inspector-label">
-                        Branch
+                        Receiving Branch
                     </span>
 
                     <strong
                         id="inspectorPurchaseOrderBranch"
+                        class="purchase-inspector-value"
                     >
                         —
                     </strong>
 
                 </div>
 
+            </div>
+
+        </div>
+
+
+        {{-- ======================================================
+            Dates
+        ======================================================= --}}
+
+        <div class="purchase-inspector-section">
+
+            <div class="purchase-inspector-section-header">
+
+                <div class="purchase-inspector-section-icon">
+
+                    <i class="bi bi-calendar3"></i>
+
+                </div>
 
                 <div>
+
+                    <div class="purchase-inspector-section-title">
+                        Order Schedule
+                    </div>
+
+                    <div class="purchase-inspector-section-description">
+                        Order and expected delivery dates
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="purchase-inspector-info-grid">
+
+                <div class="purchase-inspector-info-item">
 
                     <span class="purchase-inspector-label">
                         Order Date
@@ -106,6 +204,7 @@
 
                     <strong
                         id="inspectorPurchaseOrderDate"
+                        class="purchase-inspector-value"
                     >
                         —
                     </strong>
@@ -113,7 +212,7 @@
                 </div>
 
 
-                <div>
+                <div class="purchase-inspector-info-item">
 
                     <span class="purchase-inspector-label">
                         Expected Delivery
@@ -121,6 +220,7 @@
 
                     <strong
                         id="inspectorPurchaseOrderExpectedDate"
+                        class="purchase-inspector-value"
                     >
                         —
                     </strong>
@@ -132,23 +232,51 @@
         </div>
 
 
-        {{-- ==================================================
-            Items
-        ================================================== --}}
+        {{-- ======================================================
+            Order Items
+        ======================================================= --}}
 
-        <div class="mb-4">
+        <div class="purchase-inspector-section">
 
-            <div class="purchase-inspector-heading">
-                Order Items
+            <div class="purchase-inspector-section-header">
+
+                <div class="purchase-inspector-section-icon">
+
+                    <i class="bi bi-box-seam"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="purchase-inspector-section-title">
+                        Order Items
+                    </div>
+
+                    <div
+                        class="purchase-inspector-section-description"
+                        id="inspectorPurchaseOrderItemCount"
+                    >
+                        —
+                    </div>
+
+                </div>
+
             </div>
+
 
             <div
                 id="inspectorPurchaseOrderItems"
                 class="purchase-inspector-items"
             >
 
-                <div class="text-muted small">
-                    No items available.
+                <div class="purchase-inspector-empty">
+
+                    <i class="bi bi-box-seam"></i>
+
+                    <span>
+                        No items available.
+                    </span>
+
                 </div>
 
             </div>
@@ -156,79 +284,122 @@
         </div>
 
 
-        {{-- ==================================================
-            Totals
-        ================================================== --}}
+        {{-- ======================================================
+            Financial Summary
+        ======================================================= --}}
 
-        <div class="purchase-inspector-card mb-4">
+        <div class="purchase-inspector-section">
 
-            <div class="purchase-summary-row">
+            <div class="purchase-inspector-section-header">
 
-                <span>
-                    Subtotal
-                </span>
+                <div class="purchase-inspector-section-icon">
 
-                <strong id="inspectorPurchaseOrderSubtotal">
-                    0.00
-                </strong>
+                    <i class="bi bi-calculator"></i>
 
-            </div>
+                </div>
 
+                <div>
 
-            <div class="purchase-summary-row">
+                    <div class="purchase-inspector-section-title">
+                        Financial Summary
+                    </div>
 
-                <span>
-                    Discount
-                </span>
+                    <div class="purchase-inspector-section-description">
+                        Purchase order value
+                    </div>
 
-                <strong id="inspectorPurchaseOrderDiscount">
-                    0.00
-                </strong>
+                </div>
 
             </div>
 
 
-            <div class="purchase-summary-row">
-
-                <span>
-                    Tax
-                </span>
-
-                <strong id="inspectorPurchaseOrderTax">
-                    0.00
-                </strong>
-
-            </div>
+            <div class="purchase-inspector-total-card">
 
 
-            <div class="purchase-summary-row purchase-summary-total">
+                <div class="purchase-inspector-total-row">
 
-                <span>
-                    Total
-                </span>
+                    <span>
+                        Subtotal
+                    </span>
 
-                <strong id="inspectorPurchaseOrderTotal">
-                    0.00
-                </strong>
+                    <strong
+                        id="inspectorPurchaseOrderSubtotal"
+                    >
+                        0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="purchase-inspector-total-row">
+
+                    <span>
+                        Tax
+                    </span>
+
+                    <strong
+                        id="inspectorPurchaseOrderTax"
+                    >
+                        0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="purchase-inspector-total-divider"></div>
+
+
+                <div class="purchase-inspector-grand-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong
+                        id="inspectorPurchaseOrderTotal"
+                    >
+                        0.00
+                    </strong>
+
+                </div>
 
             </div>
 
         </div>
 
 
-        {{-- ==================================================
+        {{-- ======================================================
             Notes
-        ================================================== --}}
+        ======================================================= --}}
 
-        <div class="mb-4">
+        <div class="purchase-inspector-section">
 
-            <div class="purchase-inspector-heading">
-                Notes
+            <div class="purchase-inspector-section-header">
+
+                <div class="purchase-inspector-section-icon">
+
+                    <i class="bi bi-chat-left-text"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="purchase-inspector-section-title">
+                        Notes
+                    </div>
+
+                    <div class="purchase-inspector-section-description">
+                        Additional information
+                    </div>
+
+                </div>
+
             </div>
+
 
             <div
                 id="inspectorPurchaseOrderNotes"
-                class="text-muted small"
+                class="purchase-inspector-notes"
             >
                 —
             </div>
@@ -236,53 +407,184 @@
         </div>
 
 
-        {{-- ==================================================
-            Audit
-        ================================================== --}}
+        {{-- ======================================================
+            Activity
+        ======================================================= --}}
 
-        <div class="purchase-inspector-card">
+        <div class="purchase-inspector-section">
 
-            <div class="purchase-inspector-heading">
-                Activity
+            <div class="purchase-inspector-section-header">
+
+                <div class="purchase-inspector-section-icon">
+
+                    <i class="bi bi-clock-history"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="purchase-inspector-section-title">
+                        Activity
+                    </div>
+
+                    <div class="purchase-inspector-section-description">
+                        Order history
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="purchase-inspector-meta">
 
-                <div>
+            <div class="purchase-inspector-activity">
 
-                    <span>
-                        Created By
-                    </span>
 
-                    <strong id="inspectorPurchaseOrderCreatedBy">
-                        —
-                    </strong>
+                <div class="purchase-inspector-activity-item">
+
+                    <div class="purchase-inspector-activity-icon">
+
+                        <i class="bi bi-person"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="purchase-inspector-label">
+                            Created By
+                        </span>
+
+                        <strong
+                            id="inspectorPurchaseOrderCreatedBy"
+                        >
+                            —
+                        </strong>
+
+                    </div>
 
                 </div>
 
 
-                <div>
+                <div class="purchase-inspector-activity-item">
 
-                    <span>
-                        Created
-                    </span>
+                    <div class="purchase-inspector-activity-icon">
 
-                    <strong id="inspectorPurchaseOrderCreatedAt">
-                        —
-                    </strong>
+                        <i class="bi bi-calendar-plus"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="purchase-inspector-label">
+                            Created
+                        </span>
+
+                        <strong
+                            id="inspectorPurchaseOrderCreatedAt"
+                        >
+                            —
+                        </strong>
+
+                    </div>
 
                 </div>
 
 
-                <div>
+                <div class="purchase-inspector-activity-item">
 
-                    <span>
-                        Updated By
-                    </span>
+                    <div class="purchase-inspector-activity-icon">
 
-                    <strong id="inspectorPurchaseOrderUpdatedBy">
-                        —
-                    </strong>
+                        <i class="bi bi-person-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="purchase-inspector-label">
+                            Approved By
+                        </span>
+
+                        <strong
+                            id="inspectorPurchaseOrderApprovedBy"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="purchase-inspector-activity-item">
+
+                    <div class="purchase-inspector-activity-icon">
+
+                        <i class="bi bi-check2-circle"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="purchase-inspector-label">
+                            Approved At
+                        </span>
+
+                        <strong
+                            id="inspectorPurchaseOrderApprovedAt"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="purchase-inspector-activity-item">
+
+                    <div class="purchase-inspector-activity-icon">
+
+                        <i class="bi bi-pencil-square"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="purchase-inspector-label">
+                            Last Updated
+                        </span>
+
+                        <strong
+                            id="inspectorPurchaseOrderUpdatedAt"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="purchase-inspector-activity-item">
+
+                    <div class="purchase-inspector-activity-icon">
+
+                        <i class="bi bi-person-gear"></i>
+
+                    </div>
+
+                    <!-- <div>
+
+                        <span class="purchase-inspector-label">
+                            Updated By
+                        </span>
+
+                        <strong
+                            id="inspectorPurchaseOrderUpdatedBy"
+                        >
+                            —
+                        </strong>
+
+                    </div> -->
 
                 </div>
 
@@ -293,3 +595,4 @@
     </div>
 
 </div>
+

@@ -104,8 +104,7 @@ const Purchase = {
     |--------------------------------------------------------------------------
     */
 
-    cacheElements()
-    {
+    cacheElements()    {
 
         /*
         |--------------------------------------------------------------------------
@@ -495,9 +494,9 @@ const Purchase = {
                 ),
 
 
-            /*
+           /*
             |--------------------------------------------------------------------------
-            | Order Inspector
+            | Purchase Order Inspector
             |--------------------------------------------------------------------------
             */
 
@@ -506,11 +505,105 @@ const Purchase = {
                     'purchaseOrderInspector'
                 ),
 
-            orderInspectorContent:
+            orderInspectorLabel:
                 document.getElementById(
-                    'purchaseOrderInspectorContent'
+                    'purchaseOrderInspectorLabel'
                 ),
 
+            orderInspectorSubtitle:
+                document.getElementById(
+                    'purchaseOrderInspectorSubtitle'
+                ),
+
+            inspectorPurchaseOrderId:
+                document.getElementById(
+                    'inspectorPurchaseOrderId'
+                ),
+
+            inspectorPurchaseOrderStatus:
+                document.getElementById(
+                    'inspectorPurchaseOrderStatus'
+                ),
+
+            inspectorPurchaseOrderSupplier:
+                document.getElementById(
+                    'inspectorPurchaseOrderSupplier'
+                ),
+
+            inspectorPurchaseOrderBranch:
+                document.getElementById(
+                    'inspectorPurchaseOrderBranch'
+                ),
+
+            inspectorPurchaseOrderDate:
+                document.getElementById(
+                    'inspectorPurchaseOrderDate'
+                ),
+
+            inspectorPurchaseOrderExpectedDate:
+                document.getElementById(
+                    'inspectorPurchaseOrderExpectedDate'
+                ),
+
+            inspectorPurchaseOrderItems:
+                document.getElementById(
+                    'inspectorPurchaseOrderItems'
+                ),
+
+            inspectorPurchaseOrderItemCount:
+                document.getElementById(
+                    'inspectorPurchaseOrderItemCount'
+                ),
+
+            inspectorPurchaseOrderSubtotal:
+                document.getElementById(
+                    'inspectorPurchaseOrderSubtotal'
+                ),
+
+            inspectorPurchaseOrderTax:
+                document.getElementById(
+                    'inspectorPurchaseOrderTax'
+                ),
+
+            inspectorPurchaseOrderTotal:
+                document.getElementById(
+                    'inspectorPurchaseOrderTotal'
+                ),
+
+            inspectorPurchaseOrderNotes:
+                document.getElementById(
+                    'inspectorPurchaseOrderNotes'
+                ),
+
+            inspectorPurchaseOrderCreatedBy:
+                document.getElementById(
+                    'inspectorPurchaseOrderCreatedBy'
+                ),
+
+            inspectorPurchaseOrderCreatedAt:
+                document.getElementById(
+                    'inspectorPurchaseOrderCreatedAt'
+                ),
+
+            inspectorPurchaseOrderApprovedBy:
+                document.getElementById(
+                    'inspectorPurchaseOrderApprovedBy'
+                ),
+
+            inspectorPurchaseOrderApprovedAt:
+                document.getElementById(
+                    'inspectorPurchaseOrderApprovedAt'
+                ),
+
+            // inspectorPurchaseOrderUpdatedBy:
+            //     document.getElementById(
+            //         'inspectorPurchaseOrderUpdatedBy'
+            //     ),
+
+            inspectorPurchaseOrderUpdatedAt:
+                document.getElementById(
+                    'inspectorPurchaseOrderUpdatedAt'
+                ),
 
             /*
             |--------------------------------------------------------------------------
@@ -603,14 +696,39 @@ const Purchase = {
                     'purchaseActionEdit'
                 ),
 
-            purchaseActionToggle:
+            ppurchaseActionToggle:
                 document.getElementById(
                     'purchaseActionToggle'
+                ),
+
+            purchaseActionToggleIcon:
+                document.getElementById(
+                    'purchaseActionToggleIcon'
+                ),
+
+            purchaseActionToggleText:
+                document.getElementById(
+                    'purchaseActionToggleText'
                 ),
 
             purchaseActionDelete:
                 document.getElementById(
                     'purchaseActionDelete'
+                ),
+
+            purchaseActionSubmit:
+                document.getElementById(
+                    'purchaseActionSubmit'
+                ),
+
+            purchaseActionApprove:
+                document.getElementById(
+                    'purchaseActionApprove'
+                ),
+
+            purchaseActionCancel:
+                document.getElementById(
+                    'purchaseActionCancel'
                 ),
 
 
@@ -953,6 +1071,55 @@ const Purchase = {
             }
         );
 
+         /*
+        |--------------------------------------------------------------------------
+        | Close Purchase Action Menu
+        |--------------------------------------------------------------------------
+        */
+
+        document.addEventListener(
+            'click',
+            event => {
+
+                const menu =
+                    this.elements.purchaseActionMenu;
+
+
+                if (!menu) {
+
+                    return;
+
+                }
+
+
+                if (
+                    event.target.closest(
+                        '.purchase-action-trigger'
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    event.target.closest(
+                        '#purchaseActionMenu'
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                menu.classList.remove(
+                    'show'
+                );
+
+            }
+        );
 
         /*
         |--------------------------------------------------------------------------
@@ -1193,37 +1360,273 @@ const Purchase = {
                     trigger,
                     type,
                     id,
-                    reference
+                    reference,
+                    trigger.dataset.status
+                );
+
+            }          
+        );
+
+
+           /*
+        |--------------------------------------------------------------------------
+        | Edit Purchase Order
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.purchaseActionEdit
+        ) {
+
+            this.elements.purchaseActionEdit.addEventListener(
+                'click',
+                event => {
+
+                    event.preventDefault();
+
+
+                    const id =
+                        this.globalActionId;
+
+
+                    if (!id) {
+
+                        this.notify(
+                            'Purchase order not selected.',
+                            'error'
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Close Action Menu
+                    |--------------------------------------------------------------------------
+                    */
+
+                    this.elements.purchaseActionMenu
+                        ?.classList.remove(
+                            'show'
+                        );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Open Edit Order
+                    |--------------------------------------------------------------------------
+                    */
+
+                    this.openEditOrder(
+                        id
+                    );
+
+                }
+            );
+
+        }       
+        
+        /*
+        |--------------------------------------------------------------------------
+        | Submit Purchase Order for Approval
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.purchaseActionSubmit
+        ) {
+
+            this.elements.purchaseActionSubmit.addEventListener(
+                'click',
+                event => {
+
+                    event.preventDefault();
+
+
+                    const id =
+                        this.globalActionId;
+
+
+                    if (!id) {
+
+                        this.notify(
+                            'Purchase order not selected.',
+                            'error'
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Close Action Menu
+                    |--------------------------------------------------------------------------
+                    */
+
+                    this.elements.purchaseActionMenu?.classList.remove(
+                        'show'
+                    );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Confirmation Action
+                    |--------------------------------------------------------------------------
+                    */
+
+                    this.confirmationAction =
+                        'submit-order';
+
+
+                    this.globalActionId =
+                        id;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Open Confirmation
+                    |--------------------------------------------------------------------------
+                    */
+
+                    this.openConfirmation(
+                        'submit-order',
+                        id
+                    );
+
+                }
+            );
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | View Purchase Order
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.purchaseActionView
+            ?.addEventListener(
+                'click',
+                event => {
+
+                    event.preventDefault();
+
+
+                    const id =
+                        this.globalActionId;
+
+
+                    this.elements.purchaseActionMenu
+                        ?.classList.remove(
+                            'show'
+                        );
+
+
+                    if (!id) {
+
+                        console.error(
+                            'Purchase Order ID not found.'
+                        );
+
+                        return;
+
+                    }
+
+
+                    this.openOrderInspector(
+                        id
+                    );
+
+                }
+            );      
+            
+           /*
+            |--------------------------------------------------------------------------
+            | Delete Purchase Order
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                this.elements.purchaseActionDelete
+            ) {
+
+                this.elements.purchaseActionDelete.addEventListener(
+                    'click',
+                    event => {
+
+                        event.preventDefault();
+
+
+                        const id =
+                            this.globalActionId;
+
+
+                        if (!id) {
+
+                            this.notify(
+                                'Purchase order not selected.',
+                                'error'
+                            );
+
+                            return;
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Close Action Menu
+                        |--------------------------------------------------------------------------
+                        */
+
+                        this.elements.purchaseActionMenu?.classList.remove(
+                            'show'
+                        );
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Open Confirmation
+                        |--------------------------------------------------------------------------
+                        */
+
+                        this.openConfirmation(
+                            'delete-order',
+                            id
+                        );
+
+                    }
                 );
 
             }
-        );
+        },   
 
-    },
+                 /*
+            |--------------------------------------------------------------------------
+            | Load Initial Data
+            |--------------------------------------------------------------------------
+            */
 
+            async loadInitialData()
+            {
 
-    /*
-    |--------------------------------------------------------------------------
-    | Load Initial Data
-    |--------------------------------------------------------------------------
-    */
+                await Promise.allSettled([
 
-    async loadInitialData()
-    {
+                    this.loadSuppliers(),
 
-        await Promise.allSettled([
+                    this.loadBranches(),
 
-            this.loadSuppliers(),
+                    this.loadProducts(),
 
-            this.loadBranches(),
+                    this.loadOrders(),
 
-            this.loadProducts(),
+                ]);
 
-            this.loadOrders(),
-
-        ]);
-
-    },
+            },
 
 
     /*
@@ -3136,7 +3539,7 @@ clearPurchaseOrderProduct(
 
     },
 
-    /*
+     /*
     |--------------------------------------------------------------------------
     | Open Purchase Action Menu
     |--------------------------------------------------------------------------
@@ -3146,7 +3549,8 @@ clearPurchaseOrderProduct(
         trigger,
         type,
         id,
-        reference = ''
+        reference = '',
+        status = ''
     ) {
 
         const menu =
@@ -3164,12 +3568,175 @@ clearPurchaseOrderProduct(
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Store Action Context
+        |--------------------------------------------------------------------------
+        */
+
         this.globalActionId =
             id;
 
 
         this.globalActionType =
             type;
+
+        this.globalActionStatus =
+        String(
+            status || ''
+        ).toLowerCase();
+
+
+        this.globalActionReference =
+            reference;
+            
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Status Actions
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.purchaseActionSubmit?.classList.add(
+            'd-none'
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Draft Actions
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            type === 'order' &&
+            this.globalActionStatus === 'draft'
+        ) {
+
+            this.elements.purchaseActionSubmit?.classList.remove(
+                'd-none'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Order Status Actions
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            type === 'order'
+        ) {
+
+            const edit =
+                this.elements.purchaseActionEdit;
+
+            const submit =
+                this.elements.purchaseActionSubmit;
+
+            const approve =
+                this.elements.purchaseActionApprove;
+
+            const cancel =
+                this.elements.purchaseActionCancel;
+
+            const deleteButton =
+                this.elements.purchaseActionDelete;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Hide All Conditional Actions First
+            |--------------------------------------------------------------------------
+            */
+
+            edit?.classList.add(
+                'd-none'
+            );
+
+            submit?.classList.add(
+                'd-none'
+            );
+
+            approve?.classList.add(
+                'd-none'
+            );
+
+            cancel?.classList.add(
+                'd-none'
+            );
+
+            deleteButton?.classList.add(
+                'd-none'
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Draft
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                this.globalActionStatus ===
+                'draft'
+            ) {
+
+                edit?.classList.remove(
+                    'd-none'
+                );
+
+                submit?.classList.remove(
+                    'd-none'
+                );
+
+                deleteButton?.classList.remove(
+                    'd-none'
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Pending
+            |--------------------------------------------------------------------------
+            */
+
+            else if (
+                this.globalActionStatus ===
+                'pending'
+            ) {
+
+                approve?.classList.remove(
+                    'd-none'
+                );
+
+                cancel?.classList.remove(
+                    'd-none'
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Approved
+            |--------------------------------------------------------------------------
+            */
+
+            else if (
+                this.globalActionStatus ===
+                'approved'
+            ) {
+
+                cancel?.classList.remove(
+                    'd-none'
+                );
+
+            }
+
+        }
 
 
         /*
@@ -3221,7 +3788,9 @@ clearPurchaseOrderProduct(
         ) {
 
             menu.style.left =
-                `${window.innerWidth - menuRect.width - 10}px`;
+                `${window.innerWidth -
+                menuRect.width -
+                10}px`;
 
         }
 
@@ -3238,62 +3807,14 @@ clearPurchaseOrderProduct(
         ) {
 
             menu.style.top =
-                `${rect.top - menuRect.height - 5}px`;
+                `${rect.top -
+                menuRect.height -
+                5}px`;
 
         }
 
     },
-
-    /*
-|--------------------------------------------------------------------------
-| Close Purchase Action Menu
-|--------------------------------------------------------------------------
-*/
-
-document.addEventListener(
-    'click',
-    event => {
-
-        const menu =
-            this.elements.purchaseActionMenu;
-
-
-        if (!menu) {
-
-            return;
-
-        }
-
-
-        if (
-            event.target.closest(
-                '.purchase-action-trigger'
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        if (
-            event.target.closest(
-                '#purchaseActionMenu'
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        menu.classList.remove(
-            'show'
-        );
-
-    }
-);
-
+   
     /*
     |--------------------------------------------------------------------------
     | Open Create Purchase Order
@@ -3340,6 +3861,201 @@ document.addEventListener(
         modal.show();
 
     },
+
+    /*
+|--------------------------------------------------------------------------
+| Open Edit Purchase Order
+|--------------------------------------------------------------------------
+*/
+
+async openEditOrder(
+    id
+) {
+
+    if (!id) {
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Modal
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !this.orderModalInstance
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Form
+    |--------------------------------------------------------------------------
+    */
+
+    this.clearValidation(
+        this.elements.orderForm
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Set Edit State
+    |--------------------------------------------------------------------------
+    */
+
+    this.editingOrderId =
+        Number(
+            id
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Show Loading State
+    |--------------------------------------------------------------------------
+    */
+
+    this.setButtonLoading(
+        this.elements.orderForm
+            ?.querySelector(
+                '[type="submit"]'
+            ),
+        true
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/purchase/orders/${id}/details`,
+                {
+                    headers: {
+                        'Accept':
+                            'application/json'
+                    }
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to load purchase order.'
+            );
+
+        }
+
+
+        const order =
+            result.data;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Populate Form
+        |--------------------------------------------------------------------------
+        */
+
+        this.populatePurchaseOrderForm(
+            order
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Change Modal Title
+        |--------------------------------------------------------------------------
+        */
+
+        const title =
+            document.getElementById(
+                'purchaseOrderModalLabel'
+            );
+
+
+        if (title) {
+
+            title.textContent =
+                'Edit Purchase Order';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Change Submit Text
+        |--------------------------------------------------------------------------
+        */
+
+        const submitText =
+            this.elements.orderForm
+                ?.querySelector(
+                    '.purchase-order-submit-text'
+                );
+
+
+        if (submitText) {
+
+            submitText.textContent =
+                'Update Purchase Order';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Show Modal
+        |--------------------------------------------------------------------------
+        */
+
+        this.orderModalInstance.show();
+
+    }
+    catch (error) {
+
+        console.error(
+            'Edit Purchase Order Error:',
+            error
+        );
+
+
+        this.notify(
+            error.message ??
+            'Unable to load purchase order.',
+            'error'
+        );
+
+    }
+    finally {
+
+        this.setButtonLoading(
+            this.elements.orderForm
+                ?.querySelector(
+                    '[type="submit"]'
+                ),
+            false
+        );
+
+    }
+
+},
 
 
     /*
@@ -3948,282 +4664,884 @@ document.addEventListener(
 
 
     /*
-    |--------------------------------------------------------------------------
-    | Open Order Inspector
-    |--------------------------------------------------------------------------
-    */
+|--------------------------------------------------------------------------
+| Open Order Inspector
+|--------------------------------------------------------------------------
+*/
 
-    async openOrderInspector(
-        id
-    )
-    {
+async openOrderInspector(
+    id
+) {
 
-        if (
-            !this.orderInspectorInstance
-        ) {
-            return;
-        }
+    if (
+        !this.orderInspectorInstance
+    ) {
 
+        return;
 
-        this.showInspectorLoading(
-            this.elements.orderInspectorContent
-        );
-
-
-        this.orderInspectorInstance.show();
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `/purchase/orders/${id}/details`,
-                    {
-                        headers: {
-                            'Accept':
-                                'application/json'
-                        }
-                    }
-                );
-
-
-            const result =
-                await response.json();
-
-
-            if (
-                !response.ok ||
-                !result.success
-            ) {
-
-                throw new Error(
-                    result.message ??
-                    'Unable to load purchase order.'
-                );
-
-            }
-
-
-            this.renderOrderInspector(
-                result.data
-            );
-
-        }
-        catch (error) {
-
-            this.showInspectorError(
-                this.elements.orderInspectorContent,
-                error.message
-            );
-
-        }
-
-    },
+    }
 
 
     /*
     |--------------------------------------------------------------------------
-    | Render Order Inspector
+    | Reset Inspector
     |--------------------------------------------------------------------------
     */
 
-    renderOrderInspector(
-        order
-    )
-    {
-
-        const items =
-            order.items ?? [];
+    this.resetOrderInspector();
 
 
-        const itemsHtml =
-            items.map(
-                item => `
+    /*
+    |--------------------------------------------------------------------------
+    | Open Inspector
+    |--------------------------------------------------------------------------
+    */
 
-                    <div class="d-flex justify-content-between
-                        align-items-start py-3 border-bottom">
-
-                        <div>
-
-                            <div class="fw-semibold">
-
-                                ${this.escapeHtml(
-                                    item.product_name ??
-                                    item.product?.name ??
-                                    '—'
-                                )}
-
-                            </div>
-
-                            <div class="text-muted small">
-
-                                Qty:
-                                ${this.formatNumber(
-                                    item.quantity
-                                )}
-
-                                ×
-
-                                ${this.formatMoney(
-                                    item.unit_cost
-                                )}
-
-                            </div>
-
-                        </div>
-
-                        <div class="fw-semibold">
-
-                            ${this.formatMoney(
-                                item.total ??
-                                (
-                                    Number(item.quantity ?? 0) *
-                                    Number(item.unit_cost ?? 0)
-                                )
-                            )}
-
-                        </div>
-
-                    </div>
-
-                `
-            )
-            .join('');
+    this.orderInspectorInstance.show();
 
 
-        this.elements.orderInspectorContent.innerHTML = `
+    try {
 
-            <div class="p-4">
-
-                <div class="mb-4">
-
-                    <div class="text-muted small mb-1">
-                        Purchase Order
-                    </div>
-
-                    <h4 class="fw-semibold mb-1">
-
-                        ${this.escapeHtml(
-                            order.order_no ??
-                            order.purchase_order_no ??
-                            '—'
-                        )}
-
-                    </h4>
-
-                    <span class="badge ${this.statusBadge(
-                        order.status
-                    )}">
-
-                        ${this.escapeHtml(
-                            order.status_label ??
-                            order.status ??
-                            '—'
-                        )}
-
-                    </span>
-
-                </div>
+        const response =
+            await fetch(
+                `/purchase/orders/${id}/details`,
+                {
+                    headers: {
+                        'Accept':
+                            'application/json'
+                    }
+                }
+            );
 
 
-                <div class="row g-3 mb-4">
-
-                    ${this.inspectorInfo(
-                        'Supplier',
-                        order.supplier?.name ??
-                        order.supplier_name
-                    )}
-
-                    ${this.inspectorInfo(
-                        'Branch',
-                        order.branch?.name ??
-                        order.branch_name
-                    )}
-
-                    ${this.inspectorInfo(
-                        'Order Date',
-                        order.order_date
-                    )}
-
-                    ${this.inspectorInfo(
-                        'Expected Date',
-                        order.expected_date
-                    )}
-
-                </div>
+        const result =
+            await response.json();
 
 
-                <div class="mb-4">
+        if (
+            !response.ok ||
+            !result.success
+        ) {
 
-                    <h6 class="fw-semibold mb-2">
-                        Order Items
-                    </h6>
+            throw new Error(
+                result.message ??
+                'Unable to load purchase order.'
+            );
 
-                    ${itemsHtml || `
-                        <div class="text-muted small py-3">
-                            No items found.
-                        </div>
-                    `}
-
-                </div>
+        }
 
 
-                <div class="border rounded-3 p-3">
+        /*
+        |--------------------------------------------------------------------------
+        | Render Data
+        |--------------------------------------------------------------------------
+        */
 
-                    <div class="d-flex justify-content-between mb-2">
+        this.renderOrderInspector(
+            result.data
+        );
 
-                        <span class="text-muted">
-                            Subtotal
-                        </span>
+    }
+    catch (error) {
 
-                        <span>
-                            ${this.formatMoney(
-                                order.subtotal
-                            )}
-                        </span>
-
-                    </div>
-
-
-                    <div class="d-flex justify-content-between mb-2">
-
-                        <span class="text-muted">
-                            Tax
-                        </span>
-
-                        <span>
-                            ${this.formatMoney(
-                                order.tax
-                            )}
-                        </span>
-
-                    </div>
+        console.error(
+            'Purchase Order Inspector Error:',
+            error
+        );
 
 
-                    <div class="d-flex justify-content-between
-                        fw-semibold pt-2 border-top">
+        this.notify(
+            error.message ??
+            'Unable to load purchase order.',
+            'error'
+        );
 
-                        <span>
-                            Total
-                        </span>
+    }
 
-                        <span>
-                            ${this.formatMoney(
-                                order.total
-                            )}
-                        </span>
+},
 
-                    </div>
+/*
+|--------------------------------------------------------------------------
+| Reset Order Inspector
+|--------------------------------------------------------------------------
+*/
 
-                </div>
+resetOrderInspector()
+{
+
+    const elements =
+        this.elements;
+
+
+    if (
+        elements.orderInspectorLabel
+    ) {
+
+        elements.orderInspectorLabel.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderStatus
+    ) {
+
+        elements.inspectorPurchaseOrderStatus.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderSupplier
+    ) {
+
+        elements.inspectorPurchaseOrderSupplier.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderBranch
+    ) {
+
+        elements.inspectorPurchaseOrderBranch.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderDate
+    ) {
+
+        elements.inspectorPurchaseOrderDate.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderExpectedDate
+    ) {
+
+        elements.inspectorPurchaseOrderExpectedDate.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderItems
+    ) {
+
+        elements.inspectorPurchaseOrderItems.innerHTML = `
+
+            <div class="text-muted small">
+
+                Loading order items...
 
             </div>
 
         `;
 
-    },
+    }
 
 
+    if (
+        elements.inspectorPurchaseOrderSubtotal
+    ) {
+
+        elements.inspectorPurchaseOrderSubtotal.textContent =
+            '0.00';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderTax
+    ) {
+
+        elements.inspectorPurchaseOrderTax.textContent =
+            '0.00';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderTotal
+    ) {
+
+        elements.inspectorPurchaseOrderTotal.textContent =
+            '0.00';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderNotes
+    ) {
+
+        elements.inspectorPurchaseOrderNotes.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderCreatedBy
+    ) {
+
+        elements.inspectorPurchaseOrderCreatedBy.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderCreatedAt
+    ) {
+
+        elements.inspectorPurchaseOrderCreatedAt.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderUpdatedBy
+    ) {
+
+        elements.inspectorPurchaseOrderUpdatedBy.textContent =
+            '—';
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Render Order Inspector
+|--------------------------------------------------------------------------
+*/
+
+renderOrderInspector(
+    order
+) {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Guard
+    |--------------------------------------------------------------------------
+    */
+
+    if (!order) {
+
+        return;
+
+    }
+
+
+    console.log(
+        'PURCHASE ORDER INSPECTOR DATA:',
+        order
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+    this.elements.orderInspectorLabel
+    ) {
+
+        this.elements.orderInspectorLabel.textContent =
+            order.order_number ??
+            '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderStatus
+    ) {
+
+        const status =
+            order.status ??
+            '—';
+
+
+        this.elements.inspectorPurchaseOrderStatus.textContent =
+            status;
+
+
+        this.elements.inspectorPurchaseOrderStatus.className =
+            'badge';
+
+
+        const normalizedStatus =
+            String(
+                status
+            )
+            .toLowerCase()
+            .replace(
+                /\s+/g,
+                '-'
+            );
+
+
+        switch (
+            normalizedStatus
+        ) {
+
+            case 'draft':
+
+                this.elements.inspectorPurchaseOrderStatus.classList.add(
+                    'bg-secondary-subtle',
+                    'text-secondary'
+                );
+
+                break;
+
+
+            case 'pending':
+
+                this.elements.inspectorPurchaseOrderStatus.classList.add(
+                    'bg-warning-subtle',
+                    'text-warning'
+                );
+
+                break;
+
+
+            case 'approved':
+
+                this.elements.inspectorPurchaseOrderStatus.classList.add(
+                    'bg-primary-subtle',
+                    'text-primary'
+                );
+
+                break;
+
+
+            case 'partially-received':
+
+                this.elements.inspectorPurchaseOrderStatus.classList.add(
+                    'bg-info-subtle',
+                    'text-info'
+                );
+
+                break;
+
+
+            case 'received':
+
+                this.elements.inspectorPurchaseOrderStatus.classList.add(
+                    'bg-success-subtle',
+                    'text-success'
+                );
+
+                break;
+
+
+            case 'cancelled':
+
+                this.elements.inspectorPurchaseOrderStatus.classList.add(
+                    'bg-danger-subtle',
+                    'text-danger'
+                );
+
+                break;
+
+
+            default:
+
+                this.elements.inspectorPurchaseOrderStatus.classList.add(
+                    'bg-secondary-subtle',
+                    'text-secondary'
+                );
+
+                break;
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supplier
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderSupplier
+    ) {
+
+        this.elements.inspectorPurchaseOrderSupplier.textContent =
+            order.supplier ??
+            '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderBranch
+    ) {
+
+        this.elements.inspectorPurchaseOrderBranch.textContent =
+            order.branch ??
+            '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Order Date
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderDate
+    ) {
+
+        this.elements.inspectorPurchaseOrderDate.textContent =
+            this.formatInspectorDate(
+                order.order_date
+            );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Expected Delivery
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderExpectedDate
+    ) {
+
+        this.elements.inspectorPurchaseOrderExpectedDate.textContent =
+            this.formatInspectorDate(
+                order.expected_date
+            );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Items
+    |--------------------------------------------------------------------------
+    */
+
+    this.renderPurchaseOrderInspectorItems(
+        order.items ?? []
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Totals
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderSubtotal
+    ) {
+
+        this.elements.inspectorPurchaseOrderSubtotal.textContent =
+            this.formatMoney(
+                order.subtotal ?? 0
+            );
+
+    }
+
+
+    if (
+        this.elements.inspectorPurchaseOrderTax
+    ) {
+
+        this.elements.inspectorPurchaseOrderTax.textContent =
+            this.formatMoney(
+                order.tax ?? 0
+            );
+
+    }
+
+
+    if (
+        this.elements.inspectorPurchaseOrderTotal
+    ) {
+
+        this.elements.inspectorPurchaseOrderTotal.textContent =
+            this.formatMoney(
+                order.total ?? 0
+            );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notes
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderNotes
+    ) {
+
+        this.elements.inspectorPurchaseOrderNotes.textContent =
+            order.notes &&
+            order.notes !== '—'
+                ? order.notes
+                : 'No notes added.';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Created By
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderCreatedBy
+    ) {
+
+        this.elements.inspectorPurchaseOrderCreatedBy.textContent =
+            order.created_by ??
+            '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Created At
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderCreatedAt
+    ) {
+
+        this.elements.inspectorPurchaseOrderCreatedAt.textContent =
+            this.formatInspectorDateTime(
+                order.created_at
+            );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Updated By
+    |--------------------------------------------------------------------------
+    */
+
+    // if (
+    //     this.elements.inspectorPurchaseOrderUpdatedBy
+    // ) {
+
+    //     this.elements.inspectorPurchaseOrderUpdatedBy.textContent =
+    //         order.updated_by ??
+    //         '—';
+
+    // }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Format Inspector Date
+|--------------------------------------------------------------------------
+*/
+
+formatInspectorDate(
+    value
+) {
+
+    if (!value) {
+
+        return '—';
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return value;
+
+    }
+
+
+    return date.toLocaleDateString(
+        'en-GB',
+        {
+            day:
+                '2-digit',
+
+            month:
+                'short',
+
+            year:
+                'numeric'
+        }
+    );
+
+},
+
+
+/*
+|--------------------------------------------------------------------------
+| Format Inspector Date Time
+|--------------------------------------------------------------------------
+*/
+
+formatInspectorDateTime(
+    value
+) {
+
+    if (!value) {
+
+        return '—';
+
+    }
+
+
+    const date =
+        new Date(
+            value.replace(
+                ' ',
+                'T'
+            )
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return value;
+
+    }
+
+
+    return date.toLocaleString(
+        'en-GB',
+        {
+            day:
+                '2-digit',
+
+            month:
+                'short',
+
+            year:
+                'numeric',
+
+            hour:
+                '2-digit',
+
+            minute:
+                '2-digit'
+        }
+    );
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Render Purchase Order Inspector Items
+|--------------------------------------------------------------------------
+*/
+
+renderPurchaseOrderInspectorItems(
+    items
+) {
+
+    const container =
+        this.elements.inspectorPurchaseOrderItems;
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    if (
+        !Array.isArray(items) ||
+        !items.length
+    ) {
+
+        container.innerHTML = `
+
+            <div class="text-muted small py-3">
+
+                <i class="bi bi-box-seam me-1"></i>
+
+                No items available.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        items
+            .map(
+                item => {
+
+                    const productName =
+                        item.product ??
+                        '—';
+
+
+                    const productCode =
+                        item.product_code &&
+                        item.product_code !== '—'
+                            ? item.product_code
+                            : '';
+
+
+                    const quantity =
+                        Number(
+                            item.quantity ?? 0
+                        );
+
+
+                    const unitCost =
+                        Number(
+                            item.unit_cost ?? 0
+                        );
+
+
+                    const total =
+                        Number(
+                            item.total ??
+                            (
+                                quantity *
+                                unitCost
+                            )
+                        );
+
+
+                    return `
+
+                        <div
+                            class="purchase-inspector-item"
+                        >
+
+                            <div
+                                class="purchase-inspector-item-main"
+                            >
+
+                                <div
+                                    class="purchase-inspector-item-name"
+                                >
+
+                                    ${this.escapeHtml(
+                                        productName
+                                    )}
+
+                                </div>
+
+
+                                ${
+                                    productCode
+                                        ? `
+                                            <div
+                                                class="purchase-inspector-item-code"
+                                            >
+
+                                                ${this.escapeHtml(
+                                                    productCode
+                                                )}
+
+                                            </div>
+                                        `
+                                        : ''
+                                }
+
+
+                                <div
+                                    class="purchase-inspector-item-meta"
+                                >
+
+                                    ${this.formatNumber(
+                                        quantity
+                                    )}
+
+                                    ×
+
+                                    ${this.formatMoney(
+                                        unitCost
+                                    )}
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="purchase-inspector-item-total"
+                            >
+
+                                ${this.formatMoney(
+                                    total
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join('');
+
+},
     /*
     |--------------------------------------------------------------------------
     | Open Goods Received Inspector
@@ -5036,6 +6354,187 @@ showInitialPurchaseOrderProducts(
 
     },
 
+    /*
+|--------------------------------------------------------------------------
+| Populate Purchase Order Form
+|--------------------------------------------------------------------------
+*/
+
+populatePurchaseOrderForm(
+    order
+) {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Order ID
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.orderId
+    ) {
+
+        this.elements.orderId.value =
+            order.id ?? '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supplier
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.orderSupplier
+    ) {
+
+        this.elements.orderSupplier.value =
+            order.supplier_id ?? '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.orderBranch
+    ) {
+
+        this.elements.orderBranch.value =
+            order.branch_id ?? '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Order Date
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.orderDate
+    ) {
+
+        this.elements.orderDate.value =
+            order.order_date ?? '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Expected Date
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.orderExpectedDate
+    ) {
+
+        this.elements.orderExpectedDate.value =
+            order.expected_date ?? '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notes
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.orderNotes
+    ) {
+
+        this.elements.orderNotes.value =
+            order.notes &&
+            order.notes !== '—'
+                ? order.notes
+                : '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Items
+    |--------------------------------------------------------------------------
+    */
+
+    this.orderItems =
+        Array.isArray(
+            order.items
+        )
+            ? order.items.map(
+                item => ({
+
+                    id:
+                        item.id ?? null,
+
+                    product_id:
+                        item.product_id
+                            ? Number(
+                                item.product_id
+                            )
+                            : null,
+
+                    quantity:
+                        Number(
+                            item.quantity ?? 0
+                        ),
+
+                    unit_cost:
+                        Number(
+                            item.unit_cost ?? 0
+                        ),
+
+                    discount:
+                        Number(
+                            item.discount ?? 0
+                        ),
+
+                    tax:
+                        Number(
+                            item.tax ?? 0
+                        ),
+
+                    total:
+                        Number(
+                            item.total ?? 0
+                        )
+
+                })
+            )
+            : [];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render Items
+    |--------------------------------------------------------------------------
+    */
+
+    this.renderPurchaseOrderItems();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate Totals
+    |--------------------------------------------------------------------------
+    */
+
+    this.calculatePurchaseOrderTotals();
+
+},
+
 
     /*
     |--------------------------------------------------------------------------
@@ -5668,6 +7167,104 @@ async saveOrder()
                     '[type="submit"]'
                 ),
             false
+        );
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Delete Purchase Order
+|--------------------------------------------------------------------------
+*/
+
+async deleteOrder(
+    id
+) {
+
+    if (!id) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const csrfToken =
+            document
+                .querySelector(
+                    'meta[name="csrf-token"]'
+                )
+                ?.getAttribute(
+                    'content'
+                );
+
+
+        const response =
+            await fetch(
+                `/purchase/orders/${id}`,
+                {
+
+                    method:
+                        'DELETE',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-CSRF-TOKEN':
+                            csrfToken
+
+                    }
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to delete purchase order.'
+            );
+
+        }
+
+
+        this.notify(
+            result.message ??
+            'Purchase order deleted successfully.',
+            'success'
+        );
+
+
+        await this.loadOrders(
+            1
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            'Delete Purchase Order Error:',
+            error
+        );
+
+
+        this.notify(
+            error.message ??
+            'Unable to delete purchase order.',
+            'error'
         );
 
     }
@@ -7098,11 +8695,10 @@ async saveOrder()
     |--------------------------------------------------------------------------
     */
 
-    openConfirmation(
+   openConfirmation(
         action,
         id
-    )
-    {
+    ) {
 
         this.confirmationAction =
             action;
@@ -7180,6 +8776,30 @@ async saveOrder()
 
                 buttonClass:
                     'btn-danger',
+
+            },
+
+            'submit-order':
+
+            {
+
+                title:
+                    'Submit Purchase Order',
+
+                message:
+                    'Submit this purchase order for approval?',
+
+                description:
+                    'Once submitted, the order will move from Draft to Pending and can no longer be edited until the approval process is completed.',
+
+                icon:
+                    'bi-send',
+
+                button:
+                    'Submit for Approval',
+
+                buttonClass:
+                    'btn-primary'
 
             },
 
@@ -7317,6 +8937,15 @@ async saveOrder()
 
     async executeConfirmation()
     {
+        console.log(
+            'CONFIRMATION ACTION:',
+            this.confirmationAction
+        );
+
+        console.log(
+            'CONFIRMATION ID:',
+            this.globalActionId
+        );
 
         const action =
             this.confirmationAction;
@@ -7346,6 +8975,16 @@ async saveOrder()
             switch (
                 action
             ) {
+
+                case 'submit-order':
+
+                    url =
+                        `/purchase/orders/${id}/submit`;
+
+                    method =
+                        'PATCH';
+
+                    break;
 
                 case 'delete-order':
 
@@ -7417,6 +9056,15 @@ async saveOrder()
                             'X-CSRF-TOKEN':
                                 this.csrfToken()
                         }
+                    }
+                );
+
+                console.log(
+                    'CONFIRMATION REQUEST:',
+                    {
+                        url,
+                        method,
+                        action
                     }
                 );
 

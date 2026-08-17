@@ -522,7 +522,7 @@ class PurchaseController extends BaseController
             'success' =>
                 true,
 
-            'data' => [
+           'data' => [
 
                 'id' =>
                     $order->id,
@@ -540,13 +540,15 @@ class PurchaseController extends BaseController
                     $order->status,
 
                 'supplier' =>
-                    $order->supplier?->name,
+                    $order->supplier?->name
+                    ?? '—',
 
                 'supplier_id' =>
                     $order->supplier_id,
 
                 'branch' =>
-                    $order->branch?->name,
+                    $order->branch?->name
+                    ?? '—',
 
                 'branch_id' =>
                     $order->branch_id,
@@ -567,15 +569,40 @@ class PurchaseController extends BaseController
                     (float) $order->total,
 
                 'notes' =>
-                    $order->notes,
+                    $order->notes
+                    ?? '—',
 
                 'created_by' =>
-                    $order->creator?->name
-                    ?? '—',
+                    $order->creator
+                        ? trim(
+                            $order->creator->first_name .
+                            ' ' .
+                            $order->creator->last_name
+                        )
+                        : '—',
 
-                'approved_by' =>
-                    $order->approver?->name
-                    ?? '—',
+                'created_at' =>
+                    $order->created_at?->format(
+                        'Y-m-d H:i:s'
+                    ),
+
+                // 'updated_by' =>
+                //     $order->updater?->name
+                //     ?? '—',
+
+                'updated_at' =>
+                    $order->updated_at?->format(
+                        'Y-m-d H:i:s'
+                    ),
+
+               'approved_by' =>
+                    $order->approver
+                        ? trim(
+                            $order->approver->first_name .
+                            ' ' .
+                            $order->approver->last_name
+                        )
+                        : '—',
 
                 'approved_at' =>
                     $order->approved_at?->format(
@@ -630,12 +657,18 @@ class PurchaseController extends BaseController
     }
 
 
-    /**
+   /**
      * Store Purchase Order.
      */
     public function storeOrder(
         Request $request
     ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
 
         if (! canAccess('purchases.create')) {
 
@@ -650,6 +683,13 @@ class PurchaseController extends BaseController
             ], 403);
 
         }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
+        */
 
         $validated =
             $request->validate([
@@ -750,6 +790,7 @@ class PurchaseController extends BaseController
 
             ]);
 
+
         /*
         |--------------------------------------------------------------------------
         | Validate Branch
@@ -766,7 +807,8 @@ class PurchaseController extends BaseController
                     $validated['branch_id']
                 );
 
-        if (!$branch) {
+
+        if (! $branch) {
 
             return response()->json([
 
@@ -779,6 +821,7 @@ class PurchaseController extends BaseController
             ], 422);
 
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -800,7 +843,8 @@ class PurchaseController extends BaseController
                     $validated['supplier_id']
                 );
 
-        if (!$supplier) {
+
+        if (! $supplier) {
 
             return response()->json([
 
@@ -813,6 +857,7 @@ class PurchaseController extends BaseController
             ], 422);
 
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -827,6 +872,7 @@ class PurchaseController extends BaseController
             ->pluck('product_id')
             ->unique()
             ->values();
+
 
         $products =
             Product::query()
@@ -845,6 +891,7 @@ class PurchaseController extends BaseController
                 ->get()
                 ->keyBy('id');
 
+
         if (
             $products->count() !==
             $productIds->count()
@@ -862,9 +909,10 @@ class PurchaseController extends BaseController
 
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Create Order
+        | Create / Restore Order
         |--------------------------------------------------------------------------
         */
 
@@ -875,9 +923,16 @@ class PurchaseController extends BaseController
                     $products
                 ) {
 
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Calculate Items
+                    |--------------------------------------------------------------------------
+                    */
+
                     $subtotal = 0;
 
                     $items = [];
+
 
                     foreach (
                         $validated['items']
@@ -887,8 +942,10 @@ class PurchaseController extends BaseController
                         $quantity =
                             (float) $item['quantity'];
 
+
                         $unitCost =
                             (float) $item['unit_cost'];
+
 
                         $discount =
                             (float) (
@@ -896,29 +953,37 @@ class PurchaseController extends BaseController
                                 ?? 0
                             );
 
+
                         $tax =
                             (float) (
                                 $item['tax']
                                 ?? 0
                             );
 
+
                         $lineSubtotal =
                             $quantity *
                             $unitCost;
+
 
                         $lineTotal =
                             $lineSubtotal -
                             $discount +
                             $tax;
 
-                        if ($lineTotal < 0) {
+
+                        if (
+                            $lineTotal < 0
+                        ) {
 
                             $lineTotal = 0;
 
                         }
 
+
                         $subtotal +=
                             $lineSubtotal;
+
 
                         $items[] = [
 
@@ -944,11 +1009,19 @@ class PurchaseController extends BaseController
 
                     }
 
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Order Totals
+                    |--------------------------------------------------------------------------
+                    */
+
                     $discount =
                         (float) (
                             $validated['discount']
                             ?? 0
                         );
+
 
                     $tax =
                         (float) (
@@ -956,11 +1029,13 @@ class PurchaseController extends BaseController
                             ?? 0
                         );
 
+
                     $shipping =
                         (float) (
                             $validated['shipping']
                             ?? 0
                         );
+
 
                     $total =
                         $subtotal -
@@ -968,26 +1043,72 @@ class PurchaseController extends BaseController
                         $tax +
                         $shipping;
 
-                    if ($total < 0) {
+
+                    if (
+                        $total < 0
+                    ) {
 
                         $total = 0;
 
                     }
 
-                    $order =
-                        PurchaseOrder::create([
 
-                            'company_id' =>
-                                $this->companyId,
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Generate Order Number
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $orderNumber =
+                        $this->generatePurchaseOrderNumber();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Find Soft Deleted Order
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $deletedOrder =
+                        PurchaseOrder::withTrashed()
+                            ->where(
+                                'company_id',
+                                $this->companyId
+                            )
+                            ->where(
+                                'order_number',
+                                $orderNumber
+                            )
+                            ->whereNotNull(
+                                'deleted_at'
+                            )
+                            ->first();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Restore Existing Order
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if ($deletedOrder) {
+
+                        $deletedOrder->restore();
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Update Order
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $deletedOrder->update([
 
                             'branch_id' =>
                                 $validated['branch_id'],
 
                             'supplier_id' =>
                                 $validated['supplier_id'],
-
-                            'order_number' =>
-                                $this->generatePurchaseOrderNumber(),
 
                             'order_date' =>
                                 $validated['order_date'],
@@ -1023,6 +1144,103 @@ class PurchaseController extends BaseController
 
                         ]);
 
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Remove Existing Items
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $deletedOrder->items()->delete();
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Create New Items
+                        |--------------------------------------------------------------------------
+                        */
+
+                        foreach (
+                            $items
+                            as $item
+                        ) {
+
+                            $deletedOrder
+                                ->items()
+                                ->create(
+                                    $item
+                                );
+
+                        }
+
+
+                        return $deletedOrder->fresh();
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Create New Order
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $order =
+                        PurchaseOrder::create([
+
+                            'company_id' =>
+                                $this->companyId,
+
+                            'branch_id' =>
+                                $validated['branch_id'],
+
+                            'supplier_id' =>
+                                $validated['supplier_id'],
+
+                            'order_number' =>
+                                $orderNumber,
+
+                            'order_date' =>
+                                $validated['order_date'],
+
+                            'expected_date' =>
+                                $validated['expected_date']
+                                ?? null,
+
+                            'status' =>
+                                'Draft',
+
+                            'subtotal' =>
+                                $subtotal,
+
+                            'discount' =>
+                                $discount,
+
+                            'tax' =>
+                                $tax,
+
+                            'shipping' =>
+                                $shipping,
+
+                            'total' =>
+                                $total,
+
+                            'notes' =>
+                                $validated['notes']
+                                ?? null,
+
+                            'created_by' =>
+                                auth()->id(),
+
+                        ]);
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Create Items
+                    |--------------------------------------------------------------------------
+                    */
+
                     foreach (
                         $items
                         as $item
@@ -1034,10 +1252,12 @@ class PurchaseController extends BaseController
 
                     }
 
+
                     return $order;
 
                 }
             );
+
 
         /*
         |--------------------------------------------------------------------------
@@ -1062,6 +1282,13 @@ class PurchaseController extends BaseController
 
         );
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
         return response()->json([
 
             'success' =>
@@ -1074,8 +1301,8 @@ class PurchaseController extends BaseController
                 $order,
 
         ]);
-    }
 
+    }
     /*
     |--------------------------------------------------------------------------
     | Purchase Order Number
@@ -1092,8 +1319,15 @@ class PurchaseController extends BaseController
             now()->format('Ym') .
             '-';
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Find Latest Order Including Soft Deleted
+        |--------------------------------------------------------------------------
+        */
+
         $lastOrder =
-            PurchaseOrder::query()
+            PurchaseOrder::withTrashed()
                 ->where(
                     'company_id',
                     $this->companyId
@@ -1106,7 +1340,15 @@ class PurchaseController extends BaseController
                 ->latest('id')
                 ->first();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Determine Next Number
+        |--------------------------------------------------------------------------
+        */
+
         $nextNumber = 1;
+
 
         if ($lastOrder) {
 
@@ -1117,10 +1359,18 @@ class PurchaseController extends BaseController
                     $lastOrder->order_number
                 );
 
+
             $nextNumber =
                 $lastNumber + 1;
 
         }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Return Order Number
+        |--------------------------------------------------------------------------
+        */
 
         return $prefix .
             str_pad(
@@ -1130,7 +1380,6 @@ class PurchaseController extends BaseController
                 STR_PAD_LEFT
             );
     }
-
 
     /**
      * Update Purchase Order.
@@ -1579,7 +1828,7 @@ class PurchaseController extends BaseController
     }
 
 
-    /**
+   /**
      * Delete Purchase Order.
      */
     public function destroyOrder(
@@ -1600,17 +1849,15 @@ class PurchaseController extends BaseController
 
         }
 
+
         $order =
             PurchaseOrder::query()
                 ->where(
                     'company_id',
                     $this->companyId
                 )
-                ->withCount([
-                    'goodsReceived',
-                    'purchaseReturns',
-                ])
                 ->find($id);
+
 
         if (!$order) {
 
@@ -1626,68 +1873,9 @@ class PurchaseController extends BaseController
 
         }
 
-        if ($order->isApproved()) {
 
-            return response()->json([
+        $order->delete();
 
-                'success' =>
-                    false,
-
-                'message' =>
-                    'Approved purchase orders cannot be deleted.',
-
-            ], 422);
-
-        }
-
-        if (
-            $order->goods_received_count > 0 ||
-            $order->purchase_returns_count > 0
-        ) {
-
-            return response()->json([
-
-                'success' =>
-                    false,
-
-                'message' =>
-                    'This purchase order has related receiving or return records and cannot be deleted.',
-
-            ], 422);
-
-        }
-
-        $oldValues =
-            $order
-                ->load('items')
-                ->toArray();
-
-        DB::transaction(
-            function () use ($order) {
-
-                $order->items()->delete();
-
-                $order->delete();
-
-            }
-        );
-
-        $this->activityLogger->log(
-
-            'purchases',
-
-            'delete',
-
-            'Deleted purchase order: ' .
-                $order->order_number,
-
-            $order,
-
-            $oldValues,
-
-            null
-
-        );
 
         return response()->json([
 
@@ -1698,6 +1886,190 @@ class PurchaseController extends BaseController
                 'Purchase order deleted successfully.',
 
         ]);
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Submit Purchase Order for Approval
+    |--------------------------------------------------------------------------
+    */
+   
+    public function submitOrder(
+        int $id
+    ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('purchases.update')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to submit purchase orders for approval.',
+
+            ], 403);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Find Order
+        |--------------------------------------------------------------------------
+        */
+
+        $order =
+            PurchaseOrder::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->with([
+                    'items',
+                    'supplier',
+                    'branch',
+                ])
+                ->find($id);
+
+
+        if (!$order) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Purchase order not found.',
+
+            ], 404);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validate Status
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            strtolower(
+                trim(
+                    (string) $order->status
+                )
+            ) !== 'draft'
+        ) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Only draft purchase orders can be submitted for approval.',
+
+            ], 422);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validate Items
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $order->items->isEmpty()
+        ) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'A purchase order must contain at least one item before submission.',
+
+            ], 422);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Capture Old Values
+        |--------------------------------------------------------------------------
+        */
+
+        $oldValues =
+            $order->toArray();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Submit Order
+        |--------------------------------------------------------------------------
+        */
+
+        $order->status =
+            'Pending';
+
+        $order->save();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Activity Log
+        |--------------------------------------------------------------------------
+        */
+
+        $this->activityLogger->log(
+
+            'purchases',
+
+            'submit',
+
+            'Submitted purchase order for approval: ' .
+                $order->order_number,
+
+            $order,
+
+            $oldValues,
+
+            $order->fresh()->toArray()
+
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
+        return response()->json([
+
+            'success' =>
+                true,
+
+            'message' =>
+                'Purchase order submitted for approval successfully.',
+
+            'data' =>
+                $order->fresh(),
+
+        ]);
+
     }
 
     /**

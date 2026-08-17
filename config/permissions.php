@@ -180,6 +180,7 @@ return [
             'update',
             'delete',
             'approve',
+            'submit',
         ],
 
         'pos' => [

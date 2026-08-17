@@ -8,7 +8,7 @@
 
                 <div class="fw-semibold">
 
-                    {{ $order->purchase_order_number ?? '—' }}
+                    {{ $order->order_number ?? '—' }}
 
                 </div>
 
@@ -95,6 +95,7 @@
                     data-type="order"
                     data-id="{{ $order->id }}"
                     data-reference="{{ $order->order_number ?? '' }}"
+                    data-status="{{ strtolower($order->status ?? 'draft') }}"
                 >
 
                     <i class="bi bi-three-dots"></i>

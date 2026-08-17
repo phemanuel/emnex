@@ -65,93 +65,7 @@
 
         </div>
 
-    </div>
-
-
-    {{-- ==============================================================
-        Purchase Tabs
-    ============================================================== --}}
-
-    <div
-        class="purchase-tabs"
-        role="tablist"
-    >
-
-        <button
-            type="button"
-            class="purchase-tab active"
-            id="purchaseOrdersTab"
-            data-purchase-tab="orders"
-            role="tab"
-            aria-selected="true"
-        >
-
-            <i class="bi bi-cart3"></i>
-
-            <span>
-                Purchase Orders
-            </span>
-
-            <span
-                class="purchase-tab-count"
-                id="purchaseOrdersCount"
-            >
-                0
-            </span>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="purchase-tab"
-            id="purchaseReceivedTab"
-            data-purchase-tab="received"
-            role="tab"
-            aria-selected="false"
-        >
-
-            <i class="bi bi-box-seam"></i>
-
-            <span>
-                Goods Received
-            </span>
-
-            <span
-                class="purchase-tab-count"
-                id="purchaseReceivedCount"
-            >
-                0
-            </span>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="purchase-tab"
-            id="purchaseReturnsTab"
-            data-purchase-tab="returns"
-            role="tab"
-            aria-selected="false"
-        >
-
-            <i class="bi bi-arrow-return-left"></i>
-
-            <span>
-                Purchase Returns
-            </span>
-
-            <span
-                class="purchase-tab-count"
-                id="purchaseReturnsCount"
-            >
-                0
-            </span>
-
-        </button>
-
-    </div>
+    </div>    
 
 
     {{-- ==============================================================
@@ -253,6 +167,91 @@
         </div>
 
 
+        {{-- ==============================================================
+        Purchase Tabs
+    ============================================================== --}}
+
+    <div
+        class="purchase-tabs"
+        role="tablist"
+    >
+
+        <button
+            type="button"
+            class="purchase-tab active"
+            id="purchaseOrdersTab"
+            data-purchase-tab="orders"
+            role="tab"
+            aria-selected="true"
+        >
+
+            <i class="bi bi-cart3"></i>
+
+            <span>
+                Purchase Orders
+            </span>
+
+            <span
+                class="purchase-tab-count"
+                id="purchaseOrdersCount"
+            >
+                0
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="purchase-tab"
+            id="purchaseReceivedTab"
+            data-purchase-tab="received"
+            role="tab"
+            aria-selected="false"
+        >
+
+            <i class="bi bi-box-seam"></i>
+
+            <span>
+                Goods Received
+            </span>
+
+            <span
+                class="purchase-tab-count"
+                id="purchaseReceivedCount"
+            >
+                0
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="purchase-tab"
+            id="purchaseReturnsTab"
+            data-purchase-tab="returns"
+            role="tab"
+            aria-selected="false"
+        >
+
+            <i class="bi bi-arrow-return-left"></i>
+
+            <span>
+                Purchase Returns
+            </span>
+
+            <span
+                class="purchase-tab-count"
+                id="purchaseReturnsCount"
+            >
+                0
+            </span>
+
+        </button>
+
+    </div>
+
         {{-- Orders Table Card --}}
 
         <div class="purchase-workspace-card">
@@ -331,6 +330,10 @@
 
                         <option value="">
                             All Statuses
+                        </option>
+
+                        <option value="draft">
+                            Draft
                         </option>
 
                         <option value="pending">
@@ -1141,62 +1144,142 @@
     id="purchaseActionMenu"
 >
 
-    <button
-        type="button"
-        class="dropdown-item"
-        id="purchaseActionView"
-    >
-
-        <i class="bi bi-eye me-2"></i>
-
+    {{-- ==========================================================
         View
+    =========================================================== --}}
 
-    </button>
+    @permission('purchases.view')
+
+        <button
+            type="button"
+            class="dropdown-item"
+            id="purchaseActionView"
+        >
+
+            <i class="bi bi-eye me-2"></i>
+
+            View
+
+        </button>
+
+    @endpermission
 
 
-    <button
-        type="button"
-        class="dropdown-item"
-        id="purchaseActionEdit"
-    >
-
-        <i class="bi bi-pencil me-2"></i>
-
+    {{-- ==========================================================
         Edit
+    =========================================================== --}}
 
-    </button>
+    @permission('purchases.update')
+
+        <button
+            type="button"
+            class="dropdown-item"
+            id="purchaseActionEdit"
+        >
+
+            <i class="bi bi-pencil me-2"></i>
+
+            Edit
+
+        </button>
+
+    @endpermission
 
 
-    <button
-        type="button"
-        class="dropdown-item"
-        id="purchaseActionToggle"
-    >
+    {{-- ==========================================================
+        Submit for Approval
+    =========================================================== --}}
 
-        <i class="bi bi-toggle-on me-2"></i>
+    @permission('purchases.submit')
 
-        Toggle Status
+        <button
+            type="button"
+            class="dropdown-item d-none"
+            id="purchaseActionSubmit"
+        >
 
-    </button>
+            <i class="bi bi-send me-2"></i>
+
+            Submit for Approval
+
+        </button>
+
+    @endpermission
 
 
-    <div class="dropdown-divider"></div>
+    {{-- ==========================================================
+        Approve
+    =========================================================== --}}
+
+    @permission('purchases.approve')
+
+        <button
+            type="button"
+            class="dropdown-item"
+            id="purchaseActionApprove"
+        >
+
+            <i class="bi bi-check-circle me-2"></i>
+
+            Approve
+
+        </button>
+
+    @endpermission
 
 
-    <button
-        type="button"
-        class="dropdown-item text-danger"
-        id="purchaseActionDelete"
-    >
+    {{-- ==========================================================
+        Cancel
+    =========================================================== --}}
 
-        <i class="bi bi-trash me-2"></i>
+    @permission('purchases.cancel')
 
+        <button
+            type="button"
+            class="dropdown-item text-warning"
+            id="purchaseActionCancel"
+        >
+
+            <i class="bi bi-x-circle me-2"></i>
+
+            Cancel
+
+        </button>
+
+    @endpermission
+
+
+    {{-- ==========================================================
+        Divider
+    =========================================================== --}}
+
+    <div
+        class="dropdown-divider"
+        id="purchaseActionDivider"
+    ></div>
+
+
+    {{-- ==========================================================
         Delete
+    =========================================================== --}}
 
-    </button>
+    @permission('purchases.delete')
+
+        <button
+            type="button"
+            class="dropdown-item text-danger"
+            id="purchaseActionDelete"
+        >
+
+            <i class="bi bi-trash me-2"></i>
+
+            Delete
+
+        </button>
+
+    @endpermission
 
 </div>
-
 {{-- ==============================================================
     Purchase Modals
 ============================================================== --}}

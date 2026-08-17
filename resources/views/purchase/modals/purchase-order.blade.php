@@ -192,39 +192,40 @@
 
                     <div class="purchase-form-section mb-4">
 
-                        <div
+                        <!-- <div
                             class="d-flex align-items-center justify-content-between mb-3"
-                        >
+                        > -->
 
-                            <div>
+                            <div class="purchase-order-items-toolbar">
 
-                                <div class="purchase-form-section-title">
+                                <div>
 
-                                    <i class="bi bi-box-seam me-2"></i>
+                                    <div class="fw-semibold">
+                                        Order Items
+                                    </div>
 
-                                    Order Items
+                                    <div class="small text-muted">
+                                        Add the products you want to purchase.
+                                    </div>
 
                                 </div>
 
-                                <div class="text-muted small mt-1">
-                                    Add products and specify purchase quantities.
-                                </div>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-primary btn-sm"
+                                    id="addPurchaseOrderItemBtn"
+                                >
+
+                                    <i class="bi bi-plus-lg me-1"></i>
+
+                                    Add Product
+
+                                </button>
 
                             </div>
 
-                            <button
-                                type="button"
-                                class="btn btn-primary btn-sm"
-                                id="addPurchaseOrderItemBtn"
-                            >
-
-                                <i class="bi bi-plus-lg me-1"></i>
-
-                                Add Product
-
-                            </button>
-
-                        </div>
+                        <!-- </div> -->
 
 
                         <div

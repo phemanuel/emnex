@@ -571,8 +571,14 @@ Route::prefix('products')
         Route::delete('/orders/{id}', [PurchaseController::class, 'destroyOrder'])
         ->name('purchase.orders.destroy');
 
+        Route::patch('/orders/{id}/submit', [PurchaseController::class, 'submitOrder'])
+        ->name('purchase.orders.submit');
+
         Route::patch('/orders/{id}/approve', [PurchaseController::class, 'approveOrder'])
         ->name('purchase.orders.approve');
+
+        Route::patch('/orders/{id}/cancel', [PurchaseController::class, 'cancelOrder'])
+        ->name('purchase.orders.cancel');
         /*
         |--------------------------------------------------------------------------
         | Goods Received
