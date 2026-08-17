@@ -1236,7 +1236,7 @@
 
         <button
             type="button"
-            class="dropdown-item text-warning"
+            class="dropdown-item text-danger d-none"
             id="purchaseActionCancel"
         >
 

@@ -1603,6 +1603,104 @@ const Purchase = {
                 );
 
             }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Approve Purchase Order
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                this.elements.purchaseActionApprove
+            ) {
+
+                this.elements.purchaseActionApprove.addEventListener(
+                    'click',
+                    event => {
+
+                        event.preventDefault();
+
+
+                        const id =
+                            this.globalActionId;
+
+
+                        if (!id) {
+
+                            this.notify(
+                                'Purchase order not selected.',
+                                'error'
+                            );
+
+                            return;
+
+                        }
+
+
+                        this.elements.purchaseActionMenu?.classList.remove(
+                            'show'
+                        );
+
+
+                        this.openConfirmation(
+                            'approve-order',
+                            id
+                        );
+
+                    }
+                );
+
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Cancel Purchase Order
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                this.elements.purchaseActionCancel
+            ) {
+
+                this.elements.purchaseActionCancel.addEventListener(
+                    'click',
+                    event => {
+
+                        event.preventDefault();
+
+
+                        const id =
+                            this.globalActionId;
+
+
+                        if (!id) {
+
+                            this.notify(
+                                'Purchase order not selected.',
+                                'error'
+                            );
+
+                            return;
+
+                        }
+
+
+                        this.elements.purchaseActionMenu?.classList.remove(
+                            'show'
+                        );
+
+
+                        this.openConfirmation(
+                            'cancel-order',
+                            id
+                        );
+
+                    }
+                );
+
+            }
+
+
         },   
 
                  /*
@@ -3600,9 +3698,18 @@ clearPurchaseOrderProduct(
             'd-none'
         );
 
+        this.elements.purchaseActionApprove?.classList.add(
+            'd-none'
+        );
+
+        this.elements.purchaseActionCancel?.classList.add(
+            'd-none'
+        );
+
+
         /*
         |--------------------------------------------------------------------------
-        | Draft Actions
+        | Draft
         |--------------------------------------------------------------------------
         */
 
@@ -3617,6 +3724,27 @@ clearPurchaseOrderProduct(
 
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pending
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            type === 'order' &&
+            this.globalActionStatus === 'pending'
+        ) {
+
+            this.elements.purchaseActionApprove?.classList.remove(
+                'd-none'
+            );
+
+            this.elements.purchaseActionCancel?.classList.remove(
+                'd-none'
+            );
+
+        }
 
         /*
         |--------------------------------------------------------------------------
@@ -8803,8 +8931,8 @@ async deleteOrder(
 
             },
 
-
             'approve-order':
+
             {
 
                 title:
@@ -8814,19 +8942,43 @@ async deleteOrder(
                     'Approve this purchase order?',
 
                 description:
-                    'The purchase order will move into the approved state.',
+                    'The purchase order will move from Pending to Approved.',
 
                 icon:
                     'bi-check-circle',
 
                 button:
-                    'Approve',
+                    'Approve Order',
 
                 buttonClass:
-                    'btn-success',
+                    'btn-success'
 
             },
 
+
+            'cancel-order':
+
+            {
+
+                title:
+                    'Cancel Purchase Order',
+
+                message:
+                    'Cancel this purchase order?',
+
+                description:
+                    'The purchase order will be marked as Cancelled and cannot proceed to fulfilment.',
+
+                icon:
+                    'bi-x-circle',
+
+                button:
+                    'Cancel Order',
+
+                buttonClass:
+                    'btn-danger'
+
+            },
 
             'delete-goods-received':
             {
@@ -8936,16 +9088,7 @@ async deleteOrder(
     */
 
     async executeConfirmation()
-    {
-        console.log(
-            'CONFIRMATION ACTION:',
-            this.confirmationAction
-        );
-
-        console.log(
-            'CONFIRMATION ID:',
-            this.globalActionId
-        );
+    {      
 
         const action =
             this.confirmationAction;
@@ -9007,6 +9150,15 @@ async deleteOrder(
 
                     break;
 
+                case 'cancel-order':
+
+                    url =
+                        `/purchase/orders/${id}/cancel`;
+
+                    method =
+                        'PATCH';
+
+                    break;
 
                 case 'delete-goods-received':
 

@@ -2120,7 +2120,19 @@ class PurchaseController extends BaseController
 
         }
 
-        if (!$order->isDraft()) {
+       /*
+        |--------------------------------------------------------------------------
+        | Validate Status
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            strtolower(
+                trim(
+                    (string) $order->status
+                )
+            ) !== 'pending'
+        ) {
 
             return response()->json([
 
@@ -2128,7 +2140,7 @@ class PurchaseController extends BaseController
                     false,
 
                 'message' =>
-                    'Only draft purchase orders can be approved.',
+                    'Only pending purchase orders can be approved.',
 
             ], 422);
 
@@ -2154,7 +2166,7 @@ class PurchaseController extends BaseController
         $order->update([
 
             'status' =>
-                'Approved',
+                'approved',
 
             'approved_by' =>
                 auth()->id(),
@@ -2193,6 +2205,164 @@ class PurchaseController extends BaseController
                 $order->fresh(),
 
         ]);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cancel Purchase Order
+    |--------------------------------------------------------------------------
+    */
+
+    public function cancelOrder(
+        int $id
+    ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('purchases.update')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to cancel purchase orders.',
+
+            ], 403);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Find Order
+        |--------------------------------------------------------------------------
+        */
+
+        $order =
+            PurchaseOrder::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->find($id);
+
+
+        if (!$order) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Purchase order not found.',
+
+            ], 404);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validate Status
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            strtolower(
+                trim(
+                    (string) $order->status
+                )
+            ) !== 'pending'
+        ) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Only pending purchase orders can be cancelled.',
+
+            ], 422);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Capture Old Values
+        |--------------------------------------------------------------------------
+        */
+
+        $oldValues =
+            $order->toArray();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cancel Order
+        |--------------------------------------------------------------------------
+        */
+
+        $order->update([
+
+            'status' =>
+                'cancelled',
+
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Activity Log
+        |--------------------------------------------------------------------------
+        */
+
+        $this->activityLogger->log(
+
+            'purchases',
+
+            'cancel',
+
+            'Cancelled purchase order: ' .
+                $order->order_number,
+
+            $order,
+
+            $oldValues,
+
+            $order->fresh()->toArray()
+
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
+        return response()->json([
+
+            'success' =>
+                true,
+
+            'message' =>
+                'Purchase order cancelled successfully.',
+
+            'data' =>
+                $order->fresh(),
+
+        ]);
+
     }
 
 
