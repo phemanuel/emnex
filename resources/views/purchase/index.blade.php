@@ -13,7 +13,7 @@
 
     {{-- ==============================================================
         Page Header
-    ============================================================== --}}
+    =============================================================== --}}
 
     <div class="purchase-page-header">
 
@@ -21,9 +21,7 @@
 
             <div class="d-flex align-items-center gap-2 mb-1">
 
-                <span
-                    class="text-muted small"
-                >
+                <span class="text-muted small">
                     Purchase
                 </span>
 
@@ -40,10 +38,18 @@
         </div>
 
 
+        {{-- ==========================================================
+            Header Actions
+        =========================================================== --}}
+
         <div
             class="d-flex align-items-center gap-2"
             id="purchaseHeaderActions"
         >
+
+            {{-- ======================================================
+                New Purchase Order
+            ======================================================= --}}
 
             @permission('purchases.create')
 
@@ -55,9 +61,49 @@
 
                     <i class="bi bi-plus-lg me-1"></i>
 
-                    <span id="purchaseCreateBtnText">
-                        New Purchase Order
-                    </span>
+                    New Purchase Order
+
+                </button>
+
+            @endpermission
+
+
+            {{-- ======================================================
+                New Goods Received
+            ======================================================= --}}
+
+            @permission('purchases.create')
+
+                <button
+                    type="button"
+                    class="btn btn-primary d-none"
+                    id="newGoodsReceivedBtn"
+                >
+
+                    <i class="bi bi-plus-lg me-1"></i>
+
+                    New Goods Received
+
+                </button>
+
+            @endpermission
+
+
+            {{-- ======================================================
+                New Purchase Return
+            ======================================================= --}}
+
+            @permission('purchases.create')
+
+                <button
+                    type="button"
+                    class="btn btn-primary d-none"
+                    id="newPurchaseReturnBtn"
+                >
+
+                    <i class="bi bi-plus-lg me-1"></i>
+
+                    New Purchase Return
 
                 </button>
 
@@ -65,7 +111,148 @@
 
         </div>
 
-    </div>    
+    </div>
+
+     {{-- ==========================================================
+                Purchase Navigation
+            ========================================================== --}}
+
+            <div
+            class="purchase-tabs"
+            id="purchaseTabs"
+            role="tablist"
+            aria-label="Purchase management"
+        >
+
+                {{-- ======================================================
+                    Purchase Orders
+                ======================================================= --}}
+
+                <button
+                    type="button"
+                    class="purchase-tab active"
+                    id="purchaseOrdersTab"
+                    data-purchase-tab="orders"
+                    role="tab"
+                    aria-selected="true"
+                >
+
+                    <span class="purchase-tab-icon">
+
+                        <i class="bi bi-receipt"></i>
+
+                    </span>
+
+
+                    <span class="purchase-tab-content">
+
+                        <span class="purchase-tab-title">
+                            Purchase Orders
+                        </span>
+
+                        <span class="purchase-tab-description">
+                            Manage supplier orders
+                        </span>
+
+                    </span>
+
+
+                    <span
+                        class="purchase-tab-count"
+                        id="purchaseOrdersCount"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+
+                {{-- ======================================================
+                    Goods Received
+                ======================================================= --}}
+
+                <button
+                    type="button"
+                    class="purchase-tab"
+                    id="purchaseReceivedTab"
+                    data-purchase-tab="received"
+                    role="tab"
+                    aria-selected="false"
+                >
+
+                    <span class="purchase-tab-icon">
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </span>
+
+
+                    <span class="purchase-tab-content">
+
+                        <span class="purchase-tab-title">
+                            Goods Received
+                        </span>
+
+                        <span class="purchase-tab-description">
+                            Track received inventory
+                        </span>
+
+                    </span>
+
+
+                    <span
+                        class="purchase-tab-count"
+                        id="purchaseReceivedCount"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+
+                {{-- ======================================================
+                    Purchase Returns
+                ======================================================= --}}
+
+                <button
+                    type="button"
+                    class="purchase-tab"
+                    id="purchaseReturnsTab"
+                    data-purchase-tab="returns"
+                    role="tab"
+                    aria-selected="false"
+                >
+
+                    <span class="purchase-tab-icon">
+
+                        <i class="bi bi-arrow-return-left"></i>
+
+                    </span>
+
+
+                    <span class="purchase-tab-content">
+
+                        <span class="purchase-tab-title">
+                            Purchase Returns
+                        </span>
+
+                        <span class="purchase-tab-description">
+                            Manage returned goods
+                        </span>
+
+                    </span>
+
+
+                    <span
+                        class="purchase-tab-count"
+                        id="purchaseReturnsCount"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+            </div>
 
 
     {{-- ==============================================================
@@ -99,7 +286,9 @@
                     class="purchase-kpi-value"
                     id="purchaseOrdersTotal"
                 >
-                    0
+                   {{ number_format(
+                        $purchaseOrderStats['total'] ?? 0
+                    ) }}
                 </div>
 
             </div>
@@ -119,7 +308,9 @@
                     class="purchase-kpi-value"
                     id="purchaseOrdersPending"
                 >
-                    0
+                   {{ number_format(
+                        $purchaseOrderStats['pending'] ?? 0
+                    ) }}
                 </div>
 
             </div>
@@ -139,7 +330,9 @@
                     class="purchase-kpi-value"
                     id="purchaseOrdersApproved"
                 >
-                    0
+                    {{ number_format(
+                        $purchaseOrderStats['approved'] ?? 0
+                    ) }}
                 </div>
 
             </div>
@@ -159,217 +352,264 @@
                     class="purchase-kpi-value"
                     id="purchaseOrdersValue"
                 >
-                    0.00
+                    {{ number_format(
+                        $purchaseOrderStats['total_value'] ?? 0,
+                        2
+                    ) }}
                 </div>
 
             </div>
 
         </div>
+           
 
+            {{-- ==========================================================
+                Purchase Orders Toolbar
+            ========================================================== --}}
 
-        {{-- ==============================================================
-        Purchase Tabs
-    ============================================================== --}}
+            <div class="purchase-toolbar purchase-orders-toolbar">
 
-    <div
-        class="purchase-tabs"
-        role="tablist"
-    >
+                {{-- ======================================================
+                    Primary Search
+                ======================================================= --}}
 
-        <button
-            type="button"
-            class="purchase-tab active"
-            id="purchaseOrdersTab"
-            data-purchase-tab="orders"
-            role="tab"
-            aria-selected="true"
-        >
+                <div class="purchase-toolbar-search">
 
-            <i class="bi bi-cart3"></i>
+                    <div class="purchase-search-box">
 
-            <span>
-                Purchase Orders
-            </span>
-
-            <span
-                class="purchase-tab-count"
-                id="purchaseOrdersCount"
-            >
-                0
-            </span>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="purchase-tab"
-            id="purchaseReceivedTab"
-            data-purchase-tab="received"
-            role="tab"
-            aria-selected="false"
-        >
-
-            <i class="bi bi-box-seam"></i>
-
-            <span>
-                Goods Received
-            </span>
-
-            <span
-                class="purchase-tab-count"
-                id="purchaseReceivedCount"
-            >
-                0
-            </span>
-
-        </button>
-
-
-        <button
-            type="button"
-            class="purchase-tab"
-            id="purchaseReturnsTab"
-            data-purchase-tab="returns"
-            role="tab"
-            aria-selected="false"
-        >
-
-            <i class="bi bi-arrow-return-left"></i>
-
-            <span>
-                Purchase Returns
-            </span>
-
-            <span
-                class="purchase-tab-count"
-                id="purchaseReturnsCount"
-            >
-                0
-            </span>
-
-        </button>
-
-    </div>
-
-        {{-- Orders Table Card --}}
-
-        <div class="purchase-workspace-card">
-
-            <div class="purchase-toolbar">
-
-                <div class="purchase-toolbar-left">
-
-                    <div class="input-group purchase-search">
-
-                        <span class="input-group-text bg-white">
-
-                            <i class="bi bi-search"></i>
-
-                        </span>
+                        <i class="bi bi-search"></i>
 
                         <input
                             type="search"
                             class="form-control"
                             id="purchaseOrdersSearch"
-                            placeholder="Search purchase orders..."
+                            placeholder="Search order number or supplier..."
                             autocomplete="off"
                         >
 
                     </div>
 
+                </div>
 
-                    <select
-                        class="form-select"
-                        id="purchaseOrdersBranch"
-                    >
 
-                        <option value="">
-                            All Branches
-                        </option>
+                {{-- ======================================================
+                    Filters
+                ======================================================= --}}
 
-                        @foreach($branches as $branch)
+                <div class="purchase-toolbar-filters">
 
-                            <option
-                                value="{{ $branch->id }}"
-                            >
-                                {{ $branch->name }}
+                    {{-- ==================================================
+                        Branch
+                    =================================================== --}}
+
+                    <div class="purchase-filter">
+
+                        <label
+                            for="purchaseOrdersBranch"
+                            class="purchase-filter-label"
+                        >
+                            Branch
+                        </label>
+
+                        <select
+                            class="form-select purchase-filter-control"
+                            id="purchaseOrdersBranch"
+                        >
+
+                            <option value="">
+                                All Branches
                             </option>
 
-                        @endforeach
+                            @foreach($branches as $branch)
 
-                    </select>
+                                <option
+                                    value="{{ $branch->id }}"
+                                >
+                                    {{ $branch->name }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
 
 
-                    <select
-                        class="form-select"
-                        id="purchaseOrdersSupplier"
-                    >
+                    {{-- ==================================================
+                        Supplier
+                    =================================================== --}}
 
-                        <option value="">
-                            All Suppliers
-                        </option>
+                    <div class="purchase-filter">
 
-                        @foreach($suppliers as $supplier)
+                        <label
+                            for="purchaseOrdersSupplier"
+                            class="purchase-filter-label"
+                        >
+                            Supplier
+                        </label>
 
-                            <option
-                                value="{{ $supplier->id }}"
-                            >
-                                {{ $supplier->name }}
+                        <select
+                            class="form-select purchase-filter-control"
+                            id="purchaseOrdersSupplier"
+                        >
+
+                            <option value="">
+                                All Suppliers
                             </option>
 
-                        @endforeach
+                            @foreach($suppliers as $supplier)
 
-                    </select>
+                                <option
+                                    value="{{ $supplier->id }}"
+                                >
+                                    {{ $supplier->name }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
 
 
-                    <select
-                        class="form-select"
-                        id="purchaseOrdersStatus"
+                    {{-- ==================================================
+                        Status
+                    =================================================== --}}
+
+                    <div class="purchase-filter">
+
+                        <label
+                            for="purchaseOrdersStatus"
+                            class="purchase-filter-label"
+                        >
+                            Status
+                        </label>
+
+                        <select
+                            class="form-select purchase-filter-control"
+                            id="purchaseOrdersStatus"
+                        >
+
+                            <option value="">
+                                All Statuses
+                            </option>
+
+                            <option value="Draft">
+                                Draft
+                            </option>
+
+                            <option value="Pending">
+                                Pending
+                            </option>
+
+                            <option value="Approved">
+                                Approved
+                            </option>
+
+                            <option value="Completed">
+                                Completed
+                            </option>
+
+                            <option value="Cancelled">
+                                Cancelled
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    {{-- ==================================================
+                        Date Range
+                    =================================================== --}}
+
+                    <div class="purchase-filter purchase-filter-date">
+
+                        <label class="purchase-filter-label">
+                            Order Date
+                        </label>
+
+                        <div class="purchase-date-range">
+
+                            <div class="purchase-date-field">
+
+                                <i class="bi bi-calendar3"></i>
+
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="purchaseOrdersDateFrom"
+                                    title="Order date from"
+                                >
+
+                            </div>
+
+
+                            <span class="purchase-date-separator">
+                                to
+                            </span>
+
+
+                            <div class="purchase-date-field">
+
+                                <i class="bi bi-calendar3"></i>
+
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="purchaseOrdersDateTo"
+                                    title="Order date to"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- ==================================================
+                        Reset
+                    =================================================== --}}
+
+                    <button
+                        type="button"
+                        class="btn purchase-filter-reset"
+                        id="purchaseOrdersReset"
+                        title="Reset filters"
                     >
 
-                        <option value="">
-                            All Statuses
-                        </option>
+                        <i class="bi bi-arrow-counterclockwise"></i>
 
-                        <option value="draft">
-                            Draft
-                        </option>
+                        <span>
+                            Reset
+                        </span>
 
-                        <option value="pending">
-                            Pending
-                        </option>
-
-                        <option value="approved">
-                            Approved
-                        </option>
-
-                        <option value="completed">
-                            Completed
-                        </option>
-
-                        <option value="cancelled">
-                            Cancelled
-                        </option>
-
-                    </select>
+                    </button>
 
                 </div>
 
 
-                <button
-                    type="button"
-                    class="btn btn-light border"
-                    id="purchaseOrdersRefresh"
-                    title="Refresh"
-                >
+                {{-- ======================================================
+                    Refresh
+                ======================================================= --}}
 
-                    <i class="bi bi-arrow-clockwise"></i>
+                <div class="purchase-toolbar-actions">
 
-                </button>
+                    <button
+                        type="button"
+                        class="btn purchase-refresh-btn"
+                        id="purchaseOrdersRefresh"
+                        title="Refresh"
+                    >
+
+                        <i class="bi bi-arrow-clockwise"></i>
+
+                    </button>
+
+                </div>
 
             </div>
-
 
             <div class="purchase-table-wrapper">
 
@@ -453,13 +693,17 @@
 
     {{-- ==============================================================
         Goods Received Workspace
-    ============================================================== --}}
+    =============================================================== --}}
 
     <section
         id="purchaseReceivedPanel"
         class="purchase-tab-panel d-none"
         data-purchase-panel="received"
     >
+
+        {{-- ==========================================================
+            Goods Received KPI Cards
+        =========================================================== --}}
 
         <div
             class="purchase-kpi-grid"
@@ -548,110 +792,255 @@
         </div>
 
 
+        {{-- ==========================================================
+            Goods Received Table Card
+        =========================================================== --}}
+
         <div class="purchase-workspace-card">
 
-            <div class="purchase-toolbar">
 
-                <div class="purchase-toolbar-left">
+            {{-- ======================================================
+                Goods Received Toolbar
+            ======================================================= --}}
 
-                    <div class="input-group purchase-search">
+            <div class="purchase-toolbar purchase-received-toolbar">
 
-                        <span class="input-group-text bg-white">
 
-                            <i class="bi bi-search"></i>
+                {{-- ==================================================
+                    Primary Search
+                =================================================== --}}
 
-                        </span>
+                <div class="purchase-toolbar-search">
+
+                    <div class="purchase-search-box">
+
+                        <i class="bi bi-search"></i>
 
                         <input
                             type="search"
                             class="form-control"
                             id="purchaseReceivedSearch"
-                            placeholder="Search goods received..."
+                            placeholder="Search reference, supplier..."
                             autocomplete="off"
                         >
 
                     </div>
 
+                </div>
 
-                    <select
-                        class="form-select"
-                        id="purchaseReceivedBranch"
-                    >
 
-                        <option value="">
-                            All Branches
-                        </option>
+                {{-- ==================================================
+                    Filters
+                =================================================== --}}
 
-                        @foreach($branches as $branch)
+                <div class="purchase-toolbar-filters">
 
-                            <option
-                                value="{{ $branch->id }}"
-                            >
-                                {{ $branch->name }}
+
+                    {{-- ==================================================
+                        Branch
+                    =================================================== --}}
+
+                    <div class="purchase-filter">
+
+                        <label
+                            for="purchaseReceivedBranch"
+                            class="purchase-filter-label"
+                        >
+                            Branch
+                        </label>
+
+                        <select
+                            class="form-select purchase-filter-control"
+                            id="purchaseReceivedBranch"
+                        >
+
+                            <option value="">
+                                All Branches
                             </option>
 
-                        @endforeach
+                            @foreach($branches as $branch)
 
-                    </select>
+                                <option
+                                    value="{{ $branch->id }}"
+                                >
+                                    {{ $branch->name }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
 
 
-                    <select
-                        class="form-select"
-                        id="purchaseReceivedSupplier"
-                    >
+                    {{-- ==================================================
+                        Supplier
+                    =================================================== --}}
 
-                        <option value="">
-                            All Suppliers
-                        </option>
+                    <div class="purchase-filter">
 
-                        @foreach($suppliers as $supplier)
+                        <label
+                            for="purchaseReceivedSupplier"
+                            class="purchase-filter-label"
+                        >
+                            Supplier
+                        </label>
 
-                            <option
-                                value="{{ $supplier->id }}"
-                            >
-                                {{ $supplier->name }}
+                        <select
+                            class="form-select purchase-filter-control"
+                            id="purchaseReceivedSupplier"
+                        >
+
+                            <option value="">
+                                All Suppliers
                             </option>
 
-                        @endforeach
+                            @foreach($suppliers as $supplier)
 
-                    </select>
+                                <option
+                                    value="{{ $supplier->id }}"
+                                >
+                                    {{ $supplier->name }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
 
 
-                    <select
-                        class="form-select"
-                        id="purchaseReceivedStatus"
+                    {{-- ==================================================
+                        Status
+                    =================================================== --}}
+
+                    <div class="purchase-filter">
+
+                        <label
+                            for="purchaseReceivedStatus"
+                            class="purchase-filter-label"
+                        >
+                            Status
+                        </label>
+
+                        <select
+                            class="form-select purchase-filter-control"
+                            id="purchaseReceivedStatus"
+                        >
+
+                            <option value="">
+                                All Statuses
+                            </option>
+
+                            <option value="Pending">
+                                Pending
+                            </option>
+
+                            <option value="Completed">
+                                Completed
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    {{-- ==================================================
+                        Date Range
+                    =================================================== --}}
+
+                    <div class="purchase-filter purchase-filter-date">
+
+                        <label class="purchase-filter-label">
+                            Received Date
+                        </label>
+
+                        <div class="purchase-date-range">
+
+                            <div class="purchase-date-field">
+
+                                <i class="bi bi-calendar3"></i>
+
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="purchaseReceivedDateFrom"
+                                    title="Received date from"
+                                >
+
+                            </div>
+
+
+                            <span class="purchase-date-separator">
+                                to
+                            </span>
+
+
+                            <div class="purchase-date-field">
+
+                                <i class="bi bi-calendar3"></i>
+
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="purchaseReceivedDateTo"
+                                    title="Received date to"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- ==================================================
+                        Reset
+                    =================================================== --}}
+
+                    <button
+                        type="button"
+                        class="btn purchase-filter-reset"
+                        id="purchaseReceivedReset"
+                        title="Reset filters"
                     >
 
-                        <option value="">
-                            All Statuses
-                        </option>
+                        <i class="bi bi-arrow-counterclockwise"></i>
 
-                        <option value="pending">
-                            Pending
-                        </option>
+                        <span>
+                            Reset
+                        </span>
 
-                        <option value="completed">
-                            Completed
-                        </option>
-
-                    </select>
+                    </button>
 
                 </div>
 
 
-                <button
-                    type="button"
-                    class="btn btn-light border"
-                    id="purchaseReceivedRefresh"
-                    title="Refresh"
-                >
+                {{-- ==================================================
+                    Refresh
+                =================================================== --}}
 
-                    <i class="bi bi-arrow-clockwise"></i>
+                <div class="purchase-toolbar-actions">
 
-                </button>
+                    <button
+                        type="button"
+                        class="btn purchase-refresh-btn"
+                        id="purchaseReceivedRefresh"
+                        title="Refresh"
+                    >
+
+                        <i class="bi bi-arrow-clockwise"></i>
+
+                    </button>
+
+                </div>
 
             </div>
 
+
+            {{-- ======================================================
+                Goods Received Table
+            ======================================================= --}}
 
             <div class="purchase-table-wrapper">
 
@@ -678,6 +1067,10 @@
                             </th>
 
                             <th>
+                                Items
+                            </th>
+
+                            <th>
                                 Amount
                             </th>
 
@@ -692,6 +1085,7 @@
                         </tr>
 
                     </thead>
+
 
                     <tbody id="purchaseReceivedTable">
 
@@ -714,6 +1108,10 @@
 
             </div>
 
+
+            {{-- ======================================================
+                Pagination
+            ======================================================= --}}
 
             <div
                 class="d-flex justify-content-between align-items-center px-3 py-3 border-top"
@@ -1194,7 +1592,7 @@
 
         <button
             type="button"
-            class="dropdown-item d-none"
+            class="dropdown-item purchase-status-action d-none"
             id="purchaseActionSubmit"
         >
 
@@ -1215,7 +1613,7 @@
 
         <button
             type="button"
-            class="dropdown-item"
+            class="dropdown-item purchase-status-action d-none"
             id="purchaseActionApprove"
         >
 
@@ -1236,7 +1634,7 @@
 
         <button
             type="button"
-            class="dropdown-item text-danger d-none"
+            class="dropdown-item text-danger purchase-status-action d-none"
             id="purchaseActionCancel"
         >
 

@@ -1,3 +1,4 @@
+
 {{-- ==============================================================
     Goods Received Modal
 ============================================================== --}}
@@ -10,10 +11,14 @@
 >
 
     <div
-        class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
-    >
+    class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable goods-received-modal-dialog"
+>
 
         <div class="modal-content border-0 shadow-lg">
+
+            {{-- ======================================================
+                Header
+            ======================================================= --}}
 
             <div class="modal-header border-bottom">
 
@@ -23,14 +28,15 @@
                         class="modal-title fw-semibold"
                         id="goodsReceivedModalLabel"
                     >
-                        Receive Goods
+                        Record Goods Received
                     </h5>
 
                     <div class="text-muted small">
-                        Record products received against a purchase order.
+                        Receive inventory against an approved purchase order.
                     </div>
 
                 </div>
+
 
                 <button
                     type="button"
@@ -42,6 +48,10 @@
             </div>
 
 
+            {{-- ======================================================
+                Form
+            ======================================================= --}}
+
             <form id="goodsReceivedForm">
 
                 <input
@@ -50,11 +60,12 @@
                     name="id"
                 >
 
+
                 <div class="modal-body">
 
                     {{-- ==================================================
-                        Purchase Information
-                    ================================================== --}}
+                        Receiving Information
+                    =================================================== --}}
 
                     <div class="purchase-form-section mb-4">
 
@@ -66,7 +77,12 @@
 
                         </div>
 
+
                         <div class="row g-3">
+
+                            {{-- ==================================================
+                                Purchase Order
+                            =================================================== --}}
 
                             <div class="col-md-6">
 
@@ -74,9 +90,15 @@
                                     for="goodsReceivedPurchaseOrder"
                                     class="form-label"
                                 >
+
                                     Purchase Order
-                                    <span class="text-danger">*</span>
+
+                                    <span class="text-danger">
+                                        *
+                                    </span>
+
                                 </label>
+
 
                                 <select
                                     id="goodsReceivedPurchaseOrder"
@@ -86,13 +108,51 @@
                                 >
 
                                     <option value="">
-                                        Select purchase order
+                                        Select approved purchase order
                                     </option>
 
                                 </select>
 
+
+                                <div
+                                    class="form-text"
+                                    id="goodsReceivedPurchaseOrderHelp"
+                                >
+                                    Only approved purchase orders available
+                                    for receiving will be shown.
+                                </div>
+
                             </div>
 
+
+                            {{-- ==================================================
+                                Supplier
+                            =================================================== --}}
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="goodsReceivedSupplier"
+                                    class="form-label"
+                                >
+                                    Supplier
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="goodsReceivedSupplier"
+                                    class="form-control"
+                                    placeholder="Supplier will be populated"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            {{-- ==================================================
+                                Receiving Branch
+                            =================================================== --}}
 
                             <div class="col-md-6">
 
@@ -103,15 +163,21 @@
                                     Receiving Branch
                                 </label>
 
+
                                 <input
                                     type="text"
                                     id="goodsReceivedBranch"
                                     class="form-control"
+                                    placeholder="Branch will be populated"
                                     readonly
                                 >
 
                             </div>
 
+
+                            {{-- ==================================================
+                                Received Date
+                            =================================================== --}}
 
                             <div class="col-md-6">
 
@@ -119,9 +185,15 @@
                                     for="goodsReceivedDate"
                                     class="form-label"
                                 >
+
                                     Received Date
-                                    <span class="text-danger">*</span>
+
+                                    <span class="text-danger">
+                                        *
+                                    </span>
+
                                 </label>
+
 
                                 <input
                                     type="date"
@@ -133,26 +205,6 @@
 
                             </div>
 
-
-                            <div class="col-md-6">
-
-                                <label
-                                    for="goodsReceivedReference"
-                                    class="form-label"
-                                >
-                                    Supplier Reference
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="goodsReceivedReference"
-                                    name="supplier_reference"
-                                    class="form-control"
-                                    placeholder="Optional reference"
-                                >
-
-                            </div>
-
                         </div>
 
                     </div>
@@ -160,7 +212,7 @@
 
                     {{-- ==================================================
                         Items
-                    ================================================== --}}
+                    =================================================== --}}
 
                     <div class="purchase-form-section mb-4">
 
@@ -172,7 +224,10 @@
 
                         </div>
 
-                        <div class="table-responsive border rounded-3">
+
+                        <div
+                            class="table-responsive border rounded-3"
+                        >
 
                             <table
                                 class="table table-sm align-middle mb-0"
@@ -187,25 +242,30 @@
                                             Product
                                         </th>
 
-                                        <th>
+                                        <th class="text-end">
                                             Ordered
                                         </th>
 
-                                        <th>
+                                        <th class="text-end">
                                             Previously Received
+                                        </th>
+
+                                        <th class="text-end">
+                                            Remaining
                                         </th>
 
                                         <th style="width: 150px;">
                                             Receive Now
                                         </th>
 
-                                        <th>
-                                            Remaining
+                                        <th class="text-end">
+                                            Unit Cost
                                         </th>
 
                                     </tr>
 
                                 </thead>
+
 
                                 <tbody id="goodsReceivedItems">
 
@@ -214,11 +274,20 @@
                                     >
 
                                         <td
-                                            colspan="5"
-                                            class="text-center text-muted py-4"
+                                            colspan="6"
+                                            class="text-center text-muted py-5"
                                         >
 
-                                            Select a purchase order to load items.
+                                            <div class="mb-2">
+
+                                                <i
+                                                    class="bi bi-box-seam fs-3"
+                                                ></i>
+
+                                            </div>
+
+                                            Select an approved purchase order
+                                            to load items available for receiving.
 
                                         </td>
 
@@ -233,14 +302,20 @@
                     </div>
 
 
-                    <div class="mt-4">
+                    {{-- ==================================================
+                        Notes
+                    =================================================== --}}
 
-                        <label
-                            for="goodsReceivedNotes"
-                            class="form-label"
-                        >
+                    <div class="purchase-form-section">
+
+                        <div class="purchase-form-section-title mb-3">
+
+                            <i class="bi bi-sticky me-2"></i>
+
                             Notes
-                        </label>
+
+                        </div>
+
 
                         <textarea
                             id="goodsReceivedNotes"
@@ -255,32 +330,39 @@
                 </div>
 
 
-                <div class="modal-footer border-top">
+                <div class="goods-received-modal-footer">
 
-                    <button
-                        type="button"
-                        class="btn btn-light border"
-                        data-bs-dismiss="modal"
-                    >
-                        Cancel
-                    </button>
+                    <div class="goods-received-modal-footer-actions">
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                        id="goodsReceivedSubmitBtn"
-                    >
+                        <button
+                            type="button"
+                            class="goods-received-modal-cancel"
+                            data-bs-dismiss="modal"
+                        >
 
-                        <span id="goodsReceivedSubmitText">
-                            Receive Goods
-                        </span>
+                            Cancel
 
-                        <span
-                            class="spinner-border spinner-border-sm d-none"
-                            id="goodsReceivedSubmitSpinner"
-                        ></span>
+                        </button>
 
-                    </button>
+
+                        <button
+                            type="submit"
+                            class="goods-received-modal-submit"
+                            id="goodsReceivedSubmitBtn"
+                        >
+
+                            <span id="goodsReceivedSubmitText">
+                                Receive Goods
+                            </span>
+
+                            <span
+                                class="spinner-border spinner-border-sm d-none"
+                                id="goodsReceivedSubmitSpinner"
+                            ></span>
+
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -291,3 +373,4 @@
     </div>
 
 </div>
+

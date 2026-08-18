@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Branch;
 use App\Models\GoodsReceived;
+use App\Models\GoodsReceivedItem;
 use App\Models\Product;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderItem;
@@ -26,22 +27,23 @@ class PurchaseController extends BaseController
 
         $this->activityLogger = $activityLogger;
     }
-    /*
-    |--------------------------------------------------------------------------
-    | Index
-    |--------------------------------------------------------------------------
-    */
-
     /**
-     * Display Purchasing workspace.
+     * Purchase Management Index.
      */
-    public function index(): \Illuminate\View\View
+    public function index()
     {
         if (! canAccess('purchases.view')) {
 
             abort(403);
 
         }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branches
+        |--------------------------------------------------------------------------
+        */
 
         $branches =
             Branch::query()
@@ -51,6 +53,13 @@ class PurchaseController extends BaseController
                 )
                 ->orderBy('name')
                 ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Suppliers
+        |--------------------------------------------------------------------------
+        */
 
         $suppliers =
             Supplier::query()
@@ -65,15 +74,67 @@ class PurchaseController extends BaseController
                 ->orderBy('name')
                 ->get();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Order Statistics
+        |--------------------------------------------------------------------------
+        */
+
+        $purchaseOrderStatsQuery =
+            PurchaseOrder::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                );
+
+
+        $purchaseOrderStats = [
+
+            'total' =>
+                (clone $purchaseOrderStatsQuery)
+                    ->count(),
+
+            'pending' =>
+                (clone $purchaseOrderStatsQuery)
+                    ->where(
+                        'status',
+                        'Pending'
+                    )
+                    ->count(),
+
+            'approved' =>
+                (clone $purchaseOrderStatsQuery)
+                    ->where(
+                        'status',
+                        'Approved'
+                    )
+                    ->count(),
+
+            'total_value' =>
+                (float) (
+                    (clone $purchaseOrderStatsQuery)
+                        ->sum('total')
+                ),
+
+        ];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | View
+        |--------------------------------------------------------------------------
+        */
+
         return view(
             'purchase.index',
             compact(
                 'branches',
-                'suppliers'
+                'suppliers',
+                'purchaseOrderStats'
             )
         );
     }
-
     /*
     |--------------------------------------------------------------------------
     | Supplier Options
@@ -245,6 +306,12 @@ class PurchaseController extends BaseController
         Request $request
     ): JsonResponse {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
         if (! canAccess('purchases.view')) {
 
             return response()->json([
@@ -259,6 +326,13 @@ class PurchaseController extends BaseController
 
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Query
+        |--------------------------------------------------------------------------
+        */
+
         $query =
             PurchaseOrder::query()
                 ->where(
@@ -269,6 +343,25 @@ class PurchaseController extends BaseController
                     'supplier',
                     'branch',
                 ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            ! canManageAllBranches()
+        ) {
+
+            $query->where(
+                'branch_id',
+                currentBranchId()
+            );
+
+        }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -283,45 +376,74 @@ class PurchaseController extends BaseController
                     $request->search
                 );
 
-            $query->where(
-                function ($q) use ($search) {
 
-                    $q->where(
-                        'order_number',
-                        'like',
-                        "%{$search}%"
-                    );
+            if ($search !== '') {
 
-                    $q->orWhereHas(
-                        'supplier',
-                        function ($supplier) use ($search) {
+                $query->where(
+                    function ($q) use ($search) {
 
-                            $supplier->where(
-                                'company_id',
-                                $this->companyId
-                            );
+                        $q->where(
+                            'order_number',
+                            'like',
+                            "%{$search}%"
+                        );
 
-                            $supplier->where(
-                                'name',
-                                'like',
-                                "%{$search}%"
-                            );
 
-                        }
-                    );
+                        $q->orWhereHas(
+                            'supplier',
+                            function ($supplier) use ($search) {
 
-                }
-            );
+                                $supplier->where(
+                                    'company_id',
+                                    $this->companyId
+                                );
+
+                                $supplier->where(
+                                    'name',
+                                    'like',
+                                    "%{$search}%"
+                                );
+
+                            }
+                        );
+
+
+                        $q->orWhereHas(
+                            'branch',
+                            function ($branch) use ($search) {
+
+                                $branch->where(
+                                    'company_id',
+                                    $this->companyId
+                                );
+
+                                $branch->where(
+                                    'name',
+                                    'like',
+                                    "%{$search}%"
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+            }
 
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Branch
+        | Branch Filter
         |--------------------------------------------------------------------------
         */
 
-        if ($request->filled('branch_id')) {
+        if (
+            $request->filled('branch_id') &&
+            canManageAllBranches()
+        ) {
 
             $query->where(
                 'branch_id',
@@ -330,13 +452,16 @@ class PurchaseController extends BaseController
 
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Supplier
+        | Supplier Filter
         |--------------------------------------------------------------------------
         */
 
-        if ($request->filled('supplier_id')) {
+        if (
+            $request->filled('supplier_id')
+        ) {
 
             $query->where(
                 'supplier_id',
@@ -345,28 +470,70 @@ class PurchaseController extends BaseController
 
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Status
+        | Status Filter
         |--------------------------------------------------------------------------
         */
 
-        if ($request->filled('status')) {
+        if (
+            $request->filled('status')
+        ) {
 
-            $query->where(
-                'status',
-                $request->status
-            );
+            $status =
+                strtolower(
+                    trim(
+                        $request->status
+                    )
+                );
+
+
+            $statusMap = [
+
+                'draft' =>
+                    'Draft',
+
+                'pending' =>
+                    'Pending',
+
+                'approved' =>
+                    'Approved',
+
+                'cancelled' =>
+                    'Cancelled',
+
+                'completed' =>
+                    'Completed',
+
+            ];
+
+
+            if (
+                isset(
+                    $statusMap[$status]
+                )
+            ) {
+
+                $query->where(
+                    'status',
+                    $statusMap[$status]
+                );
+
+            }
 
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Date Range
+        | Date From
         |--------------------------------------------------------------------------
         */
 
-        if ($request->filled('date_from')) {
+        if (
+            $request->filled('date_from')
+        ) {
 
             $query->whereDate(
                 'order_date',
@@ -376,7 +543,16 @@ class PurchaseController extends BaseController
 
         }
 
-        if ($request->filled('date_to')) {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Date To
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $request->filled('date_to')
+        ) {
 
             $query->whereDate(
                 'order_date',
@@ -385,6 +561,7 @@ class PurchaseController extends BaseController
             );
 
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -398,6 +575,13 @@ class PurchaseController extends BaseController
                 ->paginate(15)
                 ->withQueryString();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Table HTML
+        |--------------------------------------------------------------------------
+        */
+
         $html =
             view(
                 'purchase.partials.orders-table',
@@ -406,23 +590,29 @@ class PurchaseController extends BaseController
                 )
             )->render();
 
+
         /*
         |--------------------------------------------------------------------------
         | Statistics
         |--------------------------------------------------------------------------
         */
 
+        /*
+        |--------------------------------------------------------------------------
+        | Important:
+        | Statistics follow the same active filters.
+        |--------------------------------------------------------------------------
+        */
+
         $statsQuery =
-            PurchaseOrder::query()
-                ->where(
-                    'company_id',
-                    $this->companyId
-                );
+            clone $query;
+
 
         $stats = [
 
             'total' =>
-                (clone $statsQuery)->count(),
+                (clone $statsQuery)
+                    ->count(),
 
             'pending' =>
                 (clone $statsQuery)
@@ -448,6 +638,13 @@ class PurchaseController extends BaseController
 
         ];
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
         return response()->json([
 
             'success' =>
@@ -465,195 +662,7 @@ class PurchaseController extends BaseController
                 $stats,
 
         ]);
-    }
 
-    /**
-     * Return Purchase Order details.
-     */
-    public function orderDetails(
-        int $id
-    ): JsonResponse {
-
-        if (! canAccess('purchases.view')) {
-
-            return response()->json([
-
-                'success' =>
-                    false,
-
-                'message' =>
-                    'You do not have permission to view purchase orders.',
-
-            ], 403);
-
-        }
-
-        $order =
-            PurchaseOrder::query()
-                ->where(
-                    'company_id',
-                    $this->companyId
-                )
-                ->with([
-                    'supplier',
-                    'branch',
-                    'creator',
-                    'approver',
-                    'items.product',
-                ])
-                ->find($id);
-
-        if (!$order) {
-
-            return response()->json([
-
-                'success' =>
-                    false,
-
-                'message' =>
-                    'Purchase order not found.',
-
-            ], 404);
-
-        }
-
-        return response()->json([
-
-            'success' =>
-                true,
-
-           'data' => [
-
-                'id' =>
-                    $order->id,
-
-                'order_number' =>
-                    $order->order_number,
-
-                'order_date' =>
-                    $order->order_date?->format('Y-m-d'),
-
-                'expected_date' =>
-                    $order->expected_date?->format('Y-m-d'),
-
-                'status' =>
-                    $order->status,
-
-                'supplier' =>
-                    $order->supplier?->name
-                    ?? '—',
-
-                'supplier_id' =>
-                    $order->supplier_id,
-
-                'branch' =>
-                    $order->branch?->name
-                    ?? '—',
-
-                'branch_id' =>
-                    $order->branch_id,
-
-                'subtotal' =>
-                    (float) $order->subtotal,
-
-                'discount' =>
-                    (float) $order->discount,
-
-                'tax' =>
-                    (float) $order->tax,
-
-                'shipping' =>
-                    (float) $order->shipping,
-
-                'total' =>
-                    (float) $order->total,
-
-                'notes' =>
-                    $order->notes
-                    ?? '—',
-
-                'created_by' =>
-                    $order->creator
-                        ? trim(
-                            $order->creator->first_name .
-                            ' ' .
-                            $order->creator->last_name
-                        )
-                        : '—',
-
-                'created_at' =>
-                    $order->created_at?->format(
-                        'Y-m-d H:i:s'
-                    ),
-
-                // 'updated_by' =>
-                //     $order->updater?->name
-                //     ?? '—',
-
-                'updated_at' =>
-                    $order->updated_at?->format(
-                        'Y-m-d H:i:s'
-                    ),
-
-               'approved_by' =>
-                    $order->approver
-                        ? trim(
-                            $order->approver->first_name .
-                            ' ' .
-                            $order->approver->last_name
-                        )
-                        : '—',
-
-                'approved_at' =>
-                    $order->approved_at?->format(
-                        'Y-m-d H:i:s'
-                    ),
-
-                'items' =>
-                    $order->items
-                        ->map(
-                            function ($item) {
-
-                                return [
-
-                                    'id' =>
-                                        $item->id,
-
-                                    'product_id' =>
-                                        $item->product_id,
-
-                                    'product' =>
-                                        $item->product?->name
-                                        ?? '—',
-
-                                    'product_code' =>
-                                        $item->product?->product_code
-                                        ?? '—',
-
-                                    'quantity' =>
-                                        (float) $item->quantity,
-
-                                    'unit_cost' =>
-                                        (float) $item->unit_cost,
-
-                                    'discount' =>
-                                        (float) $item->discount,
-
-                                    'tax' =>
-                                        (float) $item->tax,
-
-                                    'total' =>
-                                        (float) $item->total,
-
-                                ];
-
-                            }
-                        )
-                        ->values(),
-
-            ],
-
-        ]);
     }
 
 
@@ -2365,6 +2374,379 @@ class PurchaseController extends BaseController
 
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Goods Received
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return Goods Received table.
+     */
+    public function receivedTable(
+        Request $request
+    ): JsonResponse {
+
+        if (! canAccess('purchases.view')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to view goods received.',
+
+            ], 403);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Base Query
+        |--------------------------------------------------------------------------
+        */
+
+       $query =
+        GoodsReceived::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+            ->with([
+                'supplier',
+                'branch',
+                'purchaseOrder',
+            ])
+            ->withCount(
+                'items'
+            )
+            ->withSum(
+                'items',
+                'total'
+            );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('search')) {
+
+            $search =
+                trim(
+                    $request->search
+                );
+
+
+            $query->where(
+
+                function ($q) use ($search) {
+
+                    /*
+                    |----------------------------------------------------------
+                    | Receipt Number
+                    |----------------------------------------------------------
+                    */
+
+                    $q->where(
+                        'receipt_number',
+                        'like',
+                        "%{$search}%"
+                    );
+
+
+                    /*
+                    |----------------------------------------------------------
+                    | Supplier
+                    |----------------------------------------------------------
+                    */
+
+                    $q->orWhereHas(
+
+                        'supplier',
+
+                        function ($supplier) use ($search) {
+
+                            $supplier->where(
+                                'company_id',
+                                $this->companyId
+                            );
+
+                            $supplier->where(
+                                'name',
+                                'like',
+                                "%{$search}%"
+                            );
+
+                        }
+
+                    );
+
+
+                    /*
+                    |----------------------------------------------------------
+                    | Purchase Order
+                    |----------------------------------------------------------
+                    */
+
+                    $q->orWhereHas(
+
+                        'purchaseOrder',
+
+                        function ($order) use ($search) {
+
+                            $order->where(
+                                'company_id',
+                                $this->companyId
+                            );
+
+                            $order->where(
+                                'order_number',
+                                'like',
+                                "%{$search}%"
+                            );
+
+                        }
+
+                    );
+
+                }
+
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('branch_id')) {
+
+            $query->where(
+                'branch_id',
+                $request->branch_id
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Supplier
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('supplier_id')) {
+
+            $query->where(
+                'supplier_id',
+                $request->supplier_id
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Status
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('status')) {
+
+            $query->where(
+                'status',
+                $request->status
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Received Date
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('date_from')) {
+
+            $query->whereDate(
+                'received_date',
+                '>=',
+                $request->date_from
+            );
+
+        }
+
+
+        if ($request->filled('date_to')) {
+
+            $query->whereDate(
+                'received_date',
+                '<=',
+                $request->date_to
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pagination
+        |--------------------------------------------------------------------------
+        */
+
+        $received =
+            $query
+                ->latest('id')
+                ->paginate(15)
+                ->withQueryString();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Table
+        |--------------------------------------------------------------------------
+        */
+
+        $html =
+            view(
+                'purchase.partials.received-table',
+                compact(
+                    'received'
+                )
+            )->render();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Statistics
+        |--------------------------------------------------------------------------
+        */
+
+        $statsQuery =
+            GoodsReceived::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Total Received
+        |--------------------------------------------------------------------------
+        */
+
+        $total =
+            (clone $statsQuery)
+                ->count();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pending
+        |--------------------------------------------------------------------------
+        */
+
+        $pending =
+            (clone $statsQuery)
+                ->where(
+                    'status',
+                    'Pending'
+                )
+                ->count();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Completed
+        |--------------------------------------------------------------------------
+        */
+
+        $completed =
+            (clone $statsQuery)
+                ->where(
+                    'status',
+                    'Completed'
+                )
+                ->count();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Received Value
+        |--------------------------------------------------------------------------
+        */
+
+        $totalValue =
+            GoodsReceivedItem::query()
+                ->whereHas(
+
+                    'goodsReceived',
+
+                    function ($query) {
+
+                        $query->where(
+                            'company_id',
+                            $this->companyId
+                        );
+
+                    }
+
+                )
+                ->sum('total');
+
+
+        $stats = [
+
+            'total' =>
+                $total,
+
+            'pending' =>
+                $pending,
+
+            'completed' =>
+                $completed,
+
+            'total_value' =>
+                (float) $totalValue,
+
+        ];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
+        return response()->json([
+
+            'success' =>
+                true,
+
+            'html' =>
+                $html,
+
+            'pagination' =>
+                $received
+                    ->links()
+                    ->render(),
+
+            'stats' =>
+                $stats,
+
+        ]);
+
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -2557,6 +2939,339 @@ class PurchaseController extends BaseController
                 $stats,
 
         ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Goods Received - Purchase Orders
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return approved purchase orders available for goods receiving.
+     */
+    public function receivedPurchaseOrders(): JsonResponse
+    {
+        if (! canAccess('purchases.view')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to view purchase orders.',
+
+            ], 403);
+
+        }
+
+
+        $orders =
+            PurchaseOrder::query()
+
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+
+                ->where(
+                    'status',
+                    'Approved'
+                )
+
+                ->with([
+                    'supplier',
+                    'branch',
+                ])
+
+                ->latest('id')
+
+                ->get();
+
+
+        return response()->json([
+
+            'success' =>
+                true,
+
+            'data' =>
+                $orders->map(
+                    function ($order) {
+
+                        return [
+
+                            'id' =>
+                                $order->id,
+
+                            'order_number' =>
+                                $order->order_number,
+
+                            'supplier_id' =>
+                                $order->supplier_id,
+
+                            'supplier_name' =>
+                                $order->supplier?->name,
+
+                            'branch_id' =>
+                                $order->branch_id,
+
+                            'branch_name' =>
+                                $order->branch?->name,
+
+                            'order_date' =>
+                                $order->order_date,
+
+                            'total' =>
+                                $order->total,
+
+                        ];
+
+                    }
+                )->values(),
+
+        ]);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Purchase Order Receiving Details
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return Purchase Order details for Goods Received.
+     */
+    public function orderReceivingDetails(
+        int $id
+    ): JsonResponse {
+
+        if (! canAccess('purchases.view')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to receive goods.',
+
+            ], 403);
+
+        }
+
+
+        $order =
+            PurchaseOrder::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'status',
+                    'Approved'
+                )
+                ->with([
+                    'supplier',
+                    'branch',
+                    'items.product',
+                ])
+                ->find($id);
+
+
+        if (!$order) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Approved purchase order not found.',
+
+            ], 404);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Previously Received Quantities
+        |--------------------------------------------------------------------------
+        */
+
+        $receivedQuantities =
+            GoodsReceivedItem::query()
+                ->whereHas(
+                    'goodsReceived',
+                    function ($query) use ($order) {
+
+                        $query->where(
+                            'company_id',
+                            $this->companyId
+                        );
+
+                        $query->where(
+                            'purchase_order_id',
+                            $order->id
+                        );
+
+                        $query->whereNotIn(
+                            'status',
+                            [
+                                'Cancelled',
+                            ]
+                        );
+
+                    }
+                )
+                ->selectRaw(
+                    'purchase_order_item_id, SUM(received_quantity) as received_quantity'
+                )
+                ->groupBy(
+                    'purchase_order_item_id'
+                )
+                ->pluck(
+                    'received_quantity',
+                    'purchase_order_item_id'
+                );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Items
+        |--------------------------------------------------------------------------
+        */
+
+        $items =
+            $order->items
+                ->map(
+                    function ($item) use (
+                        $receivedQuantities
+                    ) {
+
+                        $ordered =
+                            (float) $item->quantity;
+
+
+                        $previouslyReceived =
+                            (float) (
+                                $receivedQuantities[
+                                    $item->id
+                                ] ?? 0
+                            );
+
+
+                        $remaining =
+                            max(
+                                $ordered -
+                                $previouslyReceived,
+                                0
+                            );
+
+
+                        return [
+
+                            'id' =>
+                                $item->id,
+
+                            'product_id' =>
+                                $item->product_id,
+
+                            'product' => [
+
+                                'id' =>
+                                    $item->product?->id,
+
+                                'name' =>
+                                    $item->product?->name
+                                    ?? '—',
+
+                                'code' =>
+                                    $item->product?->product_code
+                                    ?? '—',
+
+                            ],
+
+                            'ordered_quantity' =>
+                                $ordered,
+
+                            'previously_received' =>
+                                $previouslyReceived,
+
+                            'remaining_quantity' =>
+                                $remaining,
+
+                            'unit_cost' =>
+                                (float) $item->unit_cost,
+
+                            'total' =>
+                                (float) $item->total,
+
+                        ];
+
+                    }
+                )
+                ->values();
+
+
+        return response()->json([
+
+            'success' =>
+                true,
+
+            'data' => [
+
+                'id' =>
+                    $order->id,
+
+                'order_number' =>
+                    $order->order_number,
+
+                'supplier' => [
+
+                    'id' =>
+                        $order->supplier?->id,
+
+                    'name' =>
+                        $order->supplier?->name
+                        ?? '—',
+
+                ],
+
+                'supplier_id' =>
+                    $order->supplier_id,
+
+                'branch' => [
+
+                    'id' =>
+                        $order->branch?->id,
+
+                    'name' =>
+                        $order->branch?->name
+                        ?? '—',
+
+                ],
+
+                'branch_id' =>
+                    $order->branch_id,
+
+                'order_date' =>
+                    $order->order_date?->format(
+                        'Y-m-d'
+                    ),
+
+                'status' =>
+                    $order->status,
+
+                'items' =>
+                    $items,
+
+            ],
+
+        ]);
+
     }
 
 

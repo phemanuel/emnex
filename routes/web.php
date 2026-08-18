@@ -587,8 +587,11 @@ Route::prefix('products')
         Route::get('/received/table', [PurchaseController::class, 'receivedTable'])
         ->name('purchase.received.table');
 
-        Route::get('/received/{id}/details', [PurchaseController::class, 'receivedDetails'])
-        ->name('purchase.received.details');
+        Route::get('/received/purchase-orders', [PurchaseController::class, 'receivedPurchaseOrders'])
+        ->name('purchase.received.purchase-orders');
+
+        Route::get('/orders/{id}/receiving-details',[PurchaseController::class, 'orderReceivingDetails'])
+        ->name('purchase.orders.receiving-details');
 
         Route::post('/received', [PurchaseController::class, 'storeReceived'])
         ->name('purchase.received.store');

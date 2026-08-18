@@ -4,18 +4,25 @@
 
         <tr>
 
+            {{-- ======================================================
+                Receipt
+            ======================================================= --}}
+
             <td>
 
                 <div class="fw-semibold">
 
-                    {{ $record->reference_no ?? '—' }}
+                    {{ $record->receipt_number ?? '—' }}
 
                 </div>
 
-                @if(isset($record->id))
+
+                @if($record->id)
 
                     <div class="small text-muted">
+
                         #{{ $record->id }}
+
                     </div>
 
                 @endif
@@ -23,16 +30,35 @@
             </td>
 
 
+            {{-- ======================================================
+                Purchase Order
+            ======================================================= --}}
+
             <td>
 
                 <div class="fw-medium">
 
-                    {{ $record->supplier?->name ?? '—' }}
+                    {{ $record->purchaseOrder?->order_number ?? '—' }}
 
                 </div>
 
             </td>
 
+
+            {{-- ======================================================
+                Supplier
+            ======================================================= --}}
+
+            <td>
+
+                {{ $record->supplier?->name ?? '—' }}
+
+            </td>
+
+
+            {{-- ======================================================
+                Branch
+            ======================================================= --}}
 
             <td>
 
@@ -41,22 +67,42 @@
             </td>
 
 
+            {{-- ======================================================
+                Received Date
+            ======================================================= --}}
+
             <td>
 
                 {{ $record->received_date
-                    ? \Illuminate\Support\Carbon::parse($record->received_date)->format('d M Y')
+                    ? \Illuminate\Support\Carbon::parse(
+                        $record->received_date
+                    )->format('d M Y')
                     : '—'
                 }}
 
             </td>
 
 
+            {{-- ======================================================
+                Items
+            ======================================================= --}}
+
+            <td>
+
+                <span class="fw-semibold">
+
+                    {{ $record->items_count ?? 0 }}
+
+                </span>
+
+            </td>
+
             <td>
 
                 <span class="fw-semibold">
 
                     {{ number_format(
-                        (float) ($record->total_amount ?? 0),
+                        (float) ($record->items_sum_total ?? 0),
                         2
                     ) }}
 
@@ -65,16 +111,21 @@
             </td>
 
 
+            {{-- ======================================================
+                Status
+            ======================================================= --}}
+
             <td>
 
                 @php
 
                     $status =
                         strtolower(
-                            $record->status ?? 'pending'
+                            $record->status ?? 'draft'
                         );
 
                 @endphp
+
 
                 <span
                     class="purchase-status-badge {{ $status }}"
@@ -87,6 +138,10 @@
             </td>
 
 
+            {{-- ======================================================
+                Action
+            ======================================================= --}}
+
             <td class="text-end">
 
                 <button
@@ -94,7 +149,7 @@
                     class="btn btn-light btn-sm purchase-action-trigger"
                     data-type="received"
                     data-id="{{ $record->id }}"
-                    data-reference="{{ $record->reference_no ?? '' }}"
+                    data-reference="{{ $record->receipt_number ?? '' }}"
                 >
 
                     <i class="bi bi-three-dots"></i>
@@ -111,7 +166,7 @@
 
     <tr>
 
-        <td colspan="7">
+        <td colspan="8">
 
             <div class="purchase-empty-state">
 
@@ -121,12 +176,18 @@
 
                 </div>
 
+
                 <div class="purchase-empty-title">
+
                     No goods received records found
+
                 </div>
 
+
                 <p class="purchase-empty-text">
+
                     Received stock records will appear here.
+
                 </p>
 
             </div>

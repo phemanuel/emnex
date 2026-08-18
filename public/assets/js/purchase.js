@@ -136,6 +136,28 @@ const Purchase = {
                     'purchaseOrderModal'
                 ),
 
+                
+            
+            purchaseHeaderActions:
+                document.getElementById(
+                    'purchaseHeaderActions'
+                ),
+
+            newPurchaseOrderBtn:
+                document.getElementById(
+                    'newPurchaseOrderBtn'
+                ),
+
+            newGoodsReceivedBtn:
+                document.getElementById(
+                    'newGoodsReceivedBtn'
+                ),
+
+            newPurchaseReturnBtn:
+                document.getElementById(
+                    'newPurchaseReturnBtn'
+                ),
+
 
             /*
             |--------------------------------------------------------------------------
@@ -153,35 +175,53 @@ const Purchase = {
                     'purchaseOrdersPagination'
                 ),
 
-            ordersSearch:
-                document.getElementById(
-                    'purchaseOrdersSearch'
-                ),
+           /*
+                |--------------------------------------------------------------------------
+                | Purchase Order Filters
+                |--------------------------------------------------------------------------
+                */
 
-            ordersSupplierFilter:
-                document.getElementById(
-                    'purchaseOrdersSupplierFilter'
-                ),
+                ordersSearch:
+                    document.getElementById(
+                        'purchaseOrdersSearch'
+                    ),
 
-            ordersBranchFilter:
-                document.getElementById(
-                    'purchaseOrdersBranchFilter'
-                ),
+                ordersBranchFilter:
+                    document.getElementById(
+                        'purchaseOrdersBranch'
+                    ),
 
-            ordersStatusFilter:
-                document.getElementById(
-                    'purchaseOrdersStatusFilter'
-                ),
+                ordersSupplierFilter:
+                    document.getElementById(
+                        'purchaseOrdersSupplier'
+                    ),
 
-            ordersDateFrom:
-                document.getElementById(
-                    'purchaseOrdersDateFrom'
-                ),
+                ordersStatusFilter:
+                    document.getElementById(
+                        'purchaseOrdersStatus'
+                    ),
 
-            ordersDateTo:
-                document.getElementById(
-                    'purchaseOrdersDateTo'
-                ),
+                ordersDateFrom:
+                    document.getElementById(
+                        'purchaseOrdersDateFrom'
+                    ),
+
+                ordersDateTo:
+                    document.getElementById(
+                        'purchaseOrdersDateTo'
+                    ),
+
+                ordersReset:
+                    document.getElementById(
+                        'purchaseOrdersReset'
+                    ),
+
+                ordersRefresh:
+                    document.getElementById(
+                        'purchaseOrdersRefresh'
+                    ),
+
+            
 
 
             /*
@@ -192,42 +232,52 @@ const Purchase = {
 
             goodsReceivedTable:
                 document.getElementById(
-                    'goodsReceivedTable'
+                    'purchaseReceivedTable'
                 ),
 
             goodsReceivedPagination:
                 document.getElementById(
-                    'goodsReceivedPagination'
+                    'purchaseReceivedPagination'
                 ),
 
             goodsReceivedSearch:
                 document.getElementById(
-                    'goodsReceivedSearch'
+                    'purchaseReceivedSearch'
                 ),
 
             goodsReceivedSupplierFilter:
                 document.getElementById(
-                    'goodsReceivedSupplierFilter'
+                    'purchaseReceivedSupplier'
                 ),
 
             goodsReceivedBranchFilter:
                 document.getElementById(
-                    'goodsReceivedBranchFilter'
+                    'purchaseReceivedBranch'
                 ),
 
             goodsReceivedStatusFilter:
                 document.getElementById(
-                    'goodsReceivedStatusFilter'
+                    'purchaseReceivedStatus'
                 ),
 
             goodsReceivedDateFrom:
                 document.getElementById(
-                    'goodsReceivedDateFrom'
+                    'purchaseReceivedDateFrom'
                 ),
 
             goodsReceivedDateTo:
                 document.getElementById(
-                    'goodsReceivedDateTo'
+                    'purchaseReceivedDateTo'
+                ),
+
+            goodsReceivedReset:
+                document.getElementById(
+                    'purchaseReceivedReset'
+                ),
+
+            goodsReceivedRefresh:
+                document.getElementById(
+                    'purchaseReceivedRefresh'
                 ),
 
 
@@ -388,7 +438,7 @@ const Purchase = {
 
             goodsReceivedOrder:
                 document.getElementById(
-                    'goodsReceivedOrder'
+                    'goodsReceivedPurchaseOrder'
                 ),
 
             goodsReceivedSupplier:
@@ -406,11 +456,6 @@ const Purchase = {
                     'goodsReceivedDate'
                 ),
 
-            goodsReceivedReference:
-                document.getElementById(
-                    'goodsReceivedReference'
-                ),
-
             goodsReceivedNotes:
                 document.getElementById(
                     'goodsReceivedNotes'
@@ -421,9 +466,44 @@ const Purchase = {
                     'goodsReceivedItems'
                 ),
 
-            goodsReceivedTotal:
+            goodsReceivedItemsTable:
                 document.getElementById(
-                    'goodsReceivedTotal'
+                    'goodsReceivedItemsTable'
+                ),
+
+            goodsReceivedEmptyItems:
+                document.getElementById(
+                    'goodsReceivedEmptyItems'
+                ),
+
+            goodsReceivedSaveDraftBtn:
+                document.getElementById(
+                    'goodsReceivedSaveDraftBtn'
+                ),
+
+            goodsReceivedSaveDraftText:
+                document.getElementById(
+                    'goodsReceivedSaveDraftText'
+                ),
+
+            goodsReceivedSaveDraftSpinner:
+                document.getElementById(
+                    'goodsReceivedSaveDraftSpinner'
+                ),
+
+            goodsReceivedSubmitBtn:
+                document.getElementById(
+                    'goodsReceivedSubmitBtn'
+                ),
+
+            goodsReceivedSubmitText:
+                document.getElementById(
+                    'goodsReceivedSubmitText'
+                ),
+
+            goodsReceivedSubmitSpinner:
+                document.getElementById(
+                    'goodsReceivedSubmitSpinner'
                 ),
 
 
@@ -924,9 +1004,58 @@ const Purchase = {
 
         }
 
+        this.elements.newGoodsReceivedBtn?.addEventListener(
+            'click',
+            () => {
+
+                this.openGoodsReceivedModal();
+
+            }
+        );
+
         /*
         |--------------------------------------------------------------------------
-        | Search
+        | Goods Received Purchase Order
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.goodsReceivedOrder?.addEventListener(
+            'change',
+            () => {
+
+                this.loadGoodsReceivedOrder(
+                    this.elements.goodsReceivedOrder.value
+                );
+
+            }
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Goods Received Form
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.goodsReceivedForm
+        ) {
+
+            this.elements.goodsReceivedForm.addEventListener(
+                'submit',
+                (event) => {
+
+                    event.preventDefault();
+
+                    this.submitGoodsReceived();
+
+                }
+            );
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Order Search
         |--------------------------------------------------------------------------
         */
 
@@ -934,100 +1063,206 @@ const Purchase = {
             this.elements.ordersSearch,
             () => {
 
-                this.ordersPage = 1;
+                this.ordersPage =
+                    1;
 
-                this.loadOrders();
-
-            }
-        );
-
-
-        this.bindSearch(
-            this.elements.goodsReceivedSearch,
-            () => {
-
-                this.goodsReceivedPage = 1;
-
-                this.loadGoodsReceived();
+                this.loadOrders(
+                    1
+                );
 
             }
         );
-
-
-        this.bindSearch(
-            this.elements.returnsSearch,
-            () => {
-
-                this.returnsPage = 1;
-
-                this.loadReturns();
-
-            }
-        );       
 
 
         /*
         |--------------------------------------------------------------------------
-        | Filters
+        | Purchase Order Filters
         |--------------------------------------------------------------------------
         */
 
         this.bindFilter(
             this.elements.ordersSupplierFilter,
-            () => this.loadOrders()
+            () => {
+
+                this.ordersPage =
+                    1;
+
+                this.loadOrders(
+                    1
+                );
+
+            }
         );
+
 
         this.bindFilter(
             this.elements.ordersBranchFilter,
-            () => this.loadOrders()
+            () => {
+
+                this.ordersPage =
+                    1;
+
+                this.loadOrders(
+                    1
+                );
+
+            }
         );
+
 
         this.bindFilter(
             this.elements.ordersStatusFilter,
-            () => this.loadOrders()
+            () => {
+
+                this.ordersPage =
+                    1;
+
+                this.loadOrders(
+                    1
+                );
+
+            }
         );
+
 
         this.bindFilter(
             this.elements.ordersDateFrom,
-            () => this.loadOrders()
+            () => {
+
+                this.ordersPage =
+                    1;
+
+                this.loadOrders(
+                    1
+                );
+
+            }
         );
+
 
         this.bindFilter(
             this.elements.ordersDateTo,
-            () => this.loadOrders()
+            () => {
+
+                this.ordersPage =
+                    1;
+
+                this.loadOrders(
+                    1
+                );
+
+            }
         );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Purchase Order Filters
+        |--------------------------------------------------------------------------
+        */
 
-        this.bindFilter(
-            this.elements.goodsReceivedSupplierFilter,
-            () => this.loadGoodsReceived()
-        );
+        if (
+            this.elements.ordersReset
+        ) {
 
-        this.bindFilter(
-            this.elements.goodsReceivedBranchFilter,
-            () => this.loadGoodsReceived()
-        );
+            this.elements.ordersReset.addEventListener(
+                'click',
+                () => {
 
-        this.bindFilter(
-            this.elements.goodsReceivedStatusFilter,
-            () => this.loadGoodsReceived()
-        );
+                    if (
+                        this.elements.ordersSearch
+                    ) {
+
+                        this.elements.ordersSearch.value =
+                            '';
+
+                    }
 
 
-        this.bindFilter(
-            this.elements.returnsSupplierFilter,
-            () => this.loadReturns()
-        );
+                    if (
+                        this.elements.ordersBranchFilter
+                    ) {
 
-        this.bindFilter(
-            this.elements.returnsBranchFilter,
-            () => this.loadReturns()
-        );
+                        this.elements.ordersBranchFilter.value =
+                            '';
 
-        this.bindFilter(
-            this.elements.returnsStatusFilter,
-            () => this.loadReturns()
-        );
+                    }
+
+
+                    if (
+                        this.elements.ordersSupplierFilter
+                    ) {
+
+                        this.elements.ordersSupplierFilter.value =
+                            '';
+
+                    }
+
+
+                    if (
+                        this.elements.ordersStatusFilter
+                    ) {
+
+                        this.elements.ordersStatusFilter.value =
+                            '';
+
+                    }
+
+
+                    if (
+                        this.elements.ordersDateFrom
+                    ) {
+
+                        this.elements.ordersDateFrom.value =
+                            '';
+
+                    }
+
+
+                    if (
+                        this.elements.ordersDateTo
+                    ) {
+
+                        this.elements.ordersDateTo.value =
+                            '';
+
+                    }
+
+
+                    this.ordersPage =
+                        1;
+
+
+                    this.loadOrders(
+                        1
+                    );
+
+                }
+            );
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Purchase Orders
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.ordersRefresh
+        ) {
+
+            this.elements.ordersRefresh.addEventListener(
+                'click',
+                () => {
+
+                    this.loadOrders(
+                        this.ordersPage || 1
+                    );
+
+                }
+            );
+
+        }
 
 
         /*
@@ -2165,6 +2400,16 @@ const Purchase = {
         this.activeTab =
             tab;
 
+         /*
+        |--------------------------------------------------------------------------
+        | Header Action
+        |--------------------------------------------------------------------------
+        */
+
+        this.updateHeaderActions(
+            tab
+        );
+
 
         this.elements.tabs?.forEach(
             button => {
@@ -2203,7 +2448,7 @@ const Purchase = {
         }
 
         else if (
-            tab === 'goods-received'
+            tab === 'received'
         ) {
 
             this.loadGoodsReceived();
@@ -2217,6 +2462,50 @@ const Purchase = {
             this.loadReturns();
 
         }
+
+    },
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update Header Actions
+    |--------------------------------------------------------------------------
+    */
+
+    updateHeaderActions(
+        tab
+    )
+    {
+
+        const buttons = {
+
+            orders:
+                this.elements.newPurchaseOrderBtn,
+
+            received:
+                this.elements.newGoodsReceivedBtn,
+
+            returns:
+                this.elements.newPurchaseReturnBtn,
+
+        };
+
+
+        Object
+            .values(buttons)
+            .forEach(
+                button => {
+
+                    button?.classList.add(
+                        'd-none'
+                    );
+
+                }
+            );
+
+
+        buttons[tab]?.classList.remove(
+            'd-none'
+        );
 
     },
 
@@ -3416,6 +3705,146 @@ clearPurchaseOrderProduct(
 
     },
 
+    /*
+|--------------------------------------------------------------------------
+| Load Purchase Orders
+|--------------------------------------------------------------------------
+*/
+
+async loadGoodsReceivedPurchaseOrders()
+{
+
+    const select =
+        this.elements.goodsReceivedOrder;
+
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    select.innerHTML = `
+        <option value="">
+            Loading purchase orders...
+        </option>
+    `;
+
+
+    select.disabled = true;
+
+
+    try {
+
+        const response =
+            await fetch(
+                '/purchase/received/purchase-orders',
+                {
+                    headers: {
+                        'Accept':
+                            'application/json'
+                    }
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to load purchase orders.'
+            );
+
+        }
+
+
+        select.innerHTML = `
+            <option value="">
+                Select approved purchase order
+            </option>
+        `;
+
+
+        if (
+            !result.data ||
+            !result.data.length
+        ) {
+
+            select.innerHTML = `
+                <option value="">
+                    No approved purchase orders available
+                </option>
+            `;
+
+            return;
+
+        }
+
+
+        result.data.forEach(
+            order => {
+
+                const option =
+                    document.createElement(
+                        'option'
+                    );
+
+
+                option.value =
+                    order.id;
+
+
+                option.textContent =
+                    `${order.order_number} — ${order.supplier_name ?? 'Unknown Supplier'}`;
+
+
+                option.dataset.supplier =
+                    order.supplier_name ?? '';
+
+
+                option.dataset.branch =
+                    order.branch_name ?? '';
+
+
+                select.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+    catch (error) {
+
+        select.innerHTML = `
+            <option value="">
+                Unable to load purchase orders
+            </option>
+        `;
+
+
+        this.notify(
+            error.message,
+            'error'
+        );
+
+    }
+    finally {
+
+        select.disabled = false;
+
+    }
+
+},
+
 
     /*
     |--------------------------------------------------------------------------
@@ -3495,6 +3924,36 @@ clearPurchaseOrderProduct(
         }
 
     },
+
+    /*
+|--------------------------------------------------------------------------
+| Format Quantity
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Format quantity value.
+ */
+formatQuantity(
+    value
+)
+{
+
+    const quantity =
+        Number(
+            value ?? 0
+        );
+
+
+    return quantity.toLocaleString(
+        undefined,
+        {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }
+    );
+
+},
 
 
     /*
@@ -3681,8 +4140,12 @@ clearPurchaseOrderProduct(
 
         this.globalActionStatus =
         String(
-            status || ''
-        ).toLowerCase();
+            status ||
+            trigger?.dataset?.status ||
+            ''
+        )
+        .trim()
+        .toLowerCase();
 
 
         this.globalActionReference =
@@ -3847,20 +4310,16 @@ clearPurchaseOrderProduct(
             }
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | Approved
-            |--------------------------------------------------------------------------
-            */
-
             else if (
                 this.globalActionStatus ===
                 'approved'
             ) {
 
-                cancel?.classList.remove(
-                    'd-none'
-                );
+                /*
+                |--------------------------------------------------------------------------
+                | View only
+                |--------------------------------------------------------------------------
+                */
 
             }
 
@@ -4269,7 +4728,7 @@ async openEditOrder(
 
             const response =
                 await fetch(
-                    `/purchase/goods-received/table?${params.toString()}`,
+                    `/purchase/received/table?${params.toString()}`,
                     {
                         headers: {
                             'Accept':
@@ -4325,6 +4784,436 @@ async openEditOrder(
         }
 
     },
+
+
+    /*
+|--------------------------------------------------------------------------
+| Load Purchase Order
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Load purchase order details for goods receiving.
+ */
+async loadGoodsReceivedOrder(
+    orderId
+)
+{
+
+    if (!orderId) {
+
+        this.clearGoodsReceivedOrder();
+
+        return;
+
+    }
+
+
+    this.showGoodsReceivedItemsLoading();
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/purchase/orders/${orderId}/receiving-details`,
+                {
+                    headers: {
+                        'Accept':
+                            'application/json'
+                    }
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to load purchase order.'
+            );
+
+        }
+
+
+        const order =
+            result.data;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Supplier
+        |--------------------------------------------------------------------------
+        */
+
+        this.setValue(
+            this.elements.goodsReceivedSupplier,
+            order.supplier?.name ??
+            order.supplier_name ??
+            ''
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch
+        |--------------------------------------------------------------------------
+        */
+
+        this.setValue(
+            this.elements.goodsReceivedBranch,
+            order.branch?.name ??
+            order.branch_name ??
+            ''
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Items
+        |--------------------------------------------------------------------------
+        */
+
+        this.populateGoodsReceivedItems(
+            order
+        );
+
+    }
+    catch (error) {
+
+        this.clearGoodsReceivedOrder();
+
+
+        this.notify(
+            error.message,
+            'error'
+        );
+
+    }
+
+},
+
+
+/*
+|--------------------------------------------------------------------------
+| Populate Goods Received Items
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Populate items available for receiving.
+ */
+populateGoodsReceivedItems(
+    order
+)
+{
+
+    const container =
+        this.elements.goodsReceivedItemsContainer;
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const items =
+        order.items ?? [];
+
+
+    if (!items.length) {
+
+        container.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="text-center text-muted py-5"
+                >
+
+                    No items are available for receiving.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        items.map(
+            item => {
+
+                const ordered =
+                    parseFloat(
+                        item.quantity ??
+                        item.ordered_quantity ??
+                        0
+                    );
+
+
+                const previouslyReceived =
+                    parseFloat(
+                        item.previously_received ??
+                        item.received_quantity ??
+                        0
+                    );
+
+
+                const remaining =
+                    Math.max(
+                        ordered -
+                        previouslyReceived,
+                        0
+                    );
+
+
+                const unitCost =
+                    parseFloat(
+                        item.unit_cost ??
+                        0
+                    );
+
+
+                const productName =
+                    item.product?.name ??
+                    item.product_name ??
+                    'Unknown Product';
+
+
+                const productCode =
+                    item.product?.sku ??
+                    item.product?.code ??
+                    item.product_code ??
+                    '';
+
+
+                const disabled =
+                    remaining <= 0
+                        ? 'disabled'
+                        : '';
+
+
+                return `
+
+                    <tr
+                        data-purchase-order-item-id="${item.id}"
+                    >
+
+                        <td>
+
+                            <div class="fw-semibold">
+
+                                ${this.escapeHtml(
+                                    productName
+                                )}
+
+                            </div>
+
+                            ${
+                                productCode
+                                    ? `
+                                        <div class="small text-muted">
+                                            ${this.escapeHtml(
+                                                productCode
+                                            )}
+                                        </div>
+                                    `
+                                    : ''
+                            }
+
+                        </td>
+
+
+                        <td class="text-end">
+
+                            ${this.formatQuantity(
+                                ordered
+                            )}
+
+                        </td>
+
+
+                        <td class="text-end">
+
+                            ${this.formatQuantity(
+                                previouslyReceived
+                            )}
+
+                        </td>
+
+
+                        <td class="text-end">
+
+                            <span
+                                class="fw-semibold"
+                            >
+
+                                ${this.formatQuantity(
+                                    remaining
+                                )}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <input
+                                type="number"
+                                class="form-control form-control-sm goods-received-quantity"
+                                name="items[${item.id}][received_quantity]"
+                                data-item-id="${item.id}"
+                                data-remaining="${remaining}"
+                                min="0"
+                                max="${remaining}"
+                                step="0.01"
+                                value="${remaining > 0 ? remaining : 0}"
+                                ${disabled}
+                            >
+
+                            <input
+                                type="hidden"
+                                name="items[${item.id}][purchase_order_item_id]"
+                                value="${item.id}"
+                            >
+
+                        </td>
+
+
+                        <td class="text-end">
+
+                            ${this.formatMoney(
+                                unitCost
+                            )}
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join('');
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Clear Goods Received Order
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Clear selected purchase order information.
+ */
+clearGoodsReceivedOrder()
+{
+
+    this.setValue(
+        this.elements.goodsReceivedSupplier,
+        ''
+    );
+
+
+    this.setValue(
+        this.elements.goodsReceivedBranch,
+        ''
+    );
+
+
+    if (
+        this.elements.goodsReceivedItemsContainer
+    ) {
+
+        this.elements.goodsReceivedItemsContainer.innerHTML = `
+
+            <tr
+                id="goodsReceivedEmptyItems"
+            >
+
+                <td
+                    colspan="6"
+                    class="text-center text-muted py-5"
+                >
+
+                    <div class="mb-2">
+
+                        <i class="bi bi-box-seam fs-3"></i>
+
+                    </div>
+
+                    Select an approved purchase order
+                    to load items available for receiving.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Goods Received Items Loading
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Show items loading state.
+ */
+showGoodsReceivedItemsLoading()
+{
+
+    if (
+        !this.elements.goodsReceivedItemsContainer
+    ) {
+
+        return;
+
+    }
+
+
+    this.elements.goodsReceivedItemsContainer.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="6"
+                class="text-center py-5"
+            >
+
+                <div
+                    class="spinner-border spinner-border-sm me-2"
+                ></div>
+
+                Loading purchase order items...
+
+            </td>
+
+        </tr>
+
+    `;
+
+},
 
 
     /*
@@ -4495,54 +5384,78 @@ async openEditOrder(
     },
 
 
+   /*
+|--------------------------------------------------------------------------
+| Update Order Stats
+|--------------------------------------------------------------------------
+*/
+
+updateOrderStats(
+    stats
+)
+{
+
+    if (!stats) {
+
+        return;
+
+    }
+
+
     /*
     |--------------------------------------------------------------------------
-    | Update Order Stats
+    | Purchase Order Count
     |--------------------------------------------------------------------------
     */
 
-    updateOrderStats(
-        stats
-    )
-    {
-
-        if (!stats) {
-            return;
-        }
+    this.setText(
+        'purchaseOrdersCount',
+        stats.total ??
+        0
+    );
 
 
-        this.setText(
-            'purchaseOrderCount',
-            stats.orders ??
-            stats.total ??
+    /*
+    |--------------------------------------------------------------------------
+    | Pending Orders
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseOrderPending',
+        stats.pending ??
+        0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Approved Orders
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseOrderApproved',
+        stats.approved ??
+        0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Purchase Order Value
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseOrderValue',
+        this.formatMoney(
+            stats.total_value ??
             0
-        );
+        )
+    );
 
-
-        this.setText(
-            'purchaseOrderPending',
-            stats.pending ??
-            0
-        );
-
-
-        this.setText(
-            'purchaseOrderApproved',
-            stats.approved ??
-            0
-        );
-
-
-        this.setText(
-            'purchaseOrderValue',
-            this.formatMoney(
-                stats.value ??
-                stats.total_value ??
-                0
-            )
-        );
-
-    },
+},
 
 
     /*
@@ -7401,23 +8314,42 @@ async deleteOrder(
 
 
     /*
+|--------------------------------------------------------------------------
+| Open Goods Received Modal
+|--------------------------------------------------------------------------
+*/
+
+async openGoodsReceivedModal(
+    id = null,
+    orderId = null
+)
+{
+
+    this.resetGoodsReceivedForm();
+
+
+    /*
     |--------------------------------------------------------------------------
-    | Open Goods Received Modal
+    | Create
     |--------------------------------------------------------------------------
     */
 
-    async openGoodsReceivedModal(
-        id = null,
-        orderId = null
-    )
-    {
+    if (!id) {
 
-        this.resetGoodsReceivedForm();
+        this.editingGoodsReceivedId =
+            null;
 
 
-        if (
-            orderId
-        ) {
+        this.setModalTitle(
+            this.elements.goodsReceivedModal,
+            'Record Goods Received'
+        );
+
+
+        await this.loadGoodsReceivedPurchaseOrders();
+
+
+        if (orderId) {
 
             this.setValue(
                 this.elements.goodsReceivedOrder,
@@ -7427,83 +8359,79 @@ async deleteOrder(
         }
 
 
-        if (!id) {
-
-            this.editingGoodsReceivedId =
-                null;
-
-            this.setModalTitle(
-                this.elements.goodsReceivedModal,
-                'Record Goods Received'
-            );
-
-            this.goodsReceivedModalInstance?.show();
-
-            return;
-
-        }
+        this.goodsReceivedModalInstance?.show();
 
 
-        try {
+        return;
 
-            const response =
-                await fetch(
-                    `/purchase/goods-received/${id}/details`,
-                    {
-                        headers: {
-                            'Accept':
-                                'application/json'
-                        }
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Edit
+    |--------------------------------------------------------------------------
+    */
+
+    try {
+
+        const response =
+            await fetch(
+                `/purchase/received/${id}/details`,
+                {
+                    headers: {
+                        'Accept':
+                            'application/json'
                     }
-                );
-
-
-            const result =
-                await response.json();
-
-
-            if (
-                !response.ok ||
-                !result.success
-            ) {
-
-                throw new Error(
-                    result.message ??
-                    'Unable to load goods received.'
-                );
-
-            }
-
-
-            this.editingGoodsReceivedId =
-                id;
-
-
-            this.populateGoodsReceivedForm(
-                result.data
+                }
             );
 
 
-            this.setModalTitle(
-                this.elements.goodsReceivedModal,
-                'Edit Goods Received'
-            );
+        const result =
+            await response.json();
 
 
-            this.goodsReceivedModalInstance?.show();
+        if (
+            !response.ok ||
+            !result.success
+        ) {
 
-        }
-        catch (error) {
-
-            this.notify(
-                error.message,
-                'error'
+            throw new Error(
+                result.message ??
+                'Unable to load goods received.'
             );
 
         }
 
-    },
 
+        this.editingGoodsReceivedId =
+            id;
+
+
+        this.populateGoodsReceivedForm(
+            result.data
+        );
+
+
+        this.setModalTitle(
+            this.elements.goodsReceivedModal,
+            'Edit Goods Received'
+        );
+
+
+        this.goodsReceivedModalInstance?.show();
+
+    }
+    catch (error) {
+
+        this.notify(
+            error.message,
+            'error'
+        );
+
+    }
+
+},
 
     /*
     |--------------------------------------------------------------------------
@@ -7886,6 +8814,293 @@ async deleteOrder(
         this.updateGoodsReceivedTotal();
 
     },
+
+    /*
+|--------------------------------------------------------------------------
+| Submit Goods Received
+|--------------------------------------------------------------------------
+*/
+
+async submitGoodsReceived()
+{
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Previous Errors
+    |--------------------------------------------------------------------------
+    */
+
+    this.clearFormErrors();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Collect Basic Information
+    |--------------------------------------------------------------------------
+    */
+
+    const purchaseOrderId =
+        this.elements.goodsReceivedOrder?.value;
+
+
+    const receivedDate =
+        this.elements.goodsReceivedDate?.value;
+
+
+    const notes =
+        this.elements.goodsReceivedNotes?.value?.trim() ?? '';
+
+
+    if (!purchaseOrderId) {
+
+        this.notify(
+            'Please select a purchase order.',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (!receivedDate) {
+
+        this.notify(
+            'Please select the received date.',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Collect Items
+    |--------------------------------------------------------------------------
+    */
+
+    const items = [];
+
+
+    const rows =
+        this.elements.goodsReceivedItemsContainer
+            ?.querySelectorAll(
+                '[data-purchase-order-item-id]'
+            ) ?? [];
+
+
+    rows.forEach(
+        row => {
+
+            const quantityInput =
+                row.querySelector(
+                    '.goods-received-quantity'
+                );
+
+
+            if (!quantityInput) {
+                return;
+            }
+
+
+            const receivedQuantity =
+                parseFloat(
+                    quantityInput.value
+                ) || 0;
+
+
+            if (
+                receivedQuantity <= 0
+            ) {
+
+                return;
+
+            }
+
+
+            items.push({
+
+                purchase_order_item_id:
+                    Number(
+                        row.dataset.purchaseOrderItemId
+                    ),
+
+                product_id:
+                    Number(
+                        row.dataset.productId
+                    ),
+
+                received_quantity:
+                    receivedQuantity,
+
+            });
+
+        }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Items
+    |--------------------------------------------------------------------------
+    */
+
+    if (!items.length) {
+
+        this.notify(
+            'Add at least one received product.',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Form Data
+    |--------------------------------------------------------------------------
+    */
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        'purchase_order_id',
+        purchaseOrderId
+    );
+
+
+    formData.append(
+        'received_date',
+        receivedDate
+    );
+
+
+    formData.append(
+        'notes',
+        notes
+    );
+
+
+    items.forEach(
+        (item, index) => {
+
+            formData.append(
+                `items[${index}][purchase_order_item_id]`,
+                item.purchase_order_item_id
+            );
+
+            formData.append(
+                `items[${index}][product_id]`,
+                item.product_id
+            );
+
+            formData.append(
+                `items[${index}][received_quantity]`,
+                item.received_quantity
+            );
+
+        }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Submit
+    |--------------------------------------------------------------------------
+    */
+
+    try {
+
+        this.setButtonLoading(
+            this.elements.goodsReceivedSubmitBtn,
+            true
+        );
+
+
+        const response =
+            await fetch(
+                '/purchase/received',
+                {
+
+                    method: 'POST',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-CSRF-TOKEN':
+                            document
+                                .querySelector(
+                                    'meta[name="csrf-token"]'
+                                )
+                                ?.getAttribute(
+                                    'content'
+                                ),
+
+                    },
+
+                    body:
+                        formData,
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to receive goods.'
+            );
+
+        }
+
+
+        this.notify(
+            result.message ??
+            'Goods received successfully.',
+            'success'
+        );
+
+
+        this.goodsReceivedModalInstance?.hide();
+
+
+        this.loadGoodsReceived();
+
+    }
+    catch (error) {
+
+        this.notify(
+            error.message,
+            'error'
+        );
+
+    }
+    finally {
+
+        this.setButtonLoading(
+            this.elements.goodsReceivedSubmitBtn,
+            false
+        );
+
+    }
+
+},
 
 
     /*
