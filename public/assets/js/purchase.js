@@ -5319,7 +5319,7 @@ validateGoodsReceivedStock(
         `;
 
 
-        input.parentElement.appendChild(
+        input.parentElement.appendChild( 
             error
         );
 

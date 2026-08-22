@@ -4018,7 +4018,7 @@ public function orderDetails(
 
                     $receiptNumber =
                         DocumentNumberService::generate(
-                            'Goods Received',
+                            'goods_received',
                             $this->companyId
                         );
 
