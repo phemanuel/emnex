@@ -257,10 +257,10 @@
     ====================================================== -->
 
 
-    <div 
-        id="categoryTableWrapper"
-        class="category-table-card"
-    >
+    <div
+    id="categoryTableWrapper"
+    class="category-table-card category-table-wrapper"
+>
 
         @include(
             'product_categories.partials.table',

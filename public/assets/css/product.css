@@ -775,3 +775,24 @@
 .modal-backdrop {
     z-index: 9998 !important;
 }
+
+/* ==========================================================
+   PRODUCTS TABLE DROPDOWN
+========================================================== */
+
+.products-table-card {
+    overflow: visible !important;
+}
+
+.products-table-card .table-responsive {
+    overflow-x: auto;
+    overflow-y: visible !important;
+}
+
+.products-table-card .dropdown {
+    position: static;
+}
+
+.products-table-card .dropdown-menu {
+    z-index: 1080;
+}

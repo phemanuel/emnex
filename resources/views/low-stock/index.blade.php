@@ -438,7 +438,7 @@
     =========================================================== --}}
 
 
-    <div class="low-stock-card">
+    <div class="low-stock-card low-stock-table-card">
 
 
         <div class="low-stock-table-header">

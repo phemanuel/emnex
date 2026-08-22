@@ -147,7 +147,7 @@
         TABLE CARD
     =========================================== -->
 
-    <div class="card emnex-card">
+    <div class="card emnex-card tax-rates-table-card">
 
         <div class="card-header">
 

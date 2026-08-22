@@ -1506,7 +1506,8 @@ public function orderDetails(
                 ' ' .
                 ($order->approver->last_name ?? '')
             )
-            : '—';  
+            : '—';
+    
 
 
     /*
@@ -3284,7 +3285,7 @@ public function orderDetails(
      * Return approved purchase orders available for goods receiving.
      */
     public function receivedPurchaseOrders(): JsonResponse
-    {
+    {        
         if (! canAccess('purchases.view')) {
 
             return response()->json([
@@ -3297,7 +3298,7 @@ public function orderDetails(
 
             ], 403);
 
-        }
+        }       
 
 
         $orders =
@@ -3472,81 +3473,123 @@ public function orderDetails(
 
 
         /*
-        |--------------------------------------------------------------------------
-        | Items
-        |--------------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------------
+    | Items
+    |--------------------------------------------------------------------------
+    */
 
-        $items =
-            $order->items
-                ->map(
-                    function ($item) use (
-                        $receivedQuantities
-                    ) {
+    $items =
+        $order->items
+            ->map(
+                function ($item) use (
+                    $receivedQuantities,
+                    $order
+                ) {
 
-                        $ordered =
-                            (float) $item->quantity;
-
-
-                        $previouslyReceived =
-                            (float) (
-                                $receivedQuantities[
-                                    $item->id
-                                ] ?? 0
-                            );
+                    $ordered =
+                        (float) $item->quantity;
 
 
-                        $remaining =
-                            max(
-                                $ordered -
-                                $previouslyReceived,
-                                0
-                            );
+                    $previouslyReceived =
+                        (float) (
+                            $receivedQuantities[
+                                $item->id
+                            ] ?? 0
+                        );
 
 
-                        return [
+                    $remaining =
+                        max(
+                            $ordered -
+                            $previouslyReceived,
+                            0
+                        );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Product Stock
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $stock =
+                        ProductStock::query()
+                            ->where(
+                                'company_id',
+                                $this->companyId
+                            )
+                            ->where(
+                                'branch_id',
+                                $order->branch_id
+                            )
+                            ->where(
+                                'product_id',
+                                $item->product_id
+                            )
+                            ->first();
+
+
+                    $currentStock =
+                        (float) (
+                            $stock?->quantity ?? 0
+                        );
+
+
+                    $maximumStock =
+                        (float) (
+                            $stock?->maximum_stock ?? 0
+                        );
+
+
+                    return [
+
+                        'id' =>
+                            $item->id,
+
+                        'product_id' =>
+                            $item->product_id,
+
+                        'product' => [
 
                             'id' =>
-                                $item->id,
+                                $item->product?->id,
 
-                            'product_id' =>
-                                $item->product_id,
+                            'name' =>
+                                $item->product?->name
+                                ?? '—',
 
-                            'product' => [
+                            'code' =>
+                                $item->product?->product_code
+                                ?? '—',
 
-                                'id' =>
-                                    $item->product?->id,
+                        ],
 
-                                'name' =>
-                                    $item->product?->name
-                                    ?? '—',
+                        'ordered_quantity' =>
+                            $ordered,
 
-                                'code' =>
-                                    $item->product?->product_code
-                                    ?? '—',
+                        'previously_received' =>
+                            $previouslyReceived,
 
-                            ],
+                        'remaining_quantity' =>
+                            $remaining,
 
-                            'ordered_quantity' =>
-                                $ordered,
+                        'current_stock' =>
+                            $currentStock,
 
-                            'previously_received' =>
-                                $previouslyReceived,
+                        'maximum_stock' =>
+                            $maximumStock,
 
-                            'remaining_quantity' =>
-                                $remaining,
+                        'unit_cost' =>
+                            (float) $item->unit_cost,
 
-                            'unit_cost' =>
-                                (float) $item->unit_cost,
+                        'total' =>
+                            (float) $item->total,
 
-                            'total' =>
-                                (float) $item->total,
+                    ];
 
-                        ];
-
-                    }
-                )
-                ->values();
+                }
+            )
+            ->values();
 
 
         return response()->json([

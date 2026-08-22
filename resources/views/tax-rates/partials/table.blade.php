@@ -126,7 +126,7 @@
 
                             <li>
 
-                                @permissions('tax_rates.view')
+                                @permission('tax_rates.view')
 
                                     <button
                                         class="dropdown-item"
@@ -139,14 +139,14 @@
 
                                     </button>
 
-                                @endpermissions
+                                @endpermission
 
                             </li>
 
 
                             <li>
 
-                                @permissions('tax_rates.edit')
+                                @permission('tax_rates.edit')
 
                                     <button
                                         class="dropdown-item"
@@ -159,14 +159,14 @@
 
                                     </button>
 
-                                @endpermissions
+                                @endpermission
 
                             </li>
 
 
                             <li>
 
-                                @permissions('tax_rates.toggle_status')
+                                @permission('tax_rates.toggle_status')
 
                                     @if($taxRate->status)
 
@@ -204,12 +204,12 @@
 
                                     @endif
 
-                                @endpermissions
+                                @endpermission
 
                             </li>
 
 
-                            @permissions('tax_rates.delete')
+                            @permission('tax_rates.delete')
 
                                 <li>
 
@@ -236,7 +236,7 @@
 
                                 </li>
 
-                            @endpermissions
+                            @endpermission
 
                         </ul>
 

@@ -25,84 +25,273 @@ class UserController extends BaseController
 
  public function index()
 {
-            $companyId = auth()->user()->company_id;
+    $companyId = auth()->user()->company_id;
 
 
-            $users = User::where(
-                    'company_id',
-                    $companyId
-                )
-                ->with([
-                    'role',
-                    'branch'
-                ])
-                ->latest()
-                ->paginate(15);
+    /*
+    |--------------------------------------------------------------------------
+    | Filter Options
+    |--------------------------------------------------------------------------
+    */
 
-
-
-            $roles = Role::where(
-                    'company_id',
-                    $companyId
-                )
-                ->where('status', true)
-                ->get();
+    $roles = Role::where(
+            'company_id',
+            $companyId
+        )
+        ->where(
+            'status',
+            true
+        )
+        ->get();
 
 
 
-            $branches = Branch::where(
-                    'company_id',
-                    $companyId
-                )
-                ->get();
+    $branches = Branch::where(
+            'company_id',
+            $companyId
+        )
+        ->get();
 
 
 
-            $totalUsers = User::where(
-                'company_id',
-                $companyId
-            )->count();
+    /*
+    |--------------------------------------------------------------------------
+    | Statistics
+    |--------------------------------------------------------------------------
+    */
+
+    $totalUsers = User::where(
+        'company_id',
+        $companyId
+    )
+    ->count();
 
 
 
-            $activeUsers = User::where(
-                'company_id',
-                $companyId
-            )
-            ->where('status', true)
-            ->count();
+    $activeUsers = User::where(
+        'company_id',
+        $companyId
+    )
+    ->where(
+        'status',
+        true
+    )
+    ->count();
 
 
 
-            $disabledUsers = User::where(
-                'company_id',
-                $companyId
-            )
-            ->where('status', false)
-            ->count();
+    $disabledUsers = User::where(
+        'company_id',
+        $companyId
+    )
+    ->where(
+        'status',
+        false
+    )
+    ->count();
 
 
 
-            $roleCount = Role::where(
-                'company_id',
-                $companyId
-            )->count();
+    $roleCount = Role::where(
+        'company_id',
+        $companyId
+    )
+    ->count();
 
 
 
-            return view(
-                'users.index',
-                compact(
-                    'users',
-                    'roles',
-                    'branches',
-                    'totalUsers',
-                    'activeUsers',
-                    'disabledUsers',
-                    'roleCount'
-                )
-            );
-        }
+    /*
+    |--------------------------------------------------------------------------
+    | View
+    |--------------------------------------------------------------------------
+    */
+
+    return view(
+        'users.index',
+        compact(
+            'roles',
+            'branches',
+            'totalUsers',
+            'activeUsers',
+            'disabledUsers',
+            'roleCount'
+        )
+    );
+}
+
+public function table(Request $request)
+{
+    $companyId = auth()->user()->company_id;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Users Query
+    |--------------------------------------------------------------------------
+    */
+
+    $query = User::where(
+        'company_id',
+        $companyId
+    )
+    ->select([
+        'id',
+        'company_id',
+        'branch_id',
+        'role_id',
+        'first_name',
+        'other_name',
+        'last_name',
+        'username',
+        'email',
+        'phone',
+        'profile_photo',
+        'status',
+        'last_activity_at',
+    ])
+    ->with([
+        'role:id,company_id,name,code,display_name',
+        'branch:id,company_id,name',
+    ]);
+
+
+   /*
+|--------------------------------------------------------------------------
+| Search
+|--------------------------------------------------------------------------
+*/
+
+if ($request->filled('search')) {
+
+    $search = $request->search;
+
+    $query->where(function ($q) use ($search) {
+
+        $q->where(
+            'first_name',
+            'like',
+            "%{$search}%"
+        )
+
+        ->orWhere(
+            'other_name',
+            'like',
+            "%{$search}%"
+        )
+
+        ->orWhere(
+            'last_name',
+            'like',
+            "%{$search}%"
+        )
+
+        ->orWhere(
+            'username',
+            'like',
+            "%{$search}%"
+        )
+
+        ->orWhere(
+            'email',
+            'like',
+            "%{$search}%"
+        )
+
+        ->orWhere(
+            'phone',
+            'like',
+            "%{$search}%"
+        );
+
+    });
+
+}
+
+    /*
+    |--------------------------------------------------------------------------
+    | Role
+    |--------------------------------------------------------------------------
+    */
+
+    if ($request->filled('role_id')) {
+
+        $query->where(
+            'role_id',
+            $request->role_id
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    */
+
+    if ($request->filled('branch_id')) {
+
+        $query->where(
+            'branch_id',
+            $request->branch_id
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('status')
+    ) {
+
+        $query->where(
+            'status',
+            $request->status
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pagination
+    |--------------------------------------------------------------------------
+    */
+
+    $users = $query
+        ->latest()
+        ->paginate(15);
+
+
+    return response()->json([
+
+        'status' => true,
+
+        'users' => $users->items(),
+
+        'pagination' => [
+
+            'current_page' =>
+                $users->currentPage(),
+
+            'last_page' =>
+                $users->lastPage(),
+
+            'per_page' =>
+                $users->perPage(),
+
+            'total' =>
+                $users->total(),
+
+        ],
+
+    ]);
+}
         
         public function store(Request $request)
         {

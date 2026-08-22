@@ -1156,3 +1156,17 @@ text-align:right;
 
 
 }
+
+.category-table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+.category-table-responsive .dropdown {
+    position: static;
+}
+
+.category-table-responsive .dropdown-menu {
+    z-index: 1080;
+}

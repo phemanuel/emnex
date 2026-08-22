@@ -970,6 +970,31 @@ class ProductController extends BaseController
             $newValues = $product->fresh()->toArray();
 
             /*
+        |--------------------------------------------------------------------------
+        | Synchronize Product Stock Limits
+        |--------------------------------------------------------------------------
+        */
+
+        ProductStock::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+            ->where(
+                'product_id',
+                $product->id
+            )
+            ->update([
+
+                'reorder_level' =>
+                    $product->minimum_stock,
+
+                'maximum_stock' =>
+                    $product->maximum_stock,
+
+            ]);
+
+            /*
             |--------------------------------------------------------------------------
             | Activity Log
             |--------------------------------------------------------------------------

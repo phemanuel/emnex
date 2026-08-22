@@ -705,43 +705,23 @@ Route::prefix('products')
     ->group(function(){
 
 
-        Route::get('/', 
-            [UserController::class,'index']
-        )->name('index');
+        Route::get('/',[UserController::class,'index'])->name('index');
 
+        Route::get('/users/table',[UserController::class, 'table'])->name('table');
 
-        Route::post('/store',
-            [UserController::class,'store']
-        )->name('store');
+        Route::post('/store',[UserController::class,'store'])->name('store');
 
+        Route::get('/{user}/edit',[UserController::class,'edit'])->name('edit');
 
-        Route::get('/{user}/edit',
-            [UserController::class,'edit']
-        )->name('edit');
+        Route::put('/{user}',[UserController::class,'update'])->name('update');
 
+        Route::delete('/{user}',[UserController::class,'destroy'])->name('destroy');
 
-        Route::put('/{user}',
-            [UserController::class,'update']
-        )->name('update');
+        Route::patch('/{user}/toggle-status',[UserController::class,'toggleStatus'])->name('toggleStatus');
 
+        Route::post('/{user}/reset-password',[UserController::class,'resetPassword'])->name('resetPassword');
 
-        Route::delete('/{user}',
-            [UserController::class,'destroy']
-        )->name('destroy');
-
-
-        Route::patch('/{user}/toggle-status',
-            [UserController::class,'toggleStatus']
-        )->name('toggleStatus');
-
-
-        Route::post('/{user}/reset-password',
-            [UserController::class,'resetPassword']
-        )->name('resetPassword');
-
-        Route::get('/{user}/details',
-            [UserController::class, 'details']
-        )->name('details');
+        Route::get('/{user}/details',[UserController::class, 'details'])->name('details');
 
 
     });

@@ -680,3 +680,24 @@
     }
 
 }
+
+/* ==========================================================
+   DISCOUNTS TABLE DROPDOWN
+========================================================== */
+
+.discounts-table-card {
+    overflow: visible !important;
+}
+
+.discounts-table-card .table-responsive {
+    overflow-x: auto;
+    overflow-y: visible !important;
+}
+
+.discounts-table-card .dropdown {
+    position: static;
+}
+
+.discounts-table-card .dropdown-menu {
+    z-index: 1080;
+}

@@ -157,7 +157,7 @@
         Table Card
     =========================================== -->
 
-    <div class="card module-card">
+    <div class="card module-card discounts-table-card">
 
         <div class="card-header">
 

@@ -349,3 +349,24 @@
     }
 
 }
+
+/* ==========================================================
+   TAX RATES TABLE DROPDOWN
+========================================================== */
+
+.tax-rates-table-card {
+    overflow: visible !important;
+}
+
+.tax-rates-table-card .table-responsive {
+    overflow-x: auto;
+    overflow-y: visible !important;
+}
+
+.tax-rates-table-card .dropdown {
+    position: static;
+}
+
+.tax-rates-table-card .dropdown-menu {
+    z-index: 1080;
+}

@@ -22,9 +22,23 @@ const Users = {
     toggleStatusModal: null,
 
     currentUserStatus: null,
+    
+    permission:
+        window.usersPermission || {
+
+            view: false,
+
+            update: false,
+
+            resetPassword: false,
+
+            delete: false
+
+        },
 
     init()
     {
+        this.routes = window.usersRoutes || {};
 
         const createModalElement =
             document.getElementById(
@@ -104,6 +118,14 @@ const Users = {
         this.bindEvents();
 
         this.bindEditForm();
+
+        /*
+    |--------------------------------------------------------------------------
+    | Load Users
+    |--------------------------------------------------------------------------
+    */
+
+    this.loadUsers();
 
     },
 
@@ -203,6 +225,171 @@ const Users = {
             }
 
         );
+
+        const searchInput =
+            document.getElementById(
+                'userSearch'
+            );
+
+
+        const roleFilter =
+            document.getElementById(
+                'roleFilter'
+            );
+
+
+        const branchFilter =
+            document.getElementById(
+                'branchFilter'
+            );
+
+
+        const statusFilter =
+            document.getElementById(
+                'statusFilter'
+            );
+
+
+        const applyFilters = () => {
+
+            const params =
+                new URLSearchParams();
+
+
+            const search =
+                searchInput
+                    ? searchInput.value.trim()
+                    : '';
+
+
+            const role =
+                roleFilter
+                    ? roleFilter.value
+                    : '';
+
+
+            const branch =
+                branchFilter
+                    ? branchFilter.value
+                    : '';
+
+
+            const status =
+                statusFilter
+                    ? statusFilter.value
+                    : '';
+
+
+            if (search) {
+
+                params.set(
+                    'search',
+                    search
+                );
+
+            }
+
+
+            if (role) {
+
+                params.set(
+                    'role',
+                    role
+                );
+
+            }
+
+
+            if (branch) {
+
+                params.set(
+                    'branch',
+                    branch
+                );
+
+            }
+
+
+            if (status) {
+
+                params.set(
+                    'status',
+                    status
+                );
+
+            }
+
+
+            const queryString =
+                params.toString();
+
+
+            window.location.href =
+                queryString
+                    ? `${window.location.pathname}?${queryString}`
+                    : window.location.pathname;
+
+        };
+
+
+
+        if (searchInput) {
+
+            let searchTimer;
+
+
+            searchInput.addEventListener(
+                'input',
+                () => {
+
+                    clearTimeout(
+                        searchTimer
+                    );
+
+
+                    searchTimer =
+                        setTimeout(
+                            applyFilters,
+                            400
+                        );
+
+                }
+            );
+
+        }
+
+
+
+        if (roleFilter) {
+
+            roleFilter.addEventListener(
+                'change',
+                applyFilters
+            );
+
+        }
+
+
+
+        if (branchFilter) {
+
+            branchFilter.addEventListener(
+                'change',
+                applyFilters
+            );
+
+        }
+
+
+
+        if (statusFilter) {
+
+            statusFilter.addEventListener(
+                'change',
+                applyFilters
+            );
+
+        }
 
     }
 
@@ -309,6 +496,1180 @@ const Users = {
 
 },
 
+/**
+ * ======================================================
+ * ESCAPE HTML
+ * ======================================================
+ */
+
+escapeHtml(value)
+{
+
+    if (value === null || value === undefined) {
+
+        return '';
+
+    }
+
+
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+},
+
+/**
+ * ======================================================
+ * RENDER USER ACTIONS
+ * ======================================================
+ */
+
+renderUserActions(user)
+{
+
+    let actions = '';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | View
+    |--------------------------------------------------------------------------
+    */
+
+    if (this.permission.view) {
+
+        actions += `
+
+            <li>
+
+                <button
+                    type="button"
+                    class="dropdown-item"
+                    onclick="openUserDetailsPanel(${user.id})"
+                >
+
+                    <i class="bi bi-eye me-2"></i>
+
+                    View Details
+
+                </button>
+
+            </li>
+
+        `;
+
+    }
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Edit
+    |--------------------------------------------------------------------------
+    */
+
+    if (this.permission.update) {
+
+        actions += `
+
+            <li>
+
+                <button
+                    type="button"
+                    class="dropdown-item"
+                    onclick="openEditUserModal(${user.id})"
+                >
+
+                    <i class="bi bi-pencil-square me-2"></i>
+
+                    Edit User
+
+                </button>
+
+            </li>
+
+        `;
+
+    }
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Password
+    |--------------------------------------------------------------------------
+    */
+
+    if (this.permission.resetPassword) {
+
+        actions += `
+
+            <li>
+
+                <button
+                    type="button"
+                    class="dropdown-item"
+                    onclick='openResetPasswordModal(${JSON.stringify({
+                        id: user.id,
+                        first_name: user.first_name,
+                        last_name: user.last_name
+                    })})'
+                >
+
+                    <i class="bi bi-key me-2"></i>
+
+                    Reset Password
+
+                </button>
+
+            </li>
+
+        `;
+
+    }
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Toggle Status
+    |--------------------------------------------------------------------------
+    */
+
+    if (this.permission.update) {
+
+        actions += `
+
+            <li>
+
+                <button
+                    type="button"
+                    class="dropdown-item"
+                    onclick='openToggleStatusModal(${JSON.stringify({
+                        id: user.id,
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        status: !!user.status
+                    })})'
+                >
+
+                    ${
+                        user.status
+
+                            ? `
+                                <i class="bi bi-person-x me-2"></i>
+                                Disable User
+                              `
+
+                            : `
+                                <i class="bi bi-person-check me-2"></i>
+                                Enable User
+                              `
+                    }
+
+                </button>
+
+            </li>
+
+        `;
+
+    }
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Delete
+    |--------------------------------------------------------------------------
+    */
+
+    if (this.permission.delete) {
+
+        actions += `
+
+            <li>
+
+                <hr class="dropdown-divider">
+
+            </li>
+
+            <li>
+
+                <button
+                    type="button"
+                    class="dropdown-item text-danger"
+                    onclick='openDeleteUserModal(${JSON.stringify({
+                        id: user.id,
+                        first_name: user.first_name,
+                        last_name: user.last_name
+                    })})'
+                >
+
+                    <i class="bi bi-trash me-2"></i>
+
+                    Delete User
+
+                </button>
+
+            </li>
+
+        `;
+
+    }
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Dropdown
+    |--------------------------------------------------------------------------
+    */
+
+    return `
+
+        <div class="dropdown">
+
+            <button
+                type="button"
+                class="btn btn-light action-btn"
+                data-bs-toggle="dropdown"
+                data-bs-boundary="viewport"
+                data-bs-display="dynamic"
+                aria-expanded="false"
+            >
+
+                <i class="bi bi-three-dots"></i>
+
+            </button>
+
+
+           <ul
+                    class="dropdown-menu dropdown-menu-end"
+                    data-bs-popper="static"
+                >
+
+                ${actions}
+
+            </ul>
+
+        </div>
+
+    `;
+
+},
+
+
+/**
+ * ======================================================
+ * LOAD USERS
+ * ======================================================
+ */
+
+async loadUsers(page = 1)
+{
+
+    const search =
+        document.getElementById(
+            'userSearch'
+        )?.value || '';
+
+
+    const role =
+        document.getElementById(
+            'roleFilter'
+        )?.value || '';
+
+
+    const branch =
+        document.getElementById(
+            'branchFilter'
+        )?.value || '';
+
+
+    const status =
+        document.getElementById(
+            'statusFilter'
+        )?.value || '';
+
+
+    const params =
+        new URLSearchParams({
+
+            page: page,
+
+            search: search,
+
+            role_id: role,
+
+            branch_id: branch,
+
+            status: status
+
+        });
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                `${this.routes.table}?${params.toString()}`,
+
+                {
+
+                    headers: {
+
+                        'Accept':
+                            'application/json'
+
+                    }
+
+                }
+
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        console.log(
+            'Users table status:',
+            response.status
+        );
+
+
+        console.log(
+            'Users table response:',
+            responseText
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Unable to load users. HTTP ${response.status}`
+            );
+
+        }
+
+
+        let result;
+
+
+        try {
+
+            result =
+                JSON.parse(
+                    responseText
+                );
+
+        } catch (error) {
+
+            console.error(
+                'Users table returned invalid JSON:',
+                responseText
+            );
+
+
+            throw new Error(
+                'Users table returned invalid JSON.'
+            );
+
+        }
+
+
+        console.log(
+            'Users table JSON:',
+            result
+        );
+
+
+       if (!result.status) {
+
+            throw new Error(
+                result.message ||
+                'Unable to load users.'
+            );
+
+        }
+
+
+        this.permissions =
+            result.permissions || {};
+
+
+        this.renderUsers(
+            result.users
+        );
+
+
+        this.renderPagination(
+            result.pagination
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            'Users table error:',
+            error
+        );
+
+    }
+
+},
+
+
+
+/**
+ * ======================================================
+ * RENDER USERS
+ * ======================================================
+ */
+
+renderUsers(users)
+{
+
+    const tbody =
+        document.querySelector(
+            '.users-table tbody'
+        );
+
+
+    if (!tbody) {
+
+        return;
+
+    }
+
+
+    if (!users || !users.length) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+
+                    <div class="empty-state">
+
+                        <i class="bi bi-people"></i>
+
+                        <h6>
+                            No Users Found
+                        </h6>
+
+                        <p>
+                            No users match the selected filters.
+                        </p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        users.map(user => {
+
+            const initials =
+                (
+                    (user.first_name || '').charAt(0) +
+                    (user.last_name || '').charAt(0)
+                ).toUpperCase();
+
+
+            const fullName =
+                user.full_name ||
+                `${user.first_name || ''} ${user.last_name || ''}`.trim();
+
+
+            const roleName =
+                user.role
+                    ? user.role.display_label
+                    : 'No Role';
+
+
+            const roleCode =
+                user.role
+                    ? user.role.code
+                    : '';
+
+
+            const branchName =
+                user.branch?.name ||
+                'All Branches';
+
+
+            const status =
+                Boolean(user.status);
+
+
+            const lastActivity =
+                user.last_activity_human ||
+                'Never';
+
+
+            const lastActivityDate =
+                user.last_activity_date ||
+                '';
+
+
+            const avatar =
+                user.profile_photo
+                    ? `
+                        <img
+                            src="${user.profile_photo}"
+                            class="user-avatar-image"
+                        >
+                    `
+                    : `
+                        <div class="user-avatar">
+                            ${initials}
+                        </div>
+                    `;
+
+
+            return `
+
+                <tr>
+
+                    <td>
+
+                        <div class="user-info">
+
+                            ${avatar}
+
+                            <div>
+
+                                <h6 class="mb-1">
+                                    ${this.escapeHtml(fullName)}
+                                </h6>
+
+                                <div class="user-email">
+                                    ${this.escapeHtml(user.email || '')}
+                                </div>
+
+                                <div class="user-username">
+
+                                    <i class="bi bi-person me-1"></i>
+
+                                    ${this.escapeHtml(user.username || '')}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            user.role
+                                ? `
+                                    <div class="role-info">
+
+                                        <div class="role-icon">
+
+                                            <i class="bi bi-shield-lock"></i>
+
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                ${this.escapeHtml(roleName)}
+                                            </strong>
+
+                                            <small>
+                                                ${this.escapeHtml(roleCode)}
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+                                `
+                                : `
+                                    <span class="text-muted">
+                                        No Role
+                                    </span>
+                                `
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        <div class="branch-info">
+
+                            <i class="bi bi-building"></i>
+
+                            <span>
+                                ${this.escapeHtml(branchName)}
+                            </span>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            status
+                                ? `
+                                    <span class="user-status active">
+
+                                        <span></span>
+
+                                        Active
+
+                                    </span>
+                                `
+                                : `
+                                    <span class="user-status inactive">
+
+                                        <span></span>
+
+                                        Disabled
+
+                                    </span>
+                                `
+                        }
+
+                    </td>
+
+
+                    <td>
+
+                        ${
+                            user.last_activity_at
+                                ? `
+                                    <div class="activity-main">
+
+                                        ${this.escapeHtml(lastActivity)}
+
+                                    </div>
+
+                                    <small class="text-muted">
+
+                                        ${this.escapeHtml(lastActivityDate)}
+
+                                    </small>
+                                `
+                                : `
+                                    <span class="text-muted">
+                                        Never
+                                    </span>
+                                `
+                        }
+
+                    </td>
+
+
+                    <td class="text-end">
+
+                        ${this.renderUserActions(user)}
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }).join('');       
+
+
+   /*
+|--------------------------------------------------------------------------
+| Initialize Dropdowns
+|--------------------------------------------------------------------------
+*/
+
+tbody
+    .querySelectorAll(
+        '[data-bs-toggle="dropdown"]'
+    )
+    .forEach(
+        dropdownElement => {
+
+            new bootstrap.Dropdown(
+                dropdownElement,
+                {
+                    boundary: 'viewport',
+                    popperConfig: {
+                        strategy: 'fixed'
+                    }
+                }
+            );
+
+        }
+    );
+
+},
+
+/**
+ * ======================================================
+ * RENDER PAGINATION
+ * ======================================================
+ */
+
+renderPagination(pagination)
+{
+
+    const paginationContainer =
+        document.querySelector(
+            '#usersPagination'
+        );
+
+
+    if (!paginationContainer) {
+
+        return;
+
+    }
+
+
+    const currentPage =
+        pagination.current_page || 1;
+
+    const lastPage =
+        pagination.last_page || 1;
+
+
+    if (lastPage <= 1) {
+
+        paginationContainer.innerHTML = '';
+
+        return;
+
+    }
+
+
+    let html = '';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Previous
+    |--------------------------------------------------------------------------
+    */
+
+    html += `
+
+        <li class="page-item ${currentPage <= 1 ? 'disabled' : ''}">
+
+            <button
+                type="button"
+                class="page-link"
+                data-page="${currentPage - 1}"
+                ${currentPage <= 1 ? 'disabled' : ''}
+            >
+
+                <i class="bi bi-chevron-left"></i>
+
+            </button>
+
+        </li>
+
+    `;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Page Numbers
+    |--------------------------------------------------------------------------
+    */
+
+    for (
+        let page = 1;
+        page <= lastPage;
+        page++
+    ) {
+
+        html += `
+
+            <li class="page-item ${page === currentPage ? 'active' : ''}">
+
+                <button
+                    type="button"
+                    class="page-link"
+                    data-page="${page}"
+                >
+
+                    ${page}
+
+                </button>
+
+            </li>
+
+        `;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Next
+    |--------------------------------------------------------------------------
+    */
+
+    html += `
+
+        <li class="page-item ${currentPage >= lastPage ? 'disabled' : ''}">
+
+            <button
+                type="button"
+                class="page-link"
+                data-page="${currentPage + 1}"
+                ${currentPage >= lastPage ? 'disabled' : ''}
+            >
+
+                <i class="bi bi-chevron-right"></i>
+
+            </button>
+
+        </li>
+
+    `;
+
+
+    paginationContainer.innerHTML = `
+
+        <nav aria-label="Users pagination">
+
+            <ul class="pagination justify-content-end mb-0">
+
+                ${html}
+
+            </ul>
+
+        </nav>
+
+    `;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Page Events
+    |--------------------------------------------------------------------------
+    */
+
+    paginationContainer
+        .querySelectorAll('[data-page]')
+        .forEach(button => {
+
+            button.addEventListener(
+                'click',
+                () => {
+
+                    const page =
+                        parseInt(
+                            button.dataset.page
+                        );
+
+                    if (
+                        page >= 1 &&
+                        page <= lastPage
+                    ) {
+
+                        this.loadUsers(page);
+
+                    }
+
+                }
+            );
+
+        });
+
+},
+/**
+ * ======================================================
+ * RENDER USER ROW
+ * ======================================================
+ */
+
+renderUserRow(user)
+{
+
+    const initials =
+        (
+            (user.first_name || '').charAt(0)
+            +
+            (user.last_name || '').charAt(0)
+        ).toUpperCase();
+
+
+
+    const avatar =
+        user.profile_photo
+
+            ? `
+
+                <img
+                    src="/storage/${user.profile_photo}"
+                    class="user-avatar-image"
+                >
+
+            `
+
+            : `
+
+                <div class="user-avatar">
+
+                    ${initials}
+
+                </div>
+
+            `;
+
+
+
+    const role =
+        user.role
+
+            ? `
+
+                <div class="role-info">
+
+                    <div class="role-icon">
+
+                        <i class="bi bi-shield-lock"></i>
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            ${this.escapeHtml(
+                                user.role.display_label ||
+                                user.role.name ||
+                                'No Role'
+                            )}
+                        </strong>
+
+                        <small>
+                            ${this.escapeHtml(
+                                user.role.code || ''
+                            )}
+                        </small>
+
+                    </div>
+
+                </div>
+
+            `
+
+            : `
+
+                <span class="text-muted">
+                    No Role
+                </span>
+
+            `;
+
+
+
+    const branch =
+        user.branch?.name
+            || 'All Branches';
+
+
+
+    const status =
+        user.status
+
+            ? `
+
+                <span class="user-status active">
+
+                    <span></span>
+
+                    Active
+
+                </span>
+
+            `
+
+            : `
+
+                <span class="user-status inactive">
+
+                    <span></span>
+
+                    Disabled
+
+                </span>
+
+            `;
+
+
+
+    let activity = `
+
+        <span class="text-muted">
+            Never
+        </span>
+
+    `;
+
+
+
+    if (user.last_activity_at) {
+
+        const activityDate =
+            new Date(
+                user.last_activity_at
+            );
+
+
+        activity = `
+
+            <div class="activity-main">
+
+                ${this.formatActivityDate(
+                    activityDate
+                )}
+
+            </div>
+
+            <small class="text-muted">
+
+                ${this.formatDateTime(
+                    activityDate
+                )}
+
+            </small>
+
+        `;
+
+    }
+
+
+
+    return `
+
+        <tr>
+
+
+            <td>
+
+                <div class="user-info">
+
+                    ${avatar}
+
+                    <div>
+
+                        <h6 class="mb-1">
+
+                            ${this.escapeHtml(
+                                user.full_name ||
+                                (
+                                    user.first_name
+                                    + ' '
+                                    + user.last_name
+                                )
+                            )}
+
+                        </h6>
+
+                        <div class="user-email">
+
+                            ${this.escapeHtml(
+                                user.email || ''
+                            )}
+
+                        </div>
+
+                        <div class="user-username">
+
+                            <i class="bi bi-person me-1"></i>
+
+                            ${this.escapeHtml(
+                                user.username || ''
+                            )}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </td>
+
+
+
+            <td>
+
+                ${role}
+
+            </td>
+
+
+
+            <td>
+
+                <div class="branch-info">
+
+                    <i class="bi bi-building"></i>
+
+                    <span>
+
+                        ${this.escapeHtml(
+                            branch
+                        )}
+
+                    </span>
+
+                </div>
+
+            </td>
+
+
+
+            <td>
+
+                ${status}
+
+            </td>
+
+
+
+            <td>
+
+                ${activity}
+
+            </td>
+
+
+
+            <td class="text-end">
+
+                ${this.renderUserActions(user)}
+
+            </td>
+
+
+        </tr>
+
+    `;
+
+},
 
 
 

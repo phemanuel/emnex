@@ -1053,6 +1053,25 @@ const Purchase = {
 
         }
 
+        this.elements.goodsReceivedItemsContainer?.addEventListener(
+            'input',
+            event => {
+
+                if (
+                    event.target.matches(
+                        '.goods-received-quantity'
+                    )
+                ) {
+
+                    this.validateGoodsReceivedStock(
+                        event.target
+                    );
+
+                }
+
+            }
+        );
+
         /*
         |--------------------------------------------------------------------------
         | Purchase Order Search
@@ -3705,14 +3724,13 @@ clearPurchaseOrderProduct(
 
     },
 
-    /*
-|--------------------------------------------------------------------------
-| Load Purchase Orders
-|--------------------------------------------------------------------------
-*/
-
-async loadGoodsReceivedPurchaseOrders()
+  async loadGoodsReceivedPurchaseOrders()
 {
+
+    console.log(
+        '>>> loadGoodsReceivedPurchaseOrders() CALLED'
+    );
+
 
     const select =
         this.elements.goodsReceivedOrder;
@@ -3720,9 +3738,19 @@ async loadGoodsReceivedPurchaseOrders()
 
     if (!select) {
 
+        console.error(
+            '>>> goodsReceivedOrder element NOT FOUND'
+        );
+
         return;
 
     }
+
+
+    console.log(
+        '>>> goodsReceivedOrder element found:',
+        select
+    );
 
 
     select.innerHTML = `
@@ -3735,7 +3763,8 @@ async loadGoodsReceivedPurchaseOrders()
     select.disabled = true;
 
 
-    try {
+    try {      
+
 
         const response =
             await fetch(
@@ -3746,11 +3775,11 @@ async loadGoodsReceivedPurchaseOrders()
                             'application/json'
                     }
                 }
-            );
+            );      
 
 
         const result =
-            await response.json();
+            await response.json();       
 
 
         if (
@@ -3806,14 +3835,6 @@ async loadGoodsReceivedPurchaseOrders()
                     `${order.order_number} — ${order.supplier_name ?? 'Unknown Supplier'}`;
 
 
-                option.dataset.supplier =
-                    order.supplier_name ?? '';
-
-
-                option.dataset.branch =
-                    order.branch_name ?? '';
-
-
                 select.appendChild(
                     option
                 );
@@ -3823,6 +3844,12 @@ async loadGoodsReceivedPurchaseOrders()
 
     }
     catch (error) {
+
+        console.error(
+            '>>> Purchase order loading error:',
+            error
+        );
+
 
         select.innerHTML = `
             <option value="">
@@ -3844,7 +3871,6 @@ async loadGoodsReceivedPurchaseOrders()
     }
 
 },
-
 
     /*
     |--------------------------------------------------------------------------
@@ -4981,6 +5007,17 @@ populateGoodsReceivedItems(
                         0
                     );
 
+                const currentStock =
+                    parseFloat(
+                        item.current_stock ?? 0
+                    );
+
+
+                const maximumStock =
+                    parseFloat(
+                        item.maximum_stock ?? 0
+                    );
+
 
                 const unitCost =
                     parseFloat(
@@ -5072,6 +5109,34 @@ populateGoodsReceivedItems(
 
                         </td>
 
+                        <td class="text-end">
+
+                            <span
+                                class="fw-semibold"
+                            >
+
+                               ${this.formatQuantity(
+                                    currentStock
+                                )}
+
+                            </span>
+
+                        </td>
+
+                        <td class="text-end">
+
+                            <span
+                                class="fw-semibold"
+                            >
+
+                                 ${this.formatQuantity(
+                                    maximumStock
+                                )}
+
+                            </span>
+
+                        </td>
+
 
                         <td>
 
@@ -5081,10 +5146,12 @@ populateGoodsReceivedItems(
                                 name="items[${item.id}][received_quantity]"
                                 data-item-id="${item.id}"
                                 data-remaining="${remaining}"
+                                data-current-stock="${currentStock}"
+                                data-maximum-stock="${maximumStock}"
                                 min="0"
                                 max="${remaining}"
                                 step="0.01"
-                                value="${remaining > 0 ? remaining : 0}"
+                                value="0"
                                 ${disabled}
                             >
 
@@ -5111,6 +5178,158 @@ populateGoodsReceivedItems(
 
             }
         ).join('');
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Validate Goods Received Stock
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Validate received quantity against maximum stock.
+ */
+validateGoodsReceivedStock(
+    input
+)
+{
+
+    if (!input) {
+
+        return true;
+
+    }
+
+
+    const row =
+        input.closest('tr');
+
+
+    if (!row) {
+
+        return true;
+
+    }
+
+
+    const currentStock =
+        parseFloat(
+            input.dataset.currentStock ?? 0
+        ) || 0;
+
+
+    const maximumStock =
+        parseFloat(
+            input.dataset.maximumStock ?? 0
+        ) || 0;
+
+
+    const receivedQuantity =
+        parseFloat(
+            input.value ?? 0
+        ) || 0;
+
+
+    const totalStock =
+        currentStock +
+        receivedQuantity;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Previous State
+    |--------------------------------------------------------------------------
+    */
+
+    input.classList.remove(
+        'is-invalid'
+    );
+
+
+    const existingError =
+        row.querySelector(
+            '.goods-received-stock-error'
+        );
+
+
+    if (existingError) {
+
+        existingError.remove();
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        totalStock >
+        maximumStock
+    ) {
+
+        input.classList.add(
+            'is-invalid'
+        );
+
+
+        const error =
+            document.createElement(
+                'div'
+            );
+
+
+        error.className =
+            'invalid-feedback goods-received-stock-error';
+
+
+        error.innerHTML = `
+
+            <div class="mb-2">
+
+                Stock limit exceeded.
+                Current stock
+                (${this.formatQuantity(currentStock)})
+                +
+                receiving
+                (${this.formatQuantity(receivedQuantity)})
+                =
+                ${this.formatQuantity(totalStock)},
+                but maximum stock is
+                ${this.formatQuantity(maximumStock)}.
+
+            </div>
+
+
+            <a
+                href="/products"
+                target="_blank"
+                class="btn btn-sm btn-outline-danger"
+            >
+
+                <i class="bi bi-box-seam me-1"></i>
+
+                Manage Product Stock
+
+            </a>
+
+        `;
+
+
+        input.parentElement.appendChild(
+            error
+        );
+
+
+        return false;
+
+    }
+
+
+    return true;
 
 },
 
@@ -8419,6 +8638,11 @@ async openGoodsReceivedModal(
 
             this.setValue(
                 this.elements.goodsReceivedOrder,
+                orderId
+            );
+
+
+            await this.loadGoodsReceivedOrder(
                 orderId
             );
 

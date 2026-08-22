@@ -683,3 +683,24 @@ textarea.form-control{
     }
 
 }
+
+/* ==========================================================
+   UNITS TABLE DROPDOWN
+========================================================== */
+
+.units-table-card {
+    overflow: visible !important;
+}
+
+.units-table-card .table-responsive {
+    overflow-x: auto;
+    overflow-y: visible !important;
+}
+
+.units-table-card .dropdown {
+    position: static;
+}
+
+.units-table-card .dropdown-menu {
+    z-index: 1080;
+}

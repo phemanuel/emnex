@@ -174,7 +174,7 @@
 
                            <li>
 
-                                @permissions('units.view')
+                                @permission('units.view')
 
                                     <button
                                         class="dropdown-item"
@@ -187,14 +187,14 @@
 
                                     </button>
 
-                                @endpermissions
+                                @endpermission
 
                             </li>
 
 
                             <li>
 
-                                @permissions('units.edit')
+                                @permission('units.edit')
 
                                     <button
                                         class="dropdown-item"
@@ -207,14 +207,14 @@
 
                                     </button>
 
-                                @endpermissions
+                                @endpermission
 
                             </li>
 
 
                             <li>
 
-                                @permissions('units.toggle_status')
+                                @permission('units.update')
 
                                     @if($unit->status)
 
@@ -252,12 +252,12 @@
 
                                     @endif
 
-                                @endpermissions
+                                @endpermission
 
                             </li>
 
 
-                            @permissions('units.delete')
+                            @permission('units.delete')
 
                                 <li>
 
@@ -284,7 +284,7 @@
 
                                 </li>
 
-                            @endpermissions  
+                            @endpermission
 
 
                         </ul>

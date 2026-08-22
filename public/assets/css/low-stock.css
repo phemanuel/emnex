@@ -1261,3 +1261,24 @@
 
 
 }
+
+/* ==========================================================
+   LOW STOCK TABLE DROPDOWN
+========================================================== */
+
+.low-stock-table-card {
+    overflow: visible !important;
+}
+
+.low-stock-table-card .table-responsive {
+    overflow-x: auto;
+    overflow-y: visible !important;
+}
+
+.low-stock-table-card .dropdown {
+    position: static;
+}
+
+.low-stock-table-card .dropdown-menu {
+    z-index: 1080;
+}

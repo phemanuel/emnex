@@ -254,6 +254,14 @@
                                             Remaining
                                         </th>
 
+                                        <th class="text-end">
+                                            Current Stock
+                                        </th>
+
+                                        <th class="text-end">
+                                            Maximum Stock
+                                        </th>
+
                                         <th style="width: 150px;">
                                             Receive Now
                                         </th>
@@ -274,7 +282,7 @@
                                     >
 
                                         <td
-                                            colspan="6"
+                                            colspan="8"
                                             class="text-center text-muted py-5"
                                         >
 

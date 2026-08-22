@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="category-table-responsive">
 
 
     <table class="table emnex-table align-middle">

@@ -260,8 +260,10 @@
         =================================================== --}}
 
 
-        <div id="products-table-container">
-
+       <div
+    id="products-table-container"
+    class="products-table-card"
+>
 
             @include(
                 'products.partials.table',
