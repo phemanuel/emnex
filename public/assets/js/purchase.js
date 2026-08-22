@@ -5011,8 +5011,9 @@ populateGoodsReceivedItems(
                 return `
 
                     <tr
-                        data-purchase-order-item-id="${item.id}"
-                    >
+    data-purchase-order-item-id="${item.id}"
+    data-product-id="${item.product_id}"
+>
 
                         <td>
 
@@ -5952,10 +5953,30 @@ resetOrderInspector()
 
 
     if (
-        elements.inspectorPurchaseOrderUpdatedBy
+    elements.inspectorPurchaseOrderApprovedBy
     ) {
 
-        elements.inspectorPurchaseOrderUpdatedBy.textContent =
+        elements.inspectorPurchaseOrderApprovedBy.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderApprovedAt
+    ) {
+
+        elements.inspectorPurchaseOrderApprovedAt.textContent =
+            '—';
+
+    }
+
+
+    if (
+        elements.inspectorPurchaseOrderUpdatedAt
+    ) {
+
+        elements.inspectorPurchaseOrderUpdatedAt.textContent =
             '—';
 
     }
@@ -5983,13 +6004,6 @@ renderOrderInspector(
         return;
 
     }
-
-
-    console.log(
-        'PURCHASE ORDER INSPECTOR DATA:',
-        order
-    );
-
 
     /*
     |--------------------------------------------------------------------------
@@ -6200,6 +6214,25 @@ renderOrderInspector(
         order.items ?? []
     );
 
+    /*
+    |--------------------------------------------------------------------------
+    | Item Count
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderItemCount
+    ) {
+
+        this.elements.inspectorPurchaseOrderItemCount.textContent =
+            `${(order.item_count ?? 0)} ${
+                (order.item_count ?? 0) === 1
+                    ? 'item'
+                    : 'items'
+            }`;
+
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -6296,22 +6329,55 @@ renderOrderInspector(
 
     }
 
-
     /*
     |--------------------------------------------------------------------------
-    | Updated By
+    | Approved By
     |--------------------------------------------------------------------------
     */
 
-    // if (
-    //     this.elements.inspectorPurchaseOrderUpdatedBy
-    // ) {
+    if (
+        this.elements.inspectorPurchaseOrderApprovedBy
+    ) {
 
-    //     this.elements.inspectorPurchaseOrderUpdatedBy.textContent =
-    //         order.updated_by ??
-    //         '—';
+        this.elements.inspectorPurchaseOrderApprovedBy.textContent =
+            order.approved_by ??
+            '—';
 
-    // }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Approved At
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderApprovedAt
+    ) {
+
+        this.elements.inspectorPurchaseOrderApprovedAt.textContent =
+            this.formatInspectorDateTime(
+                order.approved_at
+            );
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Last Updated
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.inspectorPurchaseOrderUpdatedAt
+    ) {
+
+        this.elements.inspectorPurchaseOrderUpdatedAt.textContent =
+            this.formatInspectorDateTime(
+                order.updated_at
+            );
+
+    }    
 
 },
 
@@ -8830,7 +8896,7 @@ async submitGoodsReceived()
     |--------------------------------------------------------------------------
     */
 
-    this.clearFormErrors();
+    // this.clearFormErrors();
 
 
     /*
@@ -8879,7 +8945,7 @@ async submitGoodsReceived()
     |--------------------------------------------------------------------------
     | Collect Items
     |--------------------------------------------------------------------------
-    */
+    */    
 
     const items = [];
 

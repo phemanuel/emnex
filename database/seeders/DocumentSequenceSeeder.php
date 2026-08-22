@@ -39,6 +39,7 @@ class DocumentSequenceSeeder extends Seeder
             ['document_type' => 'unit',             'prefix' => 'UNT'],
             ['document_type' => 'tax',              'prefix' => 'TAX'],
             ['document_type' => 'discount',         'prefix' => 'DIS'],
+            ['document_type' => 'goods_received',   'prefix' => 'GR'],
 
         ];
 
