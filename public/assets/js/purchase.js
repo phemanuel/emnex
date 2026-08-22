@@ -280,6 +280,51 @@ const Purchase = {
                     'purchaseReceivedRefresh'
                 ),
 
+                increaseMaxStockModal:
+                document.getElementById(
+                    'increaseMaxStockModal'
+                ),
+
+            increaseMaxStockProductId:
+                document.getElementById(
+                    'increaseMaxStockProductId'
+                ),
+
+            increaseMaxStockProductName:
+                document.getElementById(
+                    'increaseMaxStockProductName'
+                ),
+
+            increaseMaxStockCurrent:
+                document.getElementById(
+                    'increaseMaxStockCurrent'
+                ),
+
+            increaseMaxStockMaximum:
+                document.getElementById(
+                    'increaseMaxStockMaximum'
+                ),
+
+            increaseMaxStockValue:
+                document.getElementById(
+                    'increaseMaxStockValue'
+                ),
+
+            increaseMaxStockHelp:
+                document.getElementById(
+                    'increaseMaxStockHelp'
+                ),
+
+            increaseMaxStockError:
+                document.getElementById(
+                    'increaseMaxStockError'
+                ),
+
+            increaseMaxStockSubmitBtn:
+                document.getElementById(
+                    'increaseMaxStockSubmitBtn'
+                ),
+
 
             /*
             |--------------------------------------------------------------------------
@@ -888,6 +933,77 @@ const Purchase = {
                     this.elements.confirmModal
                 );
 
+        }     
+        
+        /*
+        |--------------------------------------------------------------------------
+        | Bootstrap Modals
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.orderModal
+        ) {
+
+            this.orderModalInstance =
+                bootstrap.Modal.getOrCreateInstance(
+                    this.elements.orderModal
+                );
+
+        }
+
+
+        if (
+            this.elements.goodsReceivedModal
+        ) {
+
+            this.goodsReceivedModalInstance =
+                bootstrap.Modal.getOrCreateInstance(
+                    this.elements.goodsReceivedModal
+                );
+
+        }
+
+
+        if (
+            this.elements.returnModal
+        ) {
+
+            this.returnModalInstance =
+                bootstrap.Modal.getOrCreateInstance(
+                    this.elements.returnModal
+                );
+
+        }
+
+
+        if (
+            this.elements.confirmModal
+        ) {
+
+            this.confirmModalInstance =
+                bootstrap.Modal.getOrCreateInstance(
+                    this.elements.confirmModal
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Increase Maximum Stock Modal
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.increaseMaxStockModal
+        ) {
+
+            this.increaseMaxStockModalInstance =
+                bootstrap.Modal.getOrCreateInstance(
+                    this.elements.increaseMaxStockModal
+                );
+
         }
 
 
@@ -971,6 +1087,54 @@ const Purchase = {
 
             }
         );
+
+       /*
+    |--------------------------------------------------------------------------
+    | Increase Maximum Stock
+    |--------------------------------------------------------------------------
+    */
+
+    document.addEventListener(
+        'click',
+        event => {
+
+            const button =
+                event.target.closest(
+                    '.increase-max-stock-btn'
+                );
+
+
+            if (!button) {
+
+                return;
+
+            }     
+
+            event.preventDefault();
+
+
+            this.openIncreaseMaxStockModal(
+                button
+            );
+
+        }
+    );
+
+    if (
+    this.elements.increaseMaxStockSubmitBtn
+        ) {
+
+            this.elements.increaseMaxStockSubmitBtn
+                .addEventListener(
+                    'click',
+                    () => {
+
+                        this.updateMaximumStock();
+
+                    }
+                );
+
+        }
 
 
         if (
@@ -3725,11 +3889,7 @@ clearPurchaseOrderProduct(
     },
 
   async loadGoodsReceivedPurchaseOrders()
-{
-
-    console.log(
-        '>>> loadGoodsReceivedPurchaseOrders() CALLED'
-    );
+{  
 
 
     const select =
@@ -3744,13 +3904,7 @@ clearPurchaseOrderProduct(
 
         return;
 
-    }
-
-
-    console.log(
-        '>>> goodsReceivedOrder element found:',
-        select
-    );
+    }  
 
 
     select.innerHTML = `
@@ -4475,6 +4629,575 @@ formatQuantity(
 
     },
 
+/*
+|--------------------------------------------------------------------------
+| Open Increase Maximum Stock Modal
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Open the maximum stock update modal.
+ */
+openIncreaseMaxStockModal(
+    button
+)
+{
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Read Button Data
+    |--------------------------------------------------------------------------
+    */
+
+    const productId =
+        button.dataset.productId;
+
+
+    const productName =
+        button.dataset.productName ?? '';
+
+
+    const currentStock =
+        parseFloat(
+            button.dataset.currentStock ?? 0
+        ) || 0;
+
+
+    const maximumStock =
+        parseFloat(
+            button.dataset.maximumStock ?? 0
+        ) || 0;
+
+
+    const remainingQuantity =
+        parseFloat(
+            button.dataset.remaining ?? 0
+        ) || 0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Required Maximum
+    |--------------------------------------------------------------------------
+    |
+    | Prefer the value calculated by validation.
+    | If it is not available, calculate it here.
+    |
+    */
+
+    const requiredMaximum =
+        parseFloat(
+            button.dataset.requiredMaximum ?? 0
+        ) ||
+        (
+            currentStock +
+            remainingQuantity
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Maximum Increase
+    |--------------------------------------------------------------------------
+    */
+
+    const maximumIncrease =
+        Math.max(
+            requiredMaximum -
+            maximumStock,
+            0
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Required Elements
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !this.elements.increaseMaxStockModal ||
+        !this.elements.increaseMaxStockProductId ||
+        !this.elements.increaseMaxStockValue
+    ) {
+
+        console.error(
+            'Increase Maximum Stock modal elements not found.'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Populate Product
+    |--------------------------------------------------------------------------
+    */
+
+    this.elements.increaseMaxStockProductId.value =
+        productId;
+
+
+    this.elements.increaseMaxStockProductName.value =
+        productName;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Populate Current Stock
+    |--------------------------------------------------------------------------
+    */
+
+    this.elements.increaseMaxStockCurrent.value =
+        this.formatQuantity(
+            currentStock
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Populate Current Maximum
+    |--------------------------------------------------------------------------
+    */
+
+    this.elements.increaseMaxStockMaximum.value =
+        this.formatQuantity(
+            maximumStock
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Populate New Maximum
+    |--------------------------------------------------------------------------
+    |
+    | This field is readonly.
+    |
+    */
+
+    this.elements.increaseMaxStockValue.value =
+        requiredMaximum;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store Required Values
+    |--------------------------------------------------------------------------
+    */
+
+    this.elements.increaseMaxStockValue.dataset.requiredMaximum =
+        requiredMaximum;
+
+
+    this.elements.increaseMaxStockValue.dataset.maximumIncrease =
+        maximumIncrease;
+
+
+    this.elements.increaseMaxStockValue.dataset.remaining =
+        remainingQuantity;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Help Text
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.increaseMaxStockHelp
+    ) {
+
+        this.elements.increaseMaxStockHelp.textContent =
+            `Maximum stock needs to increase by ${
+                this.formatQuantity(
+                    maximumIncrease
+                )
+            } units. New maximum stock will be ${
+                this.formatQuantity(
+                    requiredMaximum
+                )
+            }.`;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Error
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.increaseMaxStockError
+    ) {
+
+        this.elements.increaseMaxStockError.classList.add(
+            'd-none'
+        );
+
+        this.elements.increaseMaxStockError.textContent =
+            '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Show Modal
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.increaseMaxStockModalInstance
+    ) {
+
+        this.increaseMaxStockModalInstance.show();
+
+    }
+
+},
+  /*
+|--------------------------------------------------------------------------
+| Update Maximum Stock
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Update the maximum stock for a product.
+ */
+async updateMaximumStock()
+{
+
+    /*
+    |--------------------------------------------------------------------------
+    | Required Elements
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !this.elements.increaseMaxStockProductId ||
+        !this.elements.increaseMaxStockValue ||
+        !this.elements.increaseMaxStockSubmitBtn
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Values
+    |--------------------------------------------------------------------------
+    */
+
+    const productId =
+        this.elements
+            .increaseMaxStockProductId
+            .value;
+
+
+    const newMaximumStock =
+        parseFloat(
+            this.elements
+                .increaseMaxStockValue
+                .value
+        ) || 0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Purchase Order
+    |--------------------------------------------------------------------------
+    |
+    | Keep the currently selected purchase order so the Goods Received
+    | modal can be reloaded with fresh ProductStock data after updating.
+    |
+    */
+
+    const orderId =
+        this.elements
+            .goodsReceivedOrder
+            ?.value;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation
+    |--------------------------------------------------------------------------
+    */
+
+    if (!productId) {
+
+        this.notify(
+            'Product could not be identified.',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (newMaximumStock <= 0) {
+
+        this.notify(
+            'Invalid maximum stock value.',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Loading State
+    |--------------------------------------------------------------------------
+    */
+
+    const button =
+        this.elements
+            .increaseMaxStockSubmitBtn;
+
+
+    const originalText =
+        button.innerHTML;
+
+
+    button.disabled =
+        true;
+
+
+    button.innerHTML = `
+
+        <span
+            class="spinner-border spinner-border-sm me-1"
+            role="status"
+        ></span>
+
+        Updating...
+
+    `;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Submit
+    |--------------------------------------------------------------------------
+    */
+
+    try {
+
+        const response =
+            await fetch(
+                `/products/${productId}/maximum-stock`,
+                {
+                    method:
+                        'PUT',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'Content-Type':
+                            'application/json',
+
+                        'X-CSRF-TOKEN':
+                            document
+                                .querySelector(
+                                    'meta[name="csrf-token"]'
+                                )
+                                ?.getAttribute(
+                                    'content'
+                                )
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            maximum_stock:
+                                newMaximumStock
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response Validation
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to update maximum stock.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Success Notification
+        |--------------------------------------------------------------------------
+        */
+
+        this.notify(
+            result.message ??
+            'Maximum stock updated successfully.',
+            'success'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close Increase Maximum Stock Modal
+        |--------------------------------------------------------------------------
+        */
+
+        this.increaseMaxStockModalInstance?.hide();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Clear Stock Alert
+        |--------------------------------------------------------------------------
+        */
+
+        const stockAlert =
+            document.getElementById(
+                'goodsReceivedStockAlert'
+            );
+
+
+        if (stockAlert) {
+
+            stockAlert.classList.add(
+                'd-none'
+            );
+
+            stockAlert.innerHTML =
+                '';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reload Selected Purchase Order
+        |--------------------------------------------------------------------------
+        |
+        | This is important.
+        |
+        | loadGoodsReceivedOrder() retrieves the purchase order again from
+        | the server, including the latest ProductStock.maximum_stock.
+        |
+        */
+
+        if (orderId) {
+
+            await this.loadGoodsReceivedOrder(
+                orderId
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Purchase Order Dropdown
+        |--------------------------------------------------------------------------
+        |
+        | This also ensures that if the purchase order became completed,
+        | it will no longer remain in the approved purchase-order dropdown.
+        |
+        */
+
+        await this.loadGoodsReceivedPurchaseOrders();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Restore Selected Purchase Order
+        |--------------------------------------------------------------------------
+        |
+        | If the purchase order is still available, keep it selected.
+        |
+        */
+
+        if (
+            orderId &&
+            this.elements.goodsReceivedOrder
+        ) {
+
+            const option =
+                this.elements.goodsReceivedOrder
+                    .querySelector(
+                        `option[value="${orderId}"]`
+                    );
+
+
+            if (option) {
+
+                this.elements.goodsReceivedOrder.value =
+                    orderId;
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            'Maximum stock update failed:',
+            error
+        );
+
+
+        this.notify(
+            error.message ??
+            'Unable to update maximum stock.',
+            'error'
+        );
+
+    }
+    finally {
+
+        button.disabled =
+            false;
+
+
+        button.innerHTML =
+            originalText;
+
+    }
+
+},
     /*
 |--------------------------------------------------------------------------
 | Open Edit Purchase Order
@@ -5036,7 +5759,7 @@ populateGoodsReceivedItems(
                     item.product?.sku ??
                     item.product?.code ??
                     item.product_code ??
-                    '';
+                    '';                   
 
 
                 const disabled =
@@ -5213,6 +5936,12 @@ validateGoodsReceivedStock(
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Values
+    |--------------------------------------------------------------------------
+    */
+
     const currentStock =
         parseFloat(
             input.dataset.currentStock ?? 0
@@ -5231,6 +5960,18 @@ validateGoodsReceivedStock(
         ) || 0;
 
 
+    const remainingQuantity =
+        parseFloat(
+            input.dataset.remaining ?? 0
+        ) || 0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current Receiving Total
+    |--------------------------------------------------------------------------
+    */
+
     const totalStock =
         currentStock +
         receivedQuantity;
@@ -5238,7 +5979,49 @@ validateGoodsReceivedStock(
 
     /*
     |--------------------------------------------------------------------------
-    | Clear Previous State
+    | Required Maximum Stock
+    |--------------------------------------------------------------------------
+    |
+    | We use the entire remaining purchase order quantity.
+    |
+    | Current stock + remaining quantity
+    |
+    */
+
+    const requiredMaximum =
+        currentStock +
+        remainingQuantity;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Maximum Stock Increase
+    |--------------------------------------------------------------------------
+    */
+
+    const maximumIncrease =
+        Math.max(
+            requiredMaximum -
+            maximumStock,
+            0
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Alert
+    |--------------------------------------------------------------------------
+    */
+
+    const stockAlert =
+        document.getElementById(
+            'goodsReceivedStockAlert'
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Input State
     |--------------------------------------------------------------------------
     */
 
@@ -5247,15 +6030,20 @@ validateGoodsReceivedStock(
     );
 
 
-    const existingError =
-        row.querySelector(
-            '.goods-received-stock-error'
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Previous Alert
+    |--------------------------------------------------------------------------
+    */
+
+    if (stockAlert) {
+
+        stockAlert.classList.add(
+            'd-none'
         );
 
-
-    if (existingError) {
-
-        existingError.remove();
+        stockAlert.innerHTML =
+            '';
 
     }
 
@@ -5276,52 +6064,182 @@ validateGoodsReceivedStock(
         );
 
 
-        const error =
-            document.createElement(
-                'div'
+        const productId =
+            row.dataset.productId;
+
+
+        const productName =
+            row.querySelector(
+                '.fw-semibold'
+            )?.textContent?.trim() ??
+            'Product';
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Populate Dedicated Alert
+        |--------------------------------------------------------------------------
+        */
+
+        if (stockAlert) {
+
+            stockAlert.innerHTML = `
+
+                <div class="fw-semibold mb-2">
+
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+
+                    Stock limit exceeded.
+
+                </div>
+
+
+                <div class="small mb-3">
+
+                    <div class="mb-1">
+
+                        Current stock:
+                        <strong>
+                            ${this.formatQuantity(
+                                currentStock
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="mb-1">
+
+                        Remaining quantity to receive:
+                        <strong>
+                            ${this.formatQuantity(
+                                remainingQuantity
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="mb-1">
+
+                        Required maximum stock:
+                        <strong>
+                            ${this.formatQuantity(
+                                requiredMaximum
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="mb-1">
+
+                        Current maximum stock:
+                        <strong>
+                            ${this.formatQuantity(
+                                maximumStock
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        Maximum stock increase required:
+                        <strong>
+                            ${this.formatQuantity(
+                                maximumIncrease
+                            )}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger increase-max-stock-btn"
+                    data-product-id="${productId}"
+                    data-product-name="${this.escapeHtml(
+                        productName
+                    )}"
+                    data-current-stock="${currentStock}"
+                    data-maximum-stock="${maximumStock}"
+                    data-remaining="${remainingQuantity}"
+                    data-required-maximum="${requiredMaximum}"
+                    data-maximum-increase="${maximumIncrease}"
+                >
+
+                    <i class="bi bi-box-seam me-1"></i>
+
+                    Increase Maximum Stock
+
+                </button>
+
+            `;
+
+
+            stockAlert.classList.remove(
+                'd-none'
             );
 
+            /*
+            |--------------------------------------------------------------------------
+            | Scroll To Stock Alert
+            |--------------------------------------------------------------------------
+            */
 
-        error.className =
-            'invalid-feedback goods-received-stock-error';
+            setTimeout(
+                () => {
 
-
-        error.innerHTML = `
-
-            <div class="mb-2">
-
-                Stock limit exceeded.
-                Current stock
-                (${this.formatQuantity(currentStock)})
-                +
-                receiving
-                (${this.formatQuantity(receivedQuantity)})
-                =
-                ${this.formatQuantity(totalStock)},
-                but maximum stock is
-                ${this.formatQuantity(maximumStock)}.
-
-            </div>
+                    const modalBody =
+                        this.elements.goodsReceivedModal
+                            ?.querySelector(
+                                '.modal-body'
+                            );
 
 
-            <a
-                href="/products"
-                target="_blank"
-                class="btn btn-sm btn-outline-danger"
-            >
+                    if (modalBody) {
 
-                <i class="bi bi-box-seam me-1"></i>
-
-                Manage Product Stock
-
-            </a>
-
-        `;
+                        const alertTop =
+                            stockAlert.offsetTop;
 
 
-        input.parentElement.appendChild( 
-            error
-        );
+                        modalBody.scrollTo({
+
+                            top:
+                                Math.max(
+                                    alertTop - 20,
+                                    0
+                                ),
+
+                            behavior:
+                                'smooth'
+
+                        });
+
+                    }
+                    else {
+
+                        stockAlert.scrollIntoView({
+
+                            behavior:
+                                'smooth',
+
+                            block:
+                                'center'
+
+                        });
+
+                    }
+
+                },
+                50
+            );
+
+        }
 
 
         return false;
@@ -5329,10 +6247,15 @@ validateGoodsReceivedStock(
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Valid
+    |--------------------------------------------------------------------------
+    */
+
     return true;
 
 },
-
 /*
 |--------------------------------------------------------------------------
 | Clear Goods Received Order
@@ -9113,6 +10036,11 @@ async openGoodsReceivedModal(
 
 async submitGoodsReceived()
 {
+
+    console.log(
+    '>>> submitGoodsReceived() CALLED',
+    new Date().toISOString()
+);
 
     /*
     |--------------------------------------------------------------------------

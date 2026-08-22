@@ -142,19 +142,22 @@
                 Action
             ======================================================= --}}
 
-            <td class="text-end">
+          <td class="text-end">
 
-                <button
-                    type="button"
-                    class="btn btn-light btn-sm purchase-action-trigger"
-                    data-type="received"
-                    data-id="{{ $record->id }}"
-                    data-reference="{{ $record->receipt_number ?? '' }}"
-                >
+                @permission('purchases.view')
 
-                    <i class="bi bi-three-dots"></i>
+                    <button
+                        type="button"
+                        class="btn btn-light btn-sm goods-received-view-btn"
+                        data-id="{{ $record->id }}"
+                        title="View Goods Received"
+                    >
 
-                </button>
+                        <i class="bi bi-eye"></i>
+
+                    </button>
+
+                @endpermission
 
             </td>
 

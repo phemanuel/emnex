@@ -215,6 +215,12 @@
                     =================================================== --}}
 
                     <div class="purchase-form-section mb-4">
+                        <div
+                            id="goodsReceivedStockAlert"
+                            class="alert alert-danger d-none mb-3"
+                            role="alert"
+                        >
+                        </div>
 
                         <div class="purchase-form-section-title mb-3">
 
@@ -382,3 +388,159 @@
 
 </div>
 
+<div
+    class="modal fade"
+    id="increaseMaxStockModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h5 class="modal-title">
+                        Increase Maximum Stock
+                    </h5>
+
+                    <div class="small text-muted">
+                        Increase the maximum stock directly
+                        without leaving Goods Received.
+                    </div>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <input
+                    type="hidden"
+                    id="increaseMaxStockProductId"
+                >
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Product
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="increaseMaxStockProductName"
+                        readonly
+                    >
+
+                </div>
+
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Current Stock
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="increaseMaxStockCurrent"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Current Maximum
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="increaseMaxStockMaximum"
+                            readonly
+                        >
+
+                    </div>
+
+                </div>
+
+
+              <div class="mt-3">
+
+                    <label
+                        for="increaseMaxStockValue"
+                        class="form-label"
+                    >
+                        New Maximum Stock
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="increaseMaxStockValue"
+                        readonly
+                    >
+
+                    <div
+                        class="form-text"
+                        id="increaseMaxStockHelp"
+                    ></div>
+
+                </div>
+
+
+                <div
+                    id="increaseMaxStockError"
+                    class="alert alert-danger d-none mt-3 mb-0"
+                ></div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-light"
+                    data-bs-dismiss="modal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="increaseMaxStockSubmitBtn"
+                >
+
+                    <i class="bi bi-arrow-up-circle me-1"></i>
+
+                    Update Maximum Stock
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

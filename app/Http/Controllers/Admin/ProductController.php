@@ -15,6 +15,8 @@ use Illuminate\View\View;
 use App\Models\Branch;
 use App\Models\ProductStock;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends BaseController
 {
@@ -1545,6 +1547,221 @@ class ProductController extends BaseController
         unlink(
             public_path('uploads/products/' . $image)
         );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update Maximum Stock
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Update product maximum stock.
+     */
+    public function updateMaximumStock(
+        Request $request,
+        Product $product
+    ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('products.update')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to update products.',
+
+            ], 403);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Company Validation
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $product->company_id !==
+            $this->companyId
+        ) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Product not found.',
+
+            ], 404);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
+        */
+
+        $validated =
+            $request->validate([
+
+                'maximum_stock' => [
+                    'required',
+                    'numeric',
+                    'min:0',
+                ],
+
+            ]);
+
+
+        try {
+
+            DB::transaction(
+
+                function () use (
+                    $product,
+                    $validated
+                ) {
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Product
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $oldValues =
+                        $product->toArray();
+
+
+                    $product->maximum_stock =
+                        $validated[
+                            'maximum_stock'
+                        ];
+
+
+                    $product->save();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Product Stock
+                    |--------------------------------------------------------------------------
+                    |
+                    | Keep ProductStock.maximum_stock synchronized
+                    | with Product.maximum_stock.
+                    |
+                    */
+
+                    ProductStock::query()
+                        ->where(
+                            'company_id',
+                            $this->companyId
+                        )
+                        ->where(
+                            'product_id',
+                            $product->id
+                        )
+                        ->update([
+
+                            'maximum_stock' =>
+                                $validated[
+                                    'maximum_stock'
+                                ],
+
+                        ]);
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Activity Log
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $newValues =
+                        $product
+                            ->fresh()
+                            ->toArray();
+
+
+                    $this->activityLogger->log(
+
+                        'Products',
+
+                        'Updated',
+
+                        'Updated maximum stock for product: ' .
+                            $product->name,
+
+                        $product,
+
+                        $oldValues,
+
+                        $newValues
+
+                    );
+
+                }
+
+            );
+
+
+            return response()->json([
+
+                'success' =>
+                    true,
+
+                'type' =>
+                    'success',
+
+                'message' =>
+                    'Maximum stock updated successfully.',
+
+            ]);
+
+        }
+        catch (\Throwable $e) {
+
+            Log::error(
+                'Maximum stock update failed.',
+                [
+
+                    'company_id' =>
+                        $this->companyId,
+
+                    'product_id' =>
+                        $product->id,
+
+                    'error' =>
+                        $e->getMessage(),
+
+                ]
+            );
+
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Unable to update maximum stock.',
+
+            ], 500);
+
+        }
+
     }
 
 

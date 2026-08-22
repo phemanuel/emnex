@@ -301,6 +301,9 @@ Route::prefix('products')
         Route::get('/next-code','nextCode')
         ->name('next-code');
 
+        Route::put('/{product}/maximum-stock', 'updateMaximumStock')
+        ->name('maximum-stock');
+
     });
 
 
@@ -593,6 +596,9 @@ Route::prefix('products')
         Route::get('/orders/{id}/receiving-details',[PurchaseController::class, 'orderReceivingDetails'])
         ->name('purchase.orders.receiving-details');
 
+        Route::get('/received/{id}/details', [PurchaseController::class, 'receivedDetails'])
+        ->name('purchasing.received.details');
+
         Route::post('/received', [PurchaseController::class, 'storeReceived'])
         ->name('purchase.received.store');
 
@@ -601,6 +607,7 @@ Route::prefix('products')
 
         Route::delete('/received/{id}', [PurchaseController::class, 'destroyReceived'])
         ->name('purchase.received.destroy');
+
         /*
         |--------------------------------------------------------------------------
         | Purchase Returns

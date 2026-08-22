@@ -3081,6 +3081,213 @@ public function orderDetails(
 
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Goods Received Details
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return Goods Received details.
+     */
+    public function receivedDetails(
+        int $id
+    ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('purchases.view')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to view goods received.',
+
+            ], 403);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Goods Received
+        |--------------------------------------------------------------------------
+        */
+
+        $goodsReceived =
+            GoodsReceived::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->with([
+                    'supplier',
+                    'branch',
+                    'purchaseOrder',
+                    'receivedBy',
+                    'items.product',
+                ])
+                ->find($id);
+
+
+        if (!$goodsReceived) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Goods received record not found.',
+
+            ], 404);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Items
+        |--------------------------------------------------------------------------
+        */
+
+        $items =
+            $goodsReceived->items->map(
+                function ($item) {
+
+                    return [
+
+                        'id' =>
+                            $item->id,
+
+                        'purchase_order_item_id' =>
+                            $item->purchase_order_item_id,
+
+                        'product_id' =>
+                            $item->product_id,
+
+                        'product_name' =>
+                            $item->product?->name
+                                ?? 'Unknown Product',
+
+                        'product_code' =>
+                            $item->product?->product_code
+                                ?? $item->product?->sku
+                                ?? '—',
+
+                        'ordered_quantity' =>
+                            (float)
+                            $item->ordered_quantity,
+
+                        'received_quantity' =>
+                            (float)
+                            $item->received_quantity,
+
+                        'unit_cost' =>
+                            (float)
+                            $item->unit_cost,
+
+                        'total' =>
+                            (float)
+                            $item->total,
+
+                    ];
+
+                }
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
+        return response()->json([
+
+            'success' =>
+                true,
+
+            'data' => [
+
+                'id' =>
+                    $goodsReceived->id,
+
+                'receipt_number' =>
+                    $goodsReceived->receipt_number,
+
+                'received_date' =>
+                    $goodsReceived->received_date,
+
+                'status' =>
+                    $goodsReceived->status,
+
+                'notes' =>
+                    $goodsReceived->notes,
+
+                'received_by' =>
+                    $goodsReceived->receivedBy?->name
+                        ?? '—',
+
+                'supplier' => [
+
+                    'id' =>
+                        $goodsReceived->supplier?->id,
+
+                    'name' =>
+                        $goodsReceived->supplier?->name
+                            ?? '—',
+
+                ],
+
+                'branch' => [
+
+                    'id' =>
+                        $goodsReceived->branch?->id,
+
+                    'name' =>
+                        $goodsReceived->branch?->name
+                            ?? '—',
+
+                ],
+
+                'purchase_order' => [
+
+                    'id' =>
+                        $goodsReceived->purchaseOrder?->id,
+
+                    'order_number' =>
+                        $goodsReceived->purchaseOrder?->order_number
+                            ?? '—',
+
+                    'status' =>
+                        $goodsReceived->purchaseOrder?->status
+                            ?? '—',
+
+                ],
+
+                'items' =>
+                    $items,
+
+                'total' =>
+                    (float)
+                    $goodsReceived->items->sum(
+                        'total'
+                    ),
+
+            ],
+
+        ]);
+
+    }
+
 
     /*
     |--------------------------------------------------------------------------
