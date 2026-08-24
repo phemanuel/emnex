@@ -68,6 +68,29 @@
 
                         <div class="row g-3">
 
+                        <div class="col-md-6">
+
+                                <label
+                                    for="purchaseReturnPurchaseOrder"
+                                    class="form-label"
+                                >
+                                    Purchase Order
+                                </label>
+
+                                <select
+                                    id="purchaseReturnPurchaseOrder"
+                                    name="purchase_order_id"
+                                    class="form-select"
+                                >
+
+                                    <option value="">
+                                        Select purchase order
+                                    </option>
+
+                                </select>
+
+                            </div>
+
                             <div class="col-md-6">
 
                                 <label
@@ -117,31 +140,7 @@
 
                                 </select>
 
-                            </div>
-
-
-                            <div class="col-md-6">
-
-                                <label
-                                    for="purchaseReturnPurchaseOrder"
-                                    class="form-label"
-                                >
-                                    Purchase Order
-                                </label>
-
-                                <select
-                                    id="purchaseReturnPurchaseOrder"
-                                    name="purchase_order_id"
-                                    class="form-select"
-                                >
-
-                                    <option value="">
-                                        Select purchase order
-                                    </option>
-
-                                </select>
-
-                            </div>
+                            </div>                           
 
 
                             <div class="col-md-6">

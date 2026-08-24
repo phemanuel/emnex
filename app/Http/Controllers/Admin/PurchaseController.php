@@ -3224,17 +3224,30 @@ public function orderDetails(
                     $goodsReceived->receipt_number,
 
                 'received_date' =>
-                    $goodsReceived->received_date,
+                    $goodsReceived->received_date
+                        ? $goodsReceived->received_date->format(
+                            'Y-m-d'
+                        )
+                        : null,
+
+                'created_at' =>
+                    $goodsReceived->created_at
+                        ? $goodsReceived->created_at->toIso8601String()
+                        : null,
 
                 'status' =>
                     $goodsReceived->status,
 
                 'notes' =>
                     $goodsReceived->notes,
-
                 'received_by' =>
-                    $goodsReceived->receivedBy?->name
-                        ?? '—',
+                    $goodsReceived->receivedBy
+                        ? trim(
+                            $goodsReceived->receivedBy->first_name .
+                            ' ' .
+                            $goodsReceived->receivedBy->last_name
+                        )
+                        : '—',
 
                 'supplier' => [
 
@@ -4961,6 +4974,104 @@ public function orderDetails(
 
         }
 
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Purchase Return - Purchase Orders
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return purchase orders that have received goods available for return.
+     */
+    public function returnPurchaseOrders(): JsonResponse
+    {
+        if (! canAccess('purchases.view')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to view purchase orders.',
+
+            ], 403);
+
+        }
+
+
+        $receivedPurchaseOrderIds =
+            GoodsReceived::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->whereNotNull(
+                    'purchase_order_id'
+                )
+                ->select(
+                    'purchase_order_id'
+                )
+                ->distinct();
+
+
+        $orders =
+            PurchaseOrder::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->whereIn(
+                    'id',
+                    $receivedPurchaseOrderIds
+                )
+                ->with([
+                    'supplier',
+                    'branch',
+                ])
+                ->latest('id')
+                ->get();
+
+
+        return response()->json([
+
+            'success' =>
+                true,
+
+            'data' =>
+                $orders->map(
+                    function ($order) {
+
+                        return [
+
+                            'id' =>
+                                $order->id,
+
+                            'order_number' =>
+                                $order->order_number,
+
+                            'supplier_id' =>
+                                $order->supplier_id,
+
+                            'supplier_name' =>
+                                $order->supplier?->name
+                                    ?? 'Unknown Supplier',
+
+                            'branch_id' =>
+                                $order->branch_id,
+
+                            'branch_name' =>
+                                $order->branch?->name
+                                    ?? 'Unknown Branch',
+
+                        ];
+
+                    }
+                )->values(),
+
+        ]);
     }
 
 

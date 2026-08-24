@@ -2618,3 +2618,252 @@
     }
 
 }
+
+/* ==========================================================================
+   Goods Received Inspector
+   ========================================================================== */
+
+.emnex-inspector {
+    width: min(460px, 100vw);
+    background: #f8fafc;
+    border-left: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.emnex-inspector-header {
+    padding: 1.15rem 1.25rem;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+}
+
+.emnex-inspector-eyebrow {
+    margin-bottom: 0.2rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+
+.emnex-inspector-title {
+    max-width: 320px;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.emnex-inspector-body {
+    padding: 1.1rem 1.1rem 2rem;
+}
+
+.emnex-inspector-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.emnex-inspector-label,
+.emnex-detail-label,
+.emnex-summary-label,
+.emnex-activity-label {
+    display: block;
+    margin-bottom: 0.28rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #94a3b8;
+}
+
+.emnex-status-badge {
+    padding: 0.42rem 0.68rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.emnex-inspector-section {
+    margin-bottom: 1.2rem;
+}
+
+.emnex-inspector-section:last-child {
+    margin-bottom: 0;
+}
+
+.emnex-inspector-section-title {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.emnex-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.emnex-detail-card {
+    min-width: 0;
+    padding: 0.85rem 0.9rem;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 13px;
+}
+
+.emnex-detail-value {
+    display: block;
+    overflow: hidden;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: #1e293b;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.emnex-received-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.emnex-received-items .purchase-inspector-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 0.85rem;
+    align-items: center;
+    padding: 0.85rem 0.9rem;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 13px;
+}
+
+.emnex-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.emnex-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 13px;
+}
+
+.emnex-summary-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border-radius: 10px;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.emnex-summary-value {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #0f172a;
+}
+
+.emnex-notes-box {
+    min-height: 72px;
+    padding: 0.9rem 1rem;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 13px;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: #475569;
+}
+
+.emnex-activity-card {
+    padding: 0.25rem 0.9rem;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 13px;
+}
+
+.emnex-activity-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.8rem 0;
+}
+
+.emnex-activity-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border-radius: 9px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.85rem;
+}
+
+.emnex-activity-value {
+    display: block;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: #1e293b;
+}
+
+.emnex-activity-divider {
+    height: 1px;
+    background: rgba(15, 23, 42, 0.06);
+}
+
+.emnex-empty-state {
+    padding: 1.4rem 1rem;
+    text-align: center;
+    background: #ffffff;
+    border: 1px dashed rgba(15, 23, 42, 0.12);
+    border-radius: 13px;
+}
+
+.emnex-empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 0.6rem;
+    border-radius: 11px;
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+@media (max-width: 480px) {
+
+    .emnex-inspector {
+        width: 100%;
+    }
+
+    .emnex-detail-grid,
+    .emnex-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .emnex-received-items .purchase-inspector-item {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.45rem;
+    }
+
+}

@@ -323,7 +323,7 @@ const Purchase = {
             increaseMaxStockSubmitBtn:
                 document.getElementById(
                     'increaseMaxStockSubmitBtn'
-                ),
+                ),   
 
 
             /*
@@ -372,6 +372,70 @@ const Purchase = {
                     'purchaseReturnsDateTo'
                 ),
 
+            newPurchaseReturnBtn:
+                document.getElementById(
+                    'newPurchaseReturnBtn'
+                ),
+
+            returnModal:
+                document.getElementById(
+                    'purchaseReturnModal'
+                ),
+
+            returnForm:
+                document.getElementById(
+                    'purchaseReturnForm'
+                ),
+
+            purchaseReturnId:
+                document.getElementById(
+                    'purchaseReturnId'
+                ),
+
+            purchaseReturnSupplier:
+                document.getElementById(
+                    'purchaseReturnSupplier'
+                ),
+
+            purchaseReturnBranch:
+                document.getElementById(
+                    'purchaseReturnBranch'
+                ),
+
+            purchaseReturnPurchaseOrder:
+                document.getElementById(
+                    'purchaseReturnPurchaseOrder'
+                ),
+
+            purchaseReturnDate:
+                document.getElementById(
+                    'purchaseReturnDate'
+                ),
+
+            purchaseReturnItems:
+                document.getElementById(
+                    'purchaseReturnItems'
+                ),
+
+            purchaseReturnNotes:
+                document.getElementById(
+                    'purchaseReturnNotes'
+                ),
+
+            purchaseReturnSubmitBtn:
+                document.getElementById(
+                    'purchaseReturnSubmitBtn'
+                ),
+
+            purchaseReturnSubmitText:
+                document.getElementById(
+                    'purchaseReturnSubmitText'
+                ),
+
+            purchaseReturnSubmitSpinner:
+                document.getElementById(
+                    'purchaseReturnSubmitSpinner'
+                ),
 
             /*
             |--------------------------------------------------------------------------
@@ -550,74 +614,7 @@ const Purchase = {
                 document.getElementById(
                     'goodsReceivedSubmitSpinner'
                 ),
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Return Modal
-            |--------------------------------------------------------------------------
-            */
-
-            returnModal:
-                document.getElementById(
-                    'purchaseReturnModal'
-                ),
-
-            returnForm:
-                document.getElementById(
-                    'purchaseReturnForm'
-                ),
-
-            returnId:
-                document.getElementById(
-                    'purchaseReturnId'
-                ),
-
-            returnOrder:
-                document.getElementById(
-                    'purchaseReturnOrder'
-                ),
-
-            returnSupplier:
-                document.getElementById(
-                    'purchaseReturnSupplier'
-                ),
-
-            returnBranch:
-                document.getElementById(
-                    'purchaseReturnBranch'
-                ),
-
-            returnDate:
-                document.getElementById(
-                    'purchaseReturnDate'
-                ),
-
-            returnReference:
-                document.getElementById(
-                    'purchaseReturnReference'
-                ),
-
-            returnReason:
-                document.getElementById(
-                    'purchaseReturnReason'
-                ),
-
-            returnNotes:
-                document.getElementById(
-                    'purchaseReturnNotes'
-                ),
-
-            returnItemsContainer:
-                document.getElementById(
-                    'purchaseReturnItems'
-                ),
-
-            returnTotal:
-                document.getElementById(
-                    'purchaseReturnTotal'
-                ),
-
+            
 
            /*
             |--------------------------------------------------------------------------
@@ -730,7 +727,7 @@ const Purchase = {
                     'inspectorPurchaseOrderUpdatedAt'
                 ),
 
-            /*
+           /*
             |--------------------------------------------------------------------------
             | Goods Received Inspector
             |--------------------------------------------------------------------------
@@ -746,7 +743,20 @@ const Purchase = {
                     'goodsReceivedInspectorContent'
                 ),
 
+            inspectorGoodsReceivedReceivedDate:
+                document.getElementById(
+                    'inspectorGoodsReceivedReceivedDate'
+                ),
 
+            inspectorGoodsReceivedCreatedBy:
+                document.getElementById(
+                    'inspectorGoodsReceivedCreatedBy'
+                ),
+
+            inspectorGoodsReceivedCreatedAt:
+                document.getElementById(
+                    'inspectorGoodsReceivedCreatedAt'
+                ),
             /*
             |--------------------------------------------------------------------------
             | Return Inspector
@@ -1168,11 +1178,43 @@ const Purchase = {
 
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | New Purchase Return
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.newPurchaseReturnBtn?.addEventListener(
+            'click',
+            () => {
+
+                this.openPurchaseReturnModal();
+
+            }
+        );
+
         this.elements.newGoodsReceivedBtn?.addEventListener(
             'click',
             () => {
 
                 this.openGoodsReceivedModal();
+
+            }
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Return Purchase Order
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.purchaseReturnPurchaseOrder?.addEventListener(
+            'change',
+            () => {
+
+                this.loadPurchaseReturnOrder(
+                    this.elements.purchaseReturnPurchaseOrder.value
+                );
 
             }
         );
@@ -1189,6 +1231,50 @@ const Purchase = {
 
                 this.loadGoodsReceivedOrder(
                     this.elements.goodsReceivedOrder.value
+                );
+
+            }
+        );
+
+         /*
+        |--------------------------------------------------------------------------
+        | Goods Received - View
+        |--------------------------------------------------------------------------
+        */
+
+        document.addEventListener(
+            'click',
+            event => {
+
+                const button =
+                    event.target.closest(
+                        '.goods-received-view-btn'
+                    );
+
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                event.preventDefault();
+
+
+                const id =
+                    button.dataset.id;
+
+
+                if (!id) {
+
+                    return;
+
+                }
+
+
+                this.openGoodsReceivedInspector(
+                    id
                 );
 
             }
@@ -4276,6 +4362,296 @@ formatQuantity(
 
     },
 
+ /*
+|--------------------------------------------------------------------------
+| Open Purchase Return Modal
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Open Purchase Return modal for a new return.
+ */
+async openPurchaseReturnModal()
+{
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Form
+    |--------------------------------------------------------------------------
+    */
+
+    this.elements.returnForm?.reset();
+
+
+    this.elements.purchaseReturnId.value =
+        '';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Items
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.purchaseReturnItems
+    ) {
+
+        this.elements.purchaseReturnItems.innerHTML = `
+
+            <tr
+                id="purchaseReturnEmptyItems"
+            >
+
+                <td
+                    colspan="5"
+                    class="text-center text-muted py-4"
+                >
+
+                    <i
+                        class="bi bi-arrow-return-left fs-4 d-block mb-2"
+                    ></i>
+
+                    No products selected.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Return Date
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.purchaseReturnDate
+    ) {
+
+        this.elements.purchaseReturnDate.value =
+            new Date()
+                .toISOString()
+                .split('T')[0];
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Validation
+    |--------------------------------------------------------------------------
+    */
+
+    this.clearValidation(
+        this.elements.returnForm
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Modal Title
+    |--------------------------------------------------------------------------
+    */
+
+    const title =
+        document.getElementById(
+            'purchaseReturnModalLabel'
+        );
+
+
+    if (title) {
+
+        title.textContent =
+            'Create Purchase Return';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Load Approved Purchase Orders
+    |--------------------------------------------------------------------------
+    */
+
+    await this.loadPurchaseReturnPurchaseOrders();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Show Modal
+    |--------------------------------------------------------------------------
+    */
+
+    this.returnModalInstance?.show();
+
+},
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Load Purchase Return Purchase Orders
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Load purchase orders available for purchase returns.
+ */
+async loadPurchaseReturnPurchaseOrders()
+{
+
+    const select =
+        this.elements.purchaseReturnPurchaseOrder;
+
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    select.innerHTML = `
+        <option value="">
+            Loading purchase orders...
+        </option>
+    `;
+
+
+    select.disabled =
+        true;
+
+
+    try {
+
+        const response =
+            await fetch(
+                '/purchase/returns/purchase-orders',
+                {
+                    headers: {
+                        'Accept':
+                            'application/json'
+                    }
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to load purchase orders.'
+            );
+
+        }
+
+
+        select.innerHTML = `
+            <option value="">
+                Select purchase order
+            </option>
+        `;
+
+
+        if (
+            !result.data ||
+            !result.data.length
+        ) {
+
+            select.innerHTML = `
+                <option value="">
+                    No received purchase orders available
+                </option>
+            `;
+
+            return;
+
+        }
+
+
+        result.data.forEach(
+            order => {
+
+                const option =
+                    document.createElement(
+                        'option'
+                    );
+
+
+                option.value =
+                    order.id;
+
+
+                option.textContent =
+                    `${order.supplier_name ?? 'Unknown Supplier'} — ${order.order_number}`;
+
+
+                option.dataset.supplierId =
+                    order.supplier_id ?? '';
+
+
+                option.dataset.supplierName =
+                    order.supplier_name ?? '';
+
+
+                option.dataset.branchId =
+                    order.branch_id ?? '';
+
+
+                option.dataset.branchName =
+                    order.branch_name ?? '';
+
+
+                select.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            'Purchase return purchase order loading error:',
+            error
+        );
+
+
+        select.innerHTML = `
+            <option value="">
+                Unable to load purchase orders
+            </option>
+        `;
+
+
+        this.notify(
+            error.message,
+            'error'
+        );
+
+    }
+    finally {
+
+        select.disabled =
+            false;
+
+    }
+
+},
+
      /*
     |--------------------------------------------------------------------------
     | Open Purchase Action Menu
@@ -6601,54 +6977,94 @@ updateOrderStats(
 },
 
 
+   /*
+|--------------------------------------------------------------------------
+| Update Goods Received Stats
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Update Goods Received tab count and KPI statistics.
+ */
+updateGoodsReceivedStats(
+    stats
+)
+{
+
+    if (!stats) {
+
+        return;
+
+    }
+
+
     /*
     |--------------------------------------------------------------------------
-    | Update Goods Received Stats
+    | Tab Count
     |--------------------------------------------------------------------------
     */
 
-    updateGoodsReceivedStats(
-        stats
-    )
-    {
-
-        if (!stats) {
-            return;
-        }
+    this.setText(
+        'purchaseReceivedCount',
+        stats.total ??
+        0
+    );
 
 
-        this.setText(
-            'goodsReceivedCount',
-            stats.received ??
-            stats.total ??
+    /*
+    |--------------------------------------------------------------------------
+    | Total Received
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseReceivedTotal',
+        stats.total ??
+        0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pending
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseReceivedPending',
+        stats.pending ??
+        0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Completed
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseReceivedCompleted',
+        stats.completed ??
+        0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Received Value
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseReceivedValue',
+        this.formatMoney(
+            stats.total_value ??
             0
-        );
+        )
+    );
 
-
-        this.setText(
-            'goodsReceivedPending',
-            stats.pending ??
-            0
-        );
-
-
-        this.setText(
-            'goodsReceivedCompleted',
-            stats.completed ??
-            0
-        );
-
-
-        this.setText(
-            'goodsReceivedValue',
-            this.formatMoney(
-                stats.value ??
-                stats.total_value ??
-                0
-            )
-        );
-
-    },
+},
 
 
     /*
@@ -7791,79 +8207,615 @@ renderPurchaseOrderInspectorItems(
             .join('');
 
 },
-    /*
-    |--------------------------------------------------------------------------
-    | Open Goods Received Inspector
-    |--------------------------------------------------------------------------
-    */
+ /*
+|--------------------------------------------------------------------------
+| Open Goods Received Inspector
+|--------------------------------------------------------------------------
+*/
 
-    async openGoodsReceivedInspector(
-        id
-    )
-    {
+/**
+ * Open goods received details in the inspector.
+ */
+async openGoodsReceivedInspector(
+    id
+)
+{
+
+    if (!id) {
+
+        return;
+
+    }
+
+
+    if (
+        !this.goodsReceivedInspectorInstance
+    ) {
+
+        console.error(
+            'Goods Received inspector is not initialized.'
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/purchase/received/${id}/details`,
+                {
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest',
+
+                    }
+                }
+            );
+
+
+        const result =
+            await response.json();
+
 
         if (
-            !this.goodsReceivedInspectorInstance
+            !response.ok ||
+            !result.success
         ) {
-            return;
+
+            throw new Error(
+                result.message ??
+                'Unable to load goods received details.'
+            );
+
         }
 
 
-        this.showInspectorLoading(
-            this.elements.goodsReceivedInspectorContent
+        this.populateGoodsReceivedInspector(
+            result.data
         );
 
 
         this.goodsReceivedInspectorInstance.show();
 
+    }
+    catch (error) {
 
-        try {
+        console.error(
+            'Failed to load goods received details:',
+            error
+        );
 
-            const response =
-                await fetch(
-                    `/purchase/goods-received/${id}/details`,
-                    {
-                        headers: {
-                            'Accept':
-                                'application/json'
-                        }
+
+        if (
+            typeof this.notify ===
+            'function'
+        ) {
+
+            this.notify(
+                error.message,
+                'error'
+            );
+
+        }
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Populate Goods Received Inspector
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Populate goods received inspector details.
+ */
+populateGoodsReceivedInspector(
+    record
+)
+{
+
+    if (!record) {
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header
+    |--------------------------------------------------------------------------
+    */
+
+    const label =
+        document.getElementById(
+            'goodsReceivedInspectorLabel'
+        );
+
+
+    const status =
+        document.getElementById(
+            'inspectorGoodsReceivedStatus'
+        );
+
+
+    if (label) {
+
+        label.textContent =
+            record.receipt_number ??
+            '—';
+
+    }
+
+
+    if (status) {
+
+        const statusValue =
+            record.status ??
+            '—';
+
+
+        status.textContent =
+            statusValue;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Status Styling
+        |--------------------------------------------------------------------------
+        */
+
+        const normalizedStatus =
+            String(
+                statusValue
+            ).toLowerCase();
+
+
+        if (
+            normalizedStatus ===
+            'completed'
+        ) {
+
+            status.className =
+                'badge bg-success-subtle text-success';
+
+        }
+        else if (
+            normalizedStatus ===
+            'pending'
+        ) {
+
+            status.className =
+                'badge bg-warning-subtle text-warning';
+
+        }
+        else if (
+            normalizedStatus ===
+            'cancelled'
+        ) {
+
+            status.className =
+                'badge bg-danger-subtle text-danger';
+
+        }
+        else {
+
+            status.className =
+                'badge bg-secondary-subtle text-secondary';
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Purchase Order
+    |--------------------------------------------------------------------------
+    */
+
+    const purchaseOrder =
+        document.getElementById(
+            'inspectorGoodsReceivedOrder'
+        );
+
+
+    if (purchaseOrder) {
+
+        purchaseOrder.textContent =
+            record.purchase_order?.order_number ??
+            '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supplier
+    |--------------------------------------------------------------------------
+    */
+
+    const supplier =
+        document.getElementById(
+            'inspectorGoodsReceivedSupplier'
+        );
+
+
+    if (supplier) {
+
+        supplier.textContent =
+            record.supplier?.name ??
+            '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    */
+
+    const branch =
+        document.getElementById(
+            'inspectorGoodsReceivedBranch'
+        );
+
+
+    if (branch) {
+
+        branch.textContent =
+            record.branch?.name ??
+            '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Received Date
+    |--------------------------------------------------------------------------
+    */
+
+    const receivedDate =
+        document.getElementById(
+            'inspectorGoodsReceivedDate'
+        );
+
+
+    if (receivedDate) {
+
+        receivedDate.textContent =
+            record.received_date
+                ? new Date(
+                    record.received_date
+                ).toLocaleDateString(
+                    'en-GB'
+                )
+                : '—';
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Received Items
+    |--------------------------------------------------------------------------
+    */
+
+    const itemsContainer =
+        document.getElementById(
+            'inspectorGoodsReceivedItems'
+        );
+
+
+    const items =
+        record.items ?? [];
+
+
+    if (itemsContainer) {
+
+        if (!items.length) {
+
+            itemsContainer.innerHTML = `
+
+                <div class="text-muted small">
+
+                    No items available.
+
+                </div>
+
+            `;
+
+        }
+        else {
+
+            itemsContainer.innerHTML =
+                items.map(
+                    item => {
+
+                        const productName =
+                            item.product_name ??
+                            'Unknown Product';
+
+
+                        const productCode =
+                            item.product_code ??
+                            '—';
+
+
+                        const orderedQuantity =
+                            parseFloat(
+                                item.ordered_quantity ??
+                                0
+                            ) || 0;
+
+
+                        const receivedQuantity =
+                            parseFloat(
+                                item.received_quantity ??
+                                0
+                            ) || 0;
+
+
+                        const unitCost =
+                            parseFloat(
+                                item.unit_cost ??
+                                0
+                            ) || 0;
+
+
+                        const total =
+                            parseFloat(
+                                item.total ??
+                                0
+                            ) || 0;
+
+
+                        return `
+
+                            <div
+                                class="purchase-inspector-item"
+                            >
+
+                                <div>
+
+                                    <div class="fw-semibold">
+
+                                        ${this.escapeHtml(
+                                            productName
+                                        )}
+
+                                    </div>
+
+
+                                    <div class="small text-muted">
+
+                                        ${this.escapeHtml(
+                                            productCode
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="text-end">
+
+                                    <div class="fw-semibold">
+
+                                        ${this.formatQuantity(
+                                            receivedQuantity
+                                        )}
+
+                                    </div>
+
+
+                                    <div class="small text-muted">
+
+                                        of
+                                        ${this.formatQuantity(
+                                            orderedQuantity
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="text-end">
+
+                                    <div class="fw-semibold">
+
+                                        ${this.formatMoney(
+                                            total
+                                        )}
+
+                                    </div>
+
+
+                                    <div class="small text-muted">
+
+                                        ${this.formatMoney(
+                                            unitCost
+                                        )} / unit
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
                     }
-                );
-
-
-            const result =
-                await response.json();
-
-
-            if (
-                !response.ok ||
-                !result.success
-            ) {
-
-                throw new Error(
-                    result.message ??
-                    'Unable to load goods received.'
-                );
-
-            }
-
-
-            this.renderGoodsReceivedInspector(
-                result.data
-            );
-
-        }
-        catch (error) {
-
-            this.showInspectorError(
-                this.elements.goodsReceivedInspectorContent,
-                error.message
-            );
+                ).join('');
 
         }
 
-    },
+    }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Summary
+    |--------------------------------------------------------------------------
+    */
+
+    const itemCount =
+        document.getElementById(
+            'inspectorGoodsReceivedItemCount'
+        );
+
+
+    const quantity =
+        document.getElementById(
+            'inspectorGoodsReceivedQuantity'
+        );
+
+
+    const totalQuantity =
+        items.reduce(
+            (
+                total,
+                item
+            ) => {
+
+                return total +
+                    (
+                        parseFloat(
+                            item.received_quantity ??
+                            0
+                        ) || 0
+                    );
+
+            },
+            0
+        );
+
+
+    if (itemCount) {
+
+        itemCount.textContent =
+            this.formatQuantity(
+                items.length
+            );
+
+    }
+
+
+    if (quantity) {
+
+        quantity.textContent =
+            this.formatQuantity(
+                totalQuantity
+            );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notes
+    |--------------------------------------------------------------------------
+    */
+
+    const notes =
+        document.getElementById(
+            'inspectorGoodsReceivedNotes'
+        );
+
+
+    if (notes) {
+
+        notes.textContent =
+            record.notes ??
+            '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Activity
+    |--------------------------------------------------------------------------
+    */
+
+    const receivedBy =
+        this.elements.inspectorGoodsReceivedCreatedBy;
+
+
+    // const receivedDate =
+    //     this.elements.inspectorGoodsReceivedReceivedDate;
+
+
+    const createdAt =
+        this.elements.inspectorGoodsReceivedCreatedAt;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Received By
+    |--------------------------------------------------------------------------
+    */
+
+    if (receivedBy) {
+
+        receivedBy.textContent =
+            record.received_by ??
+            '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Received Date
+    |--------------------------------------------------------------------------
+    */
+
+    // if (receivedDate) {
+
+    //     receivedDate.textContent =
+    //         record.received_date
+    //             ? new Date(
+    //                 record.received_date
+    //             ).toLocaleDateString(
+    //                 'en-GB'
+    //             )
+    //             : '—';
+
+    // }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Created
+    |--------------------------------------------------------------------------
+    */
+
+    if (createdAt) {
+
+        createdAt.textContent =
+            record.created_at
+                ? new Date(
+                    record.created_at
+                ).toLocaleString(
+                    'en-GB'
+                )
+                : '—';
+
+    }
+
+},
     /*
 |--------------------------------------------------------------------------
 | Show Initial Purchase Order Products
@@ -9520,6 +10472,178 @@ async deleteOrder(
 
 },
 
+/*
+|--------------------------------------------------------------------------
+| Load Purchase Return Order
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Populate supplier and branch from the selected purchase order.
+ */
+loadPurchaseReturnOrder(
+    orderId
+)
+{
+
+    const select =
+        this.elements.purchaseReturnPurchaseOrder;
+
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    const option =
+        select.options[
+            select.selectedIndex
+        ];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Supplier + Branch
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.purchaseReturnSupplier
+    ) {
+
+        this.elements.purchaseReturnSupplier.innerHTML = `
+
+            <option value="">
+                Select supplier
+            </option>
+
+        `;
+
+    }
+
+
+    if (
+        this.elements.purchaseReturnBranch
+    ) {
+
+        this.elements.purchaseReturnBranch.innerHTML = `
+
+            <option value="">
+                Select branch
+            </option>
+
+        `;
+
+    }
+
+
+    if (
+        !orderId ||
+        !option
+    ) {
+
+        return;
+
+    }
+
+
+    const supplierId =
+        option.dataset.supplierId ??
+        '';
+
+
+    const supplierName =
+        option.dataset.supplierName ??
+        '';
+
+
+    const branchId =
+        option.dataset.branchId ??
+        '';
+
+
+    const branchName =
+        option.dataset.branchName ??
+        '';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supplier
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        supplierId &&
+        this.elements.purchaseReturnSupplier
+    ) {
+
+        const supplierOption =
+            document.createElement(
+                'option'
+            );
+
+
+        supplierOption.value =
+            supplierId;
+
+
+        supplierOption.textContent =
+            supplierName ||
+            'Unknown Supplier';
+
+
+        supplierOption.selected =
+            true;
+
+
+        this.elements.purchaseReturnSupplier.appendChild(
+            supplierOption
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        branchId &&
+        this.elements.purchaseReturnBranch
+    ) {
+
+        const branchOption =
+            document.createElement(
+                'option'
+            );
+
+
+        branchOption.value =
+            branchId;
+
+
+        branchOption.textContent =
+            branchName ||
+            'Unknown Branch';
+
+
+        branchOption.selected =
+            true;
+
+
+        this.elements.purchaseReturnBranch.appendChild(
+            branchOption
+        );
+
+    }
+
+
+},
 
     /*
 |--------------------------------------------------------------------------

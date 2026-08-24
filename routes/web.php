@@ -615,6 +615,9 @@ Route::prefix('products')
 
         Route::get('/returns/table', [PurchaseController::class, 'returnTable'])
         ->name('purchase.returns.table');
+        
+        Route::get('/returns/purchase-orders', [PurchaseController::class, 'returnPurchaseOrders'])
+        ->name('purchase.returns.purchase-orders');
 
         Route::get('/returns/{id}/details', [PurchaseController::class, 'returnDetails'])
         ->name('purchase.returns.details');

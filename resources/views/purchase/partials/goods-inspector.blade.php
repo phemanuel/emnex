@@ -3,50 +3,75 @@
 ============================================================== --}}
 
 <div
-    class="offcanvas offcanvas-end"
+    class="offcanvas offcanvas-end emnex-inspector"
     tabindex="-1"
     id="goodsReceivedInspector"
 >
 
-    <div class="offcanvas-header border-bottom">
+    {{-- ==========================================================
+        Header
+    =========================================================== --}}
 
-        <div>
+    <div class="offcanvas-header emnex-inspector-header">
 
-            <div class="text-muted small mb-1">
+        <div class="min-w-0">
+
+            <div class="emnex-inspector-eyebrow">
                 Goods Received
             </div>
 
-            <h5
-                class="offcanvas-title fw-semibold"
-                id="goodsReceivedInspectorLabel"
-            >
-                —
-            </h5>
+            <div class="d-flex align-items-center gap-2">
+
+                <h5
+                    class="offcanvas-title emnex-inspector-title text-truncate"
+                    id="goodsReceivedInspectorLabel"
+                >
+                    —
+                </h5>
+
+            </div>
 
         </div>
 
+
         <button
             type="button"
-            class="btn-close"
+            class="btn-close flex-shrink-0"
             data-bs-dismiss="offcanvas"
+            aria-label="Close"
         ></button>
 
     </div>
 
 
-    <div class="offcanvas-body">
+    {{-- ==========================================================
+        Body
+    =========================================================== --}}
 
-        <div
-            class="d-flex align-items-center justify-content-between mb-4"
-        >
+    <div class="offcanvas-body emnex-inspector-body">
 
-            <span class="text-muted small">
-                Status
-            </span>
+        {{-- ======================================================
+            Status
+        ======================================================= --}}
+
+        <div class="emnex-inspector-status-row">
+
+            <div>
+
+                <div class="emnex-inspector-label">
+                    Receipt Status
+                </div>
+
+                <div class="small text-muted">
+                    Current processing status
+                </div>
+
+            </div>
+
 
             <span
                 id="inspectorGoodsReceivedStatus"
-                class="badge bg-secondary-subtle text-secondary"
+                class="badge bg-secondary-subtle text-secondary emnex-status-badge"
             >
                 —
             </span>
@@ -54,56 +79,77 @@
         </div>
 
 
-        <div class="purchase-inspector-card mb-4">
+        {{-- ======================================================
+            Receipt Summary
+        ======================================================= --}}
 
-            <div class="purchase-inspector-grid">
+        <div class="emnex-inspector-section">
 
-                <div>
+            <div class="emnex-inspector-section-title">
+                Receipt Information
+            </div>
 
-                    <span class="purchase-inspector-label">
+
+            <div class="emnex-detail-grid">
+
+                <div class="emnex-detail-card">
+
+                    <span class="emnex-detail-label">
                         Purchase Order
                     </span>
 
-                    <strong id="inspectorGoodsReceivedOrder">
+                    <strong
+                        id="inspectorGoodsReceivedOrder"
+                        class="emnex-detail-value"
+                    >
                         —
                     </strong>
 
                 </div>
 
 
-                <div>
+                <div class="emnex-detail-card">
 
-                    <span class="purchase-inspector-label">
+                    <span class="emnex-detail-label">
                         Supplier
                     </span>
 
-                    <strong id="inspectorGoodsReceivedSupplier">
+                    <strong
+                        id="inspectorGoodsReceivedSupplier"
+                        class="emnex-detail-value"
+                    >
                         —
                     </strong>
 
                 </div>
 
 
-                <div>
+                <div class="emnex-detail-card">
 
-                    <span class="purchase-inspector-label">
+                    <span class="emnex-detail-label">
                         Branch
                     </span>
 
-                    <strong id="inspectorGoodsReceivedBranch">
+                    <strong
+                        id="inspectorGoodsReceivedBranch"
+                        class="emnex-detail-value"
+                    >
                         —
                     </strong>
 
                 </div>
 
 
-                <div>
+                <div class="emnex-detail-card">
 
-                    <span class="purchase-inspector-label">
+                    <span class="emnex-detail-label">
                         Received Date
                     </span>
 
-                    <strong id="inspectorGoodsReceivedDate">
+                    <strong
+                        id="inspectorGoodsReceivedDate"
+                        class="emnex-detail-value"
+                    >
                         —
                     </strong>
 
@@ -114,52 +160,51 @@
         </div>
 
 
-        <div class="mb-4">
+        {{-- ======================================================
+            Received Items
+        ======================================================= --}}
 
-            <div class="purchase-inspector-heading">
-                Received Items
+        <div class="emnex-inspector-section">
+
+            <div
+                class="d-flex align-items-center justify-content-between mb-3"
+            >
+
+                <div>
+
+                    <div class="emnex-inspector-section-title mb-1">
+                        Received Items
+                    </div>
+
+                    <div class="small text-muted">
+                        Products included in this receipt
+                    </div>
+
+                </div>
+
             </div>
+
 
             <div
                 id="inspectorGoodsReceivedItems"
-                class="purchase-inspector-items"
+                class="emnex-received-items"
             >
 
-                <div class="text-muted small">
-                    No items available.
-                </div>
+                <div class="emnex-empty-state">
 
-            </div>
+                    <div class="emnex-empty-icon">
 
-        </div>
+                        <i class="bi bi-box-seam"></i>
 
+                    </div>
 
-        <div class="purchase-inspector-card mb-4">
+                    <div class="fw-semibold">
+                        No items available
+                    </div>
 
-            <div class="purchase-inspector-grid">
-
-                <div>
-
-                    <span class="purchase-inspector-label">
-                        Total Items
-                    </span>
-
-                    <strong id="inspectorGoodsReceivedItemCount">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span class="purchase-inspector-label">
-                        Total Quantity
-                    </span>
-
-                    <strong id="inspectorGoodsReceivedQuantity">
-                        0
-                    </strong>
+                    <div class="small text-muted">
+                        Receipt items will appear here.
+                    </div>
 
                 </div>
 
@@ -168,15 +213,89 @@
         </div>
 
 
-        <div class="mb-4">
+        {{-- ======================================================
+            Summary
+        ======================================================= --}}
 
-            <div class="purchase-inspector-heading">
+        <div class="emnex-inspector-section">
+
+            <div class="emnex-inspector-section-title mb-3">
+                Receipt Summary
+            </div>
+
+
+            <div class="emnex-summary-grid">
+
+                <div class="emnex-summary-card">
+
+                    <div class="emnex-summary-icon">
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="emnex-summary-label">
+                            Total Items
+                        </span>
+
+                        <strong
+                            id="inspectorGoodsReceivedItemCount"
+                            class="emnex-summary-value"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="emnex-summary-card">
+
+                    <div class="emnex-summary-icon">
+
+                        <i class="bi bi-stack"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="emnex-summary-label">
+                            Total Quantity
+                        </span>
+
+                        <strong
+                            id="inspectorGoodsReceivedQuantity"
+                            class="emnex-summary-value"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {{-- ======================================================
+            Notes
+        ======================================================= --}}
+
+        <div class="emnex-inspector-section">
+
+            <div class="emnex-inspector-section-title mb-3">
                 Notes
             </div>
 
+
             <div
                 id="inspectorGoodsReceivedNotes"
-                class="text-muted small"
+                class="emnex-notes-box"
             >
                 —
             </div>
@@ -184,36 +303,72 @@
         </div>
 
 
-        <div class="purchase-inspector-card">
+        {{-- ======================================================
+            Activity
+        ======================================================= --}}
 
-            <div class="purchase-inspector-heading">
+        <div class="emnex-inspector-section">
+
+            <div class="emnex-inspector-section-title mb-3">
                 Activity
             </div>
 
-            <div class="purchase-inspector-meta">
 
-                <div>
+            <div class="emnex-activity-card">
 
-                    <span>
-                        Received By
-                    </span>
+                <div class="emnex-activity-item">
 
-                    <strong id="inspectorGoodsReceivedCreatedBy">
-                        —
-                    </strong>
+                    <div class="emnex-activity-icon">
+
+                        <i class="bi bi-person-check"></i>
+
+                    </div>
+
+
+                    <div class="flex-grow-1 min-w-0">
+
+                        <span class="emnex-activity-label">
+                            Received By
+                        </span>
+
+                        <strong
+                            id="inspectorGoodsReceivedCreatedBy"
+                            class="emnex-activity-value"
+                        >
+                            —
+                        </strong>
+
+                    </div>
 
                 </div>
 
 
-                <div>
+                <div class="emnex-activity-divider"></div>
 
-                    <span>
-                        Created
-                    </span>
 
-                    <strong id="inspectorGoodsReceivedCreatedAt">
-                        —
-                    </strong>
+                <div class="emnex-activity-item">
+
+                    <div class="emnex-activity-icon">
+
+                        <i class="bi bi-clock-history"></i>
+
+                    </div>
+
+
+                    <div class="flex-grow-1 min-w-0">
+
+                        <span class="emnex-activity-label">
+                            Created
+                        </span>
+
+                        <strong
+                            id="inspectorGoodsReceivedCreatedAt"
+                            class="emnex-activity-value"
+                        >
+                            —
+                        </strong>
+
+                    </div>
 
                 </div>
 
