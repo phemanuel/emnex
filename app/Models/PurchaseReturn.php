@@ -151,6 +151,23 @@ class PurchaseReturn extends Model
         );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Created By
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * User who created the purchase return.
+     */
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'created_by'
+        );
+    }
+
 
     public function approver(): BelongsTo
     {

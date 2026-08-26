@@ -1,6 +1,6 @@
-{{-- ==============================================================
+<!-- {{-- ==============================================================
     Purchase Return Modal
-============================================================== --}}
+============================================================== --}} -->
 
 <div
     class="modal fade"
@@ -10,8 +10,8 @@
 >
 
     <div
-        class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
-    >
+    class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable goods-received-modal-dialog"
+>
 
         <div class="modal-content border-0 shadow-lg">
 
@@ -52,9 +52,9 @@
 
                 <div class="modal-body">
 
-                    {{-- ==================================================
+                    <!-- {{-- ==================================================
                         Return Information
-                    ================================================== --}}
+                    ================================================== --}} -->
 
                     <div class="purchase-form-section mb-4">
 
@@ -168,9 +168,9 @@
                     </div>
 
 
-                    {{-- ==================================================
+                    <!-- {{-- ==================================================
                         Items
-                    ================================================== --}}
+                    ================================================== --}} -->
 
                     <div class="purchase-form-section mb-4">
 
@@ -189,12 +189,12 @@
                                 </div>
 
                                 <div class="text-muted small mt-1">
-                                    Select products and specify quantities to return.
+                                   Products received against the selected purchase order are available for return.
                                 </div>
 
                             </div>
 
-                            <button
+                            <!-- <button
                                 type="button"
                                 class="btn btn-primary btn-sm"
                                 id="addPurchaseReturnItemBtn"
@@ -204,14 +204,14 @@
 
                                 Add Product
 
-                            </button>
+                            </button> -->
 
                         </div>
 
 
                         <div class="table-responsive border rounded-3">
 
-                            <table
+                           <table
                                 class="table table-sm align-middle mb-0"
                                 id="purchaseReturnItemsTable"
                             >
@@ -220,12 +220,24 @@
 
                                     <tr>
 
-                                        <th style="min-width: 260px;">
+                                        <th>
                                             Product
                                         </th>
 
                                         <th>
+                                            Date
+                                        </th>
+
+                                        <th class="text-end">
                                             Received
+                                        </th>
+
+                                        <th class="text-end">
+                                            Already Returned
+                                        </th>
+
+                                        <th class="text-end">
+                                            Available
                                         </th>
 
                                         <th style="width: 150px;">
@@ -238,14 +250,15 @@
 
                                         <th
                                             class="text-end"
-                                            style="width: 70px;"
+                                            style="width: 120px;"
                                         >
-                                            #
+                                            Unit Cost
                                         </th>
 
                                     </tr>
 
                                 </thead>
+
 
                                 <tbody id="purchaseReturnItems">
 
@@ -254,15 +267,16 @@
                                     >
 
                                         <td
-                                            colspan="5"
-                                            class="text-center text-muted py-4"
+                                            colspan="8"
+                                            class="text-center text-muted py-5"
                                         >
 
                                             <i
-                                                class="bi bi-arrow-return-left fs-4 d-block mb-2"
+                                                class="bi bi-box-seam fs-4 d-block mb-2"
                                             ></i>
 
-                                            No products selected.
+                                            Select a purchase order to load
+                                            returnable products.
 
                                         </td>
 
@@ -299,7 +313,7 @@
                 </div>
 
 
-                <div class="modal-footer border-top">
+                <div class="goods-received-modal-footer">                   
 
                     <button
                         type="button"

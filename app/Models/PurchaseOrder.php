@@ -46,6 +46,8 @@ class PurchaseOrder extends Model
 
         'total',
 
+        'reason',
+
         'notes',
 
         'created_by',

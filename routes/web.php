@@ -622,6 +622,9 @@ Route::prefix('products')
         Route::get('/returns/{id}/details', [PurchaseController::class, 'returnDetails'])
         ->name('purchase.returns.details');
 
+        Route::get('/returns/purchase-orders/{id}/items', [PurchaseController::class, 'returnPurchaseOrderItems'])
+        ->name('purchasing.returns.purchase-orders.items');
+
         Route::post('/returns', [PurchaseController::class, 'storeReturn'])
         ->name('purchase.returns.store');
 

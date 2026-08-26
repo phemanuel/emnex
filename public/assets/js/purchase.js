@@ -1322,6 +1322,72 @@ const Purchase = {
             }
         );
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Return Purchase Order
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.purchaseReturnPurchaseOrder?.addEventListener(
+            'change',
+            async () => {
+
+                const orderId =
+                    this.elements
+                        .purchaseReturnPurchaseOrder
+                        .value;
+
+
+                this.loadPurchaseReturnOrder(
+                    orderId
+                );
+
+
+                if (!orderId) {
+
+                    this.resetPurchaseReturnItems();
+
+                    return;
+
+                }
+
+
+                await this.loadPurchaseReturnItems(
+                    orderId
+                );
+
+            }
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Return Quantity Validation
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.purchaseReturnItems?.addEventListener(
+            'input',
+            event => {
+
+                if (
+                    !event.target.matches(
+                        '.purchase-return-quantity'
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                this.validatePurchaseReturnQuantity(
+                    event.target
+                );
+
+            }
+        );
+
         /*
         |--------------------------------------------------------------------------
         | Purchase Order Search
@@ -3715,6 +3781,124 @@ clearPurchaseOrderProduct(
         }
 
     },
+
+    /*
+|--------------------------------------------------------------------------
+| Load Purchase Return Items
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Load products received against the selected purchase order.
+ */
+async loadPurchaseReturnItems(
+    orderId
+)
+{
+
+    const container =
+        this.elements.purchaseReturnItems;
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="7"
+                class="text-center py-5"
+            >
+
+                <div
+                    class="spinner-border spinner-border-sm me-2"
+                ></div>
+
+                Loading returnable products...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/purchase/returns/purchase-orders/${orderId}/items`,
+                {
+                    headers: {
+                        'Accept':
+                            'application/json'
+                    }
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to load returnable products.'
+            );
+
+        }
+
+
+        this.renderPurchaseReturnItems(
+            result.data ?? []
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            'Purchase return items loading error:',
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="text-center text-danger py-5"
+                >
+
+                    Unable to load returnable products.
+
+                </td>
+
+            </tr>
+
+        `;
+
+
+        this.notify(
+            error.message,
+            'error'
+        );
+
+    }
+
+},
 
 
     /*
@@ -6632,6 +6816,142 @@ validateGoodsReceivedStock(
     return true;
 
 },
+
+/*
+|--------------------------------------------------------------------------
+| Validate Purchase Return Quantity
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Validate a return quantity against the quantity
+ * still available from the specific goods received transaction.
+ */
+validatePurchaseReturnQuantity(
+    input
+)
+{
+
+    if (!input) {
+
+        return true;
+
+    }
+
+
+    const row =
+        input.closest('tr');
+
+
+    if (!row) {
+
+        return true;
+
+    }
+
+
+    const availableQuantity =
+        parseFloat(
+            row.dataset.available ?? 0
+        ) || 0;
+
+
+    const returnQuantity =
+        parseFloat(
+            input.value ?? 0
+        ) || 0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Previous State
+    |--------------------------------------------------------------------------
+    */
+
+    input.classList.remove(
+        'is-invalid'
+    );
+
+
+    const existingError =
+        row.querySelector(
+            '.purchase-return-quantity-error'
+        );
+
+
+    if (existingError) {
+
+        existingError.remove();
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Zero Is Valid
+    |--------------------------------------------------------------------------
+    |
+    | Zero simply means the user does not want to return
+    | anything from this receipt during the current transaction.
+    |
+    */
+
+    if (
+        returnQuantity <= 0
+    ) {
+
+        return true;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        returnQuantity >
+        availableQuantity
+    ) {
+
+        input.classList.add(
+            'is-invalid'
+        );
+
+
+        const error =
+            document.createElement(
+                'div'
+            );
+
+
+        error.className =
+            'invalid-feedback purchase-return-quantity-error';
+
+
+        error.textContent =
+            `You can return only ${
+                this.formatQuantity(
+                    availableQuantity
+                )
+            } units from this receipt.`;
+
+
+        input.parentElement.appendChild(
+            error
+        );
+
+
+        return false;
+
+    }
+
+
+    return true;
+
+},
 /*
 |--------------------------------------------------------------------------
 | Clear Goods Received Order
@@ -7541,6 +7861,285 @@ resetOrderInspector()
 
 },
 
+
+/*
+|--------------------------------------------------------------------------
+| Render Purchase Return Items
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Render products available for return.
+ */
+renderPurchaseReturnItems(
+    items
+)
+{
+
+    const container =
+        this.elements.purchaseReturnItems;
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Empty State
+    |--------------------------------------------------------------------------
+    */
+
+    if (!items.length) {
+
+        container.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="text-center text-muted py-5"
+                >
+
+                    <i
+                        class="bi bi-check2-circle fs-4 d-block mb-2"
+                    ></i>
+
+                    No received products are available
+                    for return.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render Rows
+    |--------------------------------------------------------------------------
+    */
+
+    container.innerHTML =
+        items.map(
+            item => {
+
+                const receivedQuantity =
+                    parseFloat(
+                        item.received_quantity ?? 0
+                    ) || 0;
+
+
+                const returnedQuantity =
+                    parseFloat(
+                        item.returned_quantity ?? 0
+                    ) || 0;
+
+
+                const availableQuantity =
+                    parseFloat(
+                        item.available_return_quantity ?? 0
+                    ) || 0;
+
+
+                const unitCost =
+                    parseFloat(
+                        item.unit_cost ?? 0
+                    ) || 0;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Received Date
+                |--------------------------------------------------------------------------
+                */
+
+                const receivedDate =
+                    item.received_date
+                        ? new Date(
+                            item.received_date
+                        ).toLocaleDateString(
+                            'en-GB'
+                        )
+                        : '—';
+
+
+                const receivedTime =
+                    item.received_at
+                        ? new Date(
+                            item.received_at
+                        ).toLocaleTimeString(
+                            'en-GB',
+                            {
+                                hour:
+                                    '2-digit',
+
+                                minute:
+                                    '2-digit'
+                            }
+                        )
+                        : '';
+
+
+                const disabled =
+                    availableQuantity <= 0
+                        ? 'disabled'
+                        : '';
+
+
+                return `
+
+                    <tr
+                        data-goods-received-item-id="${item.goods_received_item_id}"
+                        data-product-id="${item.product_id}"
+                        data-available="${availableQuantity}"
+                    >                       
+
+                        <td>
+
+                            <div class="fw-semibold">
+
+                                ${this.escapeHtml(
+                                    item.product_name ??
+                                    'Unknown Product'
+                                )}
+
+                            </div>
+
+
+                            ${
+                                item.product_code
+                                    ? `
+                                        <div class="small text-muted">
+                                            ${this.escapeHtml(
+                                                item.product_code
+                                            )}
+                                        </div>
+                                    `
+                                    : ''
+                            }
+
+                        </td>
+
+                        <td>
+
+                            <div class="fw-semibold small">
+
+                                ${receivedDate}
+
+                            </div>
+
+
+                            ${
+                                receivedTime
+                                    ? `
+                                        <div class="small text-muted">
+                                            ${receivedTime}
+                                        </div>
+                                    `
+                                    : ''
+                            }
+
+                        </td>
+
+
+                        <td class="text-end">
+
+                            ${this.formatQuantity(
+                                receivedQuantity
+                            )}
+
+                        </td>
+
+
+                        <td class="text-end">
+
+                            ${this.formatQuantity(
+                                returnedQuantity
+                            )}
+
+                        </td>
+
+
+                        <td class="text-end">
+
+                            <span class="fw-semibold">
+
+                                ${this.formatQuantity(
+                                    availableQuantity
+                                )}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <input
+                                type="number"
+                                class="form-control form-control-sm purchase-return-quantity"
+                                name="items[${item.goods_received_item_id}][quantity]"
+                                min="0"
+                                max="${availableQuantity}"
+                                step="0.01"
+                                value="0"
+                                data-goods-received-item-id="${item.goods_received_item_id}"
+                                data-available="${availableQuantity}"
+                                ${disabled}
+                            >
+
+                            <input
+                                type="hidden"
+                                name="items[${item.goods_received_item_id}][goods_received_item_id]"
+                                value="${item.goods_received_item_id}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="items[${item.goods_received_item_id}][product_id]"
+                                value="${item.product_id}"
+                            >
+
+                        </td>
+
+
+                        <td>
+
+                            <input
+                                type="text"
+                                class="form-control form-control-sm purchase-return-reason"
+                                name="items[${item.goods_received_item_id}][reason]"
+                                placeholder="Reason for return"
+                                ${disabled}
+                            >
+
+                        </td>
+
+                        <td class="text-end">
+
+                            ${this.formatMoney(
+                                unitCost
+                            )}
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join('');
+
+},
 /*
 |--------------------------------------------------------------------------
 | Render Order Inspector
@@ -12053,132 +12652,506 @@ async submitGoodsReceived()
     },
 
 
+/*
+|--------------------------------------------------------------------------
+| Save Purchase Return
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Submit Purchase Return.
+ */
+async saveReturn()
+{
+
+    const form =
+        this.elements.returnForm;
+
+
+    if (!form) {
+
+        return;
+
+    }
+
+
     /*
     |--------------------------------------------------------------------------
-    | Save Purchase Return
+    | Clear Errors
     |--------------------------------------------------------------------------
     */
 
-    async saveReturn()
-    {
-
-        this.clearValidation(
-            this.elements.returnForm
-        );
+    this.clearValidation(
+        form
+    );
 
 
-        if (
-            this.returnItems.length === 0
-        ) {
+    /*
+    |--------------------------------------------------------------------------
+    | Return Quantity Inputs
+    |--------------------------------------------------------------------------
+    */
 
-            this.notify(
-                'Add at least one product to the return.',
-                'error'
-            );
-
-            return;
-
-        }
-
-
-        const formData =
-            new FormData(
-                this.elements.returnForm
-            );
-
-
-        formData.append(
-            'items',
-            JSON.stringify(
-                this.returnItems
+    const quantityInputs =
+        Array.from(
+            form.querySelectorAll(
+                '.purchase-return-quantity'
             )
         );
 
 
-        const isEdit =
-            !!this.editingReturnId;
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Return Quantities
+    |--------------------------------------------------------------------------
+    */
+
+    let hasInvalidQuantity =
+        false;
 
 
-        const url =
-            isEdit
-                ? `/purchase/returns/${this.editingReturnId}`
-                : '/purchase/returns';
-
-
-        if (isEdit) {
-
-            formData.append(
-                '_method',
-                'PUT'
-            );
-
-        }
-
-
-        try {
-
-            const response =
-                await fetch(
-                    url,
-                    {
-                        method:
-                            'POST',
-
-                        body:
-                            formData,
-
-                        headers: {
-                            'Accept':
-                                'application/json'
-                        }
-                    }
-                );
-
-
-            const result =
-                await response.json();
-
+    quantityInputs.forEach(
+        input => {
 
             if (
-                !response.ok ||
-                !result.success
+                !this.validatePurchaseReturnQuantity(
+                    input
+                )
             ) {
 
-                this.handleFormError(
-                    result,
-                    this.elements.returnForm
-                );
+                hasInvalidQuantity =
+                    true;
+
+            }
+
+        }
+    );
+
+
+    if (hasInvalidQuantity) {
+
+        this.notify(
+            'One or more return quantities are invalid.',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Select Items With Quantity
+    |--------------------------------------------------------------------------
+    |
+    | Only rows with a return quantity greater than zero
+    | should be submitted.
+    |
+    */
+
+    const selectedItems =
+        quantityInputs
+            .filter(
+                input => {
+
+                    const quantity =
+                        parseFloat(
+                            input.value ?? 0
+                        ) || 0;
+
+
+                    return quantity > 0;
+
+                }
+            );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | At Least One Item
+    |--------------------------------------------------------------------------
+    */
+
+    if (!selectedItems.length) {
+
+        this.notify(
+            'Enter a return quantity for at least one product.',
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Build Form Data
+    |--------------------------------------------------------------------------
+    */
+
+    const formData =
+        new FormData();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Return Information
+    |--------------------------------------------------------------------------
+    */
+
+    formData.append(
+        'supplier_id',
+        this.elements
+            .purchaseReturnSupplier
+            ?.value ??
+        ''
+    );
+
+
+    formData.append(
+        'branch_id',
+        this.elements
+            .purchaseReturnBranch
+            ?.value ??
+        ''
+    );
+
+
+    formData.append(
+        'purchase_order_id',
+        this.elements
+            .purchaseReturnPurchaseOrder
+            ?.value ??
+        ''
+    );
+
+
+    formData.append(
+        'return_date',
+        this.elements
+            .purchaseReturnDate
+            ?.value ??
+        ''
+    );
+
+
+    formData.append(
+        'notes',
+        this.elements
+            .purchaseReturnNotes
+            ?.value ??
+        ''
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Return Items
+    |--------------------------------------------------------------------------
+    */
+
+    selectedItems.forEach(
+        input => {
+
+            const row =
+                input.closest('tr');
+
+
+            if (!row) {
 
                 return;
 
             }
 
 
-            this.returnModalInstance?.hide();
+            const goodsReceivedItemId =
+                row.dataset.goodsReceivedItemId;
 
 
-            this.notify(
-                result.message ??
-                'Purchase return saved successfully.',
-                'success'
+            const productId =
+                row.dataset.productId;
+
+
+            const quantity =
+                parseFloat(
+                    input.value ?? 0
+                ) || 0;
+
+
+            if (
+                !goodsReceivedItemId ||
+                !productId ||
+                quantity <= 0
+            ) {
+
+                return;
+
+            }
+
+
+            const reasonInput =
+                row.querySelector(
+                    '.purchase-return-reason'
+                );
+
+
+            const reason =
+                reasonInput?.value ??
+                '';
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Item Data
+            |--------------------------------------------------------------------------
+            */
+
+            formData.append(
+                `items[${goodsReceivedItemId}][goods_received_item_id]`,
+                goodsReceivedItemId
             );
 
 
-            await this.loadReturns(
-                1
+            formData.append(
+                `items[${goodsReceivedItemId}][product_id]`,
+                productId
+            );
+
+
+            formData.append(
+                `items[${goodsReceivedItemId}][quantity]`,
+                quantity
+            );
+
+
+            formData.append(
+                `items[${goodsReceivedItemId}][reason]`,
+                reason
             );
 
         }
-        catch (error) {
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Loading State
+    |--------------------------------------------------------------------------
+    */
+
+    const submitButton =
+        this.elements.purchaseReturnSubmitBtn;
+
+
+    const submitText =
+        this.elements.purchaseReturnSubmitText;
+
+
+    const submitSpinner =
+        this.elements.purchaseReturnSubmitSpinner;
+
+
+    if (submitButton) {
+
+        submitButton.disabled =
+            true;
+
+    }
+
+
+    submitText?.classList.add(
+        'd-none'
+    );
+
+
+    submitSpinner?.classList.remove(
+        'd-none'
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Submit
+    |--------------------------------------------------------------------------
+    */
+
+    try {
+
+        const response =
+            await fetch(
+                '/purchase/returns',
+                {
+
+                    method:
+                        'POST',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest',
+
+                        'X-CSRF-TOKEN':
+                            document
+                                .querySelector(
+                                    'meta[name="csrf-token"]'
+                                )
+                                ?.getAttribute(
+                                    'content'
+                                )
+
+                    },
+
+                    body:
+                        formData
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation Errors
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            response.status === 422
+        ) {
+
+            console.error(
+                'Purchase return validation failed:',
+                result.errors ?? {}
+            );
+
+
+            const firstError =
+                Object.values(
+                    result.errors ?? {}
+                )
+                    .flat()
+                    .find(
+                        message =>
+                            message
+                    );
+
 
             this.notify(
-                error.message,
+                firstError ??
+                result.message ??
+                'Please correct the highlighted fields.',
                 'error'
             );
 
+
+            return;
+
         }
 
-    },
+
+        /*
+        |--------------------------------------------------------------------------
+        | General Error
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to process purchase return.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Success
+        |--------------------------------------------------------------------------
+        */
+
+        this.notify(
+            result.message ??
+            'Purchase return processed successfully.',
+            'success'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close Modal
+        |--------------------------------------------------------------------------
+        */
+
+        this.returnModalInstance?.hide();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Returns
+        |--------------------------------------------------------------------------
+        */
+
+        await this.loadReturns(
+            this.returnsPage || 1
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            'Purchase return submission failed:',
+            error
+        );
+
+
+        this.notify(
+            error.message ??
+            'Unable to process purchase return.',
+            'error'
+        );
+
+    }
+    finally {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Restore Button
+        |--------------------------------------------------------------------------
+        */
+
+        if (submitButton) {
+
+            submitButton.disabled =
+                false;
+
+        }
+
+
+        submitText?.classList.remove(
+            'd-none'
+        );
+
+
+        submitSpinner?.classList.add(
+            'd-none'
+        );
+
+    }
+
+},
 
 
     /*

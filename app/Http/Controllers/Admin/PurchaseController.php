@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderItem;
 use App\Models\PurchaseReturn;
+use App\Models\PurchaseReturnItem;
 use App\Models\Supplier;
 use App\Services\ActivityLogger;
 use Illuminate\Http\JsonResponse;
@@ -5074,6 +5075,1509 @@ public function orderDetails(
         ]);
     }
 
+    /*
+|--------------------------------------------------------------------------
+| Purchase Return - Purchase Order Items
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Return products received against a purchase order
+ * that are still available for return.
+ */
+public function returnPurchaseOrderItems(
+    int $id
+): JsonResponse {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
+
+    if (! canAccess('purchases.view')) {
+
+        return response()->json([
+
+            'success' =>
+                false,
+
+            'message' =>
+                'You do not have permission to view purchase return items.',
+
+        ], 403);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Purchase Order
+    |--------------------------------------------------------------------------
+    */
+
+    $order =
+        PurchaseOrder::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+            ->find($id);
+
+
+    if (!$order) {
+
+        return response()->json([
+
+            'success' =>
+                false,
+
+            'message' =>
+                'Purchase order not found.',
+
+        ], 404);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Goods Received Items
+    |--------------------------------------------------------------------------
+    |
+    | Only products that were actually received against this
+    | purchase order are eligible for return.
+    |
+    */
+
+    $receivedItems =
+        GoodsReceivedItem::query()
+            ->whereHas(
+                'goodsReceived',
+                function ($query) use ($order) {
+
+                    $query->where(
+                        'company_id',
+                        $this->companyId
+                    );
+
+                    $query->where(
+                        'purchase_order_id',
+                        $order->id
+                    );
+
+                    $query->where(
+                        'status',
+                        'Completed'
+                    );
+
+                }
+            )
+            ->with([
+                'product',
+                'goodsReceived',
+            ])
+            ->get();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Already Returned Quantities
+    |--------------------------------------------------------------------------
+    */
+
+    $returnedQuantities =
+        PurchaseReturnItem::query()
+            ->whereHas(
+                'purchaseReturn',
+                function ($query) use ($order) {
+
+                    $query->where(
+                        'company_id',
+                        $this->companyId
+                    );
+
+                    $query->where(
+                        'purchase_order_id',
+                        $order->id
+                    );
+
+                    $query->whereNotIn(
+                        'status',
+                        [
+                            'Cancelled',
+                        ]
+                    );
+
+                }
+            )
+            ->selectRaw(
+                'goods_received_item_id,
+                 SUM(quantity) as returned_quantity'
+            )
+            ->groupBy(
+                'goods_received_item_id'
+            )
+            ->pluck(
+                'returned_quantity',
+                'goods_received_item_id'
+            );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Prepare Returnable Items
+    |--------------------------------------------------------------------------
+    */
+
+    $items =
+        $receivedItems
+            ->map(
+                function ($receivedItem) use (
+                    $returnedQuantities
+                ) {
+
+                    $receivedQuantity =
+                        (float)
+                        $receivedItem->received_quantity;
+
+
+                    $returnedQuantity =
+                        (float)
+                        (
+                            $returnedQuantities[
+                                $receivedItem->id
+                            ]
+                            ?? 0
+                        );
+
+
+                    $availableQuantity =
+                        max(
+                            $receivedQuantity -
+                            $returnedQuantity,
+                            0
+                        );
+
+
+                    if (
+                        $availableQuantity <= 0
+                    ) {
+
+                        return null;
+
+                    }
+
+
+                    return [
+
+                        'goods_received_item_id' =>
+                            $receivedItem->id,
+
+                        'product_id' =>
+                            $receivedItem->product_id,
+
+                        'product_name' =>
+                            $receivedItem->product?->name
+                                ?? 'Unknown Product',
+
+                        'product_code' =>
+                            $receivedItem->product?->product_code
+                                ?? $receivedItem->product?->sku
+                                ?? '—',
+
+                        'received_quantity' =>
+                            $receivedQuantity,
+
+                        'returned_quantity' =>
+                            $returnedQuantity,
+
+                        'available_return_quantity' =>
+                            $availableQuantity,
+
+                        'unit_cost' =>
+                            (float)
+                            $receivedItem->unit_cost,
+
+                        'received_date' =>
+                            $receivedItem->goodsReceived?->received_date,
+
+                        'received_at' =>
+                            $receivedItem->goodsReceived?->created_at
+                                ? $receivedItem->goodsReceived->created_at->toIso8601String()
+                                : null,
+
+                    ];
+
+                }
+            )
+            ->filter()
+            ->values();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Response
+    |--------------------------------------------------------------------------
+    */
+
+    return response()->json([
+
+        'success' =>
+            true,
+
+        'data' =>
+            $items,
+
+    ]);
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Store Purchase Return
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Store Purchase Return.
+ */
+public function storeReturn(
+    Request $request
+): JsonResponse {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
+
+    if (! canAccess('purchases.create')) {
+
+        return response()->json([
+
+            'success' =>
+                false,
+
+            'message' =>
+                'You do not have permission to process purchase returns.',
+
+        ], 403);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation
+    |--------------------------------------------------------------------------
+    */
+
+    $validated =
+        $request->validate([
+
+            'supplier_id' => [
+                'required',
+                'integer',
+                'exists:suppliers,id',
+            ],
+
+            'branch_id' => [
+                'required',
+                'integer',
+                'exists:branches,id',
+            ],
+
+            'purchase_order_id' => [
+                'required',
+                'integer',
+                'exists:purchase_orders,id',
+            ],
+
+            'return_date' => [
+                'required',
+                'date',
+            ],
+
+            'notes' => [
+                'nullable',
+                'string',
+            ],
+
+            'items' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+
+            'items.*.goods_received_item_id' => [
+                'required',
+                'integer',
+                'exists:goods_received_items,id',
+            ],
+
+            'items.*.product_id' => [
+                'required',
+                'integer',
+                'exists:products,id',
+            ],
+
+            'items.*.quantity' => [
+                'required',
+                'numeric',
+                'gt:0',
+            ],
+
+            'items.*.reason' => [
+                'nullable',
+                'string',
+                'max:500',
+            ],
+
+        ]);
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Transaction
+    |--------------------------------------------------------------------------
+    */
+
+    try {
+
+        return DB::transaction(
+
+            function () use ($validated) {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Purchase Order
+                |--------------------------------------------------------------------------
+                */
+
+                $order =
+                    PurchaseOrder::query()
+                        ->where(
+                            'company_id',
+                            $this->companyId
+                        )
+                        ->with([
+                            'supplier',
+                            'branch',
+                        ])
+                        ->lockForUpdate()
+                        ->find(
+                            $validated['purchase_order_id']
+                        );
+
+
+                if (!$order) {
+
+                    throw ValidationException::withMessages([
+
+                        'purchase_order_id' =>
+                            'Purchase order not found.',
+
+                    ]);
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Supplier Validation
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    (int) $order->supplier_id !==
+                    (int) $validated['supplier_id']
+                ) {
+
+                    throw ValidationException::withMessages([
+
+                        'supplier_id' =>
+                            'The selected supplier does not belong to this purchase order.',
+
+                    ]);
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Branch Validation
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    (int) $order->branch_id !==
+                    (int) $validated['branch_id']
+                ) {
+
+                    throw ValidationException::withMessages([
+
+                        'branch_id' =>
+                            'The selected branch does not belong to this purchase order.',
+
+                    ]);
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Generate Return Number
+                |--------------------------------------------------------------------------
+                */
+
+                $returnNumber =
+                    DocumentNumberService::generate(
+                        'purchase_return',
+                        $this->companyId
+                    );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Prepare Items
+                |--------------------------------------------------------------------------
+                */
+
+                $returnItems = [];
+
+                $returnTotal = 0;
+
+
+                foreach (
+                    $validated['items']
+                    as $item
+                ) {
+
+                    $goodsReceivedItemId =
+                        (int)
+                        $item[
+                            'goods_received_item_id'
+                        ];
+
+
+                    $productId =
+                        (int)
+                        $item[
+                            'product_id'
+                        ];
+
+
+                    $returnQuantity =
+                        (float)
+                        $item[
+                            'quantity'
+                        ];
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Goods Received Item
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $goodsReceivedItem =
+                        GoodsReceivedItem::query()
+                            ->whereHas(
+                                'goodsReceived',
+                                function ($query) use ($order) {
+
+                                    $query->where(
+                                        'company_id',
+                                        $this->companyId
+                                    );
+
+                                    $query->where(
+                                        'purchase_order_id',
+                                        $order->id
+                                    );
+
+                                    $query->where(
+                                        'branch_id',
+                                        $order->branch_id
+                                    );
+
+                                }
+                            )
+                            ->with([
+                                'goodsReceived',
+                                'product',
+                            ])
+                            ->lockForUpdate()
+                            ->find(
+                                $goodsReceivedItemId
+                            );
+
+
+                    if (!$goodsReceivedItem) {
+
+                        throw ValidationException::withMessages([
+
+                            'items' =>
+                                'One or more selected goods received items do not belong to this purchase order.',
+
+                        ]);
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Product Validation
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (
+                        (int) $goodsReceivedItem->product_id !==
+                        $productId
+                    ) {
+
+                        throw ValidationException::withMessages([
+
+                            'items' =>
+                                'The selected product does not match the goods received item.',
+
+                        ]);
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Received Quantity
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $receivedQuantity =
+                        (float)
+                        $goodsReceivedItem->received_quantity;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Previously Returned
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $previouslyReturned =
+                        PurchaseReturnItem::query()
+                            ->where(
+                                'goods_received_item_id',
+                                $goodsReceivedItem->id
+                            )
+                            ->whereHas(
+                                'purchaseReturn',
+                                function ($query) {
+
+                                    $query->where(
+                                        'company_id',
+                                        $this->companyId
+                                    );
+
+                                    $query->whereNotIn(
+                                        'status',
+                                        [
+                                            'Cancelled',
+                                        ]
+                                    );
+
+                                }
+                            )
+                            ->sum(
+                                'quantity'
+                            );
+
+
+                    $previouslyReturned =
+                        (float)
+                        $previouslyReturned;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Available Return Quantity
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $availableReturnQuantity =
+                        max(
+                            $receivedQuantity -
+                            $previouslyReturned,
+                            0
+                        );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Validate Return Quantity
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (
+                        $returnQuantity >
+                        $availableReturnQuantity
+                    ) {
+
+                        throw ValidationException::withMessages([
+
+                            'items' =>
+                                sprintf(
+                                    '%s cannot be returned in the quantity requested. Received: %s, Already returned: %s, Available to return: %s.',
+                                    $goodsReceivedItem->product?->name
+                                        ?? 'This product',
+                                    number_format(
+                                        $receivedQuantity,
+                                        2
+                                    ),
+                                    number_format(
+                                        $previouslyReturned,
+                                        2
+                                    ),
+                                    number_format(
+                                        $availableReturnQuantity,
+                                        2
+                                    )
+                                ),
+
+                        ]);
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Product Stock
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $stock =
+                        ProductStock::query()
+                            ->where(
+                                'company_id',
+                                $this->companyId
+                            )
+                            ->where(
+                                'branch_id',
+                                $order->branch_id
+                            )
+                            ->where(
+                                'product_id',
+                                $productId
+                            )
+                            ->lockForUpdate()
+                            ->first();
+
+
+                    if (!$stock) {
+
+                        throw ValidationException::withMessages([
+
+                            'items' =>
+                                sprintf(
+                                    'Stock record for %s was not found.',
+                                    $goodsReceivedItem->product?->name
+                                        ?? 'this product'
+                                ),
+
+                        ]);
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Current Stock
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $currentStock =
+                        (float)
+                        $stock->quantity;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Stock Availability
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (
+                        $returnQuantity >
+                        $currentStock
+                    ) {
+
+                        throw ValidationException::withMessages([
+
+                            'items' =>
+                                sprintf(
+                                    '%s cannot be returned because current stock is only %s.',
+                                    $goodsReceivedItem->product?->name
+                                        ?? 'This product',
+                                    number_format(
+                                        $currentStock,
+                                        2
+                                    )
+                                ),
+
+                        ]);
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Unit Cost
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $unitCost =
+                        (float)
+                        $goodsReceivedItem->unit_cost;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Item Total
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $itemTotal =
+                        $returnQuantity *
+                        $unitCost;
+
+
+                    $returnTotal +=
+                        $itemTotal;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Prepare Item
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $returnItems[] = [
+
+                        'goods_received_item_id' =>
+                            $goodsReceivedItem->id,
+
+                        'product_id' =>
+                            $productId,
+
+                        'quantity' =>
+                            $returnQuantity,
+
+                        'unit_cost' =>
+                            $unitCost,
+
+                        'total' =>
+                            $itemTotal,
+
+                        'stock' =>
+                            $stock,
+
+                        'stock_before' =>
+                            $currentStock,
+
+                        'stock_after' =>
+                            $currentStock -
+                            $returnQuantity,
+
+                    ];
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Create Purchase Return Header
+                |--------------------------------------------------------------------------
+                */
+
+                $purchaseReturn =
+                    PurchaseReturn::create([
+
+                        'company_id' =>
+                            $this->companyId,
+
+                        'branch_id' =>
+                            $order->branch_id,
+
+                        'supplier_id' =>
+                            $order->supplier_id,
+
+                        'purchase_order_id' =>
+                            $order->id,
+
+                        'return_number' =>
+                            $returnNumber,
+
+                        'return_date' =>
+                            $validated['return_date'],
+
+                        'status' =>
+                            'Completed',
+
+                        'notes' =>
+                            $validated['notes']
+                                ?? null,
+
+                        'created_by' =>
+                            auth()->id(),
+
+                        'reason' =>
+                            $item['reason']
+                                ?? null,
+
+                    ]);
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Create Return Items + Update Inventory
+                |--------------------------------------------------------------------------
+                */
+
+                foreach (
+                    $returnItems
+                    as $item
+                ) {
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Purchase Return Item
+                    |--------------------------------------------------------------------------
+                    */
+
+                    PurchaseReturnItem::create([
+
+                        'purchase_return_id' =>
+                            $purchaseReturn->id,
+
+                        'goods_received_item_id' =>
+                            $item[
+                                'goods_received_item_id'
+                            ],
+
+                        'product_id' =>
+                            $item[
+                                'product_id'
+                            ],
+
+                        'quantity' =>
+                            $item[
+                                'quantity'
+                            ],
+
+                        'unit_cost' =>
+                            $item[
+                                'unit_cost'
+                            ],
+
+                        'total' =>
+                            $item[
+                                'total'
+                            ],
+
+                    ]);
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Product Stock
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $stock =
+                        $item['stock'];
+
+
+                    $stock->quantity =
+                        $item['stock_after'];
+
+
+                    $stock->available_quantity =
+                        max(
+                            0,
+                            (float) $stock->quantity -
+                            (float) $stock->reserved_quantity
+                        );
+
+
+                    $stock->save();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Stock Movement
+                    |--------------------------------------------------------------------------
+                    */
+
+                    StockMovement::create([
+
+                        'company_id' =>
+                            $this->companyId,
+
+                        'branch_id' =>
+                            $order->branch_id,
+
+                        'product_id' =>
+                            $item[
+                                'product_id'
+                            ],
+
+                        'order_id' =>
+                            null,
+
+                        'reference_no' =>
+                            $returnNumber,
+
+                        'unit_cost' =>
+                            $item[
+                                'unit_cost'
+                            ],
+
+                        'quantity' =>
+                            -$item[
+                                'quantity'
+                            ],
+
+                        'stock_before' =>
+                            $item[
+                                'stock_before'
+                            ],
+
+                        'balance_after' =>
+                            $item[
+                                'stock_after'
+                            ],
+
+                        'remarks' =>
+                            'Purchase return against purchase order ' .
+                            $order->order_number,
+
+                        'created_by' =>
+                            auth()->id(),
+
+                        'movement_type' =>
+                            'Purchase',
+
+                    ]);
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Activity Log
+                |--------------------------------------------------------------------------
+                */
+
+                $this->activityLogger->log(
+
+                    'purchases',
+
+                    'create',
+
+                    'Created purchase return: ' .
+                        $purchaseReturn->return_number,
+
+                    $purchaseReturn,
+
+                    null,
+
+                    $purchaseReturn->toArray()
+
+                );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Response
+                |--------------------------------------------------------------------------
+                */
+
+                return response()->json([
+
+                    'success' =>
+                        true,
+
+                    'message' =>
+                        'Purchase return processed successfully and inventory has been updated.',
+
+                    'data' => [
+
+                        'id' =>
+                            $purchaseReturn->id,
+
+                        'return_number' =>
+                            $purchaseReturn->return_number,
+
+                        'purchase_order_id' =>
+                            $order->id,
+
+                        'purchase_order_number' =>
+                            $order->order_number,
+
+                        'returned_total' =>
+                            $returnTotal,
+
+                        'status' =>
+                            $purchaseReturn->status,
+
+                    ],
+
+                ]);
+
+            }
+
+        );
+
+    }
+    catch (ValidationException $e) {
+
+        throw $e;
+
+    }
+    catch (\Throwable $e) {
+
+        Log::error(
+            'Failed to store purchase return.',
+            [
+
+                'company_id' =>
+                    $this->companyId,
+
+                'purchase_order_id' =>
+                    $request->purchase_order_id,
+
+                'error' =>
+                    $e->getMessage(),
+
+                'trace' =>
+                    $e->getTraceAsString(),
+
+            ]
+        );
+
+
+        return response()->json([
+
+            'success' =>
+                false,
+
+            'message' =>
+                'Unable to process purchase return. Please try again.',
+
+        ], 500);
+
+    }
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Purchase Returns
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Return Purchase Returns table.
+ */
+public function returnTable(
+    Request $request
+): JsonResponse {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
+
+    if (! canAccess('purchases.view')) {
+
+        return response()->json([
+
+            'success' =>
+                false,
+
+            'message' =>
+                'You do not have permission to view purchase returns.',
+
+        ], 403);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Base Query
+    |--------------------------------------------------------------------------
+    */
+
+    $query =
+        PurchaseReturn::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+            ->with([
+                'supplier',
+                'branch',
+                'purchaseOrder',
+                'createdBy',
+            ])
+            ->withCount(
+                'items'
+            )
+            ->withSum(
+                'items',
+                'total'
+            );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Search
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('search')
+    ) {
+
+        $search =
+            trim(
+                $request->search
+            );
+
+
+        $query->where(
+
+            function ($q) use ($search) {
+
+                /*
+                |--------------------------------------------------------------
+                | Return Number
+                |--------------------------------------------------------------
+                */
+
+                $q->where(
+                    'return_number',
+                    'like',
+                    "%{$search}%"
+                );
+
+
+                /*
+                |--------------------------------------------------------------
+                | Supplier
+                |--------------------------------------------------------------
+                */
+
+                $q->orWhereHas(
+
+                    'supplier',
+
+                    function ($supplier) use (
+                        $search
+                    ) {
+
+                        $supplier->where(
+                            'company_id',
+                            $this->companyId
+                        );
+
+                        $supplier->where(
+                            'name',
+                            'like',
+                            "%{$search}%"
+                        );
+
+                    }
+
+                );
+
+
+                /*
+                |--------------------------------------------------------------
+                | Purchase Order
+                |--------------------------------------------------------------
+                */
+
+                $q->orWhereHas(
+
+                    'purchaseOrder',
+
+                    function ($order) use (
+                        $search
+                    ) {
+
+                        $order->where(
+                            'company_id',
+                            $this->companyId
+                        );
+
+                        $order->where(
+                            'order_number',
+                            'like',
+                            "%{$search}%"
+                        );
+
+                    }
+
+                );
+
+            }
+
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supplier
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('supplier_id')
+    ) {
+
+        $query->where(
+            'supplier_id',
+            $request->supplier_id
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('branch_id')
+    ) {
+
+        $query->where(
+            'branch_id',
+            $request->branch_id
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('status')
+    ) {
+
+        $query->where(
+            'status',
+            $request->status
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Return Date
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $request->filled('date_from')
+    ) {
+
+        $query->whereDate(
+            'return_date',
+            '>=',
+            $request->date_from
+        );
+
+    }
+
+
+    if (
+        $request->filled('date_to')
+    ) {
+
+        $query->whereDate(
+            'return_date',
+            '<=',
+            $request->date_to
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pagination
+    |--------------------------------------------------------------------------
+    */
+
+    $returns =
+        $query
+            ->latest('id')
+            ->paginate(15)
+            ->withQueryString();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Table
+    |--------------------------------------------------------------------------
+    */
+
+    $html =
+        view(
+            'purchase.partials.returns-table',
+            compact(
+                'returns'
+            )
+        )->render();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Statistics
+    |--------------------------------------------------------------------------
+    */
+
+    $statsQuery =
+        PurchaseReturn::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Total Returns
+    |--------------------------------------------------------------------------
+    */
+
+    $total =
+        (clone $statsQuery)
+            ->count();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pending
+    |--------------------------------------------------------------------------
+    */
+
+    $pending =
+        (clone $statsQuery)
+            ->where(
+                'status',
+                'Pending'
+            )
+            ->count();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Completed
+    |--------------------------------------------------------------------------
+    */
+
+    $completed =
+        (clone $statsQuery)
+            ->where(
+                'status',
+                'Completed'
+            )
+            ->count();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Return Value
+    |--------------------------------------------------------------------------
+    */
+
+    $totalValue =
+        PurchaseReturnItem::query()
+            ->whereHas(
+
+                'purchaseReturn',
+
+                function ($query) {
+
+                    $query->where(
+                        'company_id',
+                        $this->companyId
+                    );
+
+                }
+
+            )
+            ->sum(
+                'total'
+            );
+
+
+    $stats = [
+
+        'total' =>
+            $total,
+
+        'pending' =>
+            $pending,
+
+        'completed' =>
+            $completed,
+
+        'total_value' =>
+            (float) $totalValue,
+
+    ];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Response
+    |--------------------------------------------------------------------------
+    */
+
+    return response()->json([
+
+        'success' =>
+            true,
+
+        'html' =>
+            $html,
+
+        'pagination' =>
+            $returns
+                ->links()
+                ->render(),
+
+        'stats' =>
+            $stats,
+
+    ]);
+
+}
 
 
 
