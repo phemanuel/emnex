@@ -9,14 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Order Model
- *
- * Represents a sales transaction.
- */
 class Order extends Model
 {
     use HasFactory, SoftDeletes;
+
 
     /*
     |--------------------------------------------------------------------------
@@ -25,26 +21,61 @@ class Order extends Model
     */
 
     protected $fillable = [
+
         'company_id',
+
         'branch_id',
+
         'terminal_id',
+
         'customer_id',
+
         'cashier_id',
 
-        'order_number',
+        'order_no',
 
         'subtotal',
-        'discount_amount',
-        'tax_amount',
-        'total_amount',
-        'paid_amount',
-        'balance_amount',
+
+        'discount',
+
+        'discount_id',
+
+        'tax_rate_id',
+
+        'tax',
+
+        'total',
+
+        'amount_paid',
+
+        'balance',
+
+        'total_items',
+
+        'total_quantity',
+
+        'change_given',
+
+        'grand_total',
+
+        'completed_at',
 
         'payment_status',
+
         'order_status',
 
-        'notes',
+        'sales_channel',
+
+        'receipt_printed',
+
+        'remarks',
+
+        'created_by',
+
+        'updated_by',
+
     ];
+
 
     /*
     |--------------------------------------------------------------------------
@@ -55,20 +86,73 @@ class Order extends Model
     protected function casts(): array
     {
         return [
-            'company_id'      => 'integer',
-            'branch_id'       => 'integer',
-            'terminal_id'     => 'integer',
-            'customer_id'     => 'integer',
-            'cashier_id'      => 'integer',
 
-            'subtotal'        => 'decimal:2',
-            'discount_amount' => 'decimal:2',
-            'tax_amount'      => 'decimal:2',
-            'total_amount'    => 'decimal:2',
-            'paid_amount'     => 'decimal:2',
-            'balance_amount'  => 'decimal:2',
+            'company_id' =>
+                'integer',
+
+            'branch_id' =>
+                'integer',
+
+            'terminal_id' =>
+                'integer',
+
+            'customer_id' =>
+                'integer',
+
+            'cashier_id' =>
+                'integer',
+
+            'discount_id' =>
+                'integer',
+
+            'tax_rate_id' =>
+                'integer',
+
+            'subtotal' =>
+                'decimal:2',
+
+            'discount' =>
+                'decimal:2',
+
+            'tax' =>
+                'decimal:2',
+
+            'total' =>
+                'decimal:2',
+
+            'amount_paid' =>
+                'decimal:2',
+
+            'balance' =>
+                'decimal:2',
+
+            'total_items' =>
+                'integer',
+
+            'total_quantity' =>
+                'decimal:2',
+
+            'change_given' =>
+                'decimal:2',
+
+            'grand_total' =>
+                'decimal:2',
+
+            'completed_at' =>
+                'datetime',
+
+            'receipt_printed' =>
+                'boolean',
+
+            'created_by' =>
+                'integer',
+
+            'updated_by' =>
+                'integer',
+
         ];
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -81,56 +165,132 @@ class Order extends Model
      */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(
+            Company::class,
+            'company_id'
+        );
     }
+
 
     /**
      * Branch
      */
     public function branch(): BelongsTo
     {
-        return $this->belongsTo(Branch::class, 'branch_id');
+        return $this->belongsTo(
+            Branch::class,
+            'branch_id'
+        );
     }
+
 
     /**
      * Terminal
      */
     public function terminal(): BelongsTo
     {
-        return $this->belongsTo(Terminal::class, 'terminal_id');
+        return $this->belongsTo(
+            Terminal::class,
+            'terminal_id'
+        );
     }
+
 
     /**
      * Customer
      */
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(Customer::class, 'customer_id');
+        return $this->belongsTo(
+            Customer::class,
+            'customer_id'
+        );
     }
+
 
     /**
      * Cashier
      */
     public function cashier(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'cashier_id');
+        return $this->belongsTo(
+            User::class,
+            'cashier_id'
+        );
     }
+
+
+    /**
+     * Created By
+     */
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'created_by'
+        );
+    }
+
+
+    /**
+     * Updated By
+     */
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'updated_by'
+        );
+    }
+
+
+    /**
+     * Discount
+     */
+    public function discountRecord(): BelongsTo
+    {
+        return $this->belongsTo(
+            Discount::class,
+            'discount_id'
+        );
+    }
+
+
+    /**
+     * Tax Rate
+     */
+    public function taxRate(): BelongsTo
+    {
+        return $this->belongsTo(
+            TaxRate::class,
+            'tax_rate_id'
+        );
+    }
+
 
     /**
      * Order Items
      */
     public function orderItems(): HasMany
     {
-        return $this->hasMany(OrderItem::class, 'order_id');
+        return $this->hasMany(
+            OrderItem::class,
+            'order_id'
+        );
     }
+
 
     /**
      * Payments
      */
     public function payments(): HasMany
     {
-        return $this->hasMany(Payment::class, 'order_id');
+        return $this->hasMany(
+            Payment::class,
+            'order_id'
+        );
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -138,20 +298,81 @@ class Order extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function scopeForCompany(Builder $query, int $companyId): Builder
-    {
-        return $query->where('company_id', $companyId);
+    /**
+     * Company orders.
+     */
+    public function scopeForCompany(
+        Builder $query,
+        int $companyId
+    ): Builder {
+
+        return $query->where(
+            'company_id',
+            $companyId
+        );
+
     }
 
-    public function scopeCompleted(Builder $query): Builder
-    {
-        return $query->where('order_status', 'Completed');
+
+    /**
+     * Completed orders.
+     */
+    public function scopeCompleted(
+        Builder $query
+    ): Builder {
+
+        return $query->where(
+            'order_status',
+            'Completed'
+        );
+
     }
 
-    public function scopePending(Builder $query): Builder
-    {
-        return $query->where('order_status', 'Pending');
+
+    /**
+     * Pending orders.
+     */
+    public function scopePending(
+        Builder $query
+    ): Builder {
+
+        return $query->where(
+            'order_status',
+            'Pending'
+        );
+
     }
+
+
+    /**
+     * Draft orders.
+     */
+    public function scopeDraft(
+        Builder $query
+    ): Builder {
+
+        return $query->where(
+            'order_status',
+            'Draft'
+        );
+
+    }
+
+
+    /**
+     * Held orders.
+     */
+    public function scopeHeld(
+        Builder $query
+    ): Builder {
+
+        return $query->where(
+            'order_status',
+            'Held'
+        );
+
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -164,38 +385,117 @@ class Order extends Model
      */
     public function isCompleted(): bool
     {
-        return $this->order_status === 'Completed';
+        return $this->order_status ===
+            'Completed';
     }
 
+
     /**
-     * Check if the order is fully paid.
+     * Check if the order is paid.
      */
     public function isPaid(): bool
     {
-        return $this->payment_status === 'Paid';
+        return $this->payment_status ===
+            'Paid';
     }
+
+
+    /**
+     * Check if the order is pending payment.
+     */
+    public function isPaymentPending(): bool
+    {
+        return $this->payment_status ===
+            'Pending';
+    }
+
+
+    /**
+     * Check if the order is partially paid.
+     */
+    public function isPartiallyPaid(): bool
+    {
+        return $this->payment_status ===
+            'Partial';
+    }
+
 
     /**
      * Check if the order is pending.
      */
     public function isPending(): bool
     {
-        return $this->order_status === 'Pending';
+        return $this->order_status ===
+            'Pending';
     }
+
+
+    /**
+     * Check if the order is draft.
+     */
+    public function isDraft(): bool
+    {
+        return $this->order_status ===
+            'Draft';
+    }
+
+
+    /**
+     * Check if the order is held.
+     */
+    public function isHeld(): bool
+    {
+        return $this->order_status ===
+            'Held';
+    }
+
 
     /**
      * Check if there is an outstanding balance.
      */
     public function hasBalance(): bool
     {
-        return $this->balance_amount > 0;
+        return (float) $this->balance > 0;
     }
 
+
     /**
-     * Total number of items in the order.
+     * Total quantity in the order.
+     */
+    public function totalQuantity(): float
+    {
+        return (float) $this->orderItems()->sum(
+            'quantity'
+        );
+    }
+
+
+    /**
+     * Total number of order lines.
      */
     public function totalItems(): int
     {
-        return $this->orderItems()->sum('quantity');
+        return $this->orderItems()->count();
     }
+
+
+    /**
+     * Check if the order is cancelled.
+     */
+    public function isCancelled(): bool
+    {
+        return $this->order_status ===
+            'Cancelled';
+    }
+
+
+    /**
+     * Check if the order is refunded.
+     */
+    public function isRefunded(): bool
+    {
+        return $this->order_status ===
+            'Refunded';
+    }
+
 }

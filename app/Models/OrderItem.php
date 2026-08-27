@@ -16,28 +16,37 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    /*
+
+   /*
     |--------------------------------------------------------------------------
     | Fillable
     |--------------------------------------------------------------------------
     */
 
     protected $fillable = [
+
         'company_id',
+
         'order_id',
+
         'product_id',
 
         'product_name',
-        'product_code',
+
+        'product_barcode',
 
         'quantity',
 
         'unit_price',
-        'discount_amount',
-        'tax_amount',
 
-        'line_total',
+        'discount',
+
+        'tax',
+
+        'total',
+
     ];
+
 
     /*
     |--------------------------------------------------------------------------
@@ -48,16 +57,31 @@ class OrderItem extends Model
     protected function casts(): array
     {
         return [
-            'company_id'      => 'integer',
-            'order_id'        => 'integer',
-            'product_id'      => 'integer',
 
-            'quantity'        => 'decimal:2',
+            'company_id' =>
+                'integer',
 
-            'unit_price'      => 'decimal:2',
-            'discount_amount' => 'decimal:2',
-            'tax_amount'      => 'decimal:2',
-            'line_total'      => 'decimal:2',
+            'order_id' =>
+                'integer',
+
+            'product_id' =>
+                'integer',
+
+            'quantity' =>
+                'decimal:2',
+
+            'unit_price' =>
+                'decimal:2',
+
+            'discount' =>
+                'decimal:2',
+
+            'tax' =>
+                'decimal:2',
+
+            'total' =>
+                'decimal:2',
+
         ];
     }
 

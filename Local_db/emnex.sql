@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2026 at 01:12 PM
+-- Generation Time: Aug 27, 2026 at 01:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -734,9 +734,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (51, '2026_08_16_125944_create_goods_receiveds_table', 18),
 (52, '2026_08_16_130015_create_goods_received_items_table', 18),
 (53, '2026_08_16_130034_create_purchase_returns_table', 18),
-(54, '2026_08_16_130056_create_purchase_return_items_table', 18),
-(55, '2026_08_27_110913_create_sales_orders_table', 19),
-(56, '2026_08_27_110931_create_sales_order_items_table', 19);
+(54, '2026_08_16_130056_create_purchase_return_items_table', 18);
 
 -- --------------------------------------------------------
 
@@ -1639,50 +1637,6 @@ INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sales_orders`
---
-
-CREATE TABLE `sales_orders` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `company_id` bigint(20) UNSIGNED NOT NULL,
-  `branch_id` bigint(20) UNSIGNED NOT NULL,
-  `customer_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `order_number` varchar(50) NOT NULL,
-  `order_date` date NOT NULL,
-  `status` varchar(30) NOT NULL DEFAULT 'Draft',
-  `subtotal` decimal(15,2) NOT NULL DEFAULT 0.00,
-  `discount_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
-  `tax_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
-  `total_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
-  `notes` text DEFAULT NULL,
-  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sales_order_items`
---
-
-CREATE TABLE `sales_order_items` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `sales_order_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `quantity` decimal(15,2) NOT NULL,
-  `unit_price` decimal(15,2) NOT NULL,
-  `discount_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
-  `tax_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
-  `total` decimal(15,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `sessions`
 --
 
@@ -2362,26 +2316,6 @@ ALTER TABLE `role_permissions`
   ADD KEY `role_permissions_permission_id_foreign` (`permission_id`);
 
 --
--- Indexes for table `sales_orders`
---
-ALTER TABLE `sales_orders`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `sales_orders_company_id_order_number_unique` (`company_id`,`order_number`),
-  ADD KEY `sales_orders_branch_id_foreign` (`branch_id`),
-  ADD KEY `sales_orders_customer_id_foreign` (`customer_id`),
-  ADD KEY `sales_orders_created_by_foreign` (`created_by`),
-  ADD KEY `sales_orders_company_id_order_date_index` (`company_id`,`order_date`),
-  ADD KEY `sales_orders_company_id_status_index` (`company_id`,`status`);
-
---
--- Indexes for table `sales_order_items`
---
-ALTER TABLE `sales_order_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `sales_order_items_sales_order_id_index` (`sales_order_id`),
-  ADD KEY `sales_order_items_product_id_index` (`product_id`);
-
---
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
@@ -2643,18 +2577,6 @@ ALTER TABLE `role_permissions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
 
 --
--- AUTO_INCREMENT for table `sales_orders`
---
-ALTER TABLE `sales_orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `sales_order_items`
---
-ALTER TABLE `sales_order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
@@ -2900,22 +2822,6 @@ ALTER TABLE `role_permissions`
   ADD CONSTRAINT `role_permissions_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `sales_orders`
---
-ALTER TABLE `sales_orders`
-  ADD CONSTRAINT `sales_orders_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
-  ADD CONSTRAINT `sales_orders_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `sales_orders_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `sales_orders_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `sales_order_items`
---
-ALTER TABLE `sales_order_items`
-  ADD CONSTRAINT `sales_order_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `sales_order_items_sales_order_id_foreign` FOREIGN KEY (`sales_order_id`) REFERENCES `sales_orders` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `settings`

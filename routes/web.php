@@ -458,14 +458,54 @@ Route::prefix('products')
         Route::get('/low-stock/{id}/details', [LowStockController::class, 'details'])
             ->name('low-stock.details');
 
-
     /*
     |--------------------------------------------------------------------------
     | Sales
     |--------------------------------------------------------------------------
     */
 
-    Route::resource('orders', OrderController::class);
+    Route::prefix('sales')->group(function () {
+
+        Route::get('/orders', [OrderController::class, 'index'])
+            ->name('orders.index');
+
+        Route::get('/orders/table', [OrderController::class, 'ordersTable'])
+            ->name('orders.table');
+
+        Route::get('/orders/{id}/details', [OrderController::class, 'orderDetails'])
+            ->name('orders.details');
+
+        Route::get('/orders/customers', [OrderController::class, 'customers'])
+            ->name('orders.customers');
+
+         Route::post('/orders/customers', [OrderController::class, 'storeCustomer'])
+            ->name('orders.customers.store');
+
+        Route::get('/orders/branches', [OrderController::class, 'branches'])
+            ->name('orders.branches');
+
+        Route::get('/orders/products', [OrderController::class, 'products'])
+            ->name('orders.products');
+
+        Route::get('/orders/terminals', [OrderController::class, 'terminals'])
+            ->name('orders.terminals');
+         
+        Route::post('/orders/terminals', [OrderController::class, 'storeTerminal'])
+            ->name('orders.terminals.store');
+
+        Route::get('/orders/customer-groups', [OrderController::class, 'customerGroups'])
+            ->name('orders.customer-groups');      
+
+        Route::post('/orders', [OrderController::class, 'storeOrder'])
+            ->name('orders.store');
+
+        Route::put('/orders/{id}', [OrderController::class, 'updateOrder'])
+            ->name('orders.update');
+
+        Route::delete('/orders/{id}', [OrderController::class, 'deleteOrder'])
+            ->name('orders.delete');
+
+    });
 
     Route::resource('invoices', InvoiceController::class);
 
