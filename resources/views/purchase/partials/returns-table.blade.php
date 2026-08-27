@@ -56,7 +56,7 @@
                 <span class="fw-semibold">
 
                     {{ number_format(
-                        (float) ($record->total_amount ?? 0),
+                        (float) ($record->items_sum_total ?? 0),
                         2
                     ) }}
 
@@ -87,19 +87,26 @@
             </td>
 
 
+            {{-- ======================================================
+                Action
+            ====================================================== --}}
+
             <td class="text-end">
 
-                <button
-                    type="button"
-                    class="btn btn-light btn-sm purchase-action-trigger"
-                    data-type="return"
-                    data-id="{{ $record->id }}"
-                    data-reference="{{ $record->return_number ?? '' }}"
-                >
+                @permission('purchases.view')
 
-                    <i class="bi bi-three-dots"></i>
+                    <button
+                        type="button"
+                        class="btn btn-light btn-sm purchase-return-view-btn"
+                        data-id="{{ $record->id }}"
+                        title="View Purchase Return"
+                    >
 
-                </button>
+                        <i class="bi bi-eye"></i>
+
+                    </button>
+
+                @endpermission
 
             </td>
 

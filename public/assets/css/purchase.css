@@ -2868,4 +2868,128 @@
 
 }
 
+/* ==========================================================================
+   Purchase Tabs - Distinct Accents
+   ========================================================================== */
 
+.purchase-tab-orders {
+    --purchase-tab-accent: #3b82f6;
+    --purchase-tab-accent-soft: #eff6ff;
+}
+
+
+.purchase-tab-received {
+    --purchase-tab-accent: #10b981;
+    --purchase-tab-accent-soft: #ecfdf5;
+}
+
+
+.purchase-tab-returns {
+    --purchase-tab-accent: #f97316;
+    --purchase-tab-accent-soft: #fff7ed;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Icon
+|--------------------------------------------------------------------------
+*/
+
+.purchase-tab-orders .purchase-tab-icon {
+    color: #3b82f6;
+    background: #eff6ff;
+}
+
+
+.purchase-tab-received .purchase-tab-icon {
+    color: #10b981;
+    background: #ecfdf5;
+}
+
+
+.purchase-tab-returns .purchase-tab-icon {
+    color: #f97316;
+    background: #fff7ed;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Count
+|--------------------------------------------------------------------------
+*/
+
+.purchase-tab-orders .purchase-tab-count {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+
+.purchase-tab-received .purchase-tab-count {
+    color: #059669;
+    background: #ecfdf5;
+}
+
+
+.purchase-tab-returns .purchase-tab-count {
+    color: #ea580c;
+    background: #fff7ed;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Active State
+|--------------------------------------------------------------------------
+*/
+
+.purchase-tab-orders.active {
+    border-color: rgba(59, 130, 246, 0.3);
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f8fbff 100%
+    );
+}
+
+
+.purchase-tab-received.active {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f5fdf9 100%
+    );
+}
+
+
+.purchase-tab-returns.active {
+    border-color: rgba(249, 115, 22, 0.3);
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #fffaf5 100%
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Active Accent
+|--------------------------------------------------------------------------
+*/
+
+.purchase-tab-orders.active::before {
+    background: #3b82f6;
+}
+
+
+.purchase-tab-received.active::before {
+    background: #10b981;
+}
+
+
+.purchase-tab-returns.active::before {
+    background: #f97316;
+}

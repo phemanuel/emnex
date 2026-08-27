@@ -6065,7 +6065,7 @@ public function storeReturn(
                             auth()->id(),
 
                         'movement_type' =>
-                            'Purchase',
+                            'Return',
 
                     ]);
 
@@ -6574,6 +6574,242 @@ public function returnTable(
 
         'stats' =>
             $stats,
+
+    ]);
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Purchase Return Details
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Return Purchase Return details.
+ */
+public function returnDetails(
+    int $id
+): JsonResponse {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
+
+    if (! canAccess('purchases.view')) {
+
+        return response()->json([
+
+            'success' =>
+                false,
+
+            'message' =>
+                'You do not have permission to view purchase return details.',
+
+        ], 403);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Purchase Return
+    |--------------------------------------------------------------------------
+    */
+
+    $purchaseReturn =
+        PurchaseReturn::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+            ->with([
+                'supplier',
+                'branch',
+                'purchaseOrder',
+                'createdBy',
+                'items.product',
+                'items.goodsReceivedItem.goodsReceived',
+            ])
+            ->find($id);
+
+
+    if (!$purchaseReturn) {
+
+        return response()->json([
+
+            'success' =>
+                false,
+
+            'message' =>
+                'Purchase return record not found.',
+
+        ], 404);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Items
+    |--------------------------------------------------------------------------
+    */
+
+    $items =
+        $purchaseReturn->items->map(
+            function ($item) {
+
+                return [
+
+                    'id' =>
+                        $item->id,
+
+                    'goods_received_item_id' =>
+                        $item->goods_received_item_id,
+
+                    'product_id' =>
+                        $item->product_id,
+
+                    'product_name' =>
+                        $item->product?->name
+                            ?? 'Unknown Product',
+
+                    'product_code' =>
+                        $item->product?->product_code
+                            ?? $item->product?->sku
+                            ?? '—',
+
+                    'quantity' =>
+                        (float)
+                        $item->quantity,
+
+                    'unit_cost' =>
+                        (float)
+                        $item->unit_cost,
+
+                    'total' =>
+                        (float)
+                        $item->total,
+
+                     'reason' =>
+                        $item->reason
+                            ?? '—',
+
+                    'received_date' =>
+                        $item->goodsReceivedItem
+                            ?->goodsReceived
+                            ?->received_date,
+
+                    'received_at' =>
+                        $item->goodsReceivedItem
+                            ?->goodsReceived
+                            ?->created_at
+                            ?->toIso8601String(),
+
+                ];
+
+            }
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Response
+    |--------------------------------------------------------------------------
+    */
+
+    return response()->json([
+
+        'success' =>
+            true,
+
+        'data' => [
+
+            'id' =>
+                $purchaseReturn->id,
+
+            'return_number' =>
+                $purchaseReturn->return_number,
+
+            'status' =>
+                $purchaseReturn->status,
+
+            'return_date' =>
+                $purchaseReturn->return_date, 
+                
+            'reason' =>
+                $purchaseReturn->reason
+                    ?? '—',
+
+            'notes' =>
+                $purchaseReturn->notes,
+
+            'created_at' =>
+                $purchaseReturn->created_at
+                    ? $purchaseReturn->created_at
+                        ->toIso8601String()
+                    : null,
+
+            'processed_by' =>
+                $purchaseReturn->createdBy
+                    ? trim(
+                        $purchaseReturn->createdBy->first_name .
+                        ' ' .
+                        $purchaseReturn->createdBy->last_name
+                    )
+                    : '—',
+
+            'supplier' => [
+
+                'id' =>
+                    $purchaseReturn->supplier?->id,
+
+                'name' =>
+                    $purchaseReturn->supplier?->name
+                        ?? '—',
+
+            ],
+
+            'branch' => [
+
+                'id' =>
+                    $purchaseReturn->branch?->id,
+
+                'name' =>
+                    $purchaseReturn->branch?->name
+                        ?? '—',
+
+            ],
+
+            'purchase_order' => [
+
+                'id' =>
+                    $purchaseReturn->purchaseOrder?->id,
+
+                'order_number' =>
+                    $purchaseReturn->purchaseOrder?->order_number
+                        ?? '—',
+
+            ],
+
+            'items' =>
+                $items,
+
+            'total_quantity' =>
+                (float)
+                $purchaseReturn->items->sum(
+                    'quantity'
+                ),
+
+            'total' =>
+                (float)
+                $purchaseReturn->items->sum(
+                    'total'
+                ),
+
+        ],
 
     ]);
 

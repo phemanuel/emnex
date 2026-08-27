@@ -332,7 +332,7 @@ const Purchase = {
             |--------------------------------------------------------------------------
             */
 
-            returnsTable:
+           returnsTable:
                 document.getElementById(
                     'purchaseReturnsTable'
                 ),
@@ -349,27 +349,22 @@ const Purchase = {
 
             returnsSupplierFilter:
                 document.getElementById(
-                    'purchaseReturnsSupplierFilter'
+                    'purchaseReturnsSupplier'
                 ),
 
             returnsBranchFilter:
                 document.getElementById(
-                    'purchaseReturnsBranchFilter'
+                    'purchaseReturnsBranch'
                 ),
 
             returnsStatusFilter:
                 document.getElementById(
-                    'purchaseReturnsStatusFilter'
+                    'purchaseReturnsStatus'
                 ),
 
-            returnsDateFrom:
+            returnsRefresh:
                 document.getElementById(
-                    'purchaseReturnsDateFrom'
-                ),
-
-            returnsDateTo:
-                document.getElementById(
-                    'purchaseReturnsDateTo'
+                    'purchaseReturnsRefresh'
                 ),
 
             newPurchaseReturnBtn:
@@ -771,6 +766,72 @@ const Purchase = {
             returnInspectorContent:
                 document.getElementById(
                     'purchaseReturnInspectorContent'
+                ),
+
+            /*
+            |--------------------------------------------------------------------------
+            | Purchase Return Inspector
+            |--------------------------------------------------------------------------
+            */
+
+            purchaseReturnInspector:
+                document.getElementById(
+                    'purchaseReturnInspector'
+                ),
+
+            inspectorPurchaseReturnStatus:
+                document.getElementById(
+                    'inspectorPurchaseReturnStatus'
+                ),
+
+            inspectorPurchaseReturnSupplier:
+                document.getElementById(
+                    'inspectorPurchaseReturnSupplier'
+                ),
+
+            inspectorPurchaseReturnBranch:
+                document.getElementById(
+                    'inspectorPurchaseReturnBranch'
+                ),
+
+            inspectorPurchaseReturnOrder:
+                document.getElementById(
+                    'inspectorPurchaseReturnOrder'
+                ),
+
+            inspectorPurchaseReturnDate:
+                document.getElementById(
+                    'inspectorPurchaseReturnDate'
+                ),
+
+            inspectorPurchaseReturnItems:
+                document.getElementById(
+                    'inspectorPurchaseReturnItems'
+                ),
+
+            inspectorPurchaseReturnQuantity:
+                document.getElementById(
+                    'inspectorPurchaseReturnQuantity'
+                ),
+
+            inspectorPurchaseReturnTotal:
+                document.getElementById(
+                    'inspectorPurchaseReturnTotal'
+                ),
+
+            inspectorPurchaseReturnNotes:
+                document.getElementById(
+                    'inspectorPurchaseReturnNotes'
+                ),
+
+            inspectorPurchaseReturnCreatedBy:
+                document.getElementById(
+                    'inspectorPurchaseReturnCreatedBy'
+                ),
+
+            inspectorPurchaseReturnCreatedAt:
+                document.getElementById(
+                    'inspectorPurchaseReturnCreatedAt'
                 ),
 
 
@@ -1204,6 +1265,50 @@ const Purchase = {
 
         /*
         |--------------------------------------------------------------------------
+        | Purchase Return - View
+        |--------------------------------------------------------------------------
+        */
+
+        document.addEventListener(
+            'click',
+            event => {
+
+                const button =
+                    event.target.closest(
+                        '.purchase-return-view-btn'
+                    );
+
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                event.preventDefault();
+
+
+                const id =
+                    button.dataset.id;
+
+
+                if (!id) {
+
+                    return;
+
+                }
+
+
+                this.openPurchaseReturnInspector(
+                    id
+                );
+
+            }
+        );
+
+        /*
+        |--------------------------------------------------------------------------
         | Purchase Return Purchase Order
         |--------------------------------------------------------------------------
         */
@@ -1598,6 +1703,79 @@ const Purchase = {
             );
 
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Return Search
+        |--------------------------------------------------------------------------
+        */
+
+        this.bindSearch(
+            this.elements.returnsSearch,
+            () => {
+
+                this.returnsPage =
+                    1;
+
+                this.loadReturns(
+                    1
+                );
+
+            }
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Return Filters
+        |--------------------------------------------------------------------------
+        */
+
+        this.bindFilter(
+            this.elements.returnsSupplierFilter,
+            () => {
+
+                this.returnsPage =
+                    1;
+
+                this.loadReturns(
+                    1
+                );
+
+            }
+        );
+
+
+        this.bindFilter(
+            this.elements.returnsBranchFilter,
+            () => {
+
+                this.returnsPage =
+                    1;
+
+                this.loadReturns(
+                    1
+                );
+
+            }
+        );
+
+
+        this.bindFilter(
+            this.elements.returnsStatusFilter,
+            () => {
+
+                this.returnsPage =
+                    1;
+
+                this.loadReturns(
+                    1
+                );
+
+            }
+        );
+
+        /*
+s
 
 
         /*
@@ -2273,28 +2451,30 @@ const Purchase = {
 
         },   
 
-                 /*
-            |--------------------------------------------------------------------------
-            | Load Initial Data
-            |--------------------------------------------------------------------------
-            */
+            /*
+        |--------------------------------------------------------------------------
+        | Load Initial Data
+        |--------------------------------------------------------------------------
+        */
 
-            async loadInitialData()
-            {
+        async loadInitialData()
+        {
 
-                await Promise.allSettled([
+            await Promise.allSettled([
 
-                    this.loadSuppliers(),
+                this.loadSuppliers(),
 
-                    this.loadBranches(),
+                this.loadBranches(),
 
-                    this.loadProducts(),
+                this.loadProducts(),
 
-                    this.loadOrders(),
+                this.loadOrders(),
 
-                ]);
+                this.loadPurchaseTabCounts(),
 
-            },
+            ]);
+
+        },
 
 
     /*
@@ -3781,6 +3961,116 @@ clearPurchaseOrderProduct(
         }
 
     },
+
+    /*
+|--------------------------------------------------------------------------
+| Load Purchase Tab Counts
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Load Goods Received and Purchase Returns tab counts.
+ */
+async loadPurchaseTabCounts()
+{
+
+    try {
+
+        const [
+            receivedResponse,
+            returnsResponse
+        ] =
+            await Promise.all([
+
+                fetch(
+                    '/purchase/received/table?page=1',
+                    {
+                        headers: {
+
+                            'Accept':
+                                'application/json'
+
+                        }
+                    }
+                ),
+
+                fetch(
+                    '/purchase/returns/table?page=1',
+                    {
+                        headers: {
+
+                            'Accept':
+                                'application/json'
+
+                        }
+                    }
+                )
+
+            ]);
+
+
+        const [
+            receivedResult,
+            returnsResult
+        ] =
+            await Promise.all([
+
+                receivedResponse.json(),
+                returnsResponse.json()
+
+            ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Goods Received
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            receivedResponse.ok &&
+            receivedResult.success
+        ) {
+
+            this.setText(
+                'purchaseReceivedCount',
+                receivedResult.stats?.total ??
+                0
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Returns
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            returnsResponse.ok &&
+            returnsResult.success
+        ) {
+
+            this.setText(
+                'purchaseReturnsCount',
+                returnsResult.stats?.total ??
+                0
+            );
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            'Failed to load purchase tab counts:',
+            error
+        );
+
+    }
+
+},
 
     /*
 |--------------------------------------------------------------------------
@@ -7387,54 +7677,81 @@ updateGoodsReceivedStats(
 },
 
 
+   /*
+|--------------------------------------------------------------------------
+| Update Return Stats
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Update Purchase Returns KPI statistics.
+ */
+updateReturnStats(
+    stats
+)
+{
+
+    if (!stats) {
+
+        return;
+
+    }
+
+
     /*
     |--------------------------------------------------------------------------
-    | Update Return Stats
+    | Total Returns
     |--------------------------------------------------------------------------
     */
 
-    updateReturnStats(
-        stats
-    )
-    {
-
-        if (!stats) {
-            return;
-        }
+    this.setText(
+        'purchaseReturnsTotal',
+        stats.total ??
+        0
+    );
 
 
-        this.setText(
-            'purchaseReturnCount',
-            stats.returns ??
-            stats.total ??
+    /*
+    |--------------------------------------------------------------------------
+    | Pending
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseReturnsPending',
+        stats.pending ??
+        0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Completed
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseReturnsCompleted',
+        stats.completed ??
+        0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Returned Value
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'purchaseReturnsValue',
+        this.formatMoney(
+            stats.total_value ??
             0
-        );
+        )
+    );
 
-
-        this.setText(
-            'purchaseReturnPending',
-            stats.pending ??
-            0
-        );
-
-
-        this.setText(
-            'purchaseReturnCompleted',
-            stats.completed ??
-            0
-        );
-
-
-        this.setText(
-            'purchaseReturnValue',
-            this.formatMoney(
-                stats.value ??
-                stats.total_value ??
-                0
-            )
-        );
-
-    },
+},
 
 
     /*
@@ -9748,223 +10065,548 @@ showInitialPurchaseOrderProducts(
     },
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Open Return Inspector
-    |--------------------------------------------------------------------------
-    */
+   /*
+|--------------------------------------------------------------------------
+| Open Purchase Return Inspector
+|--------------------------------------------------------------------------
+*/
 
-    async openReturnInspector(
-        id
-    )
-    {
+/**
+ * Open purchase return details in the inspector.
+ */
+async openPurchaseReturnInspector(
+    id
+)
+{
+
+    if (!id) {
+
+        return;
+
+    }
+
+
+    if (
+        !this.returnInspectorInstance
+    ) {
+
+        console.error(
+            'Purchase Return inspector is not initialized.'
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/purchase/returns/${id}/details`,
+                {
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest'
+
+                    }
+                }
+            );
+
+
+        const result =
+            await response.json();
+
 
         if (
-            !this.returnInspectorInstance
+            !response.ok ||
+            !result.success
         ) {
-            return;
+
+            throw new Error(
+                result.message ??
+                'Unable to load purchase return details.'
+            );
+
         }
 
 
-        this.showInspectorLoading(
-            this.elements.returnInspectorContent
+        this.populatePurchaseReturnInspector(
+            result.data
         );
 
 
         this.returnInspectorInstance.show();
 
+    }
+    catch (error) {
 
-        try {
-
-            const response =
-                await fetch(
-                    `/purchase/returns/${id}/details`,
-                    {
-                        headers: {
-                            'Accept':
-                                'application/json'
-                        }
-                    }
-                );
+        console.error(
+            'Failed to load purchase return details:',
+            error
+        );
 
 
-            const result =
-                await response.json();
+        this.notify(
+            error.message ??
+            'Unable to load purchase return details.',
+            'error'
+        );
 
+    }
 
-            if (
-                !response.ok ||
-                !result.success
-            ) {
+},
 
-                throw new Error(
-                    result.message ??
-                    'Unable to load purchase return.'
-                );
+/*
+|--------------------------------------------------------------------------
+| Populate Purchase Return Inspector
+|--------------------------------------------------------------------------
+*/
 
-            }
+/**
+ * Populate purchase return inspector details.
+ */
+populatePurchaseReturnInspector(
+    record
+)
+{
 
+    if (!record) {
 
-            this.renderReturnInspector(
-                result.data
-            );
+        return;
 
-        }
-        catch (error) {
-
-            this.showInspectorError(
-                this.elements.returnInspectorContent,
-                error.message
-            );
-
-        }
-
-    },
+    }
 
 
     /*
     |--------------------------------------------------------------------------
-    | Render Return Inspector
+    | Label
     |--------------------------------------------------------------------------
     */
 
-    renderReturnInspector(
-        record
-    )
-    {
-
-        const items =
-            record.items ?? [];
+    const label =
+        document.getElementById(
+            'purchaseReturnInspectorLabel'
+        );
 
 
-        this.elements.returnInspectorContent.innerHTML = `
+    if (label) {
 
-            <div class="p-4">
+        label.textContent =
+            record.return_number ??
+            '—';
 
-                <div class="mb-4">
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status
+    |--------------------------------------------------------------------------
+    */
+
+    const status =
+        this.elements
+            .inspectorPurchaseReturnStatus;
+
+
+    if (status) {
+
+        const statusValue =
+            record.status ??
+            '—';
+
+
+        status.textContent =
+            statusValue;
+
+
+        const normalizedStatus =
+            String(
+                statusValue
+            ).toLowerCase();
+
+
+        if (
+            normalizedStatus ===
+            'completed'
+        ) {
+
+            status.className =
+                'badge bg-success-subtle text-success';
+
+        }
+        else if (
+            normalizedStatus ===
+            'pending'
+        ) {
+
+            status.className =
+                'badge bg-warning-subtle text-warning';
+
+        }
+        else if (
+            normalizedStatus ===
+            'cancelled'
+        ) {
+
+            status.className =
+                'badge bg-danger-subtle text-danger';
+
+        }
+        else {
+
+            status.className =
+                'badge bg-secondary-subtle text-secondary';
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supplier
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements
+            .inspectorPurchaseReturnSupplier
+    ) {
+
+        this.elements
+            .inspectorPurchaseReturnSupplier
+            .textContent =
+                record.supplier?.name ??
+                '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements
+            .inspectorPurchaseReturnBranch
+    ) {
+
+        this.elements
+            .inspectorPurchaseReturnBranch
+            .textContent =
+                record.branch?.name ??
+                '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Purchase Order
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements
+            .inspectorPurchaseReturnOrder
+    ) {
+
+        this.elements
+            .inspectorPurchaseReturnOrder
+            .textContent =
+                record.purchase_order?.order_number ??
+                '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Return Date
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements
+            .inspectorPurchaseReturnDate
+    ) {
+
+        this.elements
+            .inspectorPurchaseReturnDate
+            .textContent =
+                record.return_date
+                    ? new Date(
+                        record.return_date
+                    ).toLocaleDateString(
+                        'en-GB'
+                    )
+                    : '—';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Returned Items
+    |--------------------------------------------------------------------------
+    */
+
+    const items =
+        record.items ?? [];
+
+
+    if (
+        this.elements
+            .inspectorPurchaseReturnItems
+    ) {
+
+        if (!items.length) {
+
+            this.elements
+                .inspectorPurchaseReturnItems
+                .innerHTML = `
 
                     <div class="text-muted small">
-                        Purchase Return
+                        No items available.
                     </div>
 
-                    <h4 class="fw-semibold">
+                `;
 
-                        ${this.escapeHtml(
-                            record.return_no ??
-                            record.reference_no ??
-                            '—'
-                        )}
+        }
+        else {
 
-                    </h4>
+            this.elements
+                .inspectorPurchaseReturnItems
+                .innerHTML =
+                    items.map(
+                        item => {
 
-                    <span class="badge ${this.statusBadge(
-                        record.status
-                    )}">
-
-                        ${this.escapeHtml(
-                            record.status_label ??
-                            record.status ??
-                            '—'
-                        )}
-
-                    </span>
-
-                </div>
+                            const quantity =
+                                parseFloat(
+                                    item.quantity ?? 0
+                                ) || 0;
 
 
-                <div class="row g-3 mb-4">
-
-                    ${this.inspectorInfo(
-                        'Purchase Order',
-                        record.purchase_order?.order_no ??
-                        record.purchase_order_no
-                    )}
-
-                    ${this.inspectorInfo(
-                        'Supplier',
-                        record.supplier?.name ??
-                        record.supplier_name
-                    )}
-
-                    ${this.inspectorInfo(
-                        'Branch',
-                        record.branch?.name ??
-                        record.branch_name
-                    )}
-
-                    ${this.inspectorInfo(
-                        'Return Date',
-                        record.return_date
-                    )}
-
-                </div>
+                            const unitCost =
+                                parseFloat(
+                                    item.unit_cost ?? 0
+                                ) || 0;
 
 
-                <div>
+                            const total =
+                                parseFloat(
+                                    item.total ?? 0
+                                ) || 0;
 
-                    <h6 class="fw-semibold mb-3">
-                        Returned Items
-                    </h6>
 
-                    ${items.map(
-                        item => `
+                            const receivedDate =
+                                item.received_date
+                                    ? new Date(
+                                        item.received_date
+                                    ).toLocaleDateString(
+                                        'en-GB'
+                                    )
+                                    : '—';
 
-                            <div class="d-flex justify-content-between
-                                py-3 border-bottom">
 
-                                <div>
+                            const receivedTime =
+                                item.received_at
+                                    ? new Date(
+                                        item.received_at
+                                    ).toLocaleTimeString(
+                                        'en-GB',
+                                        {
+                                            hour:
+                                                '2-digit',
 
-                                    <div class="fw-semibold">
+                                            minute:
+                                                '2-digit'
+                                        }
+                                    )
+                                    : '';
 
-                                        ${this.escapeHtml(
-                                            item.product_name ??
-                                            item.product?.name ??
-                                            '—'
-                                        )}
+
+                            return `
+
+                                <div class="purchase-inspector-item">
+
+                                    <div>
+
+                                        <div class="fw-semibold">
+
+                                            ${this.escapeHtml(
+                                                item.product_name ??
+                                                'Unknown Product'
+                                            )}
+
+                                        </div>
+
+
+                                        <div class="small text-muted">
+
+                                            ${this.escapeHtml(
+                                                item.product_code ??
+                                                '—'
+                                            )}
+
+                                        </div>
+
+
+                                        <div class="small text-muted mt-1">
+
+                                            Received:
+                                            ${receivedDate}
+
+                                            ${
+                                                receivedTime
+                                                    ? ` · ${receivedTime}`
+                                                    : ''
+                                            }
+
+                                        </div>                                        
 
                                     </div>
 
-                                    <div class="small text-muted">
 
-                                        Qty:
-                                        ${this.formatNumber(
-                                            item.quantity
-                                        )}
+                                    <div class="text-end">
+
+                                        <div class="fw-semibold">
+
+                                            ${this.formatQuantity(
+                                                quantity
+                                            )}
+
+                                        </div>
+
+
+                                        <div class="small text-muted">
+
+                                            ${this.formatMoney(
+                                                total
+                                            )}
+
+                                        </div>
+
+
+                                        <div class="small text-muted">
+
+                                            ${this.formatMoney(
+                                                unitCost
+                                            )} / unit
+
+                                        </div>
 
                                     </div>
 
                                 </div>
 
-                                <div class="fw-semibold">
+                            `;
 
-                                    ${this.formatMoney(
-                                        item.total ??
-                                        (
-                                            Number(item.quantity ?? 0) *
-                                            Number(item.unit_cost ?? 0)
-                                        )
-                                    )}
+                        }
+                    ).join('');
 
-                                </div>
+        }
 
-                            </div>
+    }
 
-                        `
-                    ).join('')}
+
+    /*
+    |--------------------------------------------------------------------------
+    | Summary
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements
+            .inspectorPurchaseReturnQuantity
+    ) {
+
+        this.elements
+            .inspectorPurchaseReturnQuantity
+            .textContent =
+                this.formatQuantity(
+                    record.total_quantity ?? 0
+                );
+
+    }
+
+
+    if (
+        this.elements
+            .inspectorPurchaseReturnTotal
+    ) {
+
+        this.elements
+            .inspectorPurchaseReturnTotal
+            .textContent =
+                this.formatMoney(
+                    record.total ?? 0
+                );
+
+    }
+
+
+    /*
+|--------------------------------------------------------------------------
+| Reason / Notes
+|--------------------------------------------------------------------------
+*/
+
+if (
+    this.elements
+        .inspectorPurchaseReturnNotes
+) {
+
+    const reason =
+        record.reason ??
+        '—';
+
+
+    const notes =
+        record.notes ??
+        '—';
+
+
+    this.elements
+        .inspectorPurchaseReturnNotes
+        .innerHTML = `
+
+            <div class="mb-3">
+
+                <div class="fw-semibold mb-1">
+                    Reason
+                </div>
+
+                <div class="small text-muted">
+
+                    ${this.escapeHtml(
+                        reason
+                    )}
 
                 </div>
 
+            </div>
 
-                <div class="d-flex justify-content-between
-                    fw-semibold mt-4">
 
-                    <span>Total</span>
+            <div>
 
-                    <span>
-                        ${this.formatMoney(
-                            record.total
-                        )}
-                    </span>
+                <div class="fw-semibold mb-1">
+                    Notes
+                </div>
+
+                <div class="small text-muted">
+
+                    ${this.escapeHtml(
+                        notes
+                    )}
 
                 </div>
 
@@ -9972,8 +10614,48 @@ showInitialPurchaseOrderProducts(
 
         `;
 
-    },
+}
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Activity
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements
+            .inspectorPurchaseReturnCreatedBy
+    ) {
+
+        this.elements
+            .inspectorPurchaseReturnCreatedBy
+            .textContent =
+                record.processed_by ??
+                '—';
+
+    }
+
+
+    if (
+        this.elements
+            .inspectorPurchaseReturnCreatedAt
+    ) {
+
+        this.elements
+            .inspectorPurchaseReturnCreatedAt
+            .textContent =
+                record.created_at
+                    ? new Date(
+                        record.created_at
+                    ).toLocaleString(
+                        'en-GB'
+                    )
+                    : '—';
+
+    }
+
+},
 
     /*
     |--------------------------------------------------------------------------

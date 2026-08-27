@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2026 at 02:55 PM
+-- Generation Time: Aug 27, 2026 at 01:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -255,7 +255,32 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (194, 1, 1, 1, 'purchases', 'approve', 'Approved purchase order: PO-202608-00002', 'PurchaseOrder', 3, '{\"id\":3,\"company_id\":1,\"branch_id\":1,\"supplier_id\":1,\"order_number\":\"PO-202608-00002\",\"order_date\":\"2026-08-17T00:00:00.000000Z\",\"expected_date\":\"2026-08-31T00:00:00.000000Z\",\"status\":\"Pending\",\"subtotal\":\"12975000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"12975000.00\",\"notes\":\"5 products - 12,975,000\",\"created_by\":1,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-08-17T13:06:44.000000Z\",\"updated_at\":\"2026-08-17T14:47:32.000000Z\",\"deleted_at\":null,\"items\":[{\"id\":11,\"purchase_order_id\":3,\"product_id\":1,\"quantity\":\"1000.00\",\"unit_cost\":\"500.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"500000.00\",\"created_at\":\"2026-08-17T13:07:24.000000Z\",\"updated_at\":\"2026-08-17T13:07:24.000000Z\"},{\"id\":12,\"purchase_order_id\":3,\"product_id\":6,\"quantity\":\"1500.00\",\"unit_cost\":\"1450.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"2175000.00\",\"created_at\":\"2026-08-17T13:07:24.000000Z\",\"updated_at\":\"2026-08-17T13:07:24.000000Z\"},{\"id\":13,\"purchase_order_id\":3,\"product_id\":2,\"quantity\":\"2000.00\",\"unit_cost\":\"500.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"1000000.00\",\"created_at\":\"2026-08-17T13:07:24.000000Z\",\"updated_at\":\"2026-08-17T13:07:24.000000Z\"},{\"id\":14,\"purchase_order_id\":3,\"product_id\":19,\"quantity\":\"1500.00\",\"unit_cost\":\"1000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"1500000.00\",\"created_at\":\"2026-08-17T13:07:24.000000Z\",\"updated_at\":\"2026-08-17T13:07:24.000000Z\"},{\"id\":15,\"purchase_order_id\":3,\"product_id\":10,\"quantity\":\"1000.00\",\"unit_cost\":\"7800.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"7800000.00\",\"created_at\":\"2026-08-17T13:07:24.000000Z\",\"updated_at\":\"2026-08-17T13:07:24.000000Z\"}],\"supplier\":{\"id\":1,\"company_id\":1,\"supplier_code\":\"SUP-00001\",\"name\":\"Friezland Group of Companies\",\"contact_person\":\"Mr Adeleke Abayomi\",\"email\":\"info@friezland.com\",\"phone\":\"07032109983\",\"alternate_phone\":\"07032109983\",\"address\":\"17, Ojokoro avenue, abeokuta, Ogun State.\",\"city\":\"Abeokuta\",\"state\":\"Ogun\",\"country\":\"Nigeria\",\"tax_number\":\"29839393\",\"payment_terms\":\"30 days\",\"credit_limit\":\"1000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Friezland.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:27:31.000000Z\",\"updated_at\":\"2026-08-16T12:27:31.000000Z\",\"deleted_at\":null},\"branch\":{\"id\":1,\"company_id\":1,\"branch_code\":\"BR001\",\"name\":\"Head Office\",\"phone\":\"08012345678\",\"email\":\"headoffice@emmanexitconsult.com\",\"address\":\"Lagos, Nigeria\",\"is_head_office\":true,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null}}', '{\"id\":3,\"company_id\":1,\"branch_id\":1,\"supplier_id\":1,\"order_number\":\"PO-202608-00002\",\"order_date\":\"2026-08-17T00:00:00.000000Z\",\"expected_date\":\"2026-08-31T00:00:00.000000Z\",\"status\":\"Approved\",\"subtotal\":\"12975000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"12975000.00\",\"notes\":\"5 products - 12,975,000\",\"created_by\":1,\"approved_by\":1,\"approved_at\":\"2026-08-17T15:12:56.000000Z\",\"created_at\":\"2026-08-17T13:06:44.000000Z\",\"updated_at\":\"2026-08-17T15:12:56.000000Z\",\"deleted_at\":null}', 'purchase/orders/3/approve', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-17 14:12:56', '2026-08-17 14:12:56'),
 (195, 1, 1, 1, 'purchases', 'create', 'Created purchase order: PO-202608-00003', 'PurchaseOrder', 4, NULL, '{\"company_id\":1,\"branch_id\":1,\"supplier_id\":2,\"order_number\":\"PO-202608-00003\",\"order_date\":\"2026-08-18T00:00:00.000000Z\",\"expected_date\":\"2026-09-01T00:00:00.000000Z\",\"status\":\"Draft\",\"subtotal\":\"1000000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"1000000.00\",\"notes\":null,\"created_by\":1,\"updated_at\":\"2026-08-18T12:55:29.000000Z\",\"created_at\":\"2026-08-18T12:55:29.000000Z\",\"id\":4}', 'purchase/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-18 11:55:29', '2026-08-18 11:55:29'),
 (196, 1, 1, 1, 'purchases', 'submit', 'Submitted purchase order for approval: PO-202608-00003', 'PurchaseOrder', 4, '{\"id\":4,\"company_id\":1,\"branch_id\":1,\"supplier_id\":2,\"order_number\":\"PO-202608-00003\",\"order_date\":\"2026-08-18T00:00:00.000000Z\",\"expected_date\":\"2026-09-01T00:00:00.000000Z\",\"status\":\"Draft\",\"subtotal\":\"1000000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"1000000.00\",\"notes\":null,\"created_by\":1,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-08-18T12:55:29.000000Z\",\"updated_at\":\"2026-08-18T12:55:29.000000Z\",\"deleted_at\":null,\"items\":[{\"id\":16,\"purchase_order_id\":4,\"product_id\":2,\"quantity\":\"2000.00\",\"unit_cost\":\"500.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"1000000.00\",\"created_at\":\"2026-08-18T12:55:29.000000Z\",\"updated_at\":\"2026-08-18T12:55:29.000000Z\"}],\"supplier\":{\"id\":2,\"company_id\":1,\"supplier_code\":\"SUP-00002\",\"name\":\"Nigerian Breweries\",\"contact_person\":\"Mrs Afonja Omowunmi\",\"email\":\"info@nigbreweries.com\",\"phone\":\"08034271855\",\"alternate_phone\":\"08034271855\",\"address\":\"Nigerial Breweries, Off Alakia Road, Ibadan\",\"city\":\"Ibadan\",\"state\":\"Oyo\",\"country\":\"Nigeria\",\"tax_number\":\"09030922\",\"payment_terms\":\"30 days\",\"credit_limit\":\"2000000.00\",\"current_balance\":\"0.00\",\"notes\":\"Nigerian Breweries.\",\"status\":true,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-16T12:35:20.000000Z\",\"updated_at\":\"2026-08-16T12:45:37.000000Z\",\"deleted_at\":null},\"branch\":{\"id\":1,\"company_id\":1,\"branch_code\":\"BR001\",\"name\":\"Head Office\",\"phone\":\"08012345678\",\"email\":\"headoffice@emmanexitconsult.com\",\"address\":\"Lagos, Nigeria\",\"is_head_office\":true,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null}}', '{\"id\":4,\"company_id\":1,\"branch_id\":1,\"supplier_id\":2,\"order_number\":\"PO-202608-00003\",\"order_date\":\"2026-08-18T00:00:00.000000Z\",\"expected_date\":\"2026-09-01T00:00:00.000000Z\",\"status\":\"Pending\",\"subtotal\":\"1000000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"1000000.00\",\"notes\":null,\"created_by\":1,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-08-18T12:55:29.000000Z\",\"updated_at\":\"2026-08-18T12:55:37.000000Z\",\"deleted_at\":null}', 'purchase/orders/4/submit', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-18 11:55:37', '2026-08-18 11:55:37'),
-(197, 1, 1, 1, 'purchases', 'cancel', 'Cancelled purchase order: PO-202608-00003', 'PurchaseOrder', 4, '{\"id\":4,\"company_id\":1,\"branch_id\":1,\"supplier_id\":2,\"order_number\":\"PO-202608-00003\",\"order_date\":\"2026-08-18T00:00:00.000000Z\",\"expected_date\":\"2026-09-01T00:00:00.000000Z\",\"status\":\"Pending\",\"subtotal\":\"1000000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"1000000.00\",\"notes\":null,\"created_by\":1,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-08-18T12:55:29.000000Z\",\"updated_at\":\"2026-08-18T12:55:37.000000Z\",\"deleted_at\":null}', '{\"id\":4,\"company_id\":1,\"branch_id\":1,\"supplier_id\":2,\"order_number\":\"PO-202608-00003\",\"order_date\":\"2026-08-18T00:00:00.000000Z\",\"expected_date\":\"2026-09-01T00:00:00.000000Z\",\"status\":\"cancelled\",\"subtotal\":\"1000000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"1000000.00\",\"notes\":null,\"created_by\":1,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-08-18T12:55:29.000000Z\",\"updated_at\":\"2026-08-18T12:55:43.000000Z\",\"deleted_at\":null}', 'purchase/orders/4/cancel', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-18 11:55:43', '2026-08-18 11:55:43');
+(197, 1, 1, 1, 'purchases', 'cancel', 'Cancelled purchase order: PO-202608-00003', 'PurchaseOrder', 4, '{\"id\":4,\"company_id\":1,\"branch_id\":1,\"supplier_id\":2,\"order_number\":\"PO-202608-00003\",\"order_date\":\"2026-08-18T00:00:00.000000Z\",\"expected_date\":\"2026-09-01T00:00:00.000000Z\",\"status\":\"Pending\",\"subtotal\":\"1000000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"1000000.00\",\"notes\":null,\"created_by\":1,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-08-18T12:55:29.000000Z\",\"updated_at\":\"2026-08-18T12:55:37.000000Z\",\"deleted_at\":null}', '{\"id\":4,\"company_id\":1,\"branch_id\":1,\"supplier_id\":2,\"order_number\":\"PO-202608-00003\",\"order_date\":\"2026-08-18T00:00:00.000000Z\",\"expected_date\":\"2026-09-01T00:00:00.000000Z\",\"status\":\"cancelled\",\"subtotal\":\"1000000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"1000000.00\",\"notes\":null,\"created_by\":1,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-08-18T12:55:29.000000Z\",\"updated_at\":\"2026-08-18T12:55:43.000000Z\",\"deleted_at\":null}', 'purchase/orders/4/cancel', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-18 11:55:43', '2026-08-18 11:55:43'),
+(198, 1, 1, 1, 'purchases', 'create', 'Created goods received: GR-000001', 'GoodsReceived', 2, NULL, '{\"company_id\":1,\"branch_id\":1,\"purchase_order_id\":3,\"supplier_id\":1,\"receipt_number\":\"GR-000001\",\"received_date\":\"2026-08-28T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"received_by\":1,\"updated_at\":\"2026-08-21T13:02:33.000000Z\",\"created_at\":\"2026-08-21T13:02:33.000000Z\",\"id\":2}', 'purchase/received', 'POST', 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-21 12:02:33', '2026-08-21 12:02:33'),
+(199, 1, 1, 1, 'Products', 'Updated', 'Updated product: Coca-Cola 50cl', 'Product', 1, '{\"id\":1,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000001\",\"barcode\":\"100000000001\",\"sku\":\"COKE50CL\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":1,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000001\",\"barcode\":\"100000000001\",\"sku\":\"COKE50CL\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"expiry_date\":\"2026-09-23T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"2000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T09:53:46.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 08:53:46', '2026-08-22 08:53:46'),
+(200, 1, 1, 1, 'Users', 'Disabled', 'Disabled user Maxwell Akinkunmi Akinyooye', 'User', 17, '{\"status\":true}', '{\"id\":17,\"company_id\":1,\"branch_id\":2,\"role_id\":3,\"employee_no\":\"MG-2026-001\",\"first_name\":\"Maxwell\",\"other_name\":\"Akinkunmi\",\"last_name\":\"Akinyooye\",\"username\":\"maxwell\",\"email\":\"maxwell@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"08034271855\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"2017-09-27T00:00:00.000000Z\",\"employment_date\":\"2026-08-03T00:00:00.000000Z\",\"address\":\"Ibadan\",\"notes\":\"Branch manager of lekki branch.\",\"status\":false,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-08-09T08:43:51.000000Z\",\"updated_at\":\"2026-08-22T11:10:51.000000Z\",\"deleted_at\":null}', 'users/17/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 10:10:51', '2026-08-22 10:10:51'),
+(201, 1, 1, 1, 'Users', 'Enabled', 'Enabled user Maxwell Akinkunmi Akinyooye', 'User', 17, '{\"status\":false}', '{\"id\":17,\"company_id\":1,\"branch_id\":2,\"role_id\":3,\"employee_no\":\"MG-2026-001\",\"first_name\":\"Maxwell\",\"other_name\":\"Akinkunmi\",\"last_name\":\"Akinyooye\",\"username\":\"maxwell\",\"email\":\"maxwell@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"08034271855\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"2017-09-27T00:00:00.000000Z\",\"employment_date\":\"2026-08-03T00:00:00.000000Z\",\"address\":\"Ibadan\",\"notes\":\"Branch manager of lekki branch.\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-08-09T08:43:51.000000Z\",\"updated_at\":\"2026-08-22T11:10:57.000000Z\",\"deleted_at\":null}', 'users/17/toggle-status', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 10:10:57', '2026-08-22 10:10:57');
+INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module`, `action`, `description`, `record_type`, `record_id`, `old_values`, `new_values`, `url`, `method`, `user_agent`, `terminal_id`, `ip_address`, `browser`, `platform`, `device`, `created_at`, `updated_at`) VALUES
+(202, 1, 1, 1, 'Products', 'Updated', 'Updated product: Coca-Cola 50cl', 'Product', 1, '{\"id\":1,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000001\",\"barcode\":\"100000000001\",\"sku\":\"COKE50CL\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"expiry_date\":\"2026-09-23T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"2000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T09:53:46.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":1,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000001\",\"barcode\":\"100000000001\",\"sku\":\"COKE50CL\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"expiry_date\":\"2026-09-23T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"2000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T09:53:46.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 10:47:55', '2026-08-22 10:47:55'),
+(203, 1, 1, 1, 'purchases', 'create', 'Created goods received: GR-000002', 'GoodsReceived', 3, NULL, '{\"company_id\":1,\"branch_id\":1,\"purchase_order_id\":3,\"supplier_id\":1,\"receipt_number\":\"GR-000002\",\"received_date\":\"2026-08-22T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"received_by\":1,\"updated_at\":\"2026-08-22T12:11:37.000000Z\",\"created_at\":\"2026-08-22T12:11:37.000000Z\",\"id\":3}', 'purchase/received', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(204, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Dangote Sugar 1kg', 'Product', 6, '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:40:40.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/6/maximum-stock', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 12:40:40', '2026-08-22 12:40:40'),
+(205, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Dangote Sugar 1kg', 'Product', 6, '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:40:40.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:40:40.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/6/maximum-stock', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 12:41:30', '2026-08-22 12:41:30'),
+(206, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Dangote Sugar 1kg', 'Product', 6, '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:40:40.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:40:40.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/6/maximum-stock', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 12:42:25', '2026-08-22 12:42:25'),
+(207, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Dangote Sugar 1kg', 'Product', 6, '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:40:40.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:45:09.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/6/maximum-stock', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 12:45:09', '2026-08-22 12:45:09'),
+(208, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Dangote Sugar 1kg', 'Product', 6, '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:45:09.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:45:09.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/6/maximum-stock', 'PUT', 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 12:45:41', '2026-08-22 12:45:41'),
+(209, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Dangote Sugar 1kg', 'Product', 6, '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:45:09.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:47:56.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/6/maximum-stock', 'PUT', 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 12:47:56', '2026-08-22 12:47:56'),
+(210, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Dangote Sugar 1kg', 'Product', 6, '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:47:56.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1595.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:50:47.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/6/maximum-stock', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 12:50:47', '2026-08-22 12:50:47'),
+(211, 1, 1, 1, 'purchases', 'create', 'Created goods received: GR-000003', 'GoodsReceived', 4, NULL, '{\"company_id\":1,\"branch_id\":1,\"purchase_order_id\":3,\"supplier_id\":1,\"receipt_number\":\"GR-000003\",\"received_date\":\"2026-08-23T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"received_by\":1,\"updated_at\":\"2026-08-22T13:51:24.000000Z\",\"created_at\":\"2026-08-22T13:51:24.000000Z\",\"id\":4}', 'purchase/received', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 12:51:24', '2026-08-22 12:51:24'),
+(212, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Fanta 50cl', 'Product', 2, '{\"id\":2,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000002\",\"barcode\":\"100000000002\",\"sku\":\"FANTA50CL\",\"qr_code\":null,\"name\":\"Fanta 50cl\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Fanta\",\"manufacturer\":\"NBC\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":2,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000002\",\"barcode\":\"100000000002\",\"sku\":\"FANTA50CL\",\"qr_code\":null,\"name\":\"Fanta 50cl\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Fanta\",\"manufacturer\":\"NBC\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"2100.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:55:45.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/2/maximum-stock', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 12:55:45', '2026-08-22 12:55:45'),
+(213, 1, 1, 1, 'purchases', 'create', 'Created goods received: GR-000004', 'GoodsReceived', 5, NULL, '{\"company_id\":1,\"branch_id\":1,\"purchase_order_id\":3,\"supplier_id\":1,\"receipt_number\":\"GR-000004\",\"received_date\":\"2026-08-22T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"received_by\":1,\"updated_at\":\"2026-08-22T14:03:30.000000Z\",\"created_at\":\"2026-08-22T14:03:30.000000Z\",\"id\":5}', 'purchase/received', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 13:03:30', '2026-08-22 13:03:30'),
+(214, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Three Crown Evaporated Milk', 'Product', 19, '{\"id\":19,\"company_id\":1,\"product_category_id\":5,\"product_code\":\"PRD000011\",\"barcode\":\"TH123456\",\"sku\":null,\"qr_code\":null,\"name\":\"Three Crown Evaporated Milk\",\"description\":\"Three Crown Evaporated Milk\",\"image\":\"1786301525_6a78cc5535908.png\",\"cost_price\":\"1000.00\",\"selling_price\":\"1200.00\",\"discount_id\":null,\"unit_id\":5,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Three Crown\",\"manufacturer\":\"Three Crown Ltd\",\"expiry_date\":\"2027-11-25T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"100.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-09T18:52:05.000000Z\",\"updated_at\":\"2026-08-09T18:52:05.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":19,\"company_id\":1,\"product_category_id\":5,\"product_code\":\"PRD000011\",\"barcode\":\"TH123456\",\"sku\":null,\"qr_code\":null,\"name\":\"Three Crown Evaporated Milk\",\"description\":\"Three Crown Evaporated Milk\",\"image\":\"1786301525_6a78cc5535908.png\",\"cost_price\":\"1000.00\",\"selling_price\":\"1200.00\",\"discount_id\":null,\"unit_id\":5,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Three Crown\",\"manufacturer\":\"Three Crown Ltd\",\"expiry_date\":\"2027-11-25T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"100.00\",\"maximum_stock\":\"1635.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-08-09T18:52:05.000000Z\",\"updated_at\":\"2026-08-22T14:10:17.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/19/maximum-stock', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 13:10:17', '2026-08-22 13:10:17'),
+(215, 1, 1, 1, 'purchases', 'create', 'Created goods received: GR-000005', 'GoodsReceived', 6, NULL, '{\"company_id\":1,\"branch_id\":1,\"purchase_order_id\":3,\"supplier_id\":1,\"receipt_number\":\"GR-000005\",\"received_date\":\"2026-08-22T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"received_by\":1,\"updated_at\":\"2026-08-22T14:14:09.000000Z\",\"created_at\":\"2026-08-22T14:14:09.000000Z\",\"id\":6}', 'purchase/received', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 13:14:09', '2026-08-22 13:14:09'),
+(216, 1, 1, 1, 'Products', 'Updated', 'Updated maximum stock for product: Pampers Size 3', 'Product', 10, '{\"id\":10,\"company_id\":1,\"product_category_id\":9,\"product_code\":\"PRD000010\",\"barcode\":\"100000000010\",\"sku\":\"PAMP001\",\"qr_code\":null,\"name\":\"Pampers Size 3\",\"description\":null,\"image\":null,\"cost_price\":\"7800.00\",\"selling_price\":\"8600.00\",\"discount_id\":1,\"unit_id\":2,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Pampers\",\"manufacturer\":\"P&G\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":10,\"company_id\":1,\"product_category_id\":9,\"product_code\":\"PRD000010\",\"barcode\":\"100000000010\",\"sku\":\"PAMP001\",\"qr_code\":null,\"name\":\"Pampers Size 3\",\"description\":null,\"image\":null,\"cost_price\":\"7800.00\",\"selling_price\":\"8600.00\",\"discount_id\":1,\"unit_id\":2,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Pampers\",\"manufacturer\":\"P&G\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1085.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T14:16:04.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/10/maximum-stock', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 13:16:04', '2026-08-22 13:16:04'),
+(217, 1, 1, 1, 'purchases', 'create', 'Created goods received: GR-000006', 'GoodsReceived', 7, NULL, '{\"company_id\":1,\"branch_id\":1,\"purchase_order_id\":3,\"supplier_id\":1,\"receipt_number\":\"GR-000006\",\"received_date\":\"2026-08-22T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"received_by\":1,\"updated_at\":\"2026-08-22T14:16:15.000000Z\",\"created_at\":\"2026-08-22T14:16:15.000000Z\",\"id\":7}', 'purchase/received', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-22 13:16:15', '2026-08-22 13:16:15'),
+(218, 1, 1, 1, 'purchases', 'create', 'Created purchase return: PRN-000001', 'PurchaseReturn', 5, NULL, '{\"company_id\":1,\"branch_id\":1,\"supplier_id\":1,\"purchase_order_id\":3,\"return_number\":\"PRN-000001\",\"return_date\":\"2026-08-26T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"created_by\":1,\"updated_at\":\"2026-08-26T11:23:49.000000Z\",\"created_at\":\"2026-08-26T11:23:49.000000Z\",\"id\":5}', 'purchase/returns', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-26 10:23:50', '2026-08-26 10:23:50'),
+(219, 1, 1, 1, 'purchases', 'create', 'Created purchase return: PRN-000002', 'PurchaseReturn', 6, NULL, '{\"company_id\":1,\"branch_id\":1,\"supplier_id\":1,\"purchase_order_id\":3,\"return_number\":\"PRN-000002\",\"return_date\":\"2026-08-26T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"created_by\":1,\"updated_at\":\"2026-08-26T12:35:10.000000Z\",\"created_at\":\"2026-08-26T12:35:10.000000Z\",\"id\":6}', 'purchase/returns', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-26 11:35:10', '2026-08-26 11:35:10'),
+(220, 1, 1, 1, 'purchases', 'create', 'Created purchase return: PRN-000003', 'PurchaseReturn', 7, NULL, '{\"company_id\":1,\"branch_id\":1,\"supplier_id\":1,\"purchase_order_id\":3,\"return_number\":\"PRN-000003\",\"return_date\":\"2026-08-26T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"created_by\":1,\"reason\":\"Damage\",\"updated_at\":\"2026-08-26T13:05:19.000000Z\",\"created_at\":\"2026-08-26T13:05:19.000000Z\",\"id\":7}', 'purchase/returns', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-26 12:05:19', '2026-08-26 12:05:19'),
+(221, 1, 1, 1, 'purchases', 'create', 'Created purchase return: PRN-000004', 'PurchaseReturn', 8, NULL, '{\"company_id\":1,\"branch_id\":1,\"supplier_id\":1,\"purchase_order_id\":3,\"return_number\":\"PRN-000004\",\"return_date\":\"2026-08-27T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":\"50 items returned each for Pampers and Fanta 50cl\",\"created_by\":1,\"reason\":\"Expired\",\"updated_at\":\"2026-08-27T10:44:50.000000Z\",\"created_at\":\"2026-08-27T10:44:50.000000Z\",\"id\":8}', 'purchase/returns', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-27 09:44:50', '2026-08-27 09:44:50');
 
 -- --------------------------------------------------------
 
@@ -505,7 +530,7 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (5, 1, 'order', 'ORD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-09 15:34:59', 0),
 (6, 1, 'payment', 'PAY', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(8, 1, 'purchase_return', 'PRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(8, 1, 'purchase_return', 'PRN', NULL, '-', 5, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-27 09:44:50', 0),
 (9, 1, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (10, 1, 'stock_movement', 'STM', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (11, 1, 'stock_adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
@@ -520,7 +545,7 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (20, 1, 'Purchase Return', 'PR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (22, 1, 'stock_transfer', 'ST', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (23, 1, 'stock_count', 'SC', NULL, '-', 4, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-15 08:53:31', 0),
-(24, 1, 'goods_received', 'GR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-15 08:53:31', 0);
+(24, 1, 'goods_received', 'GR', NULL, '-', 7, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-22 13:16:15', 0);
 
 -- --------------------------------------------------------
 
@@ -559,6 +584,17 @@ CREATE TABLE `goods_received` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `goods_received`
+--
+
+INSERT INTO `goods_received` (`id`, `company_id`, `branch_id`, `purchase_order_id`, `supplier_id`, `receipt_number`, `received_date`, `status`, `notes`, `received_by`, `created_at`, `updated_at`) VALUES
+(3, 1, 1, 3, 1, 'GR-000002', '2026-08-22', 'Completed', NULL, 1, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(4, 1, 1, 3, 1, 'GR-000003', '2026-08-23', 'Completed', NULL, 1, '2026-08-22 12:51:24', '2026-08-22 12:51:24'),
+(5, 1, 1, 3, 1, 'GR-000004', '2026-08-22', 'Completed', NULL, 1, '2026-08-22 13:03:30', '2026-08-22 13:03:30'),
+(6, 1, 1, 3, 1, 'GR-000005', '2026-08-22', 'Completed', NULL, 1, '2026-08-22 13:14:09', '2026-08-22 13:14:09'),
+(7, 1, 1, 3, 1, 'GR-000006', '2026-08-22', 'Completed', NULL, 1, '2026-08-22 13:16:15', '2026-08-22 13:16:15');
+
 -- --------------------------------------------------------
 
 --
@@ -577,6 +613,21 @@ CREATE TABLE `goods_received_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `goods_received_items`
+--
+
+INSERT INTO `goods_received_items` (`id`, `goods_received_id`, `purchase_order_item_id`, `product_id`, `ordered_quantity`, `received_quantity`, `unit_cost`, `total`, `created_at`, `updated_at`) VALUES
+(11, 3, 11, 1, 1000.00, 1000.00, 500.00, 500000.00, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(12, 3, 12, 6, 1500.00, 400.00, 1450.00, 580000.00, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(13, 3, 13, 2, 2000.00, 400.00, 500.00, 200000.00, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(14, 3, 14, 19, 1500.00, 150.00, 1000.00, 150000.00, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(15, 3, 15, 10, 1000.00, 400.00, 7800.00, 3120000.00, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(16, 4, 12, 6, 1500.00, 1100.00, 1450.00, 1595000.00, '2026-08-22 12:51:24', '2026-08-22 12:51:24'),
+(17, 5, 13, 2, 2000.00, 1600.00, 500.00, 800000.00, '2026-08-22 13:03:30', '2026-08-22 13:03:30'),
+(18, 6, 14, 19, 1500.00, 1350.00, 1000.00, 1350000.00, '2026-08-22 13:14:09', '2026-08-22 13:14:09'),
+(19, 7, 15, 10, 1000.00, 600.00, 7800.00, 4680000.00, '2026-08-22 13:16:15', '2026-08-22 13:16:15');
 
 -- --------------------------------------------------------
 
@@ -683,7 +734,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (51, '2026_08_16_125944_create_goods_receiveds_table', 18),
 (52, '2026_08_16_130015_create_goods_received_items_table', 18),
 (53, '2026_08_16_130034_create_purchase_returns_table', 18),
-(54, '2026_08_16_130056_create_purchase_return_items_table', 18);
+(54, '2026_08_16_130056_create_purchase_return_items_table', 18),
+(55, '2026_08_27_110913_create_sales_orders_table', 19),
+(56, '2026_08_27_110931_create_sales_order_items_table', 19);
 
 -- --------------------------------------------------------
 
@@ -988,17 +1041,17 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `company_id`, `product_category_id`, `product_code`, `barcode`, `sku`, `qr_code`, `name`, `description`, `image`, `cost_price`, `selling_price`, `discount_id`, `unit_id`, `shelf_location`, `track_stock`, `brand`, `manufacturer`, `expiry_date`, `taxable`, `tax_rate_id`, `status`, `minimum_stock`, `maximum_stock`, `weight`, `dimensions`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`, `reorder_level`) VALUES
-(1, 1, 1, 'PRD000001', '100000000001', 'COKE50CL', NULL, 'Coca-Cola 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Coca-Cola', 'NBC', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(2, 1, 1, 'PRD000002', '100000000002', 'FANTA50CL', NULL, 'Fanta 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Fanta', 'NBC', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
+(1, 1, 1, 'PRD000001', '100000000001', 'COKE50CL', NULL, 'Coca-Cola 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Coca-Cola', 'NBC', '2026-09-23', 1, 2, 1, 10.00, 2000.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-22 08:53:46', NULL, 20.00),
+(2, 1, 1, 'PRD000002', '100000000002', 'FANTA50CL', NULL, 'Fanta 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Fanta', 'NBC', NULL, 1, 2, 1, 10.00, 2100.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-22 12:55:45', NULL, 20.00),
 (3, 1, 1, 'PRD000003', '100000000003', 'SPRITE50CL', NULL, 'Sprite 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Sprite', 'NBC', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (4, 1, 5, 'PRD000004', '100000000004', 'PEAK500', NULL, 'Peak Milk 500g', 'Peak Milk 500g', NULL, 4200.00, 4800.00, 1, 1, NULL, 1, 'Peak', 'FrieslandCampina', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-09 16:32:26', NULL, 20.00),
 (5, 1, 2, 'PRD000005', '100000000005', 'INDM70', NULL, 'Indomie Chicken Noodles', NULL, NULL, 180.00, 250.00, 1, 1, NULL, 1, 'Indomie', 'Dufil', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(6, 1, 2, 'PRD000006', '100000000006', 'SUG1KG', NULL, 'Dangote Sugar 1kg', NULL, NULL, 1450.00, 1650.00, 1, 1, NULL, 1, 'Dangote', 'Dangote', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
+(6, 1, 2, 'PRD000006', '100000000006', 'SUG1KG', NULL, 'Dangote Sugar 1kg', NULL, NULL, 1450.00, 1650.00, 1, 1, NULL, 1, 'Dangote', 'Dangote', NULL, 1, 2, 1, 10.00, 1595.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-22 12:50:47', NULL, 20.00),
 (7, 1, 3, 'PRD000007', '100000000007', 'BREAD001', NULL, 'Family Bread', NULL, NULL, 900.00, 1200.00, 1, 1, NULL, 1, 'Local', 'Bakery', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (8, 1, 2, 'PRD000008', '100000000008', 'RICE50KG', NULL, 'Mama Gold Rice 50kg', NULL, NULL, 82000.00, 90000.00, 1, 11, NULL, 1, 'Mama Gold', 'Mama Gold', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (9, 1, 7, 'PRD000009', '100000000009', 'SOAP001', NULL, 'Premier Soap', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Premier', 'PZ', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(10, 1, 9, 'PRD000010', '100000000010', 'PAMP001', NULL, 'Pampers Size 3', NULL, NULL, 7800.00, 8600.00, 1, 2, NULL, 1, 'Pampers', 'P&G', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(19, 1, 5, 'PRD000011', 'TH123456', NULL, NULL, 'Three Crown Evaporated Milk', 'Three Crown Evaporated Milk', '1786301525_6a78cc5535908.png', 1000.00, 1200.00, NULL, 5, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-11-25', 1, NULL, 1, 100.00, 500.00, NULL, NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-09 17:52:05', NULL, 0.00);
+(10, 1, 9, 'PRD000010', '100000000010', 'PAMP001', NULL, 'Pampers Size 3', NULL, NULL, 7800.00, 8600.00, 1, 2, NULL, 1, 'Pampers', 'P&G', NULL, 1, 2, 1, 10.00, 1085.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-22 13:16:04', NULL, 20.00),
+(19, 1, 5, 'PRD000011', 'TH123456', NULL, NULL, 'Three Crown Evaporated Milk', 'Three Crown Evaporated Milk', '1786301525_6a78cc5535908.png', 1000.00, 1200.00, NULL, 5, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-11-25', 1, NULL, 1, 100.00, 1635.00, NULL, NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-22 13:10:17', NULL, 0.00);
 
 -- --------------------------------------------------------
 
@@ -1065,24 +1118,24 @@ CREATE TABLE `product_stocks` (
 --
 
 INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `quantity`, `reserved_quantity`, `available_quantity`, `reorder_level`, `maximum_stock`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-09 11:37:17'),
-(2, 1, 1, 2, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
+(1, 1, 1, 1, 990.00, 0.00, 990.00, 10.00, 2000.00, '2026-07-29 10:37:13', '2026-08-26 11:35:10'),
+(2, 1, 1, 2, 2050.00, 0.00, 2050.00, 20.00, 2100.00, '2026-07-29 10:37:13', '2026-08-27 09:44:50'),
 (3, 1, 1, 3, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (4, 1, 1, 4, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
 (5, 1, 1, 5, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
-(6, 1, 1, 6, 95.00, 0.00, 95.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
+(6, 1, 1, 6, 1545.00, 0.00, 1545.00, 20.00, 1595.00, '2026-07-29 10:37:13', '2026-08-26 12:05:19'),
 (7, 1, 1, 7, 95.00, 0.00, 95.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
 (8, 1, 1, 8, 95.00, 0.00, 95.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
 (9, 1, 1, 9, 80.00, 0.00, 80.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
-(10, 1, 1, 10, 85.00, 0.00, 85.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-11 09:39:39'),
-(13, 1, 1, 19, 135.00, 0.00, 135.00, 100.00, 500.00, '2026-08-09 17:52:05', '2026-08-11 09:39:39'),
-(20, 1, 6, 19, 5.00, 0.00, 5.00, 100.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
-(21, 1, 6, 10, 5.00, 0.00, 5.00, 20.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
+(10, 1, 1, 10, 1035.00, 0.00, 1035.00, 20.00, 1085.00, '2026-07-29 10:37:13', '2026-08-27 09:44:50'),
+(13, 1, 1, 19, 1635.00, 0.00, 1635.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-08-22 13:14:09'),
+(20, 1, 6, 19, 5.00, 0.00, 5.00, 100.00, 1635.00, '2026-08-11 09:39:39', '2026-08-22 13:10:17'),
+(21, 1, 6, 10, 5.00, 0.00, 5.00, 20.00, 1085.00, '2026-08-11 09:39:39', '2026-08-22 13:16:04'),
 (22, 1, 6, 9, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
 (23, 1, 4, 9, 9.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
 (24, 1, 4, 8, 3.00, 0.00, 5.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
 (25, 1, 4, 7, 4.00, 0.00, 5.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
-(26, 1, 4, 6, 4.00, 0.00, 5.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
+(26, 1, 4, 6, 4.00, 0.00, 5.00, 20.00, 1595.00, '2026-08-14 10:15:11', '2026-08-22 12:50:47'),
 (27, 1, 4, 5, 15.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39');
 
 -- --------------------------------------------------------
@@ -1120,7 +1173,7 @@ CREATE TABLE `purchase_orders` (
 
 INSERT INTO `purchase_orders` (`id`, `company_id`, `branch_id`, `supplier_id`, `order_number`, `order_date`, `expected_date`, `status`, `subtotal`, `discount`, `tax`, `shipping`, `total`, `notes`, `created_by`, `approved_by`, `approved_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 1, 1, 'PO-202608-00001', '2026-08-17', '2026-08-28', 'Draft', 3450000.00, 0.00, 0.00, 0.00, 3450000.00, NULL, 1, NULL, NULL, '2026-08-16 14:16:43', '2026-08-17 11:54:28', '2026-08-17 11:54:28'),
-(3, 1, 1, 1, 'PO-202608-00002', '2026-08-17', '2026-08-31', 'Approved', 12975000.00, 0.00, 0.00, 0.00, 12975000.00, '5 products - 12,975,000', 1, 1, '2026-08-17 14:12:56', '2026-08-17 12:06:44', '2026-08-17 14:12:56', NULL),
+(3, 1, 1, 1, 'PO-202608-00002', '2026-08-17', '2026-08-31', 'Completed', 12975000.00, 0.00, 0.00, 0.00, 12975000.00, '5 products - 12,975,000', 1, 1, '2026-08-17 14:12:56', '2026-08-17 12:06:44', '2026-08-22 13:16:15', NULL),
 (4, 1, 1, 2, 'PO-202608-00003', '2026-08-18', '2026-09-01', 'cancelled', 1000000.00, 0.00, 0.00, 0.00, 1000000.00, NULL, 1, NULL, NULL, '2026-08-18 11:55:29', '2026-08-18 11:55:43', NULL);
 
 -- --------------------------------------------------------
@@ -1183,6 +1236,16 @@ CREATE TABLE `purchase_returns` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `purchase_returns`
+--
+
+INSERT INTO `purchase_returns` (`id`, `company_id`, `branch_id`, `supplier_id`, `purchase_order_id`, `goods_received_id`, `return_number`, `return_date`, `status`, `reason`, `notes`, `created_by`, `approved_by`, `approved_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(5, 1, 1, 1, 3, NULL, 'PRN-000001', '2026-08-26', 'Completed', 'Expired', 'Expired Products', 1, NULL, NULL, '2026-08-26 10:23:49', '2026-08-26 10:23:49', NULL),
+(6, 1, 1, 1, 3, NULL, 'PRN-000002', '2026-08-26', 'Completed', 'Damage', 'Damaged Products', 1, NULL, NULL, '2026-08-26 11:35:10', '2026-08-26 11:35:10', NULL),
+(7, 1, 1, 1, 3, NULL, 'PRN-000003', '2026-08-26', 'Completed', 'Damage', 'Damaged Products', 1, NULL, NULL, '2026-08-26 12:05:19', '2026-08-26 12:05:19', NULL),
+(8, 1, 1, 1, 3, NULL, 'PRN-000004', '2026-08-27', 'Completed', 'Expired', '50 items returned each for Pampers and Fanta 50cl', 1, NULL, NULL, '2026-08-27 09:44:50', '2026-08-27 09:44:50', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -1200,6 +1263,17 @@ CREATE TABLE `purchase_return_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `purchase_return_items`
+--
+
+INSERT INTO `purchase_return_items` (`id`, `purchase_return_id`, `goods_received_item_id`, `product_id`, `quantity`, `unit_cost`, `total`, `created_at`, `updated_at`) VALUES
+(5, 5, 11, 1, 50.00, 500.00, 25000.00, '2026-08-26 10:23:50', '2026-08-26 10:23:50'),
+(6, 6, 11, 1, 50.00, 500.00, 25000.00, '2026-08-26 11:35:10', '2026-08-26 11:35:10'),
+(7, 7, 12, 6, 50.00, 1450.00, 72500.00, '2026-08-26 12:05:19', '2026-08-26 12:05:19'),
+(8, 8, 13, 2, 50.00, 500.00, 25000.00, '2026-08-27 09:44:50', '2026-08-27 09:44:50'),
+(9, 8, 15, 10, 50.00, 7800.00, 390000.00, '2026-08-27 09:44:50', '2026-08-27 09:44:50');
 
 -- --------------------------------------------------------
 
@@ -1565,6 +1639,50 @@ INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sales_orders`
+--
+
+CREATE TABLE `sales_orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED NOT NULL,
+  `customer_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `order_number` varchar(50) NOT NULL,
+  `order_date` date NOT NULL,
+  `status` varchar(30) NOT NULL DEFAULT 'Draft',
+  `subtotal` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `discount_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `tax_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `total_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `notes` text DEFAULT NULL,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales_order_items`
+--
+
+CREATE TABLE `sales_order_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `sales_order_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `quantity` decimal(15,2) NOT NULL,
+  `unit_price` decimal(15,2) NOT NULL,
+  `discount_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `tax_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `total` decimal(15,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sessions`
 --
 
@@ -1582,7 +1700,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('RDykRrjMF070zutqVJMFgs5v7qdLbUxjVKP6PgdO', 1, '127.0.0.1', 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6InZQb1FhSEg0TXF6azM2ZTR1UnpVeUJmRlBaQjB2b3FhUzRRYmpUcmkiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wdXJjaGFzZSI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjU3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcHVyY2hhc2Uvb3JkZXJzLzMvcmVjZWl2aW5nLWRldGFpbHMiO3M6NToicm91dGUiO3M6MzM6InB1cmNoYXNlLm9yZGVycy5yZWNlaXZpbmctZGV0YWlscyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1787316683);
+('gAHCNvFKBwK7spwhUoRMogoUyqYtkv3hAXPqMfd3', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IndRTXVJMHA4YUhiVE05SE00eTA1a2hCSWZMV1lPN0luTzZQMUNvenEiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rhc2hib2FyZCI7czo1OiJyb3V0ZSI7czo5OiJkYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjE7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1787828871);
 
 -- --------------------------------------------------------
 
@@ -1739,7 +1857,21 @@ INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `m
 (32, 1, 4, 6, 'Adjustment', NULL, 'SC-000003', 1450.00, -1.00, 5.00, 4.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
 (33, 1, 4, 7, 'Adjustment', NULL, 'SC-000003', 900.00, -1.00, 5.00, 4.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
 (34, 1, 4, 8, 'Adjustment', NULL, 'SC-000003', 82000.00, -2.00, 5.00, 3.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
-(35, 1, 4, 9, 'Adjustment', NULL, 'SC-000003', 500.00, -1.00, 10.00, 9.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39');
+(35, 1, 4, 9, 'Adjustment', NULL, 'SC-000003', 500.00, -1.00, 10.00, 9.00, 'Stock Count adjustment - SC-000003', 1, '2026-08-15 11:11:39', '2026-08-15 11:11:39'),
+(36, 1, 1, 1, 'Purchase', NULL, 'GR-000002', 500.00, 1000.00, 90.00, 1090.00, 'Goods received against purchase order PO-202608-00002', 1, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(37, 1, 1, 6, 'Purchase', NULL, 'GR-000002', 1450.00, 400.00, 95.00, 495.00, 'Goods received against purchase order PO-202608-00002', 1, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(38, 1, 1, 2, 'Purchase', NULL, 'GR-000002', 500.00, 400.00, 100.00, 500.00, 'Goods received against purchase order PO-202608-00002', 1, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(39, 1, 1, 19, 'Purchase', NULL, 'GR-000002', 1000.00, 150.00, 135.00, 285.00, 'Goods received against purchase order PO-202608-00002', 1, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(40, 1, 1, 10, 'Purchase', NULL, 'GR-000002', 7800.00, 400.00, 85.00, 485.00, 'Goods received against purchase order PO-202608-00002', 1, '2026-08-22 11:11:37', '2026-08-22 11:11:37'),
+(41, 1, 1, 6, 'Purchase', NULL, 'GR-000003', 1450.00, 1100.00, 495.00, 1595.00, 'Goods received against purchase order PO-202608-00002', 1, '2026-08-22 12:51:24', '2026-08-22 12:51:24'),
+(42, 1, 1, 2, 'Purchase', NULL, 'GR-000004', 500.00, 1600.00, 500.00, 2100.00, 'Goods received against purchase order PO-202608-00002', 1, '2026-08-22 13:03:30', '2026-08-22 13:03:30'),
+(43, 1, 1, 19, 'Purchase', NULL, 'GR-000005', 1000.00, 1350.00, 285.00, 1635.00, 'Goods received against purchase order PO-202608-00002', 1, '2026-08-22 13:14:09', '2026-08-22 13:14:09'),
+(44, 1, 1, 10, 'Purchase', NULL, 'GR-000006', 7800.00, 600.00, 485.00, 1085.00, 'Goods received against purchase order PO-202608-00002', 1, '2026-08-22 13:16:15', '2026-08-22 13:16:15'),
+(45, 1, 1, 1, 'Return', NULL, 'PRN-000001', 500.00, -50.00, 1090.00, 1040.00, 'Purchase return against purchase order PO-202608-00002', 1, '2026-08-26 10:23:50', '2026-08-26 10:23:50'),
+(46, 1, 1, 1, 'Return', NULL, 'PRN-000002', 500.00, -50.00, 1040.00, 990.00, 'Purchase return against purchase order PO-202608-00002', 1, '2026-08-26 11:35:10', '2026-08-26 11:35:10'),
+(47, 1, 1, 6, 'Return', NULL, 'PRN-000003', 1450.00, -50.00, 1595.00, 1545.00, 'Purchase return against purchase order PO-202608-00002', 1, '2026-08-26 12:05:19', '2026-08-26 12:05:19'),
+(48, 1, 1, 2, 'Return', NULL, 'PRN-000004', 500.00, -50.00, 2100.00, 2050.00, 'Purchase return against purchase order PO-202608-00002', 1, '2026-08-27 09:44:50', '2026-08-27 09:44:50'),
+(49, 1, 1, 10, 'Return', NULL, 'PRN-000004', 7800.00, -50.00, 1085.00, 1035.00, 'Purchase return against purchase order PO-202608-00002', 1, '2026-08-27 09:44:50', '2026-08-27 09:44:50');
 
 -- --------------------------------------------------------
 
@@ -1933,7 +2065,7 @@ INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `employee_no`, 
 (6, 1, 1, 6, 'EMP0006', 'Inventory', NULL, 'Manager', 'inventory', 'inventory@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$lWJtwgUPhnO44mwKMNifgeZiD.oVJwv9QqHYPCMNMOSpP0IhCHNAC', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:12', '2026-07-29 10:37:12', NULL),
 (7, 1, 1, 7, 'EMP0007', 'Company', NULL, 'Accountant', 'accountant', 'accountant@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$Aj3KYFJ24AXQQWWE3taN.uWPk/7eQSkS9oH84LMpPHxJ6nq1vXS5i', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (15, 1, 2, 5, 'CH-2026-001', 'Paul', 'Olusogo', 'Awolola', 'paul', 'bizcare@gmail.com', 0, NULL, 0, '07038899203', '$2y$12$oiRFD5rOZ2yz1vUPcinKKOS0rE1v7HXXTZphze3o0z7fOTNfpidp6', NULL, 'Male', '1987-11-25', '2026-07-06', 'Adelu, Ido, Ibadan.', 'Transfered from Ajah branch', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-30 00:35:56', '2026-07-31 13:58:33', NULL),
-(17, 1, 2, 3, 'MG-2026-001', 'Maxwell', 'Akinkunmi', 'Akinyooye', 'maxwell', 'maxwell@gmail.com', 0, NULL, 0, '08034271855', '$2y$12$6H0IvKIF6TgHzAAZpR5Q1uomvytbt36RZi8z63bdACmTXUKHXEDrO', NULL, 'Male', '2017-09-27', '2026-08-03', 'Ibadan', 'Branch manager of lekki branch.', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-08-09 07:43:51', '2026-08-09 07:43:51', NULL);
+(17, 1, 2, 3, 'MG-2026-001', 'Maxwell', 'Akinkunmi', 'Akinyooye', 'maxwell', 'maxwell@gmail.com', 0, NULL, 0, '08034271855', '$2y$12$6H0IvKIF6TgHzAAZpR5Q1uomvytbt36RZi8z63bdACmTXUKHXEDrO', NULL, 'Male', '2017-09-27', '2026-08-03', 'Ibadan', 'Branch manager of lekki branch.', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-08-09 07:43:51', '2026-08-22 10:10:57', NULL);
 
 --
 -- Indexes for dumped tables
@@ -2230,6 +2362,26 @@ ALTER TABLE `role_permissions`
   ADD KEY `role_permissions_permission_id_foreign` (`permission_id`);
 
 --
+-- Indexes for table `sales_orders`
+--
+ALTER TABLE `sales_orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sales_orders_company_id_order_number_unique` (`company_id`,`order_number`),
+  ADD KEY `sales_orders_branch_id_foreign` (`branch_id`),
+  ADD KEY `sales_orders_customer_id_foreign` (`customer_id`),
+  ADD KEY `sales_orders_created_by_foreign` (`created_by`),
+  ADD KEY `sales_orders_company_id_order_date_index` (`company_id`,`order_date`),
+  ADD KEY `sales_orders_company_id_status_index` (`company_id`,`status`);
+
+--
+-- Indexes for table `sales_order_items`
+--
+ALTER TABLE `sales_order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sales_order_items_sales_order_id_index` (`sales_order_id`),
+  ADD KEY `sales_order_items_product_id_index` (`product_id`);
+
+--
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
@@ -2332,7 +2484,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -2386,13 +2538,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `goods_received`
 --
 ALTER TABLE `goods_received`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `goods_received_items`
 --
 ALTER TABLE `goods_received_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -2404,7 +2556,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -2470,13 +2622,13 @@ ALTER TABLE `purchase_order_items`
 -- AUTO_INCREMENT for table `purchase_returns`
 --
 ALTER TABLE `purchase_returns`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `purchase_return_items`
 --
 ALTER TABLE `purchase_return_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -2489,6 +2641,18 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `role_permissions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
+
+--
+-- AUTO_INCREMENT for table `sales_orders`
+--
+ALTER TABLE `sales_orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sales_order_items`
+--
+ALTER TABLE `sales_order_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -2512,7 +2676,7 @@ ALTER TABLE `stock_count_items`
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -2736,6 +2900,22 @@ ALTER TABLE `role_permissions`
   ADD CONSTRAINT `role_permissions_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `sales_orders`
+--
+ALTER TABLE `sales_orders`
+  ADD CONSTRAINT `sales_orders_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
+  ADD CONSTRAINT `sales_orders_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `sales_orders_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `sales_orders_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `sales_order_items`
+--
+ALTER TABLE `sales_order_items`
+  ADD CONSTRAINT `sales_order_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `sales_order_items_sales_order_id_foreign` FOREIGN KEY (`sales_order_id`) REFERENCES `sales_orders` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `settings`

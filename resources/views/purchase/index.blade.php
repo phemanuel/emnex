@@ -130,7 +130,7 @@
 
                 <button
                     type="button"
-                    class="purchase-tab active"
+                     class="purchase-tab purchase-tab-orders active"
                     id="purchaseOrdersTab"
                     data-purchase-tab="orders"
                     role="tab"
@@ -173,7 +173,7 @@
 
                 <button
                     type="button"
-                    class="purchase-tab"
+                    class="purchase-tab purchase-tab-received"
                     id="purchaseReceivedTab"
                     data-purchase-tab="received"
                     role="tab"
@@ -216,7 +216,7 @@
 
                 <button
                     type="button"
-                    class="purchase-tab"
+                     class="purchase-tab purchase-tab-returns"
                     id="purchaseReturnsTab"
                     data-purchase-tab="returns"
                     role="tab"
