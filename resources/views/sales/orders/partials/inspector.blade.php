@@ -216,10 +216,29 @@
             Order Items
         ======================================================= --}}
 
-        <div class="mb-4">
+        <div class="purchase-inspector-section">
 
-            <div class="purchase-inspector-heading mb-3">
-                Order Items
+            <div class="purchase-inspector-section-header">
+
+                <div class="purchase-inspector-section-icon">
+
+                    <i class="bi bi-box-seam"></i>
+
+                </div>
+
+
+                <div>
+
+                    <div class="purchase-inspector-section-title">
+                        Order Items
+                    </div>
+
+                    <div class="purchase-inspector-section-description">
+                        Products included in this sales order
+                    </div>
+
+                </div>
+
             </div>
 
 
@@ -228,8 +247,22 @@
                 class="purchase-inspector-items"
             >
 
-                <div class="text-muted small">
-                    No items available.
+                <div class="purchase-inspector-items-empty">
+
+                    <div class="purchase-inspector-items-empty-icon">
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </div>
+
+                    <div class="purchase-inspector-items-empty-title">
+                        No items available
+                    </div>
+
+                    <div class="purchase-inspector-items-empty-text">
+                        This order does not contain any products.
+                    </div>
+
                 </div>
 
             </div>

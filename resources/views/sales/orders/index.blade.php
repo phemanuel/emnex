@@ -505,6 +505,12 @@
     aria-hidden="true"
 >
 
+    {{-- ==================================================
+        View
+    =================================================== --}}
+
+    @permission('orders.view')
+
     <button
         type="button"
         data-order-action="view"
@@ -517,12 +523,21 @@
 
         </span>
 
+
         <span class="sales-order-global-action-label">
             View
         </span>
 
     </button>
 
+    @endpermission
+
+
+    {{-- ==================================================
+        Edit
+    =================================================== --}}
+
+    @permission('orders.update')
 
     <button
         type="button"
@@ -536,12 +551,21 @@
 
         </span>
 
+
         <span class="sales-order-global-action-label">
             Edit
         </span>
 
     </button>
 
+    @endpermission
+
+
+    {{-- ==================================================
+        Complete
+    =================================================== --}}
+
+    @permission('orders.update')
 
     <button
         type="button"
@@ -555,17 +579,90 @@
 
         </span>
 
+
         <span class="sales-order-global-action-label">
             Complete
         </span>
 
     </button>
 
+    @endpermission
 
-    <div
-        class="sales-order-global-action-divider"
-    ></div>
 
+    {{-- ==================================================
+        Print Receipt
+    =================================================== --}}
+
+    @permission('orders.view')
+
+    <button
+        type="button"
+        data-order-action="print-receipt"
+        class="sales-order-global-action-button sales-order-global-action-print"
+    >
+
+        <span class="sales-order-global-action-icon">
+
+            <i class="bi bi-printer"></i>
+
+        </span>
+
+
+        <span class="sales-order-global-action-label">
+            Print Receipt
+        </span>
+
+    </button>
+
+    @endpermission
+
+    @permission('orders.view')
+
+    <button
+        type="button"
+        data-order-action="receipt-pdf"
+        class="sales-order-global-action-button sales-order-global-action-print"
+    >
+
+        <span class="sales-order-global-action-icon">
+
+            <i class="bi bi-file-earmark-pdf"></i>
+
+        </span>
+
+
+        <span class="sales-order-global-action-label">
+
+            Download PDF
+
+        </span>
+
+    </button>
+
+    @endpermission
+
+
+    {{-- ==================================================
+        Divider
+    =================================================== --}}
+
+    @if (
+        canAccess('orders.update') ||
+        canAccess('orders.delete')
+    )
+
+        <div
+            class="sales-order-global-action-divider"
+        ></div>
+
+    @endif
+
+
+    {{-- ==================================================
+        Remove
+    =================================================== --}}
+
+    @permission('orders.delete')
 
     <button
         type="button"
@@ -579,11 +676,14 @@
 
         </span>
 
+
         <span class="sales-order-global-action-label">
-            Delete
+            Remove
         </span>
 
     </button>
+
+    @endpermission
 
 </div>
 
@@ -610,6 +710,14 @@
 
 @includeIf(
     'sales.orders.modals.terminal-modal'
+)
+
+{{-- ==============================================================
+    Confirmation Order Modal
+============================================================== --}}
+
+@includeIf(
+    'sales.orders.modals.confirmation-modal'
 )
 
 {{-- ==============================================================

@@ -505,6 +505,15 @@ Route::prefix('products')
         Route::delete('/orders/{id}', [OrderController::class, 'deleteOrder'])
             ->name('orders.delete');
 
+        Route::post('/orders/{id}/complete',[OrderController::class, 'completeOrder'])
+            ->name('orders.complete');
+
+        Route::get('/orders/{id}/receipt',[OrderController::class, 'receipt'])
+            ->name('orders.receipt');
+
+        Route::get('/orders/{id}/receipt/pdf',[OrderController::class, 'receiptPdf'])
+            ->name('orders.receipt.pdf');
+
     });
 
     Route::resource('invoices', InvoiceController::class);

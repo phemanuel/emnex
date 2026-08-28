@@ -6,18 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ProductStock;
 use App\Models\Terminal;
+use App\Models\Setting;
+use App\Models\StockMovement;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Services\ActivityLogger;
-use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\CustomerGroup;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Rule;
 use App\Services\DocumentNumberService;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class OrderController extends BaseController
@@ -594,11 +598,22 @@ class OrderController extends BaseController
         $order =
             $orderQuery
                 ->with([
-                    'customer',
-                    'branch',
-                    'terminal',
-                    'cashier',
-                    'orderItems.product',
+
+                'customer',
+
+                'branch',
+
+                'terminal',
+
+                'cashier',
+
+                'createdBy',
+
+                'updatedBy',
+
+                'orderItems.product',
+
+
                 ])
                 ->find(
                     $id
@@ -723,17 +738,51 @@ class OrderController extends BaseController
                 'receipt_printed' =>
                     (bool) $order->receipt_printed,
 
-                'completed_at' =>
-                    $order->completed_at,
-
                 'remarks' =>
                     $order->remarks,
+                
+                    'created_by' => $order->createdBy
+                    ? [
+                        'id' =>
+                            $order->createdBy->id,
+
+                        'name' =>
+                            $order->createdBy->name
+                                ?? trim(
+                                    $order->createdBy->first_name .
+                                    ' ' .
+                                    ($order->createdBy->last_name ?? '')
+                                ),
+                    ]
+                    : null,
+
+
+                'updated_by' => $order->updatedBy
+                    ? [
+                        'id' =>
+                            $order->updatedBy->id,
+
+                        'name' =>
+                            $order->updatedBy->name
+                                ?? trim(
+                                    $order->updatedBy->first_name .
+                                    ' ' .
+                                    ($order->updatedBy->last_name ?? '')
+                                ),
+                    ]
+                    : null,
+
 
                 'created_at' =>
                     $order->created_at,
 
+
                 'updated_at' =>
                     $order->updated_at,
+
+
+                'completed_at' =>
+                    $order->completed_at,                
 
                 'items' =>
                     $order->orderItems
@@ -912,17 +961,24 @@ class OrderController extends BaseController
     }
 
 
-    /*
+   /*
     |--------------------------------------------------------------------------
     | Products
     |--------------------------------------------------------------------------
     */
 
     /**
-     * Return active products for Sales Orders.
+     * Return active products available in the selected branch.
      */
-    public function products(): JsonResponse
-    {
+    public function products(
+        Request $request
+    ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
 
         if (! canAccess('orders.view')) {
 
@@ -939,29 +995,222 @@ class OrderController extends BaseController
         }
 
 
-        $products =
-            Product::query()
+        /*
+        |--------------------------------------------------------------------------
+        | Validate Branch
+        |--------------------------------------------------------------------------
+        */
+
+        $validated =
+            $request->validate([
+
+                'branch_id' => [
+
+                    'required',
+
+                    'integer',
+
+                ],
+
+                'search' => [
+
+                    'nullable',
+
+                    'string',
+
+                    'max:100',
+
+                ],
+
+            ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
+
+        $branchQuery =
+            Branch::query()
                 ->where(
                     'company_id',
                     $this->companyId
+                );
+
+
+        if (
+            ! canManageAllBranches()
+        ) {
+
+            $branchQuery->where(
+                'id',
+                currentBranchId()
+            );
+
+        }
+
+
+        $branch =
+            $branchQuery->find(
+                $validated['branch_id']
+            );
+
+
+        if (!$branch) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Selected branch is invalid or unavailable.',
+
+            ], 422);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
+
+        $search =
+            trim(
+                $validated['search'] ?? ''
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Stock
+        |--------------------------------------------------------------------------
+        */
+
+        $stockQuery =
+            ProductStock::query()
+                ->where(
+                    'product_stocks.company_id',
+                    $this->companyId
                 )
                 ->where(
-                    'status',
-                    true
+                    'product_stocks.branch_id',
+                    $branch->id
                 )
-                ->orderBy(
-                    'name'
+                ->where(
+                    'product_stocks.available_quantity',
+                    '>',
+                    0
                 )
-                ->get([
-                    'id',
-                    'name',
-                    'product_code',
-                    'sku',
-                    'selling_price',
-                    'tax_rate_id',
-                    'discount_id',
+                ->with([
+                    'product',
                 ]);
 
+
+        if ($search !== '') {
+
+            $stockQuery->whereHas(
+                'product',
+                function ($query) use (
+                    $search
+                ) {
+
+                    $query
+                        ->where(
+                            'company_id',
+                            $this->companyId
+                        )
+                        ->where(
+                            'status',
+                            true
+                        )
+                        ->where(
+                            function ($query) use (
+                                $search
+                            ) {
+
+                                $query
+                                    ->where(
+                                        'name',
+                                        'like',
+                                        '%' . $search . '%'
+                                    )
+                                    ->orWhere(
+                                        'product_code',
+                                        'like',
+                                        '%' . $search . '%'
+                                    )
+                                    ->orWhere(
+                                        'sku',
+                                        'like',
+                                        '%' . $search . '%'
+                                    )
+                                    ->orWhere(
+                                        'barcode',
+                                        'like',
+                                        '%' . $search . '%'
+                                    );
+
+                            }
+                        );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Get Results
+        |--------------------------------------------------------------------------
+        */
+
+        $stocks =
+            $stockQuery
+                ->latest(
+                    'product_stocks.id'
+                )
+                ->limit(20)
+                ->get();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | No Products
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $stocks->isEmpty()
+        ) {
+
+            return response()->json([
+
+                'success' =>
+                    true,
+
+                'data' =>
+                    [],
+
+                'message' =>
+                    $search !== ''
+                        ? 'No products with available stock were found in the selected branch.'
+                        : 'No products with available stock are currently available in the selected branch.',
+
+            ]);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
 
         return response()->json([
 
@@ -969,31 +1218,43 @@ class OrderController extends BaseController
                 true,
 
             'data' =>
-                $products->map(
-                    function ($product) {
+                $stocks->map(
+                    function ($stock) {
+
+                        $product =
+                            $stock->product;
+
 
                         return [
 
                             'id' =>
                                 $product->id,
 
+                            'product_id' =>
+                                $product->id,
+
                             'name' =>
                                 $product->name,
 
                             'product_code' =>
-                                $product->product_code
-                                    ?? $product->sku
-                                    ?? null,
+                                $product->product_code,
+
+                            'sku' =>
+                                $product->sku,
+
+                            'barcode' =>
+                                $product->barcode,
 
                             'selling_price' =>
                                 (float)
                                 $product->selling_price,
 
-                            'tax_rate_id' =>
-                                $product->tax_rate_id,
+                            'available_quantity' =>
+                                (float)
+                                $stock->available_quantity,
 
-                            'discount_id' =>
-                                $product->discount_id,
+                            'stock_id' =>
+                                $stock->id,
 
                         ];
 
@@ -1003,7 +1264,6 @@ class OrderController extends BaseController
         ]);
 
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1738,6 +1998,28 @@ class OrderController extends BaseController
         Request $request,
         int $id
     ): JsonResponse {
+
+    /*
+|--------------------------------------------------------------------------
+| Update Order Debug
+|--------------------------------------------------------------------------
+*/
+
+\Log::info(
+    'Sales Order updateOrder reached.',
+    [
+
+        'order_id' =>
+            $id,
+
+        'method' =>
+            $request->method(),
+
+        'payload' =>
+            $request->all(),
+
+    ]
+);
 
         /*
         |--------------------------------------------------------------------------
@@ -2492,7 +2774,7 @@ class OrderController extends BaseController
     */
 
     /**
-     * Delete a Draft or Held Sales Order.
+     * Delete a Draft/Held Sales Order.
      */
     public function deleteOrder(
         int $id
@@ -2519,115 +2801,126 @@ class OrderController extends BaseController
         }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Locate Order
-        |--------------------------------------------------------------------------
-        */
-
-        $orderQuery =
-            Order::query()
-                ->where(
-                    'company_id',
-                    $this->companyId
-                );
-
-
-        if (
-            ! canManageAllBranches()
-        ) {
-
-            $orderQuery->where(
-                'branch_id',
-                currentBranchId()
-            );
-
-        }
-
-
-        $order =
-            $orderQuery->find(
-                $id
-            );
-
-
-        if (!$order) {
-
-            return response()->json([
-
-                'success' =>
-                    false,
-
-                'message' =>
-                    'Sales order not found.',
-
-            ], 404);
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Status Protection
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-            ! in_array(
-                $order->order_status,
-                [
-                    'Draft',
-                    'Held',
-                ],
-                true
-            )
-        ) {
-
-            return response()->json([
-
-                'success' =>
-                    false,
-
-                'message' =>
-                    'Only Draft or Held sales orders can be deleted.',
-
-            ], 422);
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Delete
-        |--------------------------------------------------------------------------
-        */
-
         try {
 
-            $orderNo =
-                $order->order_no;
+            /*
+            |--------------------------------------------------------------------------
+            | Find Order
+            |--------------------------------------------------------------------------
+            */
 
+            $order =
+                Order::query()
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+                    ->find(
+                        $id
+                    );
+
+
+            if (! $order) {
+
+                return response()->json([
+
+                    'success' =>
+                        false,
+
+                    'message' =>
+                        'Sales order not found.',
+
+                ], 404);
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Status Protection
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                ! in_array(
+                    $order->order_status,
+                    [
+                        'Draft',
+                        'Held',
+                    ],
+                    true
+                )
+            ) {
+
+                return response()->json([
+
+                    'success' =>
+                        false,
+
+                    'message' =>
+                        'Only Draft or Held sales orders can be deleted.',
+
+                ], 422);
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Capture Old Values
+            |--------------------------------------------------------------------------
+            */
+
+            $oldValues =
+                $order->toArray();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Delete
+            |--------------------------------------------------------------------------
+            */
+
+            DB::transaction(
+                function () use (
+                    $order
+                ) {
+
+                    $order->delete();
+
+                }
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Activity Log
+            |--------------------------------------------------------------------------
+            */
 
             $this->activityLogger->log(
 
-                'orders',
+                'sales_orders',
 
                 'delete',
 
                 'Deleted sales order: ' .
-                    $orderNo,
+                    $order->order_no,
 
                 $order,
 
-                $order->toArray(),
+                $oldValues,
 
                 null
 
             );
 
 
-            $order->delete();
-
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
 
             return response()->json([
 
@@ -2637,22 +2930,12 @@ class OrderController extends BaseController
                 'message' =>
                     'Sales order deleted successfully.',
 
-                'data' => [
-
-                    'id' =>
-                        $id,
-
-                    'order_no' =>
-                        $orderNo,
-
-                ],
-
             ]);
 
         }
         catch (\Throwable $e) {
 
-            Log::error(
+            \Log::error(
                 'Failed to delete sales order.',
                 [
 
@@ -2685,7 +2968,6 @@ class OrderController extends BaseController
         }
 
     }
-
     /*
     |--------------------------------------------------------------------------
     | Terminals
@@ -3688,6 +3970,1045 @@ public function storeCustomer(
             ], 500);
 
         }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Complete Order
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Complete a Draft/Held Sales Order.
+     *
+     * Completion:
+     * - validates payment
+     * - re-checks branch stock
+     * - deducts stock
+     * - creates stock movements
+     * - updates payment/order status
+     * - records completion audit
+     */
+    public function completeOrder(
+        Request $request,
+        int $id
+    ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('orders.update')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to complete sales orders.',
+
+            ], 403);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
+        */
+
+        $validated =
+            $request->validate([
+
+                'amount_paid' => [
+
+                    'required',
+
+                    'numeric',
+
+                    'min:0',
+
+                ],
+
+                'payment_method' => [
+
+                    'required',
+
+                    'string',
+
+                    'max:100',
+
+                ],
+
+            ]);
+
+
+        try {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Complete Transaction
+            |--------------------------------------------------------------------------
+            */
+
+            $result =
+                DB::transaction(
+                    function () use (
+                        $validated,
+                        $id
+                    ) {
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Order
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $order =
+                            Order::query()
+                                ->where(
+                                    'company_id',
+                                    $this->companyId
+                                )
+                                ->where(
+                                    'id',
+                                    $id
+                                )
+                                ->lockForUpdate()
+                                ->first();
+
+
+                        if (! $order) {
+
+                            throw ValidationException::withMessages([
+
+                                'order' =>
+                                    'Sales order not found.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Status
+                        |--------------------------------------------------------------------------
+                        */
+
+                        if (
+                            ! in_array(
+                                $order->order_status,
+                                [
+                                    'Draft',
+                                    'Held',
+                                ],
+                                true
+                            )
+                        ) {
+
+                            throw ValidationException::withMessages([
+
+                                'order' =>
+                                    'Only Draft or Held sales orders can be completed.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Amount Due
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $amountDue =
+                            (float) (
+                                $order->grand_total
+                                ??
+                                $order->total
+                                ??
+                                0
+                            );
+
+
+                        $amountPaid =
+                            (float) (
+                                $validated['amount_paid']
+                                ?? 0
+                            );
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Payment Validation
+                        |--------------------------------------------------------------------------
+                        */
+
+                        if (
+                            $amountPaid <
+                            $amountDue
+                        ) {
+
+                            throw ValidationException::withMessages([
+
+                                'amount_paid' =>
+                                    'Amount paid cannot be less than the amount due.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Load Items
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $items =
+                            OrderItem::query()
+                                ->where(
+                                    'order_id',
+                                    $order->id
+                                )
+                                ->lockForUpdate()
+                                ->get();
+
+
+                        if (
+                            $items->isEmpty()
+                        ) {
+
+                            throw ValidationException::withMessages([
+
+                                'items' =>
+                                    'This sales order has no items.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Capture Stock Changes
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $stockChanges = [];
+
+
+                        foreach (
+                            $items
+                            as $item
+                        ) {
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Product
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $product =
+                                Product::query()
+                                    ->where(
+                                        'company_id',
+                                        $this->companyId
+                                    )
+                                    ->where(
+                                        'id',
+                                        $item->product_id
+                                    )
+                                    ->where(
+                                        'status',
+                                        true
+                                    )
+                                    ->first();
+
+
+                            if (! $product) {
+
+                                throw ValidationException::withMessages([
+
+                                    'items' =>
+                                        'Product for order item "' .
+                                        $item->product_name .
+                                        '" is no longer available.',
+
+                                ]);
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Branch Stock
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $stock =
+                                ProductStock::query()
+                                    ->where(
+                                        'company_id',
+                                        $this->companyId
+                                    )
+                                    ->where(
+                                        'branch_id',
+                                        $order->branch_id
+                                    )
+                                    ->where(
+                                        'product_id',
+                                        $item->product_id
+                                    )
+                                    ->lockForUpdate()
+                                    ->first();
+
+
+                            if (! $stock) {
+
+                                throw ValidationException::withMessages([
+
+                                    'items' =>
+                                        'No stock record exists for "' .
+                                        $product->name .
+                                        '" in the selected branch.',
+
+                                ]);
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Quantity
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $quantity =
+                                (float)
+                                $item->quantity;
+
+
+                            if (
+                                $quantity <= 0
+                            ) {
+
+                                throw ValidationException::withMessages([
+
+                                    'items' =>
+                                        'Invalid quantity for "' .
+                                        $product->name .
+                                        '".',
+
+                                ]);
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Available Stock
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $availableQuantity =
+                                (float)
+                                $stock->available_quantity;
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Stock Check
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if (
+                                $quantity >
+                                $availableQuantity
+                            ) {
+
+                                throw ValidationException::withMessages([
+
+                                    'items' =>
+                                        'Insufficient stock for "' .
+                                        $product->name .
+                                        '". Only ' .
+                                        number_format(
+                                            $availableQuantity,
+                                            2
+                                        ) .
+                                        ' units are available in the selected branch.',
+
+                                ]);
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Capture Before
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $stockBefore =
+                                (float)
+                                $stock->quantity;
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | New Quantity
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $newQuantity =
+                                $stockBefore
+                                -
+                                $quantity;
+
+
+                            if (
+                                $newQuantity < 0
+                            ) {
+
+                                throw ValidationException::withMessages([
+
+                                    'items' =>
+                                        'Stock cannot become negative for "' .
+                                        $product->name .
+                                        '".',
+
+                                ]);
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Reserved Quantity
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $reservedQuantity =
+                                (float)
+                                $stock->reserved_quantity;
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | New Available Quantity
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $newAvailableQuantity =
+                                max(
+                                    0,
+                                    $newQuantity
+                                    -
+                                    $reservedQuantity
+                                );
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Store Change
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $stockChanges[] = [
+
+                                'item' =>
+                                    $item,
+
+                                'product' =>
+                                    $product,
+
+                                'stock' =>
+                                    $stock,
+
+                                'stock_before' =>
+                                    $stockBefore,
+
+                                'quantity' =>
+                                    $quantity,
+
+                                'new_quantity' =>
+                                    $newQuantity,
+
+                                'new_available_quantity' =>
+                                    $newAvailableQuantity,
+
+                            ];
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Apply Stock Changes
+                        |--------------------------------------------------------------------------
+                        */
+
+                        foreach (
+                            $stockChanges
+                            as $change
+                        ) {
+
+                            $stock =
+                                $change['stock'];
+
+
+                            $stock->update([
+
+                                'quantity' =>
+                                    $change['new_quantity'],
+
+                                'available_quantity' =>
+                                    $change['new_available_quantity'],
+
+                            ]);
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Stock Movement
+                            |--------------------------------------------------------------------------
+                            */
+
+                            StockMovement::create([
+
+                                'company_id' =>
+                                    $this->companyId,
+
+                                'branch_id' =>
+                                    $order->branch_id,
+
+                                'product_id' =>
+                                    $change['item']->product_id,
+
+                                'order_id' =>
+                                    $order->id,
+
+                                'reference_no' =>
+                                    $order->order_no,
+
+                                'unit_cost' =>
+                                    (float)
+                                    $change['product']->cost_price,
+
+                                'quantity' =>
+                                    $change['quantity'],
+
+                                'stock_before' =>
+                                    $change['stock_before'],
+
+                                'balance_after' =>
+                                    $change['new_quantity'],
+
+                                'remarks' =>
+                                    'Sales Order completed: ' .
+                                    $order->order_no,
+
+                                'created_by' =>
+                                    auth()->id(),
+
+                                'movement_type' =>
+                                    'Sale',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Change Given
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $changeGiven =
+                            max(
+                                $amountPaid -
+                                $amountDue,
+                                0
+                            );
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Balance
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $balance =
+                            max(
+                                $amountDue -
+                                $amountPaid,
+                                0
+                            );
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Capture Old Values
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $oldValues =
+                            $order->toArray();
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Update Order
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $order->update([
+
+                            'amount_paid' =>
+                                $amountPaid,
+
+                            'balance' =>
+                                $balance,
+
+                            'change_given' =>
+                                $changeGiven,
+
+                            'payment_status' =>
+                                'Paid',
+
+                            'order_status' =>
+                                'Completed',
+
+                            'completed_at' =>
+                                now(),
+
+                            'updated_by' =>
+                                auth()->id(),
+
+                        ]);
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Return
+                        |--------------------------------------------------------------------------
+                        */
+
+                        return [
+
+                            'order' =>
+                                $order->fresh(),
+
+                            'old_values' =>
+                                $oldValues,
+
+                            'stock_changes' =>
+                                $stockChanges,
+
+                        ];
+
+                    }
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Activity Log
+            |--------------------------------------------------------------------------
+            */
+
+            $this->activityLogger->log(
+
+                'sales_orders',
+
+                'Completed',
+
+                'Completed sales order: ' .
+                    $result['order']->order_no,
+
+                $result['order'],
+
+                $result['old_values'],
+
+                $result['order']->toArray()
+
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
+            return response()->json([
+
+                'success' =>
+                    true,
+
+                'message' =>
+                    'Sales order completed successfully.',
+
+                'data' => [
+
+                    'id' =>
+                        $result['order']->id,
+
+                    'order_no' =>
+                        $result['order']->order_no,
+
+                    'order_status' =>
+                        $result['order']->order_status,
+
+                    'payment_status' =>
+                        $result['order']->payment_status,
+
+                    'amount_paid' =>
+                        (float)
+                        $result['order']->amount_paid,
+
+                    'balance' =>
+                        (float)
+                        $result['order']->balance,
+
+                    'change_given' =>
+                        (float)
+                        $result['order']->change_given,
+
+                    'completed_at' =>
+                        $result['order']->completed_at,
+
+                ],
+
+            ]);
+
+        }
+        catch (ValidationException $e) {
+
+            throw $e;
+
+        }
+        catch (\Throwable $e) {
+
+            \Log::error(
+                'Failed to complete sales order.',
+                [
+
+                    'company_id' =>
+                        $this->companyId,
+
+                    'user_id' =>
+                        auth()->id(),
+
+                    'order_id' =>
+                        $id,
+
+                    'error' =>
+                        $e->getMessage(),
+
+                ]
+            );
+
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Unable to complete sales order. Please try again.',
+
+            ], 500);
+
+        }
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receipt Order
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Load a completed Sales Order for receipt generation.
+     */
+    private function getReceiptOrder(
+        int $id
+    ): Order {
+
+        $order =
+            Order::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'id',
+                    $id
+                )
+                ->where(
+                    'order_status',
+                    'Completed'
+                )
+                ->with([
+
+                    'branch',
+
+                    'terminal',
+
+                    'customer',
+
+                    'cashier',
+
+                    'orderItems',
+
+                ])
+                ->first();
+
+
+        if (! $order) {
+
+            abort(
+                404,
+                'Completed sales order not found.'
+            );
+
+        }
+       
+
+                return $order;
+
+            }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receipt
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Display a printable Sales Order receipt.
+     */
+    public function receipt(
+        int $id
+    ) {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('orders.view')) {
+
+            abort(
+                403,
+                'You do not have permission to view sales orders.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order
+        |--------------------------------------------------------------------------
+        */
+
+        $order =
+            $this->getReceiptOrder(
+                $id
+            );
+
+             /*
+        |--------------------------------------------------------------------------
+        | Receipt Settings
+        |--------------------------------------------------------------------------
+        */
+
+        $receiptSettings =
+            Setting::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->first();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Receipt View
+        |--------------------------------------------------------------------------
+        */
+
+        return view(
+            'sales.orders.receipt',
+            compact(
+                'order',
+                'receiptSettings'
+            )
+        );
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receipt PDF
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Download a completed Sales Order as PDF.
+     */
+    public function receiptPdf(
+        int $id
+    ) {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('orders.view')) {
+
+            abort(
+                403,
+                'You do not have permission to view sales orders.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order
+        |--------------------------------------------------------------------------
+        */
+
+        $order =
+            $this->getReceiptOrder(
+                $id
+            );
+
+         /*
+        |--------------------------------------------------------------------------
+        | Receipt Settings
+        |--------------------------------------------------------------------------
+        */
+
+        $receiptSettings =
+            Setting::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->first();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Receipt Logo
+        |--------------------------------------------------------------------------
+        */
+
+        $logoData =
+            null;
+
+
+        if (
+            $receiptSettings?->print_logo &&
+            filled(
+                $order->company?->logo
+            )
+        ) {
+
+            $logoPath =
+                public_path(
+                    'uploads/company/' .
+                    ltrim(
+                        $order->company->logo,
+                        '/'
+                    )
+                );
+
+
+            if (
+                is_file(
+                    $logoPath
+                )
+            ) {
+
+                $mimeType =
+                    mime_content_type(
+                        $logoPath
+                    );
+
+
+                $logoData =
+                    'data:' .
+                    $mimeType .
+                    ';base64,' .
+                    base64_encode(
+                        file_get_contents(
+                            $logoPath
+                        )
+                    );
+
+            }
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | PDF
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf =
+            Pdf::loadView(
+                'sales.orders.receipt-pdf',
+                compact(
+                    'order',
+                     'receiptSettings',
+                    'logoData' 
+                )
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Paper
+        |--------------------------------------------------------------------------
+        */
+
+        $pdf->setPaper(
+            'a4',
+            'portrait'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Download
+        |--------------------------------------------------------------------------
+        */
+
+        return $pdf->download(
+            'receipt-' .
+            $order->order_no .
+            '.pdf'
+        );
 
     }
 

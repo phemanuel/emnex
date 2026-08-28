@@ -426,12 +426,7 @@ const OrderModule = {
         this.elements.completeOrderCustomer =
             document.getElementById(
                 'completeOrderCustomer'
-            );
-
-        this.elements.completeOrderItems =
-            document.getElementById(
-                'completeOrderItems'
-            );
+            );        
 
         this.elements.completeOrderGrandTotal =
             document.getElementById(
@@ -501,6 +496,47 @@ const OrderModule = {
         this.elements.completeOrderSubmitSpinner =
             document.getElementById(
                 'completeOrderSubmitSpinner'
+            );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Complete Order Breakdown
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.completeOrderItems =
+            document.getElementById(
+                'completeOrderItems'
+            );
+
+
+        this.elements.completeOrderItemCount =
+            document.getElementById(
+                'completeOrderItemCount'
+            );
+
+
+        this.elements.completeOrderSubtotal =
+            document.getElementById(
+                'completeOrderSubtotal'
+            );
+
+
+        this.elements.completeOrderDiscount =
+            document.getElementById(
+                'completeOrderDiscount'
+            );
+
+
+        this.elements.completeOrderTax =
+            document.getElementById(
+                'completeOrderTax'
+            );
+
+
+        this.elements.completeOrderBreakdownTotal =
+            document.getElementById(
+                'completeOrderBreakdownTotal'
             );
 
         /*
@@ -784,6 +820,58 @@ const OrderModule = {
                 'inspectorOrderCompletedAt'
             );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Confirmation Modal
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.confirmationModal =
+            document.getElementById(
+                'confirmationModal'
+            );
+
+        /*
+    |--------------------------------------------------------------------------
+    | Delete Order Confirmation Modal
+    |--------------------------------------------------------------------------
+    */
+
+    this.elements.deleteOrderConfirmationModal =
+        document.getElementById(
+            'deleteOrderConfirmationModal'
+        );
+
+
+    this.elements.deleteOrderConfirmationNumber =
+        document.getElementById(
+            'deleteOrderConfirmationNumber'
+        );
+
+
+    this.elements.deleteOrderConfirmationTotal =
+        document.getElementById(
+            'deleteOrderConfirmationTotal'
+        );
+
+
+    this.elements.deleteOrderConfirmationBtn =
+        document.getElementById(
+            'deleteOrderConfirmationBtn'
+        );
+
+
+    this.elements.deleteOrderConfirmationText =
+        document.getElementById(
+            'deleteOrderConfirmationText'
+        );
+
+
+    this.elements.deleteOrderConfirmationSpinner =
+        document.getElementById(
+            'deleteOrderConfirmationSpinner'
+        );
+
     },
 
 
@@ -865,6 +953,40 @@ const OrderModule = {
 
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Confirmation Modal
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.confirmationModal
+        ) {
+
+            this.confirmationModal =
+                bootstrap.Modal.getOrCreateInstance(
+                    this.elements.confirmationModal
+                );
+
+        }
+
+    /*
+        |--------------------------------------------------------------------------
+        | Delete Order Confirmation Modal
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.deleteOrderConfirmationModal
+        ) {
+
+            this.deleteOrderConfirmationModalInstance =
+                bootstrap.Modal.getOrCreateInstance(
+                    this.elements.deleteOrderConfirmationModal
+                );
+
+        }
+
 
        /*
         |--------------------------------------------------------------------------
@@ -880,6 +1002,16 @@ const OrderModule = {
                 bootstrap.Offcanvas.getOrCreateInstance(
                     this.elements.orderInspector
                 );
+
+
+            this.elements.orderInspector.addEventListener(
+                'hidden.bs.offcanvas',
+                () => {
+
+                    this.closeOrderActionMenu();
+
+                }
+            );
 
         }
         /*
@@ -933,13 +1065,13 @@ const OrderModule = {
             }
         );
 
-    /*
+        /*
         |--------------------------------------------------------------------------
         | Sales Order Action Trigger
         |--------------------------------------------------------------------------
         */
 
-        this.elements.ordersTable?.addEventListener(
+        document.addEventListener(
             'click',
             event => {
 
@@ -958,7 +1090,6 @@ const OrderModule = {
 
                 event.preventDefault();
 
-
                 event.stopPropagation();
 
 
@@ -968,14 +1099,9 @@ const OrderModule = {
 
             }
         );
+       
 
-        /*
-        |--------------------------------------------------------------------------
-        | Global Order Action Menu Actions
-        |--------------------------------------------------------------------------
-        */
-
-        /*
+       /*
         |--------------------------------------------------------------------------
         | Order Action Menu
         |--------------------------------------------------------------------------
@@ -1016,6 +1142,12 @@ const OrderModule = {
                 }
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | View
+                |--------------------------------------------------------------------------
+                */
+
                 if (
                     action === 'view'
                 ) {
@@ -1028,6 +1160,12 @@ const OrderModule = {
 
                 }
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Edit
+                |--------------------------------------------------------------------------
+                */
 
                 if (
                     action === 'edit'
@@ -1042,6 +1180,12 @@ const OrderModule = {
                 }
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | Complete
+                |--------------------------------------------------------------------------
+                */
+
                 if (
                     action === 'complete'
                 ) {
@@ -1055,6 +1199,58 @@ const OrderModule = {
                 }
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | Print Receipt
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    action === 'print-receipt'
+                ) {
+
+                    event.preventDefault();
+
+
+                    this.printOrderReceipt(
+                        orderId
+                    );
+
+                    return;
+
+                }
+
+                /*
+                |--------------------------------------------------------------------------
+                | Download Receipt PDF
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    action === 'receipt-pdf'
+                ) {
+
+                    event.preventDefault();
+
+
+                    window.open(
+                        `/sales/orders/${orderId}/receipt/pdf`,
+                        '_blank',
+                        'noopener,noreferrer'
+                    );
+
+
+                    return;
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Delete
+                |--------------------------------------------------------------------------
+                */
+
                 if (
                     action === 'delete'
                 ) {
@@ -1062,6 +1258,8 @@ const OrderModule = {
                     this.confirmDeleteOrder(
                         orderId
                     );
+
+                    return;
 
                 }
 
@@ -1135,19 +1333,28 @@ const OrderModule = {
             }
         );
 
-        /*
+       /*
         |--------------------------------------------------------------------------
-        | Product Picker
+        | Order Item Inputs
         |--------------------------------------------------------------------------
         */
 
+        /**
+         * Handle live Order Item field changes.
+         *
+         * Delegated from the Order Items container so it works for
+         * both newly created and dynamically rendered edit rows.
+         */
         this.elements.orderItems?.addEventListener(
-            'focusin',
+            'input',
             event => {
 
                 const input =
                     event.target.closest(
-                        '.sales-order-product-input'
+                        '.order-item-quantity, ' +
+                        '.order-item-price, ' +
+                        '.order-item-discount, ' +
+                        '.order-item-tax'
                     );
 
 
@@ -1158,13 +1365,30 @@ const OrderModule = {
                 }
 
 
-                const combobox =
-                    input.closest(
-                        '.sales-order-product-combobox'
+                const itemId =
+                    input.dataset.itemId;
+
+
+                if (!itemId) {
+
+                    return;
+
+                }
+
+
+                const item =
+                    this.state.orderItems.find(
+                        row =>
+                            String(
+                                row.id
+                            ) ===
+                            String(
+                                itemId
+                            )
                     );
 
 
-                if (!combobox) {
+                if (!item) {
 
                     return;
 
@@ -1173,25 +1397,124 @@ const OrderModule = {
 
                 /*
                 |--------------------------------------------------------------------------
-                | Open Picker
+                | Quantity
                 |--------------------------------------------------------------------------
                 */
 
-                combobox.classList.add(
-                    'is-open'
+                if (
+                    input.classList.contains(
+                        'order-item-quantity'
+                    )
+                ) {
+
+                    this.updateOrderItemQuantity(
+                        item,
+                        input
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Unit Price
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    input.classList.contains(
+                        'order-item-price'
+                    )
+                ) {
+
+                    item.unit_price =
+                        Math.max(
+                            parseFloat(
+                                input.value
+                            ) || 0,
+                            0
+                        );
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Discount
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    input.classList.contains(
+                        'order-item-discount'
+                    )
+                ) {
+
+                    item.discount_amount =
+                        Math.max(
+                            parseFloat(
+                                input.value
+                            ) || 0,
+                            0
+                        );
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Tax
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    input.classList.contains(
+                        'order-item-tax'
+                    )
+                ) {
+
+                    item.tax_amount =
+                        Math.max(
+                            parseFloat(
+                                input.value
+                            ) || 0,
+                            0
+                        );
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Calculate Line Total
+                |--------------------------------------------------------------------------
+                */
+
+                this.calculateOrderItemTotal(
+                    item
                 );
 
 
                 /*
                 |--------------------------------------------------------------------------
-                | Initial Search
+                | Update Row Total
                 |--------------------------------------------------------------------------
                 */
 
-                this.searchOrderProducts(
-                    input.dataset.itemId,
-                    input.value
+                this.updateOrderItemRowTotal(
+                    item
                 );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Update Order Totals
+                |--------------------------------------------------------------------------
+                */
+
+                this.updateOrderTotals();
 
             }
         );
@@ -1836,6 +2159,36 @@ const OrderModule = {
             }
         );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Delete Order Confirmation
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.deleteOrderConfirmationBtn?.addEventListener(
+            'click',
+            () => {
+
+                this.deleteOrder();
+
+            }
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Complete Order Submit
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.completeOrderSubmitBtn?.addEventListener(
+            'click',
+            () => {
+
+                this.submitCompleteOrder();
+
+            }
+        );
+
     },
 
 
@@ -1863,8 +2216,6 @@ async loadInitialData()
         this.loadBranches(),
 
         this.loadTerminals(),
-
-        this.loadProducts(),
 
         this.loadOrders(),
 
@@ -2057,6 +2408,9 @@ async loadOrders(
 |--------------------------------------------------------------------------
 */
 
+/**
+ * Open the global Sales Order action menu.
+ */
 openOrderActionMenu(
     trigger
 )
@@ -2091,13 +2445,43 @@ openOrderActionMenu(
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Menu
+    |--------------------------------------------------------------------------
+    */
+
+    menu.classList.remove(
+        'is-open'
+    );
+
+    menu.setAttribute(
+        'aria-hidden',
+        'true'
+    );
+
+    menu.style.display =
+        'none';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store Order
+    |--------------------------------------------------------------------------
+    */
+
     this.state.actionOrderId =
         orderId;
-
 
     this.state.actionOrderStatus =
         orderStatus;
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Action Buttons
+    |--------------------------------------------------------------------------
+    */
 
     const editButton =
         menu.querySelector(
@@ -2144,6 +2528,16 @@ openOrderActionMenu(
     );
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Force Layout
+    |--------------------------------------------------------------------------
+    */
+
+    menu.style.display =
+        'block';
+
+
     menu.classList.add(
         'is-open'
     );
@@ -2154,6 +2548,12 @@ openOrderActionMenu(
         'false'
     );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Position
+    |--------------------------------------------------------------------------
+    */
 
     const rect =
         trigger.getBoundingClientRect();
@@ -2233,7 +2633,6 @@ openOrderActionMenu(
         `${top}px`;
 
 },
-
 /*
 |--------------------------------------------------------------------------
 | Open Complete Order Modal
@@ -2272,6 +2671,22 @@ async openCompleteOrder(
 
     /*
     |--------------------------------------------------------------------------
+    | Store Order ID
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.completeOrderId
+    ) {
+
+        this.elements.completeOrderId.value =
+            id;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Reset Form
     |--------------------------------------------------------------------------
     */
@@ -2281,15 +2696,140 @@ async openCompleteOrder(
 
     /*
     |--------------------------------------------------------------------------
-    | Reset Payment Preview
+    | Reset Order Summary
     |--------------------------------------------------------------------------
     */
 
     this.setText(
-        'completeOrderAmountDue',
+        'completeOrderNumber',
+        '—'
+    );
+
+
+    this.setText(
+        'completeOrderCustomer',
+        'Walk-in Customer'
+    );
+
+
+    if (
+        this.elements.completeOrderItemCount
+    ) {
+
+        this.elements.completeOrderItemCount.textContent =
+            '0';
+
+    }
+
+
+    this.setText(
+        'completeOrderGrandTotal',
         '0.00'
     );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Breakdown
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.completeOrderItems
+    ) {
+
+        this.elements.completeOrderItems.innerHTML = `
+
+            <div class="sales-order-complete-items-empty">
+
+                <i class="bi bi-box-seam"></i>
+
+                <span>
+                    Loading order items...
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+
+    if (
+        this.elements.completeOrderSubtotal
+    ) {
+
+        this.elements.completeOrderSubtotal.textContent =
+            '0.00';
+
+    }
+
+
+    if (
+        this.elements.completeOrderDiscount
+    ) {
+
+        this.elements.completeOrderDiscount.textContent =
+            '0.00';
+
+    }
+
+
+    if (
+        this.elements.completeOrderTax
+    ) {
+
+        this.elements.completeOrderTax.textContent =
+            '0.00';
+
+    }
+
+
+    if (
+        this.elements.completeOrderBreakdownTotal
+    ) {
+
+        this.elements.completeOrderBreakdownTotal.textContent =
+            '0.00';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Payment
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.completeOrderAmountDue
+    ) {
+
+        this.elements.completeOrderAmountDue.value =
+            '0.00';
+
+    }
+
+
+    if (
+        this.elements.completeOrderAmountPaid
+    ) {
+
+        this.elements.completeOrderAmountPaid.value =
+            '0';
+
+    }
+
+
+    this.state.completeOrderAmountDue =
+        0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Payment Preview
+    |--------------------------------------------------------------------------
+    */
 
     this.setText(
         'completeOrderPreviewDue',
@@ -2315,26 +2855,16 @@ async openCompleteOrder(
     );
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Warning
+    |--------------------------------------------------------------------------
+    */
+
     this.elements.completeOrderWarning
         ?.classList.add(
             'd-none'
         );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Store Order ID
-    |--------------------------------------------------------------------------
-    */
-
-    if (
-        this.elements.completeOrderId
-    ) {
-
-        this.elements.completeOrderId.value =
-            id;
-
-    }
 
 
     /*
@@ -2359,10 +2889,19 @@ async openCompleteOrder(
 
     try {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Load Order
+        |--------------------------------------------------------------------------
+        */
+
         const response =
             await fetch(
                 `/sales/orders/${id}/details`,
                 {
+
+                    method:
+                        'GET',
 
                     headers: {
 
@@ -2382,6 +2921,12 @@ async openCompleteOrder(
             await response.json();
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Response Validation
+        |--------------------------------------------------------------------------
+        */
+
         if (
             !response.ok ||
             !result.success
@@ -2394,6 +2939,12 @@ async openCompleteOrder(
 
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order Data
+        |--------------------------------------------------------------------------
+        */
 
         const order =
             result.data;
@@ -2430,7 +2981,7 @@ async openCompleteOrder(
 
         /*
         |--------------------------------------------------------------------------
-        | Populate
+        | Order Number
         |--------------------------------------------------------------------------
         */
 
@@ -2441,6 +2992,12 @@ async openCompleteOrder(
         );
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Customer
+        |--------------------------------------------------------------------------
+        */
+
         this.setText(
             'completeOrderCustomer',
             order.customer?.name ??
@@ -2448,32 +3005,24 @@ async openCompleteOrder(
         );
 
 
-        this.setText(
-            'completeOrderItems',
-            order.total_items ??
-            0
-        );
+        /*
+        |--------------------------------------------------------------------------
+        | Item Count
+        |--------------------------------------------------------------------------
+        */
 
-
-        this.setText(
-            'completeOrderGrandTotal',
-            this.formatMoney(
-                order.grand_total ??
-                order.total ??
-                0
-            )
-        );
-
-
-       if (
-            this.elements.completeOrderAmountDue
+        if (
+            this.elements.completeOrderItemCount
         ) {
 
-            this.elements.completeOrderAmountDue.value =
-                this.formatMoney(
-                    order.grand_total ??
-                    order.total ??
-                    0
+            this.elements.completeOrderItemCount.textContent =
+                order.total_items ??
+                (
+                    Array.isArray(
+                        order.items
+                    )
+                        ? order.items.length
+                        : 0
                 );
 
         }
@@ -2481,16 +3030,139 @@ async openCompleteOrder(
 
         /*
         |--------------------------------------------------------------------------
-        | Store Amount Due
+        | Grand Total
         |--------------------------------------------------------------------------
         */
 
-        this.state.completeOrderAmountDue =
+        const grandTotal =
             parseFloat(
                 order.grand_total ??
                 order.total ??
                 0
             ) || 0;
+
+
+        this.setText(
+            'completeOrderGrandTotal',
+            this.formatMoney(
+                grandTotal
+            )
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order Breakdown
+        |--------------------------------------------------------------------------
+        */
+
+        this.populateCompleteOrderItems(
+            Array.isArray(
+                order.items
+            )
+                ? order.items
+                : []
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Subtotal
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.completeOrderSubtotal
+        ) {
+
+            this.elements.completeOrderSubtotal.textContent =
+                this.formatMoney(
+                    parseFloat(
+                        order.subtotal
+                    ) || 0
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Discount
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.completeOrderDiscount
+        ) {
+
+            this.elements.completeOrderDiscount.textContent =
+                this.formatMoney(
+                    parseFloat(
+                        order.discount
+                    ) || 0
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Tax
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.completeOrderTax
+        ) {
+
+            this.elements.completeOrderTax.textContent =
+                this.formatMoney(
+                    parseFloat(
+                        order.tax
+                    ) || 0
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Breakdown Total
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.completeOrderBreakdownTotal
+        ) {
+
+            this.elements.completeOrderBreakdownTotal.textContent =
+                this.formatMoney(
+                    grandTotal
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Amount Due
+        |--------------------------------------------------------------------------
+        */
+
+        this.state.completeOrderAmountDue =
+            grandTotal;
+
+
+        if (
+            this.elements.completeOrderAmountDue
+        ) {
+
+            this.elements.completeOrderAmountDue.value =
+                this.formatMoney(
+                    grandTotal
+                );
+
+        }
 
 
         /*
@@ -2516,7 +3188,6 @@ async openCompleteOrder(
         */
 
         this.updateCompleteOrderPaymentPreview();
-
 
     }
     catch (error) {
@@ -2546,7 +3217,6 @@ async openCompleteOrder(
     }
 
 },
-
 /*
 |--------------------------------------------------------------------------
 | Complete Order Loading
@@ -2697,8 +3367,24 @@ closeOrderActionMenu()
     );
 
 
-    menu.innerHTML =
+    menu.style.display =
+        'none';
+
+
+    menu.style.left =
         '';
+
+
+    menu.style.top =
+        '';
+
+
+    this.state.actionOrderId =
+        null;
+
+
+    this.state.actionOrderStatus =
+        null;
 
 },
 
@@ -2835,6 +3521,281 @@ openCreateOrder()
     */
 
     this.orderModalInstance?.show();
+
+},
+
+
+/*
+|--------------------------------------------------------------------------
+| Submit Complete Order
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Submit the Complete Order transaction.
+ */
+async submitCompleteOrder()
+{
+
+    const orderId =
+        this.elements.completeOrderId?.value;
+
+
+    if (!orderId) {
+
+        return;
+
+    }
+
+
+    const amountPaid =
+        parseFloat(
+            this.elements.completeOrderAmountPaid?.value
+        ) || 0;
+
+
+    const paymentMethod =
+        this.elements.completeOrderPaymentMethod?.value ??
+        '';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Amount
+    |--------------------------------------------------------------------------
+    */
+
+    const amountDue =
+        parseFloat(
+            this.state.completeOrderAmountDue
+        ) || 0;
+
+
+    if (
+        amountPaid <
+        amountDue
+    ) {
+
+        this.notify(
+            'Amount paid cannot be less than the amount due.',
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Payment Method
+    |--------------------------------------------------------------------------
+    */
+
+    if (!paymentMethod) {
+
+        this.notify(
+            'Select a payment method.',
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Loading
+    |--------------------------------------------------------------------------
+    */
+
+    this.setCompleteOrderLoading(
+        true
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/sales/orders/${orderId}/complete`,
+                {
+
+                    method:
+                        'POST',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest',
+
+                        'X-CSRF-TOKEN':
+                            document
+                                .querySelector(
+                                    'meta[name="csrf-token"]'
+                                )
+                                ?.getAttribute(
+                                    'content'
+                                ),
+
+                        'Content-Type':
+                            'application/json'
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            amount_paid:
+                                amountPaid,
+
+                            payment_method:
+                                paymentMethod
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            response.status === 422
+        ) {
+
+            const firstError =
+                Object.values(
+                    result.errors ??
+                    {}
+                )
+                    .flat()
+                    .find(
+                        message =>
+                            message
+                    );
+
+
+            this.notify(
+                firstError ??
+                result.message ??
+                'Please correct the payment details.',
+                'error'
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | General Error
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to complete sales order.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close Modal
+        |--------------------------------------------------------------------------
+        */
+
+        this.completeOrderModalInstance?.hide();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Orders
+        |--------------------------------------------------------------------------
+        */
+
+        await this.loadOrders(
+            this.state.ordersPage ||
+            1
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Complete Order State
+        |--------------------------------------------------------------------------
+        */
+
+        this.state.completeOrderAmountDue =
+            0;
+
+
+        if (
+            this.elements.completeOrderId
+        ) {
+
+            this.elements.completeOrderId.value =
+                '';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Success
+        |--------------------------------------------------------------------------
+        */
+
+        this.notify(
+            result.message ??
+            'Sales order completed successfully.',
+            'success'
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            'Complete Order submission failed:',
+            error
+        );
+
+
+        this.notify(
+            error.message ??
+            'Unable to complete sales order.',
+            'error'
+        );
+
+    }
+    finally {
+
+        this.setCompleteOrderLoading(
+            false
+        );
+
+    }
 
 },
 
@@ -2977,6 +3938,47 @@ populateOrderInspector(
 
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Inspector Header
+    |--------------------------------------------------------------------------
+    */
+
+    const inspectorLabel =
+        document.getElementById(
+            'orderInspectorLabel'
+        );
+
+
+    if (inspectorLabel) {
+
+        inspectorLabel.textContent =
+            order.order_no ??
+            '—';
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Order Date
+    |--------------------------------------------------------------------------
+    */
+
+    const inspectorOrderDate =
+        document.getElementById(
+            'inspectorOrderDate'
+        );
+
+
+    if (inspectorOrderDate) {
+
+        inspectorOrderDate.textContent =
+            this.formatDateTime(
+                order.created_at
+            );
+
+    }
+
 
     this.setInspectorText(
         'inspectorOrderNumber',
@@ -3116,6 +4118,49 @@ populateOrderInspector(
         order.items ?? []
     );
 
+    /*
+    |--------------------------------------------------------------------------
+    | Activity
+    |--------------------------------------------------------------------------
+    */
+
+    this.setInspectorText(
+        'inspectorOrderCreatedBy',
+        order.created_by?.name ??
+        '—'
+    );
+
+
+    this.setInspectorText(
+        'inspectorOrderCreatedAt',
+        this.formatDateTime(
+            order.created_at
+        )
+    );
+
+
+    this.setInspectorText(
+        'inspectorOrderUpdatedBy',
+        order.updated_by?.name ??
+        '—'
+    );
+
+
+    this.setInspectorText(
+        'inspectorOrderUpdatedAt',
+        this.formatDateTime(
+            order.updated_at
+        )
+    );
+
+
+    this.setInspectorText(
+        'inspectorOrderCompletedAt',
+        this.formatDateTime(
+            order.completed_at
+        )
+    );
+
 },
 
 /*
@@ -3144,18 +4189,29 @@ populateOrderInspectorItems(
 
 
     if (
-        !items ||
         !items.length
     ) {
 
         container.innerHTML = `
 
-            <div class="text-center text-muted py-4">
+            <div class="purchase-inspector-items-empty">
 
-                <i class="bi bi-box-seam d-block mb-2"></i>
+                <div class="purchase-inspector-items-empty-icon">
 
-                <div class="small">
-                    No items found for this order.
+                    <i class="bi bi-box-seam"></i>
+
+                </div>
+
+                <div class="purchase-inspector-items-empty-title">
+
+                    No items available
+
+                </div>
+
+                <div class="purchase-inspector-items-empty-text">
+
+                    This order does not contain any products.
+
                 </div>
 
             </div>
@@ -3192,11 +4248,11 @@ populateOrderInspectorItems(
 
                     return `
 
-                        <div class="sales-order-inspector-item">
+                        <div class="purchase-inspector-item">
 
-                            <div class="sales-order-inspector-item-main">
+                            <div class="purchase-inspector-item-main">
 
-                                <div class="sales-order-inspector-item-name">
+                                <div class="purchase-inspector-item-name">
 
                                     ${this.escapeHtml(
                                         item.product_name ??
@@ -3206,41 +4262,58 @@ populateOrderInspectorItems(
                                 </div>
 
 
-                                ${
-                                    item.product_barcode
-                                        ? `
-                                            <div class="sales-order-inspector-item-meta">
+                                <div class="purchase-inspector-item-meta">
 
-                                                ${this.escapeHtml(
-                                                    item.product_barcode
-                                                )}
+                                    ${
+                                        item.product_barcode
+                                            ? `
+                                                <span>
+                                                    ${this.escapeHtml(
+                                                        item.product_barcode
+                                                    )}
+                                                </span>
+                                            `
+                                            : ''
+                                    }
 
-                                            </div>
-                                        `
-                                        : ''
-                                }
+                                    ${
+                                        item.product_barcode
+                                            ? `
+                                                <span class="purchase-inspector-item-meta-divider">
+                                                    •
+                                                </span>
+                                            `
+                                            : ''
+                                    }
+
+                                    <span>
+                                        ${this.formatMoney(
+                                            unitPrice
+                                        )} / unit
+                                    </span>
+
+                                </div>
 
                             </div>
 
 
-                            <div class="sales-order-inspector-item-qty">
+                            <div class="purchase-inspector-item-summary">
 
-                                ${quantity}
+                                <span class="purchase-inspector-item-quantity">
 
-                                ×
+                                    ${quantity}
+                                    ×
 
-                                ${this.formatMoney(
-                                    unitPrice
-                                )}
-
-                            </div>
+                                </span>
 
 
-                            <div class="sales-order-inspector-item-total">
+                                <strong class="purchase-inspector-item-total">
 
-                                ${this.formatMoney(
-                                    total
-                                )}
+                                    ${this.formatMoney(
+                                        total
+                                    )}
+
+                                </strong>
 
                             </div>
 
@@ -3251,6 +4324,230 @@ populateOrderInspectorItems(
                 }
             )
             .join('');
+
+},
+
+
+/*
+|--------------------------------------------------------------------------
+| Populate Complete Order Items
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Populate the item breakdown in the Complete Order modal.
+ */
+populateCompleteOrderItems(
+    items = []
+)
+{
+
+    const container =
+        this.elements.completeOrderItems;
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Empty State
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !Array.isArray(items) ||
+        !items.length
+    ) {
+
+        container.innerHTML = `
+
+            <div class="sales-order-complete-items-empty">
+
+                <i class="bi bi-box-seam"></i>
+
+                <span>
+                    No order items available.
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render Items
+    |--------------------------------------------------------------------------
+    */
+
+    container.innerHTML =
+        items
+            .map(
+                item => {
+
+                    const quantity =
+                        parseFloat(
+                            item.quantity
+                        ) || 0;
+
+
+                    const unitPrice =
+                        parseFloat(
+                            item.unit_price
+                        ) || 0;
+
+
+                    const discount =
+                        parseFloat(
+                            item.discount
+                        ) || 0;
+
+
+                    const tax =
+                        parseFloat(
+                            item.tax
+                        ) || 0;
+
+
+                    const total =
+                        parseFloat(
+                            item.total
+                        ) || 0;
+
+
+                    return `
+
+                        <div
+                            class="sales-order-complete-item"
+                        >
+
+                            <div
+                                class="sales-order-complete-item-info"
+                            >
+
+                                <div
+                                    class="sales-order-complete-item-name"
+                                >
+
+                                    ${this.escapeHtml(
+                                        item.product_name ??
+                                        'Unknown Product'
+                                    )}
+
+                                </div>
+
+
+                                <div
+                                    class="sales-order-complete-item-meta"
+                                >
+
+                                    ${this.formatQuantity(
+                                        quantity
+                                    )}
+
+                                    ×
+
+                                    ${this.formatMoney(
+                                        unitPrice
+                                    )}
+
+                                    ${
+                                        discount > 0
+                                            ? `
+                                                <span>
+                                                    • Discount ${this.formatMoney(discount)}
+                                                </span>
+                                            `
+                                            : ''
+                                    }
+
+                                    ${
+                                        tax > 0
+                                            ? `
+                                                <span>
+                                                    • Tax ${this.formatMoney(tax)}
+                                                </span>
+                                            `
+                                            : ''
+                                    }
+
+                                </div>
+
+                            </div>
+
+
+                            <strong
+                                class="sales-order-complete-item-total"
+                            >
+
+                                ${this.formatMoney(
+                                    total
+                                )}
+
+                            </strong>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join('');
+
+},
+
+
+/*
+|--------------------------------------------------------------------------
+| Print Order Receipt
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Open the printable receipt for a completed Sales Order.
+ */
+printOrderReceipt(
+    id
+)
+{
+
+    if (!id) {
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receipt URL
+    |--------------------------------------------------------------------------
+    */
+
+    const url =
+        `/sales/orders/${id}/receipt`;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Open Receipt
+    |--------------------------------------------------------------------------
+    */
+
+    window.open(
+        url,
+        '_blank',
+        'noopener,noreferrer'
+    );
 
 },
 
@@ -3294,7 +4591,7 @@ setInspectorText(
 */
 
 /**
- * Open an existing Draft/Held order for editing.
+ * Open an existing Draft/Held Sales Order for editing.
  */
 async openEditOrder(
     id
@@ -3308,62 +4605,43 @@ async openEditOrder(
     }
 
 
-    try {
-
-        /*
+    /*
     |--------------------------------------------------------------------------
-    | Save Request
+    | Close Action Menu
     |--------------------------------------------------------------------------
     */
 
-    const isEdit =
-        this.state.mode === 'edit' &&
-        this.state.editingOrderId;
+    this.closeOrderActionMenu();
 
 
-    const url =
-        isEdit
-            ? `/sales/orders/${this.state.editingOrderId}`
-            : '/sales/orders';
+    try {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Load Order
+        |--------------------------------------------------------------------------
+        */
 
-    const method =
-        isEdit
-            ? 'PUT'
-            : 'POST';
+        const response =
+            await fetch(
+                `/sales/orders/${id}/details`,
+                {
 
+                    method:
+                        'GET',
 
-    const response =
-        await fetch(
-            url,
-            {
+                    headers: {
 
-                method,
+                        'Accept':
+                            'application/json',
 
-                headers: {
+                        'X-Requested-With':
+                            'XMLHttpRequest'
 
-                    'Accept':
-                        'application/json',
+                    }
 
-                    'X-Requested-With':
-                        'XMLHttpRequest',
-
-                    'X-CSRF-TOKEN':
-                        document
-                            .querySelector(
-                                'meta[name="csrf-token"]'
-                            )
-                            ?.getAttribute(
-                                'content'
-                            )
-
-                },
-
-                body:
-                    formData
-
-            }
-        );
+                }
+            );
 
 
         const result =
@@ -3382,46 +4660,87 @@ async openEditOrder(
 
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Success
-        |--------------------------------------------------------------------------
-        */
-
-        this.notify(
-            result.message ??
-            (
-                isEdit
-                    ? 'Sales order updated successfully.'
-                    : 'Sales order created successfully.'
-            ),
-            'success'
-        );
-
-
-        this.orderModalInstance?.hide();
-
-
-        this.state.orderItems =
-            [];
-
-
-        this.state.editingOrderId =
-            null;
-
-
-        this.state.mode =
-            'create';
-
-
-        await this.loadOrders(
-            this.state.ordersPage ||
-            1
-        );
-
 
         const order =
             result.data;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order Breakdown
+        |--------------------------------------------------------------------------
+        */
+
+        this.populateCompleteOrderItems(
+            order.items ??
+            []
+        );
+
+
+        if (
+            this.elements.completeOrderItemCount
+        ) {
+
+            this.elements.completeOrderItemCount.textContent =
+                order.total_items ??
+                (
+                    order.items?.length ??
+                    0
+                );
+
+        }
+
+
+        if (
+            this.elements.completeOrderSubtotal
+        ) {
+
+            this.elements.completeOrderSubtotal.textContent =
+                this.formatMoney(
+                    order.subtotal ??
+                    0
+                );
+
+        }
+
+
+        if (
+            this.elements.completeOrderDiscount
+        ) {
+
+            this.elements.completeOrderDiscount.textContent =
+                this.formatMoney(
+                    order.discount ??
+                    0
+                );
+
+        }
+
+
+        if (
+            this.elements.completeOrderTax
+        ) {
+
+            this.elements.completeOrderTax.textContent =
+                this.formatMoney(
+                    order.tax ??
+                    0
+                );
+
+        }
+
+
+        if (
+            this.elements.completeOrderBreakdownTotal
+        ) {
+
+            this.elements.completeOrderBreakdownTotal.textContent =
+                this.formatMoney(
+                    order.grand_total ??
+                    order.total ??
+                    0
+                );
+
+        }
 
 
         /*
@@ -3451,6 +4770,20 @@ async openEditOrder(
 
         /*
         |--------------------------------------------------------------------------
+        | Reset Form UI
+        |--------------------------------------------------------------------------
+        |
+        | Do not allow the reset method to change the editing state.
+        |
+        */
+
+        this.resetOrderForm(
+            false
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
         | Edit State
         |--------------------------------------------------------------------------
         */
@@ -3465,7 +4798,7 @@ async openEditOrder(
 
         /*
         |--------------------------------------------------------------------------
-        | Header Fields
+        | Customer
         |--------------------------------------------------------------------------
         */
 
@@ -3480,6 +4813,12 @@ async openEditOrder(
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Branch
+        |--------------------------------------------------------------------------
+        */
+
         if (
             this.elements.orderBranch
         ) {
@@ -3493,7 +4832,7 @@ async openEditOrder(
 
         /*
         |--------------------------------------------------------------------------
-        | Load Branch Terminals
+        | Terminal
         |--------------------------------------------------------------------------
         */
 
@@ -3514,16 +4853,28 @@ async openEditOrder(
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Sales Channel
+        |--------------------------------------------------------------------------
+        */
+
         if (
             this.elements.orderSalesChannel
         ) {
 
             this.elements.orderSalesChannel.value =
                 order.sales_channel ??
-                'POS';
+                '';
 
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Remarks
+        |--------------------------------------------------------------------------
+        */
 
         if (
             this.elements.orderRemarks
@@ -3538,7 +4889,7 @@ async openEditOrder(
 
         /*
         |--------------------------------------------------------------------------
-        | Order Items
+        | Existing Order Items
         |--------------------------------------------------------------------------
         */
 
@@ -3555,10 +4906,12 @@ async openEditOrder(
                             this.generateOrderItemId(),
 
                         product_id:
-                            item.product_id,
+                            item.product_id ??
+                            null,
 
                         product_name:
-                            item.product_name,
+                            item.product_name ??
+                            '',
 
                         product_code:
                             item.product_code ??
@@ -3594,6 +4947,17 @@ async openEditOrder(
                             parseFloat(
                                 item.total ??
                                 item.line_total
+                            ) || 0,
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Branch Stock
+                        |--------------------------------------------------------------------------
+                        */
+
+                        available_quantity:
+                            parseFloat(
+                                item.available_quantity
                             ) || 0
 
                     })
@@ -3602,19 +4966,25 @@ async openEditOrder(
 
         /*
         |--------------------------------------------------------------------------
-        | Render
+        | Render Items
         |--------------------------------------------------------------------------
         */
 
         this.renderOrderItems();
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Recalculate
+        |--------------------------------------------------------------------------
+        */
+
         this.updateOrderTotals();
 
 
         /*
         |--------------------------------------------------------------------------
-        | Update Modal Title
+        | Modal Title
         |--------------------------------------------------------------------------
         */
 
@@ -3624,6 +4994,22 @@ async openEditOrder(
 
             this.elements.orderModalTitle.textContent =
                 'Edit Sales Order';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Submit Button
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.orderSubmitText
+        ) {
+
+            this.elements.orderSubmitText.textContent =
+                'Update Order';
 
         }
 
@@ -3657,14 +5043,90 @@ async openEditOrder(
 
 /*
 |--------------------------------------------------------------------------
+| Reset Order Form
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Reset the Sales Order form.
+ *
+ * @param {boolean} resetState
+ */
+resetOrderForm(
+    resetState = true
+)
+{
+
+    this.elements.orderForm?.reset();
+
+
+    this.state.orderItems =
+        [];
+
+
+    if (
+        this.elements.orderTerminal
+    ) {
+
+        this.elements.orderTerminal.innerHTML = `
+
+            <option value="">
+                Select branch first
+            </option>
+
+        `;
+
+    }
+
+
+    if (resetState) {
+
+        this.state.mode =
+            'create';
+
+        this.state.editingOrderId =
+            null;
+
+    }
+
+
+    if (
+        this.elements.orderModalTitle
+    ) {
+
+        this.elements.orderModalTitle.textContent =
+            'New Sales Order';
+
+    }
+
+
+    if (
+        this.elements.orderSubmitText
+    ) {
+
+        this.elements.orderSubmitText.textContent =
+            'Create Order';
+
+    }
+
+
+    this.renderOrderItems();
+
+
+    this.updateOrderTotals();
+
+},
+
+/*
+|--------------------------------------------------------------------------
 | Confirm Delete Order
 |--------------------------------------------------------------------------
 */
 
 /**
- * Open the delete confirmation for a Sales Order.
+ * Open the Sales Order delete confirmation modal.
  */
-confirmDeleteOrder(
+async confirmDeleteOrder(
     id
 )
 {
@@ -3674,6 +5136,16 @@ confirmDeleteOrder(
         return;
 
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store Order ID
+    |--------------------------------------------------------------------------
+    */
+
+    this.state.globalActionId =
+        id;
 
 
     this.state.confirmationAction =
@@ -3684,26 +5156,140 @@ confirmDeleteOrder(
         'order';
 
 
-    this.state.globalActionId =
-        id;
-
-
     /*
     |--------------------------------------------------------------------------
-    | Confirmation Modal
+    | Reset Confirmation
     |--------------------------------------------------------------------------
     */
 
     if (
-        this.elements.confirmationModal
+        this.elements.deleteOrderConfirmationNumber
     ) {
 
-        this.elements.confirmationModalInstance?.show();
+        this.elements.deleteOrderConfirmationNumber.textContent =
+            '—';
+
+    }
+
+
+    if (
+        this.elements.deleteOrderConfirmationTotal
+    ) {
+
+        this.elements.deleteOrderConfirmationTotal.textContent =
+            '0.00';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Open Modal
+    |--------------------------------------------------------------------------
+    */
+
+    this.deleteOrderConfirmationModalInstance?.show();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Load Order Details
+    |--------------------------------------------------------------------------
+    */
+
+    try {
+
+        const response =
+            await fetch(
+                `/sales/orders/${id}/details`,
+                {
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest'
+
+                    }
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to load sales order.'
+            );
+
+        }
+
+
+        const order =
+            result.data;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Populate Confirmation
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.deleteOrderConfirmationNumber
+        ) {
+
+            this.elements.deleteOrderConfirmationNumber.textContent =
+                order.order_no ??
+                '—';
+
+        }
+
+
+        if (
+            this.elements.deleteOrderConfirmationTotal
+        ) {
+
+            this.elements.deleteOrderConfirmationTotal.textContent =
+                this.formatMoney(
+                    order.grand_total ??
+                    order.total ??
+                    0
+                );
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            'Delete confirmation loading error:',
+            error
+        );
+
+
+        this.deleteOrderConfirmationModalInstance?.hide();
+
+
+        this.notify(
+            error.message ??
+            'Unable to load sales order.',
+            'error'
+        );
 
     }
 
 },
-
 /*
 |--------------------------------------------------------------------------
 | Delete Order
@@ -3711,18 +5297,50 @@ confirmDeleteOrder(
 */
 
 /**
- * Delete a Draft/Held Sales Order.
+ * Delete the selected Sales Order.
  */
-async deleteOrder(
-    id
-)
+async deleteOrder()
 {
+
+    const id =
+        this.state.globalActionId;
+
 
     if (!id) {
 
         return;
 
     }
+
+
+    const button =
+        this.elements.deleteOrderConfirmationBtn;
+
+
+    const text =
+        this.elements.deleteOrderConfirmationText;
+
+
+    const spinner =
+        this.elements.deleteOrderConfirmationSpinner;
+
+
+    if (button) {
+
+        button.disabled =
+            true;
+
+    }
+
+
+    text?.classList.add(
+        'd-none'
+    );
+
+
+    spinner?.classList.remove(
+        'd-none'
+    );
 
 
     try {
@@ -3763,21 +5381,6 @@ async deleteOrder(
 
 
         if (
-            response.status === 422
-        ) {
-
-            this.notify(
-                result.message ??
-                'This sales order cannot be deleted.',
-                'warning'
-            );
-
-            return;
-
-        }
-
-
-        if (
             !response.ok ||
             !result.success
         ) {
@@ -3792,11 +5395,27 @@ async deleteOrder(
 
         /*
         |--------------------------------------------------------------------------
-        | Close Confirmation
+        | Close Modal
         |--------------------------------------------------------------------------
         */
 
-        this.confirmationModalInstance?.hide();
+        this.deleteOrderConfirmationModalInstance?.hide();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset State
+        |--------------------------------------------------------------------------
+        */
+
+        this.state.globalActionId =
+            null;
+
+        this.state.confirmationAction =
+            null;
+
+        this.state.confirmationType =
+            null;
 
 
         /*
@@ -3811,6 +5430,12 @@ async deleteOrder(
         );
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Notification
+        |--------------------------------------------------------------------------
+        */
+
         this.notify(
             result.message ??
             'Sales order deleted successfully.',
@@ -3821,7 +5446,7 @@ async deleteOrder(
     catch (error) {
 
         console.error(
-            'Sales Order delete error:',
+            'Sales Order deletion failed:',
             error
         );
 
@@ -3830,6 +5455,26 @@ async deleteOrder(
             error.message ??
             'Unable to delete sales order.',
             'error'
+        );
+
+    }
+    finally {
+
+        if (button) {
+
+            button.disabled =
+                false;
+
+        }
+
+
+        text?.classList.remove(
+            'd-none'
+        );
+
+
+        spinner?.classList.add(
+            'd-none'
         );
 
     }
@@ -3978,18 +5623,26 @@ openCreateCustomer()
 */
 
 /**
- * Add a product to the Sales Order.
+ * Add a new empty item row to the Sales Order.
  */
 addOrderItem()
 {
 
-    if (
-        !this.state.products ||
-        !this.state.products.length
-    ) {
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Branch
+    |--------------------------------------------------------------------------
+    */
+
+    const branchId =
+        this.elements.orderBranch?.value ??
+        '';
+
+
+    if (!branchId) {
 
         this.notify(
-            'No products are available.',
+            'Select a branch before adding products.',
             'warning'
         );
 
@@ -3998,18 +5651,31 @@ addOrderItem()
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Create Item
+    |--------------------------------------------------------------------------
+    */
+
+    const itemId =
+        this.generateOrderItemId();
+
+
     this.state.orderItems.push({
 
         id:
-            this.generateItemId(),
+            itemId,
 
         product_id:
-            '',
+            null,
 
         product_name:
             '',
 
         product_code:
+            '',
+
+        product_barcode:
             '',
 
         quantity:
@@ -4027,13 +5693,61 @@ addOrderItem()
         line_total:
             0,
 
+        available_quantity:
+            0
+
     });
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render
+    |--------------------------------------------------------------------------
+    */
 
     this.renderOrderItems();
 
 
     this.updateOrderTotals();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Open Product Picker
+    |--------------------------------------------------------------------------
+    */
+
+    const combobox =
+        this.elements.orderItems?.querySelector(
+            `.sales-order-product-combobox[data-item-id="${itemId}"]`
+        );
+
+
+    if (!combobox) {
+
+        return;
+
+    }
+
+
+    const picker =
+        combobox.closest(
+            '.sales-order-product-picker'
+        );
+
+
+    picker?.classList.add(
+        'is-open'
+    );
+
+
+    const input =
+        combobox.querySelector(
+            '.sales-order-product-search-input'
+        );
+
+
+    input?.focus();
 
 },
 
@@ -4106,7 +5820,9 @@ renderOrderItems()
                         class="bi bi-box-seam fs-4 d-block mb-2"
                     ></i>
 
-                    No products selected.
+                    <div class="small">
+                        No products selected.
+                    </div>
 
                 </td>
 
@@ -4128,7 +5844,25 @@ renderOrderItems()
     container.innerHTML =
         this.state.orderItems
             .map(
-                (item, index) => {
+                (
+                    item
+                ) => {
+
+                    const productValue =
+                        item.product_id
+                            ? (
+                                item.product_code
+                                    ? `${item.product_code} — ${item.product_name}`
+                                    : item.product_name
+                            )
+                            : '';
+
+
+                    const availableQuantity =
+                        parseFloat(
+                            item.available_quantity
+                        ) || 0;
+
 
                     return `
 
@@ -4136,7 +5870,8 @@ renderOrderItems()
                             data-order-item-id="${item.id}"
                         >
 
-                            <td>
+
+                            <td class="sales-order-product-cell">
 
                                 <div
                                     class="sales-order-product-combobox"
@@ -4145,7 +5880,12 @@ renderOrderItems()
 
                                     <div class="sales-order-product-input-wrap">
 
-                                        <i class="bi bi-search"></i>
+                                        <span class="sales-order-product-input-icon">
+
+                                            <i class="bi bi-search"></i>
+
+                                        </span>
+
 
                                         <input
                                             type="text"
@@ -4164,7 +5904,14 @@ renderOrderItems()
                                             autocomplete="off"
                                         >
 
-                                        <i class="bi bi-chevron-down sales-order-product-chevron"></i>
+
+                                        <span
+                                            class="sales-order-product-input-chevron"
+                                        >
+
+                                            <i class="bi bi-chevron-down"></i>
+
+                                        </span>
 
                                     </div>
 
@@ -4172,31 +5919,7 @@ renderOrderItems()
                                     <div
                                         class="sales-order-product-results"
                                         data-item-id="${item.id}"
-                                    >
-
-                                        <div class="sales-order-product-result-empty">
-
-                                            <i class="bi bi-search"></i>
-
-                                            <span>
-                                                Type to search products
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <div
-                                        class="small text-muted mt-1 order-item-code"
-                                        data-item-id="${item.id}"
-                                    >
-
-                                        ${this.escapeHtml(
-                                            item.product_code ?? ''
-                                        )}
-
-                                    </div>
+                                    ></div>
 
                                 </div>
 
@@ -4212,10 +5935,14 @@ renderOrderItems()
                                     value="${item.quantity}"
                                     min="0.01"
                                     step="0.01"
+                                    ${
+                                        availableQuantity > 0
+                                            ? `max="${availableQuantity}"`
+                                            : ''
+                                    }
                                 >
 
                             </td>
-
 
                             <td>
 
@@ -4229,7 +5956,6 @@ renderOrderItems()
                                 >
 
                             </td>
-
 
                             <td>
 
@@ -4259,21 +5985,27 @@ renderOrderItems()
                             </td>
 
 
-                            <td class="text-end">
+                            <td
+                                class="text-end"
+                            >
 
                                 <span
                                     class="fw-semibold order-item-total"
                                     data-item-id="${item.id}"
                                 >
+
                                     ${this.formatMoney(
                                         item.line_total
                                     )}
+
                                 </span>
 
                             </td>
 
 
-                            <td class="text-end">
+                            <td
+                                class="text-end"
+                            >
 
                                 <button
                                     type="button"
@@ -4306,15 +6038,24 @@ renderOrderItems()
 
 /**
  * Search products from the Order product field.
+ *
+ * Products are searched against the selected branch stock.
+ * Only products with available stock in that branch are returned.
  */
-searchOrderProducts(
+async searchOrderProducts(
     itemId,
     searchTerm
 )
 {
 
+    /*
+    |--------------------------------------------------------------------------
+    | Product Combobox
+    |--------------------------------------------------------------------------
+    */
+
     const combobox =
-        this.elements.orderItems.querySelector(
+        this.elements.orderItems?.querySelector(
             `.sales-order-product-combobox[data-item-id="${itemId}"]`
         );
 
@@ -4325,6 +6066,12 @@ searchOrderProducts(
 
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Results Container
+    |--------------------------------------------------------------------------
+    */
 
     const results =
         combobox.querySelector(
@@ -4339,17 +6086,53 @@ searchOrderProducts(
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Search Term
+    |--------------------------------------------------------------------------
+    */
+
     const term =
         String(
             searchTerm ?? ''
         )
-            .trim()
-            .toLowerCase();
+            .trim();
 
 
     /*
     |--------------------------------------------------------------------------
-    | No Search
+    | Selected Branch
+    |--------------------------------------------------------------------------
+    */
+
+    const branchId =
+        this.elements.orderBranch?.value ?? '';
+
+
+    if (!branchId) {
+
+        results.innerHTML = `
+
+            <div class="sales-order-product-result-empty">
+
+                <i class="bi bi-building"></i>
+
+                <span>
+                    Select a branch before searching for products.
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Empty Search
     |--------------------------------------------------------------------------
     */
 
@@ -4362,7 +6145,7 @@ searchOrderProducts(
                 <i class="bi bi-search"></i>
 
                 <span>
-                    Type to search products
+                    Type a product name, code, SKU or barcode.
                 </span>
 
             </div>
@@ -4372,6 +6155,53 @@ searchOrderProducts(
         return;
 
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Search Loading State
+    |--------------------------------------------------------------------------
+    */
+
+    results.innerHTML = `
+
+        <div class="sales-order-product-result-empty">
+
+            <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+            ></span>
+
+            <span>
+                Searching products...
+            </span>
+
+        </div>
+
+    `;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Request Parameters
+    |--------------------------------------------------------------------------
+    */
+
+    const params =
+        new URLSearchParams();
+
+
+    params.set(
+        'branch_id',
+        branchId
+    );
+
+
+    params.set(
+        'search',
+        term
+    );
 
 
     /*
@@ -4380,140 +6210,273 @@ searchOrderProducts(
     |--------------------------------------------------------------------------
     */
 
-    const matches =
-        this.state.products
-            .filter(
-                product => {
+    try {
 
-                    const name =
-                        String(
-                            product.name ?? ''
-                        )
-                            .toLowerCase();
+        const response =
+            await fetch(
+                `/sales/orders/products?${params.toString()}`,
+                {
 
+                    method:
+                        'GET',
 
-                    const code =
-                        String(
-                            product.product_code ?? ''
-                        )
-                            .toLowerCase();
+                    headers: {
 
+                        'Accept':
+                            'application/json',
 
-                    const sku =
-                        String(
-                            product.sku ?? ''
-                        )
-                            .toLowerCase();
+                        'X-Requested-With':
+                            'XMLHttpRequest'
 
-
-                    return (
-                        name.includes(term) ||
-                        code.includes(term) ||
-                        sku.includes(term)
-                    );
+                    }
 
                 }
-            )
-            .slice(
-                0,
-                20
             );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | No Results
-    |--------------------------------------------------------------------------
-    */
+        const result =
+            await response.json();
 
-    if (!matches.length) {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Request Error
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to search products.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Invalid Response
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to search products.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Products
+        |--------------------------------------------------------------------------
+        */
+
+        const products =
+            Array.isArray(
+                result.data
+            )
+                ? result.data
+                : [];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | No Results
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !products.length
+        ) {
+
+            results.innerHTML = `
+
+                <div class="sales-order-product-result-empty">
+
+                    <i class="bi bi-box-seam"></i>
+
+                    <span>
+                        ${
+                            result.message ??
+                            'No products with available stock were found in the selected branch.'
+                        }
+                    </span>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Render Results
+        |--------------------------------------------------------------------------
+        */
+
+        results.innerHTML =
+            products
+                .map(
+                    product => {
+
+                        const productId =
+                            product.product_id ??
+                            product.id;
+
+
+                        const name =
+                            product.name ??
+                            'Unnamed Product';
+
+
+                        const code =
+                            product.product_code ??
+                            product.sku ??
+                            '';
+
+
+                        const barcode =
+                            product.barcode ??
+                            '';
+
+
+                        const sellingPrice =
+                            parseFloat(
+                                product.selling_price
+                            ) || 0;
+
+
+                        const availableQuantity =
+                            parseFloat(
+                                product.available_quantity
+                            ) || 0;
+
+
+                        return `
+
+                            <button
+                                type="button"
+                                class="sales-order-product-result"
+                                data-item-id="${itemId}"
+                                data-product-id="${productId}"
+                                data-product-name="${this.escapeHtml(
+                                    name
+                                )}"
+                                data-product-code="${this.escapeHtml(
+                                    code
+                                )}"
+                                data-product-barcode="${this.escapeHtml(
+                                    barcode
+                                )}"
+                                data-available-quantity="${availableQuantity}"
+                                data-unit-price="${sellingPrice}"
+                            >
+
+                                <span class="sales-order-product-result-info">
+
+                                    <span class="sales-order-product-result-name">
+
+                                        ${this.escapeHtml(
+                                            name
+                                        )}
+
+                                    </span>
+
+
+                                    <span class="sales-order-product-result-code">
+
+                                        ${
+                                            code
+                                                ? this.escapeHtml(
+                                                    code
+                                                )
+                                                : 'No code'
+                                        }
+
+                                    </span>
+
+                                </span>
+
+
+                                <span class="sales-order-product-result-stock">
+
+                                    <i class="bi bi-box-seam"></i>
+
+                                    <span>
+
+                                        ${this.formatQuantity(
+                                            availableQuantity
+                                        )}
+
+                                        available
+
+                                    </span>
+
+                                </span>
+
+
+                                <span class="sales-order-product-result-price">
+
+                                    ${this.formatMoney(
+                                        sellingPrice
+                                    )}
+
+                                </span>
+
+
+                                <span class="sales-order-product-result-arrow">
+
+                                    <i class="bi bi-chevron-right"></i>
+
+                                </span>
+
+                            </button>
+
+                        `;
+
+                    }
+                )
+                .join('');
+
+    }
+    catch (error) {
+
+        console.error(
+            'Sales Order product search failed:',
+            error
+        );
+
 
         results.innerHTML = `
 
             <div class="sales-order-product-result-empty">
 
-                <i class="bi bi-search"></i>
+                <i class="bi bi-exclamation-circle"></i>
 
                 <span>
-                    No products found
+                    ${
+                        error.message ??
+                        'Unable to search products.'
+                    }
                 </span>
 
             </div>
 
         `;
 
-        return;
-
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Results
-    |--------------------------------------------------------------------------
-    */
-
-    results.innerHTML =
-        matches
-            .map(
-                product => {
-
-                    const code =
-                        product.product_code ??
-                        product.sku ??
-                        '';
-
-
-                    return `
-
-                        <button
-                            type="button"
-                            class="sales-order-product-result"
-                            data-item-id="${itemId}"
-                            data-product-id="${product.id}"
-                        >
-
-                            <span class="sales-order-product-result-info">
-
-                                <span class="sales-order-product-result-name">
-
-                                    ${this.escapeHtml(
-                                        product.name
-                                    )}
-
-                                </span>
-
-
-                                ${
-                                    code
-                                        ? `
-                                            <span class="sales-order-product-result-code">
-                                                ${this.escapeHtml(
-                                                    code
-                                                )}
-                                            </span>
-                                        `
-                                        : ''
-                                }
-
-                            </span>
-
-
-                            <span class="sales-order-product-result-price">
-
-                                ${this.formatMoney(
-                                    product.selling_price ?? 0
-                                )}
-
-                            </span>
-
-                        </button>
-
-                    `;
-
-                }
-            )
-            .join('');
 
 },
 
@@ -4525,6 +6488,9 @@ searchOrderProducts(
 
 /**
  * Select a product from the searchable Order product field.
+ *
+ * The product search is branch-aware, so the selected result already
+ * represents stock available in the currently selected branch.
  */
 selectOrderProductFromPicker(
     itemId,
@@ -4532,10 +6498,21 @@ selectOrderProductFromPicker(
 )
 {
 
+    /*
+    |--------------------------------------------------------------------------
+    | Locate Order Item
+    |--------------------------------------------------------------------------
+    */
+
     const item =
         this.state.orderItems.find(
             row =>
-                row.id === itemId
+                String(
+                    row.id
+                ) ===
+                String(
+                    itemId
+                )
         );
 
 
@@ -4546,19 +6523,32 @@ selectOrderProductFromPicker(
     }
 
 
-    const product =
-        this.state.products.find(
-            row =>
-                String(
-                    row.id
-                ) ===
-                String(
-                    productId
-                )
+    /*
+    |--------------------------------------------------------------------------
+    | Locate Product Result
+    |--------------------------------------------------------------------------
+    */
+
+    const combobox =
+        this.elements.orderItems?.querySelector(
+            `.sales-order-product-combobox[data-item-id="${itemId}"]`
         );
 
 
-    if (!product) {
+    if (!combobox) {
+
+        return;
+
+    }
+
+
+    const result =
+        combobox.querySelector(
+            `.sales-order-product-result[data-product-id="${productId}"]`
+        );
+
+
+    if (!result) {
 
         return;
 
@@ -4567,22 +6557,114 @@ selectOrderProductFromPicker(
 
     /*
     |--------------------------------------------------------------------------
-    | Product
+    | Read Product Data
+    |--------------------------------------------------------------------------
+    */
+
+    const productName =
+        result.dataset.productName ??
+        result.querySelector(
+            '.sales-order-product-result-name'
+        )?.textContent?.trim() ??
+        '';
+
+
+    const productCode =
+        result.dataset.productCode ??
+        '';
+
+
+    const productBarcode =
+        result.dataset.productBarcode ??
+        '';
+
+
+    const availableQuantity =
+        parseFloat(
+            result.dataset.availableQuantity
+        ) || 0;
+
+
+    const unitPrice =
+        parseFloat(
+            result.dataset.unitPrice
+        ) || 0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Available Stock
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        availableQuantity <= 0
+    ) {
+
+        this.notify(
+            `${productName || 'This product'} is not available in the selected branch.`,
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Preserve Existing Values
+    |--------------------------------------------------------------------------
+    */
+
+    const quantity =
+        parseFloat(
+            item.quantity
+        ) || 1;
+
+
+    const discount =
+        parseFloat(
+            item.discount_amount
+        ) || 0;
+
+
+    const tax =
+        parseFloat(
+            item.tax_amount
+        ) || 0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Apply Product
     |--------------------------------------------------------------------------
     */
 
     item.product_id =
-        product.id;
+        productId;
 
 
     item.product_name =
-        product.name;
+        productName;
 
 
     item.product_code =
-        product.product_code ??
-        product.sku ??
-        '';
+        productCode;
+
+
+    item.product_barcode =
+        productBarcode;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Branch Stock
+    |--------------------------------------------------------------------------
+    */
+
+    item.available_quantity =
+        availableQuantity;
 
 
     /*
@@ -4592,33 +6674,69 @@ selectOrderProductFromPicker(
     */
 
     item.unit_price =
-        parseFloat(
-            product.selling_price
-        ) || 0;
+        unitPrice;
 
 
     /*
     |--------------------------------------------------------------------------
-    | Preserve Existing Values
+    | Quantity
     |--------------------------------------------------------------------------
     */
 
     item.quantity =
-        parseFloat(
-            item.quantity
-        ) || 1;
+        Math.max(
+            quantity,
+            0.01
+        );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clamp Quantity To Branch Stock
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        item.quantity >
+        availableQuantity
+    ) {
+
+        item.quantity =
+            availableQuantity;
+
+
+        this.notify(
+            `Only ${this.formatQuantity(availableQuantity)} units of ${productName} are available in this branch.`,
+            'warning'
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Discount
+    |--------------------------------------------------------------------------
+    */
 
     item.discount_amount =
-        parseFloat(
-            item.discount_amount
-        ) || 0;
+        Math.max(
+            discount,
+            0
+        );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tax
+    |--------------------------------------------------------------------------
+    */
 
     item.tax_amount =
-        parseFloat(
-            item.tax_amount
-        ) || 0;
+        Math.max(
+            tax,
+            0
+        );
 
 
     /*
@@ -4627,13 +6745,15 @@ selectOrderProductFromPicker(
     |--------------------------------------------------------------------------
     */
 
+    const lineSubtotal =
+        item.quantity *
+        item.unit_price;
+
+
     item.line_total =
         Math.max(
 
-            (
-                item.quantity *
-                item.unit_price
-            )
+            lineSubtotal
             -
             item.discount_amount
             +
@@ -4646,12 +6766,55 @@ selectOrderProductFromPicker(
 
     /*
     |--------------------------------------------------------------------------
-    | Render
+    | Close Product Picker
+    |--------------------------------------------------------------------------
+    */
+
+    const picker =
+        result.closest(
+            '.sales-order-product-picker'
+        );
+
+
+    picker?.classList.remove(
+        'is-open'
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Search
+    |--------------------------------------------------------------------------
+    */
+
+    const searchInput =
+        combobox.querySelector(
+            '.sales-order-product-search-input'
+        );
+
+
+    if (searchInput) {
+
+        searchInput.value =
+            '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render Updated Item
     |--------------------------------------------------------------------------
     */
 
     this.renderOrderItems();
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update Order Totals
+    |--------------------------------------------------------------------------
+    */
 
     this.updateOrderTotals();
 
@@ -4900,6 +7063,234 @@ updateOrderItem(
 
 
     this.updateOrderTotals();
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Update Order Item Quantity
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Update an Order Item quantity and enforce branch stock.
+ */
+updateOrderItemQuantity(
+    item,
+    input
+)
+{
+
+    let quantity =
+        parseFloat(
+            input.value
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Empty / Invalid
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        Number.isNaN(
+            quantity
+        ) ||
+        quantity <= 0
+    ) {
+
+        quantity = 0;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Available Stock
+    |--------------------------------------------------------------------------
+    */
+
+    const available =
+        parseFloat(
+            item.available_quantity
+        ) || 0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Validation
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        available > 0 &&
+        quantity > available
+    ) {
+
+        quantity =
+            available;
+
+
+        input.value =
+            this.formatQuantity(
+                available
+            );
+
+
+        this.notify(
+            `Only ${this.formatQuantity(available)} units of ${item.product_name} are available in this branch.`,
+            'warning'
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | State
+    |--------------------------------------------------------------------------
+    */
+
+    item.quantity =
+        quantity;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Recalculate
+    |--------------------------------------------------------------------------
+    */
+
+    this.calculateOrderItemTotal(
+        item
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update Visible Total
+    |--------------------------------------------------------------------------
+    */
+
+    this.updateOrderItemRowTotal(
+        item
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update Order Totals
+    |--------------------------------------------------------------------------
+    */
+
+    this.updateOrderTotals();
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Calculate Order Item Total
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Calculate a single Order Item line total.
+ */
+calculateOrderItemTotal(
+    item
+)
+{
+
+    if (!item) {
+
+        return;
+
+    }
+
+
+    const quantity =
+        parseFloat(
+            item.quantity
+        ) || 0;
+
+
+    const unitPrice =
+        parseFloat(
+            item.unit_price
+        ) || 0;
+
+
+    const discount =
+        parseFloat(
+            item.discount_amount
+        ) || 0;
+
+
+    const tax =
+        parseFloat(
+            item.tax_amount
+        ) || 0;
+
+
+    const subtotal =
+        quantity *
+        unitPrice;
+
+
+    item.line_total =
+        Math.max(
+
+            subtotal
+            -
+            discount
+            +
+            tax,
+
+            0
+
+        );
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Update Order Item Row Total
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Update the visible total for one Order Item row.
+ */
+updateOrderItemRowTotal(
+    item
+)
+{
+
+    if (!item) {
+
+        return;
+
+    }
+
+
+    const totalElement =
+        this.elements.orderItems?.querySelector(
+            `.order-item-total[data-item-id="${item.id}"]`
+        );
+
+
+    if (!totalElement) {
+
+        return;
+
+    }
+
+
+    totalElement.textContent =
+        this.formatMoney(
+            item.line_total
+        );
 
 },
 
@@ -6813,6 +9204,49 @@ async saveOrder()
         }
     );
 
+    /*
+    |--------------------------------------------------------------------------
+    | Save Mode
+    |--------------------------------------------------------------------------
+    */
+
+    const isEdit =
+        this.state.mode === 'edit' &&
+        this.state.editingOrderId;
+
+
+    const orderId =
+        isEdit
+            ? this.state.editingOrderId
+            : null;
+
+
+    const url =
+        isEdit
+            ? `/sales/orders/${orderId}`
+            : '/sales/orders';
+
+
+    const method =
+        isEdit
+            ? 'PUT'
+            : 'POST';
+
+            /*
+            |--------------------------------------------------------------------------
+            | HTTP Method
+            |--------------------------------------------------------------------------
+            */
+
+            if (isEdit) {
+
+                formData.append(
+                    '_method',
+                    'PUT'
+                );
+
+            }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -6822,40 +9256,39 @@ async saveOrder()
 
     try {
 
-        const response =
-            await fetch(
-                '/sales/orders',
-                {
+       
+    const response =
+        await fetch(
+            url,
+            {
 
-                    method:
-                        'POST',
+                method:
+                    'POST',
 
-                    headers: {
+                headers: {
 
-                        'Accept':
-                            'application/json',
+                    'Accept':
+                        'application/json',
 
-                        'X-Requested-With':
-                            'XMLHttpRequest',
+                    'X-Requested-With':
+                        'XMLHttpRequest',
 
-                        'X-CSRF-TOKEN':
-                            document
-                                .querySelector(
-                                    'meta[name="csrf-token"]'
-                                )
-                                ?.getAttribute(
-                                    'content'
-                                )
+                    'X-CSRF-TOKEN':
+                        document
+                            .querySelector(
+                                'meta[name="csrf-token"]'
+                            )
+                            ?.getAttribute(
+                                'content'
+                            )
 
-                    },
+                },
 
-                    body:
-                        formData
+                body:
+                    formData
 
-                }
-            );
-
-
+            }
+        );
         const result =
             await response.json();
 
@@ -6919,7 +9352,7 @@ async saveOrder()
 
             throw new Error(
                 result.message ??
-                'Unable to create sales order.'
+                'Unable to save sales order.'
             );
 
         }
@@ -6933,7 +9366,11 @@ async saveOrder()
 
         this.notify(
             result.message ??
-            'Sales order created successfully.',
+            (
+                isEdit
+                    ? 'Sales order updated successfully.'
+                    : 'Sales order created successfully.'
+            ),
             'success'
         );
 
@@ -6945,6 +9382,54 @@ async saveOrder()
         */
 
         this.orderModalInstance?.hide();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Order State
+        |--------------------------------------------------------------------------
+        */
+
+        this.state.orderItems =
+            [];
+
+        this.state.editingOrderId =
+            null;
+
+        this.state.mode =
+            'create';
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Modal Title
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.orderModalTitle
+        ) {
+
+            this.elements.orderModalTitle.textContent =
+                'New Sales Order';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Submit Text
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.orderSubmitText
+        ) {
+
+            this.elements.orderSubmitText.textContent =
+                'Create Order';
+
+        }
 
 
         /*
@@ -7378,6 +9863,68 @@ hideCreateTerminalLink()
         ?.classList.add(
             'd-none'
         );
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Format Date Time
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Format an order date/time.
+ */
+formatDateTime(
+    value
+)
+{
+
+    if (!value) {
+
+        return '—';
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return '—';
+
+    }
+
+
+    return date.toLocaleString(
+        'en-GB',
+        {
+
+            day:
+                '2-digit',
+
+            month:
+                'short',
+
+            year:
+                'numeric',
+
+            hour:
+                '2-digit',
+
+            minute:
+                '2-digit',
+
+        }
+    );
 
 },
 

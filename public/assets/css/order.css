@@ -2261,6 +2261,9 @@
 }
 
 
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Product Code
@@ -3384,6 +3387,2136 @@ body #salesOrderActionMenu
 
         grid-template-columns:
             repeat(2, 1fr);
+
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Sales Order Inspector - Order Items
+|--------------------------------------------------------------------------
+*/
+
+.purchase-inspector-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Item
+|--------------------------------------------------------------------------
+*/
+
+.purchase-inspector-item {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+    gap: 0.75rem;
+
+    padding: 0.7rem 0.75rem;
+
+    background: #ffffff;
+
+    border: 1px solid #eaecf0;
+
+    border-radius: 0.7rem;
+
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease;
+}
+
+
+.purchase-inspector-item:hover {
+    background: #fafbfc;
+    border-color: #dfe3e8;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Main
+|--------------------------------------------------------------------------
+*/
+
+.purchase-inspector-item-main {
+    min-width: 0;
+}
+
+
+.purchase-inspector-item-name {
+    overflow: hidden;
+
+    color: #344054;
+
+    font-size: 0.74rem;
+
+    font-weight: 600;
+
+    line-height: 1.35;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.purchase-inspector-item-meta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.35rem;
+
+    margin-top: 0.2rem;
+
+    color: #98a2b3;
+
+    font-size: 0.63rem;
+}
+
+
+.purchase-inspector-item-meta-divider {
+    color: #d0d5dd;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Right Side
+|--------------------------------------------------------------------------
+*/
+
+.purchase-inspector-item-summary {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    min-width: 90px;
+
+    text-align: right;
+}
+
+
+.purchase-inspector-item-quantity {
+    color: #667085;
+
+    font-size: 0.66rem;
+
+    white-space: nowrap;
+}
+
+
+.purchase-inspector-item-total {
+    margin-top: 0.15rem;
+
+    color: #101828;
+
+    font-size: 0.75rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Empty State
+|--------------------------------------------------------------------------
+*/
+
+.purchase-inspector-items-empty {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 1.5rem 1rem;
+
+    background: #f8fafc;
+
+    border: 1px dashed #d0d5dd;
+
+    border-radius: 0.7rem;
+
+    text-align: center;
+
+}
+
+
+.purchase-inspector-items-empty-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 38px;
+
+    height: 38px;
+
+    margin-bottom: 0.5rem;
+
+    border-radius: 10px;
+
+    background: #f2f4f7;
+
+    color: #98a2b3;
+
+    font-size: 0.95rem;
+
+}
+
+
+.purchase-inspector-items-empty-title {
+
+    color: #475467;
+
+    font-size: 0.72rem;
+
+    font-weight: 600;
+
+}
+
+
+.purchase-inspector-items-empty-text {
+
+    max-width: 270px;
+
+    margin-top: 0.2rem;
+
+    color: #98a2b3;
+
+    font-size: 0.64rem;
+
+    line-height: 1.45;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 575.98px) {
+
+    .purchase-inspector-item {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+    }
+
+
+    .purchase-inspector-item-summary {
+
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        width: 100%;
+
+        text-align: left;
+
+    }
+
+
+    .purchase-inspector-item-total {
+        margin-top: 0;
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Delete Order Confirmation Modal
+|--------------------------------------------------------------------------
+*/
+
+#deleteOrderConfirmationModal .modal-content {
+
+    overflow: hidden;
+
+    border-radius: 0.85rem;
+
+}
+
+
+#deleteOrderConfirmationModal .modal-header {
+
+    padding:
+        0.9rem
+        1rem;
+
+    border-bottom:
+        1px solid #eaecf0;
+
+}
+
+
+#deleteOrderConfirmationModal .modal-body {
+
+    padding:
+        1rem;
+
+}
+
+
+#deleteOrderConfirmationModal .modal-footer {
+
+    padding:
+        0.7rem
+        1rem;
+
+    border-top:
+        1px solid #eaecf0;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Icon
+|--------------------------------------------------------------------------
+*/
+
+.delete-order-confirmation-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 36px;
+
+    height: 36px;
+
+    flex: 0 0 36px;
+
+    border-radius: 9px;
+
+    background: #fef3f2;
+
+    color: #b42318;
+
+    font-size: 0.85rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Order Summary
+|--------------------------------------------------------------------------
+*/
+
+.delete-order-confirmation-order {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto;
+
+    gap: 1rem;
+
+    padding:
+        0.75rem;
+
+    background:
+        #f8fafc;
+
+    border:
+        1px solid #eaecf0;
+
+    border-radius:
+        0.65rem;
+
+}
+
+
+.delete-order-confirmation-order > div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.15rem;
+
+}
+
+
+.delete-order-confirmation-label {
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.6rem;
+
+}
+
+
+.delete-order-confirmation-order strong {
+
+    color:
+        #344054;
+
+    font-size:
+        0.75rem;
+
+}
+
+
+.delete-order-confirmation-order > div:last-child {
+
+    text-align:
+        right;
+
+}
+
+
+#deleteOrderConfirmationModal .alert {
+
+    border-radius:
+        0.6rem;
+
+    font-size:
+        0.68rem;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Delete Order Confirmation Modal
+|--------------------------------------------------------------------------
+*/
+
+.delete-order-confirmation-dialog {
+
+    width: 100%;
+
+    max-width: 520px;
+
+    margin:
+        1.75rem auto;
+
+}
+
+
+#deleteOrderConfirmationModal .modal-content {
+
+    overflow: hidden;
+
+    border-radius: 0.9rem;
+
+}
+
+
+#deleteOrderConfirmationModal .modal-header {
+
+    padding:
+        1rem
+        1.1rem;
+
+    border-bottom:
+        1px solid #eaecf0;
+
+}
+
+
+#deleteOrderConfirmationModal .modal-body {
+
+    padding:
+        1.1rem;
+
+}
+
+
+#deleteOrderConfirmationModal .modal-footer {
+
+    padding:
+        0.8rem
+        1.1rem;
+
+    border-top:
+        1px solid #eaecf0;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+
+.delete-order-confirmation-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    border-radius: 10px;
+
+    background:
+        #fef3f2;
+
+    color:
+        #b42318;
+
+    font-size:
+        0.95rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Order Summary
+|--------------------------------------------------------------------------
+*/
+
+.delete-order-confirmation-order {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto;
+
+    align-items: center;
+
+    gap: 1.5rem;
+
+    padding:
+        0.9rem
+        1rem;
+
+    background:
+        #f8fafc;
+
+    border:
+        1px solid #eaecf0;
+
+    border-radius:
+        0.7rem;
+
+}
+
+
+.delete-order-confirmation-order > div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap:
+        0.2rem;
+
+}
+
+
+.delete-order-confirmation-label {
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.62rem;
+
+    font-weight:
+        500;
+
+}
+
+
+.delete-order-confirmation-order strong {
+
+    color:
+        #344054;
+
+    font-size:
+        0.78rem;
+
+    font-weight:
+        700;
+
+}
+
+
+.delete-order-confirmation-order
+> div:last-child {
+
+    text-align:
+        right;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Warning
+|--------------------------------------------------------------------------
+*/
+
+#deleteOrderConfirmationModal .alert {
+
+    margin-top:
+        0.9rem;
+
+    padding:
+        0.7rem
+        0.8rem;
+
+    border-radius:
+        0.65rem;
+
+    font-size:
+        0.68rem;
+
+    line-height:
+        1.45;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media (
+    max-width: 575.98px
+) {
+
+    .delete-order-confirmation-dialog {
+
+        max-width:
+            calc(100% - 1.5rem);
+
+        margin:
+            0.75rem auto;
+
+    }
+
+
+    .delete-order-confirmation-order {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            0.7rem;
+
+    }
+
+
+    .delete-order-confirmation-order
+    > div:last-child {
+
+        text-align:
+            left;
+
+    }
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Complete Order Breakdown
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-breakdown {
+
+    padding:
+        0.85rem;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #e4e7ec;
+
+    border-radius:
+        0.75rem;
+
+}
+
+
+.sales-order-complete-section-title {
+
+    color:
+        #344054;
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        700;
+
+}
+
+
+.sales-order-complete-section-description {
+
+    margin-top:
+        0.15rem;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.61rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Items
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-items {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        0.2rem;
+
+    margin-top:
+        0.7rem;
+
+}
+
+
+.sales-order-complete-item {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        1rem;
+
+    padding:
+        0.5rem
+        0.55rem;
+
+    border-radius:
+        0.5rem;
+
+    background:
+        #f8fafc;
+
+}
+
+
+.sales-order-complete-item-info {
+
+    min-width:
+        0;
+
+}
+
+
+.sales-order-complete-item-name {
+
+    overflow:
+        hidden;
+
+    color:
+        #344054;
+
+    font-size:
+        0.68rem;
+
+    font-weight:
+        600;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.sales-order-complete-item-meta {
+
+    margin-top:
+        0.12rem;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.59rem;
+
+}
+
+
+.sales-order-complete-item-total {
+
+    flex:
+        0 0 auto;
+
+    color:
+        #344054;
+
+    font-size:
+        0.69rem;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Totals
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-totals {
+
+    margin-top:
+        0.65rem;
+
+    padding-top:
+        0.55rem;
+
+    border-top:
+        1px solid #eaecf0;
+
+}
+
+
+.sales-order-complete-total-row {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        1rem;
+
+    padding:
+        0.25rem
+        0;
+
+    color:
+        #667085;
+
+    font-size:
+        0.66rem;
+
+}
+
+
+.sales-order-complete-total-row strong {
+
+    color:
+        #344054;
+
+    font-weight:
+        600;
+
+}
+
+
+.sales-order-complete-grand-total {
+
+    margin-top:
+        0.3rem;
+
+    padding-top:
+        0.5rem;
+
+    border-top:
+        1px solid #eaecf0;
+
+    color:
+        #101828;
+
+    font-size:
+        0.75rem;
+
+}
+
+
+.sales-order-complete-grand-total strong {
+
+    color:
+        #157347;
+
+    font-size:
+        0.85rem;
+
+    font-weight:
+        700;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Empty State
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-items-empty {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        0.4rem;
+
+    min-height:
+        55px;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.63rem;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Complete Order Header
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding:
+        1rem
+        1.1rem;
+
+    background:
+        #ffffff;
+
+    border-bottom:
+        1px solid #eaecf0;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Header Main
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-header-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    min-width: 0;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Header Icon
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-header-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    border-radius: 11px;
+
+    background:
+        #ecfdf3;
+
+    color:
+        #157347;
+
+    font-size:
+        0.95rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Header Content
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-header-content {
+
+    min-width: 0;
+
+}
+
+
+.sales-order-complete-header-label {
+
+    margin-bottom:
+        0.08rem;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.6rem;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.02em;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.sales-order-complete-header-title {
+
+    margin:
+        0;
+
+    color:
+        #101828;
+
+    font-size:
+        1rem;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.25;
+
+}
+
+
+.sales-order-complete-header-description {
+
+    margin-top:
+        0.22rem;
+
+    color:
+        #667085;
+
+    font-size:
+        0.65rem;
+
+    line-height:
+        1.4;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Close
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-header-close {
+
+    flex:
+        0 0 auto;
+
+    width:
+        30px;
+
+    height:
+        30px;
+
+    padding:
+        0;
+
+    border-radius:
+        8px;
+
+    opacity:
+        0.6;
+
+    transition:
+        background-color 0.15s ease,
+        opacity 0.15s ease;
+
+}
+
+
+.sales-order-complete-header-close:hover {
+
+    background:
+        #f2f4f7;
+
+    opacity:
+        1;
+
+}
+
+
+.sales-order-complete-header-close:focus {
+
+    box-shadow:
+        none;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media (
+    max-width: 575.98px
+) {
+
+    .sales-order-complete-header {
+
+        padding:
+            0.85rem
+            0.9rem;
+
+    }
+
+
+    .sales-order-complete-header-main {
+
+        gap:
+            0.6rem;
+
+    }
+
+
+    .sales-order-complete-header-icon {
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+        flex-basis:
+            38px;
+
+        border-radius:
+            9px;
+
+        font-size:
+            0.85rem;
+
+    }
+
+
+    .sales-order-complete-header-title {
+
+        font-size:
+            0.9rem;
+
+    }
+
+
+    .sales-order-complete-header-description {
+
+        font-size:
+            0.6rem;
+
+    }
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Complete Order Summary
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr))
+        minmax(150px, auto);
+
+    align-items: center;
+
+    gap:
+        0.75rem;
+
+    padding:
+        0.75rem;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #e4e7ec;
+
+    border-radius:
+        0.75rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Summary Item
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-summary-item {
+
+    display: flex;
+
+    align-items: center;
+
+    min-width: 0;
+
+    gap:
+        0.55rem;
+
+    padding:
+        0.2rem
+        0.15rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Icon
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-summary-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    flex:
+        0 0 32px;
+
+    border-radius:
+        8px;
+
+    background:
+        #f2f4f7;
+
+    color:
+        #667085;
+
+    font-size:
+        0.7rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Content
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-summary-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width:
+        0;
+
+}
+
+
+.sales-order-complete-summary-label {
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.58rem;
+
+    font-weight:
+        500;
+
+    line-height:
+        1.2;
+
+}
+
+
+.sales-order-complete-summary-value {
+
+    display:
+        block;
+
+    margin-top:
+        0.15rem;
+
+    overflow:
+        hidden;
+
+    color:
+        #344054;
+
+    font-size:
+        0.72rem;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.3;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Amount Due
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-summary-total {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        flex-end;
+
+    justify-content:
+        center;
+
+    min-width:
+        0;
+
+    padding:
+        0.35rem
+        0.5rem;
+
+    border-left:
+        1px solid #eaecf0;
+
+}
+
+
+.sales-order-complete-summary-total-label {
+
+    color:
+        #667085;
+
+    font-size:
+        0.6rem;
+
+    font-weight:
+        600;
+
+}
+
+
+.sales-order-complete-summary-total-value {
+
+    margin-top:
+        0.12rem;
+
+    color:
+        #157347;
+
+    font-size:
+        1rem;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.2;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media (
+    max-width: 767.98px
+) {
+
+    .sales-order-complete-summary {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .sales-order-complete-summary-total {
+
+        align-items:
+            flex-start;
+
+        padding:
+            0.5rem
+            0.15rem;
+
+        border-left:
+            0;
+
+        border-top:
+            1px solid #eaecf0;
+
+    }
+
+}
+
+
+@media (
+    max-width: 479.98px
+) {
+
+    .sales-order-complete-summary {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .sales-order-complete-summary-total {
+
+        grid-column:
+            1;
+
+    }
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Complete Order Payment
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-payment {
+
+    padding:
+        0.85rem;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #e4e7ec;
+
+    border-radius:
+        0.75rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-payment-header {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    padding-bottom:
+        0.75rem;
+
+    border-bottom:
+        1px solid #eaecf0;
+
+}
+
+
+.sales-order-complete-payment-heading {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        0.6rem;
+
+}
+
+
+.sales-order-complete-payment-icon {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    flex:
+        0 0 32px;
+
+    border-radius:
+        8px;
+
+    background:
+        #eff6ff;
+
+    color:
+        #2563eb;
+
+    font-size:
+        0.72rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Section Heading
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-complete-section-title {
+
+    color:
+        #344054;
+
+    font-size:
+        0.74rem;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.3;
+
+}
+
+
+.sales-order-complete-section-description {
+
+    margin-top:
+        0.12rem;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.6rem;
+
+    line-height:
+        1.35;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Payment Field
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-payment-field {
+
+    min-width:
+        0;
+
+}
+
+
+.sales-order-payment-label {
+
+    display:
+        block;
+
+    margin-bottom:
+        0.35rem;
+
+    color:
+        #475467;
+
+    font-size:
+        0.62rem;
+
+    font-weight:
+        600;
+
+}
+
+
+.sales-order-payment-input-wrap {
+
+    position:
+        relative;
+
+}
+
+
+.sales-order-payment-input {
+
+    height:
+        39px;
+
+    padding-left:
+        2rem;
+
+    border-color:
+        #d0d5dd;
+
+    border-radius:
+        0.55rem;
+
+    color:
+        #344054;
+
+    font-size:
+        0.72rem;
+
+}
+
+
+.sales-order-payment-input:focus {
+
+    border-color:
+        #98a2b3;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            16,
+            24,
+            40,
+            0.05
+        );
+
+}
+
+
+.sales-order-payment-input-readonly {
+
+    background:
+        #f8fafc;
+
+    color:
+        #667085;
+
+    cursor:
+        default;
+
+}
+
+
+.sales-order-payment-input-prefix {
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    left:
+        0.7rem;
+
+    z-index:
+        2;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.66rem;
+
+    font-weight:
+        600;
+
+    pointer-events:
+        none;
+
+}
+
+
+.sales-order-payment-input-icon {
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    left:
+        0.7rem;
+
+    z-index:
+        2;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.68rem;
+
+    pointer-events:
+        none;
+
+}
+
+
+.sales-order-payment-select {
+
+    width:
+        100%;
+
+    height:
+        39px;
+
+    padding-left:
+        2rem;
+
+    border-color:
+        #d0d5dd;
+
+    border-radius:
+        0.55rem;
+
+    color:
+        #344054;
+
+    font-size:
+        0.72rem;
+
+}
+
+
+.sales-order-payment-select:focus {
+
+    border-color:
+        #98a2b3;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            16,
+            24,
+            40,
+            0.05
+        );
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Payment Preview
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-payment-preview {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap:
+        0.5rem;
+
+    padding:
+        0.65rem;
+
+    background:
+        #f8fafc;
+
+    border:
+        1px solid #eaecf0;
+
+    border-radius:
+        0.65rem;
+
+}
+
+
+.sales-order-payment-preview-item {
+
+    min-width:
+        0;
+
+    padding:
+        0.35rem
+        0.45rem;
+
+    border-radius:
+        0.45rem;
+
+}
+
+
+.sales-order-payment-preview-label {
+
+    display:
+        block;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        0.57rem;
+
+    font-weight:
+        500;
+
+    line-height:
+        1.25;
+
+}
+
+
+.sales-order-payment-preview-value {
+
+    display:
+        block;
+
+    margin-top:
+        0.15rem;
+
+    color:
+        #344054;
+
+    font-size:
+        0.72rem;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.3;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Change
+|--------------------------------------------------------------------------
+*/
+
+.sales-order-payment-preview-change {
+
+    background:
+        #ecfdf3;
+
+}
+
+
+.sales-order-payment-preview-change
+.sales-order-payment-preview-label {
+
+    color:
+        #157347;
+
+}
+
+
+.sales-order-payment-preview-change
+.sales-order-payment-preview-value {
+
+    color:
+        #157347;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media (
+    max-width: 767.98px
+) {
+
+    .sales-order-payment-preview {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+
+@media (
+    max-width: 479.98px
+) {
+
+    .sales-order-payment-preview {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Receipt Actions
+|--------------------------------------------------------------------------
+*/
+
+.receipt-actions {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+.receipt-print-button {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        0.45rem;
+
+    min-height:
+        38px;
+
+    padding:
+        0.55rem
+        0.9rem;
+
+    border:
+        1px solid #d0d5dd;
+
+    border-radius:
+        0.55rem;
+
+    background:
+        #ffffff;
+
+    color:
+        #344054;
+
+    font-size:
+        0.72rem;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+    box-shadow:
+        0 1px 2px
+        rgba(
+            16,
+            24,
+            40,
+            0.05
+        );
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+
+}
+
+
+.receipt-print-button:hover {
+
+    background:
+        #f8fafc;
+
+    border-color:
+        #98a2b3;
+
+    box-shadow:
+        0 2px 5px
+        rgba(
+            16,
+            24,
+            40,
+            0.08
+        );
+
+}
+
+
+.receipt-print-button i {
+
+    font-size:
+        0.75rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Print
+|--------------------------------------------------------------------------
+*/
+
+@media print {
+
+    .no-print {
+
+        display:
+            none !important;
 
     }
 
