@@ -466,6 +466,12 @@ Route::prefix('products')
 
     Route::prefix('sales')->group(function () {
 
+    /*
+        |--------------------------------------------------------------------------
+        |Orders
+        |--------------------------------------------------------------------------
+        */
+
         Route::get('/orders', [OrderController::class, 'index'])
             ->name('orders.index');
 
@@ -520,9 +526,26 @@ Route::prefix('products')
         Route::post('/orders/{id}/part-payment',[OrderController::class, 'partPayment'])
             ->name('sales.orders.part-payment');
 
-    });
+        
+        /*
+        |--------------------------------------------------------------------------
+        | Invoices
+        |--------------------------------------------------------------------------
+        */
 
-    Route::resource('invoices', InvoiceController::class);
+        Route::prefix('invoices')->group(function () {
+
+            Route::get('/',[InvoiceController::class, 'index'])->name('invoices.index');
+
+            Route::get('/table',[InvoiceController::class, 'table'])->name('invoices.table');
+
+            Route::get('/stats', [InvoiceController::class, 'stats'])->name('invoices.stats');
+
+            Route::get('/{id}',[InvoiceController::class, 'details'])->name('sales.invoices.details');
+
+        });
+
+    });  
 
     Route::resource('payments', PaymentController::class);
 
