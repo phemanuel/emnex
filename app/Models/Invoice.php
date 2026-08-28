@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use App\Models\User;
-use App\Models\OrderItem;
 
-class Order extends Model
+class Invoice extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -31,19 +28,17 @@ class Order extends Model
 
         'terminal_id',
 
+        'order_id',
+
         'customer_id',
 
-        'cashier_id',
+        'invoice_no',
 
-        'order_no',
+        'invoice_date',
 
         'subtotal',
 
         'discount',
-
-        'discount_id',
-
-        'tax_rate_id',
 
         'tax',
 
@@ -53,23 +48,15 @@ class Order extends Model
 
         'balance',
 
-        'total_items',
-
         'total_quantity',
 
-        'change_given',
+        'total_items',
 
         'grand_total',
 
-        'completed_at',
-
         'payment_status',
 
-        'order_status',
-
-        'sales_channel',
-
-        'receipt_printed',
+        'invoice_status',
 
         'remarks',
 
@@ -99,16 +86,10 @@ class Order extends Model
             'terminal_id' =>
                 'integer',
 
+            'order_id' =>
+                'integer',
+
             'customer_id' =>
-                'integer',
-
-            'cashier_id' =>
-                'integer',
-
-            'discount_id' =>
-                'integer',
-
-            'tax_rate_id' =>
                 'integer',
 
             'subtotal' =>
@@ -129,23 +110,17 @@ class Order extends Model
             'balance' =>
                 'decimal:2',
 
-            'total_items' =>
-                'integer',
-
             'total_quantity' =>
                 'decimal:2',
 
-            'change_given' =>
-                'decimal:2',
+            'total_items' =>
+                'integer',
 
             'grand_total' =>
                 'decimal:2',
 
-            'completed_at' =>
-                'datetime',
-
-            'receipt_printed' =>
-                'boolean',
+            'invoice_date' =>
+                'date',
 
             'created_by' =>
                 'integer',
@@ -200,6 +175,18 @@ class Order extends Model
 
 
     /**
+     * Sales Order
+     */
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(
+            Order::class,
+            'order_id'
+        );
+    }
+
+
+    /**
      * Customer
      */
     public function customer(): BelongsTo
@@ -207,18 +194,6 @@ class Order extends Model
         return $this->belongsTo(
             Customer::class,
             'customer_id'
-        );
-    }
-
-
-    /**
-     * Cashier
-     */
-    public function cashier(): BelongsTo
-    {
-        return $this->belongsTo(
-            User::class,
-            'cashier_id'
         );
     }
 
@@ -248,57 +223,13 @@ class Order extends Model
 
 
     /**
-     * Discount
+     * Invoice Items
      */
-    public function discountRecord(): BelongsTo
-    {
-        return $this->belongsTo(
-            Discount::class,
-            'discount_id'
-        );
-    }
-
-
-    /**
-     * Tax Rate
-     */
-    public function taxRate(): BelongsTo
-    {
-        return $this->belongsTo(
-            TaxRate::class,
-            'tax_rate_id'
-        );
-    }
-
-
-    public function orderItems(): HasMany
+    public function invoiceItems(): HasMany
     {
         return $this->hasMany(
-            OrderItem::class,
-            'order_id'
-        );
-    }
-
-
-    /**
-     * Payments
-     */
-    public function payments(): HasMany
-    {
-        return $this->hasMany(
-            Payment::class,
-            'order_id'
-        );
-    }
-
-    /**
- * Invoice
- */
-    public function invoice(): HasOne
-    {
-        return $this->hasOne(
-            Invoice::class,
-            'order_id'
+            InvoiceItem::class,
+            'invoice_id'
         );
     }
 
@@ -310,7 +241,7 @@ class Order extends Model
     */
 
     /**
-     * Company orders.
+     * Filter by company.
      */
     public function scopeForCompany(
         Builder $query,
@@ -326,29 +257,44 @@ class Order extends Model
 
 
     /**
-     * Completed orders.
+     * Active invoices.
      */
-    public function scopeCompleted(
+    public function scopeActive(
         Builder $query
     ): Builder {
 
         return $query->where(
-            'order_status',
-            'Completed'
+            'invoice_status',
+            'Active'
         );
 
     }
 
 
     /**
-     * Pending orders.
+     * Paid invoices.
+     */
+    public function scopePaid(
+        Builder $query
+    ): Builder {
+
+        return $query->where(
+            'payment_status',
+            'Paid'
+        );
+
+    }
+
+
+    /**
+     * Pending invoices.
      */
     public function scopePending(
         Builder $query
     ): Builder {
 
         return $query->where(
-            'order_status',
+            'payment_status',
             'Pending'
         );
 
@@ -356,30 +302,15 @@ class Order extends Model
 
 
     /**
-     * Draft orders.
+     * Partially paid invoices.
      */
-    public function scopeDraft(
+    public function scopePartial(
         Builder $query
     ): Builder {
 
         return $query->where(
-            'order_status',
-            'Draft'
-        );
-
-    }
-
-
-    /**
-     * Held orders.
-     */
-    public function scopeHeld(
-        Builder $query
-    ): Builder {
-
-        return $query->where(
-            'order_status',
-            'Held'
+            'payment_status',
+            'Partial'
         );
 
     }
@@ -392,17 +323,7 @@ class Order extends Model
     */
 
     /**
-     * Check if the order is completed.
-     */
-    public function isCompleted(): bool
-    {
-        return $this->order_status ===
-            'Completed';
-    }
-
-
-    /**
-     * Check if the order is paid.
+     * Check if invoice is paid.
      */
     public function isPaid(): bool
     {
@@ -412,17 +333,7 @@ class Order extends Model
 
 
     /**
-     * Check if the order is pending payment.
-     */
-    public function isPaymentPending(): bool
-    {
-        return $this->payment_status ===
-            'Pending';
-    }
-
-
-    /**
-     * Check if the order is partially paid.
+     * Check if invoice is partially paid.
      */
     public function isPartiallyPaid(): bool
     {
@@ -432,37 +343,27 @@ class Order extends Model
 
 
     /**
-     * Check if the order is pending.
+     * Check if invoice payment is pending.
      */
-    public function isPending(): bool
+    public function isPaymentPending(): bool
     {
-        return $this->order_status ===
+        return $this->payment_status ===
             'Pending';
     }
 
 
     /**
-     * Check if the order is draft.
+     * Check if invoice is active.
      */
-    public function isDraft(): bool
+    public function isActive(): bool
     {
-        return $this->order_status ===
-            'Draft';
+        return $this->invoice_status ===
+            'Active';
     }
 
 
     /**
-     * Check if the order is held.
-     */
-    public function isHeld(): bool
-    {
-        return $this->order_status ===
-            'Held';
-    }
-
-
-    /**
-     * Check if there is an outstanding balance.
+     * Check if invoice has outstanding balance.
      */
     public function hasBalance(): bool
     {
@@ -471,42 +372,22 @@ class Order extends Model
 
 
     /**
-     * Total quantity in the order.
+     * Total quantity in the invoice.
      */
     public function totalQuantity(): float
     {
-        return (float) $this->orderItems()->sum(
+        return (float) $this->invoiceItems()->sum(
             'quantity'
         );
     }
 
 
     /**
-     * Total number of order lines.
+     * Total number of invoice lines.
      */
     public function totalItems(): int
     {
-        return $this->orderItems()->count();
-    }
-
-
-    /**
-     * Check if the order is cancelled.
-     */
-    public function isCancelled(): bool
-    {
-        return $this->order_status ===
-            'Cancelled';
-    }
-
-
-    /**
-     * Check if the order is refunded.
-     */
-    public function isRefunded(): bool
-    {
-        return $this->order_status ===
-            'Refunded';
+        return $this->invoiceItems()->count();
     }
 
 }

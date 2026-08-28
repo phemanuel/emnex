@@ -7,17 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * OrderItem Model
- *
- * Represents an individual product within an order.
- */
-class OrderItem extends Model
+class InvoiceItem extends Model
 {
     use HasFactory;
 
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Fillable
     |--------------------------------------------------------------------------
@@ -27,7 +22,7 @@ class OrderItem extends Model
 
         'company_id',
 
-        'order_id',
+        'invoice_id',
 
         'product_id',
 
@@ -61,7 +56,7 @@ class OrderItem extends Model
             'company_id' =>
                 'integer',
 
-            'order_id' =>
+            'invoice_id' =>
                 'integer',
 
             'product_id' =>
@@ -85,6 +80,7 @@ class OrderItem extends Model
         ];
     }
 
+
     /*
     |--------------------------------------------------------------------------
     | Relationships
@@ -96,24 +92,36 @@ class OrderItem extends Model
      */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(
+            Company::class,
+            'company_id'
+        );
     }
 
+
     /**
-     * Order
+     * Invoice
      */
-    public function order(): BelongsTo
+    public function invoice(): BelongsTo
     {
-        return $this->belongsTo(Order::class, 'order_id');
+        return $this->belongsTo(
+            Invoice::class,
+            'invoice_id'
+        );
     }
+
 
     /**
      * Product
      */
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(
+            Product::class,
+            'product_id'
+        );
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -124,31 +132,16 @@ class OrderItem extends Model
     /**
      * Filter by company.
      */
-    public function scopeForCompany(Builder $query, int $companyId): Builder
-    {
-        return $query->where('company_id', $companyId);
+    public function scopeForCompany(
+        Builder $query,
+        int $companyId
+    ): Builder {
+
+        return $query->where(
+            'company_id',
+            $companyId
+        );
+
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Helper Methods
-    |--------------------------------------------------------------------------
-    */
-
-    public function totalDiscount(): float
-    {
-        return (float) $this->discount;
-    }
-
-
-    public function totalTax(): float
-    {
-        return (float) $this->tax;
-    }
-
-
-    public function total(): float
-    {
-        return (float) $this->total;
-    }
 }

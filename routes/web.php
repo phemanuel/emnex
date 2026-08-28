@@ -514,6 +514,12 @@ Route::prefix('products')
         Route::get('/orders/{id}/receipt/pdf',[OrderController::class, 'receiptPdf'])
             ->name('orders.receipt.pdf');
 
+        Route::get('/payment-methods',[OrderController::class, 'paymentMethods'])
+        ->name('sales.payment-methods');
+
+        Route::post('/orders/{id}/part-payment',[OrderController::class, 'partPayment'])
+            ->name('sales.orders.part-payment');
+
     });
 
     Route::resource('invoices', InvoiceController::class);

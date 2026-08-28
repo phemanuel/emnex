@@ -43,7 +43,7 @@
                             class="modal-title sales-order-complete-header-title"
                             id="completeOrderModalTitle"
                         >
-                            Complete Order
+                           Finalize Order
                         </h5>
 
 
@@ -343,255 +343,557 @@
 
 
                         {{-- ==================================================
-                            Payment Fields
+                            Payment Tabs
                         =================================================== --}}
 
-                        <div class="row g-3 mt-1">
-
-                            {{-- ==================================================
-                                Amount Due
-                            =================================================== --}}
-
-                            <div class="col-md-4">
-
-                                <div class="sales-order-payment-field">
-
-                                    <label
-                                        class="sales-order-payment-label"
-                                        for="completeOrderAmountDue"
-                                    >
-                                        Amount Due
-                                    </label>
-
-
-                                    <div class="sales-order-payment-input-wrap">
-
-                                        <span class="sales-order-payment-input-prefix">
-
-                                            ₦
-
-                                        </span>
-
-
-                                        <input
-                                            type="text"
-                                            class="form-control sales-order-payment-input sales-order-payment-input-readonly"
-                                            id="completeOrderAmountDue"
-                                            readonly
-                                        >
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- ==================================================
-                                Amount Paid
-                            =================================================== --}}
-
-                            <div class="col-md-4">
-
-                                <div class="sales-order-payment-field">
-
-                                    <label
-                                        class="sales-order-payment-label"
-                                        for="completeOrderAmountPaid"
-                                    >
-
-                                        Amount Paid
-
-                                        <span class="text-danger">*</span>
-
-                                    </label>
-
-
-                                    <div class="sales-order-payment-input-wrap">
-
-                                        <span class="sales-order-payment-input-prefix">
-
-                                            ₦
-
-                                        </span>
-
-
-                                        <input
-                                            type="number"
-                                            class="form-control sales-order-payment-input"
-                                            id="completeOrderAmountPaid"
-                                            name="amount_paid"
-                                            min="0"
-                                            step="0.01"
-                                            value="0"
-                                            required
-                                        >
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- ==================================================
-                                Payment Method
-                            =================================================== --}}
-
-                            <div class="col-md-4">
-
-                                <div class="sales-order-payment-field">
-
-                                    <label
-                                        class="sales-order-payment-label"
-                                        for="completeOrderPaymentMethod"
-                                    >
-
-                                        Payment Method
-
-                                        <span class="text-danger">*</span>
-
-                                    </label>
-
-
-                                    <div class="sales-order-payment-input-wrap">
-
-                                        <span class="sales-order-payment-input-icon">
-
-                                            <i class="bi bi-wallet2"></i>
-
-                                        </span>
-
-
-                                        <select
-                                            class="form-select sales-order-payment-select"
-                                            id="completeOrderPaymentMethod"
-                                            name="payment_method"
-                                            required
-                                        >
-
-                                            <option value="">
-                                                Select payment method
-                                            </option>
-
-                                            <option value="Cash">
-                                                Cash
-                                            </option>
-
-                                            <option value="Card">
-                                                Card
-                                            </option>
-
-                                            <option value="Bank Transfer">
-                                                Bank Transfer
-                                            </option>
-
-                                            <option value="Mobile Money">
-                                                Mobile Money
-                                            </option>
-
-                                        </select>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        {{-- ==================================================
-                            Payment Result
-                        =================================================== --}}
-
-                        <div
-                            class="sales-order-payment-preview mt-3"
-                            id="completeOrderPaymentPreview"
+                        <ul
+                            class="nav nav-tabs sales-order-payment-tabs mt-3"
+                            id="salesOrderPaymentTabs"
+                            role="tablist"
                         >
 
-                            <div class="sales-order-payment-preview-item">
-
-                                <span class="sales-order-payment-preview-label">
-
-                                    Amount Due
-
-                                </span>
-
-
-                                <strong
-                                    id="completeOrderPreviewDue"
-                                    class="sales-order-payment-preview-value"
-                                >
-
-                                    0.00
-
-                                </strong>
-
-                            </div>
-
-
-                            <div class="sales-order-payment-preview-item">
-
-                                <span class="sales-order-payment-preview-label">
-
-                                    Amount Paid
-
-                                </span>
-
-
-                                <strong
-                                    id="completeOrderPreviewPaid"
-                                    class="sales-order-payment-preview-value"
-                                >
-
-                                    0.00
-
-                                </strong>
-
-                            </div>
-
-
-                            <div class="sales-order-payment-preview-item">
-
-                                <span class="sales-order-payment-preview-label">
-
-                                    Balance
-
-                                </span>
-
-
-                                <strong
-                                    id="completeOrderPreviewBalance"
-                                    class="sales-order-payment-preview-value"
-                                >
-
-                                    0.00
-
-                                </strong>
-
-                            </div>
-
-
-                            <div
-                                class="sales-order-payment-preview-item sales-order-payment-preview-change"
+                            <li
+                                class="nav-item"
+                                role="presentation"
                             >
 
-                                <span class="sales-order-payment-preview-label">
-
-                                    Change
-
-                                </span>
-
-
-                                <strong
-                                    id="completeOrderPreviewChange"
-                                    class="sales-order-payment-preview-value"
+                                <button
+                                    type="button"
+                                    class="nav-link active"
+                                    id="completePaymentTab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#completePaymentPane"
+                                    role="tab"
+                                    aria-controls="completePaymentPane"
+                                    aria-selected="true"
                                 >
 
-                                    0.00
+                                    <i class="bi bi-check2-circle me-1"></i>
 
-                                </strong>
+                                    Complete Payment
+
+                                </button>
+
+                            </li>
+
+
+                            <li
+                                class="nav-item"
+                                role="presentation"
+                            >
+
+                                <button
+                                    type="button"
+                                    class="nav-link"
+                                    id="partPaymentTab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#partPaymentPane"
+                                    role="tab"
+                                    aria-controls="partPaymentPane"
+                                    aria-selected="false"
+                                >
+
+                                    <i class="bi bi-pie-chart me-1"></i>
+
+                                    Part Payment
+
+                                </button>
+
+                            </li>
+
+                        </ul>
+
+
+                        <div
+                            class="tab-content"
+                            id="salesOrderPaymentTabContent"
+                        >
+
+                            {{-- ==================================================
+                                Complete Payment
+                            =================================================== --}}
+
+                            <div
+                                class="tab-pane fade show active"
+                                id="completePaymentPane"
+                                role="tabpanel"
+                                aria-labelledby="completePaymentTab"
+                            >
+
+                                {{-- ==================================================
+                                    Payment Fields
+                                =================================================== --}}
+
+                                <div class="row g-3 mt-1">
+
+                                    {{-- ==================================================
+                                        Amount Due
+                                    =================================================== --}}
+
+                                    <div class="col-md-4">
+
+                                        <div class="sales-order-payment-field">
+
+                                            <label
+                                                class="sales-order-payment-label"
+                                                for="completeOrderAmountDue"
+                                            >
+                                                Amount Due
+                                            </label>
+
+
+                                            <div class="sales-order-payment-input-wrap">
+
+                                                <span class="sales-order-payment-input-prefix">
+
+                                                    ₦
+
+                                                </span>
+
+
+                                                <input
+                                                    type="text"
+                                                    class="form-control sales-order-payment-input sales-order-payment-input-readonly"
+                                                    id="completeOrderAmountDue"
+                                                    readonly
+                                                >
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    {{-- ==================================================
+                                        Amount Paid
+                                    =================================================== --}}
+
+                                    <div class="col-md-4">
+
+                                        <div class="sales-order-payment-field">
+
+                                            <label
+                                                class="sales-order-payment-label"
+                                                for="completeOrderAmountPaid"
+                                            >
+
+                                                Amount Paid
+
+                                                <span class="text-danger">*</span>
+
+                                            </label>
+
+
+                                            <div class="sales-order-payment-input-wrap">
+
+                                                <span class="sales-order-payment-input-prefix">
+
+                                                    ₦
+
+                                                </span>
+
+
+                                                <input
+                                                    type="number"
+                                                    class="form-control sales-order-payment-input"
+                                                    id="completeOrderAmountPaid"
+                                                    name="amount_paid"
+                                                    min="0"
+                                                    step="0.01"
+                                                    value="0"
+                                                    required
+                                                >
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    {{-- ==================================================
+                                        Payment Method
+                                    =================================================== --}}
+
+                                    <div class="col-md-4">
+
+                                        <div class="sales-order-payment-field">
+
+                                            <label
+                                                class="sales-order-payment-label"
+                                                for="completeOrderPaymentMethod"
+                                            >
+
+                                                Payment Method
+
+                                                <span class="text-danger">*</span>
+
+                                            </label>
+
+
+                                            <div class="sales-order-payment-input-wrap">
+
+                                                <span class="sales-order-payment-input-icon">
+
+                                                    <i class="bi bi-wallet2"></i>
+
+                                                </span>
+
+
+                                                <select
+                                                    class="form-select sales-order-payment-select"
+                                                    id="completeOrderPaymentMethod"
+                                                    name="payment_method_id"
+                                                    required
+                                                >
+                                                    <option value="">
+                                                        Select payment method
+                                                    </option>
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- ==================================================
+                                    Payment Result
+                                =================================================== --}}
+
+                                <div
+                                    class="sales-order-payment-preview mt-3"
+                                    id="completeOrderPaymentPreview"
+                                >
+
+                                    <div class="sales-order-payment-preview-item">
+
+                                        <span class="sales-order-payment-preview-label">
+
+                                            Amount Due
+
+                                        </span>
+
+
+                                        <strong
+                                            id="completeOrderPreviewDue"
+                                            class="sales-order-payment-preview-value"
+                                        >
+
+                                            0.00
+
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div class="sales-order-payment-preview-item">
+
+                                        <span class="sales-order-payment-preview-label">
+
+                                            Amount Paid
+
+                                        </span>
+
+
+                                        <strong
+                                            id="completeOrderPreviewPaid"
+                                            class="sales-order-payment-preview-value"
+                                        >
+
+                                            0.00
+
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div class="sales-order-payment-preview-item">
+
+                                        <span class="sales-order-payment-preview-label">
+
+                                            Balance
+
+                                        </span>
+
+
+                                        <strong
+                                            id="completeOrderPreviewBalance"
+                                            class="sales-order-payment-preview-value"
+                                        >
+
+                                            0.00
+
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div
+                                        class="sales-order-payment-preview-item sales-order-payment-preview-change"
+                                    >
+
+                                        <span class="sales-order-payment-preview-label">
+
+                                            Change
+
+                                        </span>
+
+
+                                        <strong
+                                            id="completeOrderPreviewChange"
+                                            class="sales-order-payment-preview-value"
+                                        >
+
+                                            0.00
+
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- ==================================================
+                                Part Payment
+                            =================================================== --}}
+
+                            <div
+                                class="tab-pane fade"
+                                id="partPaymentPane"
+                                role="tabpanel"
+                                aria-labelledby="partPaymentTab"
+                            >
+
+                                <div class="row g-3 mt-1">
+
+                                    {{-- ==================================================
+                                        Outstanding Balance
+                                    =================================================== --}}
+
+                                    <div class="col-md-4">
+
+                                        <div class="sales-order-payment-field">
+
+                                            <label
+                                                class="sales-order-payment-label"
+                                                for="partPaymentOutstandingBalance"
+                                            >
+
+                                                Outstanding Balance
+
+                                            </label>
+
+
+                                            <div class="sales-order-payment-input-wrap">
+
+                                                <span class="sales-order-payment-input-prefix">
+
+                                                    ₦
+
+                                                </span>
+
+
+                                                <input
+                                                    type="text"
+                                                    class="form-control sales-order-payment-input sales-order-payment-input-readonly"
+                                                    id="partPaymentOutstandingBalance"
+                                                    readonly
+                                                >
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    {{-- ==================================================
+                                        Installment Amount
+                                    =================================================== --}}
+
+                                    <div class="col-md-4">
+
+                                        <div class="sales-order-payment-field">
+
+                                            <label
+                                                class="sales-order-payment-label"
+                                                for="partPaymentAmount"
+                                            >
+
+                                                Payment Amount
+
+                                                <span class="text-danger">*</span>
+
+                                            </label>
+
+
+                                            <div class="sales-order-payment-input-wrap">
+
+                                                <span class="sales-order-payment-input-prefix">
+
+                                                    ₦
+
+                                                </span>
+
+
+                                                <input
+                                                type="number"
+                                                class="form-control sales-order-payment-input"
+                                                id="partPaymentAmount"
+                                                name="part_payment_amount"
+                                                min="0.01"
+                                                step="0.01"
+                                                value="0"
+>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    {{-- ==================================================
+                                        Payment Method
+                                    =================================================== --}}
+
+                                    <div class="col-md-4">
+
+                                        <div class="sales-order-payment-field">
+
+                                            <label
+                                                class="sales-order-payment-label"
+                                                for="partPaymentMethod"
+                                            >
+
+                                                Payment Method
+
+                                                <span class="text-danger">*</span>
+
+                                            </label>
+
+
+                                            <div class="sales-order-payment-input-wrap">
+
+                                                <span class="sales-order-payment-input-icon">
+
+                                                    <i class="bi bi-wallet2"></i>
+
+                                                </span>
+
+
+                                                <select
+                                                    class="form-select sales-order-payment-select"
+                                                    id="partPaymentMethod"
+                                                    name="payment_method_id"
+                                                    required
+                                                >
+                                                    <option value="">
+                                                        Select payment method
+                                                    </option>
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- ==================================================
+                                    Part Payment Result
+                                =================================================== --}}
+
+                                <div
+                                    class="sales-order-payment-preview mt-3"
+                                    id="partPaymentPreview"
+                                >
+
+                                    <div class="sales-order-payment-preview-item">
+
+                                        <span class="sales-order-payment-preview-label">
+
+                                            Previous Paid
+
+                                        </span>
+
+
+                                        <strong
+                                            id="partPaymentPreviewPrevious"
+                                            class="sales-order-payment-preview-value"
+                                        >
+
+                                            0.00
+
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div class="sales-order-payment-preview-item">
+
+                                        <span class="sales-order-payment-preview-label">
+
+                                            This Payment
+
+                                        </span>
+
+
+                                        <strong
+                                            id="partPaymentPreviewCurrent"
+                                            class="sales-order-payment-preview-value"
+                                        >
+
+                                            0.00
+
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div class="sales-order-payment-preview-item">
+
+                                        <span class="sales-order-payment-preview-label">
+
+                                            Remaining Balance
+
+                                        </span>
+
+
+                                        <strong
+                                            id="partPaymentPreviewRemaining"
+                                            class="sales-order-payment-preview-value"
+                                        >
+
+                                            0.00
+
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    class="alert alert-info mt-3 mb-0"
+                                    id="partPaymentInfo"
+                                >
+
+                                    <i class="bi bi-info-circle me-2"></i>
+
+                                    Part payment records the payment without deducting stock.
+                                    The order remains held until the outstanding balance is fully paid.
+
+                                </div>
 
                             </div>
 
@@ -629,7 +931,9 @@
                         class="btn btn-light border"
                         data-bs-dismiss="modal"
                     >
+
                         Cancel
+
                     </button>
 
 

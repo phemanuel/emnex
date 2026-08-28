@@ -581,7 +581,7 @@
 
 
         <span class="sales-order-global-action-label">
-            Complete
+            Finalize Order
         </span>
 
     </button>

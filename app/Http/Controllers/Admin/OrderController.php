@@ -7,10 +7,14 @@ use App\Models\Branch;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Invoice;
+use App\Models\InvoiceItem;
 use App\Models\Product;
 use App\Models\ProductStock;
 use App\Models\Terminal;
 use App\Models\Setting;
+use App\Models\Payment;
+use App\Models\PaymentMethod;
 use App\Models\StockMovement;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -599,22 +603,29 @@ class OrderController extends BaseController
             $orderQuery
                 ->with([
 
-                'customer',
+                        'customer',
 
-                'branch',
+                        'branch',
 
-                'terminal',
+                        'terminal',
 
-                'cashier',
+                        'cashier',
 
-                'createdBy',
+                        'createdBy',
 
-                'updatedBy',
+                        'updatedBy',
 
-                'orderItems.product',
+                        'orderItems.product',
 
+                        'invoice',
 
-                ])
+                        'invoice.invoiceItems',
+
+                        'payments.paymentMethod',
+
+                        'payments.receivedBy',
+
+                    ])
                 ->find(
                     $id
                 );
@@ -782,7 +793,105 @@ class OrderController extends BaseController
 
 
                 'completed_at' =>
-                    $order->completed_at,                
+                    $order->completed_at,  
+                    
+                'invoice' =>
+                $order->invoice
+                    ? [
+
+                        'id' =>
+                            $order->invoice->id,
+
+                        'invoice_no' =>
+                            $order->invoice->invoice_no,
+
+                        'invoice_date' =>
+                            $order->invoice->invoice_date,
+
+                        'subtotal' =>
+                            (float) $order->invoice->subtotal,
+
+                        'discount' =>
+                            (float) $order->invoice->discount,
+
+                        'tax' =>
+                            (float) $order->invoice->tax,
+
+                        'total' =>
+                            (float) $order->invoice->total,
+
+                        'grand_total' =>
+                            (float) $order->invoice->grand_total,
+
+                        'amount_paid' =>
+                            (float) $order->invoice->amount_paid,
+
+                        'balance' =>
+                            (float) $order->invoice->balance,
+
+                        'payment_status' =>
+                            $order->invoice->payment_status,
+
+                        'invoice_status' =>
+                            $order->invoice->invoice_status,
+
+                    ]
+                    : null,
+
+                    'payments' =>
+            $order->payments
+                ->map(
+                    function ($payment) {
+
+                        return [
+
+                            'id' =>
+                                $payment->id,
+
+                            'payment_number' =>
+                                $payment->payment_number,
+
+                            'amount' =>
+                                (float) $payment->amount,
+
+                            'payment_method_id' =>
+                                $payment->payment_method_id,
+
+                            'payment_method' =>
+                                $payment->paymentMethod
+                                    ? $payment->paymentMethod->name
+                                    : $payment->payment_method,
+
+                            'payment_status' =>
+                                $payment->payment_status,
+
+                            'payment_date' =>
+                                $payment->payment_date,
+
+                            'reference_no' =>
+                                $payment->reference_no,
+
+                            'received_by' =>
+                                $payment->receivedBy
+                                    ? (
+                                        $payment->receivedBy->name
+                                        ??
+                                        trim(
+                                            $payment->receivedBy->first_name .
+                                            ' ' .
+                                            ($payment->receivedBy->last_name ?? '')
+                                        )
+                                    )
+                                    : null,
+
+                            'remarks' =>
+                                $payment->remarks,
+
+                        ];
+
+                    }
+                )
+                ->values(),
 
                 'items' =>
                     $order->orderItems
@@ -1265,6 +1374,7 @@ class OrderController extends BaseController
 
     }
 
+ 
     /*
     |--------------------------------------------------------------------------
     | Store Order
@@ -1379,7 +1489,7 @@ class OrderController extends BaseController
 
         try {
 
-            $order =
+            $result =
                 DB::transaction(
                     function () use (
                         $validated
@@ -1696,6 +1806,7 @@ class OrderController extends BaseController
                                     $lineTotal,
 
                             ];
+
                         }
 
 
@@ -1723,6 +1834,19 @@ class OrderController extends BaseController
                         $orderNo =
                             DocumentNumberService::generate(
                                 'order',
+                                $this->companyId
+                            );
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Invoice Number
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $invoiceNo =
+                            DocumentNumberService::generate(
+                                'invoice',
                                 $this->companyId
                             );
 
@@ -1870,9 +1994,160 @@ class OrderController extends BaseController
                         }
 
 
-                        return $order;
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Create Invoice
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $invoice =
+                            Invoice::create([
+
+                                'company_id' =>
+                                    $this->companyId,
+
+                                'branch_id' =>
+                                    $validated['branch_id'],
+
+                                'terminal_id' =>
+                                    $validated['terminal_id']
+                                        ?? null,
+
+                                'customer_id' =>
+                                    $validated['customer_id']
+                                        ?? null,
+
+                                'order_id' =>
+                                    $order->id,
+
+                                'invoice_no' =>
+                                    $invoiceNo,
+
+                                'invoice_date' =>
+                                    now()->toDateString(),
+
+                                'subtotal' =>
+                                    $subtotal,
+
+                                'discount' =>
+                                    $discountTotal,
+
+                                'tax' =>
+                                    $taxTotal,
+
+                                'total' =>
+                                    $grandTotal,
+
+                                'amount_paid' =>
+                                    0,
+
+                                'balance' =>
+                                    $grandTotal,
+
+                                'total_items' =>
+                                    count(
+                                        $orderItems
+                                    ),
+
+                                'total_quantity' =>
+                                    $totalQuantity,
+
+                                'grand_total' =>
+                                    $grandTotal,
+
+                                'payment_status' =>
+                                    'Pending',
+
+                                'invoice_status' =>
+                                    'Active',
+
+                                'remarks' =>
+                                    $validated['remarks']
+                                        ?? null,
+
+                                'created_by' =>
+                                    auth()->id(),
+
+                                'updated_by' =>
+                                    null,
+
+                            ]);
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Create Invoice Items
+                        |--------------------------------------------------------------------------
+                        */
+
+                        foreach (
+                            $orderItems
+                            as $item
+                        ) {
+
+                            InvoiceItem::create([
+
+                                'company_id' =>
+                                    $item['company_id'],
+
+                                'invoice_id' =>
+                                    $invoice->id,
+
+                                'product_id' =>
+                                    $item['product_id'],
+
+                                'product_name' =>
+                                    $item['product_name'],
+
+                                'product_barcode' =>
+                                    $item['product_barcode'],
+
+                                'quantity' =>
+                                    $item['quantity'],
+
+                                'unit_price' =>
+                                    $item['unit_price'],
+
+                                'discount' =>
+                                    $item['discount'],
+
+                                'tax' =>
+                                    $item['tax'],
+
+                                'total' =>
+                                    $item['total'],
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Response Data
+                        |--------------------------------------------------------------------------
+                        */
+
+                        return [
+
+                            'order' =>
+                                $order,
+
+                            'invoice' =>
+                                $invoice,
+
+                        ];
+
                     }
                 );
+
+
+            $order =
+                $result['order'];
+
+
+            $invoice =
+                $result['invoice'];
 
 
             /*
@@ -1904,6 +2179,24 @@ class OrderController extends BaseController
 
                 );
 
+
+                $this->activityLogger->log(
+
+                    'invoices',
+
+                    'create',
+
+                    'Created invoice: ' .
+                        $invoice->invoice_no,
+
+                    $invoice,
+
+                    null,
+
+                    $invoice->toArray()
+
+                );
+
             }
 
 
@@ -1919,7 +2212,7 @@ class OrderController extends BaseController
                     true,
 
                 'message' =>
-                    'Sales order created successfully.',
+                    'Sales order and invoice created successfully.',
 
                 'data' => [
 
@@ -1928,6 +2221,12 @@ class OrderController extends BaseController
 
                     'order_no' =>
                         $order->order_no,
+
+                    'invoice_id' =>
+                        $invoice->id,
+
+                    'invoice_no' =>
+                        $invoice->invoice_no,
 
                     'order_status' =>
                         $order->order_status,
@@ -1985,7 +2284,8 @@ class OrderController extends BaseController
 
     }
 
-   /*
+
+    /*
     |--------------------------------------------------------------------------
     | Update Order
     |--------------------------------------------------------------------------
@@ -1999,27 +2299,28 @@ class OrderController extends BaseController
         int $id
     ): JsonResponse {
 
-    /*
-|--------------------------------------------------------------------------
-| Update Order Debug
-|--------------------------------------------------------------------------
-*/
+        /*
+        |--------------------------------------------------------------------------
+        | Update Order Debug
+        |--------------------------------------------------------------------------
+        */
 
-\Log::info(
-    'Sales Order updateOrder reached.',
-    [
+        \Log::info(
+            'Sales Order updateOrder reached.',
+            [
 
-        'order_id' =>
-            $id,
+                'order_id' =>
+                    $id,
 
-        'method' =>
-            $request->method(),
+                'method' =>
+                    $request->method(),
 
-        'payload' =>
-            $request->all(),
+                'payload' =>
+                    $request->all(),
 
-    ]
-);
+            ]
+        );
+
 
         /*
         |--------------------------------------------------------------------------
@@ -2425,6 +2726,23 @@ class OrderController extends BaseController
                     $order
                 ) {
 
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Existing Payment
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $existingAmountPaid =
+                        (float)
+                        $order->amount_paid;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Prepare Items
+                    |--------------------------------------------------------------------------
+                    */
+
                     $subtotal =
                         0;
 
@@ -2554,6 +2872,12 @@ class OrderController extends BaseController
                     }
 
 
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Grand Total
+                    |--------------------------------------------------------------------------
+                    */
+
                     $grandTotal =
                         max(
                             $subtotal -
@@ -2561,6 +2885,70 @@ class OrderController extends BaseController
                             $taxTotal,
                             0
                         );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Payment Validation
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (
+                        $existingAmountPaid >
+                        $grandTotal
+                    ) {
+
+                        throw ValidationException::withMessages([
+
+                            'items' =>
+                                'The new order total cannot be less than the amount already paid.',
+
+                        ]);
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Balance
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $balance =
+                        max(
+                            $grandTotal -
+                            $existingAmountPaid,
+                            0
+                        );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Payment Status
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $paymentStatus =
+                        'Pending';
+
+
+                    if (
+                        $existingAmountPaid >=
+                        $grandTotal
+                    ) {
+
+                        $paymentStatus =
+                            'Paid';
+
+                    }
+                    elseif (
+                        $existingAmountPaid > 0
+                    ) {
+
+                        $paymentStatus =
+                            'Partial';
+
+                    }
 
 
                     /*
@@ -2595,10 +2983,10 @@ class OrderController extends BaseController
                             $grandTotal,
 
                         'amount_paid' =>
-                            0,
+                            $existingAmountPaid,
 
                         'balance' =>
-                            $grandTotal,
+                            $balance,
 
                         'total_items' =>
                             count(
@@ -2609,7 +2997,7 @@ class OrderController extends BaseController
                             $totalQuantity,
 
                         'change_given' =>
-                            0,
+                            $order->change_given,
 
                         'grand_total' =>
                             $grandTotal,
@@ -2621,6 +3009,9 @@ class OrderController extends BaseController
                             $validated['remarks']
                                 ?? null,
 
+                        'payment_status' =>
+                            $paymentStatus,
+
                         'updated_by' =>
                             auth()->id(),
 
@@ -2629,7 +3020,7 @@ class OrderController extends BaseController
 
                     /*
                     |--------------------------------------------------------------------------
-                    | Replace Items
+                    | Replace Order Items
                     |--------------------------------------------------------------------------
                     */
 
@@ -2648,6 +3039,153 @@ class OrderController extends BaseController
 
                             'order_id' =>
                                 $order->id,
+
+                            'product_id' =>
+                                $item['product_id'],
+
+                            'product_name' =>
+                                $item['product_name'],
+
+                            'product_barcode' =>
+                                $item['product_barcode'],
+
+                            'quantity' =>
+                                $item['quantity'],
+
+                            'unit_price' =>
+                                $item['unit_price'],
+
+                            'discount' =>
+                                $item['discount'],
+
+                            'tax' =>
+                                $item['tax'],
+
+                            'total' =>
+                                $item['total'],
+
+                        ]);
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Locate Invoice
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $invoice =
+                        Invoice::query()
+                            ->where(
+                                'company_id',
+                                $this->companyId
+                            )
+                            ->where(
+                                'order_id',
+                                $order->id
+                            )
+                            ->lockForUpdate()
+                            ->first();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Invoice Protection
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (!$invoice) {
+
+                        throw new \RuntimeException(
+                            'The invoice associated with this sales order could not be found.'
+                        );
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Update Invoice
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $invoice->update([
+
+                        'branch_id' =>
+                            $validated['branch_id'],
+
+                        'terminal_id' =>
+                            $validated['terminal_id']
+                                ?? null,
+
+                        'customer_id' =>
+                            $validated['customer_id']
+                                ?? null,
+
+                        'subtotal' =>
+                            $subtotal,
+
+                        'discount' =>
+                            $discountTotal,
+
+                        'tax' =>
+                            $taxTotal,
+
+                        'total' =>
+                            $grandTotal,
+
+                        'amount_paid' =>
+                            $existingAmountPaid,
+
+                        'balance' =>
+                            $balance,
+
+                        'total_quantity' =>
+                            $totalQuantity,
+
+                        'total_items' =>
+                            count(
+                                $items
+                            ),
+
+                        'grand_total' =>
+                            $grandTotal,
+
+                        'payment_status' =>
+                            $paymentStatus,
+
+                        'remarks' =>
+                            $validated['remarks']
+                                ?? null,
+
+                        'updated_by' =>
+                            auth()->id(),
+
+                    ]);
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Replace Invoice Items
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $invoice->invoiceItems()->delete();
+
+
+                    foreach (
+                        $items
+                        as $item
+                    ) {
+
+                        InvoiceItem::create([
+
+                            'company_id' =>
+                                $this->companyId,
+
+                            'invoice_id' =>
+                                $invoice->id,
 
                             'product_id' =>
                                 $item['product_id'],
@@ -2705,13 +3243,60 @@ class OrderController extends BaseController
             );
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Activity Log - Invoice
+            |--------------------------------------------------------------------------
+            */
+
+            $invoice =
+                Invoice::query()
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+                    ->where(
+                        'order_id',
+                        $order->id
+                    )
+                    ->first();
+
+
+            if ($invoice) {
+
+                $this->activityLogger->log(
+
+                    'invoices',
+
+                    'update',
+
+                    'Updated invoice: ' .
+                        $invoice->invoice_no,
+
+                    $invoice,
+
+                    null,
+
+                    $invoice->fresh()->toArray()
+
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
             return response()->json([
 
                 'success' =>
                     true,
 
                 'message' =>
-                    'Sales order updated successfully.',
+                    'Sales order and invoice updated successfully.',
 
                 'data' => [
 
@@ -2720,6 +3305,22 @@ class OrderController extends BaseController
 
                     'order_no' =>
                         $order->order_no,
+
+                    'invoice_id' =>
+                        $invoice?->id,
+
+                    'invoice_no' =>
+                        $invoice?->invoice_no,
+
+                    'order_status' =>
+                        $order->order_status,
+
+                    'payment_status' =>
+                        $order->payment_status,
+
+                    'grand_total' =>
+                        (float)
+                        $order->grand_total,
 
                 ],
 
@@ -2766,6 +3367,8 @@ class OrderController extends BaseController
         }
 
     }
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -3991,9 +4594,18 @@ public function storeCustomer(
      * - updates payment/order status
      * - records completion audit
      */
+    /*
+    |--------------------------------------------------------------------------
+    | Complete Sales Order
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Complete a sales order and record the full payment.
+     */
     public function completeOrder(
         Request $request,
-        int $id
+        $id
     ): JsonResponse {
 
         /*
@@ -4036,13 +4648,13 @@ public function storeCustomer(
 
                 ],
 
-                'payment_method' => [
+                'payment_method_id' => [
 
                     'required',
 
-                    'string',
+                    'integer',
 
-                    'max:100',
+                    'exists:payment_methods,id',
 
                 ],
 
@@ -4125,6 +4737,38 @@ public function storeCustomer(
 
                         /*
                         |--------------------------------------------------------------------------
+                        | Payment Method
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $paymentMethod =
+                            PaymentMethod::query()
+                                ->where(
+                                    'company_id',
+                                    $this->companyId
+                                )
+                                ->where(
+                                    'id',
+                                    $validated['payment_method_id']
+                                )
+                                ->active()
+                                ->first();
+
+
+                        if (! $paymentMethod) {
+
+                            throw ValidationException::withMessages([
+
+                                'payment_method_id' =>
+                                    'Selected payment method is not available.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
                         | Amount Due
                         |--------------------------------------------------------------------------
                         */
@@ -4142,7 +4786,8 @@ public function storeCustomer(
                         $amountPaid =
                             (float) (
                                 $validated['amount_paid']
-                                ?? 0
+                                ??
+                                0
                             );
 
 
@@ -4161,6 +4806,38 @@ public function storeCustomer(
 
                                 'amount_paid' =>
                                     'Amount paid cannot be less than the amount due.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Load Invoice
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $invoice =
+                            Invoice::query()
+                                ->where(
+                                    'company_id',
+                                    $this->companyId
+                                )
+                                ->where(
+                                    'order_id',
+                                    $order->id
+                                )
+                                ->lockForUpdate()
+                                ->first();
+
+
+                        if (! $invoice) {
+
+                            throw ValidationException::withMessages([
+
+                                'invoice' =>
+                                    'Invoice for this sales order was not found.',
 
                             ]);
 
@@ -4567,6 +5244,99 @@ public function storeCustomer(
 
 
                         /*
+                    |--------------------------------------------------------------------------
+                    | Payment Number
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $paymentNumber =
+                        DocumentNumberService::generate(
+                            'payment',
+                            $this->companyId
+                        );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Create Payment
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $payment =
+                        Payment::create([
+
+                            'company_id' =>
+                                $this->companyId,
+
+                            'branch_id' =>
+                                $order->branch_id,
+
+                            'terminal_id' =>
+                                $order->terminal_id,
+
+                            'order_id' =>
+                                $order->id,
+
+                            'customer_id' =>
+                                $order->customer_id,
+
+                            'received_by' =>
+                                auth()->id(),
+
+                            'payment_number' =>
+                                $paymentNumber,
+
+                            'payment_method_id' =>
+                                $paymentMethod->id,
+
+                            'payment_method' =>
+                                $paymentMethod->name,
+
+                            'amount' =>
+                                $amountPaid,
+
+                            'payment_status' =>
+                                'Completed',
+
+                            'payment_date' =>
+                                now(),
+
+                            'reference_no' =>
+                                $order->order_no,
+
+                            'remarks' =>
+                                'Payment received for sales order: ' .
+                                $order->order_no,
+
+                        ]);
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Update Invoice
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $invoice->update([
+
+                            'amount_paid' =>
+                                $amountPaid,
+
+                            'balance' =>
+                                $balance,
+
+                            'payment_status' =>
+                                'Paid',
+
+                            'invoice_status' =>
+                                'Active',
+
+                            'updated_by' =>
+                                auth()->id(),
+
+                        ]);
+
+
+                        /*
                         |--------------------------------------------------------------------------
                         | Update Order
                         |--------------------------------------------------------------------------
@@ -4608,6 +5378,12 @@ public function storeCustomer(
 
                             'order' =>
                                 $order->fresh(),
+
+                            'invoice' =>
+                                $invoice->fresh(),
+
+                            'payment' =>
+                                $payment->fresh(),
 
                             'old_values' =>
                                 $oldValues,
@@ -4688,6 +5464,15 @@ public function storeCustomer(
                     'completed_at' =>
                         $result['order']->completed_at,
 
+                    'invoice_id' =>
+                        $result['invoice']->id,
+
+                    'invoice_no' =>
+                        $result['invoice']->invoice_no,
+
+                    'payment_id' =>
+                        $result['payment']->id,
+
                 ],
 
             ]);
@@ -4733,6 +5518,8 @@ public function storeCustomer(
         }
 
     }
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -5009,6 +5796,1012 @@ public function storeCustomer(
             $order->order_no .
             '.pdf'
         );
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Methods
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return active payment methods.
+     */
+    public function paymentMethods(): JsonResponse
+    {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('orders.view')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to view payment methods.',
+
+            ], 403);
+
+        }
+
+
+        try {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Payment Methods
+            |--------------------------------------------------------------------------
+            */
+
+            $paymentMethods =
+                PaymentMethod::query()
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+                    ->where(
+                        'status',
+                        true
+                    )
+                    ->orderBy(
+                        'name'
+                    )
+                    ->get([
+
+                        'id',
+
+                        'name',
+
+                    ]);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
+            return response()->json([
+
+                'success' =>
+                    true,
+
+                'data' =>
+                    $paymentMethods,
+
+            ]);
+
+        }
+        catch (\Throwable $e) {
+
+            \Log::error(
+                'Failed to load payment methods.',
+                [
+
+                    'company_id' =>
+                        $this->companyId,
+
+                    'user_id' =>
+                        auth()->id(),
+
+                    'error' =>
+                        $e->getMessage(),
+
+                ]
+            );
+
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Unable to load payment methods.',
+
+            ], 500);
+
+        }
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Part Payment
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Record a part payment for a sales order.
+     */
+    public function partPayment(
+        Request $request,
+        int $id
+    ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('orders.update')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to record sales order payments.',
+
+            ], 403);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
+        */
+
+        $validated =
+            $request->validate([
+
+                'amount_paid' => [
+
+                    'required',
+
+                    'numeric',
+
+                    'min:0.01',
+
+                ],
+
+                'payment_method_id' => [
+
+                    'required',
+
+                    'integer',
+
+                    'exists:payment_methods,id',
+
+                ],
+
+            ]);
+
+
+        try {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Transaction
+            |--------------------------------------------------------------------------
+            */
+
+            $result =
+                DB::transaction(
+                    function () use (
+                        $validated,
+                        $id
+                    ) {
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Order
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $order =
+                            Order::query()
+                                ->where(
+                                    'company_id',
+                                    $this->companyId
+                                )
+                                ->where(
+                                    'id',
+                                    $id
+                                )
+                                ->lockForUpdate()
+                                ->first();
+
+
+                        if (! $order) {
+
+                            throw ValidationException::withMessages([
+
+                                'order' =>
+                                    'Sales order not found.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Status
+                        |--------------------------------------------------------------------------
+                        */
+
+                        if (
+                            ! in_array(
+                                $order->order_status,
+                                [
+                                    'Draft',
+                                    'Held',
+                                    'Partial',
+                                ],
+                                true
+                            )
+                        ) {
+
+                            throw ValidationException::withMessages([
+
+                                'order' =>
+                                    'This sales order cannot receive a payment.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Payment Method
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $paymentMethod =
+                            PaymentMethod::query()
+                                ->where(
+                                    'company_id',
+                                    $this->companyId
+                                )
+                                ->where(
+                                    'id',
+                                    $validated['payment_method_id']
+                                )
+                                ->active()
+                                ->first();
+
+
+                        if (! $paymentMethod) {
+
+                            throw ValidationException::withMessages([
+
+                                'payment_method_id' =>
+                                    'Selected payment method is not available.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Invoice
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $invoice =
+                            Invoice::query()
+                                ->where(
+                                    'company_id',
+                                    $this->companyId
+                                )
+                                ->where(
+                                    'order_id',
+                                    $order->id
+                                )
+                                ->lockForUpdate()
+                                ->first();
+
+
+                        if (! $invoice) {
+
+                            throw ValidationException::withMessages([
+
+                                'invoice' =>
+                                    'Invoice for this sales order was not found.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Amounts
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $grandTotal =
+                            (float) (
+                                $invoice->grand_total
+                                ??
+                                $order->grand_total
+                                ??
+                                $order->total
+                                ??
+                                0
+                            );
+
+
+                        $previousPaid =
+                            (float) (
+                                $invoice->amount_paid
+                                ??
+                                $order->amount_paid
+                                ??
+                                0
+                            );
+
+
+                        $paymentAmount =
+                            (float) (
+                                $validated['amount_paid']
+                            );
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Outstanding Balance
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $outstandingBalance =
+                            max(
+                                $grandTotal -
+                                $previousPaid,
+                                0
+                            );
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Prevent Overpayment
+                        |--------------------------------------------------------------------------
+                        */
+
+                        if (
+                            $paymentAmount >
+                            $outstandingBalance
+                        ) {
+
+                            throw ValidationException::withMessages([
+
+                                'amount_paid' =>
+                                    'Payment amount cannot exceed the outstanding balance of ' .
+                                    number_format(
+                                        $outstandingBalance,
+                                        2
+                                    ) . '.',
+
+                            ]);
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | New Paid Amount
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $newAmountPaid =
+                            $previousPaid +
+                            $paymentAmount;
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | New Balance
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $newBalance =
+                            max(
+                                $grandTotal -
+                                $newAmountPaid,
+                                0
+                            );
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Determine Payment Status
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $isFullyPaid =
+                            $newBalance <= 0;
+
+
+                        $paymentStatus =
+                            $isFullyPaid
+                                ? 'Paid'
+                                : 'Partial';
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Payment Number
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $paymentNumber =
+                            DocumentNumberService::generate(
+                                'payment',
+                                $this->companyId
+                            );
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Create Payment
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $payment =
+                            Payment::create([
+
+                                'company_id' =>
+                                    $this->companyId,
+
+                                'branch_id' =>
+                                    $order->branch_id,
+
+                                'terminal_id' =>
+                                    $order->terminal_id,
+
+                                'order_id' =>
+                                    $order->id,
+
+                                'customer_id' =>
+                                    $order->customer_id,
+
+                                'received_by' =>
+                                    auth()->id(),
+
+                                'payment_number' =>
+                                    $paymentNumber,
+
+                                'payment_method_id' =>
+                                    $paymentMethod->id,
+
+                                'payment_method' =>
+                                    $paymentMethod->name,
+
+                                'amount' =>
+                                    $paymentAmount,
+
+                                'payment_status' =>
+                                    'Completed',
+
+                                'payment_date' =>
+                                    now(),
+
+                                'reference_no' =>
+                                    $order->order_no,
+
+                                'remarks' =>
+                                    'Payment received for sales order: ' .
+                                    $order->order_no,
+
+                            ]);
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Update Invoice
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $invoice->update([
+
+                            'amount_paid' =>
+                                $newAmountPaid,
+
+                            'balance' =>
+                                $newBalance,
+
+                            'payment_status' =>
+                                $paymentStatus,
+
+                            'invoice_status' =>
+                                'Active',
+
+                            'updated_by' =>
+                                auth()->id(),
+
+                        ]);
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Update Order
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $oldValues =
+                            $order->toArray();
+
+
+                        $order->update([
+
+                            'amount_paid' =>
+                                $newAmountPaid,
+
+                            'balance' =>
+                                $newBalance,
+
+                            'payment_status' =>
+                                $paymentStatus,
+
+                            'order_status' =>
+                                $isFullyPaid
+                                    ? 'Completed'
+                                    : 'Held',
+
+                            'completed_at' =>
+                                $isFullyPaid
+                                    ? now()
+                                    : null,
+
+                            'updated_by' =>
+                                auth()->id(),
+
+                        ]);
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Complete Order When Fully Paid
+                        |--------------------------------------------------------------------------
+                        */
+
+                        if (
+                            $isFullyPaid
+                        ) {
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Load Order Items
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $items =
+                                OrderItem::query()
+                                    ->where(
+                                        'order_id',
+                                        $order->id
+                                    )
+                                    ->lockForUpdate()
+                                    ->get();
+
+
+                            if (
+                                $items->isEmpty()
+                            ) {
+
+                                throw ValidationException::withMessages([
+
+                                    'items' =>
+                                        'This sales order has no items.',
+
+                                ]);
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Capture Stock Changes
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $stockChanges = [];
+
+
+                            foreach (
+                                $items
+                                as $item
+                            ) {
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Product
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $product =
+                                    Product::query()
+                                        ->where(
+                                            'company_id',
+                                            $this->companyId
+                                        )
+                                        ->where(
+                                            'id',
+                                            $item->product_id
+                                        )
+                                        ->where(
+                                            'status',
+                                            true
+                                        )
+                                        ->first();
+
+
+                                if (! $product) {
+
+                                    throw ValidationException::withMessages([
+
+                                        'items' =>
+                                            'Product for order item "' .
+                                            $item->product_name .
+                                            '" is no longer available.',
+
+                                    ]);
+
+                                }
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Stock
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $stock =
+                                    ProductStock::query()
+                                        ->where(
+                                            'company_id',
+                                            $this->companyId
+                                        )
+                                        ->where(
+                                            'branch_id',
+                                            $order->branch_id
+                                        )
+                                        ->where(
+                                            'product_id',
+                                            $item->product_id
+                                        )
+                                        ->lockForUpdate()
+                                        ->first();
+
+
+                                if (! $stock) {
+
+                                    throw ValidationException::withMessages([
+
+                                        'items' =>
+                                            'No stock record exists for "' .
+                                            $product->name .
+                                            '" in the selected branch.',
+
+                                    ]);
+
+                                }
+
+
+                                $quantity =
+                                    (float)
+                                    $item->quantity;
+
+
+                                $availableQuantity =
+                                    (float)
+                                    $stock->available_quantity;
+
+
+                                if (
+                                    $quantity >
+                                    $availableQuantity
+                                ) {
+
+                                    throw ValidationException::withMessages([
+
+                                        'items' =>
+                                            'Insufficient stock for "' .
+                                            $product->name .
+                                            '". Only ' .
+                                            number_format(
+                                                $availableQuantity,
+                                                2
+                                            ) .
+                                            ' units are available.',
+
+                                    ]);
+
+                                }
+
+
+                                $stockBefore =
+                                    (float)
+                                    $stock->quantity;
+
+
+                                $newQuantity =
+                                    $stockBefore -
+                                    $quantity;
+
+
+                                $reservedQuantity =
+                                    (float)
+                                    $stock->reserved_quantity;
+
+
+                                $newAvailableQuantity =
+                                    max(
+                                        0,
+                                        $newQuantity -
+                                        $reservedQuantity
+                                    );
+
+
+                                $stockChanges[] = [
+
+                                    'item' =>
+                                        $item,
+
+                                    'product' =>
+                                        $product,
+
+                                    'stock' =>
+                                        $stock,
+
+                                    'stock_before' =>
+                                        $stockBefore,
+
+                                    'quantity' =>
+                                        $quantity,
+
+                                    'new_quantity' =>
+                                        $newQuantity,
+
+                                    'new_available_quantity' =>
+                                        $newAvailableQuantity,
+
+                                ];
+
+                            }
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Apply Stock Changes
+                            |--------------------------------------------------------------------------
+                            */
+
+                            foreach (
+                                $stockChanges
+                                as $change
+                            ) {
+
+                                $stock =
+                                    $change['stock'];
+
+
+                                $stock->update([
+
+                                    'quantity' =>
+                                        $change['new_quantity'],
+
+                                    'available_quantity' =>
+                                        $change['new_available_quantity'],
+
+                                ]);
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Stock Movement
+                                |--------------------------------------------------------------------------
+                                */
+
+                                StockMovement::create([
+
+                                    'company_id' =>
+                                        $this->companyId,
+
+                                    'branch_id' =>
+                                        $order->branch_id,
+
+                                    'product_id' =>
+                                        $change['item']->product_id,
+
+                                    'order_id' =>
+                                        $order->id,
+
+                                    'reference_no' =>
+                                        $order->order_no,
+
+                                    'unit_cost' =>
+                                        (float)
+                                        $change['product']->cost_price,
+
+                                    'quantity' =>
+                                        $change['quantity'],
+
+                                    'stock_before' =>
+                                        $change['stock_before'],
+
+                                    'balance_after' =>
+                                        $change['new_quantity'],
+
+                                    'remarks' =>
+                                        'Sales Order completed: ' .
+                                        $order->order_no,
+
+                                    'created_by' =>
+                                        auth()->id(),
+
+                                    'movement_type' =>
+                                        'Sale',
+
+                                ]);
+
+                            }
+
+                        }
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Return
+                        |--------------------------------------------------------------------------
+                        */
+
+                        return [
+
+                            'order' =>
+                                $order->fresh(),
+
+                            'invoice' =>
+                                $invoice->fresh(),
+
+                            'payment' =>
+                                $payment->fresh(),
+
+                            'old_values' =>
+                                $oldValues,
+
+                            'is_completed' =>
+                                $isFullyPaid,
+
+                        ];
+
+                    }
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Activity Log
+            |--------------------------------------------------------------------------
+            */
+
+            $this->activityLogger->log(
+
+                'sales_orders',
+
+                'Payment',
+
+                'Recorded payment for sales order: ' .
+                    $result['order']->order_no,
+
+                $result['order'],
+
+                $result['old_values'],
+
+                $result['order']->toArray()
+
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
+            return response()->json([
+
+                'success' =>
+                    true,
+
+                'message' =>
+                    $result['is_completed']
+                        ? 'Payment recorded successfully. Sales order has been completed.'
+                        : 'Part payment recorded successfully.',
+
+                'data' => [
+
+                    'id' =>
+                        $result['order']->id,
+
+                    'order_no' =>
+                        $result['order']->order_no,
+
+                    'order_status' =>
+                        $result['order']->order_status,
+
+                    'payment_status' =>
+                        $result['order']->payment_status,
+
+                    'amount_paid' =>
+                        (float)
+                        $result['order']->amount_paid,
+
+                    'balance' =>
+                        (float)
+                        $result['order']->balance,
+
+                    'payment_id' =>
+                        $result['payment']->id,
+
+                    'payment_number' =>
+                        $result['payment']->payment_number,
+
+                    'invoice_id' =>
+                        $result['invoice']->id,
+
+                    'invoice_no' =>
+                        $result['invoice']->invoice_no,
+
+                    'completed' =>
+                        $result['is_completed'],
+
+                ],
+
+            ]);
+
+        }
+        catch (ValidationException $e) {
+
+            throw $e;
+
+        }
+        catch (\Throwable $e) {
+
+            \Log::error(
+                'Failed to record sales order part payment.',
+                [
+
+                    'company_id' =>
+                        $this->companyId,
+
+                    'user_id' =>
+                        auth()->id(),
+
+                    'order_id' =>
+                        $id,
+
+                    'error' =>
+                        $e->getMessage(),
+
+                ]
+            );
+
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Unable to record payment. Please try again.',
+
+            ], 500);
+
+        }
 
     }
 

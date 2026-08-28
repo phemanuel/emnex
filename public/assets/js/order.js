@@ -39,6 +39,15 @@ const OrderModule = {
 
             amountPaid:
                 0,
+        partPaymentOutstandingBalance: 0,
+
+        partPaymentPreviousPaid: 0,
+
+        partPaymentAmount: 0,
+
+        partPaymentRemainingBalance: 0,
+
+        completeOrderStatus: '',
 
         },
 
@@ -122,6 +131,8 @@ const OrderModule = {
         this.bindEvents();
 
         this.loadInitialData();
+
+        this.loadPaymentMethods();
 
     },
 
@@ -447,6 +458,7 @@ const OrderModule = {
             document.getElementById(
                 'completeOrderPaymentMethod'
             );
+        
 
         this.elements.completeOrderPaymentPreview =
             document.getElementById(
@@ -496,6 +508,59 @@ const OrderModule = {
         this.elements.completeOrderSubmitSpinner =
             document.getElementById(
                 'completeOrderSubmitSpinner'
+            );
+
+                /*
+        |--------------------------------------------------------------------------
+        | Part Payment
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.partPaymentOutstandingBalance =
+            document.getElementById(
+                'partPaymentOutstandingBalance'
+            );
+
+
+        this.elements.partPaymentAmount =
+            document.getElementById(
+                'partPaymentAmount'
+            );  
+
+
+        this.elements.partPaymentMethod =
+            document.getElementById(
+                'partPaymentMethod'
+            );
+
+
+        this.elements.partPaymentPreview =
+            document.getElementById(
+                'partPaymentPreview'
+            );
+
+
+        this.elements.partPaymentPreviewPrevious =
+            document.getElementById(
+                'partPaymentPreviewPrevious'
+            );
+
+
+        this.elements.partPaymentPreviewCurrent =
+            document.getElementById(
+                'partPaymentPreviewCurrent'
+            );
+
+
+        this.elements.partPaymentPreviewRemaining =
+            document.getElementById(
+                'partPaymentPreviewRemaining'
+            );
+
+
+        this.elements.partPaymentInfo =
+            document.getElementById(
+                'partPaymentInfo'
             );
 
         /*
@@ -1313,6 +1378,66 @@ const OrderModule = {
             () => {
 
                 this.updateCompleteOrderPaymentPreview();
+
+            }
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Complete Payment Tab Guard
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.completePaymentTab?.addEventListener(
+            'click',
+            (event) => {
+
+                if (
+                    this.state.completeOrderStatus ===
+                    'Held'
+                ) {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    return;
+
+                }
+
+            }
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Part Payment
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.partPaymentAmount?.addEventListener(
+            'input',
+            () => {
+
+                this.updatePartPaymentPreview();
+
+            }
+        );
+
+
+        this.elements.partPaymentMethod?.addEventListener(
+            'change',
+            () => {
+
+                this.updatePartPaymentPreview();
+
+            }
+        );
+
+       this.elements.partPaymentAmount?.addEventListener(
+            'input',
+            () => {
+
+                this.updatePartPaymentPreview();
 
             }
         );
@@ -2174,22 +2299,65 @@ const OrderModule = {
             }
         );
 
-        /*
-        |--------------------------------------------------------------------------
-        | Complete Order Submit
-        |--------------------------------------------------------------------------
-        */
+       /*
+    |--------------------------------------------------------------------------
+    | Complete Order / Part Payment Submit
+    |--------------------------------------------------------------------------
+    */
 
-        this.elements.completeOrderSubmitBtn?.addEventListener(
-            'click',
-            () => {
+    this.elements.completeOrderSubmitBtn?.addEventListener(
+        'click',
+        () => {
 
-                this.submitCompleteOrder();
+            const activeTab =
+                document.querySelector(
+                    '#salesOrderPaymentTabs .nav-link.active'
+                );
+
+
+            if (
+                activeTab?.id ===
+                'partPaymentTab'
+            ) {
+
+                this.submitPartPayment();
+
+                return;
+
+            }
+
+
+            this.submitCompleteOrder();
+
+        }
+    );
+
+     /*
+    |--------------------------------------------------------------------------
+    | Payment Tab Change
+    |--------------------------------------------------------------------------
+    */
+
+    document
+        .querySelectorAll(
+            '#salesOrderPaymentTabs .nav-link'
+        )
+        .forEach(
+            tab => {
+
+                tab.addEventListener(
+                    'shown.bs.tab',
+                    () => {
+
+                        this.updatePaymentSubmitButton();
+
+                    }
+                );
 
             }
         );
 
-    },
+        },
 
 
     /*
@@ -2431,7 +2599,7 @@ openOrderActionMenu(
 
 
     const orderId =
-        trigger.dataset.orderId;
+    trigger.dataset.orderId;
 
 
     const orderStatus =
@@ -2495,11 +2663,29 @@ openOrderActionMenu(
         );
 
 
+    const printReceiptButton =
+        menu.querySelector(
+            '[data-order-action="print-receipt"]'
+        );
+
+
+    const downloadPdfButton =
+        menu.querySelector(
+            '[data-order-action="receipt-pdf"]'
+        );
+
+
     const deleteButton =
         menu.querySelector(
             '[data-order-action="delete"]'
         );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Order State
+    |--------------------------------------------------------------------------
+    */
 
     const canModify =
         [
@@ -2509,6 +2695,17 @@ openOrderActionMenu(
             orderStatus
         );
 
+
+    const isCompleted =
+        orderStatus ===
+        'Completed';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Draft / Held Actions
+    |--------------------------------------------------------------------------
+    */
 
     editButton?.classList.toggle(
         'd-none',
@@ -2525,6 +2722,24 @@ openOrderActionMenu(
     deleteButton?.classList.toggle(
         'd-none',
         !canModify
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Completed Receipt Actions
+    |--------------------------------------------------------------------------
+    */
+
+    printReceiptButton?.classList.toggle(
+        'd-none',
+        !isCompleted
+    );
+
+
+    downloadPdfButton?.classList.toggle(
+        'd-none',
+        !isCompleted
     );
 
 
@@ -2633,6 +2848,7 @@ openOrderActionMenu(
         `${top}px`;
 
 },
+
 /*
 |--------------------------------------------------------------------------
 | Open Complete Order Modal
@@ -2671,6 +2887,15 @@ async openCompleteOrder(
 
     /*
     |--------------------------------------------------------------------------
+    | Reset Form
+    |--------------------------------------------------------------------------
+    */
+
+    this.elements.completeOrderForm?.reset();
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Store Order ID
     |--------------------------------------------------------------------------
     */
@@ -2683,16 +2908,6 @@ async openCompleteOrder(
             id;
 
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Reset Form
-    |--------------------------------------------------------------------------
-    */
-
-    this.elements.completeOrderForm?.reset();
-
 
     /*
     |--------------------------------------------------------------------------
@@ -2866,6 +3081,26 @@ async openCompleteOrder(
             'd-none'
         );
 
+    const completePaymentTab =
+        document.getElementById(
+            'completePaymentTab'
+        );
+
+
+    if (
+        completePaymentTab
+    ) {
+
+        const tab =
+            bootstrap.Tab.getOrCreateInstance(
+                completePaymentTab
+            );
+
+
+        tab.show();
+
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -2949,6 +3184,9 @@ async openCompleteOrder(
         const order =
             result.data;
 
+        this.state.completeOrderStatus =
+            order.order_status;
+
 
         /*
         |--------------------------------------------------------------------------
@@ -2978,6 +3216,191 @@ async openCompleteOrder(
 
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Payment Tabs
+        |--------------------------------------------------------------------------
+        */
+
+        const completePaymentTab =
+            document.getElementById(
+                'completePaymentTab'
+            );
+
+
+        const partPaymentTab =
+            document.getElementById(
+                'partPaymentTab'
+            );
+
+
+        const completePaymentPane =
+            document.getElementById(
+                'completePayment'
+            );
+
+
+        const partPaymentPane =
+            document.getElementById(
+                'partPayment'
+            );
+
+
+        const isDraft =
+            order.order_status ===
+            'Draft';
+
+
+        const isHeld =
+            order.order_status ===
+            'Held';
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Draft
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            isDraft
+        ) {
+
+            /*
+            |----------------------------------------------------------------------
+            | Enable Complete Payment
+            |----------------------------------------------------------------------
+            */
+
+            if (
+                completePaymentTab
+            ) {
+
+                completePaymentTab.classList.remove(
+                    'disabled'
+                );
+
+                completePaymentTab.removeAttribute(
+                    'aria-disabled'
+                );
+
+                completePaymentTab.removeAttribute(
+                    'tabindex'
+                );
+
+            }
+
+
+            /*
+            |----------------------------------------------------------------------
+            | Enable Part Payment
+            |----------------------------------------------------------------------
+            */
+
+            if (
+                partPaymentTab
+            ) {
+
+                partPaymentTab.classList.remove(
+                    'disabled'
+                );
+
+                partPaymentTab.removeAttribute(
+                    'aria-disabled'
+                );
+
+                partPaymentTab.removeAttribute(
+                    'tabindex'
+                );
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Held
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            isHeld
+        ) {
+
+            /*
+            |----------------------------------------------------------------------
+            | Disable Complete Payment
+            |----------------------------------------------------------------------
+            */
+
+            if (
+                completePaymentTab
+            ) {
+
+                completePaymentTab.classList.add(
+                    'disabled'
+                );
+
+                completePaymentTab.setAttribute(
+                    'aria-disabled',
+                    'true'
+                );
+
+                completePaymentTab.setAttribute(
+                    'tabindex',
+                    '-1'
+                );
+
+            }
+
+
+            /*
+            |----------------------------------------------------------------------
+            | Enable Part Payment
+            |----------------------------------------------------------------------
+            */
+
+            if (
+                partPaymentTab
+            ) {
+
+                partPaymentTab.classList.remove(
+                    'disabled'
+                );
+
+                partPaymentTab.removeAttribute(
+                    'aria-disabled'
+                );
+
+                partPaymentTab.removeAttribute(
+                    'tabindex'
+                );
+
+            }
+
+
+            /*
+            |----------------------------------------------------------------------
+            | Force Part Payment Tab
+            |----------------------------------------------------------------------
+            */
+
+            if (
+                partPaymentTab
+            ) {
+
+                const partPaymentTabInstance =
+                    bootstrap.Tab.getOrCreateInstance(
+                        partPaymentTab
+                    );
+
+
+                partPaymentTabInstance.show();
+
+            }
+
+        }
 
         /*
         |--------------------------------------------------------------------------
@@ -3181,7 +3604,7 @@ async openCompleteOrder(
         }
 
 
-        /*
+                /*
         |--------------------------------------------------------------------------
         | Payment Preview
         |--------------------------------------------------------------------------
@@ -3189,6 +3612,16 @@ async openCompleteOrder(
 
         this.updateCompleteOrderPaymentPreview();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Part Payment
+        |--------------------------------------------------------------------------
+        */
+
+        this.populatePartPayment(
+            order
+        );
     }
     catch (error) {
 
@@ -3215,6 +3648,180 @@ async openCompleteOrder(
         );
 
     }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Populate Part Payment
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Populate the Part Payment tab using the current order payment state.
+ */
+populatePartPayment(
+    order
+)
+{
+
+    const grandTotal =
+        parseFloat(
+            order.grand_total ??
+            order.total ??
+            0
+        ) || 0;
+
+
+    const previousPaid =
+        parseFloat(
+            order.amount_paid ??
+            0
+        ) || 0;
+
+
+    let outstandingBalance =
+        parseFloat(
+            order.balance
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate Outstanding Balance
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        Number.isNaN(
+            outstandingBalance
+        )
+    ) {
+
+        outstandingBalance =
+            Math.max(
+                grandTotal -
+                previousPaid,
+                0
+            );
+
+    }
+
+
+    outstandingBalance =
+        Math.max(
+            outstandingBalance,
+            0
+        );
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Amount Limit
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.partPaymentAmount
+    ) {
+
+        this.elements.partPaymentAmount.max =
+            outstandingBalance.toFixed(
+                2
+            );
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store State
+    |--------------------------------------------------------------------------
+    */
+
+    this.state.partPaymentPreviousPaid =
+        previousPaid;
+
+
+    this.state.partPaymentOutstandingBalance =
+        outstandingBalance;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Outstanding Balance
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.partPaymentOutstandingBalance
+    ) {
+
+        this.elements.partPaymentOutstandingBalance.value =
+            this.formatMoney(
+                outstandingBalance
+            );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Current Payment
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.partPaymentAmount
+    ) {
+
+        this.elements.partPaymentAmount.value =
+            '0';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Payment Method
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.partPaymentMethod
+    ) {
+
+        this.elements.partPaymentMethod.value =
+            '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Preview
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'partPaymentPreviewPrevious',
+        this.formatMoney(
+            previousPaid
+        )
+    );
+
+
+    this.setText(
+        'partPaymentPreviewCurrent',
+        '0.00'
+    );
+
+
+    this.setText(
+        'partPaymentPreviewRemaining',
+        this.formatMoney(
+            outstandingBalance
+        )
+    );
 
 },
 /*
@@ -3334,6 +3941,183 @@ updateCompleteOrderPaymentPreview()
             change
         )
     );
+
+},
+
+
+/*
+|--------------------------------------------------------------------------
+| Update Part Payment Preview
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Update the Part Payment preview while entering an installment.
+ */
+updatePartPaymentPreview()
+{
+
+    const outstandingBalance =
+        parseFloat(
+            this.state.partPaymentOutstandingBalance
+        ) || 0;
+
+
+    let paymentAmount =
+        parseFloat(
+            this.elements.partPaymentAmount?.value
+        ) || 0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Prevent Payment Above Outstanding Balance
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        paymentAmount >
+        outstandingBalance
+    ) {
+
+        paymentAmount =
+            outstandingBalance;
+
+
+        if (
+            this.elements.partPaymentAmount
+        ) {
+
+            this.elements.partPaymentAmount.value =
+                outstandingBalance.toFixed(
+                    2
+                );
+
+        }
+
+
+        this.notify(
+            'Payment amount cannot exceed the outstanding balance.',
+            'warning'
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Prevent Negative Amount
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        paymentAmount <
+        0
+    ) {
+
+        paymentAmount =
+            0;
+
+
+        if (
+            this.elements.partPaymentAmount
+        ) {
+
+            this.elements.partPaymentAmount.value =
+                '0';
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Remaining Balance
+    |--------------------------------------------------------------------------
+    */
+
+    const remainingBalance =
+        Math.max(
+            outstandingBalance -
+            paymentAmount,
+            0
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Previous Paid
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'partPaymentPreviewPrevious',
+        this.formatMoney(
+            this.state.partPaymentPreviousPaid ||
+            0
+        )
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current Payment
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'partPaymentPreviewCurrent',
+        this.formatMoney(
+            paymentAmount
+        )
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Remaining Balance
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        'partPaymentPreviewRemaining',
+        this.formatMoney(
+            remainingBalance
+        )
+    );
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Get Active Payment Tab
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Return the currently active payment tab.
+ */
+getActivePaymentTab()
+{
+
+    const activeTab =
+        document.querySelector(
+            '#salesOrderPaymentTabs .nav-link.active'
+        );
+
+
+    if (
+        activeTab?.id ===
+        'partPaymentTab'
+    ) {
+
+        return 'part';
+
+    }
+
+
+    return 'complete';
 
 },
 /*
@@ -3537,9 +4321,40 @@ openCreateOrder()
 async submitCompleteOrder()
 {
 
-    const orderId =
-        this.elements.completeOrderId?.value;
+   const paymentMethodId =
+    this.elements.completeOrderPaymentMethod?.value ??
+    '';
 
+     /*
+    |--------------------------------------------------------------------------
+    | Order ID
+    |--------------------------------------------------------------------------
+    */
+
+    const orderIdElement =
+        this.elements.completeOrderId;
+
+
+    const orderId =
+        orderIdElement?.value;
+
+
+    console.log(
+        'Complete Order ID Element:',
+        orderIdElement
+    );
+
+
+    console.log(
+        'Complete Order ID Value:',
+        orderId
+    );
+
+
+    console.log(
+        'Complete Order ID Type:',
+        typeof orderId
+    );
 
     if (!orderId) {
 
@@ -3592,7 +4407,7 @@ async submitCompleteOrder()
     |--------------------------------------------------------------------------
     */
 
-    if (!paymentMethod) {
+    if (!paymentMethodId) {
 
         this.notify(
             'Select a payment method.',
@@ -3653,8 +4468,8 @@ async submitCompleteOrder()
                             amount_paid:
                                 amountPaid,
 
-                            payment_method:
-                                paymentMethod
+                            payment_method_id:
+                                paymentMethodId
 
                         })
 
@@ -3799,6 +4614,365 @@ async submitCompleteOrder()
 
 },
 
+
+/*
+|--------------------------------------------------------------------------
+| Submit Part Payment
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Submit an installment payment for a sales order.
+ */
+async submitPartPayment()
+{
+
+    const orderId =
+        this.elements.completeOrderId?.value;
+
+
+    if (!orderId) {
+
+        return;
+
+    }
+
+
+    const paymentAmount =
+        parseFloat(
+            this.elements.partPaymentAmount?.value
+        ) || 0;
+
+
+    const paymentMethod =
+        this.elements.partPaymentMethod?.value ??
+        '';
+
+
+    const outstandingBalance =
+        parseFloat(
+            this.state.partPaymentOutstandingBalance
+        ) || 0;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Amount
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        paymentAmount <=
+        0
+    ) {
+
+        this.notify(
+            'Enter a valid payment amount.',
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    if (
+        paymentAmount >
+        outstandingBalance
+    ) {
+
+        this.notify(
+            'Payment amount cannot exceed the outstanding balance.',
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Payment Method
+    |--------------------------------------------------------------------------
+    */
+
+    if (!paymentMethod) {
+
+        this.notify(
+            'Select a payment method.',
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Loading
+    |--------------------------------------------------------------------------
+    */
+
+    this.setCompleteOrderLoading(
+        true
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/sales/orders/${orderId}/part-payment`,
+                {
+
+                    method:
+                        'POST',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest',
+
+                        'X-CSRF-TOKEN':
+                            document
+                                .querySelector(
+                                    'meta[name="csrf-token"]'
+                                )
+                                ?.getAttribute(
+                                    'content'
+                                ),
+
+                        'Content-Type':
+                            'application/json'
+
+                    },
+
+                    body:
+                    JSON.stringify({
+
+                        amount_paid:
+                            paymentAmount,
+
+                        payment_method_id:
+                            paymentMethod
+
+                    })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            response.status ===
+            422
+        ) {
+
+            const firstError =
+                Object.values(
+                    result.errors ??
+                    {}
+                )
+                    .flat()
+                    .find(
+                        message =>
+                            message
+                    );
+
+
+            this.notify(
+                firstError ??
+                result.message ??
+                'Please correct the payment details.',
+                'error'
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | General Error
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to process part payment.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close Modal
+        |--------------------------------------------------------------------------
+        */
+
+        this.completeOrderModalInstance?.hide();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Orders
+        |--------------------------------------------------------------------------
+        */
+
+        await this.loadOrders(
+            this.state.ordersPage ||
+            1
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Part Payment State
+        |--------------------------------------------------------------------------
+        */
+
+        this.state.partPaymentOutstandingBalance =
+            0;
+
+
+        this.state.partPaymentPreviousPaid =
+            0;
+
+
+        this.state.partPaymentAmount =
+            0;
+
+
+        this.state.partPaymentRemainingBalance =
+            0;
+
+
+        if (
+            this.elements.completeOrderId
+        ) {
+
+            this.elements.completeOrderId.value =
+                '';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Success
+        |--------------------------------------------------------------------------
+        */
+
+        this.notify(
+            result.message ??
+            'Part payment recorded successfully.',
+            'success'
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            'Part Payment submission failed:',
+            error
+        );
+
+
+        this.notify(
+            error.message ??
+            'Unable to process part payment.',
+            'error'
+        );
+
+    }
+    finally {
+
+        this.setCompleteOrderLoading(
+            false
+        );
+
+    }
+
+},
+
+ /*
+|--------------------------------------------------------------------------
+| Update Payment Submit Button
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Update the payment submit button based on the active tab.
+ */
+updatePaymentSubmitButton()
+{
+
+    const activeTab =
+        document.querySelector(
+            '#salesOrderPaymentTabs .nav-link.active'
+        );
+
+
+    if (
+        !this.elements.completeOrderSubmitText
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        activeTab?.id ===
+        'partPaymentTab'
+    ) {
+
+        this.elements.completeOrderSubmitText.innerHTML = `
+
+            <i class="bi bi-cash-coin me-1"></i>
+
+            Record Payment
+
+        `;
+
+        return;
+
+    }
+
+
+    this.elements.completeOrderSubmitText.innerHTML = `
+
+        <i class="bi bi-check2-circle me-1"></i>
+
+        Complete Order
+
+    `;
+
+},
+
+
 /*
 |--------------------------------------------------------------------------
 | Open Order Inspector
@@ -3918,6 +5092,7 @@ this.orderInspectorInstance.show();
 
 },
 
+
 /*
 |--------------------------------------------------------------------------
 | Populate Order Inspector
@@ -3937,6 +5112,7 @@ populateOrderInspector(
         return;
 
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -3958,33 +5134,12 @@ populateOrderInspector(
 
     }
 
+
     /*
     |--------------------------------------------------------------------------
-    | Order Date
+    | Order Information
     |--------------------------------------------------------------------------
     */
-
-    const inspectorOrderDate =
-        document.getElementById(
-            'inspectorOrderDate'
-        );
-
-
-    if (inspectorOrderDate) {
-
-        inspectorOrderDate.textContent =
-            this.formatDateTime(
-                order.created_at
-            );
-
-    }
-
-
-    this.setInspectorText(
-        'inspectorOrderNumber',
-        order.order_no ?? '—'
-    );
-
 
     this.setInspectorText(
         'inspectorOrderCustomer',
@@ -4008,18 +5163,32 @@ populateOrderInspector(
 
 
     this.setInspectorText(
+        'inspectorOrderSalesChannel',
+        order.sales_channel ??
+        '—'
+    );
+
+
+    this.setInspectorText(
+        'inspectorOrderDate',
+        this.formatDateTime(
+            order.created_at
+        )
+    );
+
+
+    this.setInspectorText(
         'inspectorOrderCashier',
         order.cashier?.name ??
         '—'
     );
 
 
-    this.setInspectorText(
-        'inspectorOrderSalesChannel',
-        order.sales_channel ??
-        '—'
-    );
-
+    /*
+    |--------------------------------------------------------------------------
+    | Status
+    |--------------------------------------------------------------------------
+    */
 
     this.setInspectorText(
         'inspectorOrderStatus',
@@ -4035,24 +5204,79 @@ populateOrderInspector(
     );
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Order Summary
+    |--------------------------------------------------------------------------
+    */
+
     this.setInspectorText(
-        'inspectorOrderTotalItems',
+        'inspectorOrderItemCount',
         order.total_items ??
         0
     );
 
 
     this.setInspectorText(
-        'inspectorOrderTotalQuantity',
+        'inspectorOrderQuantity',
         order.total_quantity ??
         0
     );
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Financial Summary
+    |--------------------------------------------------------------------------
+    */
+
+    const subtotal =
+        parseFloat(
+            order.subtotal
+        ) || 0;
+
+
+    const discount =
+        parseFloat(
+            order.discount
+        ) || 0;
+
+
+    const tax =
+        parseFloat(
+            order.tax
+        ) || 0;
+
+
+    const grandTotal =
+        parseFloat(
+            order.grand_total ??
+            order.total
+        ) || 0;
+
+
+    const amountPaid =
+        parseFloat(
+            order.amount_paid
+        ) || 0;
+
+
+    const balance =
+        parseFloat(
+            order.balance
+        ) || 0;
+
+
+    const changeGiven =
+        parseFloat(
+            order.change_given
+        ) || 0;
+
+
     this.setInspectorText(
         'inspectorOrderSubtotal',
         this.formatMoney(
-            order.subtotal ?? 0
+            subtotal
         )
     );
 
@@ -4060,7 +5284,7 @@ populateOrderInspector(
     this.setInspectorText(
         'inspectorOrderDiscount',
         this.formatMoney(
-            order.discount ?? 0
+            discount
         )
     );
 
@@ -4068,7 +5292,7 @@ populateOrderInspector(
     this.setInspectorText(
         'inspectorOrderTax',
         this.formatMoney(
-            order.tax ?? 0
+            tax
         )
     );
 
@@ -4076,17 +5300,15 @@ populateOrderInspector(
     this.setInspectorText(
         'inspectorOrderTotal',
         this.formatMoney(
-            order.grand_total ??
-            order.total ??
-            0
+            grandTotal
         )
     );
 
 
     this.setInspectorText(
-        'inspectorOrderPaid',
+        'inspectorOrderAmountPaid',
         this.formatMoney(
-            order.amount_paid ?? 0
+            amountPaid
         )
     );
 
@@ -4094,7 +5316,7 @@ populateOrderInspector(
     this.setInspectorText(
         'inspectorOrderBalance',
         this.formatMoney(
-            order.balance ?? 0
+            balance
         )
     );
 
@@ -4102,10 +5324,16 @@ populateOrderInspector(
     this.setInspectorText(
         'inspectorOrderChange',
         this.formatMoney(
-            order.change_given ?? 0
+            changeGiven
         )
     );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Remarks
+    |--------------------------------------------------------------------------
+    */
 
     this.setInspectorText(
         'inspectorOrderRemarks',
@@ -4114,9 +5342,20 @@ populateOrderInspector(
     );
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Order Items
+    |--------------------------------------------------------------------------
+    */
+
     this.populateOrderInspectorItems(
-        order.items ?? []
+        Array.isArray(
+            order.items
+        )
+            ? order.items
+            : []
     );
+
 
     /*
     |--------------------------------------------------------------------------
@@ -4159,9 +5398,12 @@ populateOrderInspector(
         this.formatDateTime(
             order.completed_at
         )
+
     );
 
 },
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -8046,6 +9288,175 @@ async loadProducts()
 
         this.state.products =
             [];
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Load Payment Methods
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Load configured payment methods.
+ */
+async loadPaymentMethods()
+{
+
+    const selects = [
+
+        this.elements.completeOrderPaymentMethod,
+
+        this.elements.partPaymentMethod
+
+    ].filter(
+        select => select
+    );
+
+
+    if (!selects.length) {
+
+        console.warn(
+            'Payment method selects not found.'
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                '/sales/payment-methods',
+                {
+
+                    method:
+                        'GET',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest'
+
+                    }
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to load payment methods.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Resolve Data
+        |--------------------------------------------------------------------------
+        */
+
+        const methods =
+            Array.isArray(
+                result.data
+            )
+                ? result.data
+                : [];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Populate Selects
+        |--------------------------------------------------------------------------
+        */
+
+        selects.forEach(
+            select => {
+
+                select.innerHTML = `
+
+                    <option value="">
+                        Select payment method
+                    </option>
+
+                `;
+
+
+                methods.forEach(
+                    method => {
+
+                        const option =
+                            document.createElement(
+                                'option'
+                            );
+
+
+                        option.value =
+                            method.id;
+
+
+                        option.textContent =
+                            method.name;
+
+
+                        select.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+
+                select.disabled =
+                    false;
+
+            }
+        );
+
+
+    }
+    catch (error) {
+
+        console.error(
+            'Payment methods loading error:',
+            error
+        );
+
+
+        selects.forEach(
+            select => {
+
+                select.innerHTML = `
+
+                    <option value="">
+                        Unable to load payment methods
+                    </option>
+
+                `;
+
+                select.disabled =
+                    true;
+
+            }
+        );
 
     }
 
