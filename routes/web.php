@@ -541,7 +541,11 @@ Route::prefix('products')
 
             Route::get('/stats', [InvoiceController::class, 'stats'])->name('invoices.stats');
 
-            Route::get('/{id}',[InvoiceController::class, 'details'])->name('sales.invoices.details');
+            Route::get('/{id}',[InvoiceController::class, 'details'])
+            ->name('sales.invoices.details');
+
+            Route::get('/{id}/print', [InvoiceController::class, 'print'])
+            ->name('sales.invoices.print');
 
         });
 

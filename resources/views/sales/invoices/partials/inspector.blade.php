@@ -1,9 +1,10 @@
+
 {{-- ==============================================================
     Invoice Inspector
 =============================================================== --}}
 
 <div
-    class="offcanvas offcanvas-end"
+    class="offcanvas offcanvas-end invoice-inspector"
     tabindex="-1"
     id="invoiceInspector"
     aria-labelledby="invoiceInspectorLabel"
@@ -13,20 +14,33 @@
         Header
     =========================================================== --}}
 
-    <div class="offcanvas-header border-bottom">
+    <div class="invoice-inspector-header">
 
-        <div>
+        <div class="invoice-inspector-header-content">
 
-            <div class="text-muted small mb-1">
-                Invoice
+            <div class="invoice-inspector-eyebrow">
+
+                <i class="bi bi-receipt me-1"></i>
+
+                Sales Invoice
+
             </div>
 
+
             <h5
-                class="offcanvas-title fw-semibold"
+                class="invoice-inspector-title"
                 id="invoiceInspectorLabel"
             >
                 —
             </h5>
+
+
+            <div
+                class="invoice-inspector-date"
+                id="invoiceInspectorDate"
+            >
+                —
+            </div>
 
         </div>
 
@@ -45,155 +59,224 @@
         Body
     =========================================================== --}}
 
-    <div class="offcanvas-body">
+    <div class="offcanvas-body invoice-inspector-body">
 
-        {{-- Status --}}
 
-        <div class="d-flex align-items-center justify-content-between mb-4">
+        {{-- ======================================================
+            Status
+        ======================================================= --}}
 
-            <div>
+        <div class="invoice-status-card mb-4">
 
-                <div class="text-muted small">
-                    Order Status
+            <div class="invoice-status-item">
+
+                <div class="invoice-status-icon invoice-status-icon-order">
+
+                    <i class="bi bi-receipt"></i>
+
                 </div>
 
-                <div class="small text-muted">
-                    Current sales order state
+                <div class="invoice-status-content">
+
+                    <div class="invoice-status-label">
+                        Order Status
+                    </div>
+
+                    <div class="invoice-status-description">
+                        Current sales order state
+                    </div>
+
                 </div>
+
+                <span
+                    id="invoiceInspectorOrderStatus"
+                    class="badge invoice-status-badge"
+                >
+                    —
+                </span>
 
             </div>
 
-            <span
-                id="invoiceInspectorOrderStatus"
-                class="badge bg-secondary-subtle text-secondary"
-            >
-                —
-            </span>
 
-        </div>
+            <div class="invoice-status-divider"></div>
 
 
-        {{-- Payment Status --}}
+            <div class="invoice-status-item">
 
-        <div class="d-flex align-items-center justify-content-between mb-4">
+                <div class="invoice-status-icon invoice-status-icon-payment">
 
-            <div>
-
-                <div class="text-muted small">
-                    Payment Status
-                </div>
-
-                <div class="small text-muted">
-                    Current payment state
-                </div>
-
-            </div>
-
-            <span
-                id="invoiceInspectorPaymentStatus"
-                class="badge bg-secondary-subtle text-secondary"
-            >
-                —
-            </span>
-
-        </div>
-
-
-        {{-- Invoice Information --}}
-
-        <div class="purchase-inspector-card mb-4">
-
-            <div class="purchase-inspector-grid">
-
-                <div>
-
-                    <span class="purchase-inspector-label">
-                        Invoice No.
-                    </span>
-
-                    <strong id="invoiceInspectorNumber">
-                        —
-                    </strong>
+                    <i class="bi bi-wallet2"></i>
 
                 </div>
 
+                <div class="invoice-status-content">
 
-                <div>
+                    <div class="invoice-status-label">
+                        Payment Status
+                    </div>
 
-                    <span class="purchase-inspector-label">
-                        Order No.
-                    </span>
-
-                    <strong id="invoiceInspectorOrderNumber">
-                        —
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span class="purchase-inspector-label">
-                        Customer
-                    </span>
-
-                    <strong id="invoiceInspectorCustomer">
-                        —
-                    </strong>
+                    <div class="invoice-status-description">
+                        Current payment state
+                    </div>
 
                 </div>
 
-
-                <div>
-
-                    <span class="purchase-inspector-label">
-                        Branch
-                    </span>
-
-                    <strong id="invoiceInspectorBranch">
-                        —
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span class="purchase-inspector-label">
-                        Terminal
-                    </span>
-
-                    <strong id="invoiceInspectorTerminal">
-                        —
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span class="purchase-inspector-label">
-                        Invoice Date
-                    </span>
-
-                    <strong id="invoiceInspectorDate">
-                        —
-                    </strong>
-
-                </div>
+                <span
+                    id="invoiceInspectorPaymentStatus"
+                    class="badge invoice-status-badge"
+                >
+                    —
+                </span>
 
             </div>
 
         </div>
 
 
-        {{-- Items --}}
+        {{-- ======================================================
+            Invoice Information
+        ======================================================= --}}
 
-        <div class="purchase-inspector-section">
+        <div class="invoice-inspector-section mb-4">
 
-            <div class="purchase-inspector-section-header">
+            <div class="invoice-inspector-section-header">
 
-                <div class="purchase-inspector-section-icon">
+                <div class="invoice-inspector-section-icon">
+
+                    <i class="bi bi-file-earmark-text"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="invoice-inspector-section-title">
+                        Invoice Information
+                    </div>
+
+                    <div class="invoice-inspector-section-description">
+                        Reference and sales information
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="invoice-info-card">
+
+                <div class="invoice-info-grid">
+
+                    <div class="invoice-info-item">
+
+                        <span class="invoice-info-label">
+                            Invoice No.
+                        </span>
+
+                        <strong
+                            id="invoiceInspectorNumber"
+                            class="invoice-info-value invoice-info-highlight"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="invoice-info-item">
+
+                        <span class="invoice-info-label">
+                            Order No.
+                        </span>
+
+                        <strong
+                            id="invoiceInspectorOrderNumber"
+                            class="invoice-info-value"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="invoice-info-item">
+
+                        <span class="invoice-info-label">
+                            Customer
+                        </span>
+
+                        <strong
+                            id="invoiceInspectorCustomer"
+                            class="invoice-info-value"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="invoice-info-item">
+
+                        <span class="invoice-info-label">
+                            Branch
+                        </span>
+
+                        <strong
+                            id="invoiceInspectorBranch"
+                            class="invoice-info-value"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="invoice-info-item">
+
+                        <span class="invoice-info-label">
+                            Terminal
+                        </span>
+
+                        <strong
+                            id="invoiceInspectorTerminal"
+                            class="invoice-info-value"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="invoice-info-item">
+
+                        <span class="invoice-info-label">
+                            Invoice Date
+                        </span>
+
+                        <strong
+                            id="invoiceInspectorDate"
+                            class="invoice-info-value"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {{-- ======================================================
+            Items
+        ======================================================= --}}
+
+        <div class="invoice-inspector-section mb-4">
+
+            <div class="invoice-inspector-section-header">
+
+                <div class="invoice-inspector-section-icon">
 
                     <i class="bi bi-box-seam"></i>
 
@@ -201,11 +284,11 @@
 
                 <div>
 
-                    <div class="purchase-inspector-section-title">
+                    <div class="invoice-inspector-section-title">
                         Invoice Items
                     </div>
 
-                    <div class="purchase-inspector-section-description">
+                    <div class="invoice-inspector-section-description">
                         Products included in this invoice
                     </div>
 
@@ -216,22 +299,22 @@
 
             <div
                 id="invoiceInspectorItems"
-                class="purchase-inspector-items"
+                class="invoice-inspector-items"
             >
 
-                <div class="purchase-inspector-items-empty">
+                <div class="invoice-items-empty">
 
-                    <div class="purchase-inspector-items-empty-icon">
+                    <div class="invoice-items-empty-icon">
 
                         <i class="bi bi-box-seam"></i>
 
                     </div>
 
-                    <div class="purchase-inspector-items-empty-title">
+                    <div class="invoice-items-empty-title">
                         No items available
                     </div>
 
-                    <div class="purchase-inspector-items-empty-text">
+                    <div class="invoice-items-empty-text">
                         This invoice does not contain any products.
                     </div>
 
@@ -242,16 +325,36 @@
         </div>
 
 
-        {{-- Summary --}}
+        {{-- ======================================================
+            Invoice Summary
+        ======================================================= --}}
 
-        <div class="purchase-inspector-card mb-4">
+        <div class="invoice-summary-card mb-4">
 
-            <div class="purchase-inspector-heading mb-3">
-                Invoice Summary
+            <div class="invoice-inspector-section-header mb-3">
+
+                <div class="invoice-inspector-section-icon">
+
+                    <i class="bi bi-calculator"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="invoice-inspector-section-title">
+                        Invoice Summary
+                    </div>
+
+                    <div class="invoice-inspector-section-description">
+                        Financial breakdown
+                    </div>
+
+                </div>
+
             </div>
 
 
-            <div class="purchase-summary-row">
+            <div class="invoice-summary-row">
 
                 <span>
                     Total Items
@@ -264,7 +367,7 @@
             </div>
 
 
-            <div class="purchase-summary-row">
+            <div class="invoice-summary-row">
 
                 <span>
                     Total Quantity
@@ -277,7 +380,10 @@
             </div>
 
 
-            <div class="purchase-summary-row">
+            <div class="invoice-summary-divider"></div>
+
+
+            <div class="invoice-summary-row">
 
                 <span>
                     Subtotal
@@ -290,7 +396,7 @@
             </div>
 
 
-            <div class="purchase-summary-row">
+            <div class="invoice-summary-row">
 
                 <span>
                     Discount
@@ -303,7 +409,7 @@
             </div>
 
 
-            <div class="purchase-summary-row">
+            <div class="invoice-summary-row">
 
                 <span>
                     Tax
@@ -316,7 +422,10 @@
             </div>
 
 
-            <div class="purchase-summary-row purchase-summary-total">
+            <div class="invoice-summary-divider"></div>
+
+
+            <div class="invoice-summary-total">
 
                 <span>
                     Grand Total
@@ -329,7 +438,7 @@
             </div>
 
 
-            <div class="purchase-summary-row">
+            <div class="invoice-summary-row invoice-summary-paid">
 
                 <span>
                     Amount Paid
@@ -342,7 +451,7 @@
             </div>
 
 
-            <div class="purchase-summary-row">
+            <div class="invoice-summary-row invoice-summary-balance">
 
                 <span>
                     Balance
@@ -355,7 +464,7 @@
             </div>
 
 
-            <div class="purchase-summary-row">
+            <div class="invoice-summary-row">
 
                 <span>
                     Change Given
@@ -370,59 +479,80 @@
         </div>
 
 
-        {{-- Finalization --}}
+        {{-- ======================================================
+            Continue With Order
+        ======================================================= --}}
 
-        <div class="border rounded-3 p-3 mb-4">
+        <div class="invoice-action-card mb-4">
 
-            <div class="d-flex align-items-start gap-3">
+            <div class="invoice-action-icon">
 
-                <div class="text-primary">
+                <i class="bi bi-arrow-right-circle"></i>
 
-                    <i class="bi bi-arrow-right-circle fs-5"></i>
+            </div>
 
+
+            <div class="invoice-action-content">
+
+                <div class="invoice-action-title">
+                    Continue with this order
                 </div>
 
-                <div class="flex-grow-1">
-
-                    <div class="fw-semibold mb-1">
-                        Continue with this order
-                    </div>
-
-                    <div class="text-muted small mb-3">
-                        Payments and order finalization are handled
-                        from the Sales Orders module.
-                    </div>
-
-                    <button
-                        type="button"
-                        class="btn btn-primary btn-sm"
-                        id="invoiceGoToOrder"
-                    >
-
-                        <i class="bi bi-arrow-right me-1"></i>
-
-                        Go to Sales Order
-
-                    </button>
-
+                <div class="invoice-action-description">
+                    Open the related sales order to continue payment
+                    or finalize the order.
                 </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary invoice-action-button"
+                    id="invoiceGoToOrder"
+                >
+
+                    <i class="bi bi-arrow-right me-1"></i>
+
+                    Go to Sales Order
+
+                </button>
 
             </div>
 
         </div>
 
 
-        {{-- Remarks --}}
+        {{-- ======================================================
+            Remarks
+        ======================================================= --}}
 
-        <div class="mb-4">
+        <div class="invoice-inspector-section mb-4">
 
-            <div class="purchase-inspector-heading mb-3">
-                Remarks
+            <div class="invoice-inspector-section-header">
+
+                <div class="invoice-inspector-section-icon">
+
+                    <i class="bi bi-chat-left-text"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="invoice-inspector-section-title">
+                        Remarks
+                    </div>
+
+                    <div class="invoice-inspector-section-description">
+                        Additional invoice notes
+                    </div>
+
+                </div>
+
             </div>
+
 
             <div
                 id="invoiceInspectorRemarks"
-                class="text-muted small"
+                class="invoice-remarks"
             >
                 —
             </div>
@@ -430,64 +560,125 @@
         </div>
 
 
-        {{-- Activity --}}
+        {{-- ======================================================
+            Activity
+        ======================================================= --}}
 
-        <div class="purchase-inspector-card">
+        <div class="invoice-inspector-section">
 
-            <div class="purchase-inspector-heading mb-3">
-                Activity
+            <div class="invoice-inspector-section-header">
+
+                <div class="invoice-inspector-section-icon">
+
+                    <i class="bi bi-clock-history"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="invoice-inspector-section-title">
+                        Activity
+                    </div>
+
+                    <div class="invoice-inspector-section-description">
+                        Invoice creation and update history
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="purchase-inspector-meta">
 
-                <div>
+            <div class="invoice-activity-card">
 
-                    <span>
-                        Created By
-                    </span>
+                <div class="invoice-activity-item">
 
-                    <strong id="invoiceInspectorCreatedBy">
-                        —
-                    </strong>
+                    <div class="invoice-activity-icon">
 
-                </div>
+                        <i class="bi bi-person"></i>
 
+                    </div>
 
-                <div>
+                    <div class="invoice-activity-content">
 
-                    <span>
-                        Created
-                    </span>
+                        <span>
+                            Created By
+                        </span>
 
-                    <strong id="invoiceInspectorCreatedAt">
-                        —
-                    </strong>
+                        <strong id="invoiceInspectorCreatedBy">
+                            —
+                        </strong>
+
+                    </div>
 
                 </div>
 
 
-                <div>
+                <div class="invoice-activity-item">
 
-                    <span>
-                        Updated By
-                    </span>
+                    <div class="invoice-activity-icon">
 
-                    <strong id="invoiceInspectorUpdatedBy">
-                        —
-                    </strong>
+                        <i class="bi bi-calendar3"></i>
+
+                    </div>
+
+                    <div class="invoice-activity-content">
+
+                        <span>
+                            Created
+                        </span>
+
+                        <strong id="invoiceInspectorCreatedAt">
+                            —
+                        </strong>
+
+                    </div>
 
                 </div>
 
 
-                <div>
+                <div class="invoice-activity-item">
 
-                    <span>
-                        Updated
-                    </span>
+                    <div class="invoice-activity-icon">
 
-                    <strong id="invoiceInspectorUpdatedAt">
-                        —
-                    </strong>
+                        <i class="bi bi-person-check"></i>
+
+                    </div>
+
+                    <div class="invoice-activity-content">
+
+                        <span>
+                            Updated By
+                        </span>
+
+                        <strong id="invoiceInspectorUpdatedBy">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="invoice-activity-item">
+
+                    <div class="invoice-activity-icon">
+
+                        <i class="bi bi-arrow-repeat"></i>
+
+                    </div>
+
+                    <div class="invoice-activity-content">
+
+                        <span>
+                            Updated
+                        </span>
+
+                        <strong id="invoiceInspectorUpdatedAt">
+                            —
+                        </strong>
+
+                    </div>
 
                 </div>
 
@@ -495,6 +686,8 @@
 
         </div>
 
+
     </div>
 
 </div>
+

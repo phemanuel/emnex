@@ -68,7 +68,7 @@ const InvoiceModule = {
 
     init() {
 
-        this.cacheElements();
+        this.cacheElements();     
 
         this.bindEvents();
 
@@ -80,125 +80,251 @@ const InvoiceModule = {
 
 
     /*
-    |--------------------------------------------------------------------------
-    | Cache Elements
-    |--------------------------------------------------------------------------
-    */
+|--------------------------------------------------------------------------
+| Cache Elements
+|--------------------------------------------------------------------------
+*/
 
-    cacheElements() {
+cacheElements()
+{
 
-        this.elements = {
+    this.elements = {
+     
+        /*
+        |--------------------------------------------------------------------------
+        | KPI
+        |--------------------------------------------------------------------------
+        */
 
-            /*
-            |------------------------------------------------------------------
-            | KPI
-            |------------------------------------------------------------------
-            */
+        draftCount:
+            document.getElementById(
+                'invoiceDraftCount'
+            ),
 
-            draftCount:
-                document.getElementById(
-                    'invoiceDraftCount'
-                ),
+        heldCount:
+            document.getElementById(
+                'invoiceHeldCount'
+            ),
 
-            heldCount:
-                document.getElementById(
-                    'invoiceHeldCount'
-                ),
+        totalValue:
+            document.getElementById(
+                'invoiceTotalValue'
+            ),
 
-            totalValue:
-                document.getElementById(
-                    'invoiceTotalValue'
-                ),
-
-            outstandingBalance:
-                document.getElementById(
-                    'invoiceOutstandingBalance'
-                ),
-
-
-            /*
-            |------------------------------------------------------------------
-            | Filters
-            |------------------------------------------------------------------
-            */
-
-            search:
-                document.getElementById(
-                    'invoiceSearch'
-                ),
-
-            branch:
-                document.getElementById(
-                    'invoiceBranchFilter'
-                ),
-
-            orderStatus:
-                document.getElementById(
-                    'invoiceStatusFilter'
-                ),
-
-            paymentStatus:
-                document.getElementById(
-                    'invoicePaymentStatusFilter'
-                ),
-
-            dateFrom:
-                document.getElementById(
-                    'invoiceDateFrom'
-                ),
-
-            dateTo:
-                document.getElementById(
-                    'invoiceDateTo'
-                ),
-
-            resetFilters:
-                document.getElementById(
-                    'resetInvoiceFilters'
-                ),
-
-            refresh:
-                document.getElementById(
-                    'refreshInvoices'
-                ),
+        outstandingBalance:
+            document.getElementById(
+                'invoiceOutstandingBalance'
+            ),
 
 
-            /*
-            |------------------------------------------------------------------
-            | Table
-            |------------------------------------------------------------------
-            */
+        /*
+        |--------------------------------------------------------------------------
+        | Filters
+        |--------------------------------------------------------------------------
+        */
 
-            tableBody:
-                document.getElementById(
-                    'invoicesTableBody'
-                ),
+        search:
+            document.getElementById(
+                'invoiceSearch'
+            ),
 
-            paginationInfo:
-                document.getElementById(
-                    'invoicePaginationInfo'
-                ),
+        branch:
+            document.getElementById(
+                'invoiceBranchFilter'
+            ),
 
-            pagination:
-                document.getElementById(
-                    'invoicePagination'
-                ),
+        orderStatus:
+            document.getElementById(
+                'invoiceStatusFilter'
+            ),
+
+        paymentStatus:
+            document.getElementById(
+                'invoicePaymentStatusFilter'
+            ),
+
+        dateFrom:
+            document.getElementById(
+                'invoiceDateFrom'
+            ),
+
+        dateTo:
+            document.getElementById(
+                'invoiceDateTo'
+            ),
+
+        resetFilters:
+            document.getElementById(
+                'resetInvoiceFilters'
+            ),
+
+        refresh:
+            document.getElementById(
+                'refreshInvoices'
+            ),
 
 
-            /*
-            |------------------------------------------------------------------
-            | Inspector
-            |------------------------------------------------------------------
-            */
+        /*
+        |--------------------------------------------------------------------------
+        | Table
+        |--------------------------------------------------------------------------
+        */
 
-            inspector:
-                document.getElementById(
-                    'invoiceInspector'
-                ),
+        tableBody:
+            document.getElementById(
+                'invoicesTableBody'
+            ),
 
-        };
+        paginationInfo:
+            document.getElementById(
+                'invoicePaginationInfo'
+            ),
 
-    },
+        pagination:
+            document.getElementById(
+                'invoicePagination'
+            ),
+
+
+       /*
+|--------------------------------------------------------------------------
+| Inspector
+|--------------------------------------------------------------------------
+*/
+
+inspector:
+    document.getElementById(
+        'invoiceInspector'
+    ),
+
+inspectorLabel:
+    document.getElementById(
+        'invoiceInspectorLabel'
+    ),
+
+inspectorOrderStatus:
+    document.getElementById(
+        'invoiceInspectorOrderStatus'
+    ),
+
+inspectorPaymentStatus:
+    document.getElementById(
+        'invoiceInspectorPaymentStatus'
+    ),
+
+inspectorNumber:
+    document.getElementById(
+        'invoiceInspectorNumber'
+    ),
+
+inspectorOrderNumber:
+    document.getElementById(
+        'invoiceInspectorOrderNumber'
+    ),
+
+inspectorCustomer:
+    document.getElementById(
+        'invoiceInspectorCustomer'
+    ),
+
+inspectorBranch:
+    document.getElementById(
+        'invoiceInspectorBranch'
+    ),
+
+inspectorTerminal:
+    document.getElementById(
+        'invoiceInspectorTerminal'
+    ),
+
+inspectorDate:
+    document.getElementById(
+        'invoiceInspectorDate'
+    ),
+
+inspectorItems:
+    document.getElementById(
+        'invoiceInspectorItems'
+    ),
+
+inspectorItemCount:
+    document.getElementById(
+        'invoiceInspectorItemCount'
+    ),
+
+inspectorQuantity:
+    document.getElementById(
+        'invoiceInspectorQuantity'
+    ),
+
+inspectorSubtotal:
+    document.getElementById(
+        'invoiceInspectorSubtotal'
+    ),
+
+inspectorDiscount:
+    document.getElementById(
+        'invoiceInspectorDiscount'
+    ),
+
+inspectorTax:
+    document.getElementById(
+        'invoiceInspectorTax'
+    ),
+
+inspectorTotal:
+    document.getElementById(
+        'invoiceInspectorTotal'
+    ),
+
+inspectorAmountPaid:
+    document.getElementById(
+        'invoiceInspectorAmountPaid'
+    ),
+
+inspectorBalance:
+    document.getElementById(
+        'invoiceInspectorBalance'
+    ),
+
+inspectorChange:
+    document.getElementById(
+        'invoiceInspectorChange'
+    ),
+
+inspectorRemarks:
+    document.getElementById(
+        'invoiceInspectorRemarks'
+    ),
+
+inspectorCreatedBy:
+    document.getElementById(
+        'invoiceInspectorCreatedBy'
+    ),
+
+inspectorCreatedAt:
+    document.getElementById(
+        'invoiceInspectorCreatedAt'
+    ),
+
+inspectorUpdatedBy:
+    document.getElementById(
+        'invoiceInspectorUpdatedBy'
+    ),
+
+inspectorUpdatedAt:
+    document.getElementById(
+        'invoiceInspectorUpdatedAt'
+    ),
+
+goToOrder:
+    document.getElementById(
+        'invoiceGoToOrder'
+    ),
+
+    };
+
+},
 
 
     /*
@@ -395,99 +521,159 @@ const InvoiceModule = {
 
 
         /*
-        |----------------------------------------------------------------------
-        | Table Actions
-        |----------------------------------------------------------------------
-        */
+|--------------------------------------------------------------------------
+| Table Actions
+|--------------------------------------------------------------------------
+*/
 
-        this.elements.tableBody
-            ?.addEventListener(
-                'click',
-                event => {
+this.elements.tableBody
+    ?.addEventListener(
+        'click',
+        event => {
 
-                    const button =
-                        event.target.closest(
-                            '[data-invoice-action]'
-                        );
-
-
-                    if (!button) {
-
-                        return;
-
-                    }
+            const button =
+                event.target.closest(
+                    '.invoice-action-btn'
+                );
 
 
-                    const action =
-                        button.dataset.invoiceAction;
+            if (!button) {
+
+                return;
+
+            }
 
 
-                    const invoiceId =
-                        button.dataset.invoiceId;
+            const action =
+                button.getAttribute(
+                    'data-invoice-action'
+                );
 
 
-                    const orderId =
-                        button.dataset.orderId;
+            const invoiceId =
+                button.getAttribute(
+                    'data-invoice-id'
+                );
 
 
-                    /*
-                    |----------------------------------------------------------
-                    | View
-                    |----------------------------------------------------------
-                    */
-
-                    if (
-                        action === 'view'
-                    ) {
-
-                        this.openInspector(
-                            invoiceId
-                        );
-
-                        return;
-
-                    }
+            const orderId =
+                button.getAttribute(
+                    'data-order-id'
+                );
 
 
-                    /*
-                    |----------------------------------------------------------
-                    | Print
-                    |----------------------------------------------------------
-                    */
+            console.log(
+                'INVOICE ACTION',
+                {
+                    action:
+                        action,
 
-                    if (
-                        action === 'print'
-                    ) {
+                    invoiceId:
+                        invoiceId,
 
-                        this.printInvoice(
-                            invoiceId
-                        );
+                    orderId:
+                        orderId,
 
-                        return;
-
-                    }
-
-
-                    /*
-                    |----------------------------------------------------------
-                    | Finalize Order
-                    |----------------------------------------------------------
-                    */
-
-                    if (
-                        action === 'finalize'
-                    ) {
-
-                        this.openOrder(
-                            orderId
-                        );
-
-                        return;
-
-                    }
-
+                    button:
+                        button
                 }
             );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | View
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                action === 'view'
+            ) {
+
+                if (!invoiceId) {
+
+                    this.notify(
+                        'Invoice could not be identified.',
+                        'warning'
+                    );
+
+                    return;
+
+                }
+
+
+                this.openInvoiceInspector(
+                    invoiceId
+                );
+
+                return;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Print
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                action === 'print'
+            ) {
+
+                if (!invoiceId) {
+
+                    this.notify(
+                        'Invoice could not be identified.',
+                        'warning'
+                    );
+
+                    return;
+
+                }
+
+
+                this.printInvoice(
+                    invoiceId
+                );
+
+                return;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Finalize
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                action === 'finalize'
+            ) {
+
+                if (!orderId) {
+
+                    this.notify(
+                        'Sales order could not be identified.',
+                        'warning'
+                    );
+
+                    return;
+
+                }
+
+
+                this.openOrder(
+                    orderId
+                );
+
+                return;
+
+            }
+
+        }
+    );
 
 
         /*
@@ -794,9 +980,12 @@ const InvoiceModule = {
             }
 
 
+            this.state.invoices =
+                result.data ?? [];
+
+
             this.renderTable(
-                result.data ??
-                []
+                this.state.invoices
             );
 
 
@@ -1080,16 +1269,14 @@ const InvoiceModule = {
 
                 <td class="text-end">
 
-                    <div class="d-inline-flex align-items-center gap-2">
+                    <div class="d-flex justify-content-end gap-2">
 
                         <button
                             type="button"
-                            class="btn btn-sm invoice-action-btn invoice-action-view"
+                            class="btn btn-outline-primary btn-sm invoice-action-btn"
                             data-invoice-action="view"
                             data-invoice-id="${invoice.id}"
-                            data-order-id="${invoice.order_id ?? ''}"
-                            title="View Invoice"
-                            aria-label="View Invoice"
+                            title="View invoice details"
                         >
 
                             <i class="bi bi-eye"></i>
@@ -1098,29 +1285,27 @@ const InvoiceModule = {
 
                         <button
                             type="button"
-                            class="btn btn-sm invoice-action-btn invoice-action-print"
+                            class="btn btn-outline-secondary btn-sm invoice-action-btn"
                             data-invoice-action="print"
                             data-invoice-id="${invoice.id}"
-                            data-order-id="${invoice.order_id ?? ''}"
-                            title="Print Invoice"
-                            aria-label="Print Invoice"
+                            title="Print invoice"
                         >
 
                             <i class="bi bi-printer"></i>
 
                         </button>
 
+
                         <button
                             type="button"
-                            class="btn btn-sm invoice-action-btn invoice-action-finalize"
+                            class="btn btn-outline-success btn-sm invoice-action-btn"
                             data-invoice-action="finalize"
                             data-invoice-id="${invoice.id}"
-                            data-order-id="${invoice.order_id ?? ''}"
-                            title="Finalize Order"
-                            aria-label="Finalize Order"
+                            data-order-id="${invoice.order_id ?? invoice.order?.id ?? ''}"
+                            title="Finalize order"
                         >
 
-                            <i class="bi bi-arrow-right-circle"></i>
+                            <i class="bi bi-check2-circle"></i>
 
                         </button>
 
@@ -1256,36 +1441,125 @@ const InvoiceModule = {
     },
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Open Inspector
-    |--------------------------------------------------------------------------
-    */
+   async openInspector(
+    invoiceId,
+    orderId
+) {
 
-    async openInspector(
-        invoiceId
-    ) {
+    if (!invoiceId || !orderId) {
 
-        if (!invoiceId) {
+        this.notify(
+            'Invoice could not be identified.',
+            'warning'
+        );
 
-            this.notify(
-                'Invoice could not be identified.',
-                'warning'
+        return;
+
+    }
+
+    try {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Load Invoice / Order
+        |--------------------------------------------------------------------------
+        */
+
+        const response =
+            await fetch(
+                `/sales/orders/${orderId}/details`,
+                {
+
+                    method:
+                        'GET',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest'
+
+                    }
+
+                }
             );
 
-            return;
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to load invoice details.'
+            );
 
         }
 
 
-        this.state.selectedInvoiceId =
-            invoiceId;
+        /*
+        |--------------------------------------------------------------------------
+        | Order Data
+        |--------------------------------------------------------------------------
+        */
+
+        const order =
+            result.data;
 
 
         /*
-        |----------------------------------------------------------------------
-        | Find Inspector
-        |----------------------------------------------------------------------
+        |--------------------------------------------------------------------------
+        | Find Invoice Row
+        |--------------------------------------------------------------------------
+        */
+
+        const invoice =
+            this.state.invoices?.find(
+                item =>
+                    String(item.id) ===
+                    String(invoiceId)
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Merge Invoice + Order
+        |--------------------------------------------------------------------------
+        */
+
+        const inspectorData = {
+
+            ...order,
+
+            invoice_no:
+                invoice?.invoice_no ??
+                '—',
+
+        };
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Populate Inspector
+        |--------------------------------------------------------------------------
+        */
+
+        this.populateInspector(
+            inspectorData
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Open Inspector
+        |--------------------------------------------------------------------------
         */
 
         const inspector =
@@ -1294,97 +1568,34 @@ const InvoiceModule = {
             );
 
 
-        if (!inspector) {
+        if (inspector) {
 
-            console.error(
-                'Invoice inspector not found.'
-            );
-
-            return;
-
-        }
-
-
-        /*
-        |----------------------------------------------------------------------
-        | Load Invoice Details
-        |----------------------------------------------------------------------
-        */
-
-        try {
-
-            const response =
-                await fetch(
-                    `/sales/invoices/${invoiceId}`,
-                    {
-
-                        method:
-                            'GET',
-
-                        headers: {
-
-                            'Accept':
-                                'application/json',
-
-                            'X-Requested-With':
-                                'XMLHttpRequest'
-
-                        }
-
-                    }
-                );
-
-
-            const result =
-                await response.json();
-
-
-            if (
-                !response.ok ||
-                !result.success
-            ) {
-
-                throw new Error(
-                    result.message ??
-                    'Unable to load invoice.'
-                );
-
-            }
-
-
-            this.populateInspector(
-                result.data ??
-                {}
-            );
-
-
-            const instance =
-                bootstrap.Offcanvas.getOrCreateInstance(
+            bootstrap.Offcanvas
+                .getOrCreateInstance(
                     inspector
-                );
-
-
-            instance.show();
-
-        }
-        catch (error) {
-
-            console.error(
-                'Invoice inspector error:',
-                error
-            );
-
-
-            this.notify(
-                error.message ??
-                'Unable to load invoice.',
-                'error'
-            );
+                )
+                .show();
 
         }
 
-    },
+    }
+    catch (error) {
 
+        console.error(
+            'Invoice inspector error:',
+            error
+        );
+
+
+        this.notify(
+            error.message ??
+            'Unable to load invoice details.',
+            'error'
+        );
+
+    }
+
+},
 
     /*
     |--------------------------------------------------------------------------
@@ -1547,6 +1758,727 @@ const InvoiceModule = {
 
     },
 
+ /*
+|--------------------------------------------------------------------------
+| Open Invoice Inspector
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Open the Sales Invoice inspector.
+ */
+async openInvoiceInspector(
+    invoiceId
+)
+{
+
+    if (!invoiceId) {
+
+        this.notify(
+            'Invoice could not be identified.',
+            'warning'
+        );
+
+        return;
+
+    }
+
+
+    const inspector =
+        this.elements.inspector;
+
+
+    if (!inspector) {
+
+        return;
+
+    }
+
+
+    try {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Show Inspector
+        |--------------------------------------------------------------------------
+        */
+
+        const offcanvas =
+            bootstrap.Offcanvas.getOrCreateInstance(
+                inspector
+            );
+
+
+        offcanvas.show();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Loading State
+        |--------------------------------------------------------------------------
+        */
+
+        this.resetInvoiceInspector();
+
+
+        this.setInspectorText(
+            'invoiceInspectorLabel',
+            'Loading...'
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Request
+        |--------------------------------------------------------------------------
+        */
+
+        const response =
+            await fetch(
+                `/sales/invoices/${encodeURIComponent(
+                    invoiceId
+                )}`,
+                {
+
+                    method:
+                        'GET',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest'
+
+                    }
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            'INVOICE DETAILS RESPONSE',
+            result
+        );
+
+
+        if (
+            !response.ok ||
+            !result.success ||
+            !result.data
+        ) {
+
+            throw new Error(
+                result.message ??
+                'Unable to load invoice details.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Populate Inspector
+        |--------------------------------------------------------------------------
+        */
+
+        this.populateInvoiceInspector(
+            result.data
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            'Invoice inspector error:',
+            error
+        );
+
+
+        this.notify(
+            error.message ??
+            'Unable to load invoice details.',
+            'danger'
+        );
+
+    }
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Reset Invoice Inspector
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Reset the Sales Invoice inspector.
+ */
+resetInvoiceInspector()
+{
+
+    const fields = {
+
+        invoiceInspectorLabel:
+            '—',
+
+        invoiceInspectorOrderStatus:
+            '—',
+
+        invoiceInspectorPaymentStatus:
+            '—',
+
+        invoiceInspectorNumber:
+            '—',
+
+        invoiceInspectorOrderNumber:
+            '—',
+
+        invoiceInspectorCustomer:
+            '—',
+
+        invoiceInspectorBranch:
+            '—',
+
+        invoiceInspectorTerminal:
+            '—',
+
+        invoiceInspectorDate:
+            '—',
+
+        invoiceInspectorItemCount:
+            '0',
+
+        invoiceInspectorQuantity:
+            '0',
+
+        invoiceInspectorSubtotal:
+            '0.00',
+
+        invoiceInspectorDiscount:
+            '0.00',
+
+        invoiceInspectorTax:
+            '0.00',
+
+        invoiceInspectorTotal:
+            '0.00',
+
+        invoiceInspectorAmountPaid:
+            '0.00',
+
+        invoiceInspectorBalance:
+            '0.00',
+
+        invoiceInspectorChange:
+            '0.00',
+
+        invoiceInspectorRemarks:
+            '—',
+
+        invoiceInspectorCreatedBy:
+            '—',
+
+        invoiceInspectorCreatedAt:
+            '—',
+
+        invoiceInspectorUpdatedBy:
+            '—',
+
+        invoiceInspectorUpdatedAt:
+            '—',
+
+    };
+
+
+    Object.entries(
+        fields
+    ).forEach(
+        (
+            [
+                id,
+                value
+            ]
+        ) => {
+
+            this.setInspectorText(
+                id,
+                value
+            );
+
+        }
+    );
+
+
+    this.populateInvoiceInspectorItems(
+        []
+    );
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Populate Invoice Inspector Items
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Populate invoice items in the Sales Invoice inspector.
+ */
+populateInvoiceInspectorItems(
+    items = []
+)
+{
+
+    const container =
+        this.elements.inspectorItems;
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    if (
+        !items.length
+    ) {
+
+        container.innerHTML = `
+
+            <div class="purchase-inspector-items-empty">
+
+                <div class="purchase-inspector-items-empty-icon">
+
+                    <i class="bi bi-box-seam"></i>
+
+                </div>
+
+
+                <div class="purchase-inspector-items-empty-title">
+
+                    No items available
+
+                </div>
+
+
+                <div class="purchase-inspector-items-empty-text">
+
+                    This invoice does not contain any products.
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        items
+            .map(
+                item => {
+
+                    const quantity =
+                        parseFloat(
+                            item.quantity
+                        ) || 0;
+
+
+                    const unitPrice =
+                        parseFloat(
+                            item.unit_price
+                        ) || 0;
+
+
+                    const total =
+                        parseFloat(
+                            item.total
+                        ) || 0;
+
+
+                    return `
+
+                        <div class="purchase-inspector-item">
+
+                            <div class="purchase-inspector-item-main">
+
+                                <div class="purchase-inspector-item-name">
+
+                                    ${this.escapeHtml(
+                                        item.product_name ??
+                                        'Unknown Product'
+                                    )}
+
+                                </div>
+
+
+                                <div class="purchase-inspector-item-meta">
+
+                                    ${
+                                        item.product_barcode
+                                            ? `
+
+                                                <span>
+
+                                                    ${this.escapeHtml(
+                                                        item.product_barcode
+                                                    )}
+
+                                                </span>
+
+                                            `
+                                            : ''
+                                    }
+
+
+                                    ${
+                                        item.product_barcode
+                                            ? `
+
+                                                <span class="purchase-inspector-item-meta-divider">
+
+                                                    •
+
+                                                </span>
+
+                                            `
+                                            : ''
+                                    }
+
+
+                                    <span>
+
+                                        ${this.formatMoney(
+                                            unitPrice
+                                        )} / unit
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="purchase-inspector-item-summary">
+
+                                <span class="purchase-inspector-item-quantity">
+
+                                    ${quantity}
+                                    ×
+
+                                </span>
+
+
+                                <strong class="purchase-inspector-item-total">
+
+                                    ${this.formatMoney(
+                                        total
+                                    )}
+
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join('');
+
+},
+
+/*
+|--------------------------------------------------------------------------
+| Populate Invoice Inspector
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Populate the Sales Invoice inspector.
+ */
+populateInvoiceInspector(
+    invoice
+)
+{
+
+    if (!invoice) {
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header
+    |--------------------------------------------------------------------------
+    */
+
+    this.setInspectorText(
+        'invoiceInspectorLabel',
+        invoice.invoice_no ??
+        '—'
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Order Status
+    |--------------------------------------------------------------------------
+    */
+
+    this.setInspectorText(
+        'invoiceInspectorOrderStatus',
+        invoice.order_status ??
+        '—'
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Status
+    |--------------------------------------------------------------------------
+    */
+
+    this.setInspectorText(
+        'invoiceInspectorPaymentStatus',
+        invoice.payment_status ??
+        '—'
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Invoice Information
+    |--------------------------------------------------------------------------
+    */
+
+    this.setInspectorText(
+        'invoiceInspectorNumber',
+        invoice.invoice_no ??
+        '—'
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorOrderNumber',
+        invoice.order_no ??
+        '—'
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorCustomer',
+        invoice.customer?.name ??
+        'Walk-in Customer'
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorBranch',
+        invoice.branch?.name ??
+        '—'
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorTerminal',
+        invoice.terminal?.name ??
+        '—'
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorDate',
+        this.formatDateTime(
+            invoice.invoice_date
+        )
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Summary
+    |--------------------------------------------------------------------------
+    */
+
+    this.setInspectorText(
+        'invoiceInspectorItemCount',
+        this.formatNumber(
+            invoice.total_items ??
+            0
+        )
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorQuantity',
+        this.formatNumber(
+            invoice.total_quantity ??
+            0
+        )
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorSubtotal',
+        this.formatMoney(
+            invoice.subtotal ??
+            0
+        )
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorDiscount',
+        this.formatMoney(
+            invoice.discount ??
+            0
+        )
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorTax',
+        this.formatMoney(
+            invoice.tax ??
+            0
+        )
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorTotal',
+        this.formatMoney(
+            invoice.grand_total ??
+            invoice.total ??
+            0
+        )
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorAmountPaid',
+        this.formatMoney(
+            invoice.amount_paid ??
+            0
+        )
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorBalance',
+        this.formatMoney(
+            invoice.balance ??
+            0
+        )
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorChange',
+        this.formatMoney(
+            invoice.change_given ??
+            0
+        )
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Items
+    |--------------------------------------------------------------------------
+    */
+
+    this.populateInvoiceInspectorItems(
+        invoice.items ??
+        []
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Remarks
+    |--------------------------------------------------------------------------
+    */
+
+    this.setInspectorText(
+        'invoiceInspectorRemarks',
+        invoice.remarks ??
+        '—'
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Activity
+    |--------------------------------------------------------------------------
+    */
+
+    this.setInspectorText(
+        'invoiceInspectorCreatedBy',
+        invoice.created_by?.name ??
+        '—'
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorCreatedAt',
+        this.formatDateTime(
+            invoice.created_at
+        )
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorUpdatedBy',
+        invoice.updated_by?.name ??
+        '—'
+    );
+
+
+    this.setInspectorText(
+        'invoiceInspectorUpdatedAt',
+        this.formatDateTime(
+            invoice.updated_at
+        )
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Continue to Order
+    |--------------------------------------------------------------------------
+    */
+
+    const orderButton =
+        document.getElementById(
+            'invoiceGoToOrder'
+        );
+
+
+    if (orderButton) {
+
+        orderButton.dataset.orderId =
+            invoice.order?.id ??
+            '';
+
+    }
+
+},
+
 
     /*
     |--------------------------------------------------------------------------
@@ -1663,34 +2595,39 @@ const InvoiceModule = {
     },
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Print Invoice
-    |--------------------------------------------------------------------------
-    */
+   /*
+|--------------------------------------------------------------------------
+| Print Invoice
+|--------------------------------------------------------------------------
+*/
 
-    printInvoice(
-        invoiceId
-    ) {
+/**
+ * Open the invoice print view.
+ */
+printInvoice(
+    invoiceId
+) {
 
-        if (!invoiceId) {
+    if (!invoiceId) {
 
-            this.notify(
-                'Invoice could not be identified.',
-                'warning'
-            );
-
-            return;
-
-        }
-
-
-        window.open(
-            `/sales/invoices/${invoiceId}/print`,
-            '_blank'
+        this.notify(
+            'Invoice could not be identified.',
+            'warning'
         );
 
-    },
+        return;
+
+    }
+
+
+    window.open(
+        `/sales/invoices/${encodeURIComponent(
+            invoiceId
+        )}/print`,
+        '_blank'
+    );
+
+},
 
 
     /*

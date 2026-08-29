@@ -704,7 +704,7 @@ protected ActivityLogger $activityLogger;
 
     }
 
-    /*
+   /*
     |--------------------------------------------------------------------------
     | Details
     |--------------------------------------------------------------------------
@@ -795,8 +795,7 @@ protected ActivityLogger $activityLogger;
             $query->find(
                 $id
             );
-
-
+  
         if (! $invoice) {
 
             return response()->json([
@@ -814,15 +813,26 @@ protected ActivityLogger $activityLogger;
 
         /*
         |--------------------------------------------------------------------------
+        | Related Order
+        |--------------------------------------------------------------------------
+        */
+
+        $order =
+            $invoice->order;
+
+
+        /*
+        |--------------------------------------------------------------------------
         | Completed Orders
         |--------------------------------------------------------------------------
         |
-        | Completed orders are intentionally not part of this module.
+        | Completed orders are intentionally excluded from the
+        | pending invoice module.
         |
         */
 
         if (
-            $invoice->order?->order_status ===
+            $order?->order_status ===
             'Completed'
         ) {
 
@@ -841,6 +851,60 @@ protected ActivityLogger $activityLogger;
 
         /*
         |--------------------------------------------------------------------------
+        | Order Items
+        |--------------------------------------------------------------------------
+        */
+
+        $items =
+            $order?->orderItems
+                ?->map(
+                    function ($item) {
+
+                        return [
+
+                            'id' =>
+                                $item->id,
+
+                            'product_id' =>
+                                $item->product_id,
+
+                            'product_name' =>
+                                $item->product_name,
+
+                            'product_barcode' =>
+                                $item->product_barcode,
+
+                            'quantity' =>
+                                (float)
+                                $item->quantity,
+
+                            'unit_price' =>
+                                (float)
+                                $item->unit_price,
+
+                            'discount' =>
+                                (float)
+                                $item->discount,
+
+                            'tax' =>
+                                (float)
+                                $item->tax,
+
+                            'total' =>
+                                (float)
+                                $item->total,
+
+                        ];
+
+                    }
+                )
+                ->values()
+                ??
+                collect();
+
+
+        /*
+        |--------------------------------------------------------------------------
         | Response
         |--------------------------------------------------------------------------
         */
@@ -852,6 +916,12 @@ protected ActivityLogger $activityLogger;
 
             'data' => [
 
+                /*
+                |--------------------------------------------------------------------------
+                | Invoice
+                |--------------------------------------------------------------------------
+                */
+
                 'id' =>
                     $invoice->id,
 
@@ -860,6 +930,13 @@ protected ActivityLogger $activityLogger;
 
                 'invoice_date' =>
                     $invoice->invoice_date,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Order
+                |--------------------------------------------------------------------------
+                */
 
                 'order' => $invoice->order
                     ? [
@@ -882,6 +959,13 @@ protected ActivityLogger $activityLogger;
                     ]
                     : null,
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Customer
+                |--------------------------------------------------------------------------
+                */
+
                 'customer' => $invoice->customer
                     ? [
 
@@ -897,6 +981,13 @@ protected ActivityLogger $activityLogger;
                     ]
                     : null,
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Branch
+                |--------------------------------------------------------------------------
+                */
+
                 'branch' => $invoice->branch
                     ? [
 
@@ -909,6 +1000,13 @@ protected ActivityLogger $activityLogger;
                     ]
                     : null,
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Terminal
+                |--------------------------------------------------------------------------
+                */
+
                 'terminal' => $invoice->terminal
                     ? [
 
@@ -920,6 +1018,13 @@ protected ActivityLogger $activityLogger;
 
                     ]
                     : null,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Financial Summary
+                |--------------------------------------------------------------------------
+                */
 
                 'subtotal' =>
                     (float)
@@ -949,13 +1054,36 @@ protected ActivityLogger $activityLogger;
                     (float)
                     $invoice->balance,
 
-                'total_quantity' =>
+                'change_given' =>
                     (float)
-                    $invoice->total_quantity,
+                    ($invoice->change_given ?? 0),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Item Summary
+                |--------------------------------------------------------------------------
+                */
 
                 'total_items' =>
-                    (int)
-                    $invoice->total_items,
+                    $invoice->order?->orderItems
+                        ?->count()
+                        ?? 0,
+
+                'total_quantity' =>
+                    (float)
+                    (
+                        $invoice->order?->orderItems
+                            ?->sum('quantity')
+                        ?? 0
+                    ),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Status
+                |--------------------------------------------------------------------------
+                */
 
                 'payment_status' =>
                     $invoice->payment_status,
@@ -963,8 +1091,31 @@ protected ActivityLogger $activityLogger;
                 'invoice_status' =>
                     $invoice->invoice_status,
 
+                'order_status' =>
+                    $invoice->order?->order_status,
+
+                'order_no' =>
+                    $invoice->order?->order_no,
+
+                'sales_channel' =>
+                    $invoice->order?->sales_channel,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Remarks
+                |--------------------------------------------------------------------------
+                */
+
                 'remarks' =>
                     $invoice->remarks,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Items
+                |--------------------------------------------------------------------------
+                */
 
                 'items' =>
                     $invoice->order?->orderItems
@@ -1012,6 +1163,13 @@ protected ActivityLogger $activityLogger;
                         ->values()
                         ??
                         collect(),
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Activity
+                |--------------------------------------------------------------------------
+                */
 
                 'created_by' =>
                     $invoice->createdBy
@@ -1068,6 +1226,120 @@ protected ActivityLogger $activityLogger;
             ],
 
         ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Print
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Display a printable Sales Invoice.
+     */
+    public function print(
+        int $id
+    ): View {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        abort_unless(
+            canAccess('invoices.view'),
+            403
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Query
+        |--------------------------------------------------------------------------
+        */
+
+        $query =
+            Invoice::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->with([
+
+                    'order.orderItems.product',
+
+                    'customer',
+
+                    'branch',
+
+                    'terminal',
+
+                    'createdBy',
+
+                    'updatedBy',
+
+                ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            ! canManageAllBranches()
+        ) {
+
+            $query->where(
+                'branch_id',
+                currentBranchId()
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Invoice
+        |--------------------------------------------------------------------------
+        */
+
+        $invoice =
+            $query->findOrFail(
+                $id
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Completed Orders
+        |--------------------------------------------------------------------------
+        |
+        | Completed orders are intentionally excluded from the
+        | pending invoice module.
+        |
+        */
+
+        abort_if(
+            $invoice->order?->order_status === 'Completed',
+            404
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | View
+        |--------------------------------------------------------------------------
+        */
+
+        return view(
+            'sales.invoices.print',
+            compact(
+                'invoice'
+            )
+        );
 
     }
 
