@@ -1,0 +1,666 @@
+
+/* ==========================================================================
+   PAYMENT MODULE
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Page
+   ========================================================================== */
+
+.payment-module {
+    min-width: 0;
+}
+
+
+/* ==========================================================================
+   KPI Cards
+   ========================================================================== */
+
+.payment-module .emnex-card {
+    border: 1px solid #eaecf0;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+
+.payment-module .emnex-card .card-body {
+    padding: 18px 20px;
+}
+
+
+.payment-module .emnex-card .text-muted {
+    color: #667085 !important;
+    font-size: 12px;
+}
+
+
+.payment-module .emnex-card .fs-4 {
+    color: #101828;
+    font-size: 21px !important;
+    font-weight: 600;
+}
+
+
+/* ==========================================================================
+   Filters
+   ========================================================================== */
+
+.payment-module .form-label {
+    color: #344054;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+
+.payment-module .form-control,
+.payment-module .form-select {
+    min-height: 38px;
+    border: 1px solid #d0d5dd;
+    border-radius: 7px;
+    background-color: #ffffff;
+    color: #101828;
+    font-size: 13px;
+    box-shadow: none;
+    transition:
+        border-color .15s ease,
+        box-shadow .15s ease;
+}
+
+
+.payment-module .form-control::placeholder {
+    color: #98a2b3;
+}
+
+
+.payment-module .form-control:focus,
+.payment-module .form-select:focus {
+    border-color: #98a2b3;
+    box-shadow: 0 0 0 3px rgba(16, 24, 40, 0.06);
+}
+
+
+.payment-module .btn-light {
+    border: 1px solid #d0d5dd;
+    background: #ffffff;
+    color: #344054;
+}
+
+
+.payment-module .btn-light:hover {
+    border-color: #98a2b3;
+    background: #f9fafb;
+}
+
+
+/* ==========================================================================
+   Payment Table
+   ========================================================================== */
+
+.payment-module .table {
+    color: #101828;
+}
+
+
+.payment-module .table thead th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eaecf0;
+    background: #f9fafb;
+    color: #667085;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+
+.payment-module .table tbody td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f2f4f7;
+    color: #344054;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+
+.payment-module .table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+.payment-module .table tbody tr {
+    transition:
+        background-color .15s ease;
+}
+
+
+.payment-module .table tbody tr:hover {
+    background: #f9fafb;
+}
+
+
+/* ==========================================================================
+   Table Identity
+   ========================================================================== */
+
+.payment-module .payment-number {
+    color: #101828;
+    font-weight: 600;
+}
+
+
+.payment-module .payment-secondary {
+    margin-top: 2px;
+    color: #98a2b3;
+    font-size: 11px;
+}
+
+
+.payment-module .payment-amount {
+    color: #101828;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   Status Badges
+   ========================================================================== */
+
+.payment-module .badge {
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+
+/* ==========================================================================
+   Action Buttons
+   ========================================================================== */
+
+.payment-module .table .btn {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 5px 8px;
+    border-radius: 7px;
+}
+
+
+.payment-module .table .btn-light {
+    border-color: #e4e7ec;
+}
+
+
+/* ==========================================================================
+   Pagination
+   ========================================================================== */
+
+.payment-module #paymentPaginationInfo {
+    color: #667085;
+    font-size: 12px;
+}
+
+
+.payment-module #paymentPagination .btn {
+    min-width: 30px;
+    height: 30px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+
+.payment-module #paymentPagination .btn-light {
+    border: 1px solid #eaecf0;
+    background: #ffffff;
+}
+
+
+.payment-module #paymentPagination .btn-primary {
+    box-shadow: none;
+}
+
+
+/* ==========================================================================
+   Empty / Loading State
+   ========================================================================== */
+
+.payment-module #paymentsTableBody .text-muted {
+    color: #667085 !important;
+}
+
+
+.payment-module #paymentsTableBody .bi-credit-card {
+    color: #98a2b3;
+}
+
+
+/* ==========================================================================
+   Payment Inspector
+   ========================================================================== */
+
+#paymentInspector {
+    width: 470px;
+    max-width: 100%;
+    border-left: 1px solid #eaecf0;
+    background: #ffffff;
+    box-shadow: -8px 0 24px rgba(16, 24, 40, 0.08);
+}
+
+
+/* ==========================================================================
+   Inspector Header
+   ========================================================================== */
+
+#paymentInspector .offcanvas-header {
+    min-height: 76px;
+    padding: 18px 22px;
+    border-bottom: 1px solid #eaecf0 !important;
+    background: #ffffff;
+}
+
+
+#paymentInspector .offcanvas-header .text-muted {
+    color: #98a2b3 !important;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+
+#paymentInspector .offcanvas-title {
+    margin: 0;
+    color: #101828;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+#paymentInspector .btn-close {
+    width: 12px;
+    height: 12px;
+    padding: 10px;
+    border-radius: 6px;
+    background-size: 10px;
+    opacity: .55;
+}
+
+
+#paymentInspector .btn-close:hover {
+    background-color: #f2f4f7;
+    opacity: .85;
+}
+
+
+/* ==========================================================================
+   Inspector Body
+   ========================================================================== */
+
+#paymentInspector .offcanvas-body {
+    padding: 22px;
+    background: #ffffff;
+}
+
+
+/* ==========================================================================
+   Inspector Status
+   ========================================================================== */
+
+#paymentInspector .offcanvas-body > .d-flex:first-child {
+    padding: 12px 14px;
+    margin-bottom: 20px !important;
+    border: 1px solid #eaecf0;
+    border-radius: 9px;
+    background: #f9fafb;
+}
+
+
+#paymentInspector .offcanvas-body > .d-flex:first-child .text-muted {
+    color: #344054 !important;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+#paymentInspector .offcanvas-body > .d-flex:first-child .small.text-muted {
+    margin-top: 2px;
+    color: #98a2b3 !important;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+
+/* ==========================================================================
+   Inspector Cards
+   ========================================================================== */
+
+#paymentInspector .purchase-inspector-card {
+    overflow: hidden;
+    border: 1px solid #eaecf0;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.03);
+}
+
+
+#paymentInspector .purchase-inspector-card.mb-4 {
+    margin-bottom: 20px !important;
+}
+
+
+/* ==========================================================================
+   Inspector Information Grid
+   ========================================================================== */
+
+#paymentInspector .purchase-inspector-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+
+#paymentInspector .purchase-inspector-grid > div {
+    min-width: 0;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f2f4f7;
+}
+
+
+#paymentInspector .purchase-inspector-grid > div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+}
+
+
+#paymentInspector .purchase-inspector-grid > div:nth-child(odd) {
+    border-right: 1px solid #f2f4f7;
+}
+
+
+#paymentInspector .purchase-inspector-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #98a2b3;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+
+#paymentInspector .purchase-inspector-grid strong {
+    display: block;
+    overflow: hidden;
+    color: #344054;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   Inspector Headings
+   ========================================================================== */
+
+#paymentInspector .purchase-inspector-heading {
+    color: #101828;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+#paymentInspector .purchase-inspector-card > .purchase-inspector-heading {
+    padding: 16px 16px 0;
+}
+
+
+/* ==========================================================================
+   Inspector Summary Rows
+   ========================================================================== */
+
+#paymentInspector .purchase-summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #f2f4f7;
+}
+
+
+#paymentInspector .purchase-summary-row:last-child {
+    border-bottom: 0;
+}
+
+
+#paymentInspector .purchase-summary-row span {
+    color: #667085;
+    font-size: 11px;
+}
+
+
+#paymentInspector .purchase-summary-row strong {
+    max-width: 58%;
+    overflow: hidden;
+    color: #344054;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   Payment Amount
+   ========================================================================== */
+
+#paymentInspector #paymentInspectorAmount {
+    color: #101828;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+#paymentInspector .purchase-inspector-card:has(
+    #paymentInspectorAmount
+) {
+    background: #f9fafb;
+}
+
+
+/* ==========================================================================
+   Receipt Action
+   ========================================================================== */
+
+#paymentInspector .border.rounded-3.p-3 {
+    border: 1px solid #dbe3ef !important;
+    border-radius: 10px !important;
+    background: #f8fafc;
+}
+
+
+#paymentInspector .border.rounded-3.p-3 .text-primary {
+    color: #344054 !important;
+}
+
+
+#paymentInspector .border.rounded-3.p-3 .fw-semibold {
+    color: #101828;
+    font-size: 12px;
+}
+
+
+#paymentInspector .border.rounded-3.p-3 .text-muted {
+    color: #667085 !important;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+#paymentInspector #paymentPrintReceipt {
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* ==========================================================================
+   Remarks
+   ========================================================================== */
+
+#paymentInspector .offcanvas-body > .mb-4 > .purchase-inspector-heading {
+    margin-bottom: 8px !important;
+}
+
+
+#paymentInspector #paymentInspectorRemarks {
+    min-height: 42px;
+    padding: 12px 14px;
+    border: 1px solid #eaecf0;
+    border-radius: 8px;
+    background: #f9fafb;
+    color: #667085 !important;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* ==========================================================================
+   Activity
+   ========================================================================== */
+
+#paymentInspector .purchase-inspector-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#paymentInspector .purchase-inspector-meta > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 11px 16px;
+    border-bottom: 1px solid #f2f4f7;
+}
+
+
+#paymentInspector .purchase-inspector-meta > div:last-child {
+    border-bottom: 0;
+}
+
+
+#paymentInspector .purchase-inspector-meta span {
+    color: #667085;
+    font-size: 11px;
+}
+
+
+#paymentInspector .purchase-inspector-meta strong {
+    color: #344054;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: right;
+}
+
+
+/* ==========================================================================
+   Inspector Scrollbar
+   ========================================================================== */
+
+#paymentInspector .offcanvas-body {
+    scrollbar-width: thin;
+    scrollbar-color: #d0d5dd transparent;
+}
+
+
+#paymentInspector .offcanvas-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+
+#paymentInspector .offcanvas-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+#paymentInspector .offcanvas-body::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: #d0d5dd;
+}
+
+
+#paymentInspector .offcanvas-body::-webkit-scrollbar-thumb:hover {
+    background: #98a2b3;
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 575.98px) {
+
+    #paymentInspector {
+        width: 100%;
+    }
+
+
+    #paymentInspector .offcanvas-body {
+        padding: 18px;
+    }
+
+
+    #paymentInspector .purchase-inspector-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    #paymentInspector .purchase-inspector-grid > div {
+        border-right: 0 !important;
+        border-bottom: 1px solid #f2f4f7 !important;
+    }
+
+
+    #paymentInspector .purchase-inspector-grid > div:last-child {
+        border-bottom: 0 !important;
+    }
+
+}
+
+
+/* ==========================================================================
+   Medium Screens
+   ========================================================================== */
+
+@media (
+    min-width: 576px
+) and (
+    max-width: 991.98px
+) {
+
+    #paymentInspector {
+        width: 430px;
+    }
+
+}
+
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #paymentInspector *,
+    .payment-module * {
+        transition: none !important;
+    }
+
+}
+
+

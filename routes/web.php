@@ -542,16 +542,36 @@ Route::prefix('products')
             Route::get('/stats', [InvoiceController::class, 'stats'])->name('invoices.stats');
 
             Route::get('/{id}',[InvoiceController::class, 'details'])
-            ->name('sales.invoices.details');
+            ->name('invoices.details');
 
             Route::get('/{id}/print', [InvoiceController::class, 'print'])
-            ->name('sales.invoices.print');
+            ->name('invoices.print');
+
+        });
+
+        /*
+        |--------------------------------------------------------------------------
+        | Payments
+        |--------------------------------------------------------------------------
+        */
+
+        Route::prefix('payments')->group(function () {
+
+            Route::get('/',[PaymentController::class, 'index'])->name('payments.index');
+
+            Route::get('/table',[PaymentController::class, 'table'])->name('payments.table');
+
+            Route::get('/{id}/details',[PaymentController::class, 'details'])
+                ->name('payments.details');
+
+            Route::get('/{id}/receipt',[PaymentController::class, 'receipt'])
+                ->name('sales.payments.receipt');
 
         });
 
     });  
 
-    Route::resource('payments', PaymentController::class);
+    
 
     Route::resource('sales-returns', SalesReturnController::class);
 
