@@ -33,122 +33,422 @@ class ProductController extends BaseController
     /**
      * Display Products page.
      */
+    
     public function index(): View
     {
-        $query = Product::forCompany($this->companyId);
 
-        $products = $query
-            ->with([
-                'category',
-                'unit',
-                'taxRate',
-                'discount',
-            ])
-            ->latest()
-            ->paginate(10);
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+        $role =
+            $user->role?->code;
+
+        $canManageAllBranches =
+            in_array(
+                $role,
+                [
+                    'owner',
+                    'administrator',
+                ]
+            );
+
+        $currentBranchId =
+            $user->branch_id;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Product Query
+        |--------------------------------------------------------------------------
+        */
+
+        $query =
+            Product::forCompany(
+                $this->companyId
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Scope
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$canManageAllBranches) {
+
+            $query->whereHas(
+                'stocks',
+                function ($stockQuery) use (
+                    $currentBranchId
+                ) {
+
+                    $stockQuery->where(
+                        'branch_id',
+                        $currentBranchId
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Products
+        |--------------------------------------------------------------------------
+        */
+
+        $products =
+
+            (clone $query)
+
+                ->with([
+                    'category',
+                    'unit',
+                    'taxRate',
+                    'discount',
+                ])
+
+                ->latest()
+
+                ->paginate(10);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Statistics
+        |--------------------------------------------------------------------------
+        */
+
+        $statsQuery =
+            clone $query;
+
 
         $stats = [
 
-            'total' => Product::forCompany($this->companyId)->count(),
+            'total' =>
 
-            'active' => Product::forCompany($this->companyId)
-                ->where('status', true)
-                ->count(),
+                (clone $statsQuery)
+                    ->count(),
 
-            'low_stock' => Product::forCompany($this->companyId)
-                ->get()
-                ->filter(fn($p) => $p->isLowStock())
-                ->count(),
 
-            'out_of_stock' => Product::forCompany($this->companyId)
-                ->get()
-                ->filter(fn($p) => $p->isOutOfStock())
-                ->count(),
+            'active' =>
+
+                (clone $statsQuery)
+                    ->where(
+                        'status',
+                        true
+                    )
+                    ->count(),
+
+
+            'low_stock' =>
+
+                (clone $statsQuery)
+                    ->with('stocks')
+                    ->get()
+                    ->filter(
+                        fn ($product) =>
+                            $product->isLowStock()
+                    )
+                    ->count(),
+
+
+            'out_of_stock' =>
+
+                (clone $statsQuery)
+                    ->with('stocks')
+                    ->get()
+                    ->filter(
+                        fn ($product) =>
+                            $product->isOutOfStock()
+                    )
+                    ->count(),
 
         ];
 
-        return view('products.index', [
 
-            'products' => $products,
+        /*
+        |--------------------------------------------------------------------------
+        | Supporting Data
+        |--------------------------------------------------------------------------
+        */
 
-            'stats' => $stats,
+        return view(
+            'products.index',
+            [
 
-            'categories' => ProductCategory::forCompany($this->companyId)
-                ->active()
-                ->orderBy('name')
-                ->get(),
+                'products' =>
+                    $products,
 
-            'units' => Unit::forCompany($this->companyId)
-                ->active()
-                ->orderBy('name')
-                ->get(),
+                'stats' =>
+                    $stats,
 
-            'taxRates' => TaxRate::forCompany($this->companyId)
-                ->active()
-                ->orderBy('name')
-                ->get(),
+                'categories' =>
 
-            'discounts' => Discount::forCompany($this->companyId)
-                ->active()
-                ->orderBy('name')
-                ->get(),
+                    ProductCategory::forCompany(
+                        $this->companyId
+                    )
 
-        ]);
+                        ->active()
+
+                        ->orderBy('name')
+
+                        ->get(),
+
+                'units' =>
+
+                    Unit::forCompany(
+                        $this->companyId
+                    )
+
+                        ->active()
+
+                        ->orderBy('name')
+
+                        ->get(),
+
+                'taxRates' =>
+
+                    TaxRate::forCompany(
+                        $this->companyId
+                    )
+
+                        ->active()
+
+                        ->orderBy('name')
+
+                        ->get(),
+
+                'discounts' =>
+
+                    Discount::forCompany(
+                        $this->companyId
+                    )
+
+                        ->active()
+
+                        ->orderBy('name')
+
+                        ->get(),
+
+            ]
+        );
+
     }
 
     /**
      * Product table (AJAX).
      */
+   
     public function table(Request $request)
     {
-        $products = Product::query()
 
-            ->forCompany($this->companyId)
+        /*
+        |--------------------------------------------------------------------------
+        | Product Query
+        |--------------------------------------------------------------------------
+        */
 
-            ->with([
-                'category',
-                'unit',
-                'taxRate',
-                'discount',
-            ])
+        $productsQuery =
 
-            ->when($request->filled('search'), function ($query) use ($request) {
+            Product::query()
 
-                $search = trim($request->search);
+                ->forCompany(
+                    $this->companyId
+                );
 
-                $query->where(function ($q) use ($search) {
 
-                    $q->where('name', 'like', "%{$search}%")
-                        ->orWhere('product_code', 'like', "%{$search}%")
-                        ->orWhere('sku', 'like', "%{$search}%")
-                        ->orWhere('barcode', 'like', "%{$search}%")
-                        ->orWhere('brand', 'like', "%{$search}%")
-                        ->orWhere('manufacturer', 'like', "%{$search}%");
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
 
-                });
+        $user =
+            auth()->user();
 
-            })
+        $role =
+            $user->role?->code;
 
-            ->when($request->status !== null && $request->status !== '', function ($query) use ($request) {
+        $canManageAllBranches =
+            in_array(
+                $role,
+                [
+                    'owner',
+                    'administrator',
+                ]
+            );
+
+        $currentBranchId =
+            $user->branch_id;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Scope
+        |--------------------------------------------------------------------------
+        |
+        | Products are company master records, while branch availability
+        | is represented through product_stocks.
+        |
+        */
+
+        if (!$canManageAllBranches) {
+
+            $productsQuery->whereHas(
+                'stocks',
+                function ($query) use (
+                    $currentBranchId
+                ) {
+
+                    $query->where(
+                        'branch_id',
+                        $currentBranchId
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Relationships
+        |--------------------------------------------------------------------------
+        */
+
+        $productsQuery->with([
+            'category',
+            'unit',
+            'taxRate',
+            'discount',
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
+
+        $productsQuery->when(
+            $request->filled('search'),
+            function ($query) use ($request) {
+
+                $search =
+                    trim(
+                        $request->search
+                    );
+
+
+                $query->where(
+                    function ($q) use ($search) {
+
+                        $q->where(
+                            'name',
+                            'like',
+                            "%{$search}%"
+                        )
+
+                        ->orWhere(
+                            'product_code',
+                            'like',
+                            "%{$search}%"
+                        )
+
+                        ->orWhere(
+                            'sku',
+                            'like',
+                            "%{$search}%"
+                        )
+
+                        ->orWhere(
+                            'barcode',
+                            'like',
+                            "%{$search}%"
+                        )
+
+                        ->orWhere(
+                            'brand',
+                            'like',
+                            "%{$search}%"
+                        )
+
+                        ->orWhere(
+                            'manufacturer',
+                            'like',
+                            "%{$search}%"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Status
+        |--------------------------------------------------------------------------
+        */
+
+        $productsQuery->when(
+            $request->status !== null &&
+            $request->status !== '',
+            function ($query) use ($request) {
 
                 $query->where(
                     'status',
-                    filter_var($request->status, FILTER_VALIDATE_BOOLEAN)
+                    filter_var(
+                        $request->status,
+                        FILTER_VALIDATE_BOOLEAN
+                    )
                 );
 
-            })
+            }
+        );
 
-            ->latest()
 
-            ->paginate(10)
+        /*
+        |--------------------------------------------------------------------------
+        | Pagination
+        |--------------------------------------------------------------------------
+        */
 
-            ->withQueryString();
+        $products =
+            $productsQuery
+
+                ->latest()
+
+                ->paginate(10)
+
+                ->withQueryString();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
 
         return view(
             'products.partials.table',
             compact('products')
         );
+
     }
+
+
 
     /**
      * Store a newly created product.

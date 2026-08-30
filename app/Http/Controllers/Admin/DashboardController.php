@@ -436,22 +436,42 @@ class DashboardController extends Controller
 
         }
 
-
-       /*
+        /*
         |--------------------------------------------------------------------------
         | Refunds
         |--------------------------------------------------------------------------
         */
 
-        $refunds = SalesReturn::query()
-            ->where('company_id', $companyId)
-            ->whereBetween(
-                        'created_at',
-                        [
-                            $startDate,
-                            $endDate
-                        ])
-            ->sum('refund_amount');
+        $refundQuery = SalesReturn::query()
+            ->where(
+                'company_id',
+                $companyId
+            );
+
+
+        if (!$canManageAllBranches) {
+
+            $refundQuery->where(
+                'branch_id',
+                $currentBranchId
+            );
+
+        }
+
+
+        $refunds =
+            (clone $refundQuery)
+
+                ->whereBetween(
+                    'created_at',
+                    [
+                        $startDate,
+                        $endDate
+                    ]
+                )
+
+                ->sum('refund_amount');
+
 
 
         /*
@@ -519,22 +539,23 @@ class DashboardController extends Controller
                     ->get();
 
         }
-
-
+       
         /*
         |--------------------------------------------------------------------------
         | Top Selling Products
         |--------------------------------------------------------------------------
         */
 
-        $topProducts =
-            collect();
+        $topProducts = collect();
 
 
         if ($canViewSales) {
 
             $orderItemQuery =
-                OrderItem::forCompany($companyId);
+
+                OrderItem::forCompany(
+                    $companyId
+                );
 
 
             /*
@@ -542,45 +563,106 @@ class DashboardController extends Controller
             | Branch Scope
             |--------------------------------------------------------------------------
             |
-            | Only apply this if order_items has branch_id.
+            | Order items are tied to orders, and orders contain the branch_id.
+            | Therefore branch access is enforced through the parent order.
             |
             */
 
-            if (
-                !$canManageAllBranches &&
-                Schema::hasColumn(
-                    'order_items',
-                    'branch_id'
-                )
-            ) {
+            if (!$canManageAllBranches) {
 
-                $orderItemQuery->where(
-                    'branch_id',
-                    $currentBranchId
+                $orderItemQuery->whereHas(
+                    'order',
+                    function ($query) use (
+                        $currentBranchId
+                    ) {
+
+                        $query->where(
+                            'branch_id',
+                            $currentBranchId
+                        );
+
+                    }
                 );
 
             }
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Completed Sales Only
+            |--------------------------------------------------------------------------
+            */
+
+            $orderItemQuery->whereHas(
+                'order',
+                function ($query) {
+
+                    $query->completed();
+
+                }
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Selected Period
+            |--------------------------------------------------------------------------
+            */
+
+            $orderItemQuery->whereHas(
+                'order',
+                function ($query) use (
+                    $startDate,
+                    $endDate
+                ) {
+
+                    $query->whereBetween(
+                        'created_at',
+                        [
+                            $startDate,
+                            $endDate
+                        ]
+                    );
+
+                }
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Top Products
+            |--------------------------------------------------------------------------
+            */
+
             $topProducts =
+
                 $orderItemQuery
-                    ->selectRaw("
-                        product_id,
-                        product_name,
-                        SUM(quantity) as total_quantity,
-                        SUM(total) as total_sales
-                    ")
+
+                    ->selectRaw(
+                        "
+                            product_id,
+                            product_name,
+                            SUM(quantity) as total_quantity,
+                            SUM(total) as total_sales
+                        "
+                    )
+
                     ->groupBy(
                         'product_id',
                         'product_name'
                     )
+
                     ->orderByDesc(
                         'total_quantity'
                     )
+
                     ->take(5)
+
                     ->get();
 
         }
+
+
       
         /*
         |--------------------------------------------------------------------------

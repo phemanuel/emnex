@@ -34,10 +34,19 @@
 
         </div>
 
-
+       
         <div class="d-flex align-items-center gap-2">
 
-            @permission('orders.create')
+            @if(
+                canAccess('orders.create') &&
+                in_array(
+                    auth()->user()->role?->code,
+                    [
+                        'owner',
+                        'administrator',
+                    ]
+                )
+            )
 
                 <button
                     type="button"
@@ -51,9 +60,11 @@
 
                 </button>
 
-            @endpermission
+            @endif
 
         </div>
+
+
 
     </div>
 
@@ -216,8 +227,10 @@
 
                 </div>
 
-
-                {{-- Branch --}}
+              
+                {{-- ==================================================
+                    Branch
+                =================================================== --}}
 
                 <div class="sales-orders-filter">
 
@@ -227,14 +240,22 @@
                         aria-label="Filter by branch"
                     >
 
-                        <option value="">
-                            All Branches
-                        </option>
+                        @if($canManageAllBranches)
+
+                            <option value="">
+                                All Branches
+                            </option>
+
+                        @endif
+
 
                         @foreach($branches as $branch)
 
                             <option
                                 value="{{ $branch->id }}"
+                                @if(!$canManageAllBranches)
+                                    selected
+                                @endif
                             >
                                 {{ $branch->name }}
                             </option>
@@ -244,6 +265,7 @@
                     </select>
 
                 </div>
+
 
 
                 {{-- Order Status --}}

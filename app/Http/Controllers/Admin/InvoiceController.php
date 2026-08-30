@@ -35,16 +35,32 @@ protected ActivityLogger $activityLogger;
      */
     public function index(): View
     {
-        /*
-        |--------------------------------------------------------------------------
-        | Permission
-        |--------------------------------------------------------------------------
-        */
+     
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
 
-        abort_unless(
-            canAccess('invoices.view'),
-            403
+    if (! canAccess('orders.view')) {
+
+        return view(
+            'errors.permission',
+            [
+                'title' =>
+                    'Access Restricted',
+
+                'message' =>
+                    'You do not have permission to access Sales Invoices.',
+
+                'backUrl' =>
+                    url()->previous(),
+            ]
         );
+
+    }
+
+
 
 
         /*
@@ -110,7 +126,7 @@ protected ActivityLogger $activityLogger;
         |--------------------------------------------------------------------------
         */
 
-        if (! canAccess('invoices.view')) {
+        if (! canAccess('orders.view')) {
 
             return response()->json([
 
@@ -280,7 +296,7 @@ protected ActivityLogger $activityLogger;
         |--------------------------------------------------------------------------
         */
 
-        if (! canAccess('invoices.view')) {
+        if (! canAccess('orders.view')) {
 
             return response()->json([
 
@@ -723,7 +739,7 @@ protected ActivityLogger $activityLogger;
         |--------------------------------------------------------------------------
         */
 
-        if (! canAccess('invoices.view')) {
+        if (! canAccess('orders.view')) {
 
             return response()->json([
 
@@ -1248,7 +1264,7 @@ protected ActivityLogger $activityLogger;
         */
 
         abort_unless(
-            canAccess('invoices.view'),
+            canAccess('orders.view'),
             403
         );
 

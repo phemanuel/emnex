@@ -466,7 +466,7 @@
                     @endif
 
 
-                    @if(canAccess('pos.cashdrawer'))
+                    @if(canAccess('pos.cash_drawer'))
 
                         <a
                             href="{{ route('cash-drawer.index') }}"

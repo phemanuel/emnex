@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -105,6 +106,33 @@ class Terminal extends Model
     {
         return $this->hasMany(ActivityLog::class, 'terminal_id');
     }
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal Assignments
+    |--------------------------------------------------------------------------
+    */
+
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(
+            TerminalAssignment::class
+        );
+    }
+
+
+    public function activeAssignment(): HasOne
+    {
+        return $this->hasOne(
+            TerminalAssignment::class
+        )->where(
+            'status',
+            'Active'
+        );
+    }
+
+
 
     /*
     |--------------------------------------------------------------------------

@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\CustomerGroup;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Services\DocumentNumberService;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -83,22 +84,63 @@ class OrderController extends BaseController
             $this->companyId;
 
 
+        
         /*
         |--------------------------------------------------------------------------
         | Branches
         |--------------------------------------------------------------------------
         */
 
-        $branches =
+        $user =
+            Auth::user();
+
+        $role =
+            $user->role?->code;
+
+        $canManageAllBranches =
+            in_array(
+                $role,
+                [
+                    'owner',
+                    'administrator',
+                ]
+            );
+
+        $currentBranchId =
+            $user->branch_id;
+
+
+        $branchesQuery =
+
             Branch::query()
+
                 ->where(
                     'company_id',
                     $companyId
-                )
+                );
+
+
+        if (!$canManageAllBranches) {
+
+            $branchesQuery->where(
+                'id',
+                $currentBranchId
+            );
+
+        }
+
+
+        $branches =
+
+            $branchesQuery
+
                 ->orderBy(
                     'name'
                 )
+
                 ->get();
+
+
 
 
         /*
@@ -150,15 +192,31 @@ class OrderController extends BaseController
         |--------------------------------------------------------------------------
         */
 
-        return view(
-            'sales.orders.index',
-            compact(
-                'company',
-                'branches',
-                'customers',
-                'terminals'
-            )
-        );
+           
+            return view(
+                'sales.orders.index',
+                [
+                    'company' =>
+                        $company,
+
+                    'branches' =>
+                        $branches,
+
+                    'customers' =>
+                        $customers,
+
+                    'terminals' =>
+                        $terminals,
+
+                    'canManageAllBranches' =>
+                        $canManageAllBranches,
+
+                    'currentBranchId' =>
+                        $currentBranchId,
+                ]
+            );
+
+
 
     }
 
@@ -199,16 +257,44 @@ class OrderController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
+        | Access Scope
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+        $role =
+            $user->role?->code;
+
+        $canManageAllBranches =
+            in_array(
+                $role,
+                [
+                    'owner',
+                    'administrator',
+                ]
+            );
+
+        $currentBranchId =
+            $user->branch_id;
+
+
+        /*
+        |--------------------------------------------------------------------------
         | Base Query
         |--------------------------------------------------------------------------
         */
 
         $query =
+
             Order::query()
+
                 ->where(
                     'company_id',
                     $this->companyId
                 )
+
                 ->with([
                     'customer',
                     'branch',
@@ -217,6 +303,22 @@ class OrderController extends BaseController
                     'createdBy',
                     'updatedBy',
                 ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Automatic Branch Scope
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$canManageAllBranches) {
+
+            $query->where(
+                'branch_id',
+                $currentBranchId
+            );
+
+        }
 
 
         /*
@@ -236,12 +338,14 @@ class OrderController extends BaseController
 
 
             $query->where(
-                function ($q) use ($search) {
+                function ($q) use (
+                    $search
+                ) {
 
                     /*
-                    |----------------------------------------------------------
+                    |--------------------------------------------------------------------------
                     | Order Number
-                    |----------------------------------------------------------
+                    |--------------------------------------------------------------------------
                     */
 
                     $q->where(
@@ -252,9 +356,9 @@ class OrderController extends BaseController
 
 
                     /*
-                    |----------------------------------------------------------
+                    |--------------------------------------------------------------------------
                     | Customer
-                    |----------------------------------------------------------
+                    |--------------------------------------------------------------------------
                     */
 
                     $q->orWhereHas(
@@ -278,22 +382,26 @@ class OrderController extends BaseController
                                         'customer_code',
                                         'like',
                                         "%{$search}%"
-                                    );
+                                    )
 
-                                    $q->orWhere(
+                                    ->orWhere(
                                         'first_name',
                                         'like',
                                         "%{$search}%"
-                                    );
+                                    )
 
-                                    $q->orWhere(
+                                    ->orWhere(
                                         'last_name',
                                         'like',
                                         "%{$search}%"
-                                    );
+                                    )
 
-                                    $q->orWhereRaw(
-                                        "CONCAT(first_name, ' ', last_name) LIKE ?",
+                                    ->orWhereRaw(
+                                        "CONCAT(
+                                            first_name,
+                                            ' ',
+                                            last_name
+                                        ) LIKE ?",
                                         [
                                             "%{$search}%"
                                         ]
@@ -339,10 +447,31 @@ class OrderController extends BaseController
             $request->filled('branch_id')
         ) {
 
-            $query->where(
-                'branch_id',
-                $request->branch_id
-            );
+            /*
+            |--------------------------------------------------------------------------
+            | All-Branch Users
+            |--------------------------------------------------------------------------
+            */
+
+            if ($canManageAllBranches) {
+
+                $query->where(
+                    'branch_id',
+                    $request->branch_id
+                );
+
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Branch Users
+            |--------------------------------------------------------------------------
+            |
+            | Ignore any supplied branch_id.
+            | Their query is already restricted to
+            | their assigned branch.
+            |
+            */
 
         }
 
@@ -428,9 +557,13 @@ class OrderController extends BaseController
         */
 
         $orders =
+
             $query
+
                 ->latest('id')
+
                 ->paginate(15)
+
                 ->withQueryString();
 
 
@@ -441,6 +574,7 @@ class OrderController extends BaseController
         */
 
         $html =
+
             view(
                 'sales.orders.partials.table',
                 compact(
@@ -451,24 +585,50 @@ class OrderController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | Statistics
+        | Statistics Query
         |--------------------------------------------------------------------------
         */
 
         $statsQuery =
+
             Order::query()
+
                 ->where(
                     'company_id',
                     $this->companyId
                 );
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Statistics Branch Scope
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$canManageAllBranches) {
+
+            $statsQuery->where(
+                'branch_id',
+                $currentBranchId
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Statistics
+        |--------------------------------------------------------------------------
+        */
+
         $total =
+
             (clone $statsQuery)
                 ->count();
 
 
         $draft =
+
             (clone $statsQuery)
                 ->where(
                     'order_status',
@@ -478,6 +638,7 @@ class OrderController extends BaseController
 
 
         $completed =
+
             (clone $statsQuery)
                 ->where(
                     'order_status',
@@ -487,6 +648,7 @@ class OrderController extends BaseController
 
 
         $salesValue =
+
             (clone $statsQuery)
                 ->where(
                     'order_status',
@@ -539,6 +701,7 @@ class OrderController extends BaseController
         ]);
 
     }
+
 
 
    /*
@@ -1017,6 +1180,7 @@ class OrderController extends BaseController
     }
 
 
+    
     /*
     |--------------------------------------------------------------------------
     | Branches
@@ -1028,6 +1192,12 @@ class OrderController extends BaseController
      */
     public function branches(): JsonResponse
     {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
 
         if (! canAccess('orders.view')) {
 
@@ -1044,20 +1214,88 @@ class OrderController extends BaseController
         }
 
 
-        $branches =
+        /*
+        |--------------------------------------------------------------------------
+        | User Access Scope
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+        $role =
+            $user->role?->code;
+
+        $canManageAllBranches =
+            in_array(
+                $role,
+                [
+                    'owner',
+                    'administrator',
+                ]
+            );
+
+        $currentBranchId =
+            $user->branch_id;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Query
+        |--------------------------------------------------------------------------
+        */
+
+        $branchesQuery =
+
             Branch::query()
+
                 ->where(
                     'company_id',
                     $this->companyId
-                )
+                );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Scope
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$canManageAllBranches) {
+
+            $branchesQuery->where(
+                'id',
+                $currentBranchId
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Load Branches
+        |--------------------------------------------------------------------------
+        */
+
+        $branches =
+
+            $branchesQuery
+
                 ->orderBy(
                     'name'
                 )
+
                 ->get([
                     'id',
                     'name',
                 ]);
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
 
         return response()->json([
 
@@ -1070,6 +1308,8 @@ class OrderController extends BaseController
         ]);
 
     }
+
+
 
 
    /*
