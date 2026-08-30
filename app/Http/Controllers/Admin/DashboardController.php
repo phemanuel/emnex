@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\Customer;
 use App\Models\ProductStock;
+use App\Models\SalesReturn;
 use Illuminate\Support\Facades\DB;
 use App\Models\Payment;
 use App\Models\OrderItem;
@@ -436,13 +437,21 @@ class DashboardController extends Controller
         }
 
 
-        /*
+       /*
         |--------------------------------------------------------------------------
         | Refunds
         |--------------------------------------------------------------------------
         */
 
-        $refunds = 0;
+        $refunds = SalesReturn::query()
+            ->where('company_id', $companyId)
+            ->whereBetween(
+                        'created_at',
+                        [
+                            $startDate,
+                            $endDate
+                        ])
+            ->sum('refund_amount');
 
 
         /*
@@ -572,8 +581,7 @@ class DashboardController extends Controller
                     ->get();
 
         }
-
-
+      
         /*
         |--------------------------------------------------------------------------
         | Sales Chart
@@ -582,62 +590,365 @@ class DashboardController extends Controller
 
         $salesChart = [];
 
-
         if ($canViewSales) {
 
-            for (
-                $i = 6;
-                $i >= 0;
-                $i--
+            switch ($period) {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Today
+                |--------------------------------------------------------------------------
+                */
+
+                case 'today':
+
+                    $chartStartDate =
+                        $startDate->copy()->startOfDay();
+
+                    $chartEndDate =
+                        $endDate->copy()->endOfDay();
+
+                    break;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Yesterday
+                |--------------------------------------------------------------------------
+                */
+
+                case 'yesterday':
+
+                    $chartStartDate =
+                        $startDate->copy()->startOfDay();
+
+                    $chartEndDate =
+                        $endDate->copy()->endOfDay();
+
+                    break;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | This Week
+                |--------------------------------------------------------------------------
+                */
+
+                case 'this_week':
+
+                    $chartStartDate =
+                        $startDate->copy()->startOfDay();
+
+                    $chartEndDate =
+                        $endDate->copy()->endOfDay();
+
+                    break;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | This Month
+                |--------------------------------------------------------------------------
+                */
+
+                case 'this_month':
+
+                    $chartStartDate =
+                        $startDate->copy()->startOfDay();
+
+                    $chartEndDate =
+                        $endDate->copy()->endOfDay();
+
+                    break;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | This Year
+                |--------------------------------------------------------------------------
+                */
+
+                case 'this_year':
+
+                    $chartStartDate =
+                        $startDate->copy()->startOfDay();
+
+                    $chartEndDate =
+                        $endDate->copy()->endOfDay();
+
+                    break;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Default
+                |--------------------------------------------------------------------------
+                */
+
+                default:
+
+                    $chartStartDate =
+                        $startDate->copy()->startOfDay();
+
+                    $chartEndDate =
+                        $endDate->copy()->endOfDay();
+
+                    break;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Determine Chart Granularity
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                $period === 'this_year'
             ) {
 
-                $date =
-                    Carbon::today()
-                        ->subDays($i);
+                /*
+                |--------------------------------------------------------------------------
+                | Monthly Chart
+                |--------------------------------------------------------------------------
+                */
+
+                $chartCursor =
+                    $chartStartDate->copy()->startOfMonth();
+
+                $chartEnd =
+                    $chartEndDate->copy()->startOfMonth();
 
 
-                $sales =
-                    (clone $orderQuery)
-                        ->whereDate(
-                            'created_at',
-                            $date
-                        )
-                        ->where(
-                            'order_status',
-                            'Completed'
-                        )
-                        ->sum('amount_paid');
+                while (
+                    $chartCursor->lte($chartEnd)
+                ) {
+
+                    $monthStart =
+                        $chartCursor->copy()->startOfMonth();
+
+                    $monthEnd =
+                        $chartCursor->copy()->endOfMonth();
 
 
-                $transactions =
-                    (clone $orderQuery)
-                        ->whereDate(
-                            'created_at',
-                            $date
-                        )
-                        ->where(
-                            'order_status',
-                            'Completed'
-                        )
-                        ->count();
+                    $sales =
+
+                        (clone $orderQuery)
+
+                            ->completed()
+
+                            ->whereBetween(
+                                'created_at',
+                                [
+                                    $monthStart,
+                                    $monthEnd
+                                ]
+                            )
+
+                            ->sum('amount_paid');
 
 
-                $salesChart[] = [
+                    $transactions =
 
-                    'day' =>
-                        $date->format('D'),
+                        (clone $orderQuery)
 
-                    'sales' =>
-                        (float) $sales,
+                            ->completed()
 
-                    'transactions' =>
-                        $transactions,
+                            ->whereBetween(
+                                'created_at',
+                                [
+                                    $monthStart,
+                                    $monthEnd
+                                ]
+                            )
 
-                ];
+                            ->count();
+
+
+                    $salesChart[] = [
+
+                        'day' =>
+                            $chartCursor->format('M'),
+
+                        'sales' =>
+                            (float) $sales,
+
+                        'transactions' =>
+                            $transactions,
+
+                    ];
+
+
+                    $chartCursor->addMonth();
+
+                }
+
+            } elseif (
+                $period === 'this_month'
+            ) {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Daily Chart — This Month
+                |--------------------------------------------------------------------------
+                */
+
+                $chartCursor =
+                    $chartStartDate->copy()->startOfDay();
+
+                $chartEnd =
+                    $chartEndDate->copy()->startOfDay();
+
+
+                while (
+                    $chartCursor->lte($chartEnd)
+                ) {
+
+                    $dayStart =
+                        $chartCursor->copy()->startOfDay();
+
+                    $dayEnd =
+                        $chartCursor->copy()->endOfDay();
+
+
+                    $sales =
+
+                        (clone $orderQuery)
+
+                            ->completed()
+
+                            ->whereBetween(
+                                'created_at',
+                                [
+                                    $dayStart,
+                                    $dayEnd
+                                ]
+                            )
+
+                            ->sum('amount_paid');
+
+
+                    $transactions =
+
+                        (clone $orderQuery)
+
+                            ->completed()
+
+                            ->whereBetween(
+                                'created_at',
+                                [
+                                    $dayStart,
+                                    $dayEnd
+                                ]
+                            )
+
+                            ->count();
+
+
+                    $salesChart[] = [
+
+                        'day' =>
+                            $chartCursor->format('d M'),
+
+                        'sales' =>
+                            (float) $sales,
+
+                        'transactions' =>
+                            $transactions,
+
+                    ];
+
+
+                    $chartCursor->addDay();
+
+                }
+
+            } else {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Daily Chart
+                |
+                | Today / Yesterday / This Week
+                |--------------------------------------------------------------------------
+                */
+
+                $chartCursor =
+                    $chartStartDate->copy()->startOfDay();
+
+                $chartEnd =
+                    $chartEndDate->copy()->startOfDay();
+
+
+                while (
+                    $chartCursor->lte($chartEnd)
+                ) {
+
+                    $dayStart =
+                        $chartCursor->copy()->startOfDay();
+
+                    $dayEnd =
+                        $chartCursor->copy()->endOfDay();
+
+
+                    $sales =
+
+                        (clone $orderQuery)
+
+                            ->completed()
+
+                            ->whereBetween(
+                                'created_at',
+                                [
+                                    $dayStart,
+                                    $dayEnd
+                                ]
+                            )
+
+                            ->sum('amount_paid');
+
+
+                    $transactions =
+
+                        (clone $orderQuery)
+
+                            ->completed()
+
+                            ->whereBetween(
+                                'created_at',
+                                [
+                                    $dayStart,
+                                    $dayEnd
+                                ]
+                            )
+
+                            ->count();
+
+
+                    $salesChart[] = [
+
+                        'day' =>
+                            $chartCursor->format('D'),
+
+                        'sales' =>
+                            (float) $sales,
+
+                        'transactions' =>
+                            $transactions,
+
+                    ];
+
+
+                    $chartCursor->addDay();
+
+                }
 
             }
 
         }
+
+
 
 
         /*

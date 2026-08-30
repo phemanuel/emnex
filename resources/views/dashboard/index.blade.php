@@ -481,6 +481,127 @@
 
 <div class="row g-4">
 
+   
+    {{-- ==================================================
+        PERIOD FILTER
+    =================================================== --}}
+
+    <div class="dashboard-period-filter-card">
+
+        <div class="dashboard-period-filter-content">
+
+            <div class="dashboard-period-filter-heading">
+
+                <span class="dashboard-period-filter-label">
+                    Period
+                </span>
+
+                <span class="dashboard-period-filter-description">
+                    Dashboard performance
+                </span>
+
+            </div>
+
+
+            <div
+                class="dashboard-sales-filter"
+                id="dashboardSalesFilter"
+            >
+
+                <button
+                    type="button"
+                    class="dashboard-sales-filter-button"
+                    id="dashboardFilterBtn"
+                    aria-expanded="false"
+                >
+
+                    <span>
+
+                        {{ ucfirst(
+                            str_replace(
+                                '_',
+                                ' ',
+                                $period ?? 'this_week'
+                            )
+                        ) }}
+
+                    </span>
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+
+                <div
+                    class="dashboard-sales-filter-menu"
+                    id="dashboardSalesFilterMenu"
+                >
+
+                    <a
+                        href="{{ route(
+                            'dashboard',
+                            ['period' => 'today']
+                        ) }}"
+                    >
+                        Today
+                    </a>
+
+
+                    <a
+                        href="{{ route(
+                            'dashboard',
+                            ['period' => 'yesterday']
+                        ) }}"
+                    >
+                        Yesterday
+                    </a>
+
+
+                    <a
+                        href="{{ route(
+                            'dashboard',
+                            ['period' => 'this_week']
+                        ) }}"
+                    >
+                        This Week
+                    </a>
+
+
+                    <a
+                        href="{{ route(
+                            'dashboard',
+                            ['period' => 'this_month']
+                        ) }}"
+                    >
+                        This Month
+                    </a>
+
+
+                    <a
+                        href="{{ route(
+                            'dashboard',
+                            ['period' => 'this_year']
+                        ) }}"
+                    >
+                        This Year
+                    </a>
+
+
+                    <a
+                        href="#"
+                        id="customRangeBtn"
+                    >
+                        Custom Range
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 
     
     {{-- ======================================================
@@ -516,90 +637,7 @@
                     </span>
 
                 </div>
-
-
-                {{-- ==================================================
-                    PERIOD FILTER
-                =================================================== --}}
-
-                <div class="dashboard-sales-filter-wrapper">
-
-                    <div class="dashboard-sales-filter">
-
-                        <button
-                            type="button"
-                            class="dashboard-sales-filter-button"
-                        >
-
-                            <span>
-                                {{ ucfirst(
-                                    str_replace(
-                                        '_',
-                                        ' ',
-                                        $period ?? 'this_week'
-                                    )
-                                ) }}
-                            </span>
-
-                            <i class="bi bi-chevron-down"></i>
-
-                        </button>
-
-
-                        <div class="dashboard-sales-filter-menu">
-
-                            <a href="{{ route(
-                                'dashboard',
-                                ['period' => 'today']
-                            ) }}">
-                                Today
-                            </a>
-
-
-                            <a href="{{ route(
-                                'dashboard',
-                                ['period' => 'yesterday']
-                            ) }}">
-                                Yesterday
-                            </a>
-
-
-                            <a href="{{ route(
-                                'dashboard',
-                                ['period' => 'this_week']
-                            ) }}">
-                                This Week
-                            </a>
-
-
-                            <a href="{{ route(
-                                'dashboard',
-                                ['period' => 'this_month']
-                            ) }}">
-                                This Month
-                            </a>
-
-
-                            <a href="{{ route(
-                                'dashboard',
-                                ['period' => 'this_year']
-                            ) }}">
-                                This Year
-                            </a>
-
-
-                            <a
-                                href="#"
-                                id="customRangeBtn"
-                            >
-                                Custom Range
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                
 
             </div>
 
@@ -1570,82 +1608,82 @@ SALES CHART
 
 @if($canViewSales)
 
-<script>  
- /*                                                                         |
-| -------------------------------------------------------------------------- |
-| Dashboard Sales Period Filter                                              |
-| -------------------------------------------------------------------------- |
-| */                                                                        
-
+<script>
 (function () {
 
+    function initializeDashboardSalesFilter() {
 
-function initializeDashboardSalesFilter() {
-
-    const filter =
-        document.getElementById(
-            'dashboardSalesFilter'
-        );
-
-    const button =
-        document.getElementById(
-            'dashboardFilterBtn'
-        );
-
-    const menu =
-        document.getElementById(
-            'dashboardSalesFilterMenu'
+        console.log(
+            'SALES FILTER: INITIALIZE RUNNING'
         );
 
 
-    if (
-        !filter ||
-        !button ||
-        !menu
-    ) {
+        const filter =
+            document.getElementById(
+                'dashboardSalesFilter'
+            );
 
-        return;
+        const button =
+            document.getElementById(
+                'dashboardFilterBtn'
+            );
 
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Prevent Duplicate Initialization
-    |--------------------------------------------------------------------------
-    */
-
-    if (
-        filter.dataset.initialized === 'true'
-    ) {
-
-        return;
-
-    }
+        const menu =
+            document.getElementById(
+                'dashboardSalesFilterMenu'
+            );
 
 
-    filter.dataset.initialized = 'true';
+        console.log(
+            'SALES FILTER ELEMENTS:',
+            {
+                filter: filter,
+                button: button,
+                menu: menu
+            }
+        );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Toggle Dropdown
-    |--------------------------------------------------------------------------
-    */
+        if (
+            !filter ||
+            !button ||
+            !menu
+        ) {
 
-    button.addEventListener(
-        'click',
-        function (event) {
+            console.log(
+                'SALES FILTER: ELEMENT MISSING'
+            );
+
+            return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Test Direct Click
+        |--------------------------------------------------------------------------
+        */
+
+        button.onclick = function (event) {
+
+            console.log(
+                'SALES FILTER: CLICK FIRED'
+            );
+
 
             event.preventDefault();
-
-            event.stopPropagation();
 
 
             const isOpen =
                 filter.classList.contains(
                     'is-open'
                 );
+
+
+            console.log(
+                'SALES FILTER: BEFORE',
+                filter.className
+            );
 
 
             if (isOpen) {
@@ -1672,126 +1710,35 @@ function initializeDashboardSalesFilter() {
 
             }
 
-        }
-    );
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Keep Menu Clicks Inside
-    |--------------------------------------------------------------------------
-    */
-
-    menu.addEventListener(
-        'click',
-        function (event) {
-
-            event.stopPropagation();
-
-        }
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Close Outside
-    |--------------------------------------------------------------------------
-    */
-
-    document.addEventListener(
-        'click',
-        function (event) {
-
-            if (
-                !filter.contains(
-                    event.target
-                )
-            ) {
-
-                filter.classList.remove(
-                    'is-open'
-                );
-
-                button.setAttribute(
-                    'aria-expanded',
-                    'false'
-                );
-
-            }
-
-        }
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Close After Period Selection
-    |--------------------------------------------------------------------------
-    */
-
-    menu.querySelectorAll(
-        'a'
-    ).forEach(
-        function (link) {
-
-            link.addEventListener(
-                'click',
-                function () {
-
-                    if (
-                        link.id ===
-                        'customRangeBtn'
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    filter.classList.remove(
-                        'is-open'
-                    );
-
-                    button.setAttribute(
-                        'aria-expanded',
-                        'false'
-                    );
-
-                }
+            console.log(
+                'SALES FILTER: AFTER',
+                filter.className
             );
 
-        }
-    );
+        };
 
-}
+    }
 
 
-/*
-|--------------------------------------------------------------------------
-| Initialize
-|--------------------------------------------------------------------------
-*/
+    if (
+        document.readyState ===
+        'loading'
+    ) {
 
-if (
-    document.readyState ===
-    'loading'
-) {
+        document.addEventListener(
+            'DOMContentLoaded',
+            initializeDashboardSalesFilter
+        );
 
-    document.addEventListener(
-        'DOMContentLoaded',
-        initializeDashboardSalesFilter
-    );
+    } else {
 
-} else {
+        initializeDashboardSalesFilter();
 
-    initializeDashboardSalesFilter();
-
-}
-
+    }
 
 })();
-
-</script>
+    </script>
 <script>
 
     document.addEventListener(

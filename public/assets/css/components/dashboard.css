@@ -1768,8 +1768,6 @@
 
     z-index: 1000;
 
-    display: none;
-
     min-width: 155px;
 
     padding: 6px;
@@ -1787,11 +1785,6 @@
 }
 
 
-.dashboard-sales-filter-menu.show {
-
-    display: block;
-
-}
 
 
 .dashboard-sales-filter-menu a {
@@ -4365,251 +4358,378 @@ overflow: visible !important;
 
 }
 
+
+
+
 /* ==========================================================================
-FILTER WRAPPER
-========================================================================== */
-
-.dashboard-sales-filter-wrapper {
+   DASHBOARD PERIOD FILTER CARD
+   ========================================================================== */
 
 
-position: relative;
+.dashboard-period-filter-card {
 
-z-index: 10000;
+    position: relative;
 
-flex: 0 0 auto;
+    z-index: 100;
 
-overflow: visible !important;
+    margin-top: 8px;
 
+    margin-bottom: 3px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03),
+        0 6px 18px rgba(16, 24, 40, 0.035);
 
 }
 
+
 /* ==========================================================================
-FILTER
-========================================================================== */
+   CONTENT
+   ========================================================================== */
+
+.dashboard-period-filter-content {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    min-height: 68px;
+
+    padding: 12px 16px;
+
+}
+
+
+/* ==========================================================================
+   HEADING
+   ========================================================================== */
+
+.dashboard-period-filter-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    min-width: 0;
+
+}
+
+
+.dashboard-period-filter-label {
+
+    color: #344054;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+.dashboard-period-filter-description {
+
+    padding-left: 8px;
+
+    color: #98a2b3;
+
+    border-left: 1px solid #e4e7ec;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+}
+
+
+/* ==========================================================================
+   FILTER
+   ========================================================================== */
 
 .dashboard-sales-filter {
 
+    position: relative;
 
-position: relative;
+    display: inline-block;
 
-display: inline-block;
-
-z-index: 10001;
-
+    flex-shrink: 0;
 
 }
 
+
 /* ==========================================================================
-FILTER BUTTON
-========================================================================== */
+   BUTTON
+   ========================================================================== */
 
 .dashboard-sales-filter-button {
 
+    display: inline-flex;
 
-display: inline-flex;
+    align-items: center;
 
-align-items: center;
+    justify-content: space-between;
 
-justify-content: space-between;
+    gap: 12px;
 
-gap: 10px;
+    min-width: 140px;
 
-min-width: 140px;
+    height: 36px;
 
-height: 38px;
+    padding: 0 11px;
 
-padding: 0 12px;
+    color: #344054;
 
-color: #344054;
+    background: #ffffff;
 
-background: #ffffff;
+    border: 1px solid #dfe3e8;
 
-border: 1px solid #e4e7ec;
+    border-radius: 8px;
 
-border-radius: 8px;
+    font-family: inherit;
 
-font-family: inherit;
+    font-size: 11px;
 
-font-size: 12px;
+    font-weight: 600;
 
-font-weight: 600;
+    line-height: 1;
 
-cursor: pointer;
+    cursor: pointer;
 
-outline: none;
-
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 
 }
+
+
+.dashboard-sales-filter-button:hover {
+
+    background: #f9fafb;
+
+    border-color: #cfd5dc;
+
+}
+
+
+.dashboard-sales-filter-button:focus {
+
+    outline: none;
+
+    border-color: #98a2b3;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 24, 40, 0.05);
+
+}
+
 
 .dashboard-sales-filter-button i {
 
+    color: #667085;
 
-color: #98a2b3;
+    font-size: 10px;
 
-font-size: 10px;
-
+    transition:
+        transform 0.2s ease;
 
 }
 
+
+.dashboard-sales-filter.is-open
+.dashboard-sales-filter-button i {
+
+    transform: rotate(180deg);
+
+}
+
+
 /* ==========================================================================
-FILTER MENU
-========================================================================== */
+   MENU
+   ========================================================================== */
 
 .dashboard-sales-filter-menu {
 
+    position: absolute;
 
-position: absolute;
+    top: calc(100% + 7px);
 
-top: calc(100% + 8px);
+    left: 0;
 
-right: 0;
+    right: auto;
 
-z-index: 999999;
+    z-index: 99999;
 
-width: 180px;
+    width: 175px;
 
-padding: 6px;
+    padding: 6px;
 
-background: #ffffff;
+    background: #ffffff;
 
-border: 1px solid #e4e7ec;
+    border: 1px solid #eaecf0;
 
-border-radius: 10px;
+    border-radius: 10px;
 
-box-shadow:
-    0 10px 15px -3px rgba(16, 24, 40, 0.08),
-    0 4px 6px -4px rgba(16, 24, 40, 0.08);
+    box-shadow:
+        0 8px 24px rgba(16, 24, 40, 0.10),
+        0 2px 6px rgba(16, 24, 40, 0.05);
 
-opacity: 0;
+    opacity: 0;
 
-visibility: hidden;
+    visibility: hidden;
 
-pointer-events: none;
+    pointer-events: none;
 
-transform: translateY(-4px);
+    transform: translateY(-5px);
 
-transition:
-    opacity 0.15s ease,
-    transform 0.15s ease,
-    visibility 0.15s ease;
-
+    transition:
+        opacity 0.16s ease,
+        visibility 0.16s ease,
+        transform 0.16s ease;
 
 }
 
-/* ==========================================================================
-OPEN ON HOVER
-========================================================================== */
 
-.dashboard-sales-filter:hover
+/* ==========================================================================
+   OPEN
+   ========================================================================== */
+
+.dashboard-sales-filter.is-open
 .dashboard-sales-filter-menu {
 
+    opacity: 1;
 
-opacity: 1;
+    visibility: visible;
 
-visibility: visible;
+    pointer-events: auto;
 
-pointer-events: auto;
-
-transform: translateY(0);
-
+    transform: translateY(0);
 
 }
 
+
 /* ==========================================================================
-MENU LINKS
-========================================================================== */
+   MENU LINKS
+   ========================================================================== */
 
 .dashboard-sales-filter-menu a {
 
+    display: flex;
 
-display: flex;
+    align-items: center;
 
-align-items: center;
+    width: 100%;
 
-min-height: 36px;
+    padding: 9px 10px;
 
-padding: 8px 10px;
+    color: #475467;
 
-color: #475467;
+    border-radius: 7px;
 
-border-radius: 7px;
+    font-size: 12px;
 
-font-size: 12px;
+    font-weight: 500;
 
-font-weight: 500;
+    line-height: 1.3;
 
-text-decoration: none;
+    text-decoration: none;
 
-white-space: nowrap;
+    white-space: nowrap;
 
+    transition:
+        color 0.15s ease,
+        background 0.15s ease;
 
 }
+
 
 .dashboard-sales-filter-menu a:hover {
 
+    color: #101828;
 
-color: #101828;
-
-background: #f2f4f7;
-
+    background: #f5f7fa;
 
 }
 
-/* ==========================================================================
-CHART
-========================================================================== */
-
-.dashboard-sales-chart {
-
-
-position: relative;
-
-z-index: 1;
-
-
-}
 
 /* ==========================================================================
-BOOTSTRAP / GRID OVERRIDES
-========================================================================== */
-
-.dashboard-sales-column,
-.dashboard-sales-column > *,
-.dashboard-sales-card,
-.dashboard-sales-header,
-.dashboard-sales-filter-wrapper,
-.dashboard-sales-filter {
-
-
-overflow: visible !important;
-
-
-}
-
-/* ==========================================================================
-RESPONSIVE
-========================================================================== */
+   RESPONSIVE
+   ========================================================================== */
 
 @media (max-width: 767.98px) {
 
+    .dashboard-period-filter-card {
 
-.dashboard-sales-header {
+        margin-top: 6px;
 
-    align-items: flex-start;
+        margin-bottom: 14px;
 
-    gap: 15px;
+        border-radius: 12px;
+
+    }
+
+
+    .dashboard-period-filter-content {
+
+        align-items: stretch;
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        min-height: auto;
+
+        padding: 13px;
+
+    }
+
+
+    .dashboard-period-filter-heading {
+
+        justify-content: flex-start;
+
+    }
+
+
+    .dashboard-sales-filter {
+
+        width: 100%;
+
+    }
+
+
+    .dashboard-sales-filter-button {
+
+        width: 100%;
+
+    }
+
+
+    .dashboard-sales-filter-menu {
+
+        width: 100%;
+
+    }
 
 }
 
 
-.dashboard-sales-filter-button {
-
-    min-width: 125px;
-
-}
 
 
-}
+
+
+
 
 
 
