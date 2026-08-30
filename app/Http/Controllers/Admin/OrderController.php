@@ -14,6 +14,8 @@ use App\Models\ProductStock;
 use App\Models\Terminal;
 use App\Models\Setting;
 use App\Models\Payment;
+use App\Models\CashDrawer;
+use App\Models\CashDrawerTransaction;
 use App\Models\PaymentMethod;
 use App\Models\StockMovement;
 use Illuminate\Http\JsonResponse;
@@ -5310,6 +5312,247 @@ public function storeCustomer(
 
                         ]);
 
+                       
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Cash Drawer
+                        |--------------------------------------------------------------------------
+                        */
+
+                        if (
+                            strtolower(
+                                trim(
+                                    $payment->payment_method
+                                )
+                            ) === 'cash'
+                        ) {
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Open Cash Drawer
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $cashDrawer =
+                                CashDrawer::query()
+                                    ->where(
+                                        'company_id',
+                                        $this->companyId
+                                    )
+                                    ->where(
+                                        'branch_id',
+                                        $order->branch_id
+                                    )
+                                    ->where(
+                                        'terminal_id',
+                                        $order->terminal_id
+                                    )
+                                    ->where(
+                                        'status',
+                                        'Open'
+                                    )
+                                    ->lockForUpdate()
+                                    ->first();
+
+                            if (! $cashDrawer) {
+
+                                throw ValidationException::withMessages([
+
+                                    'cash_drawer' =>
+                                        'No open cash drawer was found for the selected branch and terminal.',
+
+                                ]);
+
+                            }
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Cash Received
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $drawerBalanceBefore =
+                                (float) (
+                                    $cashDrawer->expected_balance
+                                    ??
+                                    $cashDrawer->opening_balance
+                                    ??
+                                    0
+                                );
+
+                            $drawerBalanceAfterSale =
+                                $drawerBalanceBefore
+                                +
+                                $amountPaid;
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Cash Sale Transaction
+                            |--------------------------------------------------------------------------
+                            */
+
+                            CashDrawerTransaction::create([
+
+                                'company_id' =>
+                                    $this->companyId,
+
+                                'branch_id' =>
+                                    $order->branch_id,
+
+                                'terminal_id' =>
+                                    $order->terminal_id,
+
+                                'cash_drawer_id' =>
+                                    $cashDrawer->id,
+
+                                'payment_id' =>
+                                    $payment->id,
+
+                                'order_id' =>
+                                    $order->id,
+
+                                'created_by' =>
+                                    auth()->id(),
+
+                                'transaction_type' =>
+                                    'Cash Sale',
+
+                                'amount' =>
+                                    $amountPaid,
+
+                                'balance_before' =>
+                                    $drawerBalanceBefore,
+
+                                'balance_after' =>
+                                    $drawerBalanceAfterSale,
+
+                                'reference_no' =>
+                                    $order->order_no,
+
+                                'remarks' =>
+                                    'Cash payment received for sales order: ' .
+                                    $order->order_no,
+
+                            ]);
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Update Cash Sales
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $cashDrawer->cash_sales =
+                                (float) $cashDrawer->cash_sales
+                                +
+                                $amountPaid;
+
+                            $cashDrawer->expected_balance =
+                                $drawerBalanceAfterSale;
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Change Given
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if ($changeGiven > 0) {
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Balance Before Change
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $changeBalanceBefore =
+                                    $drawerBalanceAfterSale;
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Balance After Change
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $changeBalanceAfter =
+                                    $changeBalanceBefore
+                                    -
+                                    $changeGiven;
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Cash Out Transaction
+                                |--------------------------------------------------------------------------
+                                */
+
+                                CashDrawerTransaction::create([
+
+                                    'company_id' =>
+                                        $this->companyId,
+
+                                    'branch_id' =>
+                                        $order->branch_id,
+
+                                    'terminal_id' =>
+                                        $order->terminal_id,
+
+                                    'cash_drawer_id' =>
+                                        $cashDrawer->id,
+
+                                    'payment_id' =>
+                                        $payment->id,
+
+                                    'order_id' =>
+                                        $order->id,
+
+                                    'created_by' =>
+                                        auth()->id(),
+
+                                    'transaction_type' =>
+                                        'Cash Out',
+
+                                    'amount' =>
+                                        $changeGiven,
+
+                                    'balance_before' =>
+                                        $changeBalanceBefore,
+
+                                    'balance_after' =>
+                                        $changeBalanceAfter,
+
+                                    'reference_no' =>
+                                        $order->order_no,
+
+                                    'remarks' =>
+                                        'Change given for sales order: ' .
+                                        $order->order_no,
+
+                                ]);
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Update Cash Out
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $cashDrawer->cash_out =
+                                    (float) $cashDrawer->cash_out
+                                    +
+                                    $changeGiven;
+
+                                $cashDrawer->expected_balance =
+                                    $changeBalanceAfter;
+                            }
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Save Cash Drawer
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $cashDrawer->save();
+                        }
+
+
+
                         /*
                         |--------------------------------------------------------------------------
                         | Update Invoice
@@ -6298,6 +6541,148 @@ public function storeCustomer(
                                     $order->order_no,
 
                             ]);
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Cash Drawer
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if (
+                                strtolower(
+                                    trim(
+                                        $payment->payment_method
+                                    )
+                                ) === 'cash'
+                            ) {
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Open Cash Drawer
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $cashDrawer =
+                                    CashDrawer::query()
+                                        ->where(
+                                            'company_id',
+                                            $this->companyId
+                                        )
+                                        ->where(
+                                            'branch_id',
+                                            $order->branch_id
+                                        )
+                                        ->where(
+                                            'terminal_id',
+                                            $order->terminal_id
+                                        )
+                                        ->where(
+                                            'status',
+                                            'Open'
+                                        )
+                                        ->lockForUpdate()
+                                        ->first();
+
+                                if (! $cashDrawer) {
+
+                                    throw ValidationException::withMessages([
+
+                                        'cash_drawer' =>
+                                            'No open cash drawer was found for the selected branch and terminal.',
+
+                                    ]);
+
+                                }
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Drawer Balance
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $drawerBalanceBefore =
+                                    (float) (
+                                        $cashDrawer->expected_balance
+                                        ??
+                                        $cashDrawer->opening_balance
+                                        ??
+                                        0
+                                    );
+
+                                $drawerBalanceAfter =
+                                    $drawerBalanceBefore
+                                    +
+                                    $paymentAmount;
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Cash Sale Transaction
+                                |--------------------------------------------------------------------------
+                                */
+
+                                CashDrawerTransaction::create([
+
+                                    'company_id' =>
+                                        $this->companyId,
+
+                                    'branch_id' =>
+                                        $order->branch_id,
+
+                                    'terminal_id' =>
+                                        $order->terminal_id,
+
+                                    'cash_drawer_id' =>
+                                        $cashDrawer->id,
+
+                                    'payment_id' =>
+                                        $payment->id,
+
+                                    'order_id' =>
+                                        $order->id,
+
+                                    'created_by' =>
+                                        auth()->id(),
+
+                                    'transaction_type' =>
+                                        'Cash Sale',
+
+                                    'amount' =>
+                                        $paymentAmount,
+
+                                    'balance_before' =>
+                                        $drawerBalanceBefore,
+
+                                    'balance_after' =>
+                                        $drawerBalanceAfter,
+
+                                    'reference_no' =>
+                                        $order->order_no,
+
+                                    'remarks' =>
+                                        'Cash payment received for sales order: ' .
+                                        $order->order_no,
+
+                                ]);
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Update Cash Drawer
+                                |--------------------------------------------------------------------------
+                                */
+
+                                $cashDrawer->cash_sales =
+                                    (float) $cashDrawer->cash_sales
+                                    +
+                                    $paymentAmount;
+
+                                $cashDrawer->expected_balance =
+                                    $drawerBalanceAfter;
+
+                                $cashDrawer->save();
+                            }
+
+
 
 
                         /*

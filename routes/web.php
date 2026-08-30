@@ -96,27 +96,58 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
+       /*
+        |--------------------------------------------------------------------------
+        | Cash Drawer
+        |--------------------------------------------------------------------------
+        */
+
+       Route::prefix('cash-drawer')
+            ->name('cash-drawer.')
+            ->group(function () {
+
+                Route::get('/',[CashDrawerController::class, 'index'])->name('index');
+
+                Route::get('/current',[CashDrawerController::class, 'current'])->name('current');
+
+                Route::post('/open',[CashDrawerController::class, 'open'])->name('open');
+
+                Route::post('/close',[CashDrawerController::class, 'close'])->name('close');
+
+                Route::post('/cash-in',[CashDrawerController::class, 'cashIn'])->name('cash-in');
+
+                Route::post('/cash-out',[CashDrawerController::class, 'cashOut'])->name('cash-out');
+
+                Route::get('/transactions',[CashDrawerController::class, 'transactions'])
+                ->name('transactions');
+
+                Route::get('/history',[CashDrawerController::class, 'history'])->name('history');
+
+                Route::get('/transactions/{id}',[CashDrawerController::class, 'transactionDetails'])
+                ->name('transaction-details');
+
+                Route::get('/{id}',[CashDrawerController::class, 'details'])->name('details');
+            });
+
+
     Route::prefix('pos')
-        ->name('pos.')
-        ->controller(PosController::class)
-        ->group(function () {
+    ->name('pos.')
+    ->group(function () {
 
-            Route::get('/', 'index')->name('index');
+            Route::get('/',[PosController::class, 'index'])->name('index');
+       
+            Route::get('/open-orders',[PosController::class, 'openOrders'])->name('open-orders');
 
-            Route::get('/open-orders', 'openOrders')
-                ->name('open-orders');
+            Route::get('/held-sales',[PosController::class, 'heldSales'])->name('held-sales');
 
-            Route::get('/held-sales', 'heldSales')
-                ->name('held-sales');
+            Route::get('/returns',[PosController::class, 'returns'])->name('returns');
 
-            Route::get('/returns', 'returns')
-                ->name('returns');
+            
 
-        });
+    });
 
 
-    Route::resource('cash-drawer', CashDrawerController::class)
-        ->only(['index']);
+    
 
 
 

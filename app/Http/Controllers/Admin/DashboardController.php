@@ -417,7 +417,19 @@ class DashboardController extends Controller
                 (clone $todayPayments)
                     ->where(
                         'payment_method',
-                        'Bank Transfer'
+                        'Transfer'
+                    )
+                    ->sum('amount');
+
+             /*
+            | Wallet
+            */
+
+            $walletSales =
+                (clone $todayPayments)
+                    ->where(
+                        'payment_method',
+                        'Wallet'
                     )
                     ->sum('amount');
 
@@ -494,7 +506,7 @@ class DashboardController extends Controller
                     ->lowStock()
                     ->with('product')
                     ->orderBy('quantity')
-                    ->take(10)
+                    ->take(5)
                     ->get();
 
         }
@@ -556,7 +568,7 @@ class DashboardController extends Controller
                     ->orderByDesc(
                         'total_quantity'
                     )
-                    ->take(10)
+                    ->take(5)
                     ->get();
 
         }
@@ -651,6 +663,7 @@ class DashboardController extends Controller
                 'cashSales',
                 'cardSales',
                 'transferSales',
+                'walletSales',
 
                 'refunds',
 

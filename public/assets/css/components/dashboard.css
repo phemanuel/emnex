@@ -1155,3 +1155,3462 @@
     color:#d97706;
 
 }
+
+
+
+/* ==========================================================================
+   DASHBOARD KPI CARDS
+   ========================================================================== */
+
+.dashboard-kpi-grid {
+    margin-bottom: 24px;
+}
+
+
+/* ==========================================================================
+   Card
+   ========================================================================== */
+
+.dashboard-kpi-card {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-height: 235px;
+
+    padding: 22px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03),
+        0 8px 24px rgba(16, 24, 40, 0.04);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+
+}
+
+
+.dashboard-kpi-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #dfe4eb;
+
+    box-shadow:
+        0 4px 8px rgba(16, 24, 40, 0.04),
+        0 14px 32px rgba(16, 24, 40, 0.07);
+
+}
+
+
+/* ==========================================================================
+   Top
+   ========================================================================== */
+
+.dashboard-kpi-top {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 16px;
+
+}
+
+
+.dashboard-kpi-title-group {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+}
+
+
+/* ==========================================================================
+   Icon
+   ========================================================================== */
+
+.dashboard-kpi-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    border-radius: 11px;
+
+    font-size: 19px;
+
+}
+
+
+.dashboard-kpi-sales .dashboard-kpi-icon {
+
+    color: #2563eb;
+
+    background: #eff6ff;
+
+}
+
+
+.dashboard-kpi-transactions .dashboard-kpi-icon {
+
+    color: #7c3aed;
+
+    background: #f5f3ff;
+
+}
+
+
+.dashboard-kpi-customers .dashboard-kpi-icon {
+
+    color: #059669;
+
+    background: #ecfdf5;
+
+}
+
+
+.dashboard-kpi-inventory .dashboard-kpi-icon {
+
+    color: #d97706;
+
+    background: #fffbeb;
+
+}
+
+
+/* ==========================================================================
+   Label
+   ========================================================================== */
+
+.dashboard-kpi-label {
+
+    display: block;
+
+    color: #172033;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.3;
+
+}
+
+
+.dashboard-kpi-period {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #98a2b3;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    line-height: 1.3;
+
+}
+
+
+/* ==========================================================================
+   Indicators
+   ========================================================================== */
+
+.dashboard-kpi-indicator {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 8px;
+
+    border-radius: 7px;
+
+    white-space: nowrap;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+}
+
+
+.dashboard-kpi-indicator-positive {
+
+    color: #047857;
+
+    background: #ecfdf3;
+
+}
+
+
+.dashboard-kpi-indicator-neutral {
+
+    color: #667085;
+
+    background: #f2f4f7;
+
+}
+
+
+.dashboard-kpi-indicator-warning {
+
+    color: #b45309;
+
+    background: #fffaeb;
+
+}
+
+
+/* ==========================================================================
+   Main Value
+   ========================================================================== */
+
+.dashboard-kpi-main {
+
+    margin-top: 28px;
+
+}
+
+
+.dashboard-kpi-value {
+
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 29px;
+
+    font-weight: 700;
+
+    letter-spacing: -0.7px;
+
+    line-height: 1.15;
+
+}
+
+
+.dashboard-kpi-description {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #98a2b3;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+}
+
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.dashboard-kpi-footer {
+
+    margin-top: auto;
+
+    padding-top: 18px;
+
+}
+
+
+.dashboard-kpi-footer a {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    width: 100%;
+
+    padding-top: 14px;
+
+    color: #475467;
+
+    border-top: 1px solid #f0f2f5;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease;
+
+}
+
+
+.dashboard-kpi-footer a:hover {
+
+    color: #1d4ed8;
+
+}
+
+
+.dashboard-kpi-footer i {
+
+    font-size: 14px;
+
+    transition:
+        transform 0.2s ease;
+
+}
+
+
+.dashboard-kpi-footer a:hover i {
+
+    transform: translate(2px, -2px);
+
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1199.98px) {
+
+    .dashboard-kpi-card {
+
+        min-height: 225px;
+
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .dashboard-kpi-card {
+
+        min-height: 215px;
+
+        padding: 19px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .dashboard-kpi-value {
+
+        font-size: 26px;
+
+    }
+
+
+    .dashboard-kpi-icon {
+
+        width: 40px;
+
+        height: 40px;
+
+        flex-basis: 40px;
+
+    }
+
+}
+
+
+@media (max-width: 575.98px) {
+
+    .dashboard-kpi-indicator {
+
+        padding: 5px 7px;
+
+        font-size: 10px;
+
+    }
+
+}
+
+
+/* ==========================================================================
+   DASHBOARD SALES PERFORMANCE
+   ========================================================================== */
+
+.dashboard-sales-card {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-height: 430px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03),
+        0 8px 24px rgba(16, 24, 40, 0.04);
+
+    overflow: visible;
+
+}
+
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.dashboard-sales-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 22px 24px;
+
+    border-bottom: 1px solid #f0f2f5;
+
+}
+
+
+.dashboard-sales-heading {
+
+    min-width: 0;
+
+}
+
+
+.dashboard-sales-eyebrow {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    text-transform: uppercase;
+
+}
+
+
+.dashboard-sales-title {
+
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+}
+
+
+.dashboard-sales-subtitle {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: #98a2b3;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+}
+
+
+/* ==========================================================================
+   Filter
+   ========================================================================== */
+
+.dashboard-sales-filter {
+
+    position: relative;
+
+    flex-shrink: 0;
+
+}
+
+
+.dashboard-sales-filter-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-width: 120px;
+
+    justify-content: space-between;
+
+    padding: 8px 11px;
+
+    color: #344054;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe3e8;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+
+}
+
+
+.dashboard-sales-filter-button:hover {
+
+    background: #f9fafb;
+
+    border-color: #cfd5dc;
+
+}
+
+
+.dashboard-sales-filter-button:focus {
+
+    outline: none;
+
+    border-color: #98a2b3;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 24, 40, 0.06);
+
+}
+
+
+.dashboard-sales-filter-button i {
+
+    color: #667085;
+
+    font-size: 11px;
+
+    transition:
+        transform 0.2s ease;
+
+}
+
+
+/* ==========================================================================
+   Filter Menu
+   ========================================================================== */
+
+.dashboard-sales-filter-menu {
+
+    position: absolute;
+
+    top: calc(100% + 7px);
+
+    right: 0;
+
+    z-index: 1000;
+
+    display: none;
+
+    min-width: 155px;
+
+    padding: 6px;
+
+    background: #ffffff;
+
+    border: 1px solid #eaecf0;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 8px 24px rgba(16, 24, 40, 0.10),
+        0 2px 6px rgba(16, 24, 40, 0.05);
+
+}
+
+
+.dashboard-sales-filter-menu.show {
+
+    display: block;
+
+}
+
+
+.dashboard-sales-filter-menu a {
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 9px 10px;
+
+    color: #475467;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    text-decoration: none;
+
+    transition:
+        color 0.15s ease,
+        background 0.15s ease;
+
+}
+
+
+.dashboard-sales-filter-menu a:hover {
+
+    color: #101828;
+
+    background: #f5f7fa;
+
+}
+
+
+/* ==========================================================================
+   Chart
+   ========================================================================== */
+
+.dashboard-sales-chart {
+
+    position: relative;
+
+    flex: 1;
+
+    min-height: 330px;
+
+    padding: 22px 24px 24px;
+
+}
+
+
+.dashboard-sales-chart canvas {
+
+    display: block;
+
+    width: 100% !important;
+
+    height: 285px !important;
+
+}
+
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+.dashboard-sales-empty {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    height: 100%;
+
+    min-height: 285px;
+
+    padding: 30px;
+
+    text-align: center;
+
+}
+
+
+.dashboard-sales-empty-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 52px;
+
+    height: 52px;
+
+    margin-bottom: 14px;
+
+    color: #667085;
+
+    background: #f2f4f7;
+
+    border: 1px solid #eaecf0;
+
+    border-radius: 13px;
+
+    font-size: 22px;
+
+}
+
+
+.dashboard-sales-empty h5 {
+
+    margin: 0;
+
+    color: #344054;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+}
+
+
+.dashboard-sales-empty p {
+
+    max-width: 430px;
+
+    margin: 8px 0 0;
+
+    color: #98a2b3;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 1.65;
+
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+
+    .dashboard-sales-card {
+
+        min-height: 400px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .dashboard-sales-header {
+
+        align-items: stretch;
+
+        flex-direction: column;
+
+        padding: 19px;
+
+    }
+
+
+    .dashboard-sales-filter {
+
+        align-self: flex-start;
+
+    }
+
+
+    .dashboard-sales-chart {
+
+        min-height: 300px;
+
+        padding: 18px 16px 20px;
+
+    }
+
+
+    .dashboard-sales-chart canvas {
+
+        height: 255px !important;
+
+    }
+
+}
+
+
+@media (max-width: 575.98px) {
+
+    .dashboard-sales-filter-button {
+
+        width: 100%;
+
+    }
+
+
+    .dashboard-sales-filter {
+
+        width: 100%;
+
+    }
+
+
+    .dashboard-sales-filter-menu {
+
+        left: 0;
+
+        right: auto;
+
+        width: 100%;
+
+    }
+
+}
+
+
+
+/* ==========================================================================
+   DASHBOARD TODAY'S ACTIVITY
+   ========================================================================== */
+
+.dashboard-activity-card {
+
+    height: 100%;
+
+    min-height: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03),
+        0 8px 24px rgba(16, 24, 40, 0.04);
+
+    overflow: hidden;
+
+}
+
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.dashboard-activity-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 22px 22px 20px;
+
+    border-bottom: 1px solid #f0f2f5;
+
+}
+
+
+.dashboard-activity-eyebrow {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    line-height: 1.3;
+
+    text-transform: uppercase;
+
+}
+
+
+.dashboard-activity-title {
+
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+}
+
+
+.dashboard-activity-date {
+
+    padding-top: 2px;
+
+    color: #667085;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==========================================================================
+   Activity List
+   ========================================================================== */
+
+.dashboard-activity-list {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    padding: 14px;
+
+}
+
+
+/* ==========================================================================
+   Activity Item
+   ========================================================================== */
+
+.dashboard-activity-item {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 0;
+
+    min-height: 78px;
+
+    padding: 12px;
+
+    background: #fafbfc;
+
+    border: 1px solid #eef1f5;
+
+    border-radius: 11px;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.dashboard-activity-item:hover {
+
+    background: #ffffff;
+
+    border-color: #e2e6eb;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 12px rgba(16, 24, 40, 0.05);
+
+}
+
+
+/* ==========================================================================
+   Icon
+   ========================================================================== */
+
+.dashboard-activity-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 40px;
+
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    border-radius: 10px;
+
+    font-size: 17px;
+
+}
+
+
+/* ==========================================================================
+   Activity Types
+   ========================================================================== */
+
+.dashboard-activity-cash .dashboard-activity-icon {
+
+    color: #059669;
+
+    background: #ecfdf5;
+
+}
+
+
+.dashboard-activity-card-payment .dashboard-activity-icon {
+
+    color: #2563eb;
+
+    background: #eff6ff;
+
+}
+
+
+.dashboard-activity-transfer .dashboard-activity-icon {
+
+    color: #2563eb;
+
+    background: #eff6ff;
+
+}
+
+
+.dashboard-activity-wallet .dashboard-activity-icon {
+
+    color: #7c3aed;
+
+    background: #f5f3ff;
+
+}
+
+
+.dashboard-activity-refund .dashboard-activity-icon {
+
+    color: #dc2626;
+
+    background: #fef2f2;
+
+}
+
+
+.dashboard-activity-pending .dashboard-activity-icon {
+
+    color: #d97706;
+
+    background: #fffbeb;
+
+}
+
+
+/* ==========================================================================
+   Content
+   ========================================================================== */
+
+.dashboard-activity-content {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.dashboard-activity-label {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    overflow: hidden;
+
+    color: #667085;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    line-height: 1.3;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.dashboard-activity-value {
+
+    display: block;
+
+    overflow: hidden;
+
+    color: #101828;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: -0.1px;
+
+    line-height: 1.3;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1199.98px) {
+
+    .dashboard-activity-list {
+
+        gap: 10px;
+
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .dashboard-activity-card {
+
+        border-radius: 14px;
+
+    }
+
+
+    .dashboard-activity-header {
+
+        padding: 19px;
+
+    }
+
+
+    .dashboard-activity-list {
+
+        gap: 9px;
+
+        padding: 12px;
+
+    }
+
+
+    .dashboard-activity-item {
+
+        min-height: 74px;
+
+        padding: 11px;
+
+    }
+
+
+    .dashboard-activity-icon {
+
+        width: 36px;
+
+        height: 36px;
+
+        flex-basis: 36px;
+
+        font-size: 15px;
+
+    }
+
+
+    .dashboard-activity-value {
+
+        font-size: 13px;
+
+    }
+
+}
+
+
+@media (max-width: 479.98px) {
+
+    .dashboard-activity-list {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+/* ==========================================================================
+   Clickable Activity Value
+   ========================================================================== */
+
+.dashboard-activity-value-clickable {
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.dashboard-activity-value-clickable:hover {
+
+    text-decoration: underline;
+
+    text-decoration-style: dotted;
+
+    text-underline-offset: 3px;
+
+}
+
+
+.dashboard-activity-value-clickable.dashboard-value-expanded {
+
+    overflow: visible;
+
+    text-overflow: unset;
+
+    white-space: normal;
+
+    word-break: break-word;
+
+}
+
+
+/* ==========================================================================
+   DASHBOARD — RECENT TRANSACTIONS
+   ========================================================================== */
+
+.dashboard-transactions-card {
+
+    height: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03),
+        0 8px 24px rgba(16, 24, 40, 0.04);
+
+    overflow: hidden;
+
+}
+
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.dashboard-transactions-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 22px 22px 19px;
+
+    border-bottom: 1px solid #f0f2f5;
+
+}
+
+
+.dashboard-transactions-eyebrow {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #98a2b3;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.06em;
+
+    line-height: 1.3;
+
+    text-transform: uppercase;
+
+}
+
+
+.dashboard-transactions-title {
+
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+}
+
+
+.dashboard-transactions-subtitle {
+
+    margin: 3px 0 0;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 400;
+
+    line-height: 1.4;
+
+}
+
+
+.dashboard-transactions-view-all {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 7px 10px;
+
+    color: #667085;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 8px;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+
+}
+
+
+.dashboard-transactions-view-all:hover {
+
+    color: #101828;
+
+    background: #f8fafc;
+
+    border-color: #dfe4ea;
+
+}
+
+
+.dashboard-transactions-view-all i {
+
+    font-size: 11px;
+
+}
+
+
+/* ==========================================================================
+   Table
+   ========================================================================== */
+
+.dashboard-transactions-table {
+
+    width: 100%;
+
+    margin: 0;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+}
+
+
+.dashboard-transactions-table thead th {
+
+    padding: 12px 20px;
+
+    color: #98a2b3;
+
+    background: #fafbfc;
+
+    border-bottom: 1px solid #eef1f5;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.04em;
+
+    line-height: 1.3;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+
+}
+
+
+.dashboard-transactions-table tbody td {
+
+    padding: 14px 20px;
+
+    color: #475467;
+
+    border-bottom: 1px solid #f2f4f7;
+
+    font-size: 12px;
+
+    vertical-align: middle;
+
+}
+
+
+.dashboard-transactions-table tbody tr:last-child td {
+
+    border-bottom: 0;
+
+}
+
+
+.dashboard-transactions-table tbody tr {
+
+    transition:
+        background 0.18s ease;
+
+}
+
+
+.dashboard-transactions-table tbody tr:hover {
+
+    background: #fafbfc;
+
+}
+
+
+/* ==========================================================================
+   Order
+   ========================================================================== */
+
+.dashboard-transaction-order {
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+.dashboard-transaction-order-number {
+
+    color: #344054;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==========================================================================
+   Customer
+   ========================================================================== */
+
+.dashboard-transaction-customer {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-width: 0;
+
+}
+
+
+.dashboard-transaction-avatar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 30px;
+
+    height: 30px;
+
+    flex: 0 0 30px;
+
+    color: #475467;
+
+    background: #f2f4f7;
+
+    border: 1px solid #eaecf0;
+
+    border-radius: 50%;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+.dashboard-transaction-avatar i {
+
+    font-size: 13px;
+
+}
+
+
+.dashboard-transaction-customer-name {
+
+    display: block;
+
+    max-width: 150px;
+
+    overflow: hidden;
+
+    color: #475467;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==========================================================================
+   Amount
+   ========================================================================== */
+
+.dashboard-transaction-amount {
+
+    color: #101828;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: -0.1px;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==========================================================================
+   Status
+   ========================================================================== */
+
+.dashboard-transaction-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 5px 8px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+
+}
+
+
+.dashboard-transaction-status-success {
+
+    color: #047857;
+
+    background: #ecfdf3;
+
+}
+
+
+.dashboard-transaction-status-dot {
+
+    width: 5px;
+
+    height: 5px;
+
+    flex: 0 0 5px;
+
+    background: currentColor;
+
+    border-radius: 50%;
+
+}
+
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+.dashboard-transactions-empty {
+
+    padding: 45px 20px !important;
+
+    text-align: center;
+
+}
+
+
+.dashboard-transactions-empty-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+
+    height: 42px;
+
+    margin: 0 auto 10px;
+
+    color: #98a2b3;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef1f5;
+
+    border-radius: 11px;
+
+    font-size: 17px;
+
+}
+
+
+.dashboard-transactions-empty strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #344054;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+}
+
+
+.dashboard-transactions-empty span {
+
+    display: block;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+
+    .dashboard-transactions-card {
+
+        border-radius: 14px;
+
+    }
+
+
+    .dashboard-transactions-header {
+
+        padding: 19px;
+
+    }
+
+
+    .dashboard-transactions-subtitle {
+
+        display: none;
+
+    }
+
+
+    .dashboard-transactions-table thead th {
+
+        padding: 11px 14px;
+
+    }
+
+
+    .dashboard-transactions-table tbody td {
+
+        padding: 13px 14px;
+
+    }
+
+
+    .dashboard-transaction-customer-name {
+
+        max-width: 110px;
+
+    }
+
+}
+
+
+@media (max-width: 575.98px) {
+
+    .dashboard-transactions-table {
+
+        min-width: 620px;
+
+    }
+
+}
+
+
+
+/* ==========================================================================
+   DASHBOARD — LOW STOCK PRODUCTS
+   ========================================================================== */
+
+.dashboard-low-stock-card {
+
+    height: 100%;
+    min-height: 430px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03),
+        0 8px 24px rgba(16, 24, 40, 0.04);
+
+    overflow: hidden;
+
+}
+
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.dashboard-low-stock-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 22px;
+
+    border-bottom: 1px solid #f0f2f5;
+
+}
+
+
+.dashboard-low-stock-eyebrow {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    text-transform: uppercase;
+
+}
+
+
+.dashboard-low-stock-title {
+
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+}
+
+
+.dashboard-low-stock-header-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 38px;
+
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    color: #d97706;
+
+    background: #fffbeb;
+
+    border: 1px solid #fef3c7;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+}
+
+
+/* ==========================================================================
+   Product List
+   ========================================================================== */
+
+.dashboard-low-stock-list {
+
+    padding: 8px 12px 12px;
+
+}
+
+
+.dashboard-low-stock-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+    padding: 15px 10px;
+
+    border-bottom: 1px solid #f2f4f7;
+
+    transition:
+        background 0.2s ease,
+        padding-left 0.2s ease;
+
+}
+
+
+.dashboard-low-stock-item:last-child {
+
+    border-bottom: 0;
+
+}
+
+
+.dashboard-low-stock-item:hover {
+
+    padding-left: 13px;
+
+    background: #fafbfc;
+
+    border-radius: 10px;
+
+}
+
+
+/* ==========================================================================
+   Product Icon
+   ========================================================================== */
+
+.dashboard-low-stock-product-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 38px;
+
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    color: #d97706;
+
+    background: #fffbeb;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+}
+
+
+/* ==========================================================================
+   Product Information
+   ========================================================================== */
+
+.dashboard-low-stock-product {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.dashboard-low-stock-product-name {
+
+    display: block;
+
+    overflow: hidden;
+
+    color: #101828;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.dashboard-low-stock-product-label {
+
+    margin-top: 3px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    line-height: 1.3;
+
+}
+
+
+/* ==========================================================================
+   Quantity
+   ========================================================================== */
+
+.dashboard-low-stock-quantity {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    flex: 0 0 auto;
+
+    min-width: 48px;
+
+}
+
+
+.dashboard-low-stock-quantity strong {
+
+    color: #dc2626;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+
+.dashboard-low-stock-quantity span {
+
+    margin-top: 2px;
+
+    color: #98a2b3;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+
+}
+
+
+/* ==========================================================================
+   Arrow
+   ========================================================================== */
+
+.dashboard-low-stock-arrow {
+
+    flex: 0 0 auto;
+
+    color: #c2c8d0;
+
+    font-size: 11px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.dashboard-low-stock-item:hover
+.dashboard-low-stock-arrow {
+
+    color: #667085;
+
+    transform: translateX(2px);
+
+}
+
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+.dashboard-low-stock-empty {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 300px;
+
+    padding: 30px;
+
+    text-align: center;
+
+}
+
+
+.dashboard-low-stock-empty-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 48px;
+
+    height: 48px;
+
+    margin-bottom: 12px;
+
+    color: #059669;
+
+    background: #ecfdf5;
+
+    border: 1px solid #d1fae5;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+
+}
+
+
+.dashboard-low-stock-empty strong {
+
+    color: #101828;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.dashboard-low-stock-empty span {
+
+    margin-top: 4px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1199.98px) {
+
+    .dashboard-low-stock-card {
+
+        min-height: 430px;
+
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .dashboard-low-stock-card {
+
+        min-height: auto;
+
+        border-radius: 14px;
+
+    }
+
+
+    .dashboard-low-stock-header {
+
+        padding: 19px;
+
+    }
+
+
+    .dashboard-low-stock-list {
+
+        padding: 6px 10px 10px;
+
+    }
+
+
+    .dashboard-low-stock-item {
+
+        padding: 14px 9px;
+
+    }
+
+}
+
+
+/* ==========================================================================
+   DASHBOARD — TOP SELLING PRODUCTS
+   ========================================================================== */
+
+.dashboard-top-products-card {
+
+    height: 100%;
+    min-height: 430px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03),
+        0 8px 24px rgba(16, 24, 40, 0.04);
+
+    overflow: hidden;
+
+}
+
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.dashboard-top-products-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 22px;
+
+    border-bottom: 1px solid #f0f2f5;
+
+}
+
+
+.dashboard-top-products-eyebrow {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    text-transform: uppercase;
+
+}
+
+
+.dashboard-top-products-title {
+
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+}
+
+
+.dashboard-top-products-header-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 38px;
+
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    color: #7c3aed;
+
+    background: #f5f3ff;
+
+    border: 1px solid #ede9fe;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+}
+
+
+/* ==========================================================================
+   Product List
+   ========================================================================== */
+
+.dashboard-top-products-list {
+
+    padding: 8px 12px 12px;
+
+}
+
+
+.dashboard-top-products-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+    padding: 15px 10px;
+
+    border-bottom: 1px solid #f2f4f7;
+
+    transition:
+        background 0.2s ease,
+        padding-left 0.2s ease;
+
+}
+
+
+.dashboard-top-products-item:last-child {
+
+    border-bottom: 0;
+
+}
+
+
+.dashboard-top-products-item:hover {
+
+    padding-left: 13px;
+
+    background: #fafbfc;
+
+    border-radius: 10px;
+
+}
+
+
+/* ==========================================================================
+   Rank
+   ========================================================================== */
+
+.dashboard-top-products-rank {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 34px;
+
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    color: #667085;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef2f6;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+/* ==========================================================================
+   Product Information
+   ========================================================================== */
+
+.dashboard-top-products-product {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.dashboard-top-products-name {
+
+    display: block;
+
+    overflow: hidden;
+
+    color: #101828;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.dashboard-top-products-units {
+
+    margin-top: 3px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    line-height: 1.3;
+
+}
+
+
+/* ==========================================================================
+   Sales
+   ========================================================================== */
+
+.dashboard-top-products-sales {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    flex: 0 0 auto;
+
+    min-width: 115px;
+
+}
+
+
+.dashboard-top-products-sales span {
+
+    margin-bottom: 3px;
+
+    color: #98a2b3;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+
+}
+
+
+.dashboard-top-products-sales strong {
+
+    color: #101828;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==========================================================================
+   Arrow
+   ========================================================================== */
+
+.dashboard-top-products-arrow {
+
+    flex: 0 0 auto;
+
+    color: #c2c8d0;
+
+    font-size: 11px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.dashboard-top-products-item:hover
+.dashboard-top-products-arrow {
+
+    color: #667085;
+
+    transform: translateX(2px);
+
+}
+
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+.dashboard-top-products-empty {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 300px;
+
+    padding: 30px;
+
+    text-align: center;
+
+}
+
+
+.dashboard-top-products-empty-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 48px;
+
+    height: 48px;
+
+    margin-bottom: 12px;
+
+    color: #7c3aed;
+
+    background: #f5f3ff;
+
+    border: 1px solid #ede9fe;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+
+}
+
+
+.dashboard-top-products-empty strong {
+
+    color: #101828;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.dashboard-top-products-empty span {
+
+    max-width: 260px;
+
+    margin-top: 5px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1199.98px) {
+
+    .dashboard-top-products-card {
+
+        min-height: 430px;
+
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .dashboard-top-products-card {
+
+        min-height: auto;
+
+        border-radius: 14px;
+
+    }
+
+
+    .dashboard-top-products-header {
+
+        padding: 19px;
+
+    }
+
+
+    .dashboard-top-products-list {
+
+        padding: 6px 10px 10px;
+
+    }
+
+
+    .dashboard-top-products-item {
+
+        padding: 14px 9px;
+
+        gap: 10px;
+
+    }
+
+
+    .dashboard-top-products-rank {
+
+        width: 32px;
+
+        height: 32px;
+
+        flex-basis: 32px;
+
+    }
+
+
+    .dashboard-top-products-sales {
+
+        min-width: 90px;
+
+    }
+
+
+    .dashboard-top-products-sales strong {
+
+        font-size: 13px;
+
+    }
+
+}
+
+
+
+/* ==========================================================================
+   DASHBOARD — TERMINAL STATUS
+   ========================================================================== */
+
+.dashboard-terminal-card {
+
+    height: 100%;
+    min-height: 430px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03),
+        0 8px 24px rgba(16, 24, 40, 0.04);
+
+    overflow: hidden;
+
+}
+
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.dashboard-terminal-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 22px;
+
+    border-bottom: 1px solid #f0f2f5;
+
+}
+
+
+.dashboard-terminal-eyebrow {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    text-transform: uppercase;
+
+}
+
+
+.dashboard-terminal-title {
+
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+}
+
+
+.dashboard-terminal-header-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 38px;
+
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    color: #2563eb;
+
+    background: #eff6ff;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+}
+
+
+/* ==========================================================================
+   Body
+   ========================================================================== */
+
+.dashboard-terminal-body {
+
+    padding: 22px;
+
+}
+
+
+/* ==========================================================================
+   Terminal Identity
+   ========================================================================== */
+
+.dashboard-terminal-identity {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.dashboard-terminal-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 46px;
+
+    height: 46px;
+
+    flex: 0 0 46px;
+
+    color: #2563eb;
+
+    background: #eff6ff;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 12px;
+
+    font-size: 19px;
+
+}
+
+
+.dashboard-terminal-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.dashboard-terminal-label {
+
+    margin-bottom: 4px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+
+}
+
+
+.dashboard-terminal-code {
+
+    overflow: hidden;
+
+    color: #101828;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==========================================================================
+   Status
+   ========================================================================== */
+
+.dashboard-terminal-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 9px;
+
+    color: #047857;
+
+    background: #ecfdf5;
+
+    border: 1px solid #d1fae5;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+.dashboard-terminal-status-dot {
+
+    width: 6px;
+
+    height: 6px;
+
+    background: #10b981;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.10);
+
+}
+
+
+/* ==========================================================================
+   Divider
+   ========================================================================== */
+
+.dashboard-terminal-divider {
+
+    height: 1px;
+
+    margin: 24px 0;
+
+    background: #f0f2f5;
+
+}
+
+
+/* ==========================================================================
+   Cashier
+   ========================================================================== */
+
+.dashboard-terminal-cashier {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px;
+
+    background: #fafbfc;
+
+    border: 1px solid #f0f2f5;
+
+    border-radius: 11px;
+
+}
+
+
+.dashboard-terminal-cashier-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 36px;
+
+    height: 36px;
+
+    flex: 0 0 36px;
+
+    color: #667085;
+
+    background: #ffffff;
+
+    border: 1px solid #e4e7ec;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+}
+
+
+.dashboard-terminal-cashier-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+}
+
+
+.dashboard-terminal-cashier-info span {
+
+    margin-bottom: 3px;
+
+    color: #98a2b3;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+
+}
+
+
+.dashboard-terminal-cashier-info strong {
+
+    overflow: hidden;
+
+    color: #344054;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1199.98px) {
+
+    .dashboard-terminal-card {
+
+        min-height: 430px;
+
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .dashboard-terminal-card {
+
+        min-height: auto;
+
+        border-radius: 14px;
+
+    }
+
+
+    .dashboard-terminal-header {
+
+        padding: 19px;
+
+    }
+
+
+    .dashboard-terminal-body {
+
+        padding: 19px;
+
+    }
+
+
+    .dashboard-terminal-identity {
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .dashboard-terminal-status {
+
+        margin-left: 59px;
+
+    }
+
+}
+
+/* ==========================================================================
+SALES PERFORMANCE COLUMN
+========================================================================== */
+
+.dashboard-sales-column {
+
+
+position: relative;
+
+overflow: visible !important;
+
+
+}
+
+/* ==========================================================================
+SALES CARD
+========================================================================== */
+
+.dashboard-sales-card {
+
+
+position: relative;
+
+height: 100%;
+
+min-height: 430px;
+
+background: #ffffff;
+
+border: 1px solid #e9edf3;
+
+border-radius: 16px;
+
+box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.03),
+    0 8px 24px rgba(16, 24, 40, 0.04);
+
+overflow: visible !important;
+
+
+}
+
+/* ==========================================================================
+HEADER
+========================================================================== */
+
+.dashboard-sales-header {
+
+
+position: relative;
+
+z-index: 1000;
+
+display: flex;
+
+align-items: flex-start;
+
+justify-content: space-between;
+
+gap: 20px;
+
+padding: 22px;
+
+overflow: visible !important;
+
+
+}
+
+/* ==========================================================================
+FILTER WRAPPER
+========================================================================== */
+
+.dashboard-sales-filter-wrapper {
+
+
+position: relative;
+
+z-index: 10000;
+
+flex: 0 0 auto;
+
+overflow: visible !important;
+
+
+}
+
+/* ==========================================================================
+FILTER
+========================================================================== */
+
+.dashboard-sales-filter {
+
+
+position: relative;
+
+display: inline-block;
+
+z-index: 10001;
+
+
+}
+
+/* ==========================================================================
+FILTER BUTTON
+========================================================================== */
+
+.dashboard-sales-filter-button {
+
+
+display: inline-flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 10px;
+
+min-width: 140px;
+
+height: 38px;
+
+padding: 0 12px;
+
+color: #344054;
+
+background: #ffffff;
+
+border: 1px solid #e4e7ec;
+
+border-radius: 8px;
+
+font-family: inherit;
+
+font-size: 12px;
+
+font-weight: 600;
+
+cursor: pointer;
+
+outline: none;
+
+
+}
+
+.dashboard-sales-filter-button i {
+
+
+color: #98a2b3;
+
+font-size: 10px;
+
+
+}
+
+/* ==========================================================================
+FILTER MENU
+========================================================================== */
+
+.dashboard-sales-filter-menu {
+
+
+position: absolute;
+
+top: calc(100% + 8px);
+
+right: 0;
+
+z-index: 999999;
+
+width: 180px;
+
+padding: 6px;
+
+background: #ffffff;
+
+border: 1px solid #e4e7ec;
+
+border-radius: 10px;
+
+box-shadow:
+    0 10px 15px -3px rgba(16, 24, 40, 0.08),
+    0 4px 6px -4px rgba(16, 24, 40, 0.08);
+
+opacity: 0;
+
+visibility: hidden;
+
+pointer-events: none;
+
+transform: translateY(-4px);
+
+transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s ease;
+
+
+}
+
+/* ==========================================================================
+OPEN ON HOVER
+========================================================================== */
+
+.dashboard-sales-filter:hover
+.dashboard-sales-filter-menu {
+
+
+opacity: 1;
+
+visibility: visible;
+
+pointer-events: auto;
+
+transform: translateY(0);
+
+
+}
+
+/* ==========================================================================
+MENU LINKS
+========================================================================== */
+
+.dashboard-sales-filter-menu a {
+
+
+display: flex;
+
+align-items: center;
+
+min-height: 36px;
+
+padding: 8px 10px;
+
+color: #475467;
+
+border-radius: 7px;
+
+font-size: 12px;
+
+font-weight: 500;
+
+text-decoration: none;
+
+white-space: nowrap;
+
+
+}
+
+.dashboard-sales-filter-menu a:hover {
+
+
+color: #101828;
+
+background: #f2f4f7;
+
+
+}
+
+/* ==========================================================================
+CHART
+========================================================================== */
+
+.dashboard-sales-chart {
+
+
+position: relative;
+
+z-index: 1;
+
+
+}
+
+/* ==========================================================================
+BOOTSTRAP / GRID OVERRIDES
+========================================================================== */
+
+.dashboard-sales-column,
+.dashboard-sales-column > *,
+.dashboard-sales-card,
+.dashboard-sales-header,
+.dashboard-sales-filter-wrapper,
+.dashboard-sales-filter {
+
+
+overflow: visible !important;
+
+
+}
+
+/* ==========================================================================
+RESPONSIVE
+========================================================================== */
+
+@media (max-width: 767.98px) {
+
+
+.dashboard-sales-header {
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+}
+
+
+.dashboard-sales-filter-button {
+
+    min-width: 125px;
+
+}
+
+
+}
+
+
+
+

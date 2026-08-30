@@ -1,0 +1,811 @@
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| EMNEX POS — Cash Drawer                                                    |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Page Header                                                                |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#drawer-status-badge {
+font-size: 0.72rem;
+font-weight: 600;
+padding: 0.4rem 0.65rem;
+border-radius: 999px;
+letter-spacing: 0.01em;
+}
+
+#drawer-status-badge.bg-success-subtle {
+color: var(--bs-success-text-emphasis) !important;
+}
+
+#drawer-status-badge.bg-danger-subtle {
+color: var(--bs-danger-text-emphasis) !important;
+}
+
+#drawer-status-badge.bg-secondary-subtle {
+color: var(--bs-secondary-color) !important;
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Drawer Summary                                                             |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#drawer-summary-card {
+overflow: hidden;
+}
+
+.drawer-icon {
+width: 48px;
+height: 48px;
+min-width: 48px;
+
+
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 12px;
+
+background: var(--bs-primary-bg-subtle);
+color: var(--bs-primary);
+
+font-size: 1.25rem;
+
+
+}
+
+#drawer-terminal-name {
+font-size: 0.95rem;
+}
+
+#drawer-branch-name,
+#drawer-opened-at {
+font-size: 0.78rem;
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| KPI Cards                                                                  |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.kpi-icon {
+width: 42px;
+height: 42px;
+min-width: 42px;
+
+
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 10px;
+
+background: var(--bs-light);
+color: var(--bs-secondary);
+
+font-size: 1.1rem;
+
+
+}
+
+.emnex-card .fs-4 {
+letter-spacing: -0.02em;
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Cash Operations                                                            |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#cash-actions-card {
+overflow: hidden;
+}
+
+#cash-actions-card .card-header {
+border-bottom: 0 !important;
+}
+
+#cash-actions-card .btn {
+min-width: 110px;
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Transaction / History Tables                                               |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#cash-drawer-transactions-table,
+#cash-drawer-history-table {
+margin-bottom: 0;
+}
+
+#cash-drawer-transactions-table thead th,
+#cash-drawer-history-table thead th {
+padding: 0.85rem 1rem;
+
+
+background: #fafafa;
+
+color: var(--bs-secondary-color);
+
+border-bottom: 1px solid var(--bs-border-color);
+
+font-size: 0.72rem;
+font-weight: 600;
+
+white-space: nowrap;
+text-transform: uppercase;
+letter-spacing: 0.025em;
+
+
+}
+
+#cash-drawer-transactions-table tbody td,
+#cash-drawer-history-table tbody td {
+padding: 0.9rem 1rem;
+
+
+border-color: var(--bs-border-color-translucent);
+
+font-size: 0.84rem;
+vertical-align: middle;
+
+
+}
+
+#cash-drawer-transactions-table tbody tr:last-child td,
+#cash-drawer-history-table tbody tr:last-child td {
+border-bottom: 0;
+}
+
+#cash-drawer-transactions-table tbody tr,
+#cash-drawer-history-table tbody tr {
+transition:
+background-color 0.15s ease,
+box-shadow 0.15s ease;
+}
+
+#cash-drawer-transactions-table tbody tr:hover,
+#cash-drawer-history-table tbody tr:hover {
+background-color: rgba(var(--bs-primary-rgb), 0.025);
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Transaction Amounts                                                        |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.cash-drawer-transaction-amount {
+font-weight: 600;
+white-space: nowrap;
+}
+
+.cash-drawer-transaction-amount.cash-in,
+.cash-drawer-transaction-amount.sale {
+color: var(--bs-success);
+}
+
+.cash-drawer-transaction-amount.cash-out,
+.cash-drawer-transaction-amount.refund {
+color: var(--bs-danger);
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Transaction Type Badges                                                    |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.cash-drawer-type-badge {
+display: inline-flex;
+align-items: center;
+
+
+padding: 0.32rem 0.55rem;
+
+border-radius: 999px;
+
+font-size: 0.7rem;
+font-weight: 600;
+
+white-space: nowrap;
+
+
+}
+
+.cash-drawer-type-badge.sale {
+background: var(--bs-success-bg-subtle);
+color: var(--bs-success-text-emphasis);
+}
+
+.cash-drawer-type-badge.cash-in {
+background: var(--bs-primary-bg-subtle);
+color: var(--bs-primary-text-emphasis);
+}
+
+.cash-drawer-type-badge.cash-out {
+background: var(--bs-danger-bg-subtle);
+color: var(--bs-danger-text-emphasis);
+}
+
+.cash-drawer-type-badge.refund {
+background: var(--bs-warning-bg-subtle);
+color: var(--bs-warning-text-emphasis);
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Drawer Status                                                              |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.cash-drawer-status-badge {
+display: inline-flex;
+align-items: center;
+
+
+padding: 0.32rem 0.6rem;
+
+border-radius: 999px;
+
+font-size: 0.7rem;
+font-weight: 600;
+
+
+}
+
+.cash-drawer-status-badge.open {
+background: var(--bs-success-bg-subtle);
+color: var(--bs-success-text-emphasis);
+}
+
+.cash-drawer-status-badge.closed {
+background: var(--bs-secondary-bg-subtle);
+color: var(--bs-secondary-text-emphasis);
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Table Actions                                                              |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.cash-drawer-table-action {
+width: 32px;
+height: 32px;
+
+
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+padding: 0;
+
+border: 1px solid var(--bs-border-color);
+border-radius: 8px;
+
+background: #fff;
+color: var(--bs-secondary-color);
+
+transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+
+
+}
+
+.cash-drawer-table-action:hover {
+color: var(--bs-primary);
+border-color: rgba(var(--bs-primary-rgb), 0.35);
+background: var(--bs-primary-bg-subtle);
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Pagination                                                                 |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#transactions-pagination,
+#drawer-history-pagination {
+min-height: 58px;
+
+
+display: flex;
+align-items: center;
+justify-content: flex-end;
+
+
+}
+
+#transactions-pagination .pagination,
+#drawer-history-pagination .pagination {
+margin-bottom: 0;
+}
+
+#transactions-pagination .page-link,
+#drawer-history-pagination .page-link {
+min-width: 34px;
+height: 34px;
+
+
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+padding: 0 0.55rem;
+
+border-radius: 7px;
+
+font-size: 0.78rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Search / Filters                                                           |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#transaction-type-filter {
+min-width: 125px;
+}
+
+#transaction-search {
+width: 180px;
+}
+
+#drawer-history-search {
+width: 240px;
+}
+
+#transaction-type-filter,
+#transaction-search,
+#drawer-history-search {
+border-color: var(--bs-border-color);
+}
+
+#transaction-type-filter:focus,
+#transaction-search:focus,
+#drawer-history-search:focus {
+border-color: rgba(var(--bs-primary-rgb), 0.45);
+
+
+box-shadow:
+    0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.08);
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Modal                                                                      |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#openDrawerModal .modal-content,
+#cashInModal .modal-content,
+#cashOutModal .modal-content,
+#closeDrawerModal .modal-content,
+#cashDrawerConfirmationModal .modal-content {
+border: 0;
+border-radius: 14px;
+
+
+box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.12);
+
+
+}
+
+#openDrawerModal .modal-header,
+#cashInModal .modal-header,
+#cashOutModal .modal-header,
+#closeDrawerModal .modal-header,
+#cashDrawerConfirmationModal .modal-header {
+padding: 1.25rem 1.35rem;
+
+
+border-bottom: 1px solid var(--bs-border-color-translucent);
+
+
+}
+
+#openDrawerModal .modal-body,
+#cashInModal .modal-body,
+#cashOutModal .modal-body,
+#closeDrawerModal .modal-body {
+padding: 1.35rem;
+}
+
+#openDrawerModal .modal-footer,
+#cashInModal .modal-footer,
+#cashOutModal .modal-footer,
+#closeDrawerModal .modal-footer,
+#cashDrawerConfirmationModal .modal-footer {
+padding: 1rem 1.35rem;
+
+
+border-top: 1px solid var(--bs-border-color-translucent);
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Modal Form Controls                                                        |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#openDrawerModal .form-label,
+#cashInModal .form-label,
+#cashOutModal .form-label,
+#closeDrawerModal .form-label {
+margin-bottom: 0.45rem;
+
+
+font-size: 0.8rem;
+font-weight: 600;
+
+
+}
+
+#openDrawerModal .form-control,
+#cashInModal .form-control,
+#cashOutModal .form-control,
+#closeDrawerModal .form-control {
+min-height: 40px;
+
+
+border-color: var(--bs-border-color);
+border-radius: 8px;
+
+
+}
+
+#openDrawerModal textarea.form-control,
+#cashInModal textarea.form-control,
+#cashOutModal textarea.form-control,
+#closeDrawerModal textarea.form-control {
+min-height: auto;
+}
+
+#openDrawerModal .input-group-text,
+#cashInModal .input-group-text,
+#cashOutModal .input-group-text,
+#closeDrawerModal .input-group-text {
+background: var(--bs-light);
+border-color: var(--bs-border-color);
+
+
+font-weight: 600;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Close Drawer Summary                                                       |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.drawer-close-summary {
+padding: 1rem;
+
+
+border: 1px solid var(--bs-border-color);
+border-radius: 10px;
+
+background: var(--bs-light);
+
+
+}
+
+#close-expected-balance,
+#close-cash-sales {
+font-size: 0.9rem;
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Variance Preview                                                           |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#variance-preview {
+padding: 0.85rem 1rem;
+
+
+border-radius: 9px;
+
+font-size: 0.85rem;
+
+
+}
+
+#variance-preview.variance-positive {
+background: var(--bs-success-bg-subtle);
+color: var(--bs-success-text-emphasis);
+}
+
+#variance-preview.variance-negative {
+background: var(--bs-danger-bg-subtle);
+color: var(--bs-danger-text-emphasis);
+}
+
+#variance-preview.variance-zero {
+background: var(--bs-secondary-bg-subtle);
+color: var(--bs-secondary-text-emphasis);
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Confirmation Modal                                                         |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.confirmation-icon {
+width: 52px;
+height: 52px;
+
+
+margin-left: auto;
+margin-right: auto;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 50%;
+
+background: var(--bs-warning-bg-subtle);
+color: var(--bs-warning-text-emphasis);
+
+font-size: 1.35rem;
+
+
+}
+
+#confirmation-title {
+font-size: 0.95rem;
+}
+
+#confirmation-message {
+font-size: 0.84rem;
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Offcanvas                                                                  |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#cashDrawerTransactionInspector,
+#cashDrawerInspector {
+width: 420px;
+
+
+border-left: 1px solid var(--bs-border-color);
+
+box-shadow:
+    -10px 0 30px rgba(0, 0, 0, 0.06);
+
+
+}
+
+#cashDrawerTransactionInspector .offcanvas-header,
+#cashDrawerInspector .offcanvas-header {
+padding: 1.2rem 1.25rem;
+}
+
+#cashDrawerTransactionInspector .offcanvas-body,
+#cashDrawerInspector .offcanvas-body {
+padding: 1.35rem 1.25rem;
+}
+
+#cashDrawerTransactionInspector .small,
+#cashDrawerInspector .small {
+font-size: 0.76rem;
+}
+
+#inspector-transaction-type,
+#inspector-reference,
+#inspector-created-by,
+#inspector-created-at,
+#inspector-remarks,
+#history-opened-by,
+#history-opened-at,
+#history-closed-by,
+#history-closed-at,
+#history-closing-remarks {
+font-size: 0.85rem;
+}
+
+#inspector-amount {
+letter-spacing: -0.02em;
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Inspector Dividers                                                         |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#cashDrawerTransactionInspector .border-top,
+#cashDrawerInspector .border-top {
+border-color: var(--bs-border-color-translucent) !important;
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Empty State                                                                |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+#cash-drawer-transactions-body td,
+#cash-drawer-history-body td {
+color: var(--bs-secondary-color);
+}
+
+.cash-drawer-empty-state {
+padding: 3rem 1rem;
+
+
+text-align: center;
+
+
+}
+
+.cash-drawer-empty-state-icon {
+width: 44px;
+height: 44px;
+
+
+margin: 0 auto 0.75rem;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 10px;
+
+background: var(--bs-light);
+color: var(--bs-secondary);
+
+font-size: 1.15rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Loading State                                                              |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.cash-drawer-loading {
+opacity: 0.6;
+pointer-events: none;
+}
+
+.cash-drawer-spinner {
+width: 1rem;
+height: 1rem;
+
+
+border-width: 0.12rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Responsive                                                                 |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+@media (max-width: 991.98px) {
+
+
+#drawer-summary-card .col-lg-2 {
+    text-align: left !important;
+}
+
+#close-drawer-btn {
+    margin-top: 0.25rem;
+}
+
+#transaction-search {
+    width: 160px;
+}
+
+
+}
+
+@media (max-width: 767.98px) {
+
+
+#transaction-type-filter,
+#transaction-search,
+#drawer-history-search {
+    width: 100%;
+    max-width: none !important;
+}
+
+#drawer-history-search {
+    margin-top: 0.25rem;
+}
+
+#transactions-pagination,
+#drawer-history-pagination {
+    justify-content: center;
+}
+
+#cashDrawerTransactionInspector,
+#cashDrawerInspector {
+    width: 100%;
+}
+
+
+}
+
+@media (max-width: 575.98px) {
+
+
+#drawer-summary-card .card-body {
+    padding: 1rem;
+}
+
+#cash-actions-card .card-body {
+    padding: 1rem !important;
+}
+
+#cash-actions-card .btn {
+    flex: 1 1 100%;
+    width: 100%;
+}
+
+#open-drawer-btn,
+#refresh-drawer-btn {
+    width: 100%;
+}
+
+.d-flex.flex-wrap.align-items-center.justify-content-between.gap-3 {
+    gap: 0.75rem !important;
+}
+
+#drawer-summary-card .row {
+    gap: 1rem;
+}
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Reduced Motion                                                             |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+@media (prefers-reduced-motion: reduce) {
+
+
+#cash-drawer-transactions-table tbody tr,
+#cash-drawer-history-table tbody tr,
+.cash-drawer-table-action {
+    transition: none;
+}
+
+
+}

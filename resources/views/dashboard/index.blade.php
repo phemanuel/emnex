@@ -111,11 +111,12 @@
 
 </div>
 
+
 {{-- ==========================================================
-    KPI CARDS
+    DASHBOARD KPI CARDS
 =========================================================== --}}
 
-<div class="row g-4 dashboard-kpi-row">
+<div class="row g-4 dashboard-kpi-grid">
 
 
     {{-- ======================================================
@@ -126,33 +127,36 @@
 
         <div class="col-xl-3 col-md-6">
 
-            <div class="kpi-card kpi-card-sales">
+            <div class="dashboard-kpi-card dashboard-kpi-sales">
 
-                {{-- TOP ROW --}}
-                <div class="kpi-card-header">
+                {{-- Header --}}
 
-                    <div class="kpi-card-heading">
+                <div class="dashboard-kpi-top">
 
-                        <div class="kpi-icon sales">
+                    <div class="dashboard-kpi-title-group">
+
+                        <div class="dashboard-kpi-icon">
+
                             <i class="bi bi-cash-stack"></i>
+
                         </div>
 
                         <div>
 
-                            <span class="kpi-label">
+                            <span class="dashboard-kpi-label">
                                 Sales
                             </span>
 
-                            <small class="kpi-period">
+                            <span class="dashboard-kpi-period">
                                 {{ ucfirst(str_replace('_', ' ', $period)) }}
-                            </small>
+                            </span>
 
                         </div>
 
                     </div>
 
 
-                    <span class="kpi-trend positive">
+                    <span class="dashboard-kpi-indicator dashboard-kpi-indicator-positive">
 
                         <i class="bi bi-arrow-up"></i>
 
@@ -163,25 +167,26 @@
                 </div>
 
 
-                {{-- VALUE --}}
-                <div class="kpi-value-section">
+                {{-- Main Value --}}
 
+                <div class="dashboard-kpi-main">
 
-                <h2 class="kpi-value">
-                    {{ \App\Helpers\CurrencyHelper::format($todaySales) }}
-                </h2>
+                    <h2 class="dashboard-kpi-value">
 
+                        {{ \App\Helpers\CurrencyHelper::format($todaySales) }}
 
+                    </h2>
 
-                    <span class="kpi-description">
+                    <span class="dashboard-kpi-description">
                         Revenue generated
                     </span>
 
                 </div>
 
 
-                {{-- FOOTER --}}
-                <div class="kpi-card-footer">
+                {{-- Footer --}}
+
+                <div class="dashboard-kpi-footer">
 
                     <a href="{{ route('orders.index') }}">
 
@@ -202,7 +207,6 @@
     @endif
 
 
-
     {{-- ======================================================
         TRANSACTIONS
     ======================================================= --}}
@@ -211,33 +215,36 @@
 
         <div class="col-xl-3 col-md-6">
 
-            <div class="kpi-card kpi-card-transactions">
+            <div class="dashboard-kpi-card dashboard-kpi-transactions">
 
-                {{-- TOP ROW --}}
-                <div class="kpi-card-header">
+                {{-- Header --}}
 
-                    <div class="kpi-card-heading">
+                <div class="dashboard-kpi-top">
 
-                        <div class="kpi-icon transaction">
+                    <div class="dashboard-kpi-title-group">
+
+                        <div class="dashboard-kpi-icon">
+
                             <i class="bi bi-receipt"></i>
+
                         </div>
 
                         <div>
 
-                            <span class="kpi-label">
+                            <span class="dashboard-kpi-label">
                                 Transactions
                             </span>
 
-                            <small class="kpi-period">
+                            <span class="dashboard-kpi-period">
                                 Today
-                            </small>
+                            </span>
 
                         </div>
 
                     </div>
 
 
-                    <span class="kpi-trend neutral">
+                    <span class="dashboard-kpi-indicator dashboard-kpi-indicator-neutral">
 
                         <i class="bi bi-clock"></i>
 
@@ -248,22 +255,26 @@
                 </div>
 
 
-                {{-- VALUE --}}
-                <div class="kpi-value-section">
+                {{-- Main Value --}}
 
-                    <h2 class="kpi-value">
+                <div class="dashboard-kpi-main">
+
+                    <h2 class="dashboard-kpi-value">
+
                         {{ number_format($todayTransactions) }}
+
                     </h2>
 
-                    <span class="kpi-description">
+                    <span class="dashboard-kpi-description">
                         Orders processed
                     </span>
 
                 </div>
 
 
-                {{-- FOOTER --}}
-                <div class="kpi-card-footer">
+                {{-- Footer --}}
+
+                <div class="dashboard-kpi-footer">
 
                     <a href="{{ route('orders.index') }}">
 
@@ -284,7 +295,6 @@
     @endif
 
 
-
     {{-- ======================================================
         CUSTOMERS
     ======================================================= --}}
@@ -293,33 +303,36 @@
 
         <div class="col-xl-3 col-md-6">
 
-            <div class="kpi-card kpi-card-customers">
+            <div class="dashboard-kpi-card dashboard-kpi-customers">
 
-                {{-- TOP ROW --}}
-                <div class="kpi-card-header">
+                {{-- Header --}}
 
-                    <div class="kpi-card-heading">
+                <div class="dashboard-kpi-top">
 
-                        <div class="kpi-icon customer">
+                    <div class="dashboard-kpi-title-group">
+
+                        <div class="dashboard-kpi-icon">
+
                             <i class="bi bi-people"></i>
+
                         </div>
 
                         <div>
 
-                            <span class="kpi-label">
+                            <span class="dashboard-kpi-label">
                                 Customers
                             </span>
 
-                            <small class="kpi-period">
+                            <span class="dashboard-kpi-period">
                                 Total
-                            </small>
+                            </span>
 
                         </div>
 
                     </div>
 
 
-                    <span class="kpi-trend positive">
+                    <span class="dashboard-kpi-indicator dashboard-kpi-indicator-positive">
 
                         <i class="bi bi-person-plus"></i>
 
@@ -330,22 +343,26 @@
                 </div>
 
 
-                {{-- VALUE --}}
-                <div class="kpi-value-section">
+                {{-- Main Value --}}
 
-                    <h2 class="kpi-value">
+                <div class="dashboard-kpi-main">
+
+                    <h2 class="dashboard-kpi-value">
+
                         {{ number_format($totalCustomers) }}
+
                     </h2>
 
-                    <span class="kpi-description">
+                    <span class="dashboard-kpi-description">
                         New customers this period
                     </span>
 
                 </div>
 
 
-                {{-- FOOTER --}}
-                <div class="kpi-card-footer">
+                {{-- Footer --}}
+
+                <div class="dashboard-kpi-footer">
 
                     <a href="{{ route('customers.index') }}">
 
@@ -366,7 +383,6 @@
     @endif
 
 
-
     {{-- ======================================================
         INVENTORY
     ======================================================= --}}
@@ -375,33 +391,36 @@
 
         <div class="col-xl-3 col-md-6">
 
-            <div class="kpi-card kpi-card-inventory">
+            <div class="dashboard-kpi-card dashboard-kpi-inventory">
 
-                {{-- TOP ROW --}}
-                <div class="kpi-card-header">
+                {{-- Header --}}
 
-                    <div class="kpi-card-heading">
+                <div class="dashboard-kpi-top">
 
-                        <div class="kpi-icon inventory">
+                    <div class="dashboard-kpi-title-group">
+
+                        <div class="dashboard-kpi-icon">
+
                             <i class="bi bi-box-seam"></i>
+
                         </div>
 
                         <div>
 
-                            <span class="kpi-label">
+                            <span class="dashboard-kpi-label">
                                 Inventory Value
                             </span>
 
-                            <small class="kpi-period">
+                            <span class="dashboard-kpi-period">
                                 Current
-                            </small>
+                            </span>
 
                         </div>
 
                     </div>
 
 
-                    <span class="kpi-trend warning">
+                    <span class="dashboard-kpi-indicator dashboard-kpi-indicator-warning">
 
                         <i class="bi bi-box"></i>
 
@@ -412,25 +431,26 @@
                 </div>
 
 
-                {{-- VALUE --}}
-                <div class="kpi-value-section">
+                {{-- Main Value --}}
 
-                  
-                    <h2 class="kpi-value">
+                <div class="dashboard-kpi-main">
+
+                    <h2 class="dashboard-kpi-value">
+
                         {{ \App\Helpers\CurrencyHelper::format($inventoryValue) }}
+
                     </h2>
 
-
-
-                    <span class="kpi-description">
+                    <span class="dashboard-kpi-description">
                         Current stock valuation
                     </span>
 
                 </div>
 
 
-                {{-- FOOTER --}}
-                <div class="kpi-card-footer">
+                {{-- Footer --}}
+
+                <div class="dashboard-kpi-footer">
 
                     <a href="{{ route('stock.index') }}">
 
@@ -453,6 +473,8 @@
 
 </div>
 
+
+
 {{-- ==========================================================
     MAIN DASHBOARD GRID
 =========================================================== --}}
@@ -460,29 +482,63 @@
 <div class="row g-4">
 
 
+    
     {{-- ======================================================
-        SALES PERFORMANCE
+    SALES PERFORMANCE
     ======================================================= --}}
 
     @if($canViewSales)
 
-        <div class="col-xl-8">
+    
+    <div class="col-xl-8 dashboard-sales-column">
 
-            <div class="dashboard-card">
+        <div class="dashboard-sales-card">
 
-                <div class="card-header-custom">
 
-                    <h5>
+            {{-- ==================================================
+                HEADER
+            =================================================== --}}
+
+            <div class="dashboard-sales-header">
+
+                <div class="dashboard-sales-heading">
+
+                    <span class="dashboard-sales-eyebrow">
+                        Overview
+                    </span>
+
+                    <h5 class="dashboard-sales-title">
                         Sales Performance
                     </h5>
 
+                    <span class="dashboard-sales-subtitle">
+                        Revenue and transaction activity
+                    </span>
 
-                    <div class="dashboard-filter">
+                </div>
 
-                        <button id="dashboardFilterBtn">
 
-                            <span id="dashboardFilterLabel">
-                                {{ ucfirst(str_replace('_', ' ', $period ?? 'this_week')) }}
+                {{-- ==================================================
+                    PERIOD FILTER
+                =================================================== --}}
+
+                <div class="dashboard-sales-filter-wrapper">
+
+                    <div class="dashboard-sales-filter">
+
+                        <button
+                            type="button"
+                            class="dashboard-sales-filter-button"
+                        >
+
+                            <span>
+                                {{ ucfirst(
+                                    str_replace(
+                                        '_',
+                                        ' ',
+                                        $period ?? 'this_week'
+                                    )
+                                ) }}
                             </span>
 
                             <i class="bi bi-chevron-down"></i>
@@ -490,29 +546,52 @@
                         </button>
 
 
-                        <div class="dashboard-filter-menu">
+                        <div class="dashboard-sales-filter-menu">
 
-                            <a href="{{ route('dashboard', ['period' => 'today']) }}">
+                            <a href="{{ route(
+                                'dashboard',
+                                ['period' => 'today']
+                            ) }}">
                                 Today
                             </a>
 
-                            <a href="{{ route('dashboard', ['period' => 'yesterday']) }}">
+
+                            <a href="{{ route(
+                                'dashboard',
+                                ['period' => 'yesterday']
+                            ) }}">
                                 Yesterday
                             </a>
 
-                            <a href="{{ route('dashboard', ['period' => 'this_week']) }}">
+
+                            <a href="{{ route(
+                                'dashboard',
+                                ['period' => 'this_week']
+                            ) }}">
                                 This Week
                             </a>
 
-                            <a href="{{ route('dashboard', ['period' => 'this_month']) }}">
+
+                            <a href="{{ route(
+                                'dashboard',
+                                ['period' => 'this_month']
+                            ) }}">
                                 This Month
                             </a>
 
-                            <a href="{{ route('dashboard', ['period' => 'this_year']) }}">
+
+                            <a href="{{ route(
+                                'dashboard',
+                                ['period' => 'this_year']
+                            ) }}">
                                 This Year
                             </a>
 
-                            <a href="#" id="customRangeBtn">
+
+                            <a
+                                href="#"
+                                id="customRangeBtn"
+                            >
                                 Custom Range
                             </a>
 
@@ -522,55 +601,68 @@
 
                 </div>
 
-
-                @php
-
-                    $hasChartData =
-                        collect($salesChart)->sum('sales') > 0
-                        ||
-                        collect($salesChart)->sum('transactions') > 0;
-
-                @endphp
+            </div>
 
 
-                <div class="sales-chart-container">
+            {{-- ==================================================
+                CHART
+            =================================================== --}}
 
-                    @if($hasChartData)
+            @php
 
-                        <canvas id="salesChart"></canvas>
+                $hasChartData =
+                    collect($salesChart)->sum('sales') > 0
+                    ||
+                    collect($salesChart)->sum('transactions') > 0;
 
-                    @else
+            @endphp
 
-                        <div class="chart-empty-state">
 
-                            <div class="empty-icon">
-                                <i class="bi bi-bar-chart-line"></i>
-                            </div>
+            <div class="dashboard-sales-chart">
 
-                            <h5>
-                                No Sales Data Available
-                            </h5>
+                @if($hasChartData)
 
-                            <p>
-                                There are no completed sales for the selected period.
-                                Once transactions are recorded, your sales performance
-                                chart will appear here automatically.
-                            </p>
+                    <canvas id="salesChart"></canvas>
+
+                @else
+
+                    <div class="dashboard-sales-empty">
+
+                        <div class="dashboard-sales-empty-icon">
+
+                            <i class="bi bi-bar-chart-line"></i>
 
                         </div>
 
-                    @endif
 
-                </div>
+                        <h5>
+                            No Sales Data Available
+                        </h5>
+
+
+                        <p>
+                            There are no completed sales for the selected period.
+                            Once transactions are recorded, your sales performance
+                            chart will appear here automatically.
+                        </p>
+
+                    </div>
+
+                @endif
 
             </div>
 
+
         </div>
+
+    </div>
+
 
     @endif
 
 
 
+    
     {{-- ======================================================
         TODAY'S ACTIVITY
     ======================================================= --}}
@@ -579,121 +671,252 @@
 
         <div class="col-xl-4">
 
-            <div class="dashboard-card">
+            <div class="dashboard-activity-card">
 
-                <div class="card-header-custom">
 
-                    <h5>
-                        Today's Activity
-                    </h5>
+                {{-- ==================================================
+                    HEADER
+                =================================================== --}}
 
-                    <small class="text-muted">
+                <div class="dashboard-activity-header">
+
+                    <div>
+
+                        <span class="dashboard-activity-eyebrow">
+                            Today
+                        </span>
+
+                        <h5 class="dashboard-activity-title">
+                            Today's Activity
+                        </h5>
+
+                    </div>
+
+
+                    <span class="dashboard-activity-date">
+
                         {{ now()->format('d M Y') }}
-                    </small>
+
+                    </span>
 
                 </div>
-
-
-                <div class="activity-grid">
 
 
               
-                {{-- Cash --}}
+              
+                {{-- ==================================================
+                    ACTIVITY LIST
+                =================================================== --}}
 
-                <div class="activity-item">
-
-                    <div class="activity-icon cash">
-                        <i class="bi bi-cash-stack"></i>
-                    </div>
-
-                    <div class="activity-content">
-
-                        <span>
-                            Cash Sales
-                        </span>
-
-                        <h6>
-                            {{ \App\Helpers\CurrencyHelper::format($cashSales) }}
-                        </h6>
-
-                    </div>
-
-                </div>
+                <div class="dashboard-activity-list">
 
 
-                {{-- Card --}}
+                    {{-- ==================================================
+                        Cash
+                    =================================================== --}}
 
-                <div class="activity-item">
+                    <div class="dashboard-activity-item dashboard-activity-cash">
 
-                    <div class="activity-icon card">
-                        <i class="bi bi-credit-card"></i>
-                    </div>
+                        <div class="dashboard-activity-icon">
 
-                    <div class="activity-content">
+                            <i class="bi bi-cash-stack"></i>
 
-                        <span>
-                            Card / POS
-                        </span>
+                        </div>
 
-                        <h6>
-                            {{ \App\Helpers\CurrencyHelper::format($cardSales) }}
-                        </h6>
+
+                        <div class="dashboard-activity-content">
+
+                            <span class="dashboard-activity-label">
+                                Cash Sales
+                            </span>
+
+
+                            <strong
+                                class="dashboard-activity-value dashboard-activity-value-clickable"
+                                title="{{ \App\Helpers\CurrencyHelper::format($cashSales) }}"
+                            >
+
+                                {{ \App\Helpers\CurrencyHelper::format($cashSales) }}
+
+                            </strong>
+
+                        </div>
 
                     </div>
 
-                </div>
+
+                    {{-- ==================================================
+                        Card / POS
+                    =================================================== --}}
+
+                    <div class="dashboard-activity-item dashboard-activity-card-payment">
+
+                        <div class="dashboard-activity-icon">
+
+                            <i class="bi bi-credit-card"></i>
+
+                        </div>
 
 
-                {{-- Refund --}}
+                        <div class="dashboard-activity-content">
 
-                <div class="activity-item">
+                            <span class="dashboard-activity-label">
+                                Card / POS
+                            </span>
 
-                    <div class="activity-icon refund">
-                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                            <strong
+                                class="dashboard-activity-value dashboard-activity-value-clickable"
+                                title="{{ \App\Helpers\CurrencyHelper::format($cardSales) }}"
+                            >
+
+                                {{ \App\Helpers\CurrencyHelper::format($cardSales) }}
+
+                            </strong>
+
+                        </div>
+
                     </div>
 
-                    <div class="activity-content">
 
-                        <span>
-                            Refunds
-                        </span>
+                    {{-- ==================================================
+                        Bank Transfer
+                    =================================================== --}}
 
-                        <h6>
-                            {{ \App\Helpers\CurrencyHelper::format($refunds) }}
-                        </h6>
+                    <div class="dashboard-activity-item dashboard-activity-transfer">
+
+                        <div class="dashboard-activity-icon">
+
+                            <i class="bi bi-bank"></i>
+
+                        </div>
+
+
+                        <div class="dashboard-activity-content">
+
+                            <span class="dashboard-activity-label">
+                                Bank Transfer
+                            </span>
+
+
+                            <strong
+                                class="dashboard-activity-value dashboard-activity-value-clickable"
+                                title="{{ \App\Helpers\CurrencyHelper::format($transferSales) }}"
+                            >
+
+                                {{ \App\Helpers\CurrencyHelper::format($transferSales) }}
+
+                            </strong>
+
+                        </div>
 
                     </div>
 
-                </div>
+
+                    {{-- ==================================================
+                        Wallet
+                    =================================================== --}}
+
+                    <div class="dashboard-activity-item dashboard-activity-wallet">
+
+                        <div class="dashboard-activity-icon">
+
+                            <i class="bi bi-wallet2"></i>
+
+                        </div>
 
 
+                        <div class="dashboard-activity-content">
+
+                            <span class="dashboard-activity-label">
+                                Wallet
+                            </span>
 
 
-                    {{-- Pending Orders --}}
+                            <strong
+                                class="dashboard-activity-value dashboard-activity-value-clickable"
+                                title="{{ \App\Helpers\CurrencyHelper::format($walletSales) }}"
+                            >
+
+                                {{ \App\Helpers\CurrencyHelper::format($walletSales) }}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- ==================================================
+                        Refunds
+                    =================================================== --}}
+
+                    <div class="dashboard-activity-item dashboard-activity-refund">
+
+                        <div class="dashboard-activity-icon">
+
+                            <i class="bi bi-arrow-counterclockwise"></i>
+
+                        </div>
+
+
+                        <div class="dashboard-activity-content">
+
+                            <span class="dashboard-activity-label">
+                                Refunds
+                            </span>
+
+
+                            <strong
+                                class="dashboard-activity-value dashboard-activity-value-clickable"
+                                title="{{ \App\Helpers\CurrencyHelper::format($refunds) }}"
+                            >
+
+                                {{ \App\Helpers\CurrencyHelper::format($refunds) }}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- ==================================================
+                        Pending Orders
+                    =================================================== --}}
 
                     @if($canViewOrders)
 
-                        <div class="activity-item">
+                        <div class="dashboard-activity-item dashboard-activity-pending">
 
-                            <div class="activity-icon pending">
+                            <div class="dashboard-activity-icon">
+
                                 <i class="bi bi-clock-history"></i>
+
                             </div>
 
-                            <div class="activity-content">
 
-                                <span>
+                            <div class="dashboard-activity-content">
+
+                                <span class="dashboard-activity-label">
                                     Pending Orders
                                 </span>
 
-                                <h6>
+
+                                <strong
+                                    class="dashboard-activity-value"
+                                >
+
                                     {{ number_format($pendingOrders) }}
-                                </h6>
+
+                                </strong>
 
                             </div>
 
                         </div>
 
                     @endif
+
 
                 </div>
 
@@ -702,9 +925,7 @@
         </div>
 
     @endif
-
-
-
+    
     {{-- ======================================================
         RECENT TRANSACTIONS
     ======================================================= --}}
@@ -713,27 +934,62 @@
 
         <div class="{{ $canViewLowStock ? 'col-xl-7' : 'col-xl-12' }}">
 
-            <div class="dashboard-card">
+            <div class="dashboard-transactions-card">
 
-                <div class="card-header-custom">
 
-                    <h5>
-                        Recent Transactions
-                    </h5>
+                {{-- ==================================================
+                    Header
+                =================================================== --}}
+
+                <div class="dashboard-transactions-header">
+
+                    <div>
+
+                        <span class="dashboard-transactions-eyebrow">
+                            Sales activity
+                        </span>
+
+                        <h5 class="dashboard-transactions-title">
+                            Recent Transactions
+                        </h5>
+
+                        <p class="dashboard-transactions-subtitle">
+                            Latest orders and payment activity
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="{{ route('orders.index') }}"
+                        class="dashboard-transactions-view-all"
+                    >
+
+                        <span>
+                            View all
+                        </span>
+
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </a>
 
                 </div>
 
 
+                {{-- ==================================================
+                    Table
+                =================================================== --}}
+
                 <div class="table-responsive">
 
-                    <table class="table dashboard-table">
+                    <table class="dashboard-transactions-table">
 
                         <thead>
 
                             <tr>
 
                                 <th>
-                                    Order No
+                                    Order
                                 </th>
 
                                 <th>
@@ -759,30 +1015,101 @@
 
                                 <tr>
 
-                                    <td>
-                                        {{ $order->order_number }}
-                                    </td>
+
+                                    {{-- Order --}}
 
                                     <td>
-                                        {{ $order->customer?->name ?? 'Walk-in Customer' }}
+
+                                        <div class="dashboard-transaction-order">
+
+                                            <span class="dashboard-transaction-order-number">
+
+                                                {{ $order->order_no }}
+
+                                            </span>
+
+                                        </div>
+
                                     </td>
 
+                                    
                                   
+                                  
+                                    {{-- ==================================================
+                                        Customer
+                                    =================================================== --}}
+
                                     <td>
-                                        {{ \App\Helpers\CurrencyHelper::format(
-                                            $order->total_amount
-                                        ) }}
+
+                                        <div class="dashboard-transaction-customer">
+
+                                            <div class="dashboard-transaction-avatar">
+
+                                                @if($order->customer)
+
+                                                    {{ strtoupper(
+                                                        substr(
+                                                            $order->customer->displayName(),
+                                                            0,
+                                                            1
+                                                        )
+                                                    ) }}
+
+                                                @else
+
+                                                    <i class="bi bi-person"></i>
+
+                                                @endif
+
+                                            </div>
+
+
+                                            <span class="dashboard-transaction-customer-name">
+
+                                                {{ $order->customer
+                                                    ? $order->customer->displayName()
+                                                    : 'Walk-in Customer'
+                                                }}
+
+                                            </span>
+
+                                        </div>
+
                                     </td>
 
 
 
+                                    {{-- Amount --}}
+
                                     <td>
 
-                                        <span class="status success">
+                                        <strong class="dashboard-transaction-amount">
+
+                                            {{ \App\Helpers\CurrencyHelper::format(
+                                                $order->total
+                                            ) }}
+
+                                        </strong>
+
+                                    </td>
+
+
+                                    {{-- Status --}}
+
+                                    <td>
+
+                                        <span
+                                            class="dashboard-transaction-status dashboard-transaction-status-success"
+                                        >
+
+                                            <span class="dashboard-transaction-status-dot"></span>
+
                                             {{ $order->payment_status }}
+
                                         </span>
 
                                     </td>
+
 
                                 </tr>
 
@@ -790,8 +1117,25 @@
 
                                 <tr>
 
-                                    <td colspan="4" class="text-center py-4">
-                                        No transactions found.
+                                    <td
+                                        colspan="4"
+                                        class="dashboard-transactions-empty"
+                                    >
+
+                                        <div class="dashboard-transactions-empty-icon">
+
+                                            <i class="bi bi-receipt"></i>
+
+                                        </div>
+
+                                        <strong>
+                                            No transactions found
+                                        </strong>
+
+                                        <span>
+                                            Recent sales transactions will appear here.
+                                        </span>
+
                                     </td>
 
                                 </tr>
@@ -809,60 +1153,138 @@
         </div>
 
     @endif
-
-
-
+   
     {{-- ======================================================
-        LOW STOCK
+        LOW STOCK PRODUCTS
     ======================================================= --}}
 
     @if($canViewLowStock)
 
         <div class="{{ $canViewOrders ? 'col-xl-5' : 'col-xl-12' }}">
 
-            <div class="dashboard-card">
+            <div class="dashboard-low-stock-card">
 
-                <div class="card-header-custom">
 
-                    <h5>
-                        Low Stock Products
-                    </h5>
+                {{-- ==================================================
+                    Header
+                =================================================== --}}
+
+                <div class="dashboard-low-stock-header">
+
+                    <div>
+
+                        <span class="dashboard-low-stock-eyebrow">
+                            Inventory Alert
+                        </span>
+
+                        <h5 class="dashboard-low-stock-title">
+                            Low Stock Products
+                        </h5>
+
+                    </div>
+
+
+                    <div class="dashboard-low-stock-header-icon">
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </div>
 
                 </div>
 
 
-                <div class="stock-list">
+                {{-- ==================================================
+                    Product List
+                =================================================== --}}
+
+                <div class="dashboard-low-stock-list">
 
                     @forelse($lowStockProducts as $stock)
 
-                        <div>
+                        <div class="dashboard-low-stock-item">
 
-                            <span>
-                                {{ $stock->product->name }}
-                            </span>
 
-                            <strong class="danger">
-                                {{ $stock->quantity }} left
-                            </strong>
+                            {{-- Product Icon --}}
+
+                            <div class="dashboard-low-stock-product-icon">
+
+                                <i class="bi bi-box"></i>
+
+                            </div>
+
+
+                            {{-- Product Information --}}
+
+                            <div class="dashboard-low-stock-product">
+
+                                <span class="dashboard-low-stock-product-name">
+
+                                    {{ $stock->product->name }}
+
+                                </span>
+
+                                <span class="dashboard-low-stock-product-label">
+
+                                    Stock remaining
+
+                                </span>
+
+                            </div>
+
+
+                            {{-- Quantity --}}
+
+                            <div class="dashboard-low-stock-quantity">
+
+                                <strong>
+
+                                    {{ $stock->quantity }}
+
+                                </strong>
+
+                                <span>
+                                    left
+                                </span>
+
+                            </div>
+
+
+                            {{-- Arrow --}}
+
+                            <i class="bi bi-chevron-right dashboard-low-stock-arrow"></i>
 
                         </div>
 
                     @empty
 
-                        <div class="text-center py-4">
-                            No low stock products.
+                        <div class="dashboard-low-stock-empty">
+
+                            <div class="dashboard-low-stock-empty-icon">
+
+                                <i class="bi bi-check2-circle"></i>
+
+                            </div>
+
+                            <strong>
+                                Inventory looks good
+                            </strong>
+
+                            <span>
+                                No low stock products at the moment.
+                            </span>
+
                         </div>
 
                     @endforelse
 
                 </div>
 
+
             </div>
 
         </div>
 
     @endif
-
 
 
     {{-- ======================================================
@@ -873,56 +1295,136 @@
 
         <div class="{{ $canViewTerminals ? 'col-xl-7' : 'col-xl-12' }}">
 
-            <div class="dashboard-card">
+            <div class="dashboard-top-products-card">
 
-                <div class="card-header-custom">
 
-                    <h5>
-                        Top Selling Products
-                    </h5>
+                {{-- ==================================================
+                    Header
+                =================================================== --}}
+
+                <div class="dashboard-top-products-header">
+
+                    <div>
+
+                        <span class="dashboard-top-products-eyebrow">
+                            Sales Performance
+                        </span>
+
+                        <h5 class="dashboard-top-products-title">
+                            Top Selling Products
+                        </h5>
+
+                    </div>
+
+
+                    <div class="dashboard-top-products-header-icon">
+
+                        <i class="bi bi-trophy"></i>
+
+                    </div>
 
                 </div>
 
 
-                @forelse($topProducts as $product)
+                {{-- ==================================================
+                    Product List
+                =================================================== --}}
 
-                    <div class="product-row">
+                <div class="dashboard-top-products-list">
 
-                        <span>
-                            {{ $product->product_name }}
-                        </span>
+                    @forelse($topProducts as $index => $product)
 
-                        <strong>
-                            {{ number_format($product->total_quantity, 2) }}
-                            units
-                        </strong>
-
-                       
-                        <b>
-                            {{ \App\Helpers\CurrencyHelper::format(
-                                $product->total_sales
-                            ) }}
-                        </b>
+                        <div class="dashboard-top-products-item">
 
 
+                            {{-- Ranking --}}
 
-                    </div>
+                            <div class="dashboard-top-products-rank">
 
-                @empty
+                                {{ $index + 1 }}
 
-                    <div class="text-center py-4">
-                        No sales recorded yet.
-                    </div>
+                            </div>
 
-                @endforelse
+
+                            {{-- Product Information --}}
+
+                            <div class="dashboard-top-products-product">
+
+                                <span class="dashboard-top-products-name">
+
+                                    {{ $product->product_name }}
+
+                                </span>
+
+                                <span class="dashboard-top-products-units">
+
+                                    {{ number_format(
+                                        $product->total_quantity,
+                                        2
+                                    ) }}
+
+                                    units sold
+
+                                </span>
+
+                            </div>
+
+
+                            {{-- Sales Value --}}
+
+                            <div class="dashboard-top-products-sales">
+
+                                <span>
+                                    Sales
+                                </span>
+
+                                <strong>
+
+                                    {{ \App\Helpers\CurrencyHelper::format(
+                                        $product->total_sales
+                                    ) }}
+
+                                </strong>
+
+                            </div>
+
+
+                            {{-- Arrow --}}
+
+                            <i class="bi bi-chevron-right dashboard-top-products-arrow"></i>
+
+                        </div>
+
+                    @empty
+
+                        <div class="dashboard-top-products-empty">
+
+                            <div class="dashboard-top-products-empty-icon">
+
+                                <i class="bi bi-bar-chart-line"></i>
+
+                            </div>
+
+                            <strong>
+                                No sales recorded yet
+                            </strong>
+
+                            <span>
+                                Product performance will appear here once sales are recorded.
+                            </span>
+
+                        </div>
+
+                    @endforelse
+
+                </div>
+
 
             </div>
 
         </div>
 
     @endif
-
-
 
     {{-- ======================================================
         TERMINAL STATUS
@@ -932,42 +1434,130 @@
 
         <div class="{{ $canViewSales ? 'col-xl-5' : 'col-xl-12' }}">
 
-            <div class="dashboard-card">
+            <div class="dashboard-terminal-card">
 
-                <div class="card-header-custom">
 
-                    <h5>
-                        Terminal Status
-                    </h5>
+                {{-- ==================================================
+                    Header
+                =================================================== --}}
+
+                <div class="dashboard-terminal-header">
+
+                    <div>
+
+                        <span class="dashboard-terminal-eyebrow">
+                            Point of Sale
+                        </span>
+
+                        <h5 class="dashboard-terminal-title">
+                            Terminal Status
+                        </h5>
+
+                    </div>
+
+
+                    <div class="dashboard-terminal-header-icon">
+
+                        <i class="bi bi-pc-display"></i>
+
+                    </div>
 
                 </div>
 
 
-                <div class="terminal-status">
+                {{-- ==================================================
+                    Terminal Content
+                =================================================== --}}
 
-                    <h6>
-                        {{ auth()->user()->terminal?->terminal_code ?? 'POS Terminal' }}
-                    </h6>
-
-
-                    <span class="online">
-                        ● Active
-                    </span>
+                <div class="dashboard-terminal-body">
 
 
-                    <p>
-                        Cashier:
-                        {{ auth()->user()->first_name }}
-                        {{ auth()->user()->last_name }}
-                    </p>
+                    {{-- Terminal Identity --}}
+
+                    <div class="dashboard-terminal-identity">
+
+                        <div class="dashboard-terminal-icon">
+
+                            <i class="bi bi-display"></i>
+
+                        </div>
+
+
+                        <div class="dashboard-terminal-info">
+
+                            <span class="dashboard-terminal-label">
+                                Terminal
+                            </span>
+
+                            <strong class="dashboard-terminal-code">
+
+                                {{ auth()->user()->terminal?->terminal_code
+                                    ?? 'POS Terminal' }}
+
+                            </strong>
+
+                        </div>
+
+
+                        {{-- Status --}}
+
+                        <div class="dashboard-terminal-status">
+
+                            <span class="dashboard-terminal-status-dot"></span>
+
+                            <span>
+                                Active
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Divider --}}
+
+                    <div class="dashboard-terminal-divider"></div>
+
+
+                    {{-- Cashier --}}
+
+                    <div class="dashboard-terminal-cashier">
+
+                        <div class="dashboard-terminal-cashier-icon">
+
+                            <i class="bi bi-person"></i>
+
+                        </div>
+
+
+                        <div class="dashboard-terminal-cashier-info">
+
+                            <span>
+                                Cashier
+                            </span>
+
+                            <strong>
+
+                                {{ auth()->user()->first_name }}
+                                {{ auth()->user()->last_name }}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
+
 
             </div>
 
         </div>
 
     @endif
+
+
 
 </div>
 
@@ -980,130 +1570,435 @@ SALES CHART
 
 @if($canViewSales)
 
-<script>
+<script>  
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Dashboard Sales Period Filter                                              |
+| -------------------------------------------------------------------------- |
+| */                                                                        
 
-const chartCanvas =
-    document.getElementById('salesChart');
-
-
-if (chartCanvas) {
-
-    const chartData =
-        @json($salesChart);
+(function () {
 
 
-    const labels =
-        chartData.map(
-            item => item.day
+function initializeDashboardSalesFilter() {
+
+    const filter =
+        document.getElementById(
+            'dashboardSalesFilter'
+        );
+
+    const button =
+        document.getElementById(
+            'dashboardFilterBtn'
+        );
+
+    const menu =
+        document.getElementById(
+            'dashboardSalesFilterMenu'
         );
 
 
-    const sales =
-        chartData.map(
-            item => item.sales
-        );
+    if (
+        !filter ||
+        !button ||
+        !menu
+    ) {
+
+        return;
+
+    }
 
 
-    const transactions =
-        chartData.map(
-            item => item.transactions
-        );
+    /*
+    |--------------------------------------------------------------------------
+    | Prevent Duplicate Initialization
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        filter.dataset.initialized === 'true'
+    ) {
+
+        return;
+
+    }
 
 
-    new Chart(
-        chartCanvas,
-        {
-
-            type: 'line',
-
-            data: {
-
-                labels,
-
-                datasets: [
-
-                    {
-
-                        label: 'Sales',
-
-                        data: sales,
-
-                        tension: .35,
-
-                        borderWidth: 3,
-
-                        fill: true,
-
-                    },
+    filter.dataset.initialized = 'true';
 
 
-                    {
+    /*
+    |--------------------------------------------------------------------------
+    | Toggle Dropdown
+    |--------------------------------------------------------------------------
+    */
 
-                        label: 'Transactions',
+    button.addEventListener(
+        'click',
+        function (event) {
 
-                        data: transactions,
+            event.preventDefault();
 
-                        tension: .35,
-
-                        borderWidth: 2,
-
-                        yAxisID: 'y1',
-
-                    }
-
-                ]
-
-            },
+            event.stopPropagation();
 
 
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-                interaction: {
-
-                    mode: 'index',
-
-                    intersect: false,
-
-                },
+            const isOpen =
+                filter.classList.contains(
+                    'is-open'
+                );
 
 
-                scales: {
+            if (isOpen) {
 
-                    y: {
+                filter.classList.remove(
+                    'is-open'
+                );
 
-                        beginAtZero: true
+                button.setAttribute(
+                    'aria-expanded',
+                    'false'
+                );
 
-                    },
+            } else {
 
+                filter.classList.add(
+                    'is-open'
+                );
 
-                    y1: {
-
-                        position: 'right',
-
-                        grid: {
-
-                            drawOnChartArea: false
-
-                        }
-
-                    }
-
-                }
+                button.setAttribute(
+                    'aria-expanded',
+                    'true'
+                );
 
             }
 
         }
     );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Keep Menu Clicks Inside
+    |--------------------------------------------------------------------------
+    */
+
+    menu.addEventListener(
+        'click',
+        function (event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Close Outside
+    |--------------------------------------------------------------------------
+    */
+
+    document.addEventListener(
+        'click',
+        function (event) {
+
+            if (
+                !filter.contains(
+                    event.target
+                )
+            ) {
+
+                filter.classList.remove(
+                    'is-open'
+                );
+
+                button.setAttribute(
+                    'aria-expanded',
+                    'false'
+                );
+
+            }
+
+        }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Close After Period Selection
+    |--------------------------------------------------------------------------
+    */
+
+    menu.querySelectorAll(
+        'a'
+    ).forEach(
+        function (link) {
+
+            link.addEventListener(
+                'click',
+                function () {
+
+                    if (
+                        link.id ===
+                        'customRangeBtn'
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    filter.classList.remove(
+                        'is-open'
+                    );
+
+                    button.setAttribute(
+                        'aria-expanded',
+                        'false'
+                    );
+
+                }
+            );
+
+        }
+    );
+
 }
+
+
+/*
+|--------------------------------------------------------------------------
+| Initialize
+|--------------------------------------------------------------------------
+*/
+
+if (
+    document.readyState ===
+    'loading'
+) {
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        initializeDashboardSalesFilter
+    );
+
+} else {
+
+    initializeDashboardSalesFilter();
+
+}
+
+
+})();
+
+</script>
+<script>
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+
+            const chartCanvas =
+                document.getElementById(
+                    'salesChart'
+                );
+
+
+            if (
+                !chartCanvas ||
+                typeof Chart === 'undefined'
+            ) {
+
+                return;
+
+            }
+
+
+            const chartData =
+                @json($salesChart ?? []);
+
+
+            if (
+                !Array.isArray(chartData) ||
+                chartData.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            const labels =
+                chartData.map(
+                    item => item.day ?? ''
+                );
+
+
+            const sales =
+                chartData.map(
+                    item =>
+                        Number(item.sales ?? 0)
+                );
+
+
+            const transactions =
+                chartData.map(
+                    item =>
+                        Number(item.transactions ?? 0)
+                );
+
+
+            new Chart(
+                chartCanvas,
+                {
+
+                    type: 'line',
+
+
+                    data: {
+
+                        labels: labels,
+
+                        datasets: [
+
+                            {
+                                label: 'Sales',
+
+                                data: sales,
+
+                                tension: 0.35,
+
+                                borderWidth: 3,
+
+                                fill: true,
+
+                                pointRadius: 3,
+
+                                pointHoverRadius: 5
+                            },
+
+
+                            {
+                                label: 'Transactions',
+
+                                data: transactions,
+
+                                tension: 0.35,
+
+                                borderWidth: 2,
+
+                                yAxisID: 'y1',
+
+                                pointRadius: 3,
+
+                                pointHoverRadius: 5
+                            }
+
+                        ]
+
+                    },
+
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+
+                        interaction: {
+
+                            mode: 'index',
+
+                            intersect: false
+
+                        },
+
+
+                        plugins: {
+
+                            legend: {
+
+                                display: true,
+
+                                position: 'top',
+
+                                align: 'end'
+
+                            },
+
+                            tooltip: {
+
+                                mode: 'index',
+
+                                intersect: false
+
+                            }
+
+                        },
+
+
+                        scales: {
+
+                            x: {
+
+                                grid: {
+
+                                    display: false
+
+                                }
+
+                            },
+
+
+                            y: {
+
+                                beginAtZero: true,
+
+                                ticks: {
+
+                                    precision: 0
+
+                                }
+
+                            },
+
+
+                            y1: {
+
+                                beginAtZero: true,
+
+                                position: 'right',
+
+                                grid: {
+
+                                    drawOnChartArea: false
+
+                                },
+
+                                ticks: {
+
+                                    precision: 0
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+    );
 
 </script>
 
+
 @endif
+
 
 {{-- ==============================================================
 DASHBOARD FILTER
@@ -1111,50 +2006,51 @@ DASHBOARD FILTER
 
 @if($canViewSales)
 
+
 <script>
+document.addEventListener(
+    'click',
+    function (event) {
 
-const filterBtn =
-    document.getElementById(
-        'dashboardFilterBtn'
-    );
-
-
-const filterMenu =
-    document.querySelector(
-        '.dashboard-filter-menu'
-    );
-
-
-if (filterBtn && filterMenu) {
-
-    filterBtn.addEventListener(
-        'click',
-        function (e) {
-
-            e.stopPropagation();
-
-            filterMenu.classList.toggle(
-                'show'
+        const value =
+            event.target.closest(
+                '.dashboard-activity-value-clickable'
             );
 
-        }
-    );
 
+        document
+            .querySelectorAll(
+                '.dashboard-activity-value-clickable.dashboard-value-expanded'
+            )
+            .forEach(
+                element => {
 
-    document.addEventListener(
-        'click',
-        function () {
+                    if (element !== value) {
 
-            filterMenu.classList.remove(
-                'show'
+                        element.classList.remove(
+                            'dashboard-value-expanded'
+                        );
+
+                    }
+
+                }
             );
 
+
+        if (!value) {
+
+            return;
+
         }
-    );
 
-}
 
-</script>
+        value.classList.toggle(
+            'dashboard-value-expanded'
+        );
+
+    }
+);
+    </script>
 
 @endif
 
