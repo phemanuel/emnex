@@ -494,6 +494,30 @@ const Users = {
 
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal Assignment
+    |--------------------------------------------------------------------------
+    */
+
+    const saveTerminalAssignmentBtn =
+        document.getElementById(
+            'saveTerminalAssignmentBtn'
+        );
+
+    if (saveTerminalAssignmentBtn) {
+
+        saveTerminalAssignmentBtn.addEventListener(
+            'click',
+            () => {
+
+                this.saveTerminalAssignment();
+
+            }
+        );
+
+    }
+
 },
 
 /**
@@ -521,7 +545,8 @@ escapeHtml(value)
 
 },
 
-/**
+
+/*
  * ======================================================
  * RENDER USER ACTIONS
  * ======================================================
@@ -534,81 +559,107 @@ renderUserActions(user)
 
 
     /*
-    |--------------------------------------------------------------------------
-    | View
-    |--------------------------------------------------------------------------
-    */
+     * --------------------------------------------------
+     * View
+     * --------------------------------------------------
+     */
 
     if (this.permission.view) {
 
         actions += `
-
             <li>
-
                 <button
                     type="button"
                     class="dropdown-item"
                     onclick="openUserDetailsPanel(${user.id})"
                 >
-
                     <i class="bi bi-eye me-2"></i>
-
                     View Details
-
                 </button>
-
             </li>
-
         `;
-
     }
 
 
-
     /*
-    |--------------------------------------------------------------------------
-    | Edit
-    |--------------------------------------------------------------------------
-    */
+     * --------------------------------------------------
+     * Edit
+     * --------------------------------------------------
+     */
 
     if (this.permission.update) {
 
         actions += `
-
             <li>
-
                 <button
                     type="button"
                     class="dropdown-item"
                     onclick="openEditUserModal(${user.id})"
                 >
-
                     <i class="bi bi-pencil-square me-2"></i>
-
                     Edit User
-
                 </button>
-
             </li>
-
         `;
-
     }
 
 
+    /*
+     * --------------------------------------------------
+     * Terminal Assignment
+     * --------------------------------------------------
+     */
+
+    const isCashier =
+        user.role
+        && user.role.name
+        && user.role.name.toLowerCase() === 'cashier';
+
+
+    if (
+        isCashier
+        && this.permission.update
+    ) {
+
+        const hasActiveTerminal =
+            user.active_terminal_assignment
+            && user.active_terminal_assignment.status === 'Active';
+
+
+        actions += `
+            <li>
+                <button
+                    type="button"
+                    class="dropdown-item"
+                    onclick="Users.openTerminalAssignmentModal(${user.id})"
+                >
+                    <i class="bi ${
+                        hasActiveTerminal
+                            ? 'bi-arrow-left-right'
+                            : 'bi-pc-display'
+                    } me-2"></i>
+
+                    ${
+                        hasActiveTerminal
+                            ? 'Change Terminal'
+                            : 'Assign to Terminal'
+                    }
+                </button>
+            </li>
+        `;
+    }
+
 
     /*
-    |--------------------------------------------------------------------------
-    | Reset Password
-    |--------------------------------------------------------------------------
-    */
+     * --------------------------------------------------
+     * Reset Password
+     * --------------------------------------------------
+     */
 
     if (this.permission.resetPassword) {
 
         actions += `
-
             <li>
-
                 <button
                     type="button"
                     class="dropdown-item"
@@ -618,33 +669,24 @@ renderUserActions(user)
                         last_name: user.last_name
                     })})'
                 >
-
                     <i class="bi bi-key me-2"></i>
-
                     Reset Password
-
                 </button>
-
             </li>
-
         `;
-
     }
 
 
-
     /*
-    |--------------------------------------------------------------------------
-    | Toggle Status
-    |--------------------------------------------------------------------------
-    */
+     * --------------------------------------------------
+     * Toggle Status
+     * --------------------------------------------------
+     */
 
     if (this.permission.update) {
 
         actions += `
-
             <li>
-
                 <button
                     type="button"
                     class="dropdown-item"
@@ -655,49 +697,37 @@ renderUserActions(user)
                         status: !!user.status
                     })})'
                 >
-
                     ${
                         user.status
-
                             ? `
                                 <i class="bi bi-person-x me-2"></i>
                                 Disable User
-                              `
-
+                            `
                             : `
                                 <i class="bi bi-person-check me-2"></i>
                                 Enable User
-                              `
+                            `
                     }
-
                 </button>
-
             </li>
-
         `;
-
     }
 
 
-
     /*
-    |--------------------------------------------------------------------------
-    | Delete
-    |--------------------------------------------------------------------------
-    */
+     * --------------------------------------------------
+     * Delete
+     * --------------------------------------------------
+     */
 
     if (this.permission.delete) {
 
         actions += `
-
             <li>
-
                 <hr class="dropdown-divider">
-
             </li>
 
             <li>
-
                 <button
                     type="button"
                     class="dropdown-item text-danger"
@@ -707,29 +737,21 @@ renderUserActions(user)
                         last_name: user.last_name
                     })})'
                 >
-
                     <i class="bi bi-trash me-2"></i>
-
                     Delete User
-
                 </button>
-
             </li>
-
         `;
-
     }
 
 
-
     /*
-    |--------------------------------------------------------------------------
-    | Dropdown
-    |--------------------------------------------------------------------------
-    */
+     * --------------------------------------------------
+     * Dropdown
+     * --------------------------------------------------
+     */
 
     return `
-
         <div class="dropdown">
 
             <button
@@ -740,25 +762,1246 @@ renderUserActions(user)
                 data-bs-display="dynamic"
                 aria-expanded="false"
             >
-
                 <i class="bi bi-three-dots"></i>
-
             </button>
 
-
-           <ul
-                    class="dropdown-menu dropdown-menu-end"
-                    data-bs-popper="static"
-                >
-
+            <ul
+                class="dropdown-menu dropdown-menu-end"
+                data-bs-popper="static"
+            >
                 ${actions}
-
             </ul>
 
         </div>
+    `;
+},
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Open Terminal Assignment Modal
+|--------------------------------------------------------------------------
+*/
+
+async openTerminalAssignmentModal(userId) {
+
+    console.log(
+        'Terminal assignment user ID:',
+        userId
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Modal
+    |--------------------------------------------------------------------------
+    */
+
+    const modalElement =
+        document.getElementById(
+            'terminalAssignmentModal'
+        );
+
+    if (!modalElement) {
+
+        console.error(
+            'Terminal Assignment modal not found.'
+        );
+
+        return;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Loading
+    |--------------------------------------------------------------------------
+    */
+
+    const loading =
+        document.getElementById(
+            'terminalAssignmentLoading'
+        );
+
+    if (loading) {
+
+        loading.style.display = 'flex';
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Load Assignment Data
+    |--------------------------------------------------------------------------
+    */
+
+    try {
+
+        const response =
+            await fetch(
+                `/users/${userId}/terminal-assignment`,
+                {
+                    method: 'GET',
+
+                    headers: {
+
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest',
+
+                    },
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                'Failed to load terminal assignment.'
+            );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Populate User
+        |--------------------------------------------------------------------------
+        */
+
+        const user =
+            data.user;
+
+
+        const userNameElement =
+            document.getElementById(
+                'terminalAssignmentUserName'
+            );
+
+
+        const userRoleElement =
+            document.getElementById(
+                'terminalAssignmentUserRole'
+            );
+
+        const userBranchElement =
+            document.getElementById(
+                'terminalAssignmentUserBranch'
+            );
+
+
+        if (userNameElement) {
+
+            userNameElement.textContent =
+                user.full_name || '—';
+        }
+
+
+        if (userRoleElement) {
+
+            userRoleElement.textContent =
+                user.role?.display_name ||
+                user.role?.name ||
+                'Cashier';
+        }
+
+        if (userBranchElement) {
+
+            userBranchElement.textContent =
+                user.branch?.name
+                || '—';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Store User ID
+        |--------------------------------------------------------------------------
+        */
+
+        const userIdElement =
+            document.getElementById(
+                'terminalAssignmentUserId'
+            );
+
+
+        if (userIdElement) {
+
+            userIdElement.value =
+                user.id;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        const current =
+            data.current_assignment;
+
+
+        const currentContainer =
+            document.getElementById(
+                'terminalAssignmentCurrent'
+            );
+
+
+        const currentName =
+            document.getElementById(
+                'terminalAssignmentCurrentName'
+            );
+
+
+        if (current) {
+
+            if (currentContainer) {
+
+                currentContainer.style.display =
+                    'flex';
+            }
+
+
+            if (currentName) {
+
+                currentName.textContent =
+                    current.terminal_name ||
+                    current.terminal_code ||
+                    '—';
+            }
+
+        } else {
+
+            if (currentContainer) {
+
+                currentContainer.style.display =
+                    'none';
+            }
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Terminals
+        |--------------------------------------------------------------------------
+        */
+
+       this.populateTerminalAssignmentTerminals(
+            data.terminals
+        );
+
+        this.populateTerminalAssignmentSelect(
+            data.terminals,
+            user.id
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Show Modal
+        |--------------------------------------------------------------------------
+        */
+
+        const modal =
+            bootstrap.Modal.getOrCreateInstance(
+                modalElement
+            );
+
+        modal.show();
+
+
+    } catch (error) {
+
+        console.error(
+            'Terminal assignment error:',
+            error
+        );
+
+        if (typeof showToast === 'function') {
+
+            showToast(
+                error.message ||
+                'Failed to load terminal assignment.',
+                'error'
+            );
+        }
+
+
+    } finally {
+
+        if (loading) {
+
+            loading.style.display = 'none';
+        }
+    }
+},
+
+/**
+ * ======================================================
+ * POPULATE TERMINAL ASSIGNMENT TERMINALS
+ * ======================================================
+ */
+populateTerminalAssignmentTerminals(terminals)
+{
+    const list =
+        document.getElementById(
+            'terminalAssignmentTerminalList'
+        );
+
+    const empty =
+        document.getElementById(
+            'terminalAssignmentTerminalEmpty'
+        );
+
+    const loading =
+        document.getElementById(
+            'terminalAssignmentTerminalLoading'
+        );
+
+    const count =
+        document.getElementById(
+            'terminalAssignmentTerminalCount'
+        );
+
+
+    if (!list) {
+        return;
+    }
+
+
+    if (loading) {
+
+        loading.style.display =
+            'none';
+
+    }
+
+
+    list.innerHTML = '';
+
+
+    if (!terminals || !terminals.length) {
+
+        if (empty) {
+
+            empty.style.display =
+                'flex';
+
+        }
+
+        if (count) {
+
+            count.textContent =
+                '0';
+
+        }
+
+        return;
+    }
+
+
+    if (empty) {
+
+        empty.style.display =
+            'none';
+
+    }
+
+
+    if (count) {
+
+        count.textContent =
+            terminals.length;
+
+    }
+
+
+    terminals.forEach(terminal => {
+
+        const isActive =
+            !!terminal.status;
+
+        const isAssigned =
+            !!terminal.assignment;
+
+        const assignedUser =
+            terminal.assignment?.user;
+
+
+        let statusClass =
+            'available';
+
+        let statusText =
+            'Available';
+
+        if (!isActive) {
+
+            statusClass =
+                'inactive';
+
+            statusText =
+                'Inactive';
+
+        } else if (isAssigned) {
+
+            statusClass =
+                'in-use';
+
+            statusText =
+                'In Use';
+
+        }
+
+
+        const userName =
+            assignedUser
+                ? [
+                    assignedUser.first_name,
+                    assignedUser.other_name,
+                    assignedUser.last_name
+                ]
+                .filter(Boolean)
+                .join(' ')
+                : '—';
+
+
+        list.insertAdjacentHTML(
+            'beforeend',
+            `
+                <div class="terminal-assignment-terminal-item">
+
+                    <div class="terminal-assignment-terminal-icon">
+                        <i class="bi bi-pc-display"></i>
+                    </div>
+
+                    <div class="terminal-assignment-terminal-info">
+
+                        <div class="terminal-assignment-terminal-name">
+                            ${this.escapeHtml(
+                                terminal.terminal_name
+                                || 'Unnamed Terminal'
+                            )}
+                        </div>
+
+                        <div class="terminal-assignment-terminal-code">
+                            ${this.escapeHtml(
+                                terminal.terminal_code
+                                || '—'
+                            )}
+                        </div>
+
+                    </div>
+
+                    <div class="terminal-assignment-terminal-user">
+
+                        <div class="terminal-assignment-terminal-user-label">
+                            Currently Using
+                        </div>
+
+                        <div class="terminal-assignment-terminal-user-name">
+                            ${this.escapeHtml(userName)}
+                        </div>
+
+                    </div>
+
+                    <div class="terminal-assignment-terminal-status ${statusClass}">
+
+                        <span class="terminal-assignment-status-dot"></span>
+
+                        ${statusText}
+
+                    </div>
+
+                </div>
+            `
+        );
+
+    });
+
+},
+
+/**
+ * ======================================================
+ * POPULATE AVAILABLE TERMINAL SELECT
+ * ======================================================
+ */
+populateTerminalAssignmentSelect(terminals, userId)
+{
+    const select =
+        document.getElementById(
+            'terminalAssignmentTerminal'
+        );
+
+    if (!select) {
+        return;
+    }
+
+    select.innerHTML = `
+        <option value="">
+            Select terminal
+        </option>
     `;
 
+
+    if (!terminals || !terminals.length) {
+        return;
+    }
+
+
+    terminals.forEach(terminal => {
+
+        const isActive =
+            !!terminal.status;
+
+        const assignment =
+            terminal.assignment;
+
+        const isAssigned =
+            !!assignment;
+
+        const assignedUserId =
+            assignment?.user_id
+            ?? assignment?.user?.id
+            ?? null;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current cashier's terminal
+        |--------------------------------------------------------------------------
+        */
+
+        const isCurrentTerminal =
+            Number(assignedUserId) ===
+            Number(userId);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Only active terminals which are:
+        |
+        | 1. Not assigned to anyone
+        | OR
+        | 2. Already assigned to this cashier
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !isActive
+            ||
+            (
+                isAssigned
+                &&
+                !isCurrentTerminal
+            )
+        ) {
+            return;
+        }
+
+
+        const option =
+            document.createElement('option');
+
+        option.value =
+            terminal.id;
+
+        option.textContent =
+            `${terminal.terminal_name} (${terminal.terminal_code})`;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Preserve current terminal
+        |--------------------------------------------------------------------------
+        */
+
+        if (isCurrentTerminal) {
+
+            option.selected =
+                true;
+
+        }
+
+
+        select.appendChild(option);
+
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enable / disable save button
+    |--------------------------------------------------------------------------
+    */
+
+    select.onchange = function () {
+
+        const saveButton =
+            document.getElementById(
+                'saveTerminalAssignmentBtn'
+            );
+
+        if (saveButton) {
+
+            saveButton.disabled =
+                !this.value;
+
+        }
+
+    };
+
+},
+/*
+|--------------------------------------------------------------------------
+| TERMINAL ASSIGNMENT LOADING
+|--------------------------------------------------------------------------
+*/
+
+showTerminalAssignmentLoading()
+{
+
+    /*
+    |--------------------------------------------------------------------------
+    | Elements
+    |--------------------------------------------------------------------------
+    */
+
+    const userNameElement =
+        document.getElementById(
+            'terminalAssignmentUserName'
+        );
+
+    const userRoleElement =
+        document.getElementById(
+            'terminalAssignmentUserRole'
+        );
+
+    const terminalList =
+        document.getElementById(
+            'terminalAssignmentTerminalList'
+        );
+
+    const terminalSelect =
+        document.getElementById(
+            'terminalAssignmentTerminal'
+        );
+
+    const saveButton =
+        document.getElementById(
+            'saveTerminalAssignmentBtn'
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | User
+    |--------------------------------------------------------------------------
+    */
+
+    if (userNameElement) {
+
+        userNameElement.textContent =
+            'Loading...';
+
+    }
+
+
+    if (userRoleElement) {
+
+        userRoleElement.textContent =
+            'Loading...';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal List
+    |--------------------------------------------------------------------------
+    */
+
+    if (terminalList) {
+
+        terminalList.innerHTML = `
+
+            <div class="terminal-assignment-loading">
+
+                <div
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                ></div>
+
+                <span>
+                    Loading terminals...
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal Selector
+    |--------------------------------------------------------------------------
+    */
+
+    if (terminalSelect) {
+
+        terminalSelect.innerHTML = `
+
+            <option value="">
+
+                Loading terminals...
+
+            </option>
+
+        `;
+
+        terminalSelect.value = '';
+
+        terminalSelect.disabled = true;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Save Button
+    |--------------------------------------------------------------------------
+    */
+
+    if (saveButton) {
+
+        saveButton.disabled = true;
+
+    }
+
+},
+/*
+|--------------------------------------------------------------------------
+| RENDER TERMINAL ASSIGNMENT
+|--------------------------------------------------------------------------
+*/
+
+renderTerminalAssignment(data)
+{
+    const user =
+        data.user;
+
+    const currentAssignment =
+        data.current_assignment;
+
+    const terminals =
+        data.terminals || [];
+
+    const availableTerminals =
+        data.available_terminals || [];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store State
+    |--------------------------------------------------------------------------
+    */
+
+    this.state =
+        this.state || {};
+
+    this.state.terminalAssignment =
+        {
+
+            userId:
+                user.id,
+
+            currentAssignment:
+                currentAssignment,
+
+            terminals:
+                terminals,
+
+            availableTerminals:
+                availableTerminals,
+
+        };
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Information
+    |--------------------------------------------------------------------------
+    */
+
+    const userNameElement =
+        document.getElementById(
+            'terminalAssignmentUserName'
+        );
+
+    const userRoleElement =
+        document.getElementById(
+            'terminalAssignmentUserRole'
+        );
+
+    const userBranchElement =
+        document.getElementById(
+            'terminalAssignmentUserBranch'
+        );
+
+
+    if (userNameElement) {
+
+        userNameElement.textContent =
+            user.full_name
+            || '-';
+    }
+
+
+    if (userRoleElement) {
+
+        userRoleElement.textContent =
+            user.role?.display_name
+            || user.role?.name
+            || 'Cashier';
+    }
+
+
+    if (userBranchElement) {
+
+        userBranchElement.textContent =
+            user.branch?.name
+            || '-';
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current Assignment
+    |--------------------------------------------------------------------------
+    */
+
+    this.renderCurrentTerminalAssignment(
+        currentAssignment
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | All Terminals
+    |--------------------------------------------------------------------------
+    */
+
+    this.renderTerminalList(
+        terminals
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Available Terminal Dropdown
+    |--------------------------------------------------------------------------
+    */
+
+    this.renderAvailableTerminalOptions(
+        availableTerminals,
+        currentAssignment
+    );
+},
+
+/*
+|--------------------------------------------------------------------------
+| RENDER CURRENT TERMINAL ASSIGNMENT
+|--------------------------------------------------------------------------
+*/
+
+renderCurrentTerminalAssignment(
+    assignment
+)
+{
+    const currentAssignmentElement =
+        document.getElementById(
+            'terminalCurrentAssignment'
+        );
+
+    const assignmentMode =
+        document.getElementById(
+            'terminalAssignmentMode'
+        );
+
+    const saveButtonText =
+        document.getElementById(
+            'saveTerminalAssignmentBtnText'
+        );
+
+
+    if (!assignment) {
+
+        if (currentAssignmentElement) {
+
+            currentAssignmentElement.classList.add(
+                'd-none'
+            );
+        }
+
+        if (assignmentMode) {
+
+            assignmentMode.textContent =
+                'Assign Terminal';
+        }
+
+        if (saveButtonText) {
+
+            saveButtonText.textContent =
+                'Assign Terminal';
+        }
+
+        return;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current Terminal
+    |--------------------------------------------------------------------------
+    */
+
+    const terminal =
+        assignment.terminal;
+
+
+    if (currentAssignmentElement) {
+
+        currentAssignmentElement.classList.remove(
+            'd-none'
+        );
+
+
+        const name =
+            currentAssignmentElement.querySelector(
+                '[data-terminal-current-name]'
+            );
+
+        const code =
+            currentAssignmentElement.querySelector(
+                '[data-terminal-current-code]'
+            );
+
+
+        if (name) {
+
+            name.textContent =
+                terminal?.terminal_name
+                || '-';
+        }
+
+
+        if (code) {
+
+            code.textContent =
+                terminal?.terminal_code
+                || '-';
+        }
+    }
+
+
+    if (assignmentMode) {
+
+        assignmentMode.textContent =
+            'Change Terminal';
+    }
+
+
+    if (saveButtonText) {
+
+        saveButtonText.textContent =
+            'Change Terminal';
+    }
+},
+
+/*
+|--------------------------------------------------------------------------
+| RENDER TERMINAL LIST
+|--------------------------------------------------------------------------
+*/
+
+renderTerminalList(terminals)
+{
+    const container =
+        document.getElementById(
+            'terminalAssignmentTerminalList'
+        );
+
+    if (!container) {
+
+        return;
+    }
+
+
+    if (!terminals.length) {
+
+        container.innerHTML = `
+            <div class="terminal-assignment-empty">
+                <i class="bi bi-pc-display-horizontal"></i>
+
+                <div>
+                    <strong>No terminals found</strong>
+
+                    <span>
+                        There are no terminals configured for this branch.
+                    </span>
+                </div>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        terminals.map(
+            terminal => {
+
+                let usageHtml;
+
+
+                if (terminal.is_current) {
+
+                    usageHtml = `
+                        <span class="terminal-status-badge current">
+                            <i class="bi bi-person-check"></i>
+                            Current Terminal
+                        </span>
+                    `;
+
+                } else if (terminal.in_use) {
+
+                    usageHtml = `
+                        <span class="terminal-status-badge in-use">
+                            <i class="bi bi-person-fill"></i>
+                            In Use
+                        </span>
+                    `;
+
+                } else {
+
+                    usageHtml = `
+                        <span class="terminal-status-badge available">
+                            <i class="bi bi-check-circle"></i>
+                            Available
+                        </span>
+                    `;
+                }
+
+
+                const statusHtml =
+                    terminal.status
+                        ? `
+                            <span class="terminal-status-badge active">
+                                Active
+                            </span>
+                        `
+                        : `
+                            <span class="terminal-status-badge inactive">
+                                Inactive
+                            </span>
+                        `;
+
+
+                const assignedUser =
+                    terminal.assigned_user;
+
+
+                return `
+                    <div class="terminal-assignment-row">
+
+                        <div class="terminal-assignment-main">
+
+                            <div class="terminal-assignment-icon">
+                                <i class="bi bi-pc-display"></i>
+                            </div>
+
+                            <div class="terminal-assignment-info">
+
+                                <div class="terminal-assignment-name">
+                                    ${this.escapeHtml(
+                                        terminal.terminal_name
+                                        || '-'
+                                    )}
+                                </div>
+
+                                <div class="terminal-assignment-meta">
+
+                                    <span>
+                                        ${this.escapeHtml(
+                                            terminal.terminal_code
+                                            || '-'
+                                        )}
+                                    </span>
+
+                                    ${
+                                        terminal.device_name
+                                            ? `
+                                                <span>
+                                                    ${this.escapeHtml(
+                                                        terminal.device_name
+                                                    )}
+                                                </span>
+                                            `
+                                            : ''
+                                    }
+
+                                </div>
+
+                                ${
+                                    assignedUser
+                                        ? `
+                                            <div class="terminal-assignment-user">
+                                                <i class="bi bi-person"></i>
+
+                                                <span>
+                                                    ${this.escapeHtml(
+                                                        assignedUser.name
+                                                        || assignedUser.username
+                                                        || '-'
+                                                    )}
+                                                </span>
+                                            </div>
+                                        `
+                                        : ''
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="terminal-assignment-status">
+
+                            ${statusHtml}
+
+                            ${usageHtml}
+
+                        </div>
+
+                    </div>
+                `;
+            }
+        )
+        .join('');
+},
+
+/*
+|--------------------------------------------------------------------------
+| RENDER AVAILABLE TERMINAL OPTIONS
+|--------------------------------------------------------------------------
+*/
+
+renderAvailableTerminalOptions(
+    terminals,
+    currentAssignment
+)
+{
+    const select =
+        document.getElementById(
+            'terminalAssignmentTerminal'
+        );
+
+    if (!select) {
+
+        return;
+    }
+
+
+    select.innerHTML = `
+        <option value="">
+            Select terminal
+        </option>
+    `;
+
+
+    if (!terminals.length) {
+
+        select.innerHTML = `
+            <option value="">
+                No available terminals
+            </option>
+        `;
+
+        select.disabled = true;
+
+        return;
+    }
+
+
+    terminals.forEach(
+        terminal => {
+
+            const option =
+                document.createElement(
+                    'option'
+                );
+
+            option.value =
+                terminal.id;
+
+            option.textContent =
+                `${terminal.terminal_name} (${terminal.terminal_code})`
+                + (
+                    terminal.is_current
+                        ? ' — Current'
+                        : ''
+                );
+
+
+            select.appendChild(
+                option
+            );
+        }
+    );
+
+
+    select.disabled = false;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Preselect Current Terminal
+    |--------------------------------------------------------------------------
+    */
+
+    if (currentAssignment) {
+
+        select.value =
+            currentAssignment.terminal_id;
+    }
+},
+
+/*
+|--------------------------------------------------------------------------
+| ESCAPE HTML
+|--------------------------------------------------------------------------
+*/
+
+escapeHtml(value)
+{
+    const div =
+        document.createElement(
+            'div'
+        );
+
+    div.textContent =
+        value ?? '';
+
+    return div.innerHTML;
 },
 
 
@@ -1984,9 +3227,303 @@ renderUserRow(user)
 
     },
 
+   /**
+ * ======================================================
+ * SAVE TERMINAL ASSIGNMENT
+ * ======================================================
+ */
+async saveTerminalAssignment()
+{
+    const userId =
+        document.getElementById(
+            'terminalAssignmentUserId'
+        )?.value;
+
+    const terminalSelect =
+        document.getElementById(
+            'terminalAssignmentTerminal'
+        );
+
+    const saveButton =
+        document.getElementById(
+            'saveTerminalAssignmentBtn'
+        );
+
+    const spinner =
+        document.getElementById(
+            'saveTerminalAssignmentSpinner'
+        );
+
+    const icon =
+        document.getElementById(
+            'saveTerminalAssignmentIcon'
+        );
+
+    const buttonText =
+        document.getElementById(
+            'saveTerminalAssignmentText'
+        );
 
 
+    if (!userId) {
 
+        console.error(
+            'Terminal assignment user ID is missing.'
+        );
+
+        return;
+    }
+
+
+    if (!terminalSelect?.value) {
+
+        return;
+    }
+
+
+    const terminalId =
+        terminalSelect.value;
+
+
+    try {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Loading State
+        |--------------------------------------------------------------------------
+        */
+
+        if (saveButton) {
+
+            saveButton.disabled = true;
+
+        }
+
+        if (spinner) {
+
+            spinner.classList.remove('d-none');
+
+        }
+
+        if (icon) {
+
+            icon.classList.add('d-none');
+
+        }
+
+        if (buttonText) {
+
+            buttonText.textContent =
+                'Saving...';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Request
+        |--------------------------------------------------------------------------
+        */
+
+        const response =
+            await fetch(
+                `/users/${userId}/terminal-assignment`,
+                {
+                    method: 'POST',
+
+                    headers: {
+
+                        'Content-Type':
+                            'application/json',
+
+                        'Accept':
+                            'application/json',
+
+                        'X-CSRF-TOKEN':
+                            document.querySelector(
+                                'meta[name="csrf-token"]'
+                            )?.getAttribute('content'),
+
+                    },
+
+                    body: JSON.stringify({
+
+                        terminal_id:
+                            terminalId,
+
+                    }),
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Error Response
+        |--------------------------------------------------------------------------
+        */
+
+        if (!response.ok || !data.status) {
+
+            throw new Error(
+
+                data.message
+                ||
+                'Failed to save terminal assignment.'
+
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Success
+        |--------------------------------------------------------------------------
+        */
+
+        if (typeof showToast === 'function') {
+
+            showToast(
+
+                data.message
+                ||
+                'Terminal assigned successfully.',
+
+                'success'
+
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close Modal
+        |--------------------------------------------------------------------------
+        */
+
+        const modalElement =
+            document.getElementById(
+                'terminalAssignmentModal'
+            );
+
+        if (modalElement) {
+
+            const modal =
+                bootstrap.Modal.getInstance(
+                    modalElement
+                );
+
+            if (modal) {
+
+                modal.hide();
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Refresh Users Table
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            typeof Users !== 'undefined'
+            &&
+            typeof Users.loadTable === 'function'
+        ) {
+
+            await Users.loadTable();
+
+        }
+        else if (
+            typeof users !== 'undefined'
+            &&
+            typeof users.loadTable === 'function'
+        ) {
+
+            await users.loadTable();
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            'Terminal assignment error:',
+            error
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Error Toast
+        |--------------------------------------------------------------------------
+        */
+
+        if (typeof showToast === 'function') {
+
+            showToast(
+
+                error.message
+                ||
+                'Failed to save terminal assignment.',
+
+                'error'
+
+            );
+
+        }
+
+
+    } finally {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Button
+        |--------------------------------------------------------------------------
+        */
+
+        if (spinner) {
+
+            spinner.classList.add('d-none');
+
+        }
+
+        if (icon) {
+
+            icon.classList.remove('d-none');
+
+        }
+
+        if (buttonText) {
+
+            buttonText.textContent =
+                'Assign Terminal';
+
+        }
+
+        /*
+        | Keep disabled until another terminal is selected
+        */
+
+        if (saveButton) {
+
+            saveButton.disabled =
+                !terminalSelect?.value;
+
+        }
+
+    }
+
+},
 
 
 
@@ -2504,6 +4041,9 @@ async updateUser(form)
     }
 
 },
+
+
+
 
 async details(id)
 {
@@ -3236,4 +4776,8 @@ function(user)
 {
     Users.openToggleStatusModal(user);
 };
+
+
+
+
 

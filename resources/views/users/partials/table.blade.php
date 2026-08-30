@@ -326,148 +326,175 @@
 
             <ul class="dropdown-menu dropdown-menu-end">
 
-    {{-- View --}}
-    @permission('users.view')
+                    {{-- View --}}
+                    @permission('users.view')
 
-    <li>
+                    <li>
 
-        <button
-            class="dropdown-item"
-            onclick="openUserDetailsPanel({{ $user->id }})">
+                        <button
+                            class="dropdown-item"
+                            onclick="openUserDetailsPanel({{ $user->id }})">
 
-            <i class="bi bi-eye me-2"></i>
+                            <i class="bi bi-eye me-2"></i>
 
-            View Details
+                            View Details
 
-        </button>
+                        </button>
 
-    </li>
+                    </li>
 
-    @endpermission
-
-
-
-    {{-- Edit --}}
-    @permission('users.update')
-
-    <li>
-
-        <button
-            class="dropdown-item"
-            onclick="openEditUserModal({{ $user->id }})">
-
-            <i class="bi bi-pencil-square me-2"></i>
-
-            Edit User
-
-        </button>
-
-    </li>
-
-    @endpermission
-
-
-    <li>
-
-        <hr class="dropdown-divider">
-
-    </li>
+                    @endpermission
 
 
 
-    {{-- Reset Password --}}
-    @permission('users.reset_password')
+                    {{-- Edit --}}
+                    @permission('users.update')
 
-    <li>
+                    <li>
 
-        <button
-            type="button"
-            class="dropdown-item"
-            onclick='openResetPasswordModal(@json([
-                "id" => $user->id,
-                "first_name" => $user->first_name,
-                "last_name" => $user->last_name
-            ]))'>
+                        <button
+                            class="dropdown-item"
+                            onclick="openEditUserModal({{ $user->id }})">
 
-            <i class="bi bi-key me-2"></i>
+                            <i class="bi bi-pencil-square me-2"></i>
 
-            Reset Password
+                            Edit User
 
-        </button>
+                        </button>
 
-    </li>
+                    </li>
 
-    @endpermission
+                    @endpermission
+                   
+                    {{-- Terminal Assignment --}}
 
-
-
-    {{-- Toggle Status --}}
-    @permission('users.update')
-
-    <li>
-
-        <button
-            type="button"
-            class="dropdown-item"
-            onclick="openToggleStatusModal({
-                id: {{ $user->id }},
-                first_name: '{{ e($user->first_name) }}',
-                last_name: '{{ e($user->last_name) }}',
-                status: {{ $user->status ? 'true' : 'false' }}
-            })">
-
-            @if($user->status)
-
-                <i class="bi bi-person-x me-2"></i>
-
-                Disable User
-
-            @else
-
-                <i class="bi bi-person-check me-2"></i>
-
-                Enable User
-
-            @endif
-
-        </button>
-
-    </li>
-
-    @endpermission
-
-    <li>
-
-        <hr class="dropdown-divider">
-
-    </li>
+                    @if(
+                        $user->role
+                        && strtolower($user->role->name) === 'cashier'
+                    )
+                        @permission('users.update')
+                        <li>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                onclick="openTerminalAssignmentModal({{ $user->id }})"
+                            >
+                                @if($user->activeTerminalAssignment)
+                                    <i class="bi bi-arrow-left-right me-2"></i>
+                                    Change Terminal
+                                @else
+                                    <i class="bi bi-pc-display me-2"></i>
+                                    Assign to Terminal
+                                @endif
+                            </button>
+                        </li>
+                        @endpermission
+                    @endif
 
 
 
-    {{-- Delete --}}
-    @permission('users.delete')
 
-    <li>
+                    <li>
 
-        <button
-            class="dropdown-item text-danger"
-            onclick="openDeleteUserModal({
-                id: {{ $user->id }},
-                first_name: '{{ addslashes($user->first_name) }}',
-                last_name: '{{ addslashes($user->last_name) }}'
-            })">
+                        <hr class="dropdown-divider">
 
-            <i class="bi bi-trash me-2"></i>
+                    </li>
 
-            Delete User
 
-        </button>
 
-    </li>
+                    {{-- Reset Password --}}
+                    @permission('users.reset_password')
 
-    @endpermission
+                    <li>
 
-</ul>
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            onclick='openResetPasswordModal(@json([
+                                "id" => $user->id,
+                                "first_name" => $user->first_name,
+                                "last_name" => $user->last_name
+                            ]))'>
+
+                            <i class="bi bi-key me-2"></i>
+
+                            Reset Password
+
+                        </button>
+
+                    </li>
+
+                    @endpermission
+
+
+
+                    {{-- Toggle Status --}}
+                    @permission('users.update')
+
+                    <li>
+
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            onclick="openToggleStatusModal({
+                                id: {{ $user->id }},
+                                first_name: '{{ e($user->first_name) }}',
+                                last_name: '{{ e($user->last_name) }}',
+                                status: {{ $user->status ? 'true' : 'false' }}
+                            })">
+
+                            @if($user->status)
+
+                                <i class="bi bi-person-x me-2"></i>
+
+                                Disable User
+
+                            @else
+
+                                <i class="bi bi-person-check me-2"></i>
+
+                                Enable User
+
+                            @endif
+
+                        </button>
+
+                    </li>
+
+                    @endpermission
+
+                    <li>
+
+                        <hr class="dropdown-divider">
+
+                    </li>
+
+
+
+                    {{-- Delete --}}
+                    @permission('users.delete')
+
+                    <li>
+
+                        <button
+                            class="dropdown-item text-danger"
+                            onclick="openDeleteUserModal({
+                                id: {{ $user->id }},
+                                first_name: '{{ addslashes($user->first_name) }}',
+                                last_name: '{{ addslashes($user->last_name) }}'
+                            })">
+
+                            <i class="bi bi-trash me-2"></i>
+
+                            Delete User
+
+                        </button>
+
+                    </li>
+
+                    @endpermission
+
+                </ul>
 
 
             </div>

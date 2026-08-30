@@ -430,6 +430,8 @@
 
     @include('users.modals.delete')
 
+    @include('users.modals.assign')
+
     @include('users.modals.reset-password')
 
     @include('users.panels.details')

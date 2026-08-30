@@ -13,6 +13,9 @@ use App\Services\ActivityLogger;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Http\JsonResponse;
+use App\Models\Terminal;
+use App\Models\TerminalAssignment;
 
 
 class UserController extends BaseController
@@ -96,7 +99,7 @@ class UserController extends BaseController
         'company_id',
         $companyId
     )
-    ->count();
+    ->count(); 
 
 
 
@@ -151,7 +154,11 @@ public function table(Request $request)
     ])
     ->with([
         'role:id,company_id,name,code,display_name',
+
         'branch:id,company_id,name',
+
+        'activeTerminalAssignment:id,company_id,branch_id,terminal_id,user_id,status,assigned_at',
+        'activeTerminalAssignment.terminal:id,company_id,branch_id,terminal_code,terminal_name',
     ]);
 
 
@@ -1026,6 +1033,835 @@ if ($request->filled('search')) {
             ]);
         }
 
+
+       /**
+ * ==========================================================================
+ * TERMINAL ASSIGNMENT
+ * ==========================================================================
+ *
+ * Return cashier information, branch terminals, current assignment
+ * and available terminals.
+ */
+public function terminalAssignment(
+    int $id
+): JsonResponse {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Find User
+    |--------------------------------------------------------------------------
+    */
+    $companyId = auth()->user()->company_id;
+
+    $user = User::query()
+        ->where('company_id', $companyId)
+        ->with([
+            'role:id,company_id,name,code,display_name',
+            'branch:id,company_id,name',
+        ])
+        ->find($id);
+
+    if (! $user) {
+
+        return response()->json([
+            'status' => false,
+            'message' => 'User not found.',
+        ], 404);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current Assignment
+    |--------------------------------------------------------------------------
+    */
+
+    $currentAssignment = TerminalAssignment::query()
+        ->where('company_id', $companyId)
+        ->where('user_id', $user->id)
+        ->where('status', 'Active')
+        ->with([
+            'terminal:id,company_id,branch_id,terminal_code,terminal_name,device_name,status',
+        ])
+        ->first();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Available Branch Terminals
+    |--------------------------------------------------------------------------
+    |
+    | Only active terminals belonging to the cashier's branch
+    | that do not have an active terminal assignment.
+    |
+    */
+
+    $terminals = Terminal::query()
+        ->where(
+            'company_id',
+            auth()->user()->company_id
+        )
+        ->where(
+            'branch_id',
+            $user->branch_id
+        )
+        ->where(
+            'status',
+            true
+        )
+        ->whereNotExists(function ($query) use ($user) {
+
+            $query->select(
+                DB::raw(1)
+            )
+            ->from('terminal_assignments')
+            ->whereColumn(
+                'terminal_assignments.terminal_id',
+                'terminals.id'
+            )
+            ->where(
+                'terminal_assignments.company_id',
+                auth()->user()->company_id
+            )
+            ->where(
+                'terminal_assignments.branch_id',
+                $user->branch_id
+            )
+            ->where(
+                'terminal_assignments.status',
+                'Active'
+            );
+
+        })
+        ->select([
+            'id',
+            'company_id',
+            'branch_id',
+            'terminal_code',
+            'terminal_name',
+            'device_name',
+            'status',
+        ])
+        ->orderBy(
+            'terminal_name'
+        )
+        ->get();
+
+    /*
+    |--------------------------------------------------------------------------
+    | Active Terminal Assignments
+    |--------------------------------------------------------------------------
+    |
+    | Get the active assignment for each terminal in this branch.
+    |
+    */
+
+    $activeAssignments = TerminalAssignment::query()
+        ->where('company_id', $companyId)
+        ->where('branch_id', $user->branch_id)
+        ->where('status', 'Active')
+        ->with([
+            'user:id,first_name,other_name,last_name',
+            'terminal:id,terminal_name,terminal_code',
+        ])
+        ->get()
+        ->keyBy('terminal_id');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Build Terminal Listing
+    |--------------------------------------------------------------------------
+    */
+
+    $terminalList = $terminals->map(function ($terminal) use ($activeAssignments, $currentAssignment) {
+
+        $assignment = $activeAssignments->get($terminal->id);
+
+        $isCurrent = $currentAssignment
+            && $currentAssignment->terminal_id == $terminal->id;
+
+        return [
+            'id' => $terminal->id,
+
+            'terminal_code' =>
+                $terminal->terminal_code,
+
+            'terminal_name' =>
+                $terminal->terminal_name,
+
+            'device_name' =>
+                $terminal->device_name,
+
+            'status' =>
+                $terminal->status,
+
+            'in_use' =>
+                (bool) $assignment,
+
+            'is_current' =>
+                $isCurrent,
+
+            'assigned_user' =>
+                $assignment?->user
+                    ? trim(implode(' ', array_filter([
+                        $assignment->user->first_name,
+                        $assignment->user->other_name,
+                        $assignment->user->last_name,
+                    ])))
+                    : null,
+        ];
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Available Terminals
+    |--------------------------------------------------------------------------
+    |
+    | IMPORTANT:
+    | Only terminals without an active assignment are returned.
+    |
+    */
+
+    $availableTerminals = $terminalList
+        ->filter(function ($terminal) {
+
+            return ! $terminal['in_use'];
+        })
+        ->values();
+
+    /*
+    |--------------------------------------------------------------------------
+    | Response
+    |--------------------------------------------------------------------------
+    */
+
+    return response()->json([
+
+        'status' => true,
+
+        'user' => [
+            'id' => $user->id,
+
+            'first_name' =>
+                $user->first_name,
+
+            'other_name' =>
+                $user->other_name,
+
+            'last_name' =>
+                $user->last_name,
+
+            'full_name' =>
+                $user->full_name,
+
+            'role' => [
+                'name' =>
+                    $user->role?->name,
+
+                'display_name' =>
+                    $user->role?->display_name,
+
+            ],
+
+            'branch' => [
+                'id' =>
+                    $user->branch?->id,
+
+                'name' =>
+                    $user->branch?->name,
+            ],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        'current_assignment' => $currentAssignment
+            ? [
+                'id' =>
+                    $currentAssignment->id,
+
+                'terminal_id' =>
+                    $currentAssignment->terminal_id,
+
+                'terminal_code' =>
+                    $currentAssignment->terminal?->terminal_code,
+
+                'terminal_name' =>
+                    $currentAssignment->terminal?->terminal_name,
+
+                'assigned_at' =>
+                    $currentAssignment->assigned_at,
+            ]
+            : null,
+
+        /*
+        |--------------------------------------------------------------------------
+        | All Terminals
+        |--------------------------------------------------------------------------
+        */
+
+        'terminals' =>
+            $terminalList->values(),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Available Terminals
+        |--------------------------------------------------------------------------
+        */
+
+        'available_terminals' =>
+            $availableTerminals,
+
+    ]);
+}
+
+    /**
+ * ==========================================================================
+ * SAVE TERMINAL ASSIGNMENT
+ * ==========================================================================
+ *
+ * Assign a cashier to a terminal.
+ *
+ * If the cashier already has an active assignment, the existing assignment
+ * is closed first and a new assignment is created.
+ *
+ * The selected terminal must not already be actively assigned to another
+ * cashier.
+ */
+public function saveTerminalAssignment(
+    Request $request,
+    int $id
+): JsonResponse {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    */
+
+    if (! canAccess('users.update')) {
+
+        return response()->json([
+
+            'status' => false,
+
+            'message' => 'You do not have permission to assign terminals.',
+
+        ], 403);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Company
+    |--------------------------------------------------------------------------
+    */
+
+    $companyId = auth()->user()->company_id;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Request
+    |--------------------------------------------------------------------------
+    */
+
+    $validated = $request->validate([
+
+        'terminal_id' => [
+
+            'required',
+
+            'integer',
+
+        ],
+
+    ]);
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Find User
+    |--------------------------------------------------------------------------
+    */
+
+    $user = User::where(
+
+        'company_id',
+
+        $companyId
+
+    )->find($id);
+
+
+    if (! $user) {
+
+        return response()->json([
+
+            'status' => false,
+
+            'message' => 'User not found.',
+
+        ], 404);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Ensure User Is Active
+    |--------------------------------------------------------------------------
+    */
+
+    if (! $user->status) {
+
+        return response()->json([
+
+            'status' => false,
+
+            'message' => 'This user is inactive and cannot be assigned to a terminal.',
+
+        ], 422);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Ensure User Is A Cashier
+    |--------------------------------------------------------------------------
+    */
+
+    if (! $user->hasRole('cashier')) {
+
+        return response()->json([
+
+            'status' => false,
+
+            'message' => 'Only cashiers can be assigned to POS terminals.',
+
+        ], 422);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Find Terminal
+    |--------------------------------------------------------------------------
+    */
+
+    $terminal = Terminal::where(
+
+        'company_id',
+
+        $companyId
+
+    )
+
+        ->where(
+
+            'branch_id',
+
+            $user->branch_id
+
+        )
+
+        ->where(
+
+            'id',
+
+            $validated['terminal_id']
+
+        )
+
+        ->first();
+
+
+    if (! $terminal) {
+
+        return response()->json([
+
+            'status' => false,
+
+            'message' => 'Terminal not found or does not belong to the cashier\'s branch.',
+
+        ], 404);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal Status
+    |--------------------------------------------------------------------------
+    */
+
+    if (! $terminal->status) {
+
+        return response()->json([
+
+            'status' => false,
+
+            'message' => 'The selected terminal is inactive.',
+
+        ], 422);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Check Existing Terminal Assignment
+    |--------------------------------------------------------------------------
+    |
+    | A terminal can only have one active cashier.
+    |
+    */
+
+    $terminalInUse = TerminalAssignment::where(
+
+        'company_id',
+
+        $companyId
+
+    )
+
+        ->where(
+
+            'terminal_id',
+
+            $terminal->id
+
+        )
+
+        ->where(
+
+            'status',
+
+            'Active'
+
+        )
+
+        ->first();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allow Same User
+    |--------------------------------------------------------------------------
+    |
+    | If the terminal is already assigned to this same cashier, there is
+    | nothing to create.
+    |
+    */
+
+    if (
+
+        $terminalInUse
+
+        &&
+
+        (int) $terminalInUse->user_id !== (int) $user->id
+
+    ) {
+
+        $assignedUser = User::find(
+
+            $terminalInUse->user_id
+
+        );
+
+
+        $assignedUserName = $assignedUser
+
+            ? $assignedUser->full_name
+
+            : 'another cashier';
+
+
+        return response()->json([
+
+            'status' => false,
+
+            'message' =>
+
+                'This terminal is currently assigned to '
+
+                . $assignedUserName
+
+                . '.',
+
+        ], 422);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Existing User Assignment
+    |--------------------------------------------------------------------------
+    */
+
+    $currentAssignment = TerminalAssignment::where(
+
+        'company_id',
+
+        $companyId
+
+    )
+
+        ->where(
+
+            'user_id',
+
+            $user->id
+
+        )
+
+        ->where(
+
+            'status',
+
+            'Active'
+
+        )
+
+        ->first();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Already Assigned To Selected Terminal
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+
+        $currentAssignment
+
+        &&
+
+        (int) $currentAssignment->terminal_id === (int) $terminal->id
+
+    ) {
+
+        return response()->json([
+
+            'status' => true,
+
+            'message' => 'This cashier is already assigned to this terminal.',
+
+            'assignment' => $currentAssignment
+
+                ->fresh()
+
+                ->load('terminal'),
+
+        ]);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Begin Transaction
+    |--------------------------------------------------------------------------
+    */
+
+    DB::beginTransaction();
+
+
+    try {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Capture Old Values
+        |--------------------------------------------------------------------------
+        */
+
+        $oldValues = $currentAssignment
+
+            ? $currentAssignment->fresh()->toArray()
+
+            : [];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close Existing Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        if ($currentAssignment) {
+
+            $currentAssignment->update([
+
+                'status' => 'Inactive',
+
+                'unassigned_at' => now(),
+
+                'updated_by' => auth()->id(),
+
+            ]);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Create New Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        $assignment = TerminalAssignment::create([
+
+            'company_id' => $companyId,
+
+            'branch_id' => $user->branch_id,
+
+            'terminal_id' => $terminal->id,
+
+            'user_id' => $user->id,
+
+            'assigned_at' => now(),
+
+            'status' => 'Active',
+
+            'created_by' => auth()->id(),
+
+            'updated_by' => auth()->id(),
+
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Load Relationships
+        |--------------------------------------------------------------------------
+        */
+
+        $assignment->load([
+
+            'terminal',
+
+            'user',
+
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Activity Log
+        |--------------------------------------------------------------------------
+        */
+
+        $this->activityLogger->log(
+
+            'Terminal Assignments',
+
+            $currentAssignment
+
+                ? 'Changed Assignment'
+
+                : 'Assigned',
+
+            $currentAssignment
+
+                ? 'Changed terminal assignment for cashier: '
+
+                    . $user->full_name
+
+                    . ' to terminal: '
+
+                    . $terminal->terminal_name
+
+                : 'Assigned cashier: '
+
+                    . $user->full_name
+
+                    . ' to terminal: '
+
+                    . $terminal->terminal_name,
+
+            $assignment,
+
+            $oldValues,
+
+            $assignment->fresh()->toArray()
+
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Commit
+        |--------------------------------------------------------------------------
+        */
+
+        DB::commit();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
+        return response()->json([
+
+            'status' => true,
+
+            'message' => $currentAssignment
+
+                ? 'Terminal assignment changed successfully.'
+
+                : 'Cashier assigned to terminal successfully.',
+
+            'assignment' => $assignment,
+
+        ]);
+
+
+    } catch (\Throwable $e) {
+
+        DB::rollBack();
+
+
+        \Log::error(
+
+            'Terminal assignment failed.',
+
+            [
+
+                'user_id' => $user->id,
+
+                'terminal_id' => $terminal->id,
+
+                'error' => $e->getMessage(),
+
+            ]
+
+        );
+
+
+        return response()->json([
+
+            'status' => false,
+
+            'message' => 'Failed to save terminal assignment.',
+
+        ], 500);
+
+    }
+
+}
 
     }
 

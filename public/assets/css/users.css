@@ -1467,3 +1467,780 @@
     }
 
 }
+
+
+/* ==========================================================
+   TERMINAL ASSIGNMENT MODAL
+   ========================================================== */
+
+.terminal-assignment-modal {
+
+    border: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.12);
+
+}
+
+
+/* ----------------------------------------------------------
+   Header
+   ---------------------------------------------------------- */
+
+.terminal-assignment-modal .modal-header {
+
+    padding: 20px 24px;
+    border-bottom: 1px solid #eef0f3;
+    background: #ffffff;
+
+}
+
+.terminal-assignment-modal .modal-title {
+
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+
+}
+
+.terminal-assignment-subtitle {
+
+    margin-top: 3px;
+    font-size: 13px;
+    color: #6b7280;
+
+}
+
+
+/* ----------------------------------------------------------
+   Body
+   ---------------------------------------------------------- */
+
+.terminal-assignment-modal .modal-body {
+
+    padding: 24px;
+
+}
+
+
+/* ----------------------------------------------------------
+   Cashier
+   ---------------------------------------------------------- */
+
+.terminal-assignment-user {
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 14px;
+    margin-bottom: 20px;
+
+    background: #f8f9fb;
+    border: 1px solid #eef0f3;
+    border-radius: 10px;
+
+}
+
+.terminal-assignment-user-icon {
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+
+    color: #6b7280;
+    font-size: 17px;
+
+}
+
+.terminal-assignment-user-name {
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+
+}
+
+.terminal-assignment-user-role {
+
+    margin-top: 2px;
+
+    font-size: 12px;
+    color: #6b7280;
+
+}
+
+
+/* ----------------------------------------------------------
+   Current Terminal
+   ---------------------------------------------------------- */
+
+.terminal-assignment-current {
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 14px;
+    margin-bottom: 20px;
+
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+}
+
+.terminal-assignment-current-icon {
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+
+    color: #4b5563;
+    font-size: 16px;
+
+}
+
+.terminal-assignment-current-content {
+
+    flex: 1;
+    min-width: 0;
+
+}
+
+.terminal-assignment-label {
+
+    font-size: 11px;
+    font-weight: 500;
+    color: #6b7280;
+
+    margin-bottom: 2px;
+
+}
+
+.terminal-assignment-current-name {
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2937;
+
+}
+
+.terminal-assignment-status {
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    background: #ecfdf3;
+
+    color: #15803d;
+
+    font-size: 11px;
+    font-weight: 600;
+
+}
+
+
+/* ----------------------------------------------------------
+   Form
+   ---------------------------------------------------------- */
+
+.terminal-assignment-modal .form-label {
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #374151;
+
+}
+
+.terminal-assignment-modal .form-select {
+
+    min-height: 42px;
+
+    border-color: #dfe3e8;
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    box-shadow: none;
+
+}
+
+.terminal-assignment-modal .form-select:focus {
+
+    border-color: #9ca3af;
+
+    box-shadow:
+        0 0 0 3px rgba(156, 163, 175, 0.12);
+
+}
+
+.terminal-assignment-help {
+
+    margin-top: 7px;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    color: #8a919b;
+
+}
+
+
+/* ----------------------------------------------------------
+   Loading
+   ---------------------------------------------------------- */
+
+.terminal-assignment-loading {
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 12px;
+
+    font-size: 12px;
+    color: #6b7280;
+
+}
+
+
+/* ----------------------------------------------------------
+   Empty State
+   ---------------------------------------------------------- */
+
+.terminal-assignment-empty {
+
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 14px;
+
+    margin-top: 16px;
+
+    background: #fafafa;
+    border: 1px dashed #dfe3e8;
+    border-radius: 10px;
+
+}
+
+.terminal-assignment-empty-icon {
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: #6b7280;
+
+    font-size: 17px;
+
+}
+
+.terminal-assignment-empty-title {
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+
+}
+
+.terminal-assignment-empty-text {
+
+    margin-top: 3px;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    color: #8a919b;
+
+}
+
+
+/* ----------------------------------------------------------
+   Footer
+   ---------------------------------------------------------- */
+
+.terminal-assignment-modal .modal-footer {
+
+    padding: 14px 24px;
+
+    border-top: 1px solid #eef0f3;
+    background: #ffffff;
+
+}
+
+.terminal-assignment-modal .modal-footer .btn {
+
+    min-height: 38px;
+
+    padding: 7px 14px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+}
+
+.terminal-assignment-modal
+.modal-footer
+.btn-primary {
+
+    min-width: 145px;
+
+}
+
+/* ==========================================================
+   TERMINAL ASSIGNMENT - BRANCH TERMINALS
+   ========================================================== */
+
+.terminal-assignment-terminals {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #edf0f3;
+}
+
+
+/* ==========================================================
+   SECTION HEADER
+   ========================================================== */
+
+.terminal-assignment-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.terminal-assignment-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.terminal-assignment-section-subtitle {
+    margin-top: 2px;
+    font-size: 11px;
+    color: #8a94a6;
+}
+
+.terminal-assignment-terminal-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: #f1f3f5;
+    color: #667085;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* ==========================================================
+   TERMINAL LIST
+   ========================================================== */
+
+.terminal-assignment-terminal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+/* ==========================================================
+   TERMINAL ITEM
+   ========================================================== */
+
+.terminal-assignment-terminal-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 64px;
+    padding: 11px 12px;
+    background: #fafbfc;
+    border: 1px solid #edf0f3;
+    border-radius: 10px;
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.terminal-assignment-terminal-item:hover {
+    background: #ffffff;
+    border-color: #dfe3e8;
+    box-shadow: 0 2px 8px rgba(16, 24, 40, 0.04);
+}
+
+
+/* ==========================================================
+   TERMINAL ICON
+   ========================================================== */
+
+.terminal-assignment-terminal-icon {
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+    background: #f0f2f5;
+
+    color: #667085;
+    font-size: 17px;
+}
+
+
+/* ==========================================================
+   TERMINAL INFORMATION
+   ========================================================== */
+
+.terminal-assignment-terminal-info {
+    min-width: 0;
+    flex: 1 1 180px;
+}
+
+.terminal-assignment-terminal-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 12px;
+    font-weight: 600;
+    color: #344054;
+}
+
+.terminal-assignment-terminal-code {
+    margin-top: 2px;
+
+    font-size: 10px;
+    font-weight: 500;
+    color: #98a2b3;
+}
+
+
+/* ==========================================================
+   CURRENT USER
+   ========================================================== */
+
+.terminal-assignment-terminal-user {
+    flex: 0 1 150px;
+    min-width: 100px;
+}
+
+.terminal-assignment-terminal-user-label {
+    margin-bottom: 2px;
+
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+
+    color: #98a2b3;
+}
+
+.terminal-assignment-terminal-user-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 11px;
+    font-weight: 500;
+    color: #475467;
+}
+
+
+/* ==========================================================
+   STATUS
+   ========================================================== */
+
+.terminal-assignment-terminal-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    flex: 0 0 auto;
+
+    min-width: 76px;
+    padding: 5px 8px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* Status dot */
+
+.terminal-assignment-status-dot {
+    width: 6px;
+    height: 6px;
+    flex: 0 0 6px;
+
+    border-radius: 50%;
+}
+
+
+/* Available */
+
+.terminal-assignment-terminal-status.available {
+    background: #ecfdf3;
+    color: #027a48;
+}
+
+.terminal-assignment-terminal-status.available
+.terminal-assignment-status-dot {
+    background: #12b76a;
+}
+
+
+/* In Use */
+
+.terminal-assignment-terminal-status.in-use {
+    background: #eff8ff;
+    color: #175cd3;
+}
+
+.terminal-assignment-terminal-status.in-use
+.terminal-assignment-status-dot {
+    background: #2e90fa;
+}
+
+
+/* Inactive */
+
+.terminal-assignment-terminal-status.inactive {
+    background: #f2f4f7;
+    color: #667085;
+}
+
+.terminal-assignment-terminal-status.inactive
+.terminal-assignment-status-dot {
+    background: #98a2b3;
+}
+
+
+/* ==========================================================
+   LOADING
+   ========================================================== */
+
+.terminal-assignment-terminal-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 70px;
+
+    color: #98a2b3;
+    font-size: 11px;
+}
+
+
+/* ==========================================================
+   EMPTY STATE
+   ========================================================== */
+
+.terminal-assignment-terminal-empty {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 16px;
+
+    background: #fafbfc;
+    border: 1px dashed #d9dee7;
+    border-radius: 10px;
+}
+
+.terminal-assignment-terminal-empty
+.terminal-assignment-empty-icon {
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+    background: #f2f4f7;
+
+    color: #98a2b3;
+    font-size: 16px;
+}
+
+
+/* ==========================================================
+   CASHIER BRANCH
+   ========================================================== */
+
+.terminal-assignment-user-branch {
+    margin-top: 3px;
+
+    font-size: 10px;
+    color: #98a2b3;
+}
+
+.terminal-assignment-user-branch::before {
+    content: "\f3e8";
+    font-family: "bootstrap-icons";
+    margin-right: 4px;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 576px) {
+
+    .terminal-assignment-terminal-item {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .terminal-assignment-terminal-info {
+        flex: 1 1 calc(100% - 52px);
+    }
+
+    .terminal-assignment-terminal-user {
+        flex: 1 1 55%;
+        margin-left: 48px;
+    }
+
+    .terminal-assignment-terminal-status {
+        margin-left: auto;
+    }
+
+}
+
+/* ==========================================================
+   TERMINAL ASSIGNMENT MODAL
+   ========================================================== */
+
+.terminal-assignment-modal {
+    width: 100%;
+    max-width: 760px;
+}
+
+
+/* ==========================================================
+   MODAL CONTENT
+   ========================================================== */
+
+#terminalAssignmentModal .modal-content {
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+
+/* ==========================================================
+   MODAL BODY
+   ========================================================== */
+
+#terminalAssignmentModal .modal-body {
+    max-height: calc(90vh - 145px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px 22px;
+}
+
+
+/* ==========================================================
+   CUSTOM SCROLLBAR
+   ========================================================== */
+
+#terminalAssignmentModal .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+#terminalAssignmentModal .modal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#terminalAssignmentModal .modal-body::-webkit-scrollbar-thumb {
+    background: #d0d5dd;
+    border-radius: 10px;
+}
+
+#terminalAssignmentModal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #98a2b3;
+}
+
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+#terminalAssignmentModal .modal-header {
+    flex-shrink: 0;
+    padding: 18px 22px;
+}
+
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+#terminalAssignmentModal .modal-footer {
+    flex-shrink: 0;
+    padding: 14px 22px;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 767.98px) {
+
+    .terminal-assignment-modal {
+        max-width: calc(100% - 24px);
+    }
+
+    #terminalAssignmentModal .modal-body {
+        max-height: calc(90vh - 145px);
+        padding: 18px;
+    }
+
+}
+

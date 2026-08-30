@@ -164,6 +164,36 @@ class User extends Authenticatable
     {
         return $this->hasMany(ActivityLog::class, 'user_id');
     }
+       
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal Assignments
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return all terminal assignments for the user.
+     */
+    public function terminalAssignments()
+    {
+        return $this->hasMany(
+            TerminalAssignment::class,
+            'user_id'
+        );
+    }
+
+    /**
+     * Return the user's active terminal assignment.
+     */
+    public function activeTerminalAssignment()
+    {
+        return $this->hasOne(
+            TerminalAssignment::class,
+            'user_id'
+        )->where('status', 'Active');
+    }
+
+
 
     /*
     |--------------------------------------------------------------------------

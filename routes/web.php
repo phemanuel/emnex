@@ -896,6 +896,12 @@ Route::prefix('products')
 
         Route::get('/{user}/details',[UserController::class, 'details'])->name('details');
 
+        Route::get('/{user}/terminal-assignment', [UserController::class, 'terminalAssignment'])
+        ->name('terminal-assignment');
+
+        Route::post('/{id}/terminal-assignment', [UserController::class, 'saveTerminalAssignment'])
+         ->name('terminal-assignment.save');
+
 
     });
 

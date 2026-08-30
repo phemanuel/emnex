@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Terminal;
 
 class TerminalAssignment extends Model
 {
@@ -80,7 +81,8 @@ class TerminalAssignment extends Model
     public function terminal(): BelongsTo
     {
         return $this->belongsTo(
-            Terminal::class
+            Terminal::class,
+            'terminal_id'
         );
     }
 
@@ -88,7 +90,8 @@ class TerminalAssignment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(
-            User::class
+            User::class,
+            'user_id'
         );
     }
 
