@@ -125,14 +125,16 @@
 
                     {{-- CREDIT LIMIT --}}
 
+                  
                     <td>
 
-                        ₦{{ number_format(
-                            $group->credit_limit,
-                            2
+                        {{ \App\Helpers\CurrencyHelper::format(
+                            $group->credit_limit
                         ) }}
 
                     </td>
+
+
 
 
                     {{-- CUSTOMER COUNT --}}

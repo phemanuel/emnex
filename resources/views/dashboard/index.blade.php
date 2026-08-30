@@ -166,9 +166,12 @@
                 {{-- VALUE --}}
                 <div class="kpi-value-section">
 
-                    <h2 class="kpi-value">
-                        ₦{{ number_format($todaySales, 2) }}
-                    </h2>
+
+                <h2 class="kpi-value">
+                    {{ \App\Helpers\CurrencyHelper::format($todaySales) }}
+                </h2>
+
+
 
                     <span class="kpi-description">
                         Revenue generated
@@ -412,9 +415,12 @@
                 {{-- VALUE --}}
                 <div class="kpi-value-section">
 
+                  
                     <h2 class="kpi-value">
-                        ₦{{ number_format($inventoryValue, 2) }}
+                        {{ \App\Helpers\CurrencyHelper::format($inventoryValue) }}
                     </h2>
+
+
 
                     <span class="kpi-description">
                         Current stock valuation
@@ -591,73 +597,76 @@
                 <div class="activity-grid">
 
 
-                    {{-- Cash --}}
+              
+                {{-- Cash --}}
 
-                    <div class="activity-item">
+                <div class="activity-item">
 
-                        <div class="activity-icon cash">
-                            <i class="bi bi-cash-stack"></i>
-                        </div>
+                    <div class="activity-icon cash">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
 
-                        <div class="activity-content">
+                    <div class="activity-content">
 
-                            <span>
-                                Cash Sales
-                            </span>
+                        <span>
+                            Cash Sales
+                        </span>
 
-                            <h6>
-                                ₦{{ number_format($cashSales, 2) }}
-                            </h6>
-
-                        </div>
+                        <h6>
+                            {{ \App\Helpers\CurrencyHelper::format($cashSales) }}
+                        </h6>
 
                     </div>
 
+                </div>
 
-                    {{-- Card --}}
 
-                    <div class="activity-item">
+                {{-- Card --}}
 
-                        <div class="activity-icon card">
-                            <i class="bi bi-credit-card"></i>
-                        </div>
+                <div class="activity-item">
 
-                        <div class="activity-content">
+                    <div class="activity-icon card">
+                        <i class="bi bi-credit-card"></i>
+                    </div>
 
-                            <span>
-                                Card / POS
-                            </span>
+                    <div class="activity-content">
 
-                            <h6>
-                                ₦{{ number_format($cardSales, 2) }}
-                            </h6>
+                        <span>
+                            Card / POS
+                        </span>
 
-                        </div>
+                        <h6>
+                            {{ \App\Helpers\CurrencyHelper::format($cardSales) }}
+                        </h6>
 
                     </div>
 
+                </div>
 
-                    {{-- Refund --}}
 
-                    <div class="activity-item">
+                {{-- Refund --}}
 
-                        <div class="activity-icon refund">
-                            <i class="bi bi-arrow-counterclockwise"></i>
-                        </div>
+                <div class="activity-item">
 
-                        <div class="activity-content">
+                    <div class="activity-icon refund">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </div>
 
-                            <span>
-                                Refunds
-                            </span>
+                    <div class="activity-content">
 
-                            <h6>
-                                ₦{{ number_format($refunds, 2) }}
-                            </h6>
+                        <span>
+                            Refunds
+                        </span>
 
-                        </div>
+                        <h6>
+                            {{ \App\Helpers\CurrencyHelper::format($refunds) }}
+                        </h6>
 
                     </div>
+
+                </div>
+
+
 
 
                     {{-- Pending Orders --}}
@@ -758,9 +767,14 @@
                                         {{ $order->customer?->name ?? 'Walk-in Customer' }}
                                     </td>
 
+                                  
                                     <td>
-                                        ₦{{ number_format($order->total_amount, 2) }}
+                                        {{ \App\Helpers\CurrencyHelper::format(
+                                            $order->total_amount
+                                        ) }}
                                     </td>
+
+
 
                                     <td>
 
@@ -883,9 +897,14 @@
                             units
                         </strong>
 
+                       
                         <b>
-                            ₦{{ number_format($product->total_sales, 2) }}
+                            {{ \App\Helpers\CurrencyHelper::format(
+                                $product->total_sales
+                            ) }}
                         </b>
+
+
 
                     </div>
 

@@ -1564,7 +1564,7 @@ const OrderModule = {
 
                 }
 
-
+            
                 /*
                 |--------------------------------------------------------------------------
                 | Discount
@@ -1577,12 +1577,45 @@ const OrderModule = {
                     )
                 ) {
 
-                    item.discount_amount =
+                    item.discount =
                         Math.max(
                             parseFloat(
                                 input.value
                             ) || 0,
                             0
+                        );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Calculate Discount Amount
+                    |--------------------------------------------------------------------------
+                    */
+
+                    const lineSubtotal =
+                        (
+                            parseFloat(
+                                item.quantity
+                            ) || 0
+                        )
+                        *
+                        (
+                            parseFloat(
+                                item.unit_price
+                            ) || 0
+                        );
+
+
+                    item.discount_amount =
+                        Math.max(
+
+                            lineSubtotal *
+                            (
+                                item.discount / 100
+                            ),
+
+                            0
+
                         );
 
                 }
@@ -1600,7 +1633,7 @@ const OrderModule = {
                     )
                 ) {
 
-                    item.tax_amount =
+                    item.tax =
                         Math.max(
                             parseFloat(
                                 input.value
@@ -1608,7 +1641,72 @@ const OrderModule = {
                             0
                         );
 
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Calculate Tax Amount
+                    |--------------------------------------------------------------------------
+                    */
+
+                    const lineSubtotal =
+                        (
+                            parseFloat(
+                                item.quantity
+                            ) || 0
+                        )
+                        *
+                        (
+                            parseFloat(
+                                item.unit_price
+                            ) || 0
+                        );
+
+
+                    const discountAmount =
+                        Math.max(
+
+                            lineSubtotal *
+                            (
+                                (
+                                    parseFloat(
+                                        item.discount
+                                    ) || 0
+                                )
+                                /
+                                100
+                            ),
+
+                            0
+
+                        );
+
+
+                    const taxableAmount =
+                        Math.max(
+
+                            lineSubtotal
+                            -
+                            discountAmount,
+
+                            0
+
+                        );
+
+
+                    item.tax_amount =
+                        Math.max(
+
+                            taxableAmount *
+                            (
+                                item.tax / 100
+                            ),
+
+                            0
+
+                        );
+
                 }
+
 
 
                 /*
@@ -7194,21 +7292,31 @@ renderOrderItems()
                                     data-item-id="${item.id}"
                                     value="${item.unit_price}"
                                     min="0"
-                                    step="0.01"
+                                    step="0.01" readonly
                                 >
 
                             </td>
 
+                          
                             <td>
 
                                 <input
                                     type="number"
                                     class="form-control form-control-sm text-end order-item-discount"
                                     data-item-id="${item.id}"
-                                    value="${item.discount_amount}"
+                                    value="${item.discount ?? 0}"
                                     min="0"
                                     step="0.01"
                                 >
+
+                                <div
+                                    class="text-muted small text-end mt-1 order-item-discount-amount"
+                                    data-item-id="${item.id}"
+                                >
+                                    ${this.formatMoney(
+                                        item.discount_amount || 0
+                                    )}
+                                </div>
 
                             </td>
 
@@ -7219,12 +7327,23 @@ renderOrderItems()
                                     type="number"
                                     class="form-control form-control-sm text-end order-item-tax"
                                     data-item-id="${item.id}"
-                                    value="${item.tax_amount}"
+                                    value="${item.tax ?? 0}"
                                     min="0"
                                     step="0.01"
                                 >
 
+                                <div
+                                    class="text-muted small text-end mt-1 order-item-tax-amount"
+                                    data-item-id="${item.id}"
+                                >
+                                    ${this.formatMoney(
+                                        item.tax_amount || 0
+                                    )}
+                                </div>
+
                             </td>
+
+
 
 
                             <td
@@ -7957,14 +8076,35 @@ selectOrderProductFromPicker(
 
     /*
     |--------------------------------------------------------------------------
+    | Calculate Line Subtotal
+    |--------------------------------------------------------------------------
+    */
+
+    const lineSubtotal =
+        item.quantity *
+        item.unit_price;
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Discount
     |--------------------------------------------------------------------------
     */
 
     item.discount_amount =
         Math.max(
-            discount,
+
+            lineSubtotal *
+            (
+                Number(
+                    discount || 0
+                )
+                /
+                100
+            ),
+
             0
+
         );
 
 
@@ -7976,21 +8116,30 @@ selectOrderProductFromPicker(
 
     item.tax_amount =
         Math.max(
-            tax,
-            0
-        );
 
+            (
+                lineSubtotal
+                -
+                item.discount_amount
+            )
+            *
+            (
+                Number(
+                    tax || 0
+                )
+                /
+                100
+            ),
+
+            0
+
+        ); 
 
     /*
     |--------------------------------------------------------------------------
     | Calculate Line Total
     |--------------------------------------------------------------------------
     */
-
-    const lineSubtotal =
-        item.quantity *
-        item.unit_price;
-
 
     item.line_total =
         Math.max(
@@ -8003,7 +8152,9 @@ selectOrderProductFromPicker(
 
             0
 
-        );
+        );    
+
+
 
 
     /*
@@ -8234,13 +8385,20 @@ updateOrderItem(
     }
 
 
+  
+    /*
+    |--------------------------------------------------------------------------
+    | Discount
+    |--------------------------------------------------------------------------
+    */
+
     if (
         input.classList.contains(
             'order-item-discount'
         )
     ) {
 
-        item.discount_amount =
+        item.discount =
             Math.max(
                 parseFloat(
                     input.value
@@ -8251,13 +8409,19 @@ updateOrderItem(
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Tax
+    |--------------------------------------------------------------------------
+    */
+
     if (
         input.classList.contains(
             'order-item-tax'
         )
     ) {
 
-        item.tax_amount =
+        item.tax =
             Math.max(
                 parseFloat(
                     input.value
@@ -8430,6 +8594,7 @@ updateOrderItemQuantity(
 
 },
 
+
 /*
 |--------------------------------------------------------------------------
 | Calculate Order Item Total
@@ -8465,13 +8630,13 @@ calculateOrderItemTotal(
 
     const discount =
         parseFloat(
-            item.discount_amount
+            item.discount
         ) || 0;
 
 
     const tax =
         parseFloat(
-            item.tax_amount
+            item.tax
         ) || 0;
 
 
@@ -8480,20 +8645,87 @@ calculateOrderItemTotal(
         unitPrice;
 
 
-    item.line_total =
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate Discount Amount
+    |--------------------------------------------------------------------------
+    */
+
+    const discountAmount =
+        subtotal *
+        (
+            discount /
+            100
+        );
+
+
+    item.discount_amount =
+        Math.max(
+            discountAmount,
+            0
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate Taxable Amount
+    |--------------------------------------------------------------------------
+    */
+
+    const taxableAmount =
         Math.max(
 
             subtotal
             -
-            discount
+            item.discount_amount,
+
+            0
+
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate Tax Amount
+    |--------------------------------------------------------------------------
+    */
+
+    const taxAmount =
+        taxableAmount *
+        (
+            tax /
+            100
+        );
+
+
+    item.tax_amount =
+        Math.max(
+            taxAmount,
+            0
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate Line Total
+    |--------------------------------------------------------------------------
+    */
+
+    item.line_total =
+        Math.max(
+
+            taxableAmount
             +
-            tax,
+            item.tax_amount,
 
             0
 
         );
 
 },
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -8533,6 +8765,40 @@ updateOrderItemRowTotal(
         this.formatMoney(
             item.line_total
         );
+
+   
+    const discountAmountElement =
+        this.elements.orderItems?.querySelector(
+            `.order-item-discount-amount[data-item-id="${item.id}"]`
+        );
+
+
+    if (discountAmountElement) {
+
+        discountAmountElement.textContent =
+            this.formatMoney(
+                item.discount_amount || 0
+            );
+
+    }
+
+
+    const taxAmountElement =
+        this.elements.orderItems?.querySelector(
+            `.order-item-tax-amount[data-item-id="${item.id}"]`
+        );
+
+
+    if (taxAmountElement) {
+
+        taxAmountElement.textContent =
+            this.formatMoney(
+                item.tax_amount || 0
+            );
+
+    }
+
+
 
 },
 
@@ -8595,9 +8861,10 @@ updateOrderTotals()
     |--------------------------------------------------------------------------
     */
 
-    this.state.orderItems.forEach(
-        item => {
+    this.state.orderItems.forEach(         
 
+        item => {
+           
             subtotal +=
                 (
                     (parseFloat(
@@ -8628,6 +8895,8 @@ updateOrderTotals()
 
         }
     );
+
+    
 
 
     /*

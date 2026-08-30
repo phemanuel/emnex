@@ -319,6 +319,13 @@ cacheElements()
             'stockMovementList'
         );
 
+    this.stockInspectorUnitPrice =
+        document.getElementById(
+            'stockInspectorUnitPrice'
+        );
+
+
+
 },
 
 
@@ -1021,6 +1028,34 @@ populateInspector(stock)
     const product =
         stock.product;
 
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Unit Price
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.stockInspectorUnitPrice
+    ) {
+
+        const unitPrice =
+            parseFloat(
+                stock.product?.selling_price
+            ) || 0;
+
+
+        this.stockInspectorUnitPrice.textContent =
+            `${window.EmnexSettings.currencySymbol}${unitPrice.toLocaleString(
+                'en-NG',
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            )}`;
+
+    }
+
 
 
 
@@ -1498,11 +1533,14 @@ async loadProducts(page = 1)
                             </td>
 
 
+
                             <td>
 
-                                ₦${product.selling_price ?? 0}
+                                ${window.EmnexSettings.currencySymbol}${product.selling_price ?? 0}
 
                             </td>
+
+
 
 
                             <td>
@@ -1963,10 +2001,13 @@ selectProduct(product)
                 ${product.barcode ?? '-'}
             </div>
 
+ 
             <div>
                 <strong>Price:</strong>
-                ₦${product.selling_price ?? 0}
+                ${window.EmnexSettings.currencySymbol}${product.selling_price ?? 0}
             </div>
+
+
 
             <div>
                 <strong>Branch:</strong>

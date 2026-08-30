@@ -198,6 +198,7 @@ Payment Inspector
         Amount
     ======================================================= --}}
 
+   
     <div class="payment-inspector-amount-card mb-4">
 
         <div>
@@ -207,12 +208,14 @@ Payment Inspector
             </div>
 
             <strong id="paymentInspectorAmount">
-                ₦0.00
+                {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
             </strong>
 
         </div>
 
     </div>
+
+
 
 
     {{-- ======================================================

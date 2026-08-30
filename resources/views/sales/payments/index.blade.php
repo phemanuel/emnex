@@ -131,9 +131,18 @@
                         Completed Amount
                     </div>
 
-                    <div id="paymentTotalAmount" class="fs-4 fw-semibold mt-1" > 
-                        ₦{{ number_format( (float) $paymentTotalAmount, 2 ) }} 
+                    <div
+                        id="paymentTotalAmount"
+                        class="fs-4 fw-semibold mt-1"
+                    >
+
+                        {{ \App\Helpers\CurrencyHelper::format(
+                            (float) $paymentTotalAmount
+                        ) }}
+
                     </div>
+
+
 
                 </div>
 
@@ -689,6 +698,7 @@
         </div>
 
 
+      
         {{-- Order Total --}}
 
         <div class="purchase-summary-row">
@@ -698,7 +708,7 @@
             </span>
 
             <strong id="paymentInspectorOrderTotal">
-                ₦0.00
+                {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
             </strong>
 
         </div>
@@ -713,7 +723,7 @@
             </span>
 
             <strong id="paymentInspectorAmountPaid">
-                ₦0.00
+                {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
             </strong>
 
         </div>
@@ -728,7 +738,7 @@
             </span>
 
             <strong id="paymentInspectorAmount">
-                ₦0.00
+                {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
             </strong>
 
         </div>
@@ -743,7 +753,7 @@
             </span>
 
             <strong id="paymentInspectorBalance">
-                ₦0.00
+                {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
             </strong>
 
         </div>

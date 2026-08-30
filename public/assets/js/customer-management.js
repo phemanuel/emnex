@@ -2213,21 +2213,25 @@ populateInspector(customer)
     |--------------------------------------------------------------------------
     */
 
-    if(this.inspectorCustomerCredit)
-    {
 
-        this.inspectorCustomerCredit.innerText =
-            `₦${Number(
-                customer.credit_limit ?? 0
-            ).toLocaleString(
-                'en-NG',
-                {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                }
-            )}`;
+        if (
+            this.inspectorCustomerCredit
+        ) {
 
-    }
+            this.inspectorCustomerCredit.innerText =
+                `${window.EmnexSettings.currencySymbol}${Number(
+                    customer.credit_limit ?? 0
+                ).toLocaleString(
+                    'en-NG',
+                    {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }
+                )}`;
+
+        }
+
+
 
 
     /*
@@ -2236,11 +2240,13 @@ populateInspector(customer)
     |--------------------------------------------------------------------------
     */
 
-    if(this.inspectorCustomerBalance)
-    {
+   
+    if (
+        this.inspectorCustomerBalance
+    ) {
 
         this.inspectorCustomerBalance.innerText =
-            `₦${Number(
+            `${window.EmnexSettings.currencySymbol}${Number(
                 customer.current_balance ?? 0
             ).toLocaleString(
                 'en-NG',
@@ -2251,6 +2257,8 @@ populateInspector(customer)
             )}`;
 
     }
+
+
 
 
     /*
@@ -2315,11 +2323,13 @@ populateInspector(customer)
         }
 
 
-        if(this.customerGroupInspectorCreditLimit)
-        {
+
+        if (
+            this.customerGroupInspectorCreditLimit
+        ) {
 
             this.customerGroupInspectorCreditLimit.innerText =
-                `₦${Number(
+                `${window.EmnexSettings.currencySymbol}${Number(
                     group.credit_limit ?? 0
                 ).toLocaleString(
                     'en-NG',
@@ -2330,6 +2340,8 @@ populateInspector(customer)
                 )}`;
 
         }
+
+
 
 
         if(this.customerGroupInspectorCustomers)

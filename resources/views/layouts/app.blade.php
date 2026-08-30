@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/order.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/invoice.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/payment.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/returns.css') }}">
 
 </head>
 
@@ -82,6 +83,42 @@
      style="z-index: 99999;">
 
 </div>
+
+
+@php
+
+    $appSettings =
+        \App\Models\Setting::active()
+            ->where(
+                'company_id',
+                companyId()
+            )
+            ->first();
+
+@endphp
+
+
+<script>
+
+    window.EmnexSettings = {
+
+        currency:
+            @json(
+                $appSettings?->currency
+                ?? 'NGN'
+            ),
+
+        currencySymbol:
+            @json(
+                $appSettings?->currency_symbol
+                ?? '₦'
+            ),
+
+    };
+
+</script>
+
+
 
 @include('layouts.partials.scripts')
 @include('layouts.partials.profile-modal')

@@ -375,6 +375,7 @@ Header
     </div>
 
 
+   
     <div class="summary">
 
 
@@ -386,9 +387,8 @@ Header
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) ($payment->order?->grand_total ?? 0),
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) ($payment->order?->grand_total ?? 0)
                 ) }}
 
             </strong>
@@ -404,9 +404,8 @@ Header
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) ($payment->order?->amount_paid ?? 0),
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) ($payment->order?->amount_paid ?? 0)
                 ) }}
 
             </strong>
@@ -422,9 +421,8 @@ Header
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) $payment->amount,
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) $payment->amount
                 ) }}
 
             </strong>
@@ -440,9 +438,8 @@ Header
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) ($payment->order?->balance ?? 0),
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) ($payment->order?->balance ?? 0)
                 ) }}
 
             </strong>
@@ -466,6 +463,7 @@ Header
 
 
     </div>
+
 
 </div>
 

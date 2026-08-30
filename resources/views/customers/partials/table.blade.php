@@ -166,10 +166,12 @@
                             "
                         >
 
-                            ₦{{ number_format(
-                                (float) $customer->current_balance,
-                                2
-                            ) }}
+                          
+                        {{ \App\Helpers\CurrencyHelper::format(
+                            (float) $customer->current_balance
+                        ) }}
+
+
 
                         </span>
 

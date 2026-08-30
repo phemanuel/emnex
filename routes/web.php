@@ -521,10 +521,10 @@ Route::prefix('products')
             ->name('orders.receipt.pdf');
 
         Route::get('/payment-methods',[OrderController::class, 'paymentMethods'])
-        ->name('sales.payment-methods');
+        ->name('orders.payment-methods');
 
         Route::post('/orders/{id}/part-payment',[OrderController::class, 'partPayment'])
-            ->name('sales.orders.part-payment');
+            ->name('orders.part-payment');
 
         
         /*
@@ -565,15 +565,42 @@ Route::prefix('products')
                 ->name('payments.details');
 
             Route::get('/{id}/receipt',[PaymentController::class, 'receipt'])
-                ->name('sales.payments.receipt');
+                ->name('payments.receipt');
+
+        });
+
+        /*
+        |--------------------------------------------------------------------------
+        | Sales Returns / Refunds
+        |--------------------------------------------------------------------------
+        */
+
+        Route::prefix('returns')->group(function () {
+
+            Route::get('/',[SalesReturnController::class, 'index'])->name('returns.index');
+
+            Route::get('/table',[SalesReturnController::class, 'table'])->name('returns.table');
+
+            Route::get('/orders',[SalesReturnController::class, 'orders'])->name('returns.orders');
+
+            Route::get('/orders/{id}/items',[SalesReturnController::class, 'orderItems'])
+                ->name('returns.orders.items');
+
+            Route::get('/orders/{id}/payments',[SalesReturnController::class, 'payments'])
+            ->name('returns.orders.payments');
+
+            Route::get('/{id}/details',[SalesReturnController::class, 'details'])->name('returns.details');
+
+            Route::get('/{id}/receipt',[SalesReturnController::class, 'receipt'])
+            ->name('returns.receipt');
+
+            Route::post('/orders/{id}/process', [SalesReturnController::class, 'process'])
+            ->name('returns.process');
 
         });
 
     });  
 
-    
-
-    Route::resource('sales-returns', SalesReturnController::class);
 
 
 

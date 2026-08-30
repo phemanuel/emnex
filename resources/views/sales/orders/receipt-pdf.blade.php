@@ -625,9 +625,8 @@
                         </td>
 
                         <td class="right">
-                            ₦{{ number_format(
-                                $order->subtotal,
-                                2
+                            {{ \App\Helpers\CurrencyHelper::format(
+                                $order->subtotal
                             ) }}
                         </td>
 
@@ -641,9 +640,8 @@
                         </td>
 
                         <td class="right">
-                            ₦{{ number_format(
-                                $order->discount,
-                                2
+                            {{ \App\Helpers\CurrencyHelper::format(
+                                $order->discount
                             ) }}
                         </td>
 
@@ -657,9 +655,8 @@
                         </td>
 
                         <td class="right">
-                            ₦{{ number_format(
-                                $order->tax,
-                                2
+                            {{ \App\Helpers\CurrencyHelper::format(
+                                $order->tax
                             ) }}
                         </td>
 
@@ -673,9 +670,8 @@
                         </td>
 
                         <td class="right">
-                            ₦{{ number_format(
-                                $order->grand_total,
-                                2
+                            {{ \App\Helpers\CurrencyHelper::format(
+                                $order->grand_total
                             ) }}
                         </td>
 
@@ -706,9 +702,8 @@
                         </td>
 
                         <td class="right">
-                            ₦{{ number_format(
-                                $order->amount_paid,
-                                2
+                            {{ \App\Helpers\CurrencyHelper::format(
+                                $order->amount_paid
                             ) }}
                         </td>
 
@@ -722,9 +717,8 @@
                         </td>
 
                         <td class="right">
-                            ₦{{ number_format(
-                                $order->balance,
-                                2
+                            {{ \App\Helpers\CurrencyHelper::format(
+                                $order->balance
                             ) }}
                         </td>
 
@@ -738,9 +732,8 @@
                         </td>
 
                         <td class="right">
-                            ₦{{ number_format(
-                                $order->change_given,
-                                2
+                            {{ \App\Helpers\CurrencyHelper::format(
+                                $order->change_given
                             ) }}
                         </td>
 
@@ -749,6 +742,8 @@
                 </table>
 
             </div>
+
+
 
 
             {{-- ==================================================

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Helpers\CurrencyHelper;
 
 /**
  * Discount Model
@@ -139,10 +140,19 @@ class Discount extends Model
      * 10%
      * ₦500.00
      */
+ 
     public function displayValue(): string
     {
+
         return $this->type === 'Percentage'
+
             ? "{$this->value}%"
-            : '₦' . number_format($this->value, 2);
+
+            : CurrencyHelper::format(
+                $this->value
+            );
+
     }
+
+
 }

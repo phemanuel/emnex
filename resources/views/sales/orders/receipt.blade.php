@@ -315,14 +315,15 @@ $orderItems =
 
                             <div class="receipt-item-meta">
 
-                                ₦{{ number_format(
-                                    (float) $item->unit_price,
-                                    2
+                                {{ \App\Helpers\CurrencyHelper::format(
+                                    (float) $item->unit_price
                                 ) }}
 
                                 each
 
                             </div>
+
+
 
                         </td>
 
@@ -339,12 +340,13 @@ $orderItems =
 
                         <td class="text-end fw-semibold">
 
-                            ₦{{ number_format(
-                                (float) $item->total,
-                                2
+                            {{ \App\Helpers\CurrencyHelper::format(
+                                (float) $item->total
                             ) }}
 
                         </td>
+                       
+
 
                     </tr>
 
@@ -372,6 +374,7 @@ $orderItems =
     </div>
 
 
+ 
     {{-- ==========================================================
         Totals
     =========================================================== --}}
@@ -386,9 +389,8 @@ $orderItems =
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) $order->subtotal,
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) $order->subtotal
                 ) }}
 
             </strong>
@@ -404,9 +406,8 @@ $orderItems =
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) $order->discount,
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) $order->discount
                 ) }}
 
             </strong>
@@ -422,9 +423,8 @@ $orderItems =
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) $order->tax,
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) $order->tax
                 ) }}
 
             </strong>
@@ -440,9 +440,8 @@ $orderItems =
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) $order->grand_total,
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) $order->grand_total
                 ) }}
 
             </strong>
@@ -473,9 +472,8 @@ $orderItems =
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) $order->amount_paid,
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) $order->amount_paid
                 ) }}
 
             </strong>
@@ -491,9 +489,8 @@ $orderItems =
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) $order->balance,
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) $order->balance
                 ) }}
 
             </strong>
@@ -509,9 +506,8 @@ $orderItems =
 
             <strong>
 
-                ₦{{ number_format(
-                    (float) $order->change_given,
-                    2
+                {{ \App\Helpers\CurrencyHelper::format(
+                    (float) $order->change_given
                 ) }}
 
             </strong>
@@ -519,6 +515,8 @@ $orderItems =
         </div>
 
     </div>
+
+
 
 
     {{-- ==========================================================

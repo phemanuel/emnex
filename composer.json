@@ -29,7 +29,8 @@
         },
         "files": [
             "app/Helpers/helpers.php",
-            "app/Helpers/CompanyHelper.php"
+            "app/Helpers/CompanyHelper.php",
+            "app/Helpers/CurrencyHelper.php"
         ]
     },
     "autoload-dev": {

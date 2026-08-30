@@ -119,7 +119,7 @@
                 'orders.*',
                 'invoices.*',
                 'payments.*',
-                'sales-returns.*'
+                'returns.*'
             );
 
 
@@ -907,8 +907,8 @@
                     @if(canAccess('orders.refund'))
 
                         <a
-                            href="{{ route('sales-returns.index') }}"
-                            class="{{ request()->routeIs('sales-returns.*') ? 'active' : '' }}"
+                            href="{{ route('returns.index') }}"
+                            class="{{ request()->routeIs('returns.*') ? 'active' : '' }}"
                         >
 
                             <span class="sub-icon">

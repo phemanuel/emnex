@@ -2035,6 +2035,7 @@ populateInspector(
     |--------------------------------------------------------------------------
     */
 
+  
     if (
         this.elements.inspectorUnitCost
     ) {
@@ -2047,7 +2048,9 @@ populateInspector(
 
         this.elements.inspectorUnitCost
             .textContent =
-                `₦${this.formatNumber(unitCost)}`;
+                `${window.EmnexSettings.currencySymbol}${this.formatNumber(
+                    unitCost
+                )}`;
 
     }
 

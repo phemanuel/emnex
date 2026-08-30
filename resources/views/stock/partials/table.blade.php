@@ -33,6 +33,10 @@
                     Quantity
                 </th>
 
+                <th>
+                   Unit Price
+                </th>
+
 
                 <th>
                     Available
@@ -184,6 +188,20 @@
                     <strong>
 
                         {{ number_format($stock->quantity,2) }}
+
+                    </strong>
+
+
+                </td>
+
+                {{-- UNIT PRICE --}}
+
+                <td>
+
+
+                    <strong>
+
+                        {{ number_format($stock->product->selling_price,2) }}
 
                     </strong>
 

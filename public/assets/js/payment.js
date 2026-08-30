@@ -1322,6 +1322,7 @@ const PaymentModule = {
         ];
 
 
+       
         values.forEach(
             key => {
 
@@ -1331,13 +1332,15 @@ const PaymentModule = {
 
                     this.elements[key].textContent =
                         key === 'inspectorAmount'
-                            ? '₦0.00'
+                            ? `${window.EmnexSettings.currencySymbol}0.00`
                             : '—';
 
                 }
 
             }
         );
+
+
 
     },
 
@@ -1490,6 +1493,11 @@ const PaymentModule = {
             ?? '—';
 
     }
+
+    console.log(
+            'PAYMENT TERMINAL DEBUG:',
+            payment.terminal
+        );
 
 
     /*
@@ -2216,9 +2224,10 @@ const PaymentModule = {
             ) || 0;
 
 
+  
         return (
-            '₦' +
-            amount.toLocaleString(
+            window.EmnexSettings.currencySymbol +
+            amount.toLocaleString( 
                 'en-NG',
                 {
 
@@ -2231,6 +2240,8 @@ const PaymentModule = {
                 }
             )
         );
+
+
 
     },
 

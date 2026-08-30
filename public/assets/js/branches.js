@@ -1398,14 +1398,21 @@ $(document).on('click','.branch-preview-btn',function(){
 
                             </td>
 
-
-
+                            
                             <td class="text-end">
 
-                                ₦${Number(order.total)
-                                .toLocaleString()}
+                                ${window.EmnexSettings.currencySymbol}${Number(
+                                    order.total
+                                ).toLocaleString(
+                                    undefined,
+                                    {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    }
+                                )}
 
                             </td>
+
 
 
                         </tr>

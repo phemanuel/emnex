@@ -38,6 +38,24 @@
 
     </div>
 
+   
+    <div class="stock-inspector-unit-price px-3 py-3">
+
+        <span class="text-muted small d-block mb-1">
+            Unit Price
+        </span>
+
+        <strong
+            id="stockInspectorUnitPrice"
+            class="fs-3 fw-semibold"
+        >
+            {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
+        </strong>
+
+    </div>
+
+
+
     <div class="offcanvas-body">
 
         {{-- ================================================= --}}

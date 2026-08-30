@@ -1053,6 +1053,9 @@ class StockController extends BaseController
                     'name' =>
                         $stock->product->name,
 
+                    'selling_price' => 
+                        $stock->product->selling_price,
+
                     'sku' =>
                         $stock->product->sku,
 

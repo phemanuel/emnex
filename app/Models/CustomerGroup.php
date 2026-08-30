@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Helpers\CurrencyHelper;
 
 
 class CustomerGroup extends Model
@@ -213,10 +214,7 @@ class CustomerGroup extends Model
      */
     public function formattedCreditLimit(): string
     {
-        return '₦' . number_format(
-            (float) $this->credit_limit,
-            2
-        );
+       return \App\Helpers\CurrencyHelper::format( (float) $this->credit_limit );
     }
 
 

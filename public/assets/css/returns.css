@@ -1,0 +1,3135 @@
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| EMNEX POS — Sales Returns / Refunds                                        |
+| -------------------------------------------------------------------------- |
+| Shared styles for:                                                         |
+| - Returns index                                                            |
+| - Returns table                                                            |
+| - Refund inspector                                                         |
+| - Refund modals                                                            |
+| - Refund receipt                                                           |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Module                                                                     |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+.returns-module {
+
+
+width: 100%;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Header                                                                     |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-module-header {
+
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 1rem;
+
+margin-bottom: 1.5rem;
+
+
+}
+
+.returns-module-header-content {
+
+
+min-width: 0;
+
+
+}
+
+.returns-module-title {
+
+
+margin: 0;
+
+font-size: 1.35rem;
+
+font-weight: 600;
+
+line-height: 1.4;
+
+
+}
+
+.returns-module-subtitle {
+
+
+margin: .35rem 0 0;
+
+color: #6c757d;
+
+font-size: .875rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| KPI Cards                                                                  |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-kpi-grid {
+
+
+display: grid;
+
+grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+gap: 1rem;
+
+margin-bottom: 1.5rem;
+
+
+}
+
+.returns-kpi-card {
+
+
+background: #fff;
+
+border: 1px solid #e9ecef;
+
+border-radius: .75rem;
+
+padding: 1.125rem;
+
+box-shadow:
+    0 .125rem .375rem rgba(0, 0, 0, .03);
+
+
+}
+
+.returns-kpi-label {
+
+
+display: flex;
+
+align-items: center;
+
+gap: .5rem;
+
+color: #6c757d;
+
+font-size: .8125rem;
+
+font-weight: 500;
+
+margin-bottom: .5rem;
+
+
+}
+
+.returns-kpi-label i {
+
+
+font-size: .95rem;
+
+
+}
+
+.returns-kpi-value {
+
+
+font-size: 1.45rem;
+
+font-weight: 600;
+
+line-height: 1.3;
+
+
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Main Card                                                                  |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-card {
+
+
+background: #fff;
+
+border: 1px solid #e9ecef;
+
+border-radius: .75rem;
+
+box-shadow:
+    0 .125rem .375rem rgba(0, 0, 0, .03);
+
+
+}
+
+.returns-card-header {
+
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 1rem;
+
+padding: 1rem 1.25rem;
+
+border-bottom: 1px solid #edf0f2;
+
+
+}
+
+.returns-card-title {
+
+
+margin: 0;
+
+font-size: .95rem;
+
+font-weight: 600;
+
+
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Table                                                                      |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-table {
+
+
+margin-bottom: 0;
+
+
+}
+
+.returns-table thead th {
+
+
+padding: .8rem 1rem;
+
+background: #f8f9fa;
+
+color: #6c757d;
+
+border-bottom: 1px solid #e9ecef;
+
+font-size: .75rem;
+
+font-weight: 600;
+
+text-transform: uppercase;
+
+letter-spacing: .025em;
+
+white-space: nowrap;
+
+
+}
+
+.returns-table tbody td {
+
+
+padding: .9rem 1rem;
+
+border-bottom: 1px solid #f1f3f5;
+
+vertical-align: middle;
+
+font-size: .875rem;
+
+
+}
+
+.returns-table tbody tr:last-child td {
+
+
+border-bottom: 0;
+
+
+}
+
+.returns-table tbody tr {
+
+
+transition:
+    background-color .15s ease;
+
+
+}
+
+.returns-table tbody tr:hover {
+
+
+background-color: #fafbfc;
+
+
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Order / Invoice Number                                                     |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-order-number {
+
+
+display: inline-flex;
+
+align-items: center;
+
+gap: .35rem;
+
+font-weight: 600;
+
+color: #212529;
+
+
+}
+
+.returns-invoice-number {
+
+
+margin-top: .2rem;
+
+color: #6c757d;
+
+font-size: .75rem;
+
+
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Amounts                                                                    |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-amount {
+
+
+font-weight: 600;
+
+white-space: nowrap;
+
+
+}
+
+.returns-amount-muted {
+
+
+color: #6c757d;
+
+font-weight: 500;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Status Badges                                                              |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-status-badge {
+
+
+display: inline-flex;
+
+align-items: center;
+
+justify-content: center;
+
+padding: .3rem .55rem;
+
+border-radius: 999px;
+
+font-size: .7rem;
+
+font-weight: 600;
+
+line-height: 1.2;
+
+white-space: nowrap;
+
+
+}
+
+.returns-status-completed {
+
+
+background: #e8f7ee;
+
+color: #198754;
+
+
+}
+
+.returns-status-held {
+
+
+background: #fff4df;
+
+color: #b7791f;
+
+
+}
+
+.returns-status-pending {
+
+
+background: #fff4df;
+
+color: #b7791f;
+
+
+}
+
+.returns-status-refunded {
+
+
+background: #e8f7ee;
+
+color: #198754;
+
+
+}
+
+.returns-status-cancelled {
+
+
+background: #f1f3f5;
+
+color: #6c757d;
+
+
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Filters                                                                    |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-filters {
+
+
+padding: 1rem 1.25rem;
+
+background: #fff;
+
+border-bottom: 1px solid #edf0f2;
+
+
+}
+
+.returns-filter-label {
+
+
+margin-bottom: .4rem;
+
+color: #6c757d;
+
+font-size: .75rem;
+
+font-weight: 500;
+
+
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Empty / Loading States                                                     |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-empty-state {
+
+
+padding: 3rem 1rem;
+
+text-align: center;
+
+color: #6c757d;
+
+
+}
+
+.returns-empty-state-icon {
+
+
+margin-bottom: .75rem;
+
+font-size: 2rem;
+
+opacity: .5;
+
+
+}
+
+.returns-loading {
+
+
+padding: 3rem 1rem;
+
+text-align: center;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Pagination                                                                 |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-pagination {
+
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 1rem;
+
+padding: .85rem 1.25rem;
+
+border-top: 1px solid #edf0f2;
+
+
+}
+
+.returns-pagination-info {
+
+
+color: #6c757d;
+
+font-size: .8rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Refund Orders Modal                                                        |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#refundOrdersModal .modal-content {
+
+
+border: 0;
+
+border-radius: .85rem;
+
+overflow: hidden;
+
+
+}
+
+#refundOrdersModal .modal-header {
+
+
+padding: 1.15rem 1.25rem;
+
+border-bottom: 1px solid #edf0f2;
+
+
+}
+
+#refundOrdersModal .modal-body {
+
+
+padding: 1.25rem;
+
+
+}
+
+#refundOrdersModal .modal-footer {
+
+
+padding: 1rem 1.25rem;
+
+border-top: 1px solid #edf0f2;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Refund Order Table                                                         |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.refund-orders-table {
+
+
+width: 100%;
+
+
+}
+
+.refund-orders-table th {
+
+
+background: #f8f9fa;
+
+color: #6c757d;
+
+font-size: .72rem;
+
+font-weight: 600;
+
+text-transform: uppercase;
+
+white-space: nowrap;
+
+
+}
+
+.refund-orders-table td {
+
+
+font-size: .84rem;
+
+vertical-align: middle;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Refund Action                                                              |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.refund-order-action {
+
+
+min-width: 85px;
+
+
+}
+
+.refund-order-action .btn {
+
+
+font-size: .78rem;
+
+font-weight: 500;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Payment Modal                                                              |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+#orderPaymentsModal .modal-content {
+
+
+border: 0;
+
+border-radius: .85rem;
+
+overflow: hidden;
+
+
+}
+
+#orderPaymentsModal .modal-header {
+
+
+padding: 1.15rem 1.25rem;
+
+border-bottom: 1px solid #edf0f2;
+
+
+}
+
+#orderPaymentsModal .modal-body {
+
+
+padding: 1.25rem;
+
+
+}
+
+#orderPaymentsModal .modal-footer {
+
+
+padding: 1rem 1.25rem;
+
+border-top: 1px solid #edf0f2;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Refund Summary                                                             |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.refund-summary {
+
+
+display: grid;
+
+grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+gap: 1rem;
+
+margin-bottom: 1.25rem;
+
+
+}
+
+.refund-summary-item {
+
+
+padding: 1rem;
+
+background: #f8f9fa;
+
+border: 1px solid #edf0f2;
+
+border-radius: .65rem;
+
+
+}
+
+.refund-summary-label {
+
+
+display: block;
+
+margin-bottom: .35rem;
+
+color: #6c757d;
+
+font-size: .75rem;
+
+
+}
+
+.refund-summary-value {
+
+
+display: block;
+
+font-size: 1rem;
+
+font-weight: 600;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Process Refund Button                                                      |
+| -------------------------------------------------------------------------- |
+| */                                                                        
+
+.process-refund-button {
+
+
+min-width: 145px;
+
+font-weight: 600;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Inspector                                                                  |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-inspector {
+
+
+width: min(480px, 100vw);
+
+
+}
+
+.returns-inspector .offcanvas-header {
+
+
+padding: 1.15rem 1.25rem;
+
+border-bottom: 1px solid #edf0f2;
+
+
+}
+
+.returns-inspector .offcanvas-body {
+
+
+padding: 1.25rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Inspector Header                                                           |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-inspector-header {
+
+
+padding-bottom: 1rem;
+
+margin-bottom: 1rem;
+
+border-bottom: 1px solid #edf0f2;
+
+
+}
+
+.returns-inspector-number {
+
+
+margin: .3rem 0 0;
+
+font-size: 1.1rem;
+
+font-weight: 600;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Inspector Sections                                                         |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-inspector-section {
+
+
+margin-bottom: 1.5rem;
+
+
+}
+
+.returns-inspector-section-title {
+
+
+margin-bottom: .75rem;
+
+color: #6c757d;
+
+font-size: .72rem;
+
+font-weight: 600;
+
+text-transform: uppercase;
+
+letter-spacing: .04em;
+
+
+}
+
+.returns-inspector-row {
+
+
+display: flex;
+
+align-items: flex-start;
+
+justify-content: space-between;
+
+gap: 1rem;
+
+padding: .6rem 0;
+
+border-bottom: 1px solid #f1f3f5;
+
+
+}
+
+.returns-inspector-row:last-child {
+
+
+border-bottom: 0;
+
+
+}
+
+.returns-inspector-label {
+
+
+color: #6c757d;
+
+font-size: .8rem;
+
+
+}
+
+.returns-inspector-value {
+
+
+color: #212529;
+
+font-size: .82rem;
+
+font-weight: 500;
+
+text-align: right;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Inspector Summary                                                          |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.returns-inspector-summary {
+
+
+padding: 1rem;
+
+background: #f8f9fa;
+
+border: 1px solid #edf0f2;
+
+border-radius: .65rem;
+
+
+}
+
+.returns-inspector-summary-row {
+
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 1rem;
+
+padding: .45rem 0;
+
+
+}
+
+.returns-inspector-summary-row +
+.returns-inspector-summary-row {
+
+
+border-top: 1px solid #e9ecef;
+
+
+}
+
+.returns-inspector-summary-label {
+
+
+color: #6c757d;
+
+font-size: .8rem;
+
+
+}
+
+.returns-inspector-summary-value {
+
+
+font-weight: 600;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Receipt                                                                    |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.receipt-page {
+
+
+width: 100%;
+
+
+}
+
+.receipt-container {
+
+
+display: flex;
+
+justify-content: center;
+
+padding: 1.5rem 0 3rem;
+
+
+}
+
+.receipt {
+
+
+width: 100%;
+
+max-width: 820px;
+
+background: #fff;
+
+border: 1px solid #e5e7eb;
+
+border-radius: .75rem;
+
+box-shadow:
+    0 .25rem 1rem rgba(0, 0, 0, .05);
+
+padding: 2rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Receipt Header                                                             |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.receipt-header {
+
+
+padding-bottom: 1.5rem;
+
+border-bottom: 1px solid #dee2e6;
+
+
+}
+
+.receipt-header-company {
+
+
+display: flex;
+
+align-items: flex-start;
+
+gap: 1rem;
+
+
+}
+
+.receipt-company-logo {
+
+
+width: 64px;
+
+height: 64px;
+
+flex: 0 0 64px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+
+}
+
+.receipt-company-logo img {
+
+
+max-width: 100%;
+
+max-height: 100%;
+
+object-fit: contain;
+
+
+}
+
+.receipt-company-logo-placeholder {
+
+
+width: 64px;
+
+height: 64px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+border: 1px solid #dee2e6;
+
+border-radius: .5rem;
+
+color: #adb5bd;
+
+font-size: 1.5rem;
+
+
+}
+
+.receipt-company-name {
+
+
+margin-bottom: .2rem;
+
+font-size: 1.15rem;
+
+font-weight: 700;
+
+
+}
+
+.receipt-company-detail {
+
+
+color: #6c757d;
+
+font-size: .8rem;
+
+
+}
+
+.receipt-company-contact {
+
+
+display: flex;
+
+flex-wrap: wrap;
+
+gap: .35rem;
+
+color: #6c757d;
+
+font-size: .8rem;
+
+
+}
+
+.receipt-title {
+
+
+margin-top: .7rem;
+
+font-size: .95rem;
+
+font-weight: 700;
+
+letter-spacing: .04em;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Receipt Meta                                                               |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.receipt-meta {
+
+
+padding: 1.25rem 0;
+
+border-bottom: 1px solid #dee2e6;
+
+
+}
+
+.receipt-meta-row {
+
+
+display: grid;
+
+grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+gap: 1.5rem;
+
+padding: .4rem 0;
+
+
+}
+
+.receipt-label {
+
+
+display: block;
+
+margin-bottom: .2rem;
+
+color: #6c757d;
+
+font-size: .72rem;
+
+
+}
+
+.receipt-meta strong {
+
+
+font-size: .82rem;
+
+font-weight: 600;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Receipt Section                                                            |
+| -------------------------------------------------------------------------- |
+| */                                                                        
+
+.receipt-section {
+
+
+padding: 1.25rem 0;
+
+border-bottom: 1px solid #dee2e6;
+
+
+}
+
+.receipt-section-title {
+
+
+margin-bottom: .8rem;
+
+font-size: .82rem;
+
+font-weight: 700;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Receipt Information Grid                                                   |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.receipt-info-grid {
+
+
+display: grid;
+
+grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+gap: 1rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Receipt Table                                                              |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.receipt-table {
+
+
+width: 100%;
+
+border-collapse: collapse;
+
+
+}
+
+.receipt-table th {
+
+
+padding: .6rem .4rem;
+
+border-bottom: 1px solid #dee2e6;
+
+color: #6c757d;
+
+font-size: .7rem;
+
+font-weight: 600;
+
+text-align: left;
+
+
+}
+
+.receipt-table td {
+
+
+padding: .65rem .4rem;
+
+border-bottom: 1px solid #f1f3f5;
+
+font-size: .78rem;
+
+
+}
+
+.receipt-table th.text-end,
+.receipt-table td.text-end {
+
+
+text-align: right;
+
+
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Receipt Detail Row                                                         |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.receipt-detail-row {
+
+
+display: flex;
+
+justify-content: space-between;
+
+gap: 1rem;
+
+padding: .45rem 0;
+
+
+}
+
+.receipt-detail-row > :last-child {
+
+
+text-align: right;
+
+
+}
+
+ /*                                                                         |
+| -------------------------------------------------------------------------- |
+| Receipt Total                                                              |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.receipt-total-section {
+
+
+padding: 1.25rem 0;
+
+border-bottom: 1px solid #dee2e6;
+
+
+}
+
+.receipt-total-row {
+
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 1rem;
+
+padding: .45rem 0;
+
+font-size: .82rem;
+
+
+}
+
+.receipt-grand-total {
+
+
+margin-top: .4rem;
+
+padding-top: .8rem;
+
+border-top: 1px solid #dee2e6;
+
+font-size: 1rem;
+
+
+}
+
+.receipt-grand-total strong {
+
+
+font-size: 1.1rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Receipt Footer                                                             |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+.receipt-footer {
+
+
+padding-top: 1.5rem;
+
+text-align: center;
+
+
+}
+
+.receipt-footer-message {
+
+
+font-size: .85rem;
+
+font-weight: 600;
+
+
+}
+
+.receipt-footer-note {
+
+
+margin-top: .35rem;
+
+color: #6c757d;
+
+font-size: .72rem;
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Responsive                                                                 |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+@media (max-width: 1199.98px) {
+
+
+.returns-kpi-grid {
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+}
+
+
+.receipt-info-grid {
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+}
+
+
+}
+
+@media (max-width: 767.98px) {
+
+
+.returns-module-header {
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+}
+
+
+.returns-kpi-grid {
+
+    grid-template-columns:
+        1fr;
+
+}
+
+
+.refund-summary {
+
+    grid-template-columns:
+        1fr;
+
+}
+
+
+.receipt {
+
+    padding: 1.25rem;
+
+    border-radius: 0;
+
+    border-left: 0;
+
+    border-right: 0;
+
+}
+
+
+.receipt-meta-row {
+
+    grid-template-columns:
+        1fr;
+
+    gap: .5rem;
+
+}
+
+
+.receipt-info-grid {
+
+    grid-template-columns:
+        1fr;
+
+}
+
+
+.receipt-header-company {
+
+    flex-direction: column;
+
+}
+
+
+.returns-pagination {
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+}
+
+
+}
+
+/*                                                                         |
+| -------------------------------------------------------------------------- |
+| Print                                                                      |
+| -------------------------------------------------------------------------- |
+| */                                                                         
+
+@media print {
+
+
+/*
+|--------------------------------------------------------------------------
+| Hide Application UI
+|--------------------------------------------------------------------------
+*/
+
+.page-header,
+
+.returns-module-header,
+
+.sidebar,
+
+.navbar,
+
+.topbar,
+
+.app-sidebar,
+
+.app-header,
+
+.d-print-none {
+
+    display: none !important;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Page
+|--------------------------------------------------------------------------
+*/
+
+html,
+
+body {
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    background: #fff !important;
+
+}
+
+
+.receipt-page,
+
+.receipt-container {
+
+    width: 100% !important;
+
+    max-width: none !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Receipt
+|--------------------------------------------------------------------------
+*/
+
+.receipt {
+
+    width: 100% !important;
+
+    max-width: none !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    border: 0 !important;
+
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Avoid Page Breaks
+|--------------------------------------------------------------------------
+*/
+
+.receipt-section,
+
+.receipt-meta,
+
+.receipt-total-section {
+
+    break-inside: avoid;
+
+    page-break-inside: avoid;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Print Table
+|--------------------------------------------------------------------------
+*/
+
+.receipt-table {
+
+    break-inside: auto;
+
+}
+
+
+.receipt-table tr {
+
+    break-inside: avoid;
+
+    page-break-inside: avoid;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Hide Print Controls
+|--------------------------------------------------------------------------
+*/
+
+button,
+
+.btn {
+
+    display: none !important;
+
+}
+
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Return Payment Modal
+|--------------------------------------------------------------------------
+*/
+
+.returns-payment-modal-dialog {
+    max-height: calc(100vh - 6rem);
+}
+
+.returns-payment-modal-dialog .modal-content {
+    max-height: calc(100vh - 6rem);
+}
+
+.returns-payment-modal-dialog .modal-body {
+    overflow-y: auto;
+}
+
+#refundOrdersModal .modal-content {
+
+    background-color: #ffffff !important;
+
+}
+
+
+#orderPaymentsModal .modal-content {
+
+    background-color: #f1f5f9 !important;
+
+}
+
+
+#orderPaymentsModal .modal-header {
+
+    background-color: #f1f5f9 !important;
+
+}
+
+
+#orderPaymentsModal .modal-body {
+
+    background-color: #f1f5f9 !important;
+
+}
+
+
+#orderPaymentsModal .modal-footer {
+
+    background-color: #f1f5f9 !important;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Order & Refund Summary
+|--------------------------------------------------------------------------
+*/
+
+.inspector-summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 0.75rem;
+
+    margin-top: 0.85rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Summary Item
+|--------------------------------------------------------------------------
+*/
+
+.inspector-summary > div {
+
+    padding: 0.85rem 0.9rem;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    min-width: 0;
+
+}
+
+
+.inspector-summary span {
+
+    display: block;
+
+    margin-bottom: 0.3rem;
+
+    font-size: 0.72rem;
+
+    font-weight: 500;
+
+    color: #6b7280;
+
+}
+
+
+.inspector-summary strong {
+
+    display: block;
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
+    color: #111827;
+
+    line-height: 1.3;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Refund Amount
+|--------------------------------------------------------------------------
+*/
+
+.inspector-summary > div:nth-child(3) {
+
+    background: #fff7ed;
+
+    border-color: #fed7aa;
+
+}
+
+
+.inspector-summary > div:nth-child(3) span {
+
+    color: #9a3412;
+
+}
+
+
+.inspector-summary > div:nth-child(3) strong {
+
+    color: #c2410c;
+
+    font-size: 1rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Balance
+|--------------------------------------------------------------------------
+*/
+
+.inspector-summary > div:nth-child(4) strong {
+
+    color: #374151;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media (
+    max-width: 575.98px
+) {
+
+    .inspector-summary {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Receipt Header
+|--------------------------------------------------------------------------
+*/
+
+.receipt-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 1.5rem;
+
+}
+
+
+.receipt-header-company {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 1rem;
+
+}
+
+
+.receipt-header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.5rem;
+
+    flex-shrink: 0;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (
+    max-width: 575.98px
+) {
+
+    .receipt-header {
+
+        flex-direction: column;
+
+    }
+
+
+    .receipt-header-actions {
+
+        width: 100%;
+
+    }
+
+
+    .receipt-header-actions .btn {
+
+        flex: 1;
+
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Print
+|--------------------------------------------------------------------------
+*/
+
+@media print {
+
+    @page {
+
+        margin: 0;
+
+    }
+
+
+    html,
+    body {
+
+        width: 100%;
+
+        margin: 0;
+
+        padding: 0;
+
+        background: #ffffff !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hide Browser / UI Elements
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-header-actions {
+
+        display: none !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receipt Container
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-container {
+
+        width: 100% !important;
+
+        max-width: none !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        box-shadow: none !important;
+
+        border: 0 !important;
+
+        border-radius: 0 !important;
+
+    }
+
+
+    .receipt {
+
+        width: 100% !important;
+
+        max-width: none !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        box-shadow: none !important;
+
+        border: 0 !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-header {
+
+        display: flex !important;
+
+        align-items: flex-start !important;
+
+        justify-content: flex-start !important;
+
+        width: 100% !important;
+
+        margin-bottom: 1rem !important;
+
+    }
+
+
+    .receipt-header-company {
+
+        display: flex !important;
+
+        align-items: flex-start !important;
+
+        width: 100% !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Company Logo
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-company-logo {
+
+        flex-shrink: 0 !important;
+
+    }
+
+
+    .receipt-company-logo img {
+
+        max-width: 100% !important;
+
+        height: auto !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Company Details
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-company-details {
+
+        flex: 1 !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Prevent Unwanted Screen Effects
+    |--------------------------------------------------------------------------
+    */
+
+    .card,
+    .modal,
+    .offcanvas {
+
+        box-shadow: none !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tables
+    |--------------------------------------------------------------------------
+    */
+
+    table {
+
+        width: 100% !important;
+
+        border-collapse: collapse !important;
+
+    }
+
+
+    tr {
+
+        page-break-inside: avoid;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Print Colors
+    |--------------------------------------------------------------------------
+    */
+
+    * {
+
+        -webkit-print-color-adjust: exact !important;
+
+        print-color-adjust: exact !important;
+
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Refund Receipt Print
+|--------------------------------------------------------------------------
+*/
+
+@media print {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Page
+    |--------------------------------------------------------------------------
+    */
+
+    @page {
+
+        margin: 10mm;
+
+    }
+
+
+    html,
+    body {
+
+        width: 100% !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        background: #ffffff !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hide Everything Except Receipt
+    |--------------------------------------------------------------------------
+    */
+
+    body * {
+
+        visibility: hidden;
+
+    }
+
+
+    .receipt,
+    .receipt * {
+
+        visibility: visible;
+
+    }
+
+
+    .receipt-page {
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+    }
+
+
+    .receipt-container {
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+    }
+
+
+    .receipt {
+
+        position: relative !important;
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        border: 0 !important;
+
+        border-radius: 0 !important;
+
+        box-shadow: none !important;
+
+        background: #ffffff !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hide Page / Header Controls
+    |--------------------------------------------------------------------------
+    */
+
+    .page-header,
+    .d-print-none,
+    .receipt-header-actions {
+
+        display: none !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receipt Header
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-header {
+
+        display: flex !important;
+
+        width: 100% !important;
+
+        align-items: flex-start !important;
+
+        justify-content: space-between !important;
+
+    }
+
+
+    .receipt-header-company {
+
+        display: flex !important;
+
+        width: 100% !important;
+
+        align-items: flex-start !important;
+
+    }
+
+
+    .receipt-company-details {
+
+        display: block !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receipt Meta
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-meta {
+
+        display: block !important;
+
+        width: 100% !important;
+
+    }
+
+
+    .receipt-meta-row {
+
+        display: flex !important;
+
+        width: 100% !important;
+
+        align-items: flex-start !important;
+
+        justify-content: space-between !important;
+
+        gap: 2rem !important;
+
+    }
+
+
+    .receipt-meta-row > div {
+
+        flex: 1 1 0 !important;
+
+        min-width: 0 !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receipt Information Grid
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-info-grid {
+
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr)) !important;
+
+        gap: 1rem !important;
+
+        width: 100% !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Receipt Sections
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-section {
+
+        width: 100% !important;
+
+        display: block !important;
+
+        page-break-inside: avoid !important;
+
+        break-inside: avoid !important;
+
+    }
+
+
+    .receipt-section-title {
+
+        display: block !important;
+
+        width: 100% !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Table
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-table {
+
+        display: table !important;
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        margin: 0 !important;
+
+        border-collapse: collapse !important;
+
+        border-spacing: 0 !important;
+
+        table-layout: fixed !important;
+
+    }
+
+
+    .receipt-table thead {
+
+        display: table-header-group !important;
+
+    }
+
+
+    .receipt-table tbody {
+
+        display: table-row-group !important;
+
+    }
+
+
+    .receipt-table tr {
+
+        display: table-row !important;
+
+        page-break-inside: avoid !important;
+
+        break-inside: avoid !important;
+
+    }
+
+
+    .receipt-table th,
+    .receipt-table td {
+
+        display: table-cell !important;
+
+        vertical-align: middle !important;
+
+        white-space: normal !important;
+
+        word-break: normal !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Table Column Widths
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-table th:nth-child(1),
+    .receipt-table td:nth-child(1) {
+
+        width: 25% !important;
+
+    }
+
+
+    .receipt-table th:nth-child(2),
+    .receipt-table td:nth-child(2) {
+
+        width: 20% !important;
+
+    }
+
+
+    .receipt-table th:nth-child(3),
+    .receipt-table td:nth-child(3) {
+
+        width: 35% !important;
+
+    }
+
+
+    .receipt-table th:nth-child(4),
+    .receipt-table td:nth-child(4) {
+
+        width: 20% !important;
+
+        text-align: right !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Refund Totals
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-total-section {
+
+        display: block !important;
+
+        width: 100% !important;
+
+        page-break-inside: avoid !important;
+
+        break-inside: avoid !important;
+
+    }
+
+
+    .receipt-total-row {
+
+        display: flex !important;
+
+        width: 100% !important;
+
+        align-items: center !important;
+
+        justify-content: space-between !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Detail Rows
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-detail-row {
+
+        display: flex !important;
+
+        width: 100% !important;
+
+        align-items: flex-start !important;
+
+        justify-content: space-between !important;
+
+        gap: 1rem !important;
+
+    }
+
+
+    .receipt-detail-row .receipt-label {
+
+        flex: 0 0 auto !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Footer
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt-footer {
+
+        display: block !important;
+
+        width: 100% !important;
+
+        page-break-inside: avoid !important;
+
+        break-inside: avoid !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Preserve Receipt Formatting
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt * {
+
+        -webkit-print-color-adjust: exact !important;
+
+        print-color-adjust: exact !important;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Bootstrap Reset
+    |--------------------------------------------------------------------------
+    */
+
+    .receipt .row {
+
+        display: flex !important;
+
+        flex-wrap: wrap !important;
+
+        width: 100% !important;
+
+        margin-right: 0 !important;
+
+        margin-left: 0 !important;
+
+    }
+
+
+    .receipt .col,
+    .receipt [class^="col-"],
+    .receipt [class*=" col-"] {
+
+        position: relative !important;
+
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Refund Order Items Child Modal
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal {
+
+    z-index: 1065;
+
+}
+
+
+#refundOrderItemsModal + .modal-backdrop,
+body:has(#refundOrderItemsModal.show) .modal-backdrop {
+
+    z-index: 1060;
+
+}
+
+
+#refundOrderItemsModal .modal-dialog {
+
+    z-index: 1066;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Refund Order Items Modal
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal .modal-dialog {
+
+    max-width: 900px;
+
+}
+
+
+#refundOrderItemsModal .modal-content {
+
+    border: 0;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 40px rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal .modal-header {
+
+    padding: 1.25rem 1.5rem;
+
+    border-bottom: 1px solid #eef0f3;
+
+    background: #ffffff;
+
+}
+
+
+#refundOrderItemsModal .modal-title {
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    color: #212529;
+
+}
+
+
+#refundOrderItemsModal .modal-header p {
+
+    margin-top: 3px;
+
+    font-size: 0.78rem;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Body
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal .modal-body {
+
+    padding: 1.5rem;
+
+    background: #f8f9fb;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Summary
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal .order-items-summary {
+
+    margin-bottom: 1.25rem;
+
+}
+
+
+#refundOrderItemsModal
+.order-items-summary-card {
+
+    height: 100%;
+
+    padding: 1rem 1.1rem;
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(
+            0,
+            0,
+            0,
+            0.035
+        );
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+}
+
+
+#refundOrderItemsModal
+.order-items-summary-card span:first-child {
+
+    font-size: 0.75rem;
+
+    font-weight: 500;
+
+    color: #6c757d;
+
+    margin-bottom: 0.3rem;
+
+}
+
+
+#refundOrderItemsModal
+.order-items-summary-card strong {
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    color: #212529;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Payment Status
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal
+#refundOrderItemsPaymentStatus {
+
+    width: fit-content;
+
+    font-size: 0.72rem;
+
+    font-weight: 600;
+
+    padding: 0.35rem 0.6rem;
+
+    border-radius: 6px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Items Table
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal
+#refundOrderItemsContainer {
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 2px 8px rgba(
+            0,
+            0,
+            0,
+            0.035
+        );
+
+}
+
+
+#refundOrderItemsModal
+#refundOrderItemsContainer table {
+
+    margin-bottom: 0;
+
+}
+
+
+#refundOrderItemsModal
+#refundOrderItemsContainer thead {
+
+    background: #f8f9fa;
+
+}
+
+
+#refundOrderItemsModal
+#refundOrderItemsContainer th {
+
+    padding: 0.8rem 1rem;
+
+    border-bottom: 1px solid #e9ecef;
+
+    font-size: 0.72rem;
+
+    font-weight: 600;
+
+    color: #6c757d;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.025em;
+
+    white-space: nowrap;
+
+}
+
+
+#refundOrderItemsModal
+#refundOrderItemsContainer td {
+
+    padding: 0.9rem 1rem;
+
+    border-bottom: 1px solid #f0f1f3;
+
+    font-size: 0.84rem;
+
+    color: #343a40;
+
+}
+
+
+#refundOrderItemsModal
+#refundOrderItemsContainer tbody tr:last-child td {
+
+    border-bottom: 0;
+
+}
+
+
+#refundOrderItemsModal
+#refundOrderItemsContainer tbody tr:hover {
+
+    background: #fafbfc;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Product
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal
+#refundOrderItemsContainer td:first-child {
+
+    font-weight: 500;
+
+    color: #212529;
+
+}
+
+
+#refundOrderItemsModal
+#refundOrderItemsContainer td:nth-child(2) {
+
+    color: #6c757d;
+
+    font-size: 0.78rem;
+
+}
+
+
+#refundOrderItemsModal
+#refundOrderItemsContainer td:nth-child(3) {
+
+    font-weight: 600;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Empty State
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal
+#refundOrderItemsEmpty {
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+
+    border-radius: 10px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Loading
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal
+#refundOrderItemsLoading {
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+
+    border-radius: 10px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Footer
+|--------------------------------------------------------------------------
+*/
+
+#refundOrderItemsModal .modal-footer {
+
+    padding: 1rem 1.5rem;
+
+    background: #ffffff;
+
+    border-top: 1px solid #eef0f3;
+
+}
+
+
+#refundOrderItemsModal .modal-footer .btn {
+
+    min-width: 90px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (
+    max-width: 767.98px
+) {
+
+    #refundOrderItemsModal .modal-body {
+
+        padding: 1rem;
+
+    }
+
+
+    #refundOrderItemsModal .modal-header {
+
+        padding: 1rem;
+
+    }
+
+
+    #refundOrderItemsModal .modal-footer {
+
+        padding: 0.85rem 1rem;
+
+    }
+
+
+    #refundOrderItemsModal
+    .order-items-summary-card {
+
+        padding: 0.85rem;
+
+    }
+
+
+    #refundOrderItemsModal
+    #refundOrderItemsContainer th,
+    #refundOrderItemsModal
+    #refundOrderItemsContainer td {
+
+        padding: 0.75rem;
+
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Order Item Adjustment Cells
+|--------------------------------------------------------------------------
+*/
+
+.order-item-adjustment-cell {
+
+    vertical-align: top !important;
+
+}
+
+
+.order-item-adjustment-wrapper {
+
+    min-width: 90px;
+
+}
+
+
+.order-item-adjustment-wrapper
+.order-item-discount,
+.order-item-adjustment-wrapper
+.order-item-tax {
+
+    margin-top: 0;
+
+}
+
+
+.order-item-discount-amount,
+.order-item-tax-amount {
+
+    min-height: 15px;
+
+    margin-top: 3px !important;
+
+    font-size: 0.72rem;
+
+    line-height: 15px;
+
+    white-space: nowrap;
+
+}
+
+
+
+

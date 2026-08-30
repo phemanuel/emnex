@@ -846,7 +846,7 @@ class PaymentController extends BaseController
             ]
             : null,
 
-
+        
         /*
         |--------------------------------------------------------------------------
         | Terminal

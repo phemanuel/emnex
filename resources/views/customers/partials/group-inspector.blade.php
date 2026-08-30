@@ -289,16 +289,17 @@
                         Credit Limit
 
                     </div>
-
-
+              
                     <div
                         id="customerGroupInspectorCreditLimit"
                         class="customer-group-credit-value"
                     >
 
-                        ₦0.00
+                        {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
 
                     </div>
+
+
 
 
                     <div class="customer-group-credit-description">

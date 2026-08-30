@@ -360,7 +360,12 @@
 
                         <small>Revenue</small>
 
-                        <h3>₦{{ number_format($stats['revenue'],2) }}</h3>
+                     
+                    <h3>
+                        {{ \App\Helpers\CurrencyHelper::format($stats['revenue']) }}
+                    </h3>
+
+
 
                         <span>Total Sales</span>
 
@@ -385,7 +390,12 @@
 
                         <small>Inventory</small>
 
-                        <h3>₦{{ number_format($stats['inventory_value'],2) }}</h3>
+                      
+                        <h3>
+                            {{ \App\Helpers\CurrencyHelper::format($stats['inventory_value']) }}
+                        </h3>
+
+
 
                         <span>Current Stock Value</span>
 

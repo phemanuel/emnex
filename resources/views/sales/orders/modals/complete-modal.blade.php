@@ -442,11 +442,12 @@
                                             </label>
 
 
+                                           
                                             <div class="sales-order-payment-input-wrap">
 
                                                 <span class="sales-order-payment-input-prefix">
 
-                                                    ₦
+                                                    {{ \App\Helpers\CurrencyHelper::symbol() }}
 
                                                 </span>
 
@@ -459,6 +460,8 @@
                                                 >
 
                                             </div>
+
+
 
                                         </div>
 
@@ -485,11 +488,12 @@
                                             </label>
 
 
+                                          
                                             <div class="sales-order-payment-input-wrap">
 
                                                 <span class="sales-order-payment-input-prefix">
 
-                                                    ₦
+                                                    {{ \App\Helpers\CurrencyHelper::symbol() }}
 
                                                 </span>
 
@@ -506,6 +510,8 @@
                                                 >
 
                                             </div>
+
+
 
                                         </div>
 
@@ -691,11 +697,12 @@
                                             </label>
 
 
+                                            
                                             <div class="sales-order-payment-input-wrap">
 
                                                 <span class="sales-order-payment-input-prefix">
 
-                                                    ₦
+                                                    {{ \App\Helpers\CurrencyHelper::symbol() }}
 
                                                 </span>
 
@@ -708,6 +715,8 @@
                                                 >
 
                                             </div>
+                                           
+
 
                                         </div>
 
@@ -734,26 +743,29 @@
                                             </label>
 
 
+                                           
                                             <div class="sales-order-payment-input-wrap">
 
                                                 <span class="sales-order-payment-input-prefix">
 
-                                                    ₦
+                                                    {{ \App\Helpers\CurrencyHelper::symbol() }}
 
                                                 </span>
 
 
                                                 <input
-                                                type="number"
-                                                class="form-control sales-order-payment-input"
-                                                id="partPaymentAmount"
-                                                name="part_payment_amount"
-                                                min="0.01"
-                                                step="0.01"
-                                                value="0"
->
+                                                    type="number"
+                                                    class="form-control sales-order-payment-input"
+                                                    id="partPaymentAmount"
+                                                    name="part_payment_amount"
+                                                    min="0.01"
+                                                    step="0.01"
+                                                    value="0"
+                                                >
 
                                             </div>
+
+
 
                                         </div>
 
