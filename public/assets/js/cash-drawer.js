@@ -159,6 +159,21 @@ const CashDrawer = {
                     'kpi-cash-sales'
                 ),
 
+            cashSalesInfo:
+                document.getElementById(
+                    'cashSalesInfo'
+                ),
+
+            kpiOtherCashSales:
+                document.getElementById(
+                    'kpi-other-cash-sales'
+                ),
+
+            otherCashSalesInfo:
+                document.getElementById(
+                    'otherCashSalesInfo'
+                ),
+
             kpiCashIn:
                 document.getElementById(
                     'kpi-cash-in'
@@ -182,6 +197,11 @@ const CashDrawer = {
             kpiCurrentBalance:
                 document.getElementById(
                     'kpi-current-balance'
+                ),
+
+            heroCurrentBalance:
+                document.getElementById(
+                    'hero-current-balance'
                 ),
 
 
@@ -233,6 +253,15 @@ const CashDrawer = {
             | Open Drawer Form
             |--------------------------------------------------------------------------
             */
+           openDrawerBranchId:
+                document.getElementById(
+                    'open-drawer-branch-id'
+                ),
+
+            openDrawerTerminalId:
+                document.getElementById(
+                    'open-drawer-terminal-id'
+                ),
 
             openDrawerForm:
                 document.getElementById(
@@ -764,111 +793,170 @@ const CashDrawer = {
     },
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Current Drawer
-    |--------------------------------------------------------------------------
-    */
+/*
+|--------------------------------------------------------------------------
+| Current Drawer
+|--------------------------------------------------------------------------
+*/
 
-    async loadCurrentDrawer() {
+/**
+ * Load current cash drawer.
+ */
+async loadCurrentDrawer() {
 
-        try {
+    try {
 
-            const response =
-                await this.request(
-                    CashDrawerConfig.urls.current,
-                    'GET'
-                );
+        const response =
+            await this.request(
+                CashDrawerConfig.urls.current,
+                'GET'
+            );
 
-            this.state.currentDrawer =
-                response.data ?? response.drawer ?? null;
+        /*
+        |--------------------------------------------------------------------------
+        | Store Complete Current Drawer Response
+        |--------------------------------------------------------------------------
+        */
 
-            this.renderCurrentDrawer();
+        this.state.currentDrawer = {
 
-        } catch (error) {
+            drawer:
+                response.drawer
+                ?? null,
 
-            /*
-             * A 404/no-current-drawer response is treated
-             * as a normal closed state.
-             */
+            terminal:
+                response.terminal
+                ?? null,
 
-            this.state.currentDrawer = null;
+            branch:
+                response.branch
+                ?? null,
 
-            this.renderCurrentDrawer();
+            kpis:
+                response.kpis
+                ?? null,
 
-        }
+        };
 
-    },
+        /*
+        |--------------------------------------------------------------------------
+        | Render
+        |--------------------------------------------------------------------------
+        */
 
+        this.renderCurrentDrawer();
 
-    /*
-    |--------------------------------------------------------------------------
-    | Render Current Drawer
-    |--------------------------------------------------------------------------
-    */
+    } catch (error) {
 
-    renderCurrentDrawer() {
+        console.error(
+            'Failed to load current cash drawer:',
+            error
+        );
 
-        const drawer =
-            this.state.currentDrawer;
+        /*
+        |--------------------------------------------------------------------------
+        | Do NOT Reset Existing Drawer
+        |--------------------------------------------------------------------------
+        |
+        | A failed request must not destroy already loaded
+        | drawer information.
+        |
+        */
 
-
-        if (!drawer) {
-
-            this.setDrawerClosedState();
-
-            this.resetKpis();
+        if (
+            this.state.currentDrawer?.drawer
+        ) {
 
             return;
-
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | No Existing Drawer
+        |--------------------------------------------------------------------------
+        */
 
-        this.setDrawerOpenState();
+        this.state.currentDrawer = {
 
+            drawer: null,
 
-        this.setText(
-            this.elements.drawerTerminalName,
-            drawer.terminal?.name
-                ?? drawer.terminal_name
-                ?? '—'
-        );
+            terminal: null,
 
+            branch: null,
 
-        this.setText(
-            this.elements.drawerBranchName,
-            drawer.branch?.name
-                ?? drawer.branch_name
-                ?? '—'
-        );
+            kpis: null,
 
+        };
 
-        this.setText(
-            this.elements.drawerOpenedBy,
-            drawer.opened_by?.name
-                ?? drawer.opened_by_name
-                ?? '—'
-        );
+        this.renderCurrentDrawer();
+    }
+},
 
+/*
+|--------------------------------------------------------------------------
+| Render Current Drawer
+|--------------------------------------------------------------------------
+*/
 
-        this.setText(
-            this.elements.drawerOpenedAt,
-            this.formatDateTime(
-                drawer.opened_at
-            )
-        );
+/**
+ * Render current cash drawer.
+ */
+renderCurrentDrawer() {
 
+    const state =
+        this.state.currentDrawer;
 
-        this.setMoney(
-            this.elements.drawerOpeningBalance,
-            drawer.opening_balance
-        );
+    /*
+    |--------------------------------------------------------------------------
+    | Waiting For Drawer Response
+    |--------------------------------------------------------------------------
+    |
+    | Do not reset the UI while the current drawer request
+    | has not yet populated the state.
+    |
+    */
 
+    if (state === null || state === undefined) {
 
-        this.updateKpis(drawer);
+        return;
+    }
 
-    },
+    /*
+    |--------------------------------------------------------------------------
+    | No Current Drawer
+    |--------------------------------------------------------------------------
+    |
+    | At this point the API has responded and explicitly
+    | confirmed that there is no open drawer.
+    |
+    */
 
+    if (!state.drawer) {
+
+        this.setDrawerClosedState();
+
+        this.resetKpis();
+
+        return;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Drawer Data
+    |--------------------------------------------------------------------------
+    */
+
+    const drawer =
+        state.drawer;
+
+    const terminal =
+        state.terminal;
+
+    const branch =
+        state.branch;
+
+    const kpis =
+        state.kpis ?? {};
 
     /*
     |--------------------------------------------------------------------------
@@ -876,51 +964,157 @@ const CashDrawer = {
     |--------------------------------------------------------------------------
     */
 
-    setDrawerOpenState() {
+    this.setDrawerOpenState();
 
-        if (this.elements.drawerStatusBadge) {
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal
+    |--------------------------------------------------------------------------
+    */
 
-            this.elements.drawerStatusBadge.textContent =
-                'Open';
+    this.setText(
+        this.elements.drawerTerminalName,
+        terminal?.name
+        ?? '—'
+    );
 
-            this.elements.drawerStatusBadge.className =
-                'badge bg-success-subtle text-success';
+    /*
+    |--------------------------------------------------------------------------
+    | Branch
+    |--------------------------------------------------------------------------
+    */
 
-        }
+    this.setText(
+        this.elements.drawerBranchName,
+        branch?.name
+        ?? '—'
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Opened By
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        this.elements.drawerOpenedBy,
+        drawer.opened_by
+        ?? '—'
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Opened At
+    |--------------------------------------------------------------------------
+    */
+
+    this.setText(
+        this.elements.drawerOpenedAt,
+        this.formatDateTime(
+            drawer.opened_at
+        )
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Opening Balance
+    |--------------------------------------------------------------------------
+    */
+
+    this.setMoney(
+        this.elements.drawerOpeningBalance,
+        drawer.opening_balance
+        ?? kpis.opening_balance
+        ?? 0
+    );
+
+    this.setMoney(
+        this.elements.heroCurrentBalance,
+        kpis.current_balance
+            ?? kpis.expected_balance
+            ?? 0
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | KPIs
+    |--------------------------------------------------------------------------
+    */
+
+    this.updateKpis(
+        kpis
+    );
+},
+
+/*
+|--------------------------------------------------------------------------
+| Drawer State
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Set drawer open state.
+ */
+setDrawerOpenState() {
+
+    if (
+        this.elements.drawerStatusBadge
+    ) {
+
+        this.elements.drawerStatusBadge.textContent =
+            'Open';
+
+        this.elements.drawerStatusBadge.className =
+            'badge bg-success-subtle text-success';
+
+    }
+
+    this.toggle(
+
+        this.elements.openDrawerBtn,
+
+        false
+
+    );
+
+    this.toggle(
+
+        this.elements.refreshDrawerBtn,
+
+        true
+
+    );
+
+    this.toggle(
+
+        this.elements.closeDrawerBtn,
+
+        true
+
+    );
+
+    if (
+        this.elements.cashInBtn
+    ) {
+
+        this.elements.cashInBtn.disabled =
+            false;
+
+    }
+
+    if (
+        this.elements.cashOutBtn
+    ) {
+
+        this.elements.cashOutBtn.disabled =
+            false;
+
+    }
+
+},
 
 
-        this.toggle(
-            this.elements.openDrawerBtn,
-            false
-        );
-
-        this.toggle(
-            this.elements.refreshDrawerBtn,
-            true
-        );
-
-        this.toggle(
-            this.elements.closeDrawerBtn,
-            true
-        );
-
-
-        if (this.elements.cashInBtn) {
-
-            this.elements.cashInBtn.disabled =
-                false;
-
-        }
-
-        if (this.elements.cashOutBtn) {
-
-            this.elements.cashOutBtn.disabled =
-                false;
-
-        }
-
-    },
-
+   
 
     setDrawerClosedState() {
 
@@ -966,15 +1160,15 @@ const CashDrawer = {
         }
 
 
-        this.setText(
-            this.elements.drawerTerminalName,
-            '—'
-        );
+        // this.setText(
+        //     this.elements.drawerTerminalName,
+        //     '—'
+        // );
 
-        this.setText(
-            this.elements.drawerBranchName,
-            '—'
-        );
+        // this.setText(
+        //     this.elements.drawerBranchName,
+        //     '—'
+        // );
 
         this.setText(
             this.elements.drawerOpenedBy,
@@ -994,50 +1188,309 @@ const CashDrawer = {
     },
 
 
+
+    /*
+|--------------------------------------------------------------------------
+| KPIs
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Update cash drawer KPIs.
+ */
+updateKpis(drawer) {
+
     /*
     |--------------------------------------------------------------------------
-    | KPIs
+    | Opening Balance
     |--------------------------------------------------------------------------
     */
 
-    updateKpis(drawer) {
+    this.setMoney(
+        this.elements.kpiOpeningBalance,
+        drawer.opening_balance
+            ?? 0
+    );
 
-        this.setMoney(
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cash Sales Breakdown
+    |--------------------------------------------------------------------------
+    |
+    | The backend currently returns all cash sales in
+    | cash_sales_breakdown, grouped by created_by.
+    |
+    */
+
+    const cashSalesBreakdown =
+        drawer.cash_sales_breakdown
+        ?? [];
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current User
+    |--------------------------------------------------------------------------
+    */
+
+    const currentUserId =
+        Number(
+            CashDrawerConfig.userId
+            ?? 0
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | My Cash Sales
+    |--------------------------------------------------------------------------
+    */
+
+    const myCashSales =
+        cashSalesBreakdown
+            .filter(
+                item =>
+                    Number(
+                        item.user_id
+                    ) === currentUserId
+            )
+            .reduce(
+                (
+                    total,
+                    item
+                ) =>
+                    total +
+                    Number(
+                        item.amount
+                        ?? 0
+                    ),
+                0
+            );
+
+
+    this.setMoney(
+        this.elements.kpiCashSales,
+        myCashSales
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cash Sales Information
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.cashSalesInfo
+    ) {
+
+        this.elements.cashSalesInfo.textContent =
+            myCashSales > 0
+                ? 'Sales made by you'
+                : 'No cash sales yet';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Other Cash Sales
+    |--------------------------------------------------------------------------
+    */
+
+    const otherCashSales =
+        cashSalesBreakdown
+            .filter(
+                item =>
+                    Number(
+                        item.user_id
+                    ) !== currentUserId
+            );
+
+
+    const otherCashSalesTotal =
+        otherCashSales
+            .reduce(
+                (
+                    total,
+                    item
+                ) =>
+                    total +
+                    Number(
+                        item.amount
+                        ?? 0
+                    ),
+                0
+            );
+
+
+    this.setMoney(
+        this.elements.kpiOtherCashSales,
+        otherCashSalesTotal
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Other Cash Sales Information
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.otherCashSalesInfo
+    ) {
+
+        if (
+            !otherCashSales.length
+        ) {
+
+            this.elements.otherCashSalesInfo.textContent =
+                'No other cash sales';
+
+        } else {
+
+            const userText =
+                otherCashSales
+                    .map(
+                        item => {
+
+                            const name =
+                                item.user_name
+                                || 'Unknown user';
+
+                            return `${name} ${this.formatMoney(
+                                item.amount
+                            )}`;
+
+                        }
+                    )
+                    .join(
+                        ' · '
+                    );
+
+
+            this.elements.otherCashSalesInfo.textContent =
+                userText;
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cash In
+    |--------------------------------------------------------------------------
+    */
+
+    this.setMoney(
+        this.elements.kpiCashIn,
+        drawer.cash_in
+            ?? 0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cash Out
+    |--------------------------------------------------------------------------
+    */
+
+    this.setMoney(
+        this.elements.kpiCashOut,
+        drawer.cash_out
+            ?? 0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cash Refunds
+    |--------------------------------------------------------------------------
+    */
+
+    this.setMoney(
+        this.elements.kpiCashRefunds,
+        drawer.cash_refunds
+            ?? 0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Expected Balance
+    |--------------------------------------------------------------------------
+    */
+
+    this.setMoney(
+        this.elements.kpiExpectedBalance,
+        drawer.expected_balance
+            ?? 0
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current Cash Balance
+    |--------------------------------------------------------------------------
+    */
+
+    this.setMoney(
+        this.elements.kpiCurrentBalance,
+        drawer.current_balance
+            ?? drawer.expected_balance
+            ?? 0
+    );
+
+},
+
+    /**
+     * Reset cash drawer KPIs.
+     */
+    resetKpis() {
+
+        const fields = [
+
             this.elements.kpiOpeningBalance,
-            drawer.opening_balance
-        );
 
-        this.setMoney(
             this.elements.kpiCashSales,
-            drawer.cash_sales
-        );
 
-        this.setMoney(
             this.elements.kpiCashIn,
-            drawer.cash_in
-        );
 
-        this.setMoney(
             this.elements.kpiCashOut,
-            drawer.cash_out
-        );
 
-        this.setMoney(
             this.elements.kpiCashRefunds,
-            drawer.cash_refunds
-        );
 
-        this.setMoney(
             this.elements.kpiExpectedBalance,
-            drawer.expected_balance
+
+            this.elements.kpiCurrentBalance,
+
+        ];
+
+        fields.forEach(
+            element => {
+
+                this.setMoney(
+                    element,
+                    0
+                );
+
+            }
         );
 
-        this.setMoney(
-            this.elements.kpiCurrentBalance,
-            drawer.actual_balance
-                ?? drawer.current_balance
-                ?? drawer.expected_balance
-        );
+        /*
+        |--------------------------------------------------------------------------
+        | Cash Sales Information
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.elements.cashSalesInfo) {
+
+            this.elements.cashSalesInfo.textContent =
+                'No cash sales yet';
+
+        }
 
     },
 
@@ -1063,31 +1516,44 @@ const CashDrawer = {
     },
 
 
+   openDrawerModal() {
+
+    console.log('OPEN DRAWER BUTTON CLICKED');
+
+    console.log(
+        'Modal element:',
+        document.getElementById('openDrawerModal')
+    );
+
+    console.log(
+        'Modal instance:',
+        this.modals.openDrawer
+    );
+
+
+    this.clearFormErrors(
+        this.elements.openDrawerForm
+    );
+
+    this.elements.openDrawerForm?.reset();
+
+    if (this.elements.openingBalance) {
+
+        this.elements.openingBalance.value =
+            '0.00';
+
+    }
+
+    this.modals.openDrawer?.show();
+
+},
+
+
     /*
     |--------------------------------------------------------------------------
-    | Open Drawer
+    | Submit Open Drawer
     |--------------------------------------------------------------------------
     */
-
-    openDrawerModal() {
-
-        this.clearFormErrors(
-            this.elements.openDrawerForm
-        );
-
-        this.elements.openDrawerForm?.reset();
-
-        if (this.elements.openingBalance) {
-
-            this.elements.openingBalance.value =
-                '0.00';
-
-        }
-
-        this.modals.openDrawer?.show();
-
-    },
-
 
     async submitOpenDrawer() {
 
@@ -1120,6 +1586,7 @@ const CashDrawer = {
 
             this.modals.openDrawer?.hide();
 
+
             this.showSuccess(
                 'Cash drawer opened successfully.'
             );
@@ -1127,12 +1594,14 @@ const CashDrawer = {
 
             await this.refresh();
 
+
         } catch (error) {
 
             this.handleRequestError(
                 error,
                 this.elements.openDrawerForm
             );
+
 
         } finally {
 
@@ -1144,6 +1613,8 @@ const CashDrawer = {
         }
 
     },
+
+
 
 
     /*
@@ -1321,110 +1792,219 @@ const CashDrawer = {
 
 
     /*
+|--------------------------------------------------------------------------
+| Close Drawer
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Open close drawer modal.
+ */
+openCloseDrawerModal() {
+
+    const state =
+        this.state.currentDrawer;
+
+
+    /*
     |--------------------------------------------------------------------------
-    | Close Drawer
+    | Current Drawer
     |--------------------------------------------------------------------------
     */
 
-    openCloseDrawerModal() {
-
-        const drawer =
-            this.state.currentDrawer;
-
-
-        if (!drawer) {
-
-            this.showError(
-                'There is no open cash drawer to close.'
-            );
-
-            return;
-
-        }
+    const drawer =
+        state?.drawer
+        ?? null;
 
 
-        this.clearFormErrors(
-            this.elements.closeDrawerForm
+    /*
+    |--------------------------------------------------------------------------
+    | Current KPIs
+    |--------------------------------------------------------------------------
+    */
+
+    const kpis =
+        state?.kpis
+        ?? {};
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Drawer Validation
+    |--------------------------------------------------------------------------
+    */
+
+    if (!drawer) {
+
+        this.showError(
+            'There is no open cash drawer to close.'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clear Previous Errors
+    |--------------------------------------------------------------------------
+    */
+
+    this.clearFormErrors(
+        this.elements.closeDrawerForm
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Form
+    |--------------------------------------------------------------------------
+    */
+
+    this.elements.closeDrawerForm?.reset();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Expected Balance
+    |--------------------------------------------------------------------------
+    */
+
+    const expected =
+        Number(
+            kpis.expected_balance
+            ?? kpis.current_balance
+            ?? 0
         );
 
 
-        this.elements.closeDrawerForm?.reset();
+    /*
+    |--------------------------------------------------------------------------
+    | Cash Sales
+    |--------------------------------------------------------------------------
+    */
 
-
-        const expected =
-            drawer.expected_balance
-            ?? drawer.current_balance
-            ?? 0;
-
-
-        this.setMoney(
-            this.elements.closeExpectedBalance,
-            expected
+    const cashSales =
+        Number(
+            kpis.cash_sales
+            ?? 0
         );
 
 
-        this.setMoney(
-            this.elements.closeCashSales,
-            drawer.cash_sales
+    /*
+    |--------------------------------------------------------------------------
+    | Populate Summary
+    |--------------------------------------------------------------------------
+    */
+
+    this.setMoney(
+        this.elements.closeExpectedBalance,
+        expected
+    );
+
+
+    this.setMoney(
+        this.elements.closeCashSales,
+        cashSales
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Actual Balance
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.actualBalance
+    ) {
+
+        this.elements.actualBalance.value =
+            '';
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Variance Preview
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.elements.variancePreview
+    ) {
+
+        this.elements.variancePreview.classList.add(
+            'd-none'
+        );
+
+        this.elements.variancePreview.classList.remove(
+            'alert-success',
+            'alert-danger',
+            'alert-warning'
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Show Modal
+    |--------------------------------------------------------------------------
+    */
+
+    this.modals.closeDrawer?.show();
+
+},
+
+
+  updateVariancePreview() {
+
+    const state =
+        this.state.currentDrawer;
+
+
+    const kpis =
+        state?.kpis
+        ?? {};
+
+
+    if (!state?.drawer) {
+
+        return;
+
+    }
+
+
+    const actual =
+        parseFloat(
+            this.elements.actualBalance?.value
         );
 
 
-        if (this.elements.actualBalance) {
-
-            this.elements.actualBalance.value =
-                '';
-
-        }
-
+    if (Number.isNaN(actual)) {
 
         this.elements.variancePreview?.classList.add(
             'd-none'
         );
 
+        return;
 
-        this.modals.closeDrawer?.show();
-
-    },
-
-
-    updateVariancePreview() {
-
-        const drawer =
-            this.state.currentDrawer;
+    }
 
 
-        if (!drawer) {
-            return;
-        }
+    const expected =
+        Number(
+            kpis.expected_balance
+            ?? kpis.current_balance
+            ?? 0
+        );
 
 
-        const actual =
-            parseFloat(
-                this.elements.actualBalance?.value
-            );
-
-
-        if (Number.isNaN(actual)) {
-
-            this.elements.variancePreview?.classList.add(
-                'd-none'
-            );
-
-            return;
-
-        }
-
-
-        const expected =
-            parseFloat(
-                drawer.expected_balance
-                ?? drawer.current_balance
-                ?? 0
-            );
-
-
-        const variance =
-            actual - expected;
+    const variance =
+        actual - expected;
 
 
         this.elements.variancePreview?.classList.remove(
@@ -1472,62 +2052,128 @@ const CashDrawer = {
     },
 
 
-    async submitCloseDrawer() {
+    /*
+|--------------------------------------------------------------------------
+| Submit Close Drawer
+|--------------------------------------------------------------------------
+*/
 
-        this.clearFormErrors(
+async submitCloseDrawer() {
+
+    this.clearFormErrors(
+        this.elements.closeDrawerForm
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current Drawer
+    |--------------------------------------------------------------------------
+    */
+
+    const drawer =
+        this.state.currentDrawer?.drawer;
+
+
+    if (!drawer?.id) {
+
+        this.showError(
+            'Unable to identify the current cash drawer.'
+        );
+
+        return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Form Data
+    |--------------------------------------------------------------------------
+    */
+
+    const data =
+        this.formData(
             this.elements.closeDrawerForm
         );
 
 
-        const data =
-            this.formData(
-                this.elements.closeDrawerForm
-            );
+    /*
+    |--------------------------------------------------------------------------
+    | Close URL
+    |--------------------------------------------------------------------------
+    */
 
-
-        this.setButtonLoading(
-            this.elements.closeDrawerSubmit,
-            true,
-            'Closing...'
+    const url =
+        CashDrawerConfig.urls.close.replace(
+            '__ID__',
+            String(drawer.id)
         );
 
 
-        try {
+    console.log(
+        'Current drawer:',
+        drawer
+    );
 
-            await this.request(
-                CashDrawerConfig.urls.close,
-                'POST',
-                data
-            );
+    console.log(
+        'Drawer ID:',
+        drawer.id
+    );
+
+    console.log(
+        'Close URL:',
+        url
+    );
 
 
-            this.modals.closeDrawer?.hide();
+    /*
+    |--------------------------------------------------------------------------
+    | Loading
+    |--------------------------------------------------------------------------
+    */
 
-            this.showSuccess(
-                'Cash drawer closed successfully.'
-            );
+    this.setButtonLoading(
+        this.elements.closeDrawerSubmit,
+        true,
+        'Closing...'
+    );
 
 
-            await this.refresh();
+    try {
 
-        } catch (error) {
+        await this.request(
+            url,
+            'POST',
+            data
+        );
 
-            this.handleRequestError(
-                error,
-                this.elements.closeDrawerForm
-            );
 
-        } finally {
+        this.modals.closeDrawer?.hide();
 
-            this.setButtonLoading(
-                this.elements.closeDrawerSubmit,
-                false
-            );
+        this.showSuccess(
+            'Cash drawer closed successfully.'
+        );
 
-        }
+        await this.refresh();
 
-    },
+    } catch (error) {
 
+        this.handleRequestError(
+            error,
+            this.elements.closeDrawerForm
+        );
+
+    } finally {
+
+        this.setButtonLoading(
+            this.elements.closeDrawerSubmit,
+            false
+        );
+
+    }
+
+},
 
     /*
     |--------------------------------------------------------------------------
@@ -1677,27 +2323,7 @@ const CashDrawer = {
 
         return `
 
-            <tr>
-
-                <td>
-
-                    <button
-                        type="button"
-                        class="btn btn-link p-0 text-decoration-none fw-medium"
-                        data-transaction-id="${this.escape(
-                            transaction.id
-                        )}"
-                    >
-
-                        ${this.escape(
-                            transaction.transaction_no
-                            ?? transaction.id
-                            ?? '—'
-                        )}
-
-                    </button>
-
-                </td>
+            <tr>                
 
                 <td>
 
@@ -2080,27 +2706,7 @@ const CashDrawer = {
 
         return `
 
-            <tr>
-
-                <td>
-
-                    <button
-                        type="button"
-                        class="btn btn-link p-0 text-decoration-none fw-medium"
-                        data-drawer-id="${this.escape(
-                            drawer.id
-                        )}"
-                    >
-
-                        ${this.escape(
-                            drawer.terminal?.name
-                            ?? drawer.terminal_name
-                            ?? `Drawer #${drawer.id}`
-                        )}
-
-                    </button>
-
-                </td>
+            
 
                 <td>
 

@@ -112,7 +112,7 @@ Route::middleware('auth')->group(function () {
 
                 Route::post('/open',[CashDrawerController::class, 'open'])->name('open');
 
-                Route::post('/close',[CashDrawerController::class, 'close'])->name('close');
+                Route::post('/{id}/close',[CashDrawerController::class, 'close'])->name('close');
 
                 Route::post('/cash-in',[CashDrawerController::class, 'cashIn'])->name('cash-in');
 

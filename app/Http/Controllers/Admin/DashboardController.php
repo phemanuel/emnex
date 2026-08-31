@@ -19,12 +19,16 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    //
+    /**
+     * Dashboard index.
+     */
     public function index()
     {
-        $user = Auth::user();
+        $user =
+            Auth::user();
 
-        $companyId = $user->company_id;
+        $companyId =
+            $user->company_id;
 
         /*
         |--------------------------------------------------------------------------
@@ -32,15 +36,23 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $role = $user->role?->code;
+        $role =
+            $user->role?->code;
 
-        $canManageAllBranches = in_array($role, [
-            'owner',
-            'administrator',
-        ]);
+        $canManageAllBranches =
+            in_array($role, [
+                'owner',
+                'administrator',
+            ]);
 
-       $currentBranchId = $user->branch_id;
+        $isBranchManager =
+            $role === 'branch_manager';
 
+        $isCashier =
+            $role === 'cashier';
+
+        $currentBranchId =
+            $user->branch_id;
 
         /*
         |--------------------------------------------------------------------------
@@ -80,112 +92,158 @@ class DashboardController extends Controller
             canAccess('terminals.view') ||
             canAccess('pos.cash_drawer');
 
-
         /*
         |--------------------------------------------------------------------------
         | Date Period
         |--------------------------------------------------------------------------
         */
 
-        $period = request('period', 'this_week');
-
+        $period =
+            request(
+                'period',
+                'this_week'
+            );
 
         switch ($period) {
 
             case 'today':
 
-                $startDate = Carbon::today();
-                $endDate = Carbon::today();
+                $startDate =
+                    Carbon::today();
+
+                $endDate =
+                    Carbon::today();
 
                 break;
-
 
             case 'yesterday':
 
-                $startDate = Carbon::yesterday();
-                $endDate = Carbon::yesterday();
+                $startDate =
+                    Carbon::yesterday();
+
+                $endDate =
+                    Carbon::yesterday();
 
                 break;
-
 
             case 'this_month':
 
                 $startDate =
-                    Carbon::now()->startOfMonth();
+                    Carbon::now()
+                        ->startOfMonth();
 
                 $endDate =
-                    Carbon::now()->endOfMonth();
+                    Carbon::now()
+                        ->endOfMonth();
 
                 break;
-
 
             case 'this_year':
 
                 $startDate =
-                    Carbon::now()->startOfYear();
+                    Carbon::now()
+                        ->startOfYear();
 
                 $endDate =
-                    Carbon::now()->endOfYear();
+                    Carbon::now()
+                        ->endOfYear();
 
                 break;
-
 
             default:
 
                 $startDate =
-                    Carbon::now()->startOfWeek();
+                    Carbon::now()
+                        ->startOfWeek();
 
                 $endDate =
-                    Carbon::now()->endOfWeek();
+                    Carbon::now()
+                        ->endOfWeek();
 
                 break;
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
         | Order Query
         |--------------------------------------------------------------------------
+        |
+        | Owner / Administrator
+        |     - All branches
+        |     - All users
+        |
+        | Branch Manager
+        |     - All users
+        |     - Own branch
+        |
+        | Cashier
+        |     - Own orders only
+        |
         */
 
-        $orderQuery = Order::forCompany($companyId);
+        $orderQuery =
+            Order::forCompany(
+                $companyId
+            );
 
+        if ($isCashier) {
 
-        if (!$canManageAllBranches) {
+            $orderQuery->where(
+                'cashier_id',
+                $user->id
+            );
+
+        } elseif ($isBranchManager) {
 
             $orderQuery->where(
                 'branch_id',
                 $currentBranchId
             );
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
         | Payment Query
         |--------------------------------------------------------------------------
+        |
+        | Cashiers are scoped by received_by.
+        | Branch managers are scoped by branch.
+        |
         */
 
         $paymentQuery =
-            Payment::forCompany($companyId);
+            Payment::forCompany(
+                $companyId
+            );
 
+        if ($isCashier) {
 
-        if (!$canManageAllBranches) {
+            $paymentQuery->where(
+                'received_by',
+                $user->id
+            );
+
+        } elseif ($isBranchManager) {
 
             $paymentQuery->where(
                 'branch_id',
                 $currentBranchId
             );
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
         | Product Stock Query
         |--------------------------------------------------------------------------
+        |
+        | Stock is operational branch data.
+        |
+        | Owner / Administrator
+        |     - All branches
+        |
+        | Branch Manager / Cashier
+        |     - Current branch
+        |
         */
 
         $stockQuery =
@@ -195,16 +253,15 @@ class DashboardController extends Controller
                     $companyId
                 );
 
-
-        if (!$canManageAllBranches) {
+        if (
+            !$canManageAllBranches
+        ) {
 
             $stockQuery->where(
                 'branch_id',
                 $currentBranchId
             );
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -213,7 +270,6 @@ class DashboardController extends Controller
         */
 
         $todaySales = 0;
-
 
         if ($canViewSales) {
 
@@ -224,13 +280,11 @@ class DashboardController extends Controller
                         'created_at',
                         [
                             $startDate,
-                            $endDate
+                            $endDate,
                         ]
                     )
                     ->sum('total');
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -240,7 +294,6 @@ class DashboardController extends Controller
 
         $todayTransactions = 0;
 
-
         if ($canViewOrders) {
 
             $todayTransactions =
@@ -249,13 +302,11 @@ class DashboardController extends Controller
                         'created_at',
                         [
                             $startDate,
-                            $endDate
+                            $endDate,
                         ]
                     )
                     ->count();
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -267,20 +318,19 @@ class DashboardController extends Controller
 
         $newCustomersToday = 0;
 
-
         if ($canViewCustomers) {
 
             $customerQuery =
-                Customer::forCompany($companyId);
-
+                Customer::forCompany(
+                    $companyId
+                );
 
             /*
             |--------------------------------------------------------------------------
             | Branch Customer Scope
             |--------------------------------------------------------------------------
             |
-            | If your customers table has branch_id, this keeps customers
-            | branch-specific.
+            | Customers are branch-scoped where branch_id exists.
             |
             */
 
@@ -296,14 +346,21 @@ class DashboardController extends Controller
                     'branch_id',
                     $currentBranchId
                 );
-
             }
 
+            /*
+            |--------------------------------------------------------------------------
+            | Customer Scope For Cashier
+            |--------------------------------------------------------------------------
+            |
+            | If customers do not have a cashier/created_by field, branch
+            | remains the appropriate operational scope.
+            |
+            */
 
             $totalCustomers =
                 (clone $customerQuery)
                     ->count();
-
 
             $newCustomersToday =
                 (clone $customerQuery)
@@ -311,13 +368,11 @@ class DashboardController extends Controller
                         'created_at',
                         [
                             $startDate,
-                            $endDate
+                            $endDate,
                         ]
                     )
                     ->count();
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -325,37 +380,35 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $inventoryQuery = ProductStock::query()
+        $inventoryQuery =
+            ProductStock::query()
+                ->join(
+                    'products',
+                    'products.id',
+                    '=',
+                    'product_stocks.product_id'
+                )
+                ->where(
+                    'product_stocks.company_id',
+                    $companyId
+                );
 
-            ->join(
-                'products',
-                'products.id',
-                '=',
-                'product_stocks.product_id'
-            )
-
-            ->where(
-                'product_stocks.company_id',
-                $companyId
-            );
-
-
-        if (! canManageAllBranches()) {
+        if (
+            !$canManageAllBranches
+        ) {
 
             $inventoryQuery->where(
                 'product_stocks.branch_id',
-                currentBranchId()
+                $currentBranchId
             );
-
         }
 
-
-        $inventoryValue = $inventoryQuery->sum(
-            DB::raw(
-                'product_stocks.available_quantity * products.cost_price'
-            )
-        );
-        
+        $inventoryValue =
+            $inventoryQuery->sum(
+                DB::raw(
+                    'product_stocks.available_quantity * products.cost_price'
+                )
+            );
 
         /*
         |--------------------------------------------------------------------------
@@ -369,6 +422,7 @@ class DashboardController extends Controller
 
         $transferSales = 0;
 
+        $walletSales = 0;
 
         if ($canViewPayments) {
 
@@ -379,13 +433,14 @@ class DashboardController extends Controller
                         'created_at',
                         [
                             $startDate,
-                            $endDate
+                            $endDate,
                         ]
                     );
 
-
             /*
+            |--------------------------------------------------------------------------
             | Cash
+            |--------------------------------------------------------------------------
             */
 
             $cashSales =
@@ -396,9 +451,10 @@ class DashboardController extends Controller
                     )
                     ->sum('amount');
 
-
             /*
+            |--------------------------------------------------------------------------
             | Card / POS
+            |--------------------------------------------------------------------------
             */
 
             $cardSales =
@@ -409,9 +465,10 @@ class DashboardController extends Controller
                     )
                     ->sum('amount');
 
-
             /*
+            |--------------------------------------------------------------------------
             | Bank Transfer
+            |--------------------------------------------------------------------------
             */
 
             $transferSales =
@@ -422,8 +479,10 @@ class DashboardController extends Controller
                     )
                     ->sum('amount');
 
-             /*
+            /*
+            |--------------------------------------------------------------------------
             | Wallet
+            |--------------------------------------------------------------------------
             */
 
             $walletSales =
@@ -433,7 +492,6 @@ class DashboardController extends Controller
                         'Wallet'
                     )
                     ->sum('amount');
-
         }
 
         /*
@@ -442,12 +500,12 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $refundQuery = SalesReturn::query()
-            ->where(
-                'company_id',
-                $companyId
-            );
-
+        $refundQuery =
+            SalesReturn::query()
+                ->where(
+                    'company_id',
+                    $companyId
+                );
 
         if (!$canManageAllBranches) {
 
@@ -455,24 +513,18 @@ class DashboardController extends Controller
                 'branch_id',
                 $currentBranchId
             );
-
         }
-
 
         $refunds =
             (clone $refundQuery)
-
                 ->whereBetween(
                     'created_at',
                     [
                         $startDate,
-                        $endDate
+                        $endDate,
                     ]
                 )
-
                 ->sum('refund_amount');
-
-
 
         /*
         |--------------------------------------------------------------------------
@@ -482,16 +534,13 @@ class DashboardController extends Controller
 
         $pendingOrders = 0;
 
-
         if ($canViewOrders) {
 
             $pendingOrders =
                 (clone $orderQuery)
                     ->pending()
                     ->count();
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -501,7 +550,6 @@ class DashboardController extends Controller
 
         $recentOrders =
             collect();
-
 
         if ($canViewOrders) {
 
@@ -514,9 +562,7 @@ class DashboardController extends Controller
                     ->latest()
                     ->take(10)
                     ->get();
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -527,7 +573,6 @@ class DashboardController extends Controller
         $lowStockProducts =
             collect();
 
-
         if ($canViewLowStock) {
 
             $lowStockProducts =
@@ -537,38 +582,50 @@ class DashboardController extends Controller
                     ->orderBy('quantity')
                     ->take(5)
                     ->get();
-
         }
-       
+
         /*
         |--------------------------------------------------------------------------
         | Top Selling Products
         |--------------------------------------------------------------------------
         */
 
-        $topProducts = collect();
-
+        $topProducts =
+            collect();
 
         if ($canViewSales) {
 
             $orderItemQuery =
-
                 OrderItem::forCompany(
                     $companyId
                 );
 
-
             /*
             |--------------------------------------------------------------------------
-            | Branch Scope
+            | Cashier / Branch Manager Scope
             |--------------------------------------------------------------------------
             |
-            | Order items are tied to orders, and orders contain the branch_id.
-            | Therefore branch access is enforced through the parent order.
+            | Order items belong to orders.
+            | Therefore the order query is used to enforce access.
             |
             */
 
-            if (!$canManageAllBranches) {
+            if ($isCashier) {
+
+                $orderItemQuery->whereHas(
+                    'order',
+                    function ($query) use (
+                        $user
+                    ) {
+
+                        $query->where(
+                            'cashier_id',
+                            $user->id
+                        );
+                    }
+                );
+
+            } elseif ($isBranchManager) {
 
                 $orderItemQuery->whereHas(
                     'order',
@@ -580,12 +637,9 @@ class DashboardController extends Controller
                             'branch_id',
                             $currentBranchId
                         );
-
                     }
                 );
-
             }
-
 
             /*
             |--------------------------------------------------------------------------
@@ -598,10 +652,8 @@ class DashboardController extends Controller
                 function ($query) {
 
                     $query->completed();
-
                 }
             );
-
 
             /*
             |--------------------------------------------------------------------------
@@ -620,13 +672,11 @@ class DashboardController extends Controller
                         'created_at',
                         [
                             $startDate,
-                            $endDate
+                            $endDate,
                         ]
                     );
-
                 }
             );
-
 
             /*
             |--------------------------------------------------------------------------
@@ -635,9 +685,7 @@ class DashboardController extends Controller
             */
 
             $topProducts =
-
                 $orderItemQuery
-
                     ->selectRaw(
                         "
                             product_id,
@@ -646,24 +694,17 @@ class DashboardController extends Controller
                             SUM(total) as total_sales
                         "
                     )
-
                     ->groupBy(
                         'product_id',
                         'product_name'
                     )
-
                     ->orderByDesc(
                         'total_quantity'
                     )
-
                     ->take(5)
-
                     ->get();
-
         }
 
-
-      
         /*
         |--------------------------------------------------------------------------
         | Sales Chart
@@ -685,13 +726,16 @@ class DashboardController extends Controller
                 case 'today':
 
                     $chartStartDate =
-                        $startDate->copy()->startOfDay();
+                        $startDate
+                            ->copy()
+                            ->startOfDay();
 
                     $chartEndDate =
-                        $endDate->copy()->endOfDay();
+                        $endDate
+                            ->copy()
+                            ->endOfDay();
 
                     break;
-
 
                 /*
                 |--------------------------------------------------------------------------
@@ -702,13 +746,16 @@ class DashboardController extends Controller
                 case 'yesterday':
 
                     $chartStartDate =
-                        $startDate->copy()->startOfDay();
+                        $startDate
+                            ->copy()
+                            ->startOfDay();
 
                     $chartEndDate =
-                        $endDate->copy()->endOfDay();
+                        $endDate
+                            ->copy()
+                            ->endOfDay();
 
                     break;
-
 
                 /*
                 |--------------------------------------------------------------------------
@@ -719,13 +766,16 @@ class DashboardController extends Controller
                 case 'this_week':
 
                     $chartStartDate =
-                        $startDate->copy()->startOfDay();
+                        $startDate
+                            ->copy()
+                            ->startOfDay();
 
                     $chartEndDate =
-                        $endDate->copy()->endOfDay();
+                        $endDate
+                            ->copy()
+                            ->endOfDay();
 
                     break;
-
 
                 /*
                 |--------------------------------------------------------------------------
@@ -736,13 +786,16 @@ class DashboardController extends Controller
                 case 'this_month':
 
                     $chartStartDate =
-                        $startDate->copy()->startOfDay();
+                        $startDate
+                            ->copy()
+                            ->startOfDay();
 
                     $chartEndDate =
-                        $endDate->copy()->endOfDay();
+                        $endDate
+                            ->copy()
+                            ->endOfDay();
 
                     break;
-
 
                 /*
                 |--------------------------------------------------------------------------
@@ -753,13 +806,16 @@ class DashboardController extends Controller
                 case 'this_year':
 
                     $chartStartDate =
-                        $startDate->copy()->startOfDay();
+                        $startDate
+                            ->copy()
+                            ->startOfDay();
 
                     $chartEndDate =
-                        $endDate->copy()->endOfDay();
+                        $endDate
+                            ->copy()
+                            ->endOfDay();
 
                     break;
-
 
                 /*
                 |--------------------------------------------------------------------------
@@ -770,15 +826,17 @@ class DashboardController extends Controller
                 default:
 
                     $chartStartDate =
-                        $startDate->copy()->startOfDay();
+                        $startDate
+                            ->copy()
+                            ->startOfDay();
 
                     $chartEndDate =
-                        $endDate->copy()->endOfDay();
+                        $endDate
+                            ->copy()
+                            ->endOfDay();
 
                     break;
-
             }
-
 
             /*
             |--------------------------------------------------------------------------
@@ -797,73 +855,69 @@ class DashboardController extends Controller
                 */
 
                 $chartCursor =
-                    $chartStartDate->copy()->startOfMonth();
+                    $chartStartDate
+                        ->copy()
+                        ->startOfMonth();
 
                 $chartEnd =
-                    $chartEndDate->copy()->startOfMonth();
-
+                    $chartEndDate
+                        ->copy()
+                        ->startOfMonth();
 
                 while (
-                    $chartCursor->lte($chartEnd)
+                    $chartCursor->lte(
+                        $chartEnd
+                    )
                 ) {
 
                     $monthStart =
-                        $chartCursor->copy()->startOfMonth();
+                        $chartCursor
+                            ->copy()
+                            ->startOfMonth();
 
                     $monthEnd =
-                        $chartCursor->copy()->endOfMonth();
-
+                        $chartCursor
+                            ->copy()
+                            ->endOfMonth();
 
                     $sales =
-
                         (clone $orderQuery)
-
                             ->completed()
-
                             ->whereBetween(
                                 'created_at',
                                 [
                                     $monthStart,
-                                    $monthEnd
+                                    $monthEnd,
                                 ]
                             )
-
                             ->sum('amount_paid');
 
-
                     $transactions =
-
                         (clone $orderQuery)
-
                             ->completed()
-
                             ->whereBetween(
                                 'created_at',
                                 [
                                     $monthStart,
-                                    $monthEnd
+                                    $monthEnd,
                                 ]
                             )
-
                             ->count();
-
 
                     $salesChart[] = [
 
                         'day' =>
-                            $chartCursor->format('M'),
+                            $chartCursor
+                                ->format('M'),
 
                         'sales' =>
                             (float) $sales,
 
                         'transactions' =>
                             $transactions,
-
                     ];
 
-
                     $chartCursor->addMonth();
-
                 }
 
             } elseif (
@@ -877,73 +931,69 @@ class DashboardController extends Controller
                 */
 
                 $chartCursor =
-                    $chartStartDate->copy()->startOfDay();
+                    $chartStartDate
+                        ->copy()
+                        ->startOfDay();
 
                 $chartEnd =
-                    $chartEndDate->copy()->startOfDay();
-
+                    $chartEndDate
+                        ->copy()
+                        ->startOfDay();
 
                 while (
-                    $chartCursor->lte($chartEnd)
+                    $chartCursor->lte(
+                        $chartEnd
+                    )
                 ) {
 
                     $dayStart =
-                        $chartCursor->copy()->startOfDay();
+                        $chartCursor
+                            ->copy()
+                            ->startOfDay();
 
                     $dayEnd =
-                        $chartCursor->copy()->endOfDay();
-
+                        $chartCursor
+                            ->copy()
+                            ->endOfDay();
 
                     $sales =
-
                         (clone $orderQuery)
-
                             ->completed()
-
                             ->whereBetween(
                                 'created_at',
                                 [
                                     $dayStart,
-                                    $dayEnd
+                                    $dayEnd,
                                 ]
                             )
-
                             ->sum('amount_paid');
 
-
                     $transactions =
-
                         (clone $orderQuery)
-
                             ->completed()
-
                             ->whereBetween(
                                 'created_at',
                                 [
                                     $dayStart,
-                                    $dayEnd
+                                    $dayEnd,
                                 ]
                             )
-
                             ->count();
-
 
                     $salesChart[] = [
 
                         'day' =>
-                            $chartCursor->format('d M'),
+                            $chartCursor
+                                ->format('d M'),
 
                         'sales' =>
                             (float) $sales,
 
                         'transactions' =>
                             $transactions,
-
                     ];
 
-
                     $chartCursor->addDay();
-
                 }
 
             } else {
@@ -951,87 +1001,79 @@ class DashboardController extends Controller
                 /*
                 |--------------------------------------------------------------------------
                 | Daily Chart
+                |--------------------------------------------------------------------------
                 |
                 | Today / Yesterday / This Week
-                |--------------------------------------------------------------------------
+                |
                 */
 
                 $chartCursor =
-                    $chartStartDate->copy()->startOfDay();
+                    $chartStartDate
+                        ->copy()
+                        ->startOfDay();
 
                 $chartEnd =
-                    $chartEndDate->copy()->startOfDay();
-
+                    $chartEndDate
+                        ->copy()
+                        ->startOfDay();
 
                 while (
-                    $chartCursor->lte($chartEnd)
+                    $chartCursor->lte(
+                        $chartEnd
+                    )
                 ) {
 
                     $dayStart =
-                        $chartCursor->copy()->startOfDay();
+                        $chartCursor
+                            ->copy()
+                            ->startOfDay();
 
                     $dayEnd =
-                        $chartCursor->copy()->endOfDay();
-
+                        $chartCursor
+                            ->copy()
+                            ->endOfDay();
 
                     $sales =
-
                         (clone $orderQuery)
-
                             ->completed()
-
                             ->whereBetween(
                                 'created_at',
                                 [
                                     $dayStart,
-                                    $dayEnd
+                                    $dayEnd,
                                 ]
                             )
-
                             ->sum('amount_paid');
 
-
                     $transactions =
-
                         (clone $orderQuery)
-
                             ->completed()
-
                             ->whereBetween(
                                 'created_at',
                                 [
                                     $dayStart,
-                                    $dayEnd
+                                    $dayEnd,
                                 ]
                             )
-
                             ->count();
-
 
                     $salesChart[] = [
 
                         'day' =>
-                            $chartCursor->format('D'),
+                            $chartCursor
+                                ->format('D'),
 
                         'sales' =>
                             (float) $sales,
 
                         'transactions' =>
                             $transactions,
-
                     ];
 
-
                     $chartCursor->addDay();
-
                 }
-
             }
-
         }
-
-
-
 
         /*
         |--------------------------------------------------------------------------
@@ -1043,7 +1085,19 @@ class DashboardController extends Controller
             'dashboard.index',
             compact(
 
+                /*
+                |--------------------------------------------------------------------------
+                | User
+                |--------------------------------------------------------------------------
+                */
+
                 'user',
+
+                /*
+                |--------------------------------------------------------------------------
+                | Dashboard KPIs
+                |--------------------------------------------------------------------------
+                */
 
                 'todaySales',
                 'todayTransactions',
@@ -1062,16 +1116,31 @@ class DashboardController extends Controller
 
                 'pendingOrders',
 
+                /*
+                |--------------------------------------------------------------------------
+                | Dashboard Lists
+                |--------------------------------------------------------------------------
+                */
+
                 'recentOrders',
-
                 'lowStockProducts',
-
                 'topProducts',
+
+                /*
+                |--------------------------------------------------------------------------
+                | Chart
+                |--------------------------------------------------------------------------
+                */
 
                 'salesChart',
 
-                'period',
+                /*
+                |--------------------------------------------------------------------------
+                | Date Period
+                |--------------------------------------------------------------------------
+                */
 
+                'period',
                 'startDate',
                 'endDate',
 
@@ -1092,13 +1161,21 @@ class DashboardController extends Controller
 
                 /*
                 |--------------------------------------------------------------------------
-                | Branch Scope
+                | Access Scope
                 |--------------------------------------------------------------------------
                 */
 
                 'canManageAllBranches',
-                'currentBranchId'
+                'currentBranchId',
 
+                /*
+                |--------------------------------------------------------------------------
+                | Role Scope
+                |--------------------------------------------------------------------------
+                */
+
+                'isBranchManager',
+                'isCashier'
             )
         );
     }

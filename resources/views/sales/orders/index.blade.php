@@ -44,6 +44,7 @@
                     [
                         'owner',
                         'administrator',
+                        'branch_manager',
                     ]
                 )
             )

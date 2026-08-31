@@ -5655,7 +5655,7 @@ public function storeCustomer(
                                     auth()->id(),
 
                                 'transaction_type' =>
-                                    'Cash Sale',
+                                    'Sale',
 
                                 'amount' =>
                                     $amountPaid,
