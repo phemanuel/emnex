@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use App\Services\ActivityLogger;
+use Illuminate\Http\RedirectResponse;
 
 class CashDrawerController extends BaseController
 {
@@ -26,6 +27,36 @@ class CashDrawerController extends BaseController
         $this->activityLogger = $activityLogger;
     }    
 
+    /**
+     * |--------------------------------------------------------------------------
+     * | POS TERMINAL ACCESS
+     * |--------------------------------------------------------------------------
+     */
+    private function ensureTerminalAssignment(): ?RedirectResponse
+    {
+        $user = auth()->user();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cashiers must have an active terminal assignment
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $user->hasRole('cashier')
+            && ! $user->activeTerminalAssignment()->exists()
+        ) {
+
+            return redirect()
+                ->route('dashboard')
+                ->with(
+                    'error',
+                    'You do not have a POS terminal assigned to you. Please contact your administrator to assign a terminal before starting a sale.'
+                );
+        }
+
+        return null;
+    }
     /*
     |--------------------------------------------------------------------------
     | Index
@@ -38,6 +69,9 @@ class CashDrawerController extends BaseController
     public function index(
         Request $request
     ) {
+        if ($response = $this->ensureTerminalAssignment()) {
+            return $response;
+        }
         /*
         |--------------------------------------------------------------------------
         | Permission

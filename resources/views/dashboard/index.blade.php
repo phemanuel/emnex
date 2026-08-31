@@ -6,102 +6,164 @@
 
 
 {{-- ==========================================================
-    DASHBOARD HEADER
-=========================================================== --}}
+     DASHBOARD HEADER
+     =========================================================== --}}
 
-<div class="dashboard-welcome mb-4">
+<div class="dashboard-header mb-4">
 
-    <div class="welcome-content">
+    {{-- ======================================================
+         TOAST
+         ====================================================== --}}
 
-        <span class="welcome-label">
-            Dashboard Overview
-        </span>
+    @if(session('error'))
 
-        <h2>
-            Good morning, {{ auth()->user()->first_name }} 👋
-        </h2>
+        <script>
 
-        <p>
-            Here is what is happening in your business today.
-            Monitor the areas available to your account from one place.
-        </p>
+            document.addEventListener(
+                'DOMContentLoaded',
+                function () {
 
-    </div>
+                    showToast(
+                        @json(session('error')),
+                        'error'
+                    );
+
+                }
+            );
+
+        </script>
+
+    @endif
 
 
-    <div class="welcome-info">
+    {{-- ======================================================
+         HERO CONTENT
+         ====================================================== --}}
 
-        {{-- Branch --}}
+    <div class="dashboard-header-main">
 
-        <div class="info-item">
+        <div class="dashboard-header-content">
 
-            <i class="bi bi-shop"></i>
+            <span class="dashboard-header-eyebrow">
+                Dashboard Overview
+            </span>
 
-            <div>
+            <h2 class="dashboard-header-title">
+                Good morning,
+                {{ auth()->user()->first_name }}
+                <span>👋</span>
+            </h2>
 
-                <small>
-                    Branch
-                </small>
-
-                <strong>
-
-                    @if($canManageAllBranches)
-
-                        All Branches
-
-                    @else
-
-                        {{ auth()->user()->branch?->name ?? 'Branch' }}
-
-                    @endif
-
-                </strong>
-
-            </div>
+            <p class="dashboard-header-description">
+                Here is what is happening in your business today.
+                Monitor the areas available to your account from one place.
+            </p>
 
         </div>
 
 
-        {{-- Terminal --}}
+        {{-- ==================================================
+             CONTEXT INFORMATION
+             ================================================== --}}
 
-        @if($canViewTerminals)
+        <div class="dashboard-context">
 
-            <div class="info-item">
+            {{-- Branch --}}
+            <div class="dashboard-context-item">
 
-                <i class="bi bi-pc-display"></i>
+                <div class="dashboard-context-icon">
 
-                <div>
+                    <i class="bi bi-shop"></i>
 
-                    <small>
-                        Terminal
-                    </small>
+                </div>
+
+                <div class="dashboard-context-content">
+
+                    <span>
+                        Branch
+                    </span>
 
                     <strong>
-                        {{ auth()->user()->terminal?->terminal_name() ?? 'All Terminals' }}
+
+                        @if($canManageAllBranches)
+
+                            All Branches
+
+                        @else
+
+                            {{ auth()->user()->branch?->name ?? 'Branch' }}
+
+                        @endif
+
                     </strong>
 
                 </div>
 
             </div>
 
-        @endif
+
+            {{-- Terminal --}}
+            @if($canViewTerminals)
+
+                <div
+                    class="dashboard-context-item
+                    {{ auth()->user()->hasRole('cashier') ? 'dashboard-context-terminal' : '' }}
+                    {{ auth()->user()->hasRole('cashier') && !auth()->user()->activeTerminalAssignment ? 'dashboard-context-warning' : '' }}"
+                >
+
+                    <div class="dashboard-context-icon">
+
+                        <i class="bi bi-pc-display"></i>
+
+                    </div>
+
+                    <div class="dashboard-context-content">
+
+                        <span>
+                            Terminal
+                        </span>
+
+                        <strong>
+
+                            @if(auth()->user()->hasRole('cashier'))
+
+                                {{ auth()->user()->activeTerminalAssignment?->terminal?->terminal_name ?? 'No Terminal Assigned' }}
+
+                            @else
+
+                                All Terminals
+
+                            @endif
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            @endif
 
 
-        {{-- Date --}}
+            {{-- Today --}}
+            <div class="dashboard-context-item">
 
-        <div class="info-item">
+                <div class="dashboard-context-icon">
 
-            <i class="bi bi-calendar3"></i>
+                    <i class="bi bi-calendar3"></i>
 
-            <div>
+                </div>
 
-                <small>
-                    Today
-                </small>
+                <div class="dashboard-context-content">
 
-                <strong>
-                    {{ now()->format('d M Y') }}
-                </strong>
+                    <span>
+                        Today
+                    </span>
+
+                    <strong>
+                        {{ now()->format('d M Y') }}
+                    </strong>
+
+                </div>
 
             </div>
 

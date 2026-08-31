@@ -932,12 +932,6 @@ Route::prefix('products')
     ->name('roles.permissions.update');
 
 
-    // ------------------------------------------    
-
-    Route::resource('terminals', TerminalController::class);
-
-
-
     /*
     |--------------------------------------------------------------------------
     | Company
@@ -1044,6 +1038,9 @@ Route::prefix('products')
 
         Route::patch('/{terminal}/toggle-status', [TerminalController::class, 'toggleStatus'])
             ->name('toggle-status');
+
+        Route::get('/table', [TerminalController::class, 'table'])
+            ->name('table');
 
     });
 

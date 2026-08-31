@@ -24,21 +24,45 @@ class TerminalController extends BaseController
 
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Terminal Listing
-    |--------------------------------------------------------------------------
-    */
-
+    
+    /**
+     * |--------------------------------------------------------------------------
+     * | Terminal Listing
+     * |--------------------------------------------------------------------------
+     */
     public function index(Request $request)
     {
+        /*
+        |--------------------------------------------------------------------------
+        | Base Query
+        |--------------------------------------------------------------------------
+        */
 
-        $query = Terminal::with('branch')
-            ->where('company_id', $this->companyId);
-
+        $query = $this->terminalQuery($request);
 
 
         /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
+
+        $user = auth()->user();
+
+        $canManageAllBranches = $user->isOwner()
+            || $user->hasPermission('branches.view_all');
+
+        if (! $canManageAllBranches) {
+
+            $query->where(
+                'branch_id',
+                $user->branch_id
+            );
+
+        }
+
+
+       /*
         |--------------------------------------------------------------------------
         | Search
         |--------------------------------------------------------------------------
@@ -46,27 +70,98 @@ class TerminalController extends BaseController
 
         if ($request->filled('search')) {
 
-            $search = $request->search;
-
+            $search = trim($request->search);
 
             $query->where(function ($q) use ($search) {
 
-                $q->where('terminal_code', 'like', "%{$search}%")
-                    ->orWhere('terminal_name', 'like', "%{$search}%")
-                    ->orWhere('device_name', 'like', "%{$search}%")
-                    ->orWhere('ip_address', 'like', "%{$search}%")
+                /*
+                |--------------------------------------------------------------------------
+                | Terminal
+                |--------------------------------------------------------------------------
+                */
 
-                    ->orWhereHas('branch', function ($branch) use ($search) {
+                $q->where(
+                    'terminal_code',
+                    'like',
+                    "%{$search}%"
+                )
 
-                        $branch->where('name', 'like', "%{$search}%");
+                ->orWhere(
+                    'terminal_name',
+                    'like',
+                    "%{$search}%"
+                )
+
+                ->orWhere(
+                    'device_name',
+                    'like',
+                    "%{$search}%"
+                )
+
+                ->orWhere(
+                    'ip_address',
+                    'like',
+                    "%{$search}%"
+                )
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Branch
+                |--------------------------------------------------------------------------
+                */
+
+                ->orWhereHas('branch', function ($branch) use ($search) {
+
+                    $branch->where(
+                        'name',
+                        'like',
+                        "%{$search}%"
+                    );
+
+                })
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Current Cashier
+                |--------------------------------------------------------------------------
+                */
+
+                ->orWhereHas('activeAssignment.user', function ($user) use ($search) {
+
+                    $user->where(function ($userQuery) use ($search) {
+
+                        $userQuery
+                            ->where(
+                                'first_name',
+                                'like',
+                                "%{$search}%"
+                            )
+                            ->orWhere(
+                                'other_name',
+                                'like',
+                                "%{$search}%"
+                            )
+                            ->orWhere(
+                                'last_name',
+                                'like',
+                                "%{$search}%"
+                            )
+                            ->orWhere(
+                                'username',
+                                'like',
+                                "%{$search}%"
+                            );
 
                     });
+
+                });
 
             });
 
         }
-
-
+        
 
         /*
         |--------------------------------------------------------------------------
@@ -80,55 +175,252 @@ class TerminalController extends BaseController
             ->withQueryString();
 
 
-
         /*
         |--------------------------------------------------------------------------
         | KPI Statistics
         |--------------------------------------------------------------------------
         */
 
-        $totalTerminals = Terminal::where('company_id', $this->companyId)
+        $statisticsQuery = Terminal::where(
+            'company_id',
+            $this->companyId
+        );
+
+
+        if (! $canManageAllBranches) {
+
+            $statisticsQuery->where(
+                'branch_id',
+                $user->branch_id
+            );
+
+        }
+
+
+        $totalTerminals = (clone $statisticsQuery)
             ->count();
 
 
-        $activeTerminals = Terminal::where('company_id', $this->companyId)
-            ->where('status', true)
+        $activeTerminals = (clone $statisticsQuery)
+            ->where(
+                'status',
+                true
+            )
             ->count();
 
 
-        $disabledTerminals = Terminal::where('company_id', $this->companyId)
-            ->where('status', false)
+        $disabledTerminals = (clone $statisticsQuery)
+            ->where(
+                'status',
+                false
+            )
             ->count();
 
 
-        $branchCount = Terminal::where('company_id', $this->companyId)
+        $branchCount = (clone $statisticsQuery)
+            ->whereNotNull('branch_id')
             ->distinct('branch_id')
             ->count('branch_id');
 
-        $branches = Branch::where('company_id', $this->companyId)
-        ->where('status', true)
-        ->orderBy('name')
-        ->get();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branches
+        |--------------------------------------------------------------------------
+        */
+
+        $branchesQuery = Branch::where(
+            'company_id',
+            $this->companyId
+        )
+        ->where(
+            'status',
+            true
+        );
 
 
+        if (! $canManageAllBranches) {
 
-        return view('terminals.index', compact(
+            $branchesQuery->where(
+                'id',
+                $user->branch_id
+            );
 
-            'terminals',
+        }
 
-            'totalTerminals',
 
-            'activeTerminals',
+        $branches = $branchesQuery
+            ->orderBy('name')
+            ->get();
 
-            'disabledTerminals',
 
-            'branchCount',
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
 
-            'branches'
-
-        ));
-
+        return view(
+            'terminals.index',
+            compact(
+                'terminals',
+                'totalTerminals',
+                'activeTerminals',
+                'disabledTerminals',
+                'branchCount',
+                'branches'
+            )
+        );
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal Query
+    |--------------------------------------------------------------------------
+    */
+
+    private function terminalQuery(Request $request)
+    {
+        $user = auth()->user();
+
+        $canManageAllBranches =
+            $user->isOwner()
+            || $user->hasPermission('branches.view_all');
+
+        $query = Terminal::with([
+            'branch',
+            'activeAssignment.user',
+        ])
+        ->where(
+            'company_id',
+            $this->companyId
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch Access
+        |--------------------------------------------------------------------------
+        */
+
+        if (! $canManageAllBranches) {
+
+            $query->where(
+                'branch_id',
+                $user->branch_id
+            );
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('search')) {
+
+            $search = trim(
+                $request->search
+            );
+
+            $query->where(function ($q) use ($search) {
+
+                $q->where(
+                    'terminal_code',
+                    'like',
+                    "%{$search}%"
+                )
+
+                ->orWhere(
+                    'terminal_name',
+                    'like',
+                    "%{$search}%"
+                )
+
+                ->orWhere(
+                    'device_name',
+                    'like',
+                    "%{$search}%"
+                )
+
+                ->orWhere(
+                    'ip_address',
+                    'like',
+                    "%{$search}%"
+                )
+
+                ->orWhereHas(
+                    'branch',
+                    function ($branch) use ($search) {
+
+                        $branch->where(
+                            'name',
+                            'like',
+                            "%{$search}%"
+                        );
+
+                    }
+                )
+
+                ->orWhereHas(
+                    'activeAssignment.user',
+                    function ($user) use ($search) {
+
+                        $user->where(function ($userQuery) use ($search) {
+
+                            $userQuery
+                                ->where(
+                                    'first_name',
+                                    'like',
+                                    "%{$search}%"
+                                )
+                                ->orWhere(
+                                    'other_name',
+                                    'like',
+                                    "%{$search}%"
+                                )
+                                ->orWhere(
+                                    'last_name',
+                                    'like',
+                                    "%{$search}%"
+                                )
+                                ->orWhere(
+                                    'username',
+                                    'like',
+                                    "%{$search}%"
+                                );
+
+                        });
+
+                    }
+                );
+
+            });
+
+        }
+
+        return $query;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal Table
+    |--------------------------------------------------------------------------
+    */
+
+    public function table(Request $request)
+    {
+        $terminals = $this->terminalQuery($request)
+            ->latest()
+            ->paginate(15)
+            ->withQueryString();
+
+        return view(
+            'terminals.partials.table',
+            compact('terminals')
+        );
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -804,16 +1096,18 @@ class TerminalController extends BaseController
 
 
 
-        $terminal->load([
-
+       $terminal->load([
             'branch',
 
-            'activityLogs'=>function($query){
+            'activeAssignment.user',
 
-                $query->latest()->limit(10);
+            'assignments.user',
 
-            }
-
+            'activityLogs' => function ($query) {
+                $query
+                    ->latest()
+                    ->limit(10);
+            },
         ]);
 
 

@@ -22,6 +22,8 @@ const Terminals = {
 
     currentTerminalId: null,
 
+    searchTimer: null,
+
 
 
     // ==========================
@@ -34,6 +36,8 @@ const Terminals = {
         this.cacheElements();
 
         this.bindEvents();
+
+        this.initializeSearch();
 
     },
 
@@ -137,11 +141,7 @@ const Terminals = {
 
 
     },
-
-
-
-
-
+    
     // ==========================
     // Event Binding
     // ==========================
@@ -150,6 +150,82 @@ const Terminals = {
     bindEvents() {
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Terminal Search
+        |--------------------------------------------------------------------------
+        */
+
+        const terminalSearch =
+            document.getElementById('terminalSearch');
+
+        if (terminalSearch) {
+
+            terminalSearch.addEventListener(
+                'input',
+                () => {
+
+                    clearTimeout(
+                        this.searchTimer
+                    );
+
+                    this.searchTimer =
+                        setTimeout(() => {
+
+                            const search =
+                                terminalSearch.value.trim();
+
+                            const url =
+                                new URL(
+                                    window.location.href
+                                );
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Update Search
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if (search) {
+
+                                url.searchParams.set(
+                                    'search',
+                                    search
+                                );
+
+                            } else {
+
+                                url.searchParams.delete(
+                                    'search'
+                                );
+
+                            }
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Reset Pagination
+                            |--------------------------------------------------------------------------
+                            */
+
+                            url.searchParams.delete(
+                                'page'
+                            );
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Reload Table
+                            |--------------------------------------------------------------------------
+                            */
+
+                            window.location.href =
+                                url.toString();
+
+                        }, 500);
+
+                }
+            );
+
+        }
 
         /*
         |--------------------------------------------------------------------------
@@ -193,43 +269,45 @@ const Terminals = {
 
         }    
 
-        /*
+      /*
         |--------------------------------------------------------------------------
         | Table Inspector Buttons
         |--------------------------------------------------------------------------
         */
 
+        const terminalTable =
+            document.getElementById(
+                'terminalTable'
+            );
 
-        const terminalButtons =
-            document.querySelectorAll(
-                '.viewTerminal'
-            );          
+        if (terminalTable) {
 
+            terminalTable.addEventListener(
+                'click',
+                (event) => {
 
-        if(terminalButtons.length){
+                    const button =
+                        event.target.closest(
+                            '.viewTerminal'
+                        );
 
-
-            terminalButtons.forEach(button => {
-
-
-                button.onclick = () => {                 
-
+                    if (!button) {
+                        return;
+                    }
 
                     const id =
                         button.dataset.id;
 
+                    if (!id) {
+                        return;
+                    }
 
                     this.openInspector(id);
 
-
-                };
-
-
-            });
-
+                }
+            );
 
         }
-
         /*
         |--------------------------------------------------------------------------
         | Update Terminal
@@ -534,236 +612,851 @@ console.log(
 
 },
 
+/*
+|--------------------------------------------------------------------------
+| Terminal Search
+|--------------------------------------------------------------------------
+*/
 
-// ==========================
-// Render Inspector
-// ==========================
+initializeSearch()
+{
+    const searchInput =
+        document.getElementById(
+            'terminalSearch'
+        );
 
-renderInspector(terminal){
+    if (!searchInput) {
+        return;
+    }
 
+    searchInput.addEventListener(
+        'input',
+        () => {
+
+            clearTimeout(
+                this.searchTimer
+            );
+
+            this.searchTimer =
+                setTimeout(() => {
+
+                    this.loadTable(
+                        searchInput.value.trim()
+                    );
+
+                }, 250);
+
+        }
+    );
+},
+
+/*
+|--------------------------------------------------------------------------
+| Load Terminal Table
+|--------------------------------------------------------------------------
+*/
+
+async loadTable(search = '')
+{
+    const tableBody =
+        document.getElementById(
+            'terminalTable'
+        );
+
+    if (!tableBody) {
+        return;
+    }
+
+    try {
+
+        tableBody.style.opacity = '0.5';
+
+        const params =
+            new URLSearchParams();
+
+        if (search) {
+
+            params.set(
+                'search',
+                search
+            );
+
+        }
+
+        const response =
+            await fetch(
+                `/terminals/table?${params.toString()}`,
+                {
+                    method: 'GET',
+
+                    headers: {
+                        'X-Requested-With':
+                            'XMLHttpRequest',
+
+                        'Accept':
+                            'text/html'
+                    }
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                'Failed to load terminal table.'
+            );
+
+        }
+
+        const html =
+            await response.text();
+
+        tableBody.innerHTML =
+            html;
+
+    } catch (error) {
+
+        console.error(
+            'Terminal search error:',
+            error
+        );
+
+    } finally {
+
+        tableBody.style.opacity = '1';
+
+    }
+},
+
+/*
+|--------------------------------------------------------------------------
+| Render Inspector
+|--------------------------------------------------------------------------
+*/
+
+renderInspector(terminal) {
 
     const container =
         document.getElementById(
             'terminalInspectorContent'
         );
 
-
-    if(!container){
-
+    if (!container) {
         return;
-
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Current Assignment
+    |--------------------------------------------------------------------------
+    */
+
+    const assignment =
+        terminal.activeAssignment
+        ?? terminal.active_assignment
+        ?? null;
+
+
+    const assignedUser =
+        assignment?.user
+        ?? null;
+
+
+    const assignedUserName =
+        assignedUser
+            ? [
+                assignedUser.first_name,
+                assignedUser.other_name,
+                assignedUser.last_name
+            ]
+                .filter(Boolean)
+                .join(' ')
+            : null;
+
+
+    const isInUse =
+        !!assignment
+        && assignment.status === 'Active';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal Status
+    |--------------------------------------------------------------------------
+    */
+
+    const terminalStatus =
+        terminal.status
+            ? 'Active'
+            : 'Disabled';
+
+
+    const terminalStatusClass =
+        terminal.status
+            ? 'active'
+            : 'disabled';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Assignment Status
+    |--------------------------------------------------------------------------
+    */
+
+    const assignmentStatusClass =
+        isInUse
+            ? 'in-use'
+            : 'available';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render
+    |--------------------------------------------------------------------------
+    */
+
     container.innerHTML = `
 
-<div class="terminal-profile">
+        <div class="terminal-inspector">           
+
+            <div class="terminal-inspector-header">
+
+                <div class="terminal-profile-main">
+
+                    <div class="terminal-profile-icon">
+
+                        <i class="bi bi-pc-display"></i>
+
+                    </div>
+
+                    <div class="terminal-profile-heading">
+
+                        <h4>
+                            ${terminal.terminal_name ?? '-'}
+                        </h4>
+
+                        <div class="terminal-profile-code">
+
+                            <span>
+                                ${terminal.terminal_code ?? '-'}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
 
-    <div class="terminal-header">
+                <div class="terminal-header-status">
 
-        <div class="terminal-icon">
+                    <span class="terminal-status-pill ${terminalStatusClass}">
 
-            <i class="bi bi-pc-display"></i>
+                        <span class="status-dot"></span>
 
-        </div>
+                        ${terminalStatus}
 
+                    </span>
 
-        <div>
+                </div>
 
-            <h5 class="mb-1">
-                ${terminal.terminal_name}
-            </h5>
-
-
-            <span class="terminal-code">
-                ${terminal.terminal_code}
-            </span>
-
-        </div>
+            </div>
 
 
-    </div>
+            <div class="terminal-operational-card">
+
+                <div class="operational-card-header">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Terminal Status
+                        </span>
+
+                        <h6>
+                            Current availability
+                        </h6>
+
+                    </div>
+
+                    <div class="operational-icon ${assignmentStatusClass}">
+
+                        <i class="bi ${
+                            isInUse
+                                ? 'bi-person-check'
+                                : 'bi-check-circle'
+                        }"></i>
+
+                    </div>
+
+                </div>
 
 
+                <div class="operational-status-row">
+
+                    <div>
+
+                        <span class="operational-label">
+                            ${isInUse ? 'In Use' : 'Available'}
+                        </span>
+
+                        <span class="operational-description">
+
+                            ${
+                                isInUse
+                                    ? 'This terminal is currently assigned to a cashier.'
+                                    : 'This terminal is currently available for assignment.'
+                            }
+
+                        </span>
+
+                    </div>
 
 
-    <div class="terminal-info-card">
+                    <span class="assignment-status ${assignmentStatusClass}">
 
+                        ${isInUse ? 'In Use' : 'Available'}
 
-        <div class="terminal-detail-grid">
+                    </span>
 
-
-            <div class="terminal-detail-item">
-
-                <span class="detail-label">
-                    Branch
-                </span>
-
-                <span class="detail-value">
-                    ${terminal.branch?.name ?? '-'}
-                </span>
+                </div>
 
             </div>
 
 
 
-            <div class="terminal-detail-item">
+            <div class="terminal-section">
 
-                <span class="detail-label">
-                    Device Name
-                </span>
+                <div class="terminal-section-header">
 
-                <span class="detail-value">
-                    ${terminal.device_name ?? '-'}
-                </span>
+                    <div>
 
-            </div>
+                        <span class="section-eyebrow">
+                            Assignment
+                        </span>
 
+                        <h6>
+                            Current Cashier
+                        </h6>
 
+                    </div>
 
-            <div class="terminal-detail-item">
-
-                <span class="detail-label">
-                    IP Address
-                </span>
-
-                <span class="detail-value">
-                    ${terminal.ip_address ?? '-'}
-                </span>
-
-            </div>
+                </div>
 
 
+                <div class="terminal-cashier-card">
 
-            <div class="terminal-detail-item">
+                    <div class="terminal-cashier-avatar">
 
-                <span class="detail-label">
-                    Status
-                </span>
+                        ${
+                            assignedUser
+                                ? `
+                                    ${
+                                        (
+                                            assignedUser.first_name?.charAt(0)
+                                            ?? ''
+                                        )
+                                        +
+                                        (
+                                            assignedUser.last_name?.charAt(0)
+                                            ?? ''
+                                        )
+                                    }
+                                `
+                                : `
+                                    <i class="bi bi-person"></i>
+                                `
+                        }
 
-                <span class="detail-value">
+                    </div>
+
+
+                    <div class="terminal-cashier-info">
+
+                        <div class="terminal-cashier-name">
+
+                            ${
+                                assignedUserName
+                                ?? 'No cashier assigned'
+                            }
+
+                        </div>
+
+
+                        <div class="terminal-cashier-meta">
+
+                            ${
+                                isInUse
+                                    ? `
+                                        <span>
+                                            <i class="bi bi-person-badge"></i>
+                                            Cashier
+                                        </span>
+                                      `
+                                    : `
+                                        <span>
+                                            <i class="bi bi-dash-circle"></i>
+                                            Terminal available
+                                        </span>
+                                      `
+                            }
+
+                        </div>
+
+                    </div>
+
 
                     ${
-                        terminal.status
-                        ?
-                        `
-                        <span class="status-badge active">
-                            Active
-                        </span>
-                        `
-                        :
-                        `
-                        <span class="status-badge inactive">
-                            Disabled
-                        </span>
-                        `
+                        isInUse
+                            ? `
+                                <div class="terminal-cashier-active">
+
+                                    <span class="status-dot"></span>
+
+                                    Active
+
+                                </div>
+                              `
+                            : ''
                     }
 
-                </span>
+                </div>
+
+            </div>
+
+
+            <div class="terminal-section">
+
+                <div class="terminal-section-header">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Configuration
+                        </span>
+
+                        <h6>
+                            Terminal Information
+                        </h6>
+
+                    </div>
+
+                </div>
+
+
+                <div class="terminal-detail-grid">
+
+                    <div class="terminal-detail-card">
+
+                        <span class="terminal-detail-label">
+                            Branch
+                        </span>
+
+                        <span class="terminal-detail-value">
+
+                            ${terminal.branch?.name ?? '-'}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="terminal-detail-card">
+
+                        <span class="terminal-detail-label">
+                            Device Name
+                        </span>
+
+                        <span class="terminal-detail-value">
+
+                            ${terminal.device_name ?? '-'}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="terminal-detail-card">
+
+                        <span class="terminal-detail-label">
+                            IP Address
+                        </span>
+
+                        <span class="terminal-detail-value">
+
+                            ${terminal.ip_address ?? '-'}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="terminal-detail-card">
+
+                        <span class="terminal-detail-label">
+                            Terminal Code
+                        </span>
+
+                        <span class="terminal-detail-value">
+
+                            ${terminal.terminal_code ?? '-'}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="terminal-section terminal-actions-section">
+
+                <div class="terminal-section-header">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Actions
+                        </span>
+
+                        <h6>
+                            Quick Actions
+                        </h6>
+
+                    </div>
+
+                </div>
+
+
+                <div class="action-grid">
+
+                    ${
+                        window.terminalPermissions?.update
+                            ?
+
+                            `
+                                <button
+                                    type="button"
+                                    id="panelEditTerminal"
+                                    class="terminal-panel-btn primary"
+                                >
+
+                                    <i class="bi bi-pencil-square"></i>
+
+                                    <span>
+                                        Edit Terminal
+                                    </span>
+
+                                </button>
+                            `
+
+                            :
+
+                            ''
+                    }
+
+
+                    ${
+                        window.terminalPermissions?.update
+                            ?
+
+                            `
+                                <button
+                                    type="button"
+                                    id="panelToggleTerminal"
+                                    class="terminal-panel-btn warning"
+                                >
+
+                                    <i class="bi ${
+                                        terminal.status
+                                            ? 'bi-toggle-off'
+                                            : 'bi-toggle-on'
+                                    }"></i>
+
+                                    <span>
+
+                                        ${
+                                            terminal.status
+                                                ? 'Disable Terminal'
+                                                : 'Enable Terminal'
+                                        }
+
+                                    </span>
+
+                                </button>
+                            `
+
+                            :
+
+                            ''
+                    }
+
+
+                    ${
+                        window.terminalPermissions?.delete
+                            ?
+
+                            `
+                                <button
+                                    type="button"
+                                    id="panelDeleteTerminal"
+                                    class="terminal-panel-btn danger"
+                                >
+
+                                    <i class="bi bi-trash"></i>
+
+                                    <span>
+                                        Delete Terminal
+                                    </span>
+
+                                </button>
+                            `
+
+                            :
+
+                            ''
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="terminal-section">
+
+                <div class="terminal-section-header">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            History
+                        </span>
+
+                        <h6>
+                            Terminal Activity
+                        </h6>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="terminalAssignmentActivity"
+                    class="terminal-activity-list"
+                >
+
+                    <div class="terminal-activity-empty">
+
+                        <i class="bi bi-clock-history"></i>
+
+                        <span>
+                            No recent terminal activity.
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
 
         </div>
 
-
-    </div>
-
-
-</div>
+    `;
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Render Assignment Activities
+    |--------------------------------------------------------------------------
+    */
+
+    this.renderTerminalAssignmentActivity(
+        terminal
+    );
 
 
-    <div class="terminal-actions">
-
-    <h6>
-        Quick Actions
-    </h6>
-
-    <div class="action-grid">
-
-        ${
-            window.terminalPermissions?.update
-            ?
-            `
-            <button
-                id="panelEditTerminal"
-                class="terminal-panel-btn primary">
-
-                <i class="bi bi-pencil-square"></i>
-
-                Edit
-
-            </button>
-            `
-            :
-            ''
-        }
-
-
-        ${
-            window.terminalPermissions?.update
-            ?
-            `
-            <button
-                id="panelToggleTerminal"
-                class="terminal-panel-btn warning">
-
-                ${
-                    terminal.status
-                    ?
-                    `
-                    <i class="bi bi-toggle-off"></i>
-                    Disable Terminal
-                    `
-                    :
-                    `
-                    <i class="bi bi-toggle-on"></i>
-                    Enable Terminal
-                    `
-                }
-
-            </button>
-            `
-            :
-            ''
-        }
-
-
-        ${
-            window.terminalPermissions?.delete
-            ?
-            `
-            <button
-                id="panelDeleteTerminal"
-                class="terminal-panel-btn danger">
-
-                <i class="bi bi-trash"></i>
-
-                Delete
-
-            </button>
-            `
-            :
-            ''
-        }
-
-    </div>
-
-</div>
-
-
-
-</div>
-
-`;
-
+    /*
+    |--------------------------------------------------------------------------
+    | Bind Inspector Actions
+    |--------------------------------------------------------------------------
+    */
 
     this.bindInspectorActions();
-    
 
+},
+
+/*
+|--------------------------------------------------------------------------
+| Format Date / Time
+|--------------------------------------------------------------------------
+*/
+
+formatDateTime(value) {
+
+    if (!value) {
+        return '-';
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return '-';
+    }
+
+    return date.toLocaleString(
+        'en-NG',
+        {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        }
+    );
+},
+
+/*
+|--------------------------------------------------------------------------
+| Render Terminal Assignment Activity
+|--------------------------------------------------------------------------
+*/
+
+renderTerminalAssignmentActivity(terminal) {
+
+    const container =
+        document.getElementById(
+            'terminalAssignmentActivity'
+        );
+
+    if (!container) {
+        return;
+    }
+
+
+    const assignments =
+        terminal.assignments
+        ?? terminal.terminal_assignments
+        ?? [];
+
+
+    if (!assignments.length) {
+
+        container.innerHTML = `
+
+            <div class="terminal-activity-empty">
+
+                <i class="bi bi-clock-history"></i>
+
+                <span>
+                    No terminal assignment activity yet.
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        assignments
+            .map(assignment => {
+
+                const user =
+                    assignment.user
+                    ?? null;
+
+
+                const userName =
+                    user
+                        ? [
+                            user.first_name,
+                            user.other_name,
+                            user.last_name
+                        ]
+                            .filter(Boolean)
+                            .join(' ')
+                        : 'Unknown user';
+
+
+                const status =
+                    assignment.status
+                    ?? 'Unknown';
+
+
+                const statusClass =
+                    status.toLowerCase() === 'active'
+                        ? 'active'
+                        : 'inactive';
+
+
+                const assignedAt =
+                    assignment.assigned_at
+                    ?? assignment.created_at
+                    ?? null;
+
+
+                return `
+
+                    <div class="terminal-activity-item">
+
+                        <div class="terminal-activity-icon">
+
+                            <i class="bi bi-person-check"></i>
+
+                        </div>
+
+
+                        <div class="terminal-activity-content">
+
+                            <div class="terminal-activity-title">
+
+                                ${userName}
+
+                            </div>
+
+
+                            <div class="terminal-activity-description">
+
+                                Terminal assignment
+
+                            </div>
+
+
+                            ${
+                                assignedAt
+                                    ? `
+                                        <div class="terminal-activity-date">
+
+                                            <i class="bi bi-clock"></i>
+
+                                            ${this.formatDateTime(assignedAt)}
+
+                                        </div>
+                                      `
+                                    : ''
+                            }
+
+                        </div>
+
+
+                        <span class="assignment-history-status ${statusClass}">
+
+                            ${status}
+
+                        </span>
+
+                    </div>
+
+                `;
+
+            })
+            .join('');
 
 },
 

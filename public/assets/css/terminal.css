@@ -787,3 +787,751 @@
     grid-column:span 2;
 
 }
+
+/* ==========================================================
+   TERMINAL CASHIER
+   ========================================================== */
+
+.terminal-cashier {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 170px;
+}
+
+.terminal-cashier-avatar {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #f1f3f5;
+
+    color: #6c757d;
+
+    font-size: 15px;
+}
+
+.terminal-cashier-info {
+    min-width: 0;
+}
+
+.terminal-cashier-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #212529;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.terminal-cashier-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-top: 2px;
+
+    font-size: 11px;
+    color: #6c757d;
+}
+
+.terminal-assignment-dot {
+    width: 6px;
+    height: 6px;
+
+    display: inline-block;
+
+    border-radius: 50%;
+
+    background: #198754;
+}
+
+.terminal-cashier-empty .terminal-cashier-avatar {
+    background: #f8f9fa;
+    color: #adb5bd;
+}
+
+.terminal-cashier-empty .terminal-cashier-name {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Terminal Inspector
+|--------------------------------------------------------------------------
+*/
+
+.terminal-inspector {
+    padding: 4px 2px 24px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+
+.terminal-inspector-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 4px 2px 22px;
+    border-bottom: 1px solid #edf0f3;
+}
+
+
+.terminal-profile-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.terminal-profile-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f3f6f9;
+    color: #475569;
+
+    font-size: 21px;
+}
+
+
+.terminal-profile-heading h4 {
+    margin: 0 0 5px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #172033;
+}
+
+
+.terminal-profile-code {
+    font-size: 12px;
+    color: #7b8794;
+}
+
+
+.terminal-header-status {
+    flex-shrink: 0;
+}
+
+
+.terminal-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+.terminal-status-pill.active {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+
+.terminal-status-pill.disabled {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Sections
+|--------------------------------------------------------------------------
+*/
+
+.terminal-section {
+    padding: 20px 2px 0;
+}
+
+
+.terminal-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 11px;
+}
+
+
+.section-eyebrow {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+
+    color: #98a2b3;
+}
+
+
+.terminal-section-header h6 {
+    margin: 0;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: #1f2937;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Operational Card
+|--------------------------------------------------------------------------
+*/
+
+.terminal-operational-card {
+    margin-top: 18px;
+
+    padding: 15px;
+
+    border: 1px solid #e8edf2;
+    border-radius: 12px;
+
+    background: #fafbfc;
+}
+
+
+.operational-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.operational-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+}
+
+
+.operational-icon.in-use {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+.operational-icon.available {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+
+.operational-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 13px;
+}
+
+
+.operational-label {
+    display: block;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: #1f2937;
+}
+
+
+.operational-description {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 11px;
+
+    color: #8a94a3;
+}
+
+
+.assignment-status {
+    flex-shrink: 0;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+.assignment-status.in-use {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+.assignment-status.available {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Cashier
+|--------------------------------------------------------------------------
+*/
+
+.terminal-cashier-card {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 12px;
+
+    border: 1px solid #e8edf2;
+    border-radius: 11px;
+
+    background: #fff;
+}
+
+
+.terminal-cashier-avatar {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+    color: #475569;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.terminal-cashier-info {
+    min-width: 0;
+    flex: 1;
+}
+
+
+.terminal-cashier-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+
+.terminal-cashier-meta {
+    margin-top: 3px;
+
+    font-size: 10px;
+    color: #8a94a3;
+}
+
+
+.terminal-cashier-meta i {
+    margin-right: 3px;
+}
+
+
+.terminal-cashier-active {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    color: #15803d;
+}
+
+
+.terminal-cashier-active .status-dot {
+    width: 6px;
+    height: 6px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Terminal Details
+|--------------------------------------------------------------------------
+*/
+
+.terminal-detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+}
+
+
+.terminal-detail-card {
+    padding: 11px;
+
+    border: 1px solid #edf0f3;
+    border-radius: 9px;
+
+    background: #fff;
+}
+
+
+.terminal-detail-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 10px;
+    color: #98a2b3;
+}
+
+
+.terminal-detail-value {
+    display: block;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    color: #374151;
+
+    word-break: break-word;
+}
+
+
+/* ==========================================================================
+   TERMINAL INSPECTOR - QUICK ACTIONS
+   ========================================================================== */
+
+.terminal-actions {
+    margin-top: 24px;
+}
+
+.terminal-actions h6 {
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475467;
+}
+
+
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+
+/* --------------------------------------------------------------------------
+   Base Button
+   -------------------------------------------------------------------------- */
+
+.terminal-panel-btn {
+    width: 100%;
+    min-height: 44px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+/* --------------------------------------------------------------------------
+   Icon
+   -------------------------------------------------------------------------- */
+
+.terminal-panel-btn i {
+    flex-shrink: 0;
+
+    font-size: 16px;
+    line-height: 1;
+
+    color: inherit;
+}
+
+
+/* --------------------------------------------------------------------------
+   Primary - Edit
+   -------------------------------------------------------------------------- */
+
+.terminal-panel-btn.primary {
+    color: #175cd3;
+    background: #eff8ff;
+    border-color: #b2ddff;
+}
+
+.terminal-panel-btn.primary:hover {
+    color: #1849a9;
+    background: #d1e9ff;
+    border-color: #84caff;
+}
+
+
+/* --------------------------------------------------------------------------
+   Warning - Toggle
+   -------------------------------------------------------------------------- */
+
+.terminal-panel-btn.warning {
+    color: #b54708;
+    background: #fffaeb;
+    border-color: #fedf89;
+}
+
+.terminal-panel-btn.warning:hover {
+    color: #93370d;
+    background: #fef0c7;
+    border-color: #fec84b;
+}
+
+
+/* --------------------------------------------------------------------------
+   Danger - Delete
+   -------------------------------------------------------------------------- */
+
+.terminal-panel-btn.danger {
+    color: #b42318;
+    background: #fef3f2;
+    border-color: #fecdca;
+}
+
+.terminal-panel-btn.danger:hover {
+    color: #912018;
+    background: #fee4e2;
+    border-color: #fda29b;
+}
+
+
+/* --------------------------------------------------------------------------
+   Disabled
+   -------------------------------------------------------------------------- */
+
+.terminal-panel-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   Focus
+   -------------------------------------------------------------------------- */
+
+.terminal-panel-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(84, 112, 255, 0.15);
+}
+
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 575.98px) {
+
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Activity
+|--------------------------------------------------------------------------
+*/
+
+.terminal-activity-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.terminal-activity-item {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    padding: 11px 0;
+
+    border-bottom: 1px solid #f0f2f5;
+}
+
+
+.terminal-activity-item:last-child {
+    border-bottom: 0;
+}
+
+
+.terminal-activity-icon {
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #f5f7fa;
+    color: #667085;
+
+    font-size: 12px;
+}
+
+
+.terminal-activity-content {
+    flex: 1;
+    min-width: 0;
+}
+
+
+.terminal-activity-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #344054;
+}
+
+
+.terminal-activity-description {
+    margin-top: 2px;
+
+    font-size: 10px;
+    color: #98a2b3;
+}
+
+
+.terminal-activity-date {
+    margin-top: 4px;
+
+    font-size: 9px;
+    color: #a0a9b5;
+}
+
+
+.terminal-activity-date i {
+    margin-right: 3px;
+}
+
+
+.assignment-history-status {
+    flex-shrink: 0;
+
+    padding: 4px 7px;
+
+    border-radius: 999px;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+
+.assignment-history-status.active {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+
+.assignment-history-status.inactive {
+    background: #f2f4f7;
+    color: #667085;
+}
+
+
+.terminal-activity-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 70px;
+
+    border: 1px dashed #e1e6eb;
+    border-radius: 10px;
+
+    font-size: 10px;
+
+    color: #98a2b3;
+}
+
+
+.terminal-activity-empty i {
+    font-size: 14px;
+}
