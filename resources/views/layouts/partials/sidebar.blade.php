@@ -369,104 +369,7 @@
 
                 <div class="nav-children">
 
-
-                    @if(canAccess('pos.sell'))
-
-                        <a
-                            href="{{ route('pos.index') }}"
-                            class="{{ request()->routeIs('pos.index') ? 'active' : '' }}"
-                        >
-
-                            <span class="sub-icon">
-
-                                <i class="bi bi-cart-plus"></i>
-
-                            </span>
-
-                            <span>
-
-                                New Sale
-
-                            </span>
-
-                        </a>
-
-                    @endif
-
-
-                    @if(canAccess('pos.open_orders'))
-
-                        <a
-                            href="{{ route('pos.open-orders') }}"
-                            class="{{ request()->routeIs('pos.open-orders') ? 'active' : '' }}"
-                        >
-
-                            <span class="sub-icon">
-
-                                <i class="bi bi-receipt"></i>
-
-                            </span>
-
-                            <span>
-
-                                Open Orders
-
-                            </span>
-
-                        </a>
-
-                    @endif
-
-
-                    @if(canAccess('pos.hold_sale'))
-
-                        <a
-                            href="{{ route('pos.held-sales') }}"
-                            class="{{ request()->routeIs('pos.held-sales') ? 'active' : '' }}"
-                        >
-
-                            <span class="sub-icon">
-
-                                <i class="bi bi-pause-circle"></i>
-
-                            </span>
-
-                            <span>
-
-                                Held Sales
-
-                            </span>
-
-                        </a>
-
-                    @endif
-
-
-                    @if(canAccess('pos.return_sale'))
-
-                        <a
-                            href="{{ route('pos.returns') }}"
-                            class="{{ request()->routeIs('pos.returns') ? 'active' : '' }}"
-                        >
-
-                            <span class="sub-icon">
-
-                                <i class="bi bi-arrow-return-left"></i>
-
-                            </span>
-
-                            <span>
-
-                                Returns
-
-                            </span>
-
-                        </a>
-
-                    @endif
-
-
-                    @if(canAccess('pos.cash_drawer'))
+                @if(canAccess('pos.cash_drawer'))
 
                         <a
                             href="{{ route('cash-drawer.index') }}"
@@ -488,6 +391,31 @@
                         </a>
 
                     @endif
+
+
+                    @if(canAccess('pos.sell'))
+
+                    <a
+                        href="{{ route('pos.index') }}"
+                        class="{{ request()->routeIs('pos.index') ? 'active' : '' }}"
+                        id="new-sale-btn"
+                    >
+
+                        <span class="sub-icon">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                        </span>
+
+                        <span>
+                            New Sale
+                        </span>
+
+                    </a>
+
+                @endif              
+
+                    
 
 
                 </div>
@@ -1613,3 +1541,56 @@
 
 
 <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+<script>
+    document.addEventListener(
+    'DOMContentLoaded',
+    () => {
+
+        const newSaleButton =
+            document.getElementById(
+                'new-sale-btn'
+            );
+
+
+        newSaleButton?.addEventListener(
+            'click',
+            async event => {
+
+                event.preventDefault();
+
+
+                const url =
+                    newSaleButton.href;
+
+
+                try {
+
+                    if (
+                        document.fullscreenEnabled
+                        && !document.fullscreenElement
+                    ) {
+
+                        await document.documentElement.requestFullscreen();
+
+                    }
+
+                } catch (error) {
+
+                    console.warn(
+                        'Unable to enter fullscreen:',
+                        error
+                    );
+
+                }
+
+
+                window.location.href =
+                    url;
+
+            }
+        );
+
+    }
+);
+</script>

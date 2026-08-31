@@ -130,26 +130,84 @@ Route::middleware('auth')->group(function () {
             });
 
 
+
     Route::prefix('pos')
     ->name('pos.')
     ->group(function () {
 
-            Route::get('/',[PosController::class, 'index'])->name('index');
-       
-            Route::get('/open-orders',[PosController::class, 'openOrders'])->name('open-orders');
+                /*
+            |--------------------------------------------------------------------------
+            | Modern POS Screen
+            |--------------------------------------------------------------------------
+            */
 
-            Route::get('/held-sales',[PosController::class, 'heldSales'])->name('held-sales');
+            Route::get('/',[PosController::class, 'index'])->name('index');            
 
-            Route::get('/returns',[PosController::class, 'returns'])->name('returns');
+            Route::get('/products',[PosController::class, 'products'])->name('products');
 
-            
+            Route::get('/products/search',[PosController::class, 'productSearch'])
+            ->name('products.search');
 
-    });
+            Route::get('/products/barcode/{barcode}',[PosController::class, 'productByBarcode'])
+            ->name('products.barcode');
 
+            Route::get('/products/{id}',[PosController::class, 'productDetails'])
+            ->name('product-details');
 
-    
+            Route::get('/categories',[PosController::class, 'categories'])->name('categories');
 
+            Route::get('/customers',[PosController::class, 'customers'])->name('customers');
 
+            Route::get('/customers/{id}',[PosController::class, 'customerDetails'])
+            ->name('customer-details');
+
+            Route::get('/approvers',[PosController::class, 'approvers'])->name('approvers');
+
+            Route::post('/approval',[PosController::class, 'approveAdjustment'])->name('approval');
+
+            Route::get('/sales-history',[PosController::class, 'salesHistory'])->name('sales-history');
+
+            Route::post('/orders',[PosController::class, 'storeOrder'])->name('orders.store');
+
+            Route::get('/orders/{id}',[PosController::class, 'orderDetails'])->name('orders.details');            
+
+            Route::post('/orders/hold',[PosController::class, 'holdOrder'])->name('orders.hold');
+
+            Route::get('/orders/held',[PosController::class, 'heldOrders'])->name('orders.held');
+
+            Route::post('/orders/{id}/retrieve',[PosController::class, 'retrieveOrder'])
+            ->name('orders.retrieve');
+
+            Route::get('/discounts',[PosController::class, 'discounts'])->name('discounts');
+
+            Route::get('/tax-rates',[PosController::class, 'taxRates'])->name('tax-rates');
+
+            Route::post('/orders/{id}/payment',[PosController::class, 'storePayment'])
+            ->name('orders.payment');
+
+            Route::get('/orders/{id}/payments',[PosController::class, 'payments'])
+            ->name('orders.payments');
+
+            Route::post('/orders/{id}/complete',[PosController::class, 'completeSale'])
+            ->name('orders.complete');
+            /*
+            |--------------------------------------------------------------------------
+            | Receipt / Invoice
+            |--------------------------------------------------------------------------
+            */
+
+            Route::get('/orders/{id}/receipt',[PosController::class, 'receipt'])->name('orders.receipt');
+
+            Route::get('/orders/{id}/invoice',[PosController::class, 'invoice'])->name('orders.invoice');
+            /*
+            |--------------------------------------------------------------------------
+            | POS Context
+            |--------------------------------------------------------------------------
+            */
+
+            Route::get('/context',[PosController::class, 'context'])->name('context'); 
+
+    }); 
 
     /*
     |--------------------------------------------------------------------------

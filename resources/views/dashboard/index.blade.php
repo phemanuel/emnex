@@ -49,7 +49,7 @@
             </span>
 
             <h2 class="dashboard-header-title">
-                Good morning,
+               Welcome
                 {{ auth()->user()->first_name }}
                 <span>👋</span>
             </h2>
