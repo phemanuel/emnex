@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2026 at 05:16 PM
+-- Generation Time: Aug 31, 2026 at 08:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -316,7 +316,29 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (253, 1, 1, 1, 'sales_orders', 'Payment', 'Recorded payment for sales order: ORD-000015', 'Order', 18, '{\"id\":18,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000015\",\"customer_id\":6,\"cashier_id\":1,\"subtotal\":\"983500.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"983500.00\",\"amount_paid\":\"950000.00\",\"balance\":\"33500.00\",\"total_items\":4,\"total_quantity\":\"45.00\",\"change_given\":\"0.00\",\"grand_total\":\"983500.00\",\"completed_at\":null,\"payment_status\":\"Partial\",\"order_status\":\"Held\",\"sales_channel\":\"POS\",\"terminal_id\":1,\"receipt_printed\":false,\"remarks\":\"Items totalled to 983,500, with no discount or tax\",\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-28T10:23:30.000000Z\",\"updated_at\":\"2026-08-28T11:07:01.000000Z\",\"deleted_at\":null}', '{\"id\":18,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000015\",\"customer_id\":6,\"cashier_id\":1,\"subtotal\":\"983500.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"983500.00\",\"amount_paid\":\"983500.00\",\"balance\":\"0.00\",\"total_items\":4,\"total_quantity\":\"45.00\",\"change_given\":\"0.00\",\"grand_total\":\"983500.00\",\"completed_at\":\"2026-08-28T11:11:22.000000Z\",\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":1,\"receipt_printed\":false,\"remarks\":\"Items totalled to 983,500, with no discount or tax\",\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-28T10:23:30.000000Z\",\"updated_at\":\"2026-08-28T11:11:22.000000Z\",\"deleted_at\":null}', 'sales/orders/18/part-payment', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-28 10:11:22', '2026-08-28 10:11:22'),
 (254, 1, 1, 1, 'orders', 'create', 'Created sales order: ORD-000017', 'Order', 20, NULL, '{\"company_id\":1,\"branch_id\":1,\"terminal_id\":2,\"customer_id\":9,\"cashier_id\":1,\"order_no\":\"ORD-000017\",\"subtotal\":\"522000.00\",\"discount\":\"2.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"521998.00\",\"amount_paid\":\"0.00\",\"balance\":\"521998.00\",\"total_items\":3,\"total_quantity\":\"65.00\",\"change_given\":\"0.00\",\"grand_total\":\"521998.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"updated_at\":\"2026-08-29T13:02:14.000000Z\",\"created_at\":\"2026-08-29T13:02:14.000000Z\",\"id\":20}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-29 12:02:14', '2026-08-29 12:02:14'),
 (255, 1, 1, 1, 'invoices', 'create', 'Created invoice: INV-000004', 'Invoice', 4, NULL, '{\"company_id\":1,\"branch_id\":1,\"terminal_id\":2,\"customer_id\":9,\"order_id\":20,\"invoice_no\":\"INV-000004\",\"invoice_date\":\"2026-08-29T00:00:00.000000Z\",\"subtotal\":\"522000.00\",\"discount\":\"2.00\",\"tax\":\"0.00\",\"total\":\"521998.00\",\"amount_paid\":\"0.00\",\"balance\":\"521998.00\",\"total_items\":3,\"total_quantity\":\"65.00\",\"grand_total\":\"521998.00\",\"payment_status\":\"Pending\",\"invoice_status\":\"Active\",\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"updated_at\":\"2026-08-29T13:02:14.000000Z\",\"created_at\":\"2026-08-29T13:02:14.000000Z\",\"id\":4}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-29 12:02:14', '2026-08-29 12:02:14'),
-(256, 1, 1, 1, 'sales_orders', 'Payment', 'Recorded payment for sales order: ORD-000017', 'Order', 20, '{\"id\":20,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000017\",\"customer_id\":9,\"cashier_id\":1,\"subtotal\":\"522000.00\",\"discount\":\"2.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"521998.00\",\"amount_paid\":\"0.00\",\"balance\":\"521998.00\",\"total_items\":3,\"total_quantity\":\"65.00\",\"change_given\":\"0.00\",\"grand_total\":\"521998.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"terminal_id\":2,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-29T13:02:14.000000Z\",\"updated_at\":\"2026-08-29T13:02:14.000000Z\",\"deleted_at\":null}', '{\"id\":20,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000017\",\"customer_id\":9,\"cashier_id\":1,\"subtotal\":\"522000.00\",\"discount\":\"2.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"521998.00\",\"amount_paid\":\"150000.00\",\"balance\":\"371998.00\",\"total_items\":3,\"total_quantity\":\"65.00\",\"change_given\":\"0.00\",\"grand_total\":\"521998.00\",\"completed_at\":null,\"payment_status\":\"Partial\",\"order_status\":\"Held\",\"sales_channel\":\"POS\",\"terminal_id\":2,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-29T13:02:14.000000Z\",\"updated_at\":\"2026-08-29T13:02:39.000000Z\",\"deleted_at\":null}', 'sales/orders/20/part-payment', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-29 12:02:39', '2026-08-29 12:02:39');
+(256, 1, 1, 1, 'sales_orders', 'Payment', 'Recorded payment for sales order: ORD-000017', 'Order', 20, '{\"id\":20,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000017\",\"customer_id\":9,\"cashier_id\":1,\"subtotal\":\"522000.00\",\"discount\":\"2.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"521998.00\",\"amount_paid\":\"0.00\",\"balance\":\"521998.00\",\"total_items\":3,\"total_quantity\":\"65.00\",\"change_given\":\"0.00\",\"grand_total\":\"521998.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"terminal_id\":2,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-08-29T13:02:14.000000Z\",\"updated_at\":\"2026-08-29T13:02:14.000000Z\",\"deleted_at\":null}', '{\"id\":20,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000017\",\"customer_id\":9,\"cashier_id\":1,\"subtotal\":\"522000.00\",\"discount\":\"2.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"521998.00\",\"amount_paid\":\"150000.00\",\"balance\":\"371998.00\",\"total_items\":3,\"total_quantity\":\"65.00\",\"change_given\":\"0.00\",\"grand_total\":\"521998.00\",\"completed_at\":null,\"payment_status\":\"Partial\",\"order_status\":\"Held\",\"sales_channel\":\"POS\",\"terminal_id\":2,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-29T13:02:14.000000Z\",\"updated_at\":\"2026-08-29T13:02:39.000000Z\",\"deleted_at\":null}', 'sales/orders/20/part-payment', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-29 12:02:39', '2026-08-29 12:02:39'),
+(257, 1, 1, 1, 'Terminal Management', 'Created', 'Terminal Lek-Pos2 created', 'Terminal', 13, '[]', '{\"company_id\":1,\"branch_id\":\"2\",\"terminal_code\":\"Lek-Pos2\",\"terminal_name\":\"Lekki-Pos2\",\"description\":\"Main Checkout\",\"device_name\":\"Dell Optilex\",\"ip_address\":null,\"status\":true,\"updated_at\":\"2026-08-30T16:19:56.000000Z\",\"created_at\":\"2026-08-30T16:19:56.000000Z\",\"id\":13}', 'terminals', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-30 15:19:56', '2026-08-30 15:19:56'),
+(258, 1, 1, 1, 'Terminal Management', 'Created', 'Terminal Lek-Pos3 created', 'Terminal', 14, '[]', '{\"company_id\":1,\"branch_id\":\"2\",\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"id\":14}', 'terminals', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-30 15:20:14', '2026-08-30 15:20:14'),
+(259, 1, 1, 1, 'Terminal Assignments', 'Assigned', 'Assigned cashier: Paul Olusogo Awolola to terminal: Lekki Branch POS 1', 'TerminalAssignment', 1, '[]', '{\"id\":1,\"company_id\":1,\"branch_id\":2,\"terminal_id\":3,\"user_id\":15,\"assigned_at\":\"2026-08-30T16:43:28.000000Z\",\"unassigned_at\":null,\"status\":\"Active\",\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-30T16:43:28.000000Z\",\"updated_at\":\"2026-08-30T16:43:28.000000Z\"}', 'users/15/terminal-assignment', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-30 15:43:28', '2026-08-30 15:43:28'),
+(260, 1, 1, 1, 'Terminal Assignments', 'Changed Assignment', 'Changed terminal assignment for cashier: Paul Olusogo Awolola to terminal: Lekki-Pos3', 'TerminalAssignment', 2, '{\"id\":1,\"company_id\":1,\"branch_id\":2,\"terminal_id\":3,\"user_id\":15,\"assigned_at\":\"2026-08-30T16:43:28.000000Z\",\"unassigned_at\":null,\"status\":\"Active\",\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-30T16:43:28.000000Z\",\"updated_at\":\"2026-08-30T16:43:28.000000Z\"}', '{\"id\":2,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"user_id\":15,\"assigned_at\":\"2026-08-30T16:57:55.000000Z\",\"unassigned_at\":null,\"status\":\"Active\",\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-08-30T16:57:55.000000Z\",\"updated_at\":\"2026-08-30T16:57:55.000000Z\"}', 'users/15/terminal-assignment', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-30 15:57:55', '2026-08-30 15:57:55'),
+(261, 1, 1, 1, 'Users', 'Password Reset', 'Reset password for Paul Olusogo Awolola', 'User', 15, '{\"password\":\"********\",\"force_password_change\":true}', '{\"password\":\"********\",\"force_password_change\":true}', 'users/15/reset-password', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-30 16:01:55', '2026-08-30 16:01:55'),
+(262, 1, 2, 15, 'Account', 'Password Changed', 'User changed their password.', 'User', 15, NULL, NULL, 'account/password', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-30 16:02:34', '2026-08-30 16:02:34'),
+(263, 1, 1, 1, 'Users', 'Password Reset', 'Reset password for Maxwell Akinkunmi Akinyooye', 'User', 17, '{\"password\":\"********\",\"force_password_change\":true}', '{\"password\":\"********\",\"force_password_change\":true}', 'users/17/reset-password', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 05:54:27', '2026-08-31 05:54:27'),
+(264, 1, 2, 17, 'Account', 'Password Changed', 'User changed their password.', 'User', 17, NULL, NULL, 'account/password', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 05:55:33', '2026-08-31 05:55:33'),
+(265, 1, 1, 1, 'Authorization', 'Permissions Updated', 'Updated permissions for role Branch Manager', 'Role', 3, '{\"permissions\":[1,4,6,10,14,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,71,72,73,74,75,76,79,80,66,67,68,69,70]}', '{\"permissions\":[1,4,6,10,14,25,31,35,39,40,41,42,43,44,45,46,47,50,51,52,53,54,56,57,58,59,60,61,62,63,64,65,71,72,73,74,75,76,79,80,66,67,68,69,70,77,78]}', 'roles/3/permissions', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 05:58:30', '2026-08-31 05:58:30'),
+(266, 1, 2, 15, 'cash_drawer', 'Opened', 'Opened cash drawer.', 'CashDrawer', 1, NULL, '{\"id\":1,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"closed_by\":null,\"opening_balance\":\"50000.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"50000.00\",\"actual_balance\":\"0.00\",\"variance\":\"0.00\",\"status\":\"Open\",\"opened_at\":\"2026-08-31T10:44:00.000000Z\",\"closed_at\":null,\"opening_remarks\":\"I met 50000 in the drawer as at 11am\",\"closing_remarks\":null,\"created_at\":\"2026-08-31T10:44:00.000000Z\",\"updated_at\":\"2026-08-31T10:44:00.000000Z\",\"branch\":{\"id\":2,\"company_id\":1,\"branch_code\":\"BR002\",\"name\":\"Lekki Branch\",\"phone\":\"08087654321\",\"email\":\"lekki@emmanexitconsult.com\",\"address\":\"Lekki, Lagos\",\"is_head_office\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null},\"terminal\":{\"id\":14,\"company_id\":1,\"branch_id\":2,\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"deleted_at\":null}}', 'cash-drawer/open', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 09:44:00', '2026-08-31 09:44:00'),
+(267, 1, 1, 1, 'Inventory', 'Stock Transferred', 'Transferred 11 product(s) from Head Office to Lekki Branch. Reference: TRF-20260831110507-GZTMGC', 'Branch', 1, NULL, '{\"reference_no\":\"TRF-20260831110507-GZTMGC\",\"source_branch_id\":1,\"destination_branch_id\":2,\"items\":[{\"stock_id\":13,\"product_id\":19,\"product_name\":\"Three Crown Evaporated Milk\",\"quantity\":10,\"source_balance\":1605,\"destination_balance\":10},{\"stock_id\":10,\"product_id\":10,\"product_name\":\"Pampers Size 3\",\"quantity\":10,\"source_balance\":1020,\"destination_balance\":10},{\"stock_id\":9,\"product_id\":9,\"product_name\":\"Premier Soap\",\"quantity\":10,\"source_balance\":70,\"destination_balance\":10},{\"stock_id\":8,\"product_id\":8,\"product_name\":\"Mama Gold Rice 50kg\",\"quantity\":10,\"source_balance\":75,\"destination_balance\":10},{\"stock_id\":7,\"product_id\":7,\"product_name\":\"Family Bread\",\"quantity\":10,\"source_balance\":85,\"destination_balance\":10},{\"stock_id\":6,\"product_id\":6,\"product_name\":\"Dangote Sugar 1kg\",\"quantity\":10,\"source_balance\":1525,\"destination_balance\":10},{\"stock_id\":5,\"product_id\":5,\"product_name\":\"Indomie Chicken Noodles\",\"quantity\":10,\"source_balance\":80,\"destination_balance\":10},{\"stock_id\":4,\"product_id\":4,\"product_name\":\"Peak Milk 500g\",\"quantity\":10,\"source_balance\":90,\"destination_balance\":10},{\"stock_id\":3,\"product_id\":3,\"product_name\":\"Sprite 50cl\",\"quantity\":10,\"source_balance\":90,\"destination_balance\":10},{\"stock_id\":2,\"product_id\":2,\"product_name\":\"Fanta 50cl\",\"quantity\":10,\"source_balance\":2040,\"destination_balance\":10},{\"stock_id\":1,\"product_id\":1,\"product_name\":\"Coca-Cola 50cl\",\"quantity\":10,\"source_balance\":980,\"destination_balance\":10}]}', 'stock-transfer/transfer', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(268, 1, 2, 17, 'orders', 'create', 'Created sales order: ORD-000018', 'Order', 21, NULL, '{\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"customer_id\":null,\"cashier_id\":17,\"order_no\":\"ORD-000018\",\"subtotal\":\"700.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"700.00\",\"amount_paid\":\"0.00\",\"balance\":\"700.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"700.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"receipt_printed\":false,\"remarks\":null,\"created_by\":17,\"updated_by\":null,\"updated_at\":\"2026-08-31T11:09:28.000000Z\",\"created_at\":\"2026-08-31T11:09:28.000000Z\",\"id\":21}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 10:09:28', '2026-08-31 10:09:28'),
+(269, 1, 2, 17, 'invoices', 'create', 'Created invoice: INV-000005', 'Invoice', 5, NULL, '{\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"customer_id\":null,\"order_id\":21,\"invoice_no\":\"INV-000005\",\"invoice_date\":\"2026-08-31T00:00:00.000000Z\",\"subtotal\":\"700.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"700.00\",\"amount_paid\":\"0.00\",\"balance\":\"700.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"grand_total\":\"700.00\",\"payment_status\":\"Pending\",\"invoice_status\":\"Active\",\"remarks\":null,\"created_by\":17,\"updated_by\":null,\"updated_at\":\"2026-08-31T11:09:28.000000Z\",\"created_at\":\"2026-08-31T11:09:28.000000Z\",\"id\":5}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 10:09:28', '2026-08-31 10:09:28'),
+(270, 1, 2, 17, 'orders', 'create', 'Created sales order: ORD-000019', 'Order', 22, NULL, '{\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"customer_id\":null,\"cashier_id\":17,\"order_no\":\"ORD-000019\",\"subtotal\":\"700.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"700.00\",\"amount_paid\":\"0.00\",\"balance\":\"700.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"700.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"receipt_printed\":false,\"remarks\":null,\"created_by\":17,\"updated_by\":null,\"updated_at\":\"2026-08-31T11:10:48.000000Z\",\"created_at\":\"2026-08-31T11:10:48.000000Z\",\"id\":22}', 'sales/orders', 'POST', 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 10:10:48', '2026-08-31 10:10:48'),
+(271, 1, 2, 17, 'invoices', 'create', 'Created invoice: INV-000006', 'Invoice', 6, NULL, '{\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"customer_id\":null,\"order_id\":22,\"invoice_no\":\"INV-000006\",\"invoice_date\":\"2026-08-31T00:00:00.000000Z\",\"subtotal\":\"700.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"700.00\",\"amount_paid\":\"0.00\",\"balance\":\"700.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"grand_total\":\"700.00\",\"payment_status\":\"Pending\",\"invoice_status\":\"Active\",\"remarks\":null,\"created_by\":17,\"updated_by\":null,\"updated_at\":\"2026-08-31T11:10:48.000000Z\",\"created_at\":\"2026-08-31T11:10:48.000000Z\",\"id\":6}', 'sales/orders', 'POST', 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 10:10:48', '2026-08-31 10:10:48'),
+(272, 1, 2, 17, 'sales_orders', 'Completed', 'Completed sales order: ORD-000019', 'Order', 22, '{\"id\":22,\"company_id\":1,\"branch_id\":2,\"order_no\":\"ORD-000019\",\"customer_id\":null,\"cashier_id\":17,\"subtotal\":\"700.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"700.00\",\"amount_paid\":\"0.00\",\"balance\":\"700.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"700.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"terminal_id\":14,\"receipt_printed\":false,\"remarks\":null,\"created_by\":17,\"updated_by\":null,\"created_at\":\"2026-08-31T11:10:48.000000Z\",\"updated_at\":\"2026-08-31T11:10:48.000000Z\",\"deleted_at\":null}', '{\"id\":22,\"company_id\":1,\"branch_id\":2,\"order_no\":\"ORD-000019\",\"customer_id\":null,\"cashier_id\":17,\"subtotal\":\"700.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"700.00\",\"amount_paid\":\"700.00\",\"balance\":\"0.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"700.00\",\"completed_at\":\"2026-08-31T11:15:05.000000Z\",\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":14,\"receipt_printed\":false,\"remarks\":null,\"created_by\":17,\"updated_by\":17,\"created_at\":\"2026-08-31T11:10:48.000000Z\",\"updated_at\":\"2026-08-31T11:15:05.000000Z\",\"deleted_at\":null}', 'sales/orders/22/complete', 'POST', 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 10:15:05', '2026-08-31 10:15:05'),
+(273, 1, 2, 15, 'cash_drawer', 'Opened', 'Opened cash drawer.', 'CashDrawer', 2, NULL, '{\"id\":2,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"closed_by\":null,\"opening_balance\":\"50000.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"50000.00\",\"actual_balance\":\"0.00\",\"variance\":\"0.00\",\"status\":\"Open\",\"opened_at\":\"2026-08-31T12:58:19.000000Z\",\"closed_at\":null,\"opening_remarks\":\"I met 50000 in the drawer as at 11am\",\"closing_remarks\":null,\"created_at\":\"2026-08-31T12:58:19.000000Z\",\"updated_at\":\"2026-08-31T12:58:19.000000Z\",\"branch\":{\"id\":2,\"company_id\":1,\"branch_code\":\"BR002\",\"name\":\"Lekki Branch\",\"phone\":\"08087654321\",\"email\":\"lekki@emmanexitconsult.com\",\"address\":\"Lekki, Lagos\",\"is_head_office\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null},\"terminal\":{\"id\":14,\"company_id\":1,\"branch_id\":2,\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"deleted_at\":null}}', 'cash-drawer/open', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 11:58:19', '2026-08-31 11:58:19'),
+(274, 1, 2, 15, 'cash_drawer', 'Opened', 'Opened cash drawer.', 'CashDrawer', 3, NULL, '{\"id\":3,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"closed_by\":null,\"opening_balance\":\"50920.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"50920.00\",\"actual_balance\":\"0.00\",\"variance\":\"0.00\",\"status\":\"Open\",\"opened_at\":\"2026-08-31T13:03:30.000000Z\",\"closed_at\":null,\"opening_remarks\":\"I opened the drawer as at 11am with exactly 50,920\",\"closing_remarks\":null,\"created_at\":\"2026-08-31T13:03:30.000000Z\",\"updated_at\":\"2026-08-31T13:03:30.000000Z\",\"branch\":{\"id\":2,\"company_id\":1,\"branch_code\":\"BR002\",\"name\":\"Lekki Branch\",\"phone\":\"08087654321\",\"email\":\"lekki@emmanexitconsult.com\",\"address\":\"Lekki, Lagos\",\"is_head_office\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null},\"terminal\":{\"id\":14,\"company_id\":1,\"branch_id\":2,\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"deleted_at\":null}}', 'cash-drawer/open', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 12:03:30', '2026-08-31 12:03:30'),
+(275, 1, 2, 15, 'cash_drawer', 'Closed', 'Closed cash drawer.', 'CashDrawer', 3, '{\"id\":3,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":15,\"closed_by\":null,\"opening_balance\":\"50920.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"50920.00\",\"actual_balance\":\"0.00\",\"variance\":\"0.00\",\"status\":\"Open\",\"opened_at\":\"2026-08-31T13:03:30.000000Z\",\"closed_at\":null,\"opening_remarks\":\"I opened the drawer as at 11am with exactly 50,920\",\"closing_remarks\":null,\"created_at\":\"2026-08-31T13:03:30.000000Z\",\"updated_at\":\"2026-08-31T13:03:30.000000Z\"}', '{\"id\":3,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"closed_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"opening_balance\":\"50920.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"50920.00\",\"actual_balance\":\"50920.00\",\"variance\":\"0.00\",\"status\":\"Closed\",\"opened_at\":\"2026-08-31T13:03:30.000000Z\",\"closed_at\":\"2026-08-31T13:14:15.000000Z\",\"opening_remarks\":\"I opened the drawer as at 11am with exactly 50,920\",\"closing_remarks\":\"I closed the drawer as at 8pm with exactly 50920 confirl by my manager\",\"created_at\":\"2026-08-31T13:03:30.000000Z\",\"updated_at\":\"2026-08-31T13:14:15.000000Z\",\"branch\":{\"id\":2,\"company_id\":1,\"branch_code\":\"BR002\",\"name\":\"Lekki Branch\",\"phone\":\"08087654321\",\"email\":\"lekki@emmanexitconsult.com\",\"address\":\"Lekki, Lagos\",\"is_head_office\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null},\"terminal\":{\"id\":14,\"company_id\":1,\"branch_id\":2,\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"deleted_at\":null}}', 'cash-drawer/3/close', 'POST', 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 12:14:15', '2026-08-31 12:14:15'),
+(276, 1, 2, 15, 'cash_drawer', 'Opened', 'Opened cash drawer.', 'CashDrawer', 4, NULL, '{\"id\":4,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"closed_by\":null,\"opening_balance\":\"52335.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"52335.00\",\"actual_balance\":\"0.00\",\"variance\":\"0.00\",\"status\":\"Open\",\"opened_at\":\"2026-08-31T13:15:28.000000Z\",\"closed_at\":null,\"opening_remarks\":\"I opened the drawer with 52335 at exactly 2pm\",\"closing_remarks\":null,\"created_at\":\"2026-08-31T13:15:28.000000Z\",\"updated_at\":\"2026-08-31T13:15:28.000000Z\",\"branch\":{\"id\":2,\"company_id\":1,\"branch_code\":\"BR002\",\"name\":\"Lekki Branch\",\"phone\":\"08087654321\",\"email\":\"lekki@emmanexitconsult.com\",\"address\":\"Lekki, Lagos\",\"is_head_office\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null},\"terminal\":{\"id\":14,\"company_id\":1,\"branch_id\":2,\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"deleted_at\":null}}', 'cash-drawer/open', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 12:15:28', '2026-08-31 12:15:28'),
+(277, 1, 2, 15, 'cash_drawer', 'Cash In', 'Recorded cash in transaction.', 'CashDrawerTransaction', 6, NULL, '{\"id\":6,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"cash_drawer_id\":4,\"payment_id\":null,\"order_id\":null,\"created_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"transaction_type\":\"Cash In\",\"amount\":\"15000.00\",\"balance_before\":\"52335.00\",\"balance_after\":\"67335.00\",\"reference_no\":null,\"remarks\":\"I Collected 15000 from terminal 2\",\"created_at\":\"2026-08-31T13:21:19.000000Z\",\"updated_at\":\"2026-08-31T13:21:19.000000Z\"}', 'cash-drawer/cash-in', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 12:21:19', '2026-08-31 12:21:19'),
+(278, 1, 2, 15, 'cash_drawer', 'Cash Out', 'Recorded cash out transaction.', 'CashDrawerTransaction', 7, NULL, '{\"id\":7,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"cash_drawer_id\":4,\"payment_id\":null,\"order_id\":null,\"created_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"transaction_type\":\"Cash Out\",\"amount\":\"5000.00\",\"balance_before\":\"67335.00\",\"balance_after\":\"62335.00\",\"reference_no\":null,\"remarks\":\"gave 5000 to terminal 2, as at 3pm\",\"created_at\":\"2026-08-31T13:23:29.000000Z\",\"updated_at\":\"2026-08-31T13:23:29.000000Z\"}', 'cash-drawer/cash-out', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-08-31 12:23:29', '2026-08-31 12:23:29');
 
 -- --------------------------------------------------------
 
@@ -361,6 +383,14 @@ CREATE TABLE `cache` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('emnex-cache-user_permissions_17', 'a:47:{i:0;s:14:\"dashboard.view\";i:1;s:13:\"branches.view\";i:2;s:15:\"branches.update\";i:3;s:14:\"terminals.view\";i:4;s:10:\"users.view\";i:5;s:13:\"products.view\";i:6;s:15:\"categories.view\";i:7;s:10:\"units.view\";i:8;s:14:\"tax_rates.view\";i:9;s:16:\"tax_rates.create\";i:10;s:16:\"tax_rates.update\";i:11;s:16:\"tax_rates.delete\";i:12;s:14:\"discounts.view\";i:13;s:16:\"discounts.create\";i:14;s:16:\"discounts.update\";i:15;s:16:\"discounts.delete\";i:16;s:14:\"inventory.view\";i:17;s:21:\"inventory.stock_count\";i:18;s:19:\"inventory.low_stock\";i:19;s:14:\"customers.view\";i:20;s:16:\"customers.create\";i:21;s:16:\"customers.update\";i:22;s:16:\"customers.export\";i:23;s:14:\"suppliers.view\";i:24;s:16:\"suppliers.create\";i:25;s:16:\"suppliers.update\";i:26;s:16:\"suppliers.delete\";i:27;s:14:\"purchases.view\";i:28;s:16:\"purchases.create\";i:29;s:16:\"purchases.update\";i:30;s:16:\"purchases.delete\";i:31;s:17:\"purchases.approve\";i:32;s:11:\"orders.view\";i:33;s:13:\"orders.create\";i:34;s:13:\"orders.update\";i:35;s:13:\"orders.cancel\";i:36;s:13:\"orders.refund\";i:37;s:13:\"payments.view\";i:38;s:13:\"reports.sales\";i:39;s:17:\"reports.inventory\";i:40;s:8:\"pos.sell\";i:41;s:13:\"pos.hold_sale\";i:42;s:15:\"pos.open_orders\";i:43;s:15:\"pos.return_sale\";i:44;s:15:\"pos.cash_drawer\";i:45;s:15:\"payments.create\";i:46;s:15:\"payments.refund\";}', 1788176228),
+('emnex-cache-user_permissions_5', 'a:13:{i:0;s:14:\"dashboard.view\";i:1;s:14:\"customers.view\";i:2;s:16:\"customers.create\";i:3;s:13:\"products.view\";i:4;s:11:\"orders.view\";i:5;s:13:\"orders.create\";i:6;s:13:\"payments.view\";i:7;s:15:\"payments.create\";i:8;s:8:\"pos.sell\";i:9;s:13:\"pos.hold_sale\";i:10;s:15:\"pos.open_orders\";i:11;s:15:\"pos.return_sale\";i:12;s:15:\"pos.cash_drawer\";}', 1788159229);
+
 -- --------------------------------------------------------
 
 --
@@ -372,6 +402,79 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cash_drawers`
+--
+
+CREATE TABLE `cash_drawers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED NOT NULL,
+  `terminal_id` bigint(20) UNSIGNED NOT NULL,
+  `opened_by` bigint(20) UNSIGNED NOT NULL,
+  `closed_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `opening_balance` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `cash_sales` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `cash_in` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `cash_out` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `cash_refunds` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `expected_balance` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `actual_balance` decimal(15,2) DEFAULT NULL,
+  `variance` decimal(15,2) DEFAULT NULL,
+  `status` enum('Open','Closed') NOT NULL DEFAULT 'Open',
+  `opened_at` timestamp NULL DEFAULT NULL,
+  `closed_at` timestamp NULL DEFAULT NULL,
+  `opening_remarks` text DEFAULT NULL,
+  `closing_remarks` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cash_drawers`
+--
+
+INSERT INTO `cash_drawers` (`id`, `company_id`, `branch_id`, `terminal_id`, `opened_by`, `closed_by`, `opening_balance`, `cash_sales`, `cash_in`, `cash_out`, `cash_refunds`, `expected_balance`, `actual_balance`, `variance`, `status`, `opened_at`, `closed_at`, `opening_remarks`, `closing_remarks`, `created_at`, `updated_at`) VALUES
+(3, 1, 2, 14, 15, 15, 50920.00, 0.00, 0.00, 0.00, 0.00, 50920.00, 50920.00, 0.00, 'Closed', '2026-08-31 12:03:30', '2026-08-31 12:14:15', 'I opened the drawer as at 11am with exactly 50,920', 'I closed the drawer as at 8pm with exactly 50920 confirl by my manager', '2026-08-31 12:03:30', '2026-08-31 12:14:15'),
+(4, 1, 2, 14, 15, NULL, 52335.00, 0.00, 15000.00, 5000.00, 0.00, 62335.00, 0.00, 0.00, 'Open', '2026-08-31 12:15:28', NULL, 'I opened the drawer with 52335 at exactly 2pm', NULL, '2026-08-31 12:15:28', '2026-08-31 12:23:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cash_drawer_transactions`
+--
+
+CREATE TABLE `cash_drawer_transactions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED NOT NULL,
+  `terminal_id` bigint(20) UNSIGNED NOT NULL,
+  `cash_drawer_id` bigint(20) UNSIGNED NOT NULL,
+  `payment_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `order_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `transaction_type` enum('Opening','Sale','Refund','Cash In','Cash Out','Adjustment','Closing') NOT NULL,
+  `amount` decimal(15,2) NOT NULL,
+  `balance_before` decimal(15,2) NOT NULL,
+  `balance_after` decimal(15,2) NOT NULL,
+  `reference_no` varchar(255) DEFAULT NULL,
+  `remarks` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cash_drawer_transactions`
+--
+
+INSERT INTO `cash_drawer_transactions` (`id`, `company_id`, `branch_id`, `terminal_id`, `cash_drawer_id`, `payment_id`, `order_id`, `created_by`, `transaction_type`, `amount`, `balance_before`, `balance_after`, `reference_no`, `remarks`, `created_at`, `updated_at`) VALUES
+(4, 1, 2, 14, 3, NULL, NULL, 15, 'Opening', 50920.00, 0.00, 50920.00, NULL, 'Cash drawer opened.', '2026-08-31 12:03:30', '2026-08-31 12:03:30'),
+(5, 1, 2, 14, 4, NULL, NULL, 15, 'Opening', 52335.00, 0.00, 52335.00, NULL, 'Cash drawer opened.', '2026-08-31 12:15:28', '2026-08-31 12:15:28'),
+(6, 1, 2, 14, 4, NULL, NULL, 15, 'Cash In', 15000.00, 52335.00, 67335.00, NULL, 'I Collected 15000 from terminal 2', '2026-08-31 12:21:19', '2026-08-31 12:21:19'),
+(7, 1, 2, 14, 4, NULL, NULL, 15, 'Cash Out', 5000.00, 67335.00, 62335.00, NULL, 'gave 5000 to terminal 2, as at 3pm', '2026-08-31 12:23:29', '2026-08-31 12:23:29');
 
 -- --------------------------------------------------------
 
@@ -564,8 +667,8 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (2, 1, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (3, 1, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(5, 1, 'order', 'ORD', NULL, '-', 18, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-29 12:02:14', 0),
-(6, 1, 'payment', 'PAY', NULL, '-', 8, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-29 12:02:39', 0),
+(5, 1, 'order', 'ORD', NULL, '-', 20, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-31 10:10:48', 0),
+(6, 1, 'payment', 'PAY', NULL, '-', 9, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-31 10:15:05', 0),
 (7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (8, 1, 'purchase_return', 'PRN', NULL, '-', 5, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-27 09:44:50', 0),
 (9, 1, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
@@ -575,7 +678,7 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (13, 1, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (14, 1, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (15, 1, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(16, 1, 'Invoice', 'INV', NULL, '-', 5, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-29 12:02:14', 0),
+(16, 1, 'Invoice', 'INV', NULL, '-', 7, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-31 10:10:48', 0),
 (17, 1, 'Receipt', 'REC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (18, 1, 'Sales Order', 'SO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (19, 1, 'Purchase Order', 'PO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
@@ -708,7 +811,9 @@ INSERT INTO `invoices` (`id`, `company_id`, `branch_id`, `terminal_id`, `order_i
 (1, 1, 4, 12, 17, NULL, 'INV-000001', '2026-08-28', 91650.00, 0.00, 0.00, 91650.00, 92000.00, 0.00, 2.00, 2, 91650.00, 'Paid', 'Active', NULL, 1, 1, '2026-08-28 07:37:23', '2026-08-28 09:20:27', NULL),
 (2, 1, 1, 1, 18, 6, 'INV-000002', '2026-08-28', 983500.00, 0.00, 0.00, 983500.00, 983500.00, 0.00, 45.00, 4, 983500.00, 'Paid', 'Active', 'Items totalled to 983,500, with no discount or tax', 1, 1, '2026-08-28 09:23:30', '2026-08-28 10:11:22', NULL),
 (3, 1, 4, 12, 19, 10, 'INV-000003', '2026-08-28', 1200.00, 0.00, 0.00, 1200.00, 0.00, 1200.00, 1.00, 1, 1200.00, 'Pending', 'Active', NULL, 1, NULL, '2026-08-28 10:08:09', '2026-08-28 10:08:09', NULL),
-(4, 1, 1, 2, 20, 9, 'INV-000004', '2026-08-29', 522000.00, 2.00, 0.00, 521998.00, 150000.00, 371998.00, 65.00, 3, 521998.00, 'Partial', 'Active', NULL, 1, 1, '2026-08-29 12:02:14', '2026-08-29 12:02:39', NULL);
+(4, 1, 1, 2, 20, 9, 'INV-000004', '2026-08-29', 522000.00, 2.00, 0.00, 521998.00, 150000.00, 371998.00, 65.00, 3, 521998.00, 'Partial', 'Active', NULL, 1, 1, '2026-08-29 12:02:14', '2026-08-29 12:02:39', NULL),
+(5, 1, 2, 14, 21, NULL, 'INV-000005', '2026-08-31', 700.00, 0.00, 0.00, 700.00, 0.00, 700.00, 1.00, 1, 700.00, 'Pending', 'Active', NULL, 17, NULL, '2026-08-31 10:09:28', '2026-08-31 10:09:28', NULL),
+(6, 1, 2, 14, 22, NULL, 'INV-000006', '2026-08-31', 700.00, 0.00, 0.00, 700.00, 700.00, 0.00, 1.00, 1, 700.00, 'Paid', 'Active', NULL, 17, 17, '2026-08-31 10:10:48', '2026-08-31 10:15:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -746,7 +851,9 @@ INSERT INTO `invoice_items` (`id`, `company_id`, `invoice_id`, `product_id`, `pr
 (8, 1, 3, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-08-28 10:08:09', '2026-08-28 10:08:09'),
 (9, 1, 4, 19, 'Three Crown Evaporated Milk', 'TH123456', 50.00, 1200.00, 0.00, 0.00, 60000.00, '2026-08-29 12:02:14', '2026-08-29 12:02:14'),
 (10, 1, 4, 8, 'Mama Gold Rice 50kg', '100000000008', 5.00, 90000.00, 2.00, 0.00, 449998.00, '2026-08-29 12:02:14', '2026-08-29 12:02:14'),
-(11, 1, 4, 7, 'Family Bread', '100000000007', 10.00, 1200.00, 0.00, 0.00, 12000.00, '2026-08-29 12:02:14', '2026-08-29 12:02:14');
+(11, 1, 4, 7, 'Family Bread', '100000000007', 10.00, 1200.00, 0.00, 0.00, 12000.00, '2026-08-29 12:02:14', '2026-08-29 12:02:14'),
+(12, 1, 5, 2, 'Fanta 50cl', '100000000002', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-08-31 10:09:28', '2026-08-31 10:09:28'),
+(13, 1, 6, 2, 'Fanta 50cl', '100000000002', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-08-31 10:10:48', '2026-08-31 10:10:48');
 
 -- --------------------------------------------------------
 
@@ -857,7 +964,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (59, '2026_08_28_081507_create_invoices_table', 19),
 (60, '2026_08_28_081604_create_invoice_items_table', 19),
 (61, '2026_08_29_151423_create_sales_returns_table', 20),
-(62, '2026_08_29_151437_create_sales_return_payments_table', 20);
+(62, '2026_08_29_151437_create_sales_return_payments_table', 20),
+(63, '2026_08_30_021155_create_cash_drawers_table', 21),
+(64, '2026_08_30_021227_create_cash_drawer_transactions_table', 21),
+(65, '2026_08_30_112306_create_terminal_assignments_table', 21);
 
 -- --------------------------------------------------------
 
@@ -906,7 +1016,9 @@ INSERT INTO `orders` (`id`, `company_id`, `branch_id`, `order_no`, `customer_id`
 (17, 1, 4, 'ORD-000014', NULL, 1, 91650.00, 0.00, NULL, NULL, 0.00, 91650.00, 92000.00, 0.00, 2, 2.00, 350.00, 91650.00, '2026-08-28 09:20:27', 'Paid', 'Completed', 'POS', 12, 0, NULL, 1, 1, '2026-08-28 07:37:23', '2026-08-28 09:20:27', NULL),
 (18, 1, 1, 'ORD-000015', 6, 1, 983500.00, 0.00, NULL, NULL, 0.00, 983500.00, 983500.00, 0.00, 4, 45.00, 0.00, 983500.00, '2026-08-28 10:11:22', 'Paid', 'Completed', 'POS', 1, 0, 'Items totalled to 983,500, with no discount or tax', 1, 1, '2026-08-28 09:23:30', '2026-08-28 10:11:22', NULL),
 (19, 1, 4, 'ORD-000016', 10, 1, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 0.00, 1200.00, 1, 1.00, 0.00, 1200.00, NULL, 'Pending', 'Draft', 'POS', 12, 0, NULL, 1, NULL, '2026-08-28 10:08:09', '2026-08-28 10:08:09', NULL),
-(20, 1, 1, 'ORD-000017', 9, 1, 522000.00, 2.00, NULL, NULL, 0.00, 521998.00, 150000.00, 371998.00, 3, 65.00, 0.00, 521998.00, NULL, 'Partial', 'Held', 'POS', 2, 0, NULL, 1, 1, '2026-08-29 12:02:14', '2026-08-29 12:02:39', NULL);
+(20, 1, 1, 'ORD-000017', 9, 1, 522000.00, 2.00, NULL, NULL, 0.00, 521998.00, 150000.00, 371998.00, 3, 65.00, 0.00, 521998.00, NULL, 'Partial', 'Held', 'POS', 2, 0, NULL, 1, 1, '2026-08-29 12:02:14', '2026-08-29 12:02:39', NULL),
+(21, 1, 2, 'ORD-000018', NULL, 17, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 0.00, 700.00, 1, 1.00, 0.00, 700.00, NULL, 'Pending', 'Draft', 'POS', 14, 0, NULL, 17, NULL, '2026-08-31 10:09:28', '2026-08-31 10:09:28', NULL),
+(22, 1, 2, 'ORD-000019', NULL, 17, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 700.00, 0.00, 1, 1.00, 0.00, 700.00, '2026-08-31 10:15:05', 'Paid', 'Completed', 'POS', 14, 0, NULL, 17, 17, '2026-08-31 10:10:48', '2026-08-31 10:15:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -944,7 +1056,9 @@ INSERT INTO `order_items` (`id`, `company_id`, `order_id`, `product_id`, `produc
 (26, 1, 19, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-08-28 10:08:09', '2026-08-28 10:08:09'),
 (27, 1, 20, 19, 'Three Crown Evaporated Milk', 'TH123456', 50.00, 1200.00, 0.00, 0.00, 60000.00, '2026-08-29 12:02:14', '2026-08-29 12:02:14'),
 (28, 1, 20, 8, 'Mama Gold Rice 50kg', '100000000008', 5.00, 90000.00, 2.00, 0.00, 449998.00, '2026-08-29 12:02:14', '2026-08-29 12:02:14'),
-(29, 1, 20, 7, 'Family Bread', '100000000007', 10.00, 1200.00, 0.00, 0.00, 12000.00, '2026-08-29 12:02:14', '2026-08-29 12:02:14');
+(29, 1, 20, 7, 'Family Bread', '100000000007', 10.00, 1200.00, 0.00, 0.00, 12000.00, '2026-08-29 12:02:14', '2026-08-29 12:02:14'),
+(30, 1, 21, 2, 'Fanta 50cl', '100000000002', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-08-31 10:09:28', '2026-08-31 10:09:28'),
+(31, 1, 22, 2, 'Fanta 50cl', '100000000002', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-08-31 10:10:48', '2026-08-31 10:10:48');
 
 -- --------------------------------------------------------
 
@@ -997,7 +1111,8 @@ INSERT INTO `payments` (`id`, `company_id`, `branch_id`, `order_id`, `customer_i
 (6, 1, 1, 18, 6, 1, 200000.00, 'Completed', 3, 'Transfer', '2026-08-28 11:06:21', NULL, NULL, 'ORD-000015', 'Payment received for sales order: ORD-000015', 1, 'PAY-000004', '2026-08-28 10:06:21', '2026-08-28 10:06:21'),
 (7, 1, 1, 18, 6, 1, 500000.00, 'Completed', 3, 'Transfer', '2026-08-28 11:07:01', NULL, NULL, 'ORD-000015', 'Payment received for sales order: ORD-000015', 1, 'PAY-000005', '2026-08-28 10:07:01', '2026-08-28 10:07:01'),
 (8, 1, 1, 18, 6, 1, 33500.00, 'Completed', 3, 'Transfer', '2026-08-28 11:11:22', NULL, NULL, 'ORD-000015', 'Payment received for sales order: ORD-000015', 1, 'PAY-000006', '2026-08-28 10:11:22', '2026-08-28 10:11:22'),
-(9, 1, 1, 20, 9, 2, 150000.00, 'Completed', 3, 'Transfer', '2026-08-29 13:02:39', NULL, NULL, 'ORD-000017', 'Payment received for sales order: ORD-000017', 1, 'PAY-000007', '2026-08-29 12:02:39', '2026-08-29 12:02:39');
+(9, 1, 1, 20, 9, 2, 150000.00, 'Completed', 3, 'Transfer', '2026-08-29 13:02:39', NULL, NULL, 'ORD-000017', 'Payment received for sales order: ORD-000017', 1, 'PAY-000007', '2026-08-29 12:02:39', '2026-08-29 12:02:39'),
+(12, 1, 2, 22, NULL, 14, 700.00, 'Completed', 1, 'Cash', '2026-08-31 11:15:05', NULL, NULL, 'ORD-000019', 'Payment received for sales order: ORD-000019', 17, 'PAY-000008', '2026-08-31 10:15:05', '2026-08-31 10:15:05');
 
 -- --------------------------------------------------------
 
@@ -1278,17 +1393,17 @@ CREATE TABLE `product_stocks` (
 --
 
 INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `quantity`, `reserved_quantity`, `available_quantity`, `reorder_level`, `maximum_stock`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 990.00, 0.00, 990.00, 10.00, 2000.00, '2026-07-29 10:37:13', '2026-08-26 11:35:10'),
-(2, 1, 1, 2, 2050.00, 0.00, 2050.00, 20.00, 2100.00, '2026-07-29 10:37:13', '2026-08-27 09:44:50'),
-(3, 1, 1, 3, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(4, 1, 1, 4, 100.00, 0.00, 100.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(5, 1, 1, 5, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
-(6, 1, 1, 6, 1535.00, 0.00, 1535.00, 20.00, 1595.00, '2026-07-29 10:37:13', '2026-08-28 10:11:22'),
-(7, 1, 1, 7, 95.00, 0.00, 95.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
-(8, 1, 1, 8, 85.00, 0.00, 85.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-28 10:11:22'),
-(9, 1, 1, 9, 80.00, 0.00, 80.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-14 10:15:11'),
-(10, 1, 1, 10, 1030.00, 0.00, 1030.00, 20.00, 1085.00, '2026-07-29 10:37:13', '2026-08-28 10:11:22'),
-(13, 1, 1, 19, 1615.00, 0.00, 1615.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-08-28 10:11:22'),
+(1, 1, 1, 1, 980.00, 0.00, 980.00, 10.00, 2000.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(2, 1, 1, 2, 2040.00, 0.00, 2040.00, 20.00, 2100.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(3, 1, 1, 3, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(4, 1, 1, 4, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(5, 1, 1, 5, 80.00, 0.00, 80.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(6, 1, 1, 6, 1525.00, 0.00, 1525.00, 20.00, 1595.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(7, 1, 1, 7, 85.00, 0.00, 85.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(8, 1, 1, 8, 75.00, 0.00, 75.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(9, 1, 1, 9, 70.00, 0.00, 70.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(10, 1, 1, 10, 1020.00, 0.00, 1020.00, 20.00, 1085.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(13, 1, 1, 19, 1605.00, 0.00, 1605.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-08-31 10:05:07'),
 (20, 1, 6, 19, 5.00, 0.00, 5.00, 100.00, 1635.00, '2026-08-11 09:39:39', '2026-08-22 13:10:17'),
 (21, 1, 6, 10, 5.00, 0.00, 5.00, 20.00, 1085.00, '2026-08-11 09:39:39', '2026-08-22 13:16:04'),
 (22, 1, 6, 9, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
@@ -1296,7 +1411,18 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (24, 1, 4, 8, 0.00, 0.00, 0.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-28 09:20:27'),
 (25, 1, 4, 7, 4.00, 0.00, 5.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
 (26, 1, 4, 6, 1.00, 0.00, 1.00, 20.00, 1595.00, '2026-08-14 10:15:11', '2026-08-28 09:20:27'),
-(27, 1, 4, 5, 15.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39');
+(27, 1, 4, 5, 15.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
+(28, 1, 2, 19, 10.00, 0.00, 10.00, 100.00, 1635.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(29, 1, 2, 10, 10.00, 0.00, 10.00, 20.00, 1085.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(30, 1, 2, 9, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(31, 1, 2, 8, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(32, 1, 2, 7, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(33, 1, 2, 6, 10.00, 0.00, 10.00, 20.00, 1595.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(34, 1, 2, 5, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(35, 1, 2, 4, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(36, 1, 2, 3, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(37, 1, 2, 2, 9.00, 0.00, 9.00, 20.00, 2100.00, '2026-08-31 10:05:07', '2026-08-31 10:15:05'),
+(38, 1, 2, 1, 10.00, 0.00, 10.00, 10.00, 2000.00, '2026-08-31 10:05:07', '2026-08-31 10:05:07');
 
 -- --------------------------------------------------------
 
@@ -1674,65 +1800,51 @@ INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, 
 (184, 1, 2, 91, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
 (185, 1, 2, 92, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
 (186, 1, 2, 93, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(187, 1, 3, 1, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(188, 1, 3, 4, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(189, 1, 3, 6, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(190, 1, 3, 10, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(191, 1, 3, 14, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(192, 1, 3, 25, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(193, 1, 3, 26, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(194, 1, 3, 27, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(195, 1, 3, 28, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(196, 1, 3, 29, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(197, 1, 3, 30, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(198, 1, 3, 31, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(199, 1, 3, 32, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(200, 1, 3, 33, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(201, 1, 3, 34, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(202, 1, 3, 35, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(203, 1, 3, 36, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(204, 1, 3, 37, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(205, 1, 3, 38, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(206, 1, 3, 39, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(207, 1, 3, 40, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(208, 1, 3, 41, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(209, 1, 3, 42, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(210, 1, 3, 43, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(211, 1, 3, 44, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(212, 1, 3, 45, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(213, 1, 3, 46, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(214, 1, 3, 47, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(215, 1, 3, 48, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(216, 1, 3, 49, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(217, 1, 3, 50, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(218, 1, 3, 51, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(219, 1, 3, 52, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(220, 1, 3, 53, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(221, 1, 3, 54, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(222, 1, 3, 55, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(223, 1, 3, 56, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(224, 1, 3, 57, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(225, 1, 3, 58, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(226, 1, 3, 59, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(227, 1, 3, 60, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(228, 1, 3, 61, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(229, 1, 3, 62, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(230, 1, 3, 63, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(231, 1, 3, 64, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(232, 1, 3, 65, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(233, 1, 3, 71, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(234, 1, 3, 72, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(235, 1, 3, 73, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(236, 1, 3, 74, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(237, 1, 3, 75, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(238, 1, 3, 76, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(239, 1, 3, 79, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(240, 1, 3, 80, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(241, 1, 3, 66, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(242, 1, 3, 67, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(243, 1, 3, 68, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(244, 1, 3, 69, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(245, 1, 3, 70, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
+(187, 1, 3, 1, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(188, 1, 3, 4, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(189, 1, 3, 6, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(190, 1, 3, 10, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(191, 1, 3, 14, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(192, 1, 3, 25, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(198, 1, 3, 31, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(202, 1, 3, 35, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(206, 1, 3, 39, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(207, 1, 3, 40, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(208, 1, 3, 41, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(209, 1, 3, 42, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(210, 1, 3, 43, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(211, 1, 3, 44, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(212, 1, 3, 45, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(213, 1, 3, 46, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(214, 1, 3, 47, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(217, 1, 3, 50, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(218, 1, 3, 51, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(219, 1, 3, 52, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(220, 1, 3, 53, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(221, 1, 3, 54, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(223, 1, 3, 56, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(224, 1, 3, 57, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(225, 1, 3, 58, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(226, 1, 3, 59, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(227, 1, 3, 60, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(228, 1, 3, 61, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(229, 1, 3, 62, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(230, 1, 3, 63, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(231, 1, 3, 64, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(232, 1, 3, 65, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(233, 1, 3, 71, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(234, 1, 3, 72, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(235, 1, 3, 73, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(236, 1, 3, 74, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(237, 1, 3, 75, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(238, 1, 3, 76, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(239, 1, 3, 79, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(240, 1, 3, 80, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(241, 1, 3, 66, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(242, 1, 3, 67, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(243, 1, 3, 68, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(244, 1, 3, 69, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
+(245, 1, 3, 70, '2026-07-29 11:20:42', '2026-08-31 05:58:30'),
 (246, 1, 4, 1, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
 (247, 1, 4, 25, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
 (248, 1, 4, 47, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
@@ -1794,7 +1906,9 @@ INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, 
 (304, 1, 7, 79, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
 (305, 1, 7, 80, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
 (306, 1, 7, 81, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
-(307, 1, 7, 82, '2026-07-29 11:20:43', '2026-07-29 11:20:43');
+(307, 1, 7, 82, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
+(312, 1, 3, 77, '2026-08-31 05:58:30', '2026-08-31 05:58:30'),
+(313, 1, 3, 78, '2026-08-31 05:58:30', '2026-08-31 05:58:30');
 
 -- --------------------------------------------------------
 
@@ -1888,7 +2002,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('lNchyUgsqxAC4kz0gbIQWHwXZhghuRQ0YjRxI38B', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IjkzUHpuRHBrM1pueFN2QlZuUnd4VGxGM3BCaElzaFdkc1JkT1IwNTAiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zYWxlcy9pbnZvaWNlcyI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjQ2OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc2FsZXMvcGF5bWVudHMvOS9yZWNlaXB0IjtzOjU6InJvdXRlIjtzOjIyOiJzYWxlcy5wYXltZW50cy5yZWNlaXB0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjEwOiJjb21wYW55X2lkIjtpOjE7czoxMjoiY29tcGFueV9uYW1lIjtzOjE5OiJFbW1hbmV4IFN1cGVybWFya2V0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6OToiQ09NUC0wMDAxIjtzOjk6ImJyYW5jaF9pZCI7aToxO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1788014475);
+('UhCE0GOqaY7WlkxsUVbitiMoWSK5HgUFhwwRU7Za', 15, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6IkkzNGN1ak9BNzNlbEdQNjU2VUcxTnBmSW1VM2ptVWllZVlBZjRURUUiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjM1OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcG9zL2FwcHJvdmVycyI7czo1OiJyb3V0ZSI7czoxMzoicG9zLmFwcHJvdmVycyI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE1O3M6MTA6ImNvbXBhbnlfaWQiO2k6MTtzOjEyOiJjb21wYW55X25hbWUiO3M6MTk6IkVtbWFuZXggU3VwZXJtYXJrZXQiO3M6MTI6ImNvbXBhbnlfY29kZSI7czo5OiJDT01QLTAwMDEiO3M6OToiYnJhbmNoX2lkIjtpOjI7czo4OiJjdXJyZW5jeSI7czozOiJOR04iO3M6MTU6ImN1cnJlbmN5X3N5bWJvbCI7czozOiLigqYiO3M6ODoidGltZXpvbmUiO3M6MTI6IkFmcmljYS9MYWdvcyI7fQ==', 1788200089);
 
 -- --------------------------------------------------------
 
@@ -2067,7 +2181,30 @@ INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `m
 (58, 1, 1, 19, 'Sale', 18, 'ORD-000015', 1000.00, 20.00, 1635.00, 1615.00, 'Sales Order completed: ORD-000015', 1, '2026-08-28 10:11:22', '2026-08-28 10:11:22'),
 (59, 1, 1, 8, 'Sale', 18, 'ORD-000015', 82000.00, 10.00, 95.00, 85.00, 'Sales Order completed: ORD-000015', 1, '2026-08-28 10:11:22', '2026-08-28 10:11:22'),
 (60, 1, 1, 6, 'Sale', 18, 'ORD-000015', 1450.00, 10.00, 1545.00, 1535.00, 'Sales Order completed: ORD-000015', 1, '2026-08-28 10:11:22', '2026-08-28 10:11:22'),
-(61, 1, 1, 10, 'Sale', 18, 'ORD-000015', 7800.00, 5.00, 1035.00, 1030.00, 'Sales Order completed: ORD-000015', 1, '2026-08-28 10:11:22', '2026-08-28 10:11:22');
+(61, 1, 1, 10, 'Sale', 18, 'ORD-000015', 7800.00, 5.00, 1035.00, 1030.00, 'Sales Order completed: ORD-000015', 1, '2026-08-28 10:11:22', '2026-08-28 10:11:22'),
+(62, 1, 1, 19, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 1000.00, 10.00, 1615.00, 1605.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(63, 1, 2, 19, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 1000.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(64, 1, 1, 10, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 7800.00, 10.00, 1030.00, 1020.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(65, 1, 2, 10, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 7800.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(66, 1, 1, 9, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 500.00, 10.00, 80.00, 70.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(67, 1, 2, 9, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 500.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(68, 1, 1, 8, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 82000.00, 10.00, 85.00, 75.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(69, 1, 2, 8, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 82000.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(70, 1, 1, 7, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 900.00, 10.00, 95.00, 85.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(71, 1, 2, 7, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 900.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(72, 1, 1, 6, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 1450.00, 10.00, 1535.00, 1525.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(73, 1, 2, 6, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 1450.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(74, 1, 1, 5, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 180.00, 10.00, 90.00, 80.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(75, 1, 2, 5, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 180.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(76, 1, 1, 4, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 4200.00, 10.00, 100.00, 90.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(77, 1, 2, 4, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 4200.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(78, 1, 1, 3, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 500.00, 10.00, 100.00, 90.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(79, 1, 2, 3, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 500.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(80, 1, 1, 2, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 500.00, 10.00, 2050.00, 2040.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(81, 1, 2, 2, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 500.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(82, 1, 1, 1, 'Transfer Out', NULL, 'TRF-20260831110507-GZTMGC', 500.00, 10.00, 990.00, 980.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(83, 1, 2, 1, 'Transfer In', NULL, 'TRF-20260831110507-GZTMGC', 500.00, 10.00, 0.00, 10.00, '10 items each across all product.', 1, '2026-08-31 10:05:07', '2026-08-31 10:05:07'),
+(86, 1, 2, 2, 'Sale', 22, 'ORD-000019', 500.00, 1.00, 10.00, 9.00, 'Sales Order completed: ORD-000019', 17, '2026-08-31 10:15:05', '2026-08-31 10:15:05');
 
 -- --------------------------------------------------------
 
@@ -2166,7 +2303,38 @@ INSERT INTO `terminals` (`id`, `company_id`, `branch_id`, `terminal_code`, `term
 (2, 1, 1, 'BR001-POS02', 'Head Office POS 2', NULL, 'Desktop POS', NULL, 1, NULL, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
 (3, 1, 2, 'BR002-POS01', 'Lekki Branch POS 1', NULL, 'Desktop POS', NULL, 1, NULL, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
 (11, 1, 4, 'Ajah-Pos1', 'Front Counter POS', 'Main Checkout', 'Dell Optilex', '192.168.0.24', 1, NULL, '2026-08-01 22:42:04', '2026-08-01 23:42:15', '2026-08-01 23:42:15'),
-(12, 1, 4, 'Ajah-01', 'Front Counter-Ajah01', 'Dell Optilex', 'Dell Optilex', '192.168.0.23', 1, NULL, '2026-08-27 13:06:31', '2026-08-27 13:06:31', NULL);
+(12, 1, 4, 'Ajah-01', 'Front Counter-Ajah01', 'Dell Optilex', 'Dell Optilex', '192.168.0.23', 1, NULL, '2026-08-27 13:06:31', '2026-08-27 13:06:31', NULL),
+(13, 1, 2, 'Lek-Pos2', 'Lekki-Pos2', 'Main Checkout', 'Dell Optilex', NULL, 1, NULL, '2026-08-30 15:19:56', '2026-08-30 15:19:56', NULL),
+(14, 1, 2, 'Lek-Pos3', 'Lekki-Pos3', NULL, 'Desktop POS', NULL, 1, NULL, '2026-08-30 15:20:14', '2026-08-30 15:20:14', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `terminal_assignments`
+--
+
+CREATE TABLE `terminal_assignments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED NOT NULL,
+  `terminal_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `assigned_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `unassigned_at` timestamp NULL DEFAULT NULL,
+  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `terminal_assignments`
+--
+
+INSERT INTO `terminal_assignments` (`id`, `company_id`, `branch_id`, `terminal_id`, `user_id`, `assigned_at`, `unassigned_at`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 3, 15, '2026-08-30 16:57:55', '2026-08-30 15:57:55', 'Inactive', 1, 1, '2026-08-30 15:43:28', '2026-08-30 15:57:55'),
+(2, 1, 2, 14, 15, '2026-08-30 15:57:55', NULL, 'Active', 1, 1, '2026-08-30 15:57:55', '2026-08-30 15:57:55');
 
 -- --------------------------------------------------------
 
@@ -2261,8 +2429,8 @@ INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `employee_no`, 
 (5, 1, 1, 5, 'EMP0005', 'Main', NULL, 'Cashier', 'cashier', 'cashier@emmanexitconsult.com', 0, '2026-07-29 10:37:11', 0, NULL, '$2y$12$T1ovqUxatrDaNNgfTtkRUOGZtYbvmkVjao8EU/1LCJFH1KA0M.1qO', NULL, NULL, '1991-06-12', '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:12', '2026-08-09 14:53:48', NULL),
 (6, 1, 1, 6, 'EMP0006', 'Inventory', NULL, 'Manager', 'inventory', 'inventory@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$lWJtwgUPhnO44mwKMNifgeZiD.oVJwv9QqHYPCMNMOSpP0IhCHNAC', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:12', '2026-07-29 10:37:12', NULL),
 (7, 1, 1, 7, 'EMP0007', 'Company', NULL, 'Accountant', 'accountant', 'accountant@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$Aj3KYFJ24AXQQWWE3taN.uWPk/7eQSkS9oH84LMpPHxJ6nq1vXS5i', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(15, 1, 2, 5, 'CH-2026-001', 'Paul', 'Olusogo', 'Awolola', 'paul', 'bizcare@gmail.com', 0, NULL, 0, '07038899203', '$2y$12$oiRFD5rOZ2yz1vUPcinKKOS0rE1v7HXXTZphze3o0z7fOTNfpidp6', NULL, 'Male', '1987-11-25', '2026-07-06', 'Adelu, Ido, Ibadan.', 'Transfered from Ajah branch', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-30 00:35:56', '2026-07-31 13:58:33', NULL),
-(17, 1, 2, 3, 'MG-2026-001', 'Maxwell', 'Akinkunmi', 'Akinyooye', 'maxwell', 'maxwell@gmail.com', 0, NULL, 0, '08034271855', '$2y$12$6H0IvKIF6TgHzAAZpR5Q1uomvytbt36RZi8z63bdACmTXUKHXEDrO', NULL, 'Male', '2017-09-27', '2026-08-03', 'Ibadan', 'Branch manager of lekki branch.', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-08-09 07:43:51', '2026-08-22 10:10:57', NULL);
+(15, 1, 2, 5, 'CH-2026-001', 'Paul', 'Olusogo', 'Awolola', 'paul', 'bizcare@gmail.com', 0, NULL, 0, '07038899203', '$2y$12$Sstz2CJuURgxEXVIu/DD3.yNOZrTmaT/UcICvHI7J4Qa5RX/e4AYu', NULL, 'Male', '1987-11-25', '2026-07-06', 'Adelu, Ido, Ibadan.', 'Transfered from Ajah branch', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-30 00:35:56', '2026-08-30 16:02:34', NULL),
+(17, 1, 2, 3, 'MG-2026-001', 'Maxwell', 'Akinkunmi', 'Akinyooye', 'maxwell', 'maxwell@gmail.com', 0, NULL, 0, '08034271855', '$2y$12$YS766Mx5bkWAuuDym1EBy.OtUEY3ZGb0OJ7pkrLEZtXraADh8iMf.', NULL, 'Male', '2017-09-27', '2026-08-03', 'Ibadan', 'Branch manager of lekki branch.', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-08-09 07:43:51', '2026-08-31 05:55:33', NULL);
 
 --
 -- Indexes for dumped tables
@@ -2299,6 +2467,30 @@ ALTER TABLE `cache`
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`),
   ADD KEY `cache_locks_expiration_index` (`expiration`);
+
+--
+-- Indexes for table `cash_drawers`
+--
+ALTER TABLE `cash_drawers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cash_drawers_branch_id_foreign` (`branch_id`),
+  ADD KEY `cash_drawers_terminal_id_foreign` (`terminal_id`),
+  ADD KEY `cash_drawers_opened_by_foreign` (`opened_by`),
+  ADD KEY `cash_drawers_closed_by_foreign` (`closed_by`),
+  ADD KEY `cash_drawers_company_id_branch_id_terminal_id_status_index` (`company_id`,`branch_id`,`terminal_id`,`status`);
+
+--
+-- Indexes for table `cash_drawer_transactions`
+--
+ALTER TABLE `cash_drawer_transactions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cash_drawer_transactions_branch_id_foreign` (`branch_id`),
+  ADD KEY `cash_drawer_transactions_terminal_id_foreign` (`terminal_id`),
+  ADD KEY `cash_drawer_transactions_payment_id_foreign` (`payment_id`),
+  ADD KEY `cash_drawer_transactions_order_id_foreign` (`order_id`),
+  ADD KEY `cash_drawer_transactions_created_by_foreign` (`created_by`),
+  ADD KEY `cash_drawer_transactions_cash_drawer_id_transaction_type_index` (`cash_drawer_id`,`transaction_type`),
+  ADD KEY `cash_drawer_transactions_company_id_branch_id_terminal_id_index` (`company_id`,`branch_id`,`terminal_id`);
 
 --
 -- Indexes for table `companies`
@@ -2697,6 +2889,22 @@ ALTER TABLE `terminals`
   ADD KEY `terminals_branch_id_foreign` (`branch_id`);
 
 --
+-- Indexes for table `terminal_assignments`
+--
+ALTER TABLE `terminal_assignments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `terminal_assignments_branch_id_foreign` (`branch_id`),
+  ADD KEY `terminal_assignments_terminal_id_foreign` (`terminal_id`),
+  ADD KEY `terminal_assignments_user_id_foreign` (`user_id`),
+  ADD KEY `terminal_assignments_created_by_foreign` (`created_by`),
+  ADD KEY `terminal_assignments_updated_by_foreign` (`updated_by`),
+  ADD KEY `terminal_assignments_company_id_branch_id_index` (`company_id`,`branch_id`),
+  ADD KEY `terminal_assignments_company_id_terminal_id_index` (`company_id`,`terminal_id`),
+  ADD KEY `terminal_assignments_company_id_user_id_index` (`company_id`,`user_id`),
+  ADD KEY `terminal_assignments_status_index` (`status`),
+  ADD KEY `terminal_assignments_assigned_at_index` (`assigned_at`);
+
+--
 -- Indexes for table `units`
 --
 ALTER TABLE `units`
@@ -2724,13 +2932,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=257;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
 
 --
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `cash_drawers`
+--
+ALTER TABLE `cash_drawers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `cash_drawer_transactions`
+--
+ALTER TABLE `cash_drawer_transactions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `companies`
@@ -2790,13 +3010,13 @@ ALTER TABLE `goods_received_items`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -2808,25 +3028,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -2856,7 +3076,7 @@ ALTER TABLE `product_categories`
 -- AUTO_INCREMENT for table `product_stocks`
 --
 ALTER TABLE `product_stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `purchase_orders`
@@ -2892,7 +3112,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `role_permissions`
 --
 ALTER TABLE `role_permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=314;
 
 --
 -- AUTO_INCREMENT for table `sales_orders`
@@ -2934,7 +3154,7 @@ ALTER TABLE `stock_count_items`
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -2952,7 +3172,13 @@ ALTER TABLE `tax_rates`
 -- AUTO_INCREMENT for table `terminals`
 --
 ALTER TABLE `terminals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `terminal_assignments`
+--
+ALTER TABLE `terminal_assignments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `units`
@@ -2984,6 +3210,28 @@ ALTER TABLE `activity_logs`
 --
 ALTER TABLE `branches`
   ADD CONSTRAINT `branches_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `cash_drawers`
+--
+ALTER TABLE `cash_drawers`
+  ADD CONSTRAINT `cash_drawers_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cash_drawers_closed_by_foreign` FOREIGN KEY (`closed_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `cash_drawers_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cash_drawers_opened_by_foreign` FOREIGN KEY (`opened_by`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `cash_drawers_terminal_id_foreign` FOREIGN KEY (`terminal_id`) REFERENCES `terminals` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `cash_drawer_transactions`
+--
+ALTER TABLE `cash_drawer_transactions`
+  ADD CONSTRAINT `cash_drawer_transactions_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cash_drawer_transactions_cash_drawer_id_foreign` FOREIGN KEY (`cash_drawer_id`) REFERENCES `cash_drawers` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cash_drawer_transactions_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cash_drawer_transactions_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `cash_drawer_transactions_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `cash_drawer_transactions_payment_id_foreign` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `cash_drawer_transactions_terminal_id_foreign` FOREIGN KEY (`terminal_id`) REFERENCES `terminals` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `customers`
@@ -3262,6 +3510,17 @@ ALTER TABLE `tax_rates`
 ALTER TABLE `terminals`
   ADD CONSTRAINT `terminals_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `terminals_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `terminal_assignments`
+--
+ALTER TABLE `terminal_assignments`
+  ADD CONSTRAINT `terminal_assignments_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `terminal_assignments_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `terminal_assignments_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `terminal_assignments_terminal_id_foreign` FOREIGN KEY (`terminal_id`) REFERENCES `terminals` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `terminal_assignments_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `terminal_assignments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `units`

@@ -893,23 +893,17 @@ body.emnex-pos-screen {
 .pos-products-panel,
 .pos-sale-panel {
 
-    min-width:
-        0;
+    display:
+        flex;
+
+    flex-direction:
+        column;
 
     min-height:
         0;
 
-    background:
-        var(--pos-surface);
-
-    border:
-        1px solid var(--pos-border);
-
-    border-radius:
-        var(--pos-radius);
-
-    box-shadow:
-        var(--pos-shadow);
+    overflow:
+        hidden;
 
 }
 
@@ -2079,6 +2073,122 @@ body.emnex-pos-screen {
 
     white-space:
         nowrap;
+
+    color:
+        var(--pos-muted);
+
+    font-size:
+        9px;
+
+}
+
+.pos-sale-customer-summary {
+
+    flex:
+        0 0 auto;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        9px;
+
+    padding:
+        8px 14px;
+
+    border-bottom:
+        1px solid var(--pos-border);
+
+}
+
+
+.pos-sale-customer-summary-icon {
+
+    width:
+        30px;
+
+    height:
+        30px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        8px;
+
+    background:
+        #f5f3ff;
+
+    color:
+        #7c3aed;
+
+}
+
+
+.pos-sale-customer-summary-content {
+
+    min-width:
+        0;
+
+    flex:
+        1;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+}
+
+
+.pos-sale-customer-summary-content span {
+
+    color:
+        var(--pos-subtle);
+
+    font-size:
+        8px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        0.05em;
+
+}
+
+
+.pos-sale-customer-summary-content strong {
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+    color:
+        var(--pos-text);
+
+    font-size:
+        10px;
+
+}
+
+
+.pos-sale-customer-summary > small {
 
     color:
         var(--pos-muted);
@@ -5363,4 +5473,331 @@ select:focus-visible {
     line-height:
         1.5;
 
+}
+
+/* ==========================================================================
+   POS QUICK ACTIONS
+   ========================================================================== */
+
+.pos-quick-actions {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin: 12px auto 0;
+    padding: 9px 12px;
+
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 0;
+
+    box-shadow:
+        0 -3px 12px rgba(15, 23, 42, 0.08),
+        0 3px 10px rgba(15, 23, 42, 0.08);
+
+    box-sizing: border-box;
+}
+
+
+
+/* --------------------------------------------------------------------------
+   Action Button
+   -------------------------------------------------------------------------- */
+
+.pos-quick-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    min-width: 118px;
+    height: 44px;
+
+    padding: 0 11px;
+
+    border: 1px solid transparent;
+    border-radius: 9px;
+
+    background: #1f2937;
+    color: #ffffff;
+
+    cursor: pointer;
+
+    text-align: left;
+    white-space: nowrap;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+.pos-quick-action:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.16);
+}
+
+
+.pos-quick-action:active {
+    transform: translateY(0);
+}
+
+
+/* --------------------------------------------------------------------------
+   Icon
+   -------------------------------------------------------------------------- */
+
+.pos-quick-action-icon {
+    width: 29px;
+    height: 29px;
+
+    flex: 0 0 29px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+}
+
+
+.pos-quick-action-icon i {
+    line-height: 1;
+}
+
+
+/* --------------------------------------------------------------------------
+   Content
+   -------------------------------------------------------------------------- */
+
+.pos-quick-action-content {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    line-height: 1.1;
+}
+
+
+.pos-quick-action-content strong {
+    display: block;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+
+.pos-quick-action-content small {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 9px;
+    font-weight: 500;
+
+    color: #9ca3af;
+}
+
+
+/* ==========================================================================
+   CUSTOMER
+   ========================================================================== */
+
+.pos-quick-action-customer {
+    background: #172554;
+    border-color: #1e3a8a;
+}
+
+.pos-quick-action-customer:hover {
+    background: #1e3a8a;
+}
+
+.pos-quick-action-customer .pos-quick-action-icon {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   DISCOUNT
+   ========================================================================== */
+
+.pos-quick-action-discount {
+    background: #422006;
+    border-color: #78350f;
+}
+
+.pos-quick-action-discount:hover {
+    background: #78350f;
+}
+
+.pos-quick-action-discount .pos-quick-action-icon {
+    background: #f59e0b;
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   TAX
+   ========================================================================== */
+
+.pos-quick-action-tax {
+    background: #312e81;
+    border-color: #4338ca;
+}
+
+.pos-quick-action-tax:hover {
+    background: #4338ca;
+}
+
+.pos-quick-action-tax .pos-quick-action-icon {
+    background: #6366f1;
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   HOLD
+   ========================================================================== */
+
+.pos-quick-action-hold {
+    background: #3f2a06;
+    border-color: #713f12;
+}
+
+.pos-quick-action-hold:hover {
+    background: #713f12;
+}
+
+.pos-quick-action-hold .pos-quick-action-icon {
+    background: #eab308;
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   CLEAR
+   ========================================================================== */
+
+.pos-quick-action-clear {
+    background: #450a0a;
+    border-color: #7f1d1d;
+}
+
+.pos-quick-action-clear:hover {
+    background: #7f1d1d;
+}
+
+.pos-quick-action-clear .pos-quick-action-icon {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   SAVE
+   ========================================================================== */
+
+.pos-quick-action-save {
+    background: #052e16;
+    border-color: #166534;
+}
+
+.pos-quick-action-save:hover {
+    background: #166534;
+}
+
+.pos-quick-action-save .pos-quick-action-icon {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   PREVIEW
+   ========================================================================== */
+
+.pos-quick-action-preview {
+    background: #164e63;
+    border-color: #155e75;
+}
+
+.pos-quick-action-preview:hover {
+    background: #155e75;
+}
+
+.pos-quick-action-preview .pos-quick-action-icon {
+    background: #0891b2;
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+
+    .pos-quick-actions {
+        gap: 6px;
+        padding: 8px 10px;
+    }
+
+    .pos-quick-action {
+        min-width: 0;
+        flex: 1;
+        height: 42px;
+        padding: 0 8px;
+    }
+
+    .pos-quick-action-icon {
+        width: 27px;
+        height: 27px;
+        flex-basis: 27px;
+    }
+
+    .pos-quick-action-content strong {
+        font-size: 11px;
+    }
+
+    .pos-quick-action-content small {
+        font-size: 8px;
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    .pos-quick-actions {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .pos-quick-action {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 576px) {
+
+    .pos-quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pos-quick-action {
+        min-width: 0;
+    }
 }

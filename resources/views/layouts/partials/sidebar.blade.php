@@ -397,9 +397,10 @@
 
                     <a
                         href="{{ route('pos.index') }}"
-                        class="{{ request()->routeIs('pos.index') ? 'active' : '' }}"
-                        id="new-sale-btn"
+                        class="{{ request()->routeIs('pos.index') ? 'active' : '' }}"                        
+                      
                     >
+                     <!-- id="new-sale-btn" -->
 
                         <span class="sub-icon">
 
@@ -1542,6 +1543,59 @@
 
 <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
+@if(session('success') || session('error') || session('warning') || session('info'))
+
+    <script>
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                @if(session('success'))
+
+                    showToast(
+                        @json(session('success')),
+                        'success'
+                    );
+
+                @endif
+
+
+                @if(session('error'))
+
+                    showToast(
+                        @json(session('error')),
+                        'danger'
+                    );
+
+                @endif
+
+
+                @if(session('warning'))
+
+                    showToast(
+                        @json(session('warning')),
+                        'warning'
+                    );
+
+                @endif
+
+
+                @if(session('info'))
+
+                    showToast(
+                        @json(session('info')),
+                        'info'
+                    );
+
+                @endif
+
+            }
+        );
+
+    </script>
+
+@endif
 <script>
     document.addEventListener(
     'DOMContentLoaded',

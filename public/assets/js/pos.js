@@ -111,7 +111,7 @@ const POS = {
 
         this.initializeContext();
 
-       // this.initializeFullscreen();
+       this.initializeFullscreen();
 
         await Promise.all([
 
@@ -4151,22 +4151,39 @@ async viewSaleFromHistory(
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Validate Cart
+        |--------------------------------------------------------------------------
+        */
+
+        if (!this.state.cart.length) {
+
+            this.showError(
+                'Add products before completing the sale.'
+            );
+
+            return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Payment
+        |--------------------------------------------------------------------------
+        */
+
         const total =
             this.calculateGrandTotal();
-
 
         const method =
             this.state.selectedPaymentMethod;
 
-
         const receivedAmount =
             method === 'Cash'
-
                 ? Number(
-                    this.elements.paymentAmount?.value
-                    ?? 0
+                    this.elements.paymentAmount?.value ?? 0
                 )
-
                 : total;
 
 
@@ -4180,13 +4197,16 @@ async viewSaleFromHistory(
             );
 
             return;
-
         }
 
 
-        this.state.isSaving =
-            true;
+        /*
+        |--------------------------------------------------------------------------
+        | Saving State
+        |--------------------------------------------------------------------------
+        */
 
+        this.state.isSaving = true;
 
         this.setButtonLoading(
             this.elements.completePayment,
@@ -4199,65 +4219,28 @@ async viewSaleFromHistory(
 
             /*
             |--------------------------------------------------------------------------
-            | Create Order
+            | Build Complete Sale Request
             |--------------------------------------------------------------------------
             */
 
-            const orderResponse =
-                await this.request(
-
-                    PosConfig.urls.orders,
-
-                    'POST',
-
-                    this.buildOrderFormData()
-
-                );
-
-
-            const order =
-                orderResponse.data
-                ?? orderResponse.order;
-
-
-            if (!order?.id) {
-
-                throw new Error(
-                    'Sale order could not be created.'
-                );
-
-            }
-
-
-            this.state.currentOrder =
-                order;
+            const formData =
+                this.buildOrderFormData();
 
 
             /*
             |--------------------------------------------------------------------------
-            | Complete Sale
+            | Payment
             |--------------------------------------------------------------------------
             */
 
-            const completeUrl =
-                `${PosConfig.urls.completeSale}/${order.id}/complete`;
-
-
-            const paymentData =
-                new FormData();
-
-
-            paymentData.append(
+            formData.append(
                 'payment_method',
                 method
             );
 
-
-            paymentData.append(
+            formData.append(
                 'amount',
-                String(
-                    receivedAmount
-                )
+                String(receivedAmount)
             );
 
 
@@ -4265,7 +4248,7 @@ async viewSaleFromHistory(
                 this.elements.paymentReference?.value
             ) {
 
-                paymentData.append(
+                formData.append(
                     'reference_no',
                     this.elements.paymentReference.value.trim()
                 );
@@ -4277,7 +4260,7 @@ async viewSaleFromHistory(
                 this.elements.paymentRemarks?.value
             ) {
 
-                paymentData.append(
+                formData.append(
                     'remarks',
                     this.elements.paymentRemarks.value.trim()
                 );
@@ -4285,15 +4268,17 @@ async viewSaleFromHistory(
             }
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Complete Entire Sale
+            |--------------------------------------------------------------------------
+            */
+
             const response =
                 await this.request(
-
-                    completeUrl,
-
+                    PosConfig.urls.orders,
                     'POST',
-
-                    paymentData
-
+                    formData
                 );
 
 
@@ -4302,10 +4287,34 @@ async viewSaleFromHistory(
                 ?? {};
 
 
+            if (!data.order?.id) {
+
+                throw new Error(
+                    'Sale could not be completed.'
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Store Current Order
+            |--------------------------------------------------------------------------
+            */
+
+            this.state.currentOrder =
+                data.order;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Success
+            |--------------------------------------------------------------------------
+            */
+
             this.showSaleCompleted(
                 data
             );
-
 
         } catch (error) {
 
@@ -4318,7 +4327,6 @@ async viewSaleFromHistory(
             this.state.isSaving =
                 false;
 
-
             this.setButtonLoading(
                 this.elements.completePayment,
                 false
@@ -4328,92 +4336,224 @@ async viewSaleFromHistory(
 
     },
 
-
     buildOrderFormData() {
 
-        const data =
-            new FormData();
+    const data =
+        new FormData();
 
 
-        if (
-            this.state.selectedCustomer?.id
-        ) {
+    /*
+    |--------------------------------------------------------------------------
+    | Customer
+    |--------------------------------------------------------------------------
+    */
 
-            data.append(
-                'customer_id',
-                String(
-                    this.state.selectedCustomer.id
-                )
-            );
+    if (
+        this.state.selectedCustomer?.id
+    ) {
 
-        }
+        data.append(
+            'customer_id',
+            String(
+                this.state.selectedCustomer.id
+            )
+        );
 
-
-        if (
-            this.state.selectedDiscount?.id
-        ) {
-
-            data.append(
-                'discount_id',
-                String(
-                    this.state.selectedDiscount.id
-                )
-            );
-
-        }
+    }
 
 
-        if (
-            this.state.selectedTaxRate?.id
-        ) {
+    /*
+    |--------------------------------------------------------------------------
+    | Discount
+    |--------------------------------------------------------------------------
+    */
 
-            data.append(
-                'tax_rate_id',
-                String(
-                    this.state.selectedTaxRate.id
-                )
-            );
+    if (
+        this.state.selectedDiscount?.id
+    ) {
 
-        }
+        data.append(
+            'discount_id',
+            String(
+                this.state.selectedDiscount.id
+            )
+        );
+
+    }
 
 
-        this.state.cart.forEach(
+    /*
+    |--------------------------------------------------------------------------
+    | Tax Rate
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        this.state.selectedTaxRate?.id
+    ) {
+
+        data.append(
+            'tax_rate_id',
+            String(
+                this.state.selectedTaxRate.id
+            )
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate Sale Totals
+    |--------------------------------------------------------------------------
+    */
+
+    const subtotal =
+        this.calculateSubtotal();
+
+    const discount =
+        this.calculateDiscount();
+
+    const tax =
+        this.calculateTax();
+
+    const total =
+        Math.max(
+            0,
+            subtotal - discount
+        );
+
+    const grandTotal =
+        this.calculateGrandTotal();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Totals
+    |--------------------------------------------------------------------------
+    */
+
+    data.append(
+        'subtotal',
+        String(subtotal)
+    );
+
+    data.append(
+        'discount',
+        String(discount)
+    );
+
+    data.append(
+        'tax',
+        String(tax)
+    );
+
+    data.append(
+        'total',
+        String(total)
+    );
+
+    data.append(
+        'grand_total',
+        String(grandTotal)
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Item Totals
+    |--------------------------------------------------------------------------
+    */
+
+    data.append(
+        'total_items',
+        String(
+            this.state.cart.length
+        )
+    );
+
+
+    const totalQuantity =
+        this.state.cart.reduce(
             (
-                item,
-                index
+                total,
+                item
             ) => {
 
-                data.append(
-                    `items[${index}][product_id]`,
-                    String(
-                        item.product_id
-                    )
-                );
+                return total
+                    + Number(
+                        item.quantity ?? 0
+                    );
 
-
-                data.append(
-                    `items[${index}][quantity]`,
-                    String(
-                        item.quantity
-                    )
-                );
-
-
-                data.append(
-                    `items[${index}][unit_price]`,
-                    String(
-                        item.unit_price
-                    )
-                );
-
-            }
+            },
+            0
         );
 
 
-        return data;
+    data.append(
+        'total_quantity',
+        String(totalQuantity)
+    );
 
-    },
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cart Items
+    |--------------------------------------------------------------------------
+    */
+
+    this.state.cart.forEach(
+        (
+            item,
+            index
+        ) => {
+
+            data.append(
+                `items[${index}][product_id]`,
+                String(
+                    item.product_id
+                )
+            );
+
+            data.append(
+                `items[${index}][quantity]`,
+                String(
+                    item.quantity
+                )
+            );
+
+            data.append(
+                `items[${index}][unit_price]`,
+                String(
+                    item.unit_price
+                )
+            );
+
+            data.append(
+                `items[${index}][discount]`,
+                '0'
+            );
+
+            data.append(
+                `items[${index}][tax]`,
+                '0'
+            );
+
+            data.append(
+                `items[${index}][total]`,
+                String(
+                    Number(item.quantity)
+                    * Number(item.unit_price)
+                )
+            );
+
+        }
+    );
+
+
+    return data;
+
+},
 
     /*
     |--------------------------------------------------------------------------
@@ -6144,24 +6284,24 @@ async approveAdjustment() {
 |--------------------------------------------------------------------------
 */
 
-// document.addEventListener(
-//     'fullscreenchange',
-//     () => {
+document.addEventListener(
+    'fullscreenchange',
+    () => {
 
-//         if (
-//             document.fullscreenElement
-//         ) {
+        if (
+            document.fullscreenElement
+        ) {
 
-//             POS.hideFullscreenOverlay();
+            POS.hideFullscreenOverlay();
 
-//         } else {
+        } else {
 
-//             POS.showFullscreenOverlay();
+            POS.showFullscreenOverlay();
 
-//         }
+        }
 
-//     }
-// );
+    }
+);
 
 
 /*

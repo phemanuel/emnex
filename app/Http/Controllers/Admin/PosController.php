@@ -11,10 +11,12 @@ use App\Models\InvoiceItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductStock;
 use App\Models\TaxRate;
 use App\Models\User;
+use App\Models\StockMovement;
 use App\Models\TerminalAssignment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,6 +24,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use App\Services\ActivityLogger;
+use App\Services\DocumentNumberService;
 
 class PosController extends BaseController
 {
@@ -390,6 +393,173 @@ class PosController extends BaseController
                 : null,
 
         ]);
+
+    }
+
+    /**
+     * Return the current POS context for internal operations.     *
+    
+     */
+    protected function posContextOrFail(): array
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | User
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Terminal Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        $terminalAssignment =
+            TerminalAssignment::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'user_id',
+                    $user->id
+                )
+                ->where(
+                    'status',
+                    'active'
+                )
+                ->with([
+                    'branch',
+                    'terminal',
+                ])
+                ->latest(
+                    'assigned_at'
+                )
+                ->first();
+
+
+        if (! $terminalAssignment) {
+
+            abort(
+                422,
+                'No active terminal is assigned to the current user.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Branch
+        |--------------------------------------------------------------------------
+        */
+
+        $branch =
+            $terminalAssignment->branch;
+
+
+        if (! $branch) {
+
+            abort(
+                422,
+                'The assigned terminal branch could not be found.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Terminal
+        |--------------------------------------------------------------------------
+        */
+
+        $terminal =
+            $terminalAssignment->terminal;
+
+
+        if (! $terminal) {
+
+            abort(
+                422,
+                'The assigned terminal could not be found.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cash Drawer
+        |--------------------------------------------------------------------------
+        */
+
+        $drawer =
+            CashDrawer::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'branch_id',
+                    $terminalAssignment->branch_id
+                )
+                ->where(
+                    'terminal_id',
+                    $terminalAssignment->terminal_id
+                )
+                ->where(
+                    'opened_by',
+                    $user->id
+                )
+                ->where(
+                    'status',
+                    'open'
+                )
+                ->latest(
+                    'opened_at'
+                )
+                ->first();
+
+
+        if (! $drawer) {
+
+            abort(
+                422,
+                'You must open your cash drawer before completing a sale.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Return Context
+        |--------------------------------------------------------------------------
+        */
+
+        return [
+
+            'user' =>
+                $user,
+
+            'assignment' =>
+                $terminalAssignment,
+
+            'branch' =>
+                $branch,
+
+            'terminal' =>
+                $terminal,
+
+            'drawer' =>
+                $drawer,
+
+        ];
 
     }
 
@@ -1454,14 +1624,8 @@ class PosController extends BaseController
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Store Order
-    |--------------------------------------------------------------------------
-    */
-
     /**
-     * Create/save a POS order.
+     * Store and complete a POS sale.
      */
     public function storeOrder(
         Request $request
@@ -1477,13 +1641,12 @@ class PosController extends BaseController
 
             return response()->json([
 
-                'success' =>
-                    false,
+                'status' => false,
 
-                'message' =>
-                    'You do not have permission to create sales.',
+                'message' => 'You do not have permission to complete sales.',
 
             ], 403);
+
         }
 
 
@@ -1493,552 +1656,1034 @@ class PosController extends BaseController
         |--------------------------------------------------------------------------
         */
 
-        $validated =
-            $request->validate([
+        $validated = $request->validate([
 
-                'customer_id' => [
-                    'nullable',
-                    'integer',
-                ],
+            'customer_id' => [
+                'nullable',
+                'integer',
+            ],
 
-                'items' => [
-                    'required',
-                    'array',
-                    'min:1',
-                ],
+            'discount_id' => [
+                'nullable',
+                'integer',
+            ],
 
-                'items.*.product_id' => [
-                    'required',
-                    'integer',
-                ],
+            'tax_rate_id' => [
+                'nullable',
+                'integer',
+            ],
 
-                'items.*.quantity' => [
-                    'required',
-                    'numeric',
-                    'gt:0',
-                ],
+            'discount' => [
+                'nullable',
+                'numeric',
+                'min:0',
+            ],
 
-                'items.*.unit_price' => [
-                    'required',
-                    'numeric',
-                    'min:0',
-                ],
+            'tax' => [
+                'nullable',
+                'numeric',
+                'min:0',
+            ],
 
-                'discount_id' => [
-                    'nullable',
-                    'integer',
-                ],
+            'subtotal' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
 
-                'tax_rate_id' => [
-                    'nullable',
-                    'integer',
-                ],
+            'total' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
 
-                'remarks' => [
-                    'nullable',
-                    'string',
-                    'max:1000',
-                ],
+            'grand_total' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
 
-            ]);
+            'total_items' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
 
+            'total_quantity' => [
+                'required',
+                'numeric',
+                'min:1',
+            ],
+
+            'payment_method' => [
+                'required',
+                'string',
+                'max:50',
+            ],
+
+            'amount' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+
+            'reference_no' => [
+                'nullable',
+                'string',
+                'max:100',
+            ],
+
+            'remarks' => [
+                'nullable',
+                'string',
+                'max:1000',
+            ],
+
+            'items' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+
+            'items.*.product_id' => [
+                'required',
+                'integer',
+            ],
+
+            'items.*.quantity' => [
+                'required',
+                'numeric',
+                'gt:0',
+            ],
+
+            'items.*.unit_price' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+
+            'items.*.discount' => [
+                'nullable',
+                'numeric',
+                'min:0',
+            ],
+
+            'items.*.tax' => [
+                'nullable',
+                'numeric',
+                'min:0',
+            ],
+
+            'items.*.total' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Complete Sale
+        |--------------------------------------------------------------------------
+        */
 
         try {
 
-            $result =
-                DB::transaction(
+            $result = DB::transaction(function () use (
+                $validated
+            ) {
 
-                    function () use (
-                        $validated
-                    ) {
+                /*
+                |--------------------------------------------------------------------------
+                | POS Context
+                |--------------------------------------------------------------------------
+                */
 
-                        $context =
-                            $this->posContextOrFail();
+                $context = $this->posContextOrFail();
 
 
-                        $order =
-                            new Order();
+                $companyId =
+                    $this->companyId;
 
+                $branch =
+                    $context['branch'];
 
-                        $order->company_id =
-                            $this->companyId;
+                $terminal =
+                    $context['terminal'];
 
-                        $order->branch_id =
-                            $context['assignment']->branch_id;
+                $drawer =
+                    $context['drawer'];
 
-                        $order->terminal_id =
-                            $context['assignment']->terminal_id;
 
-                        $order->customer_id =
-                            $validated['customer_id']
-                            ?? null;
+                /*
+                |--------------------------------------------------------------------------
+                | Payment
+                |--------------------------------------------------------------------------
+                */
 
-                        $order->cashier_id =
-                            auth()->id();
+                $paymentMethod =
+                    $validated['payment_method'];
 
-                        $order->created_by =
-                            auth()->id();
+                $receivedAmount =
+                    (float) $validated['amount'];
 
-                        $order->order_status =
-                            'Pending';
+                $grandTotal =
+                    round(
+                        (float) $validated['grand_total'],
+                        2
+                    );
 
-                        $order->payment_status =
-                            'Pending';
 
-                        $order->sales_channel =
-                            'POS';
+                if ($grandTotal < 0) {
 
-                        $order->remarks =
-                            $validated['remarks']
-                            ?? null;
+                    throw ValidationException::withMessages([
 
-                        $order->discount_id =
-                            $validated['discount_id']
-                            ?? null;
+                        'grand_total' => [
+                            'Invalid sale total.',
+                        ],
 
-                        $order->tax_rate_id =
-                            $validated['tax_rate_id']
-                            ?? null;
+                    ]);
 
+                }
 
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Calculate Items
-                        |--------------------------------------------------------------------------
-                        */
 
-                        $subtotal =
-                            0;
+                if (
+                    $paymentMethod === 'Cash'
+                    && $receivedAmount < $grandTotal
+                ) {
 
-                        $totalQuantity =
-                            0;
+                    throw ValidationException::withMessages([
 
-                        $totalItems =
-                            0;
+                        'amount' => [
+                            'Amount received is less than the sale total.',
+                        ],
 
+                    ]);
 
-                        $preparedItems = [];
+                }
 
 
-                        foreach (
-                            $validated['items']
-                            as $item
-                        ) {
+                /*
+                |--------------------------------------------------------------------------
+                | Change
+                |--------------------------------------------------------------------------
+                */
 
-                            $product =
-                                Product::query()
+                $changeGiven =
+                    $paymentMethod === 'Cash'
+                        ? round(
+                            max(
+                                0,
+                                $receivedAmount - $grandTotal
+                            ),
+                            2
+                        )
+                        : 0;
 
-                                    ->where(
-                                        'company_id',
-                                        $this->companyId
-                                    )
 
-                                    ->where(
-                                        'id',
-                                        $item['product_id']
-                                    )
+                /*
+                |--------------------------------------------------------------------------
+                | Customer
+                |--------------------------------------------------------------------------
+                */
 
-                                    ->first();
+                $customerId =
+                    $validated['customer_id'] ?? null;
 
+                if ($customerId) {
 
-                            if (! $product) {
+                    $customerExists =
+                        Customer::query()
+                            ->where('company_id', $companyId)
+                            ->whereKey($customerId)
+                            ->exists();
 
-                                throw ValidationException::withMessages([
+                    if (! $customerExists) {
 
-                                    'items' =>
-                                        'One of the selected products could not be found.',
+                        throw ValidationException::withMessages([
 
-                                ]);
+                            'customer_id' => [
+                                'The selected customer is invalid.',
+                            ],
 
-                            }
-
-
-                            $stock =
-                                ProductStock::query()
-
-                                    ->where(
-                                        'company_id',
-                                        $this->companyId
-                                    )
-
-                                    ->where(
-                                        'branch_id',
-                                        $context['assignment']->branch_id
-                                    )
-
-                                    ->where(
-                                        'product_id',
-                                        $product->id
-                                    )
-
-                                    ->lockForUpdate()
-
-                                    ->first();
-
-
-                            $quantity =
-                                (float) $item['quantity'];
-
-
-                            $unitPrice =
-                                (float) $item['unit_price'];
-
-
-                            if (
-                                ! $stock
-                                || (float) $stock->available_quantity < $quantity
-                            ) {
-
-                                throw ValidationException::withMessages([
-
-                                    'items' =>
-                                        "Insufficient stock for {$product->name}.",
-
-                                ]);
-
-                            }
-
-
-                            $lineTotal =
-                                $quantity
-                                * $unitPrice;
-
-
-                            $subtotal +=
-                                $lineTotal;
-
-                            $totalQuantity +=
-                                $quantity;
-
-                            $totalItems++;
-
-
-                            $preparedItems[] = [
-
-                                'product' =>
-                                    $product,
-
-                                'quantity' =>
-                                    $quantity,
-
-                                'unit_price' =>
-                                    $unitPrice,
-
-                                'line_total' =>
-                                    $lineTotal,
-
-                            ];
-
-                        }
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Discount
-                        |--------------------------------------------------------------------------
-                        */
-
-                        $discountAmount =
-                            0;
-
-
-                        if (
-                            ! empty(
-                                $validated['discount_id']
-                            )
-                        ) {
-
-                            $discount =
-                                Discount::query()
-
-                                    ->where(
-                                        'company_id',
-                                        $this->companyId
-                                    )
-
-                                    ->where(
-                                        'id',
-                                        $validated['discount_id']
-                                    )
-
-                                    ->first();
-
-
-                            if ($discount) {
-
-                                /*
-                                | Existing discount structures vary by
-                                | implementation, so this is intentionally
-                                | kept conservative here.
-                                */
-
-                                if (
-                                    isset(
-                                        $discount->percentage
-                                    )
-                                ) {
-
-                                    $discountAmount =
-                                        $subtotal
-                                        * (
-                                            (float) $discount->percentage
-                                            / 100
-                                        );
-
-                                } elseif (
-                                    isset(
-                                        $discount->amount
-                                    )
-                                ) {
-
-                                    $discountAmount =
-                                        (float) $discount->amount;
-
-                                }
-
-                            }
-
-                        }
-
-
-                        $discountAmount =
-                            min(
-                                $discountAmount,
-                                $subtotal
-                            );
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Tax
-                        |--------------------------------------------------------------------------
-                        */
-
-                        $taxableAmount =
-                            $subtotal
-                            - $discountAmount;
-
-
-                        $taxAmount =
-                            0;
-
-
-                        if (
-                            ! empty(
-                                $validated['tax_rate_id']
-                            )
-                        ) {
-
-                            $taxRate =
-                                TaxRate::query()
-
-                                    ->where(
-                                        'company_id',
-                                        $this->companyId
-                                    )
-
-                                    ->where(
-                                        'id',
-                                        $validated['tax_rate_id']
-                                    )
-
-                                    ->first();
-
-
-                            if (
-                                $taxRate
-                                && isset(
-                                    $taxRate->rate
-                                )
-                            ) {
-
-                                $taxAmount =
-                                    $taxableAmount
-                                    * (
-                                        (float) $taxRate->rate
-                                        / 100
-                                    );
-
-                            }
-
-                        }
-
-
-                        $total =
-                            $taxableAmount
-                            + $taxAmount;
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Order Number
-                        |--------------------------------------------------------------------------
-                        |
-                        | This should ultimately use the project's
-                        | DocumentNumberService if your Order creation
-                        | service already does so.
-                        |
-                        */
-
-                        $order->order_no =
-                            'POS-' . now()->format(
-                                'YmdHis'
-                            ) . '-' . auth()->id();
-
-
-                        $order->subtotal =
-                            $subtotal;
-
-                        $order->discount =
-                            $discountAmount;
-
-                        $order->tax =
-                            $taxAmount;
-
-                        $order->total =
-                            $total;
-
-                        $order->grand_total =
-                            $total;
-
-                        $order->amount_paid =
-                            0;
-
-                        $order->balance =
-                            $total;
-
-                        $order->total_items =
-                            $totalItems;
-
-                        $order->total_quantity =
-                            $totalQuantity;
-
-                        $order->change_given =
-                            0;
-
-                        $order->receipt_printed =
-                            false;
-
-
-                        $order->save();
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Order Items
-                        |--------------------------------------------------------------------------
-                        */
-
-                        foreach (
-                            $preparedItems
-                            as $preparedItem
-                        ) {
-
-                            $product =
-                                $preparedItem['product'];
-
-
-                            OrderItem::create([
-
-                                'order_id' =>
-                                    $order->id,
-
-                                'product_id' =>
-                                    $product->id,
-
-                                'product_name' =>
-                                    $product->name,
-
-                                'quantity' =>
-                                    $preparedItem['quantity'],
-
-                                'unit_price' =>
-                                    $preparedItem['unit_price'],
-
-                                'discount' =>
-                                    0,
-
-                                'tax' =>
-                                    0,
-
-                                'total' =>
-                                    $preparedItem['line_total'],
-
-                            ]);
-
-                        }
-
-
-                        return [
-
-                            'order' =>
-                                $order->fresh([
-                                    'customer',
-                                    'orderItems',
-                                ]),
-
-                        ];
+                        ]);
 
                     }
 
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Prepare / Lock Stock
+                |--------------------------------------------------------------------------
+                */
+
+                $preparedItems = [];
+
+                foreach ($validated['items'] as $item) {
+
+                    $product =
+                        Product::query()
+                            ->where('company_id', $companyId)
+                            ->whereKey($item['product_id'])
+                            ->where('status', 1)
+                            ->first();
+
+                    if (! $product) {
+
+                        throw ValidationException::withMessages([
+
+                            'items' => [
+                                'One or more selected products are invalid or inactive.',
+                            ],
+
+                        ]);
+
+                    }
+
+
+                    $quantity =
+                        (float) $item['quantity'];
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Lock Product Stock
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $stock =
+                        ProductStock::query()
+                            ->where('company_id', $companyId)
+                            ->where('branch_id', $branch->id)
+                            ->where('product_id', $product->id)
+                            ->lockForUpdate()
+                            ->first();
+
+                    if (! $stock) {
+
+                        throw ValidationException::withMessages([
+
+                            'items' => [
+                                "No stock record exists for {$product->name}.",
+                            ],
+
+                        ]);
+
+                    }
+
+
+                    if (
+                        (float) $stock->available_quantity
+                        < $quantity
+                    ) {
+
+                        throw ValidationException::withMessages([
+
+                            'items' => [
+                                "Insufficient stock for {$product->name}.",
+                            ],
+
+                        ]);
+
+                    }
+
+
+                    $preparedItems[] = [
+
+                        'product' => $product,
+
+                        'stock' => $stock,
+
+                        'quantity' => $quantity,
+
+                        'unit_price' =>
+                            round(
+                                (float) $item['unit_price'],
+                                2
+                            ),
+
+                        'discount' =>
+                            round(
+                                (float) ($item['discount'] ?? 0),
+                                2
+                            ),
+
+                        'tax' =>
+                            round(
+                                (float) ($item['tax'] ?? 0),
+                                2
+                            ),
+
+                        'total' =>
+                            round(
+                                (float) $item['total'],
+                                2
+                            ),
+
+                    ];
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Order Number
+                |--------------------------------------------------------------------------
+                */
+
+                $orderNumber =
+                    DocumentNumberService::generate(
+                        'Order',
+                        $companyId
+                    );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Create Order
+                |--------------------------------------------------------------------------
+                */
+
+                $order =
+                    Order::query()->create([
+
+                        'company_id' =>
+                            $companyId,
+
+                        'branch_id' =>
+                            $branch->id,
+
+                        'terminal_id' =>
+                            $terminal->id,
+
+                        'customer_id' =>
+                            $customerId,
+
+                        'cashier_id' =>
+                            auth()->id(),
+
+                        'order_no' =>
+                            $orderNumber,
+
+                        'subtotal' =>
+                            round(
+                                (float) $validated['subtotal'],
+                                2
+                            ),
+
+                        'discount' =>
+                            round(
+                                (float) ($validated['discount'] ?? 0),
+                                2
+                            ),
+
+                        'discount_id' =>
+                            $validated['discount_id'] ?? null,
+
+                        'tax_rate_id' =>
+                            $validated['tax_rate_id'] ?? null,
+
+                        'tax' =>
+                            round(
+                                (float) ($validated['tax'] ?? 0),
+                                2
+                            ),
+
+                        'total' =>
+                            round(
+                                (float) $validated['total'],
+                                2
+                            ),
+
+                        'amount_paid' =>
+                            $grandTotal,
+
+                        'balance' =>
+                            0,
+
+                        'total_items' =>
+                            $validated['total_items'],
+
+                        'total_quantity' =>
+                            round(
+                                (float) $validated['total_quantity'],
+                                2
+                            ),
+
+                        'change_given' =>
+                            $changeGiven,
+
+                        'grand_total' =>
+                            $grandTotal,
+
+                        'completed_at' =>
+                            now(),
+
+                        'payment_status' =>
+                            'Paid',
+
+                        'order_status' =>
+                            'Completed',
+
+                        'sales_channel' =>
+                            'POS',
+
+                        'receipt_printed' =>
+                            false,
+
+                        'remarks' =>
+                            $validated['remarks'] ?? null,
+
+                        'created_by' =>
+                            auth()->id(),
+
+                        'updated_by' =>
+                            auth()->id(),
+
+                    ]);
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Order Items
+                |--------------------------------------------------------------------------
+                */
+
+                foreach ($preparedItems as $item) {
+
+                    $product =
+                        $item['product'];
+
+                    OrderItem::query()->create([
+
+                        'company_id' =>
+                            $companyId,
+
+                        'order_id' =>
+                            $order->id,
+
+                        'product_id' =>
+                            $product->id,
+
+                        'product_name' =>
+                            $product->name,
+
+                        'product_barcode' =>
+                            $product->barcode,
+
+                        'quantity' =>
+                            $item['quantity'],
+
+                        'unit_price' =>
+                            $item['unit_price'],
+
+                        'discount' =>
+                            $item['discount'],
+
+                        'tax' =>
+                            $item['tax'],
+
+                        'total' =>
+                            $item['total'],
+
+                    ]);
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Invoice Number
+                |--------------------------------------------------------------------------
+                */
+
+                $invoiceNumber =
+                    DocumentNumberService::generate(
+                        'Invoice',
+                        $companyId
+                    );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Create Invoice
+                |--------------------------------------------------------------------------
+                */
+
+                $invoice =
+                    Invoice::query()->create([
+
+                        'company_id' =>
+                            $companyId,
+
+                        'branch_id' =>
+                            $branch->id,
+
+                        'terminal_id' =>
+                            $terminal->id,
+
+                        'order_id' =>
+                            $order->id,
+
+                        'customer_id' =>
+                            $customerId,
+
+                        'invoice_no' =>
+                            $invoiceNumber,
+
+                        'invoice_date' =>
+                            today(),
+
+                        'subtotal' =>
+                            $order->subtotal,
+
+                        'discount' =>
+                            $order->discount,
+
+                        'tax' =>
+                            $order->tax,
+
+                        'total' =>
+                            $order->total,
+
+                        'amount_paid' =>
+                            $grandTotal,
+
+                        'balance' =>
+                            0,
+
+                        'total_quantity' =>
+                            $order->total_quantity,
+
+                        'total_items' =>
+                            $order->total_items,
+
+                        'grand_total' =>
+                            $grandTotal,
+
+                        'payment_status' =>
+                            'Paid',
+
+                        'invoice_status' =>
+                            'Active',
+
+                        'remarks' =>
+                            $validated['remarks'] ?? null,
+
+                        'created_by' =>
+                            auth()->id(),
+
+                        'updated_by' =>
+                            auth()->id(),
+
+                    ]);
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Invoice Items
+                |--------------------------------------------------------------------------
+                */
+
+                foreach ($preparedItems as $item) {
+
+                    $product =
+                        $item['product'];
+
+                    InvoiceItem::query()->create([
+
+                        'company_id' =>
+                            $companyId,
+
+                        'invoice_id' =>
+                            $invoice->id,
+
+                        'product_id' =>
+                            $product->id,
+
+                        'product_name' =>
+                            $product->name,
+
+                        'product_barcode' =>
+                            $product->barcode,
+
+                        'quantity' =>
+                            $item['quantity'],
+
+                        'unit_price' =>
+                            $item['unit_price'],
+
+                        'discount' =>
+                            $item['discount'],
+
+                        'tax' =>
+                            $item['tax'],
+
+                        'total' =>
+                            $item['total'],
+
+                    ]);
+
+                }
+
+                $paymentMethod =
+                    PaymentMethod::query()
+                        ->where('company_id', $this->companyId)
+                        ->where('name', $validated['payment_method'])
+                        ->active()
+                        ->first();
+
+                if (! $paymentMethod) {
+
+                    throw ValidationException::withMessages([
+                        'payment_method' =>
+                            'The selected payment method is invalid or inactive.',
+                    ]);
+                }
+
+                $paymentNumber = DocumentNumberService::generate(
+                    'Payment',
+                    $this->companyId
                 );
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | Payment
+                |--------------------------------------------------------------------------
+                */
+
+                $payment =
+                    Payment::query()->create([
+
+                        'company_id' =>
+                            $companyId,
+
+                        'branch_id' =>
+                            $branch->id,
+
+                        'terminal_id' =>
+                            $terminal->id,
+
+                        'order_id' =>
+                            $order->id,
+
+                        'customer_id' =>
+                            $customerId,
+
+                        'received_by' =>
+                            auth()->id(),
+
+                        'payment_method_id' => 
+                            $paymentMethod->id,
+
+                        'payment_method' =>
+                            $paymentMethod->name,
+
+                        'payment_number'  => 
+                            $paymentNumber,
+
+                        'amount' =>
+                            $grandTotal,
+
+                        'reference_no' =>
+                            $validated['reference_no'] ?? null,
+
+                        'payment_status' =>
+                            'Completed',
+
+                        'payment_date' =>
+                            now(),
+
+                        'remarks' =>
+                            $validated['remarks'] ?? null,
+
+                    ]);
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Cash Drawer
+                |--------------------------------------------------------------------------
+                */
+
+                if ($paymentMethod === 'Cash') {
+
+                    $lockedDrawer =
+                        CashDrawer::query()
+                            ->where('company_id', $companyId)
+                            ->where('branch_id', $branch->id)
+                            ->where('terminal_id', $terminal->id)
+                            ->where('status', 'Open')
+                            ->whereKey($drawer->id)
+                            ->lockForUpdate()
+                            ->first();
+
+                    if (! $lockedDrawer) {
+
+                        throw ValidationException::withMessages([
+
+                            'payment_method' => [
+                                'The active cash drawer is no longer available.',
+                            ],
+
+                        ]);
+
+                    }
+
+
+                    $balanceBefore =
+                        round(
+                            (float) $lockedDrawer->expected_balance,
+                            2
+                        );
+
+                    $balanceAfter =
+                        round(
+                            $balanceBefore + $grandTotal,
+                            2
+                        );
+
+
+                    $lockedDrawer->cash_sales =
+                        round(
+                            (float) $lockedDrawer->cash_sales
+                            + $grandTotal,
+                            2
+                        );
+
+                    $lockedDrawer->expected_balance =
+                        $balanceAfter;
+
+                    $lockedDrawer->save();
+
+
+                    CashDrawerTransaction::query()->create([
+
+                        'company_id' =>
+                            $companyId,
+
+                        'branch_id' =>
+                            $branch->id,
+
+                        'terminal_id' =>
+                            $terminal->id,
+
+                        'cash_drawer_id' =>
+                            $lockedDrawer->id,
+
+                        'payment_id' =>
+                            $payment->id,
+
+                        'order_id' =>
+                            $order->id,
+
+                        'created_by' =>
+                            auth()->id(),
+
+                        'transaction_type' =>
+                            'Sale',
+
+                        'amount' =>
+                            $grandTotal,
+
+                        'balance_before' =>
+                            $balanceBefore,
+
+                        'balance_after' =>
+                            $balanceAfter,
+
+                        'reference_no' =>
+                            $order->order_no,
+
+                        'remarks' =>
+                            $validated['remarks'] ?? null,
+
+                    ]);
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Deduct Stock + Create Stock Movements
+                |--------------------------------------------------------------------------
+                */
+
+                foreach ($preparedItems as $item) {
+
+                    $product =
+                        $item['product'];
+
+                    $stock =
+                        $item['stock'];
+
+                    $stockBefore =
+                        round(
+                            (float) $stock->quantity,
+                            2
+                        );
+
+                    $stock->quantity =
+                        round(
+                            $stockBefore - $item['quantity'],
+                            2
+                        );
+
+                    $stock->available_quantity =
+                        max(
+                            0,
+                            round(
+                                (float) $stock->quantity
+                                - (float) $stock->reserved_quantity,
+                                2
+                            )
+                        );
+
+                    $stock->save();
+
+
+                    StockMovement::query()->create([
+
+                        'company_id' =>
+                            $companyId,
+
+                        'branch_id' =>
+                            $branch->id,
+
+                        'product_id' =>
+                            $product->id,
+
+                        'order_id' =>
+                            $order->id,
+
+                        'reference_no' =>
+                            $order->order_no,
+
+                        'unit_cost' =>
+                            $product->cost_price ?? 0,
+
+                        'quantity' =>
+                            $item['quantity'],
+
+                        'balance_after' =>
+                            $stock->quantity,
+
+                        'remarks' =>
+                            'POS Sale',
+
+                        'created_by' =>
+                            auth()->id(),
+
+                        'movement_type' =>
+                            'Sale',
+
+                        'stock_before' =>
+                            $stockBefore,
+
+                    ]);
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Return Result
+                |--------------------------------------------------------------------------
+                */
+
+                return [
+
+                    'order' =>
+                        $order->fresh([
+                            'orderItems',
+                            'payments',
+                            'invoice',
+                        ]),
+
+                    'payment' =>
+                        $payment,
+
+                    'invoice' =>
+                        $invoice->fresh([
+                            'invoiceItems',
+                        ]),
+
+                    'change' =>
+                        $changeGiven,
+
+                ];
+
+            });
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Activity Log
+            |--------------------------------------------------------------------------
+            */
+
+            $this->activityLogger->log(
+
+                'pos',
+
+                'sale_completed',
+
+                "POS sale {$result['order']->order_no} completed.",
+
+                $result['order'],
+
+                null,
+
+                $result['order']->toArray()
+
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
             return response()->json([
 
-                'success' =>
+                'status' =>
                     true,
 
                 'message' =>
-                    'Sale order saved successfully.',
+                    'Sale completed successfully.',
 
                 'data' =>
-                    $result['order'],
+                    $result,
 
             ]);
-
 
         } catch (ValidationException $e) {
 
             throw $e;
 
+        } catch (Throwable $e) {
 
-        } catch (\Throwable $e) {
-
-            Log::error(
-
-                'Failed to create POS order.',
-
-                [
-
-                    'company_id' =>
-                        $this->companyId,
-
-                    'user_id' =>
-                        auth()->id(),
-
-                    'error' =>
-                        $e->getMessage(),
-
-                ]
-
-            );
-
+            report($e);
 
             return response()->json([
 
-                'success' =>
+                'status' =>
                     false,
 
                 'message' =>
-                    'Unable to create sale order. Please try again.',
+                    'The sale could not be completed. Nothing was saved.',
 
             ], 500);
 
         }
 
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -2738,571 +3383,7 @@ class PosController extends BaseController
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Complete Sale
-    |--------------------------------------------------------------------------
-    */
-
-    /**
-     * Complete a POS sale.
-     */
-    public function completeSale(
-        Request $request,
-        int $id
-    ): JsonResponse {
-
-        if (! canAccess('pos.sell')) {
-
-            return response()->json([
-
-                'success' =>
-                    false,
-
-                'message' =>
-                    'You do not have permission to complete sales.',
-
-            ], 403);
-        }
-
-
-        $validated =
-            $request->validate([
-
-                'payment_method' => [
-                    'required',
-                    'string',
-                ],
-
-                'amount' => [
-                    'required',
-                    'numeric',
-                    'gt:0',
-                ],
-
-                'reference_no' => [
-                    'nullable',
-                    'string',
-                    'max:255',
-                ],
-
-                'remarks' => [
-                    'nullable',
-                    'string',
-                    'max:1000',
-                ],
-
-            ]);
-
-
-        try {
-
-            $result =
-                DB::transaction(
-
-                    function () use (
-                        $validated,
-                        $id
-                    ) {
-
-                        $context =
-                            $this->posContextOrFail();
-
-
-                        $order =
-                            Order::query()
-
-                                ->where(
-                                    'company_id',
-                                    $this->companyId
-                                )
-
-                                ->where(
-                                    'id',
-                                    $id
-                                )
-
-                                ->with([
-                                    'orderItems',
-                                    'payments',
-                                ])
-
-                                ->lockForUpdate()
-
-                                ->first();
-
-
-                        if (! $order) {
-
-                            throw ValidationException::withMessages([
-
-                                'order' =>
-                                    'Sale order not found.',
-
-                            ]);
-                        }
-
-
-                        if (
-                            $order->order_status ===
-                            'Completed'
-                        ) {
-
-                            throw ValidationException::withMessages([
-
-                                'order' =>
-                                    'This sale has already been completed.',
-
-                            ]);
-                        }
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Payment Amount
-                        |--------------------------------------------------------------------------
-                        */
-
-                        $receivedAmount =
-                            (float) $validated['amount'];
-
-
-                        $grandTotal =
-                            (float) $order->grand_total;
-
-
-                        if (
-                            $validated['payment_method'] ===
-                            'Cash'
-                            && $receivedAmount < $grandTotal
-                        ) {
-
-                            throw ValidationException::withMessages([
-
-                                'amount' =>
-                                    'Cash received cannot be less than the sale total.',
-
-                            ]);
-
-                        }
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Change
-                        |--------------------------------------------------------------------------
-                        */
-
-                        $change =
-                            max(
-                                0,
-                                $receivedAmount
-                                - $grandTotal
-                            );
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Payment
-                        |--------------------------------------------------------------------------
-                        */
-
-                        $payment =
-                            Payment::create([
-
-                                'company_id' =>
-                                    $this->companyId,
-
-                                'branch_id' =>
-                                    $context['assignment']->branch_id,
-
-                                'terminal_id' =>
-                                    $context['assignment']->terminal_id,
-
-                                'order_id' =>
-                                    $order->id,
-
-                                'customer_id' =>
-                                    $order->customer_id,
-
-                                'received_by' =>
-                                    auth()->id(),
-
-                                'payment_method' =>
-                                    $validated['payment_method'],
-
-                                'amount' =>
-                                    $grandTotal,
-
-                                'reference_no' =>
-                                    $validated['reference_no']
-                                    ?? null,
-
-                            ]);
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Cash Drawer
-                        |--------------------------------------------------------------------------
-                        */
-
-                        $drawer =
-                            $context['drawer'];
-
-
-                        if (
-                            $validated['payment_method'] ===
-                            'Cash'
-                        ) {
-
-                            /*
-                            |------------------------------------------------------------------
-                            | Current Drawer Balance
-                            |------------------------------------------------------------------
-                            */
-
-                            $drawer =
-                                CashDrawer::query()
-
-                                    ->where(
-                                        'id',
-                                        $drawer->id
-                                    )
-
-                                    ->lockForUpdate()
-
-                                    ->first();
-
-
-                            $balanceBefore =
-                                (float) $drawer->expected_balance;
-
-
-                            $balanceAfter =
-                                $balanceBefore
-                                + $grandTotal;
-
-
-                            $drawer->cash_sales =
-                                (float) $drawer->cash_sales
-                                + $grandTotal;
-
-
-                            $drawer->expected_balance =
-                                $balanceAfter;
-
-
-                            $drawer->save();
-
-
-                            /*
-                            |--------------------------------------------------------------------------
-                            | Cash Drawer Transaction
-                            |--------------------------------------------------------------------------
-                            */
-
-                            CashDrawerTransaction::create([
-
-                                'company_id' =>
-                                    $this->companyId,
-
-                                'branch_id' =>
-                                    $drawer->branch_id,
-
-                                'terminal_id' =>
-                                    $drawer->terminal_id,
-
-                                'cash_drawer_id' =>
-                                    $drawer->id,
-
-                                'payment_id' =>
-                                    $payment->id,
-
-                                'order_id' =>
-                                    $order->id,
-
-                                'created_by' =>
-                                    auth()->id(),
-
-                                'transaction_type' =>
-                                    'Sale',
-
-                                'amount' =>
-                                    $grandTotal,
-
-                                'balance_before' =>
-                                    $balanceBefore,
-
-                                'balance_after' =>
-                                    $balanceAfter,
-
-                                'reference_no' =>
-                                    $order->order_no,
-
-                                'remarks' =>
-                                    'Cash payment received for sales order: '
-                                    . $order->order_no,
-
-                            ]);
-
-                        }
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Stock
-                        |--------------------------------------------------------------------------
-                        */
-
-                        foreach (
-                            $order->orderItems
-                            as $orderItem
-                        ) {
-
-                            $stock =
-                                ProductStock::query()
-
-                                    ->where(
-                                        'company_id',
-                                        $this->companyId
-                                    )
-
-                                    ->where(
-                                        'branch_id',
-                                        $context['assignment']->branch_id
-                                    )
-
-                                    ->where(
-                                        'product_id',
-                                        $orderItem->product_id
-                                    )
-
-                                    ->lockForUpdate()
-
-                                    ->first();
-
-
-                            if ($stock) {
-
-                                $quantity =
-                                    (float) $orderItem->quantity;
-
-
-                                $stock->quantity =
-                                    max(
-                                        0,
-                                        (float) $stock->quantity
-                                        - $quantity
-                                    );
-
-
-                                $stock->available_quantity =
-                                    max(
-                                        0,
-                                        (float) $stock->available_quantity
-                                        - $quantity
-                                    );
-
-
-                                $stock->save();
-
-                            }
-
-                        }
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Order
-                        |--------------------------------------------------------------------------
-                        */
-
-                        $order->amount_paid =
-                            $grandTotal;
-
-                        $order->balance =
-                            0;
-
-                        $order->change_given =
-                            $change;
-
-                        $order->payment_status =
-                            'Paid';
-
-                        $order->order_status =
-                            'Completed';
-
-                        $order->completed_at =
-                            now();
-
-                        $order->updated_by =
-                            auth()->id();
-
-                        $order->save();
-
-
-                        /*
-                        |--------------------------------------------------------------------------
-                        | Invoice
-                        |--------------------------------------------------------------------------
-                        */
-
-                        $invoice =
-                            Invoice::create([
-
-                                'company_id' =>
-                                    $this->companyId,
-
-                                'branch_id' =>
-                                    $context['assignment']->branch_id,
-
-                                'terminal_id' =>
-                                    $context['assignment']->terminal_id,
-
-                                'order_id' =>
-                                    $order->id,
-
-                                'customer_id' =>
-                                    $order->customer_id,
-
-                            ]);
-
-
-                        foreach (
-                            $order->orderItems
-                            as $orderItem
-                        ) {
-
-                            InvoiceItem::create([
-
-                                'invoice_id' =>
-                                    $invoice->id,
-
-                                'product_id' =>
-                                    $orderItem->product_id,
-
-                                'description' =>
-                                    $orderItem->product_name,
-
-                                'quantity' =>
-                                    $orderItem->quantity,
-
-                                'unit_price' =>
-                                    $orderItem->unit_price,
-
-                                'discount' =>
-                                    $orderItem->discount,
-
-                                'tax' =>
-                                    $orderItem->tax,
-
-                                'total' =>
-                                    $orderItem->total,
-
-                            ]);
-
-                        }
-
-
-                        return [
-
-                            'order' =>
-                                $order->fresh([
-                                    'customer',
-                                    'orderItems',
-                                    'payments',
-                                    'invoice',
-                                ]),
-
-                            'payment' =>
-                                $payment->fresh(),
-
-                            'invoice' =>
-                                $invoice->fresh([
-                                    'invoiceItems',
-                                ]),
-
-                            'change' =>
-                                $change,
-
-                        ];
-
-                    }
-
-                );
-
-
-            return response()->json([
-
-                'success' =>
-                    true,
-
-                'message' =>
-                    'Sale completed successfully.',
-
-                'data' => [
-
-                    'order' =>
-                        $result['order'],
-
-                    'payment' =>
-                        $result['payment'],
-
-                    'invoice' =>
-                        $result['invoice'],
-
-                    'change' =>
-                        $result['change'],
-
-                ],
-
-            ]);
-
-
-        } catch (ValidationException $e) {
-
-            throw $e;
-
-
-        } catch (\Throwable $e) {
-
-            Log::error(
-
-                'Failed to complete POS sale.',
-
-                [
-
-                    'company_id' =>
-                        $this->companyId,
-
-                    'user_id' =>
-                        auth()->id(),
-
-                    'order_id' =>
-                        $id,
-
-                    'error' =>
-                        $e->getMessage(),
-
-                ]
-
-            );
-
-
-            return response()->json([
-
-                'success' =>
-                    false,
-
-                'message' =>
-                    'Unable to complete sale. Please try again.',
-
-            ], 500);
-
-        }
-
-    }
+    
 
 
     /*
@@ -3504,84 +3585,7 @@ class PosController extends BaseController
 
             ->first();
     }
-
-
-    /**
-     * Return current POS context or throw a validation exception.
-     */
-    protected function posContextOrFail(): array
-    {
-        $assignment =
-            $this->currentTerminalAssignment();
-
-
-        if (! $assignment) {
-
-            throw ValidationException::withMessages([
-
-                'terminal' =>
-                    'No active terminal is assigned to the current user.',
-
-            ]);
-
-        }
-
-
-        $drawer =
-            CashDrawer::query()
-
-                ->where(
-                    'company_id',
-                    $this->companyId
-                )
-
-                ->where(
-                    'branch_id',
-                    $assignment->branch_id
-                )
-
-                ->where(
-                    'terminal_id',
-                    $assignment->terminal_id
-                )
-
-                ->where(
-                    'opened_by',
-                    auth()->id()
-                )
-
-                ->where(
-                    'status',
-                    'open'
-                )
-
-                ->first();
-
-
-        if (! $drawer) {
-
-            throw ValidationException::withMessages([
-
-                'cash_drawer' =>
-                    'You must open your cash drawer before using the POS.',
-
-            ]);
-
-        }
-
-
-        return [
-
-            'assignment' =>
-                $assignment,
-
-            'drawer' =>
-                $drawer,
-
-        ];
-
-    }
-
+   
     /*
     |--------------------------------------------------------------------------
     | Sales History
