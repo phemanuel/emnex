@@ -1189,7 +1189,7 @@ setDrawerOpenState() {
 
 
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | KPIs
 |--------------------------------------------------------------------------
@@ -1198,7 +1198,7 @@ setDrawerOpenState() {
 /**
  * Update cash drawer KPIs.
  */
-updateKpis(drawer) {
+updateKpis(kpis) {
 
     /*
     |--------------------------------------------------------------------------
@@ -1208,38 +1208,9 @@ updateKpis(drawer) {
 
     this.setMoney(
         this.elements.kpiOpeningBalance,
-        drawer.opening_balance
+        kpis.opening_balance
             ?? 0
     );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Cash Sales Breakdown
-    |--------------------------------------------------------------------------
-    |
-    | The backend currently returns all cash sales in
-    | cash_sales_breakdown, grouped by created_by.
-    |
-    */
-
-    const cashSalesBreakdown =
-        drawer.cash_sales_breakdown
-        ?? [];
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Current User
-    |--------------------------------------------------------------------------
-    */
-
-    const currentUserId =
-        Number(
-            CashDrawerConfig.userId
-            ?? 0
-        );
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1248,38 +1219,15 @@ updateKpis(drawer) {
     */
 
     const myCashSales =
-        cashSalesBreakdown
-            .filter(
-                item =>
-                    Number(
-                        item.user_id
-                    ) === currentUserId
-            )
-            .reduce(
-                (
-                    total,
-                    item
-                ) =>
-                    total +
-                    Number(
-                        item.amount
-                        ?? 0
-                    ),
-                0
-            );
-
+        Number(
+            kpis.my_cash_sales
+            ?? 0
+        );
 
     this.setMoney(
         this.elements.kpiCashSales,
         myCashSales
     );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Cash Sales Information
-    |--------------------------------------------------------------------------
-    */
 
     if (
         this.elements.cashSalesInfo
@@ -1289,9 +1237,7 @@ updateKpis(drawer) {
             myCashSales > 0
                 ? 'Sales made by you'
                 : 'No cash sales yet';
-
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1300,36 +1246,15 @@ updateKpis(drawer) {
     */
 
     const otherCashSales =
-        cashSalesBreakdown
-            .filter(
-                item =>
-                    Number(
-                        item.user_id
-                    ) !== currentUserId
-            );
-
-
-    const otherCashSalesTotal =
-        otherCashSales
-            .reduce(
-                (
-                    total,
-                    item
-                ) =>
-                    total +
-                    Number(
-                        item.amount
-                        ?? 0
-                    ),
-                0
-            );
-
+        Number(
+            kpis.other_cash_sales
+            ?? 0
+        );
 
     this.setMoney(
         this.elements.kpiOtherCashSales,
-        otherCashSalesTotal
+        otherCashSales
     );
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1341,8 +1266,12 @@ updateKpis(drawer) {
         this.elements.otherCashSalesInfo
     ) {
 
+        const otherCashSalesBreakdown =
+            kpis.other_cash_sales_breakdown
+            ?? [];
+
         if (
-            !otherCashSales.length
+            ! otherCashSalesBreakdown.length
         ) {
 
             this.elements.otherCashSalesInfo.textContent =
@@ -1350,8 +1279,8 @@ updateKpis(drawer) {
 
         } else {
 
-            const userText =
-                otherCashSales
+            this.elements.otherCashSalesInfo.textContent =
+                otherCashSalesBreakdown
                     .map(
                         item => {
 
@@ -1362,21 +1291,13 @@ updateKpis(drawer) {
                             return `${name} ${this.formatMoney(
                                 item.amount
                             )}`;
-
                         }
                     )
                     .join(
                         ' · '
                     );
-
-
-            this.elements.otherCashSalesInfo.textContent =
-                userText;
-
         }
-
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1386,10 +1307,9 @@ updateKpis(drawer) {
 
     this.setMoney(
         this.elements.kpiCashIn,
-        drawer.cash_in
+        kpis.cash_in
             ?? 0
     );
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1399,10 +1319,9 @@ updateKpis(drawer) {
 
     this.setMoney(
         this.elements.kpiCashOut,
-        drawer.cash_out
+        kpis.cash_out
             ?? 0
     );
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1412,10 +1331,9 @@ updateKpis(drawer) {
 
     this.setMoney(
         this.elements.kpiCashRefunds,
-        drawer.cash_refunds
+        kpis.cash_refunds
             ?? 0
     );
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1425,10 +1343,9 @@ updateKpis(drawer) {
 
     this.setMoney(
         this.elements.kpiExpectedBalance,
-        drawer.expected_balance
+        kpis.expected_balance
             ?? 0
     );
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1438,11 +1355,10 @@ updateKpis(drawer) {
 
     this.setMoney(
         this.elements.kpiCurrentBalance,
-        drawer.current_balance
-            ?? drawer.expected_balance
+        kpis.current_balance
+            ?? kpis.expected_balance
             ?? 0
     );
-
 },
 
     /**

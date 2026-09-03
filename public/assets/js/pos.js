@@ -95,7 +95,7 @@ const POS = {
     productInspector: null,
 
 
-    /*
+   /*
     |--------------------------------------------------------------------------
     | Init
     |--------------------------------------------------------------------------
@@ -111,7 +111,25 @@ const POS = {
 
         this.initializeContext();
 
-       this.initializeFullscreen();
+        /*
+        |--------------------------------------------------------------------------
+        | Fullscreen
+        |--------------------------------------------------------------------------
+        |
+        | Fullscreen is owned by the cashier shell.
+        | Do not initialize it again when this page is loaded
+        | inside the cashier shell iframe.
+        |
+        */
+
+        if (
+            window.self === window.top
+        ) {
+
+            this.initializeFullscreen();
+
+        }
+
 
         await Promise.all([
 
@@ -126,7 +144,6 @@ const POS = {
         ]);
 
     },
-
 
     /*
     |--------------------------------------------------------------------------

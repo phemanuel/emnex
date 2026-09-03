@@ -43,65 +43,7 @@
     | POS Application
     |--------------------------------------------------------------------------
     --}}
-
-    {{-- 
-    |--------------------------------------------------------------------------
-    | Fullscreen Required Overlay
-    |--------------------------------------------------------------------------
-    --}}
-
-    <!-- <div
-        class="pos-fullscreen-overlay"
-        id="pos-fullscreen-overlay"
-    >
-
-        <div class="pos-fullscreen-dialog">
-
-            <div class="pos-fullscreen-icon">
-
-                <i class="bi bi-fullscreen"></i>
-
-            </div>
-
-
-            <h3 class="pos-fullscreen-title">
-
-                Full Screen Required
-
-            </h3>
-
-
-            <p class="pos-fullscreen-description">
-
-                EMNEX POS is designed to operate in full screen.
-                Switch to full screen to continue using the POS.
-
-            </p>
-
-
-            <button
-                type="button"
-                class="pos-fullscreen-button"
-                id="pos-enter-fullscreen"
-            >
-
-                <i class="bi bi-fullscreen me-1"></i>
-
-                Enter Full Screen
-
-            </button>
-
-
-            <small class="pos-fullscreen-hint">
-
-                Your POS screen will remain locked until
-                full screen mode is enabled.
-
-            </small>
-
-        </div>
-
-    </div> -->
+    
 
     <div
         class="pos-app"

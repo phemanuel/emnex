@@ -229,6 +229,589 @@ class PosController extends BaseController
 
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cashier
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return the cashier home screen.
+     */
+    public function cashier(
+        Request $request
+    ) {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('pos.sell')) {
+
+            abort(
+                403,
+                'You do not have permission to access the cashier screen.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current User
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Ensure Cashier
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $user->role?->code !==
+            'cashier'
+        ) {
+
+            return redirect()
+                ->route(
+                    'dashboard'
+                );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Active Terminal Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        $terminalAssignment =
+            TerminalAssignment::query()
+
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+
+                ->where(
+                    'user_id',
+                    $user->id
+                )
+
+                ->where(
+                    'status',
+                    'active'
+                )
+
+                ->with([
+                    'branch',
+                    'terminal',
+                ])
+
+                ->latest(
+                    'assigned_at'
+                )
+
+                ->first();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Context
+        |--------------------------------------------------------------------------
+        */
+
+        $branch =
+            $terminalAssignment?->branch;
+
+        $terminal =
+            $terminalAssignment?->terminal;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Open Drawer
+        |--------------------------------------------------------------------------
+        */
+
+        $drawer = null;
+
+
+        if (
+            $terminalAssignment
+        ) {
+
+            $drawer =
+                CashDrawer::query()
+
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+
+                    ->where(
+                        'branch_id',
+                        $terminalAssignment->branch_id
+                    )
+
+                    ->where(
+                        'terminal_id',
+                        $terminalAssignment->terminal_id
+                    )
+
+                    ->where(
+                        'opened_by',
+                        $user->id
+                    )
+
+                    ->where(
+                        'status',
+                        'open'
+                    )
+
+                    ->latest(
+                        'opened_at'
+                    )
+
+                    ->first();
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Company
+        |--------------------------------------------------------------------------
+        */
+
+        $company =
+            $this->company;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | View
+        |--------------------------------------------------------------------------
+        */
+
+        return view(
+            'pos.cashier',
+            compact(
+                'user',
+                'company',
+                'terminalAssignment',
+                'branch',
+                'terminal',
+                'drawer'
+            )
+        );
+
+    }
+
+   /*
+    |--------------------------------------------------------------------------
+    | Cashier Statistics
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return today's cashier statistics.
+     */
+    public function cashierStats(): JsonResponse
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('pos.sell')) {
+
+            return response()->json([
+                'success' =>
+                    false,
+                'message' =>
+                    'You do not have permission to access cashier statistics.',
+            ], 403);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current User
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cashier Only
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $user->role?->code !==
+            'cashier'
+        ) {
+
+            return response()->json([
+                'success' =>
+                    false,
+                'message' =>
+                    'Cashier statistics are only available to cashiers.',
+            ], 403);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Date Range
+        |--------------------------------------------------------------------------
+        */
+
+        $startOfDay =
+            now()->startOfDay();
+
+        $endOfDay =
+            now()->endOfDay();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Sales
+        |--------------------------------------------------------------------------
+        */
+
+        $sales =
+            Order::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'cashier_id',
+                    $user->id
+                )
+                ->where(
+                    'order_status',
+                    'Completed'
+                )
+                ->whereBetween(
+                    'completed_at',
+                    [
+                        $startOfDay,
+                        $endOfDay,
+                    ]
+                );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Total Sales
+        |--------------------------------------------------------------------------
+        */
+
+        $totalSales =
+            (float) (
+                (clone $sales)
+                    ->sum(
+                        'grand_total'
+                    )
+            );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Transaction Count
+        |--------------------------------------------------------------------------
+        */
+
+        $transactionCount =
+            (clone $sales)
+                ->count();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Average Sale
+        |--------------------------------------------------------------------------
+        */
+
+        $averageSale =
+            $transactionCount > 0
+                ? $totalSales / $transactionCount
+                : 0;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current Terminal / Drawer
+        |--------------------------------------------------------------------------
+        */
+
+        $terminalAssignment =
+            $this->currentTerminalAssignment();
+
+        $drawer =
+            null;
+
+        if (
+            $terminalAssignment
+        ) {
+
+            $drawer =
+                CashDrawer::query()
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+                    ->where(
+                        'branch_id',
+                        $terminalAssignment->branch_id
+                    )
+                    ->where(
+                        'terminal_id',
+                        $terminalAssignment->terminal_id
+                    )
+                    ->where(
+                        'opened_by',
+                        $user->id
+                    )
+                    ->where(
+                        'status',
+                        'open'
+                    )
+                    ->latest(
+                        'opened_at'
+                    )
+                    ->first();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cash Sales
+        |--------------------------------------------------------------------------
+        |
+        | Cash Sales must represent only the cash portion
+        | of the cashier's completed sales.
+        |
+        */
+
+        $cashSales =
+            0;
+
+        $orderIds =
+            (clone $sales)
+                ->pluck(
+                    'id'
+                );
+
+        if (
+            $orderIds->isNotEmpty()
+        ) {
+
+            $cashSales =
+                (float)
+                    Payment::query()
+                        ->where(
+                            'company_id',
+                            $this->companyId
+                        )
+                        ->whereIn(
+                            'order_id',
+                            $orderIds
+                        )
+                        ->whereRaw(
+                            'LOWER(payment_method) = ?',
+                            [
+                                'cash',
+                            ]
+                        )
+                        ->sum(
+                            'amount'
+                        );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current Drawer Balance
+        |--------------------------------------------------------------------------
+        |
+        | Drawer balance is based on actual cash movements:
+        |
+        | Opening Balance
+        | + Cash In
+        | + Cash Sales
+        | - Cash Out
+        | - Refunds
+        |
+        */
+
+        $drawerBalance =
+            0;
+
+        if (
+            $drawer
+        ) {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Opening Balance
+            |--------------------------------------------------------------------------
+            */
+
+            $openingBalance =
+                (float) (
+                    $drawer->opening_balance
+                    ?? 0
+                );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Cash In
+            |--------------------------------------------------------------------------
+            */
+
+            $cashIn =
+                (float)
+                    CashDrawerTransaction::query()
+                        ->where(
+                            'company_id',
+                            $this->companyId
+                        )
+                        ->where(
+                            'cash_drawer_id',
+                            $drawer->id
+                        )
+                        ->where(
+                            'transaction_type',
+                            'Cash In'
+                        )
+                        ->sum(
+                            'amount'
+                        );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Cash Sales
+            |--------------------------------------------------------------------------
+            */
+
+            $cashSalesAmount =
+                (float)
+                    CashDrawerTransaction::query()
+                        ->where(
+                            'company_id',
+                            $this->companyId
+                        )
+                        ->where(
+                            'cash_drawer_id',
+                            $drawer->id
+                        )
+                        ->where(
+                            'transaction_type',
+                            'Sale'
+                        )
+                        ->sum(
+                            'amount'
+                        );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Cash Out
+            |--------------------------------------------------------------------------
+            */
+
+            $cashOut =
+                (float)
+                    CashDrawerTransaction::query()
+                        ->where(
+                            'company_id',
+                            $this->companyId
+                        )
+                        ->where(
+                            'cash_drawer_id',
+                            $drawer->id
+                        )
+                        ->where(
+                            'transaction_type',
+                            'Cash Out'
+                        )
+                        ->sum(
+                            'amount'
+                        );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Refunds
+            |--------------------------------------------------------------------------
+            */
+
+            $refunds =
+                (float)
+                    CashDrawerTransaction::query()
+                        ->where(
+                            'company_id',
+                            $this->companyId
+                        )
+                        ->where(
+                            'cash_drawer_id',
+                            $drawer->id
+                        )
+                        ->where(
+                            'transaction_type',
+                            'Refund'
+                        )
+                        ->sum(
+                            'amount'
+                        );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Calculate Drawer Balance
+            |--------------------------------------------------------------------------
+            */
+
+            $drawerBalance =
+                $openingBalance
+                + $cashIn
+                + $cashSalesAmount
+                - $cashOut
+                - $refunds;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
+        return response()->json([
+            'success' =>
+                true,
+
+            'data' => [
+
+                'sales' =>
+                    $totalSales,
+
+                'transactions' =>
+                    $transactionCount,
+
+                'average_sale' =>
+                    (float) $averageSale,
+
+                'cash_sales' =>
+                    $cashSales,
+
+                'drawer_balance' =>
+                    (float) $drawerBalance,
+            ],
+        ]);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -2411,48 +2994,103 @@ class PosController extends BaseController
                 |--------------------------------------------------------------------------
                 */
 
-                if ($paymentMethod === 'Cash') {
+                if (
+                    strtolower(
+                        trim(
+                            $paymentMethod->name
+                        )
+                    ) === 'cash'
+                ) {
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Lock Active Cash Drawer
+                    |--------------------------------------------------------------------------
+                    */
 
                     $lockedDrawer =
                         CashDrawer::query()
-                            ->where('company_id', $companyId)
-                            ->where('branch_id', $branch->id)
-                            ->where('terminal_id', $terminal->id)
-                            ->where('status', 'Open')
-                            ->whereKey($drawer->id)
+                            ->where(
+                                'company_id',
+                                $companyId
+                            )
+                            ->where(
+                                'branch_id',
+                                $branch->id
+                            )
+                            ->where(
+                                'terminal_id',
+                                $terminal->id
+                            )
+                            ->where(
+                                'status',
+                                'open'
+                            )
+                            ->whereKey(
+                                $drawer->id
+                            )
                             ->lockForUpdate()
                             ->first();
 
-                    if (! $lockedDrawer) {
+                    if (
+                        ! $lockedDrawer
+                    ) {
 
                         throw ValidationException::withMessages([
-
                             'payment_method' => [
                                 'The active cash drawer is no longer available.',
                             ],
-
                         ]);
-
                     }
 
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Cash Sale Amount
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $cashSaleAmount =
+                        round(
+                            (float) $grandTotal,
+                            2
+                        );
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Drawer Balance
+                    |--------------------------------------------------------------------------
+                    */
 
                     $balanceBefore =
                         round(
-                            (float) $lockedDrawer->expected_balance,
+                            (float) (
+                                $lockedDrawer->expected_balance
+                                ?? $lockedDrawer->opening_balance
+                                ?? 0
+                            ),
                             2
                         );
 
                     $balanceAfter =
                         round(
-                            $balanceBefore + $grandTotal,
+                            $balanceBefore
+                            + $cashSaleAmount,
                             2
                         );
 
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Update Drawer
+                    |--------------------------------------------------------------------------
+                    */
 
                     $lockedDrawer->cash_sales =
                         round(
-                            (float) $lockedDrawer->cash_sales
-                            + $grandTotal,
+                            (float) (
+                                $lockedDrawer->cash_sales
+                                ?? 0
+                            )
+                            + $cashSaleAmount,
                             2
                         );
 
@@ -2461,6 +3099,11 @@ class PosController extends BaseController
 
                     $lockedDrawer->save();
 
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Cash Drawer Transaction
+                    |--------------------------------------------------------------------------
+                    */
 
                     CashDrawerTransaction::query()->create([
 
@@ -2489,7 +3132,7 @@ class PosController extends BaseController
                             'Sale',
 
                         'amount' =>
-                            $grandTotal,
+                            $cashSaleAmount,
 
                         'balance_before' =>
                             $balanceBefore,
@@ -2502,9 +3145,7 @@ class PosController extends BaseController
 
                         'remarks' =>
                             $validated['remarks'] ?? null,
-
                     ]);
-
                 }
 
 

@@ -1,0 +1,1814 @@
+/*
+|--------------------------------------------------------------------------
+| EMNEX POS - CASHIER HOME
+|--------------------------------------------------------------------------
+*/
+
+:root {
+
+    --cashier-bg:
+        #eef2f7;
+
+    --cashier-surface:
+        #ffffff;
+
+    --cashier-border:
+        #e2e8f0;
+
+    --cashier-text:
+        #172033;
+
+    --cashier-muted:
+        #667085;
+
+    --cashier-shadow:
+        0 12px 35px rgba(15, 23, 42, 0.06);
+
+    --cashier-shadow-lg:
+        0 20px 55px rgba(15, 23, 42, 0.10);
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Screen
+|--------------------------------------------------------------------------
+*/
+
+html,
+body {
+
+    width: 100%;
+
+    min-height: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Modern Cashier Background
+|--------------------------------------------------------------------------
+*/
+
+body.emnex-cashier-screen {
+
+    min-height:
+        100vh;
+
+    margin:
+        0;
+
+    background:
+        #eef2f7;
+
+    color:
+        #172033;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Application
+|--------------------------------------------------------------------------
+*/
+
+.cashier-app {
+
+    width:
+        100%;
+
+    height:
+        100vh;
+
+    min-height:
+        100vh;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(99, 102, 241, 0.10),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 90% 12%,
+            rgba(37, 99, 235, 0.08),
+            transparent 26%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(14, 165, 233, 0.06),
+            transparent 32%
+        ),
+
+        linear-gradient(
+            135deg,
+            #f8fafc 0%,
+            #eef2f7 48%,
+            #e8edf4 100%
+        );
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Cashier Topbar
+|--------------------------------------------------------------------------
+*/
+
+.cashier-topbar {
+
+    flex:
+        0 0 72px;
+
+    height:
+        72px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto
+        minmax(0, 1fr);
+
+    align-items:
+        center;
+
+    gap:
+        20px;
+
+    padding:
+        0 22px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.96
+        );
+
+    border-bottom:
+        1px solid
+        #e5e7eb;
+
+    box-shadow:
+        0 4px 18px
+        rgba(
+            15,
+            23,
+            42,
+            0.05
+        );
+
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        1000;
+
+    backdrop-filter:
+        blur(12px);
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Left
+|--------------------------------------------------------------------------
+*/
+
+.cashier-topbar-left {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        20px;
+
+}
+
+
+.cashier-brand {
+
+    flex:
+        0 0 auto;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+}
+
+
+.cashier-brand-mark {
+
+    width:
+        38px;
+
+    height:
+        38px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid
+        #c7d2fe;
+
+    border-radius:
+        11px;
+
+    background:
+        #eef2ff;
+
+    color:
+        #4f46e5;
+
+    font-size:
+        17px;
+
+}
+
+
+.cashier-brand-content {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    line-height:
+        1.1;
+
+}
+
+
+.cashier-brand-title {
+
+    color:
+        #172033;
+
+    font-size:
+        14px;
+
+    font-weight:
+        800;
+
+}
+
+
+.cashier-brand-subtitle {
+
+    margin-top:
+        3px;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        9px;
+
+}
+
+
+.cashier-context-divider {
+
+    width:
+        1px;
+
+    height:
+        32px;
+
+    flex:
+        0 0 1px;
+
+    background:
+        #e5e7eb;
+
+}
+
+
+.cashier-context {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        20px;
+
+}
+
+
+.cashier-context-item {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+}
+
+
+.cashier-context-label {
+
+    color:
+        #98a2b3;
+
+    font-size:
+        9px;
+
+    font-weight:
+        750;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .06em;
+
+}
+
+
+.cashier-context-value {
+
+    max-width:
+        150px;
+
+    margin-top:
+        3px;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+    color:
+        #172033;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Company
+|--------------------------------------------------------------------------
+*/
+
+.cashier-company-brand {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+}
+
+
+.cashier-company-brand-icon {
+
+    width:
+        31px;
+
+    height:
+        31px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex:
+        0 0 31px;
+
+    border:
+        1px solid
+        #c7d2fe;
+
+    border-radius:
+        9px;
+
+    background:
+        #eef2ff;
+
+    color:
+        #4f46e5;
+
+    font-size:
+        13px;
+
+}
+
+
+.cashier-company-brand-name {
+
+    max-width:
+        300px;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+    color:
+        #3730a3;
+
+    font-size:
+        14px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        -.015em;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Right
+|--------------------------------------------------------------------------
+*/
+
+.cashier-topbar-right {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        flex-end;
+
+    gap:
+        7px;
+
+}
+
+
+.cashier-drawer-status {
+    min-height: 35px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0 11px;
+
+    border: 1px solid;
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    transition:
+        background .18s ease,
+        border-color .18s ease,
+        color .18s ease;
+}
+
+
+
+.cashier-status-dot {
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 7px;
+
+    border-radius: 50%;
+
+    transition:
+        background .18s ease,
+        box-shadow .18s ease;
+}
+
+/* Open Dot */
+
+.cashier-status-dot.is-open {
+    background: #15803d;
+
+    box-shadow:
+        0 0 0 4px rgba(21, 128, 61, 0.12);
+}
+
+
+/* Closed Dot */
+
+.cashier-status-dot.is-closed {
+    background: #b91c1c;
+
+    box-shadow:
+        0 0 0 4px rgba(185, 28, 28, 0.12);
+}
+
+/* ==========================================================================
+   Open
+   ========================================================================== */
+
+.cashier-drawer-status.is-open {
+    border-color: #86efac;
+    background: #dcfce7;
+    color: #166534;
+}
+
+
+/* ==========================================================================
+   Closed
+   ========================================================================== */
+
+.cashier-drawer-status.is-closed {
+    border-color: #fca5a5;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+
+.cashier-header-action {
+
+    min-height:
+        36px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        7px;
+
+    padding:
+        0 11px;
+
+    border:
+        1px solid
+        #e5e7eb;
+
+    border-radius:
+        9px;
+
+    background:
+        #ffffff;
+
+    color:
+        #667085;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    text-decoration:
+        none;
+
+    transition:
+        background .18s ease,
+        border-color .18s ease,
+        color .18s ease;
+
+}
+
+
+.cashier-header-action-drawer {
+
+    border-color:
+        #fde68a;
+
+    background:
+        #fffbeb;
+
+    color:
+        #b45309;
+
+}
+
+
+.cashier-header-action-drawer:hover {
+
+    border-color:
+        #fcd34d;
+
+    background:
+        #fef3c7;
+
+    color:
+        #92400e;
+
+}
+
+
+.cashier-header-action-exit {
+
+    border-color:
+        #fee2e2;
+
+    background:
+        #fef2f2;
+
+    color:
+        #dc2626;
+
+}
+
+
+.cashier-header-action-exit:hover {
+
+    border-color:
+        #fecaca;
+
+    background:
+        #fee2e2;
+
+    color:
+        #b91c1c;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Main
+|--------------------------------------------------------------------------
+*/
+
+.cashier-main {
+
+    width:
+        min(1420px, 100%);
+
+    margin:
+        0 auto;
+
+    padding:
+        38px 30px 52px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Welcome
+|--------------------------------------------------------------------------
+*/
+
+.cashier-welcome {
+
+    margin-bottom:
+        30px;
+
+    padding:
+        26px 28px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.75);
+
+    border-radius:
+        18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.96),
+            rgba(248,250,252,.92)
+        );
+
+    box-shadow:
+        var(--cashier-shadow);
+
+}
+
+
+.cashier-eyebrow {
+
+    display:
+        block;
+
+    margin-bottom:
+        6px;
+
+    color:
+        #4f46e5;
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .10em;
+
+}
+
+
+.cashier-welcome h2 {
+
+    margin:
+        0;
+
+    font-size:
+        28px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        -.035em;
+
+}
+
+
+.cashier-welcome p {
+
+    margin:
+        7px 0 0;
+
+    color:
+        var(--cashier-muted);
+
+    font-size:
+        11px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Section
+|--------------------------------------------------------------------------
+*/
+
+.cashier-section {
+
+    margin-bottom:
+        30px;
+
+}
+
+
+.cashier-section-heading {
+
+    margin-bottom:
+        12px;
+
+}
+
+
+.cashier-section-heading h6 {
+
+    margin:
+        0;
+
+    font-size:
+        13px;
+
+    font-weight:
+        800;
+
+}
+
+
+.cashier-section-heading p {
+
+    margin:
+        3px 0 0;
+
+    color:
+        var(--cashier-muted);
+
+    font-size:
+        10px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| KPI Cards
+|--------------------------------------------------------------------------
+*/
+
+.cashier-kpi-card {
+
+    position:
+        relative;
+
+    min-height:
+        145px;
+
+    height:
+        100%;
+
+    overflow:
+        hidden;
+
+    padding:
+        17px;
+
+    border:
+        1px solid rgba(255,255,255,.75);
+
+    border-radius:
+        15px;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        var(--cashier-shadow);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+
+}
+
+
+.cashier-kpi-card:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.09);
+
+}
+
+
+.cashier-kpi-card::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        90px;
+
+    height:
+        90px;
+
+    right:
+        -30px;
+
+    bottom:
+        -35px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(255,255,255,.22);
+
+}
+
+
+.cashier-kpi-top {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+}
+
+
+.cashier-kpi-top span {
+
+    color:
+        var(--cashier-muted);
+
+    font-size:
+        10px;
+
+    font-weight:
+        750;
+
+}
+
+
+.cashier-kpi-icon {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        9px;
+
+    font-size:
+        14px;
+
+}
+
+
+.cashier-kpi-icon.sales {
+
+    background:
+        #dcfce7;
+
+    color:
+        #15803d;
+
+}
+
+
+.cashier-kpi-icon.transactions {
+
+    background:
+        #ede9fe;
+
+    color:
+        #7c3aed;
+
+}
+
+
+.cashier-kpi-icon.cash {
+
+    background:
+        #dbeafe;
+
+    color:
+        #2563eb;
+
+}
+
+
+.cashier-kpi-icon.drawer {
+
+    background:
+        #fef3c7;
+
+    color:
+        #b45309;
+
+}
+
+
+.cashier-kpi-card > strong {
+
+    display:
+        block;
+
+    margin-top:
+        17px;
+
+    color:
+        var(--cashier-text);
+
+    font-size:
+        22px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        -.025em;
+
+}
+
+
+.cashier-kpi-card > small {
+
+    display:
+        block;
+
+    margin-top:
+        5px;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        9px;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Action Cards
+|--------------------------------------------------------------------------
+*/
+
+.cashier-actions-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:
+        16px;
+
+}
+
+
+.cashier-action-card {
+
+    position:
+        relative;
+
+    min-height:
+        210px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        20px;
+
+    padding:
+        28px;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid rgba(255,255,255,.80);
+
+    border-radius:
+        18px;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        var(--cashier-shadow-lg);
+
+    text-decoration:
+        none;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+
+}
+
+
+.cashier-action-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 22px 52px rgba(15, 23, 42, 0.12);
+
+}
+
+
+.cashier-action-card::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        180px;
+
+    height:
+        180px;
+
+    right:
+        -75px;
+
+    bottom:
+        -90px;
+
+    border-radius:
+        50%;
+
+}
+
+
+.cashier-action-drawer {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fffbeb
+        );
+
+}
+
+
+.cashier-action-drawer::after {
+
+    background:
+        rgba(245, 158, 11, .08);
+
+}
+
+
+.cashier-action-sale {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #eff6ff
+        );
+
+}
+
+
+.cashier-action-sale::after {
+
+    background:
+        rgba(37, 99, 235, .08);
+
+}
+
+
+.cashier-action-icon {
+
+    width:
+        70px;
+
+    height:
+        70px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex:
+        0 0 70px;
+
+    border-radius:
+        18px;
+
+    font-size:
+        28px;
+
+}
+
+
+.cashier-action-drawer
+.cashier-action-icon {
+
+    background:
+        #fef3c7;
+
+    color:
+        #b45309;
+
+}
+
+
+.cashier-action-sale
+.cashier-action-icon {
+
+    background:
+        #dbeafe;
+
+    color:
+        #2563eb;
+
+}
+
+
+.cashier-action-content {
+
+    min-width:
+        0;
+
+}
+
+
+.cashier-action-eyebrow {
+
+    display:
+        block;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .08em;
+
+}
+
+
+.cashier-action-content h4 {
+
+    margin:
+        5px 0;
+
+    color:
+        var(--cashier-text);
+
+    font-size:
+        21px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        -.02em;
+
+}
+
+
+.cashier-action-content p {
+
+    max-width:
+        390px;
+
+    margin:
+        0;
+
+    color:
+        var(--cashier-muted);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.7;
+
+}
+
+
+.cashier-action-arrow {
+
+    position:
+        absolute;
+
+    right:
+        20px;
+
+    bottom:
+        18px;
+
+    width:
+        35px;
+
+    height:
+        35px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(255,255,255,.85);
+
+    color:
+        #667085;
+
+    z-index:
+        2;
+
+}
+
+
+.cashier-action-card:hover
+.cashier-action-arrow {
+
+    background:
+        #ffffff;
+
+    color:
+        #2563eb;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 1100px) {
+
+    .cashier-topbar {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            12px;
+
+        padding:
+            14px 18px;
+
+    }
+
+
+    .cashier-context {
+
+        flex-wrap:
+            wrap;
+
+        gap:
+            14px;
+
+    }
+
+
+    .cashier-header-actions {
+
+        justify-content:
+            flex-start;
+
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .cashier-main {
+
+        padding:
+            24px 15px 38px;
+
+    }
+
+
+    .cashier-actions-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .cashier-action-card {
+
+        min-height:
+            175px;
+
+        padding:
+            22px;
+
+    }
+
+
+    .cashier-action-icon {
+
+        width:
+            58px;
+
+        height:
+            58px;
+
+        flex-basis:
+            58px;
+
+        font-size:
+            23px;
+
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Fullscreen Required Overlay
+|--------------------------------------------------------------------------
+*/
+
+.pos-fullscreen-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 24px;
+
+    background:
+        rgba(15, 23, 42, 0.96);
+
+    backdrop-filter:
+        blur(8px);
+
+}
+
+
+.pos-fullscreen-dialog {
+
+    width:
+        min(430px, 100%);
+
+    padding:
+        34px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius:
+        18px;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.30);
+
+    text-align:
+        center;
+
+}
+
+
+.pos-fullscreen-icon {
+
+    width:
+        64px;
+
+    height:
+        64px;
+
+    margin:
+        0 auto 18px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid #c7d2fe;
+
+    border-radius:
+        16px;
+
+    background:
+        #eef2ff;
+
+    color:
+        #4f46e5;
+
+    font-size:
+        26px;
+
+}
+
+
+.pos-fullscreen-title {
+
+    margin:
+        0;
+
+    color:
+        #172033;
+
+    font-size:
+        22px;
+
+    font-weight:
+        800;
+
+}
+
+
+.pos-fullscreen-description {
+
+    margin:
+        10px auto 22px;
+
+    max-width:
+        360px;
+
+    color:
+        #667085;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.7;
+
+}
+
+
+.pos-fullscreen-button {
+
+    width:
+        100%;
+
+    min-height:
+        46px;
+
+    border:
+        0;
+
+    border-radius:
+        10px;
+
+    background:
+        #2563eb;
+
+    color:
+        #ffffff;
+
+    font-size:
+        12px;
+
+    font-weight:
+        750;
+
+}
+
+
+.pos-fullscreen-button:hover {
+
+    background:
+        #1d4ed8;
+
+}
+
+
+.pos-fullscreen-hint {
+
+    display:
+        block;
+
+    margin-top:
+        14px;
+
+    color:
+        #98a2b3;
+
+    font-size:
+        9px;
+
+    line-height:
+        1.5;
+
+}
+
+.pos-quantity-input {
+
+    width: 42px;
+
+    height: 24px;
+
+    padding: 0 3px;
+
+    border: 1px solid var(--pos-border);
+
+    border-radius: 6px;
+
+    background: var(--pos-surface);
+
+    color: var(--pos-text);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-align: center;
+
+    outline: none;
+
+}
+
+
+.pos-quantity-input:focus {
+
+    border-color: #93c5fd;
+
+    box-shadow:
+        0 0 0 2px rgba(37, 99, 235, 0.08);
+
+}
+
+ /* ==========================================================================
+    Cashier Shell Workspace
+    ========================================================================== */
+
+.cashier-shell-workspace {
+    position: relative;
+
+    flex: 1 1 auto;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.cashier-shell-view {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    flex: 1 1 auto;
+
+    overflow: hidden;
+}
+
+
+.cashier-home-view {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding:
+        38px 30px 50px;
+}
+
+.cashier-home-content {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+}
+
+.cashier-frame-view {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+}
+
+
+.cashier-shell-frame {
+    position: absolute;
+
+    inset: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+
+    overflow: hidden;
+
+    background: transparent;
+}
+
+

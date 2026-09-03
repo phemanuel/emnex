@@ -393,6 +393,12 @@ class CashDrawerController extends BaseController
 
     
 
+   /*
+    |--------------------------------------------------------------------------
+    | Return current cash drawer.
+    |--------------------------------------------------------------------------
+    */
+
     /**
      * Return current cash drawer.
      */
@@ -407,15 +413,25 @@ class CashDrawerController extends BaseController
         if (! canAccess('pos.cash_drawer')) {
 
             return response()->json([
-
                 'status' =>
                     false,
 
                 'message' =>
                     'You do not have permission to access the cash drawer.',
-
             ], 403);
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current User
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+        $userId =
+            $user->id;
 
         /*
         |--------------------------------------------------------------------------
@@ -431,7 +447,7 @@ class CashDrawerController extends BaseController
                 )
                 ->where(
                     'user_id',
-                    auth()->id()
+                    $userId
                 )
                 ->where(
                     'status',
@@ -446,19 +462,18 @@ class CashDrawerController extends BaseController
                 )
                 ->first();
 
-        if (! $terminalAssignment) {
+        if (
+            ! $terminalAssignment
+        ) {
 
             return response()->json([
-
                 'status' =>
                     false,
 
                 'message' =>
                     'No active terminal is assigned to the current user.',
-
             ], 422);
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -466,10 +481,12 @@ class CashDrawerController extends BaseController
         |--------------------------------------------------------------------------
         */
 
-        /**
-         * Find the currently open cash drawer belonging to
-         * the authenticated user on their active terminal.
-         */
+        /*
+        |--------------------------------------------------------------------------
+        | Find the currently open cash drawer belonging to
+        | the authenticated user on their active terminal.
+        |--------------------------------------------------------------------------
+        */
 
         $drawer =
             CashDrawer::query()
@@ -487,7 +504,7 @@ class CashDrawerController extends BaseController
                 )
                 ->where(
                     'opened_by',
-                    auth()->id()
+                    $userId
                 )
                 ->where(
                     'status',
@@ -507,16 +524,16 @@ class CashDrawerController extends BaseController
         |--------------------------------------------------------------------------
         */
 
-        if (! $drawer) {
+        if (
+            ! $drawer
+        ) {
 
             return response()->json([
-
                 'status' =>
                     true,
 
                 'drawer' =>
                     null,
-
             ]);
         }
 
@@ -526,25 +543,25 @@ class CashDrawerController extends BaseController
         |--------------------------------------------------------------------------
         */
 
-       $transactions =
-        CashDrawerTransaction::query()
-            ->where(
-                'company_id',
-                $this->companyId
-            )
-            ->where(
-                'branch_id',
-                $terminalAssignment->branch_id
-            )
-            ->where(
-                'terminal_id',
-                $terminalAssignment->terminal_id
-            )
-            ->where(
-                'cash_drawer_id',
-                $drawer->id
-            )
-            ->get();
+        $transactions =
+            CashDrawerTransaction::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'branch_id',
+                    $terminalAssignment->branch_id
+                )
+                ->where(
+                    'terminal_id',
+                    $terminalAssignment->terminal_id
+                )
+                ->where(
+                    'cash_drawer_id',
+                    $drawer->id
+                )
+                ->get();
 
         /*
         |--------------------------------------------------------------------------
@@ -553,11 +570,14 @@ class CashDrawerController extends BaseController
         */
 
         $openingBalance =
-            (float) $drawer->opening_balance;
+            (float) (
+                $drawer->opening_balance
+                ?? 0
+            );
 
         /*
         |--------------------------------------------------------------------------
-        | Cash Sales
+        | Cash Sale Transactions
         |--------------------------------------------------------------------------
         */
 
@@ -568,11 +588,62 @@ class CashDrawerController extends BaseController
                     'Sale'
                 );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Total Cash Sales
+        |--------------------------------------------------------------------------
+        */
+
         $cashSales =
-            (float) $cashSaleTransactions
-                ->sum(
-                    'amount'
+            (float)
+                $cashSaleTransactions
+                    ->sum(
+                        'amount'
+                    );
+
+        /*
+        |--------------------------------------------------------------------------
+        | My Cash Sales
+        |--------------------------------------------------------------------------
+        */
+
+        $myCashSalesTransactions =
+            $cashSaleTransactions
+                ->where(
+                    'created_by',
+                    $userId
                 );
+
+        $myCashSales =
+            (float)
+                $myCashSalesTransactions
+                    ->sum(
+                        'amount'
+                    );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Other Cash Sales
+        |--------------------------------------------------------------------------
+        */
+
+        $otherCashSalesTransactions =
+            $cashSaleTransactions
+                ->filter(
+                    function ($transaction) use (
+                        $userId
+                    ) {
+                        return (int) $transaction->created_by
+                            !== (int) $userId;
+                    }
+                );
+
+        $otherCashSales =
+            (float)
+                $otherCashSalesTransactions
+                    ->sum(
+                        'amount'
+                    );
 
         /*
         |--------------------------------------------------------------------------
@@ -604,6 +675,12 @@ class CashDrawerController extends BaseController
                     'id'
                 );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Cash Sales Breakdown
+        |--------------------------------------------------------------------------
+        */
+
         $cashSalesBreakdown =
             $cashSaleTransactions
                 ->groupBy(
@@ -623,7 +700,6 @@ class CashDrawerController extends BaseController
                             );
 
                         return [
-
                             'user_id' =>
                                 (int) $userId,
 
@@ -635,14 +711,34 @@ class CashDrawerController extends BaseController
                                 ),
 
                             'amount' =>
-                                (float) $userTransactions
-                                    ->sum('amount'),
+                                (float)
+                                    $userTransactions
+                                        ->sum(
+                                            'amount'
+                                        ),
 
                             'transactions' =>
                                 $userTransactions
                                     ->count(),
-
                         ];
+                    }
+                )
+                ->values();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Other Cash Sales Breakdown
+        |--------------------------------------------------------------------------
+        */
+
+        $otherCashSalesBreakdown =
+            $cashSalesBreakdown
+                ->filter(
+                    function ($sale) use (
+                        $userId
+                    ) {
+                        return (int) $sale['user_id']
+                            !== (int) $userId;
                     }
                 )
                 ->values();
@@ -652,20 +748,21 @@ class CashDrawerController extends BaseController
         | Cash In
         |--------------------------------------------------------------------------
         |
-        | Opening transactions are deliberately excluded because the opening
-        | balance is already represented by $openingBalance.
+        | Opening transactions are deliberately excluded because
+        | the opening balance is already represented by $openingBalance.
         |
         */
 
         $cashIn =
-            (float) $transactions
-                ->where(
-                    'transaction_type',
-                    'Cash In'
-                )
-                ->sum(
-                    'amount'
-                );
+            (float)
+                $transactions
+                    ->where(
+                        'transaction_type',
+                        'Cash In'
+                    )
+                    ->sum(
+                        'amount'
+                    );
 
         /*
         |--------------------------------------------------------------------------
@@ -674,14 +771,15 @@ class CashDrawerController extends BaseController
         */
 
         $cashOut =
-            (float) $transactions
-                ->where(
-                    'transaction_type',
-                    'Cash Out'
-                )
-                ->sum(
-                    'amount'
-                );
+            (float)
+                $transactions
+                    ->where(
+                        'transaction_type',
+                        'Cash Out'
+                    )
+                    ->sum(
+                        'amount'
+                    );
 
         /*
         |--------------------------------------------------------------------------
@@ -690,14 +788,15 @@ class CashDrawerController extends BaseController
         */
 
         $cashRefunds =
-            (float) $transactions
-                ->where(
-                    'transaction_type',
-                    'Refund'
-                )
-                ->sum(
-                    'amount'
-                );
+            (float)
+                $transactions
+                    ->where(
+                        'transaction_type',
+                        'Refund'
+                    )
+                    ->sum(
+                        'amount'
+                    );
 
         /*
         |--------------------------------------------------------------------------
@@ -725,10 +824,6 @@ class CashDrawerController extends BaseController
         |--------------------------------------------------------------------------
         | Response
         |--------------------------------------------------------------------------
-        |
-        | Everything required by the Cash Drawer JavaScript is returned inside
-        | the drawer object.
-        |
         */
 
         return response()->json([
@@ -758,7 +853,6 @@ class CashDrawerController extends BaseController
                             . $drawer->openedBy->last_name
                         )
                         : null,
-
             ],
 
             'terminal' => [
@@ -768,7 +862,6 @@ class CashDrawerController extends BaseController
 
                 'name' =>
                     $terminalAssignment->terminal?->terminal_name,
-
             ],
 
             'branch' => [
@@ -778,7 +871,6 @@ class CashDrawerController extends BaseController
 
                 'name' =>
                     $terminalAssignment->branch?->name,
-
             ],
 
             'kpis' => [
@@ -786,11 +878,20 @@ class CashDrawerController extends BaseController
                 'opening_balance' =>
                     $openingBalance,
 
+                'my_cash_sales' =>
+                    $myCashSales,
+
+                'other_cash_sales' =>
+                    $otherCashSales,
+
                 'cash_sales' =>
                     $cashSales,
 
                 'cash_sales_breakdown' =>
                     $cashSalesBreakdown,
+
+                'other_cash_sales_breakdown' =>
+                    $otherCashSalesBreakdown,
 
                 'cash_in' =>
                     $cashIn,
@@ -806,14 +907,9 @@ class CashDrawerController extends BaseController
 
                 'current_balance' =>
                     $currentBalance,
-
             ],
-
         ]);
     }
-
-
-
 
 
     /*

@@ -135,13 +135,23 @@ Route::middleware('auth')->group(function () {
     ->name('pos.')
     ->group(function () {
 
-                /*
+             /*
             |--------------------------------------------------------------------------
-            | Modern POS Screen
+            | Cashier routes
             |--------------------------------------------------------------------------
             */
 
-            Route::get('/',[PosController::class, 'index'])->name('index');            
+            Route::get('/',[PosController::class, 'index'])->name('index'); 
+
+            Route::get('/cashier',[PosController::class, 'cashier'])->name('cashier');
+
+            Route::get('/cashier/stats',[PosController::class, 'cashierStats'])->name('cashier.stats');
+
+            /*
+            |--------------------------------------------------------------------------
+            | Other Pos routes
+            |--------------------------------------------------------------------------
+            */ 
 
             Route::get('/products',[PosController::class, 'products'])->name('products');
 

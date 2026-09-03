@@ -1081,6 +1081,47 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
+        if($role === 'cashier') {
+            return redirect()->route('pos.cashier');
+        }else {
+            return view(
+                'dashboard.index',
+                compact(
+                    'user',
+                    'todaySales',
+                    'todayTransactions',
+                    'totalCustomers',
+                    'newCustomersToday',
+                    'inventoryValue',
+                    'cashSales',
+                    'cardSales',
+                    'transferSales',
+                    'walletSales',
+                    'refunds',
+                    'pendingOrders',
+                    'recentOrders',
+                    'lowStockProducts',
+                    'topProducts',
+                    'salesChart',
+                    'period',
+                    'startDate',
+                    'endDate',
+                    'canViewSales',
+                    'canViewOrders',
+                    'canViewCustomers',
+                    'canViewInventory',
+                    'canViewLowStock',
+                    'canViewPayments',
+                    'canViewReports',
+                    'canViewTerminals',
+                    'canManageAllBranches',
+                    'currentBranchId',
+                    'isBranchManager',
+                    'isCashier'
+                )
+            );
+        }
+
         return view(
             'dashboard.index',
             compact(
