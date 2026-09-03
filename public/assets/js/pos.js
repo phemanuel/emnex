@@ -171,6 +171,21 @@ const POS = {
                     'pos-enter-fullscreen'
                 ),
 
+            transferSalesKpi:
+                document.getElementById(
+                    'cashier-kpi-transfer-sales'
+                ),
+
+            walletSalesKpi:
+                document.getElementById(
+                    'cashier-kpi-wallet-sales'
+                ),
+
+            cardSalesKpi:
+                document.getElementById(
+                    'cashier-kpi-card-sales'
+                ),
+
             /*
             |--------------------------------------------------------------------------
             | Context
@@ -729,6 +744,7 @@ const POS = {
             ),
 
         };
+        
 
     },
 
@@ -5637,35 +5653,59 @@ async approveAdjustment() {
     },
 
 
-    printReceipt() {
+   printReceipt() {
 
-        const order =
-            this.state.currentOrder;
+    const order =
+        this.state.currentOrder;
 
+    if (!order?.id) {
 
-        if (!order?.id) {
-
-            this.showError(
-                'There is no completed sale to print.'
-            );
-
-            return;
-
-        }
-
-
-        const url =
-            `${PosConfig.urls.receipt}/${order.id}/receipt`;
-
-
-        window.open(
-            url,
-            '_blank'
+        this.showError(
+            'There is no completed sale to print.'
         );
 
-    },
+        return;
+    }
 
 
+    const url =
+        PosConfig.urls.receipt.replace(
+            '__ID__',
+            order.id
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cashier Shell
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        window.parent
+        && window.parent !== window
+        && window.parent.CashierShell
+        && typeof window.parent.CashierShell.navigate ===
+            'function'
+    ) {
+
+        window.parent.CashierShell.navigate(
+            url
+        );
+
+        return;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Normal POS Page
+    |--------------------------------------------------------------------------
+    */
+
+    window.location.href =
+        url;
+},
     previewCurrentSale() {
 
         if (

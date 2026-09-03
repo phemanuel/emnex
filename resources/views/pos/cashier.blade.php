@@ -21,6 +21,8 @@
         EMNEX POS | Cashier
     </title>
 
+    <link rel="icon" type="image/svg+xml" href="{{ asset('assets/images/favicon.svg') }}">
+
 
     {{-- Bootstrap --}}
 
@@ -28,6 +30,7 @@
         rel="stylesheet"
         href="{{ asset('assets/css/bootstrap.min.css') }}"
     >
+
 
 
     {{-- Bootstrap Icons --}}
@@ -44,6 +47,8 @@
         rel="stylesheet"
         href="{{ asset('assets/css/cashier.css') }}"
     >
+
+
 
 </head>
 

@@ -40,7 +40,8 @@ return new class extends Migration
                 'Transfer',
                 'Wallet',
                 'Credit',
-                'Cheque'
+                'Cheque',
+                'Card'
             ]);
 
             $table->string('transaction_reference')

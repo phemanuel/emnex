@@ -5,7 +5,7 @@
 |--------------------------------------------------------------------------
 */
 
-const CashierShell = {
+window.CashierShell = {
 
     /*
     |--------------------------------------------------------------------------
@@ -89,6 +89,26 @@ const CashierShell = {
         cashSalesKpi:
             document.getElementById(
                 'cashier-kpi-cash-sales'
+            ),
+
+        transferSalesKpi:
+            document.getElementById(
+                'cashier-kpi-transfer-sales'
+            ),
+
+        walletSalesKpi:
+            document.getElementById(
+                'cashier-kpi-wallet-sales'
+            ),
+
+        cardSalesKpi:
+            document.getElementById(
+                'cashier-kpi-card-sales'
+            ),
+
+        submissionKpi:
+            document.getElementById(
+                'cashier-kpi-submission'
             ),
 
         drawerKpi:
@@ -886,6 +906,45 @@ const CashierShell = {
 
             /*
             |--------------------------------------------------------------------------
+            | Transfer Sales
+            |--------------------------------------------------------------------------
+            */
+
+            this.updateKpi(
+                this.elements.transferSalesKpi,
+                data.transfer_sales ?? 0,
+                true
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Wallet Sales
+            |--------------------------------------------------------------------------
+            */
+
+            this.updateKpi(
+                this.elements.walletSalesKpi,
+                data.wallet_sales ?? 0,
+                true
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Card Sales
+            |--------------------------------------------------------------------------
+            */
+
+            this.updateKpi(
+                this.elements.cardSalesKpi,
+                data.card_sales ?? 0,
+                true
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
             | Drawer Balance
             |--------------------------------------------------------------------------
             */
@@ -895,6 +954,18 @@ const CashierShell = {
                 data.drawer_balance ?? 0,
                 true
             );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Expected Submission
+            |--------------------------------------------------------------------------
+            */
+
+            this.updateKpi(
+                this.elements.submissionKpi,
+                data.expected_submission ?? 0,
+                true
+             );
 
 
         } catch (error) {
@@ -1385,8 +1456,7 @@ document.addEventListener(
     'DOMContentLoaded',
     () => {
 
-        CashierShell.init();
+        window.CashierShell.init();
 
     }
 );
-

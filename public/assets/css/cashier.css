@@ -1811,4 +1811,20 @@ body.emnex-cashier-screen {
     background: transparent;
 }
 
+.receipt-print-toolbar {
+    display: none !important;
+}
+
+.receipt-print-wrapper {
+    width: 100% !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+    padding: 32px !important;
+    background: transparent !important;
+}
+
+.receipt-print-document {
+    margin: 0 auto !important;
+}
+
 

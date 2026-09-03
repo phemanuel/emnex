@@ -206,9 +206,9 @@ Route::middleware('auth')->group(function () {
             |--------------------------------------------------------------------------
             */
 
-            Route::get('/orders/{id}/receipt',[PosController::class, 'receipt'])->name('orders.receipt');
+            Route::get('/orders/{id}/receipt',[PosController::class, 'receipt'])->name('receipt');
 
-            Route::get('/orders/{id}/invoice',[PosController::class, 'invoice'])->name('orders.invoice');
+            Route::get('/orders/{id}/invoice',[PosController::class, 'invoice'])->name('invoice');
             /*
             |--------------------------------------------------------------------------
             | POS Context

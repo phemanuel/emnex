@@ -543,25 +543,25 @@ class CashDrawerController extends BaseController
         |--------------------------------------------------------------------------
         */
 
-        $transactions =
-            CashDrawerTransaction::query()
-                ->where(
-                    'company_id',
-                    $this->companyId
-                )
-                ->where(
-                    'branch_id',
-                    $terminalAssignment->branch_id
-                )
-                ->where(
-                    'terminal_id',
-                    $terminalAssignment->terminal_id
-                )
-                ->where(
-                    'cash_drawer_id',
-                    $drawer->id
-                )
-                ->get();
+       $transactions =
+        CashDrawerTransaction::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+            ->where(
+                'branch_id',
+                $terminalAssignment->branch_id
+            )
+            ->where(
+                'terminal_id',
+                $terminalAssignment->terminal_id
+            )
+            ->where(
+                'cash_drawer_id',
+                $drawer->id
+            )
+            ->get();
 
         /*
         |--------------------------------------------------------------------------
@@ -747,22 +747,23 @@ class CashDrawerController extends BaseController
         |--------------------------------------------------------------------------
         | Cash In
         |--------------------------------------------------------------------------
-        |
-        | Opening transactions are deliberately excluded because
-        | the opening balance is already represented by $openingBalance.
-        |
         */
 
         $cashIn =
             (float)
                 $transactions
-                    ->where(
-                        'transaction_type',
-                        'Cash In'
+                    ->filter(
+                        function ($transaction) {
+
+                            return trim(
+                                (string) $transaction->transaction_type
+                            ) === 'Cash In';
+                        }
                     )
                     ->sum(
                         'amount'
                     );
+
 
         /*
         |--------------------------------------------------------------------------
@@ -773,13 +774,18 @@ class CashDrawerController extends BaseController
         $cashOut =
             (float)
                 $transactions
-                    ->where(
-                        'transaction_type',
-                        'Cash Out'
+                    ->filter(
+                        function ($transaction) {
+
+                            return trim(
+                                (string) $transaction->transaction_type
+                            ) === 'Cash Out';
+                        }
                     )
                     ->sum(
                         'amount'
                     );
+
 
         /*
         |--------------------------------------------------------------------------
@@ -790,13 +796,20 @@ class CashDrawerController extends BaseController
         $cashRefunds =
             (float)
                 $transactions
-                    ->where(
-                        'transaction_type',
-                        'Refund'
+                    ->filter(
+                        function ($transaction) {
+
+                            return trim(
+                                (string) $transaction->transaction_type
+                            ) === 'Refund';
+                        }
                     )
                     ->sum(
                         'amount'
                     );
+
+
+
 
         /*
         |--------------------------------------------------------------------------
@@ -1809,7 +1822,7 @@ class CashDrawerController extends BaseController
             $query
                 ->latest()
                 ->paginate(
-                    15
+                   5
                 );
 
 
@@ -2121,7 +2134,7 @@ class CashDrawerController extends BaseController
                     'id'
                 )
                 ->paginate(
-                    15
+                    5
                 );
 
 

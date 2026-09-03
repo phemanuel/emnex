@@ -33,7 +33,6 @@
 
     <section class="cashier-section">
 
-
         <div class="cashier-section-heading">
 
             <h6>
@@ -50,7 +49,9 @@
         <div class="row g-3">
 
 
-            {{-- Total Sales --}}
+            {{-- ==============================================================
+                Total Sales
+            ============================================================== --}}
 
             <div class="col-xl-3 col-md-6">
 
@@ -72,7 +73,9 @@
 
 
                     <strong id="cashier-kpi-sales">
+
                         ₦0.00
+
                     </strong>
 
 
@@ -85,7 +88,10 @@
             </div>
 
 
-            {{-- Transactions --}}
+
+            {{-- ==============================================================
+                Transactions
+            ============================================================== --}}
 
             <div class="col-xl-3 col-md-6">
 
@@ -107,7 +113,9 @@
 
 
                     <strong id="cashier-kpi-transactions">
+
                         0
+
                     </strong>
 
 
@@ -120,7 +128,10 @@
             </div>
 
 
-            {{-- Cash Sales --}}
+
+            {{-- ==============================================================
+                Cash Sales
+            ============================================================== --}}
 
             <div class="col-xl-3 col-md-6">
 
@@ -142,7 +153,9 @@
 
 
                     <strong id="cashier-kpi-cash-sales">
+
                         ₦0.00
+
                     </strong>
 
 
@@ -155,7 +168,130 @@
             </div>
 
 
-            {{-- Drawer Balance --}}
+
+            {{-- ==============================================================
+                Transfer Sales
+            ============================================================== --}}
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="cashier-kpi-card">
+
+                    <div class="cashier-kpi-top">
+
+                        <div class="cashier-kpi-icon transfer">
+
+                            <i class="bi bi-bank"></i>
+
+                        </div>
+
+                        <span>
+                            Transfer Sales
+                        </span>
+
+                    </div>
+
+
+                    <strong id="cashier-kpi-transfer-sales">
+
+                        ₦0.00
+
+                    </strong>
+
+
+                    <small>
+                        Transfer sales for today
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            {{-- ==============================================================
+                Wallet Sales
+            ============================================================== --}}
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="cashier-kpi-card">
+
+                    <div class="cashier-kpi-top">
+
+                        <div class="cashier-kpi-icon wallet">
+
+                            <i class="bi bi-wallet2"></i>
+
+                        </div>
+
+                        <span>
+                            Wallet Sales
+                        </span>
+
+                    </div>
+
+
+                    <strong id="cashier-kpi-wallet-sales">
+
+                        ₦0.00
+
+                    </strong>
+
+
+                    <small>
+                        Wallet sales for today
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            {{-- ==============================================================
+                Card Sales
+            ============================================================== --}}
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="cashier-kpi-card">
+
+                    <div class="cashier-kpi-top">
+
+                        <div class="cashier-kpi-icon card">
+
+                            <i class="bi bi-credit-card-2-front"></i>
+
+                        </div>
+
+                        <span>
+                            Card Sales
+                        </span>
+
+                    </div>
+
+
+                    <strong id="cashier-kpi-card-sales">
+
+                        ₦0.00
+
+                    </strong>
+
+
+                    <small>
+                        Card sales for today
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            {{-- ==============================================================
+                Drawer Balance
+            ============================================================== --}}
 
             <div class="col-xl-3 col-md-6">
 
@@ -177,12 +313,50 @@
 
 
                     <strong id="cashier-kpi-drawer">
+
                         ₦0.00
+
                     </strong>
 
 
                     <small>
                         Current expected balance
+                    </small>
+
+                </div>
+
+            </div>
+
+            {{-- Expected Submission --}}
+
+            <div class="col-xl-3 col-md-6">
+
+                <div class="cashier-kpi-card cashier-kpi-card-highlight">
+
+                    <div class="cashier-kpi-top">
+
+                        <div class="cashier-kpi-icon submission">
+
+                            <i class="bi bi-wallet-fill"></i>
+
+                        </div>
+
+                        <span>
+                            Expected Submission
+                        </span>
+
+                    </div>
+
+
+                    <strong id="cashier-kpi-submission">
+
+                        ₦0.00
+
+                    </strong>
+
+
+                    <small>
+                        Cash drawer + other payments
                     </small>
 
                 </div>

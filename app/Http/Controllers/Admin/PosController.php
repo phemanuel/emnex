@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use App\Services\ActivityLogger;
 use App\Services\DocumentNumberService;
+use Illuminate\View\View;
 
 class PosController extends BaseController
 {
@@ -416,7 +417,7 @@ class PosController extends BaseController
 
     }
 
-   /*
+  /*
     |--------------------------------------------------------------------------
     | Cashier Statistics
     |--------------------------------------------------------------------------
@@ -438,10 +439,12 @@ class PosController extends BaseController
             return response()->json([
                 'success' =>
                     false,
+
                 'message' =>
                     'You do not have permission to access cashier statistics.',
             ], 403);
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -451,6 +454,7 @@ class PosController extends BaseController
 
         $user =
             auth()->user();
+
 
         /*
         |--------------------------------------------------------------------------
@@ -466,10 +470,12 @@ class PosController extends BaseController
             return response()->json([
                 'success' =>
                     false,
+
                 'message' =>
                     'Cashier statistics are only available to cashiers.',
             ], 403);
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -482,6 +488,7 @@ class PosController extends BaseController
 
         $endOfDay =
             now()->endOfDay();
+
 
         /*
         |--------------------------------------------------------------------------
@@ -511,6 +518,7 @@ class PosController extends BaseController
                     ]
                 );
 
+
         /*
         |--------------------------------------------------------------------------
         | Total Sales
@@ -525,6 +533,7 @@ class PosController extends BaseController
                     )
             );
 
+
         /*
         |--------------------------------------------------------------------------
         | Transaction Count
@@ -534,6 +543,7 @@ class PosController extends BaseController
         $transactionCount =
             (clone $sales)
                 ->count();
+
 
         /*
         |--------------------------------------------------------------------------
@@ -546,6 +556,173 @@ class PosController extends BaseController
                 ? $totalSales / $transactionCount
                 : 0;
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order IDs
+        |--------------------------------------------------------------------------
+        |
+        | These are the cashier's completed orders for today.
+        |
+        */
+
+        $orderIds =
+            (clone $sales)
+                ->pluck(
+                    'id'
+                );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Payment Method Sales
+        |--------------------------------------------------------------------------
+        */
+
+        $cashSales =
+            0;
+
+        $transferSales =
+            0;
+
+        $walletSales =
+            0;
+
+        $cardSales =
+            0;
+
+
+        if (
+            $orderIds->isNotEmpty()
+        ) {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Completed Payments
+            |--------------------------------------------------------------------------
+            */
+
+            $payments =
+                Payment::query()
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+                    ->whereIn(
+                        'order_id',
+                        $orderIds
+                    )
+                    ->where(
+                        'payment_status',
+                        'Completed'
+                    )
+                    ->get([
+                        'payment_method',
+                        'amount',
+                    ]);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Cash Sales
+            |--------------------------------------------------------------------------
+            */
+
+            $cashSales =
+                (float)
+                    $payments
+                        ->filter(
+                            function ($payment) {
+
+                                return strtolower(
+                                    trim(
+                                        (string)
+                                            $payment->payment_method
+                                    )
+                                ) === 'cash';
+                            }
+                        )
+                        ->sum(
+                            'amount'
+                        );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Transfer Sales
+            |--------------------------------------------------------------------------
+            */
+
+            $transferSales =
+                (float)
+                    $payments
+                        ->filter(
+                            function ($payment) {
+
+                                return strtolower(
+                                    trim(
+                                        (string)
+                                            $payment->payment_method
+                                    )
+                                ) === 'transfer';
+                            }
+                        )
+                        ->sum(
+                            'amount'
+                        );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Wallet Sales
+            |--------------------------------------------------------------------------
+            */
+
+            $walletSales =
+                (float)
+                    $payments
+                        ->filter(
+                            function ($payment) {
+
+                                return strtolower(
+                                    trim(
+                                        (string)
+                                            $payment->payment_method
+                                    )
+                                ) === 'wallet';
+                            }
+                        )
+                        ->sum(
+                            'amount'
+                        );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Card Sales
+            |--------------------------------------------------------------------------
+            */
+
+            $cardSales =
+                (float)
+                    $payments
+                        ->filter(
+                            function ($payment) {
+
+                                return strtolower(
+                                    trim(
+                                        (string)
+                                            $payment->payment_method
+                                    )
+                                ) === 'card';
+                            }
+                        )
+                        ->sum(
+                            'amount'
+                        );
+        }
+
+
         /*
         |--------------------------------------------------------------------------
         | Current Terminal / Drawer
@@ -555,8 +732,10 @@ class PosController extends BaseController
         $terminalAssignment =
             $this->currentTerminalAssignment();
 
+
         $drawer =
             null;
+
 
         if (
             $terminalAssignment
@@ -590,68 +769,16 @@ class PosController extends BaseController
                     ->first();
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Cash Sales
-        |--------------------------------------------------------------------------
-        |
-        | Cash Sales must represent only the cash portion
-        | of the cashier's completed sales.
-        |
-        */
-
-        $cashSales =
-            0;
-
-        $orderIds =
-            (clone $sales)
-                ->pluck(
-                    'id'
-                );
-
-        if (
-            $orderIds->isNotEmpty()
-        ) {
-
-            $cashSales =
-                (float)
-                    Payment::query()
-                        ->where(
-                            'company_id',
-                            $this->companyId
-                        )
-                        ->whereIn(
-                            'order_id',
-                            $orderIds
-                        )
-                        ->whereRaw(
-                            'LOWER(payment_method) = ?',
-                            [
-                                'cash',
-                            ]
-                        )
-                        ->sum(
-                            'amount'
-                        );
-        }
 
         /*
         |--------------------------------------------------------------------------
         | Current Drawer Balance
         |--------------------------------------------------------------------------
-        |
-        | Drawer balance is based on actual cash movements:
-        |
-        | Opening Balance
-        | + Cash In
-        | + Cash Sales
-        | - Cash Out
-        | - Refunds
-        |
         */
 
         $drawerBalance =
             0;
+
 
         if (
             $drawer
@@ -668,6 +795,7 @@ class PosController extends BaseController
                     $drawer->opening_balance
                     ?? 0
                 );
+
 
             /*
             |--------------------------------------------------------------------------
@@ -694,6 +822,7 @@ class PosController extends BaseController
                             'amount'
                         );
 
+
             /*
             |--------------------------------------------------------------------------
             | Cash Sales
@@ -718,6 +847,7 @@ class PosController extends BaseController
                         ->sum(
                             'amount'
                         );
+
 
             /*
             |--------------------------------------------------------------------------
@@ -744,6 +874,7 @@ class PosController extends BaseController
                             'amount'
                         );
 
+
             /*
             |--------------------------------------------------------------------------
             | Refunds
@@ -769,6 +900,7 @@ class PosController extends BaseController
                             'amount'
                         );
 
+
             /*
             |--------------------------------------------------------------------------
             | Calculate Drawer Balance
@@ -783,6 +915,31 @@ class PosController extends BaseController
                 - $refunds;
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Expected Submission
+        |--------------------------------------------------------------------------
+        |
+        | Total amount the cashier is expected to account for:
+        |
+        | Current Cash Drawer
+        | + Transfer Sales
+        | + Wallet Sales
+        | + Card Sales
+        |
+        */
+
+        $expectedSubmission =
+            round(
+                $drawerBalance
+                + $transferSales
+                + $walletSales
+                + $cardSales,
+                2
+            );
+
+
         /*
         |--------------------------------------------------------------------------
         | Response
@@ -790,25 +947,99 @@ class PosController extends BaseController
         */
 
         return response()->json([
+
             'success' =>
                 true,
 
             'data' => [
 
+                /*
+                |--------------------------------------------------------------------------
+                | Total Sales
+                |--------------------------------------------------------------------------
+                */
+
                 'sales' =>
                     $totalSales,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Transactions
+                |--------------------------------------------------------------------------
+                */
 
                 'transactions' =>
                     $transactionCount,
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Average Sale
+                |--------------------------------------------------------------------------
+                */
+
                 'average_sale' =>
                     (float) $averageSale,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Cash Sales
+                |--------------------------------------------------------------------------
+                */
 
                 'cash_sales' =>
                     $cashSales,
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Transfer Sales
+                |--------------------------------------------------------------------------
+                */
+
+                'transfer_sales' =>
+                    $transferSales,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Wallet Sales
+                |--------------------------------------------------------------------------
+                */
+
+                'wallet_sales' =>
+                    $walletSales,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Card Sales
+                |--------------------------------------------------------------------------
+                */
+
+                'card_sales' =>
+                    $cardSales,
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Drawer Balance
+                |--------------------------------------------------------------------------
+                */
+
                 'drawer_balance' =>
                     (float) $drawerBalance,
+
+                /*
+                |--------------------------------------------------------------------------
+                | Expected Submission
+                |--------------------------------------------------------------------------
+                */
+
+                'expected_submission' =>
+                    (float) $expectedSubmission,
             ],
         ]);
     }
@@ -4027,83 +4258,121 @@ class PosController extends BaseController
     
 
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Receipt
     |--------------------------------------------------------------------------
     */
 
     /**
-     * Return receipt data for an order.
+     * Display POS sales receipt.
      */
     public function receipt(
         int $id
-    ): JsonResponse {
+    ): View {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
 
         if (! canAccess('pos.sell')) {
 
-            return response()->json([
-
-                'success' =>
-                    false,
-
-                'message' =>
-                    'You do not have permission to view this receipt.',
-
-            ], 403);
+            abort(
+                403,
+                'You do not have permission to view the sales receipt.'
+            );
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Current User
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order
+        |--------------------------------------------------------------------------
+        */
+
         $order =
             Order::query()
-
                 ->where(
                     'company_id',
                     $this->companyId
                 )
-
-                ->where(
-                    'id',
-                    $id
-                )
-
                 ->with([
-                    'customer',
+                    'company',
                     'branch',
                     'terminal',
+                    'customer',
                     'cashier',
                     'orderItems',
                     'payments',
                     'invoice',
                 ])
+                ->findOrFail(
+                    $id
+                );
 
-                ->first();
 
+        /*
+        |--------------------------------------------------------------------------
+        | Cashier Access
+        |--------------------------------------------------------------------------
+        |
+        | A cashier should only be able to print their own
+        | completed POS sales.
+        |
+        */
 
-        if (! $order) {
+        if (
+            $user->role?->code === 'cashier'
+            && (int) $order->cashier_id !== (int) $user->id
+        ) {
 
-            return response()->json([
-
-                'success' =>
-                    false,
-
-                'message' =>
-                    'Sale order not found.',
-
-            ], 404);
+            abort(
+                403,
+                'You do not have permission to view this receipt.'
+            );
         }
 
 
-        return response()->json([
+        /*
+        |--------------------------------------------------------------------------
+        | Receipt Settings
+        |--------------------------------------------------------------------------
+        */
 
-            'success' =>
-                true,
+        $receiptSettings =
+            $this->company
+                ? $this->company->receiptSettings
+                : null;
 
-            'data' =>
-                $order,
 
-        ]);
+        /*
+        |--------------------------------------------------------------------------
+        | View
+        |--------------------------------------------------------------------------
+        */
 
+        return view(
+            'pos.receipt',
+            [
+                'order' =>
+                    $order,
+
+                'receiptSettings' =>
+                    $receiptSettings,
+            ]
+        );
     }
 
 

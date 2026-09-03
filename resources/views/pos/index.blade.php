@@ -1059,7 +1059,7 @@
                     "{{ url('/pos/orders') }}",
 
                 receipt:
-                    "{{ url('/pos/orders') }}",
+                     "{{ route('pos.receipt', ['id' => '__ID__']) }}",
 
                 invoice:
                     "{{ url('/pos/orders') }}",
