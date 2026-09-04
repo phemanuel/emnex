@@ -44,6 +44,12 @@ const POS = {
 
         heldSalesSearch: '',
 
+        heldSalesCount:
+            Number(
+                PosConfig.heldSalesCount
+                ?? 0
+            ),
+
         selectedProduct: null,
 
         selectedPaymentMethod: 'Cash',
@@ -102,7 +108,7 @@ const POS = {
     */
 
     async init() {
-
+  
         this.cacheElements();
 
         this.initializeComponents();
@@ -152,6 +158,7 @@ const POS = {
     */
 
     cacheElements() {
+        
 
         this.elements = {
 
@@ -286,9 +293,24 @@ const POS = {
 
             /*
             |--------------------------------------------------------------------------
-            | Sale Header
+            | Held Sales Modal
             |--------------------------------------------------------------------------
             */
+
+            heldSalesSearch:
+                document.getElementById(
+                    'pos-held-sales-search'
+                ),
+
+            heldSalesList:
+                document.getElementById(
+                    'pos-held-sales-list'
+                ),
+
+            heldSalesPagination:
+                document.getElementById(
+                    'pos-held-sales-pagination'
+                ),
 
             heldSalesButton:
                 document.getElementById(
@@ -545,26 +567,7 @@ const POS = {
                 ),
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | Held Sales Modal
-            |--------------------------------------------------------------------------
-            */
-
-            heldSalesSearch:
-                document.getElementById(
-                    'pos-held-sales-search'
-                ),
-
-            heldSalesList:
-                document.getElementById(
-                    'pos-held-sales-list'
-                ),
-
-            heldSalesPagination:
-                document.getElementById(
-                    'pos-held-sales-pagination'
-                ),
+            
 
 
             /*
@@ -808,9 +811,7 @@ const POS = {
     getModal(id) {
 
         const element =
-            document.getElementById(
-                id
-            );
+            document.getElementById(id);
 
         if (!element) {
             return null;
@@ -819,9 +820,7 @@ const POS = {
         return bootstrap.Modal.getOrCreateInstance(
             element
         );
-
     },
-
 
     getOffcanvas(id) {
 
@@ -1260,10 +1259,10 @@ const POS = {
         );
 
 
-        this.elements.taxButton?.addEventListener(
-            'click',
-            () => this.requestTaxApproval()
-        );
+        // this.elements.taxButton?.addEventListener(
+        //     'click',
+        //     () => this.requestTaxApproval()
+        // );
 
 
         this.elements.applyDiscount?.addEventListener(
@@ -1272,16 +1271,35 @@ const POS = {
         );
 
 
+
         /*
         |--------------------------------------------------------------------------
         | Held Sales
         |--------------------------------------------------------------------------
         */
 
-        this.elements.heldSalesButton?.addEventListener(
-            'click',
-            () => this.openHeldSalesModal()
+        console.log(
+            'Held Sales button:',
+            this.elements.heldSalesButton
         );
+
+
+        if (
+            this.elements.heldSalesButton
+        ) {
+
+            this.elements.heldSalesButton.onclick =
+                () => {
+
+                    console.log(
+                        'Held Sales button clicked'
+                    );
+
+                    this.openHeldSalesModal();
+
+                };
+
+        }
 
 
         this.elements.heldSalesSearch?.addEventListener(
@@ -1389,10 +1407,47 @@ const POS = {
         );
 
 
-        this.elements.printPreviewButton?.addEventListener(
-            'click',
-            () => this.previewCurrentSale()
+        // this.elements.printPreviewButton?.addEventListener(
+        //     'click',
+        //     () => this.previewCurrentSale()
+        // );
+
+        /*
+|--------------------------------------------------------------------------
+| Held Sales Click Debug
+|--------------------------------------------------------------------------
+*/
+
+document.addEventListener(
+    'click',
+    (event) => {
+
+        const button =
+            event.target.closest(
+                '#pos-held-sales-btn'
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        console.log(
+            'HELD SALES CLICKED VIA DOCUMENT'
         );
+
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+
+        this.openHeldSalesModal();
+
+    },
+    true
+);
 
     },
 
@@ -2828,6 +2883,15 @@ const POS = {
     },
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Calculate Tax
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Calculate tax using company settings.
+     */
     calculateTax() {
 
         const subtotal =
@@ -2845,29 +2909,52 @@ const POS = {
             );
 
 
-        const taxRate =
-            this.state.selectedTaxRate;
+        /*
+        |--------------------------------------------------------------------------
+        | Tax Settings
+        |--------------------------------------------------------------------------
+        */
 
-
-        if (!taxRate) {
-            return 0;
-        }
+        const taxEnabled =
+            Boolean(
+                PosConfig.tax?.enabled
+            );
 
 
         const rate =
             Number(
-                taxRate.rate
-                ?? taxRate.percentage
-                ?? taxRate.tax_rate
+                PosConfig.tax?.rate
                 ?? 0
             );
 
 
-        return taxable
-            * (
-                rate / 100
-            );
+        /*
+        |--------------------------------------------------------------------------
+        | Tax Disabled / No Rate
+        |--------------------------------------------------------------------------
+        */
 
+        if (
+            ! taxEnabled
+            || rate <= 0
+        ) {
+
+            return 0;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Calculate Tax
+        |--------------------------------------------------------------------------
+        */
+
+        return (
+            taxable *
+            (
+                rate / 100
+            )
+        );
     },
 
 
@@ -3653,6 +3740,12 @@ renderSalesHistory(
 },
 
 
+/*
+|--------------------------------------------------------------------------
+| View Sale From History
+|--------------------------------------------------------------------------
+*/
+
 /**
  * View a sale from history.
  */
@@ -3662,13 +3755,16 @@ async viewSaleFromHistory(
 
     try {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Load Sale
+        |--------------------------------------------------------------------------
+        */
+
         const response =
             await this.request(
-
                 `${PosConfig.urls.orderDetails}/${id}`,
-
                 'GET'
-
             );
 
 
@@ -3682,24 +3778,40 @@ async viewSaleFromHistory(
             throw new Error(
                 'Sale details were not returned.'
             );
-
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close Sales History Modal
+        |--------------------------------------------------------------------------
+        */
 
         this.modals.salesHistory?.hide();
 
 
-        this.loadOrderIntoCart(
+        /*
+        |--------------------------------------------------------------------------
+        | Show Sale Details
+        |--------------------------------------------------------------------------
+        */
+
+        this.openSaleDetails(
             order
         );
 
 
     } catch (error) {
 
+        console.error(
+            'Unable to load sale details:',
+            error
+        );
+
+
         this.showError(
             'Unable to load sale details.'
         );
-
     }
 
 },
@@ -4588,6 +4700,193 @@ async viewSaleFromHistory(
 
 },
 
+ /*
+|--------------------------------------------------------------------------
+| Build Hold Order Form Data
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Build FormData for a held sale.
+ */
+buildHoldOrderFormData() {
+
+    const formData =
+        new FormData();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Customer
+    |--------------------------------------------------------------------------
+    */
+
+    const customerId =
+        this.state.customer?.id
+        ?? this.state.selectedCustomer?.id
+        ?? '';
+
+    if (customerId) {
+
+        formData.append(
+            'customer_id',
+            customerId
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Remarks
+    |--------------------------------------------------------------------------
+    */
+
+    const remarks =
+        this.elements.remarks?.value
+        ?? '';
+
+    if (remarks) {
+
+        formData.append(
+            'remarks',
+            remarks
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Totals
+    |--------------------------------------------------------------------------
+    */
+
+    const subtotal =
+        this.calculateSubtotal();
+
+    const discount =
+        this.calculateDiscount();
+
+    const tax =
+        this.calculateTax();
+
+    const grandTotal =
+        Math.max(
+            0,
+            subtotal -
+            discount +
+            tax
+        );
+
+
+    formData.append(
+        'subtotal',
+        Number(subtotal).toFixed(2)
+    );
+
+    formData.append(
+        'discount',
+        Number(discount).toFixed(2)
+    );
+
+    formData.append(
+        'tax',
+        Number(tax).toFixed(2)
+    );
+
+    formData.append(
+        'total',
+        Number(grandTotal).toFixed(2)
+    );
+
+    formData.append(
+        'grand_total',
+        Number(grandTotal).toFixed(2)
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Item Totals
+    |--------------------------------------------------------------------------
+    */
+
+    let totalQuantity = 0;
+
+
+    this.state.cart.forEach(
+        (item, index) => {
+
+            const productId =
+                item.product_id
+                ?? item.id;
+
+
+            const quantity =
+                Number(
+                    item.quantity
+                    ?? 0
+                );
+
+
+            const unitPrice =
+                Number(
+                    item.unit_price
+                    ?? item.price
+                    ?? 0
+                );
+
+
+            const itemTotal =
+                quantity *
+                unitPrice;
+
+
+            totalQuantity +=
+                quantity;
+
+
+            formData.append(
+                `items[${index}][product_id]`,
+                productId
+            );
+
+            formData.append(
+                `items[${index}][quantity]`,
+                quantity
+            );
+
+            formData.append(
+                `items[${index}][unit_price]`,
+                unitPrice.toFixed(2)
+            );
+
+            formData.append(
+                `items[${index}][total]`,
+                itemTotal.toFixed(2)
+            );
+        }
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Totals Metadata
+    |--------------------------------------------------------------------------
+    */
+
+    formData.append(
+        'total_items',
+        this.state.cart.length
+    );
+
+    formData.append(
+        'total_quantity',
+        totalQuantity
+    );
+
+
+    return formData;
+},
     /*
     |--------------------------------------------------------------------------
     | Save Order
@@ -4644,68 +4943,105 @@ async viewSaleFromHistory(
     },
 
 
+     /*
+|--------------------------------------------------------------------------
+| Hold Sales
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Hold the current sale.
+ */
+async holdSale() {
+
     /*
     |--------------------------------------------------------------------------
-    | Hold Sales
+    | Cart Validation
     |--------------------------------------------------------------------------
     */
 
-    async holdSale() {
+    if (
+        !this.state.cart.length
+    ) {
 
-        if (
-            !this.state.cart.length
-        ) {
+        this.showError(
+            'Add products before holding the sale.'
+        );
 
-            this.showError(
-                'Add products before holding the sale.'
+        return;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hold Sale
+    |--------------------------------------------------------------------------
+    */
+
+    try {
+
+        const response =
+            await this.request(
+                PosConfig.urls.holdOrder,
+                'POST',
+                this.buildHoldOrderFormData()
             );
 
-            return;
 
-        }
+        /*
+        |--------------------------------------------------------------------------
+        | Order
+        |--------------------------------------------------------------------------
+        */
 
+        const order =
+            response.data
+            ?? response.order;
 
-        try {
+        /*
+        |--------------------------------------------------------------------------
+        | Success
+        |--------------------------------------------------------------------------
+        */
 
-            const response =
-                await this.request(
+        if (order) {
 
-                    PosConfig.urls.holdOrder,
+            /*
+            |--------------------------------------------------------------------------
+            | Reset Sale
+            |--------------------------------------------------------------------------
+            */
 
-                    'POST',
+            this.resetSale();      
 
-                    this.buildOrderFormData()
+            /*
+            |--------------------------------------------------------------------------
+            | Update Held Sales Count
+            |--------------------------------------------------------------------------
+            */
 
-                );
+            this.updateHeldSalesCount(
+                response.held_sales_count
+            );
+            
+           /*
+            |--------------------------------------------------------------------------
+            | Success Message
+            |--------------------------------------------------------------------------
+            */
 
-
-            const order =
-                response.data
-                ?? response.order;
-
-
-            if (order) {
-
-                this.showSuccess(
-                    'Sale held successfully.'
-                );
-
-                this.resetSale();
-
-                this.updateHeldSalesCount();
-
-            }
-
-        } catch (error) {
-
-            this.handleRequestError(
-                error
+            this.showSuccess(
+                'Sale held successfully.'
             );
 
         }
+    } catch (error) {
 
-    },
-
+        this.handleRequestError(
+            error
+        );
+    }
+},
     /*
 |--------------------------------------------------------------------------
 | Adjustment Approval
@@ -4949,17 +5285,7 @@ async approveAdjustment() {
             'tax'
         ) {
 
-            /*
-            |----------------------------------------------------------------------
-            | Open Tax Selection
-            |----------------------------------------------------------------------
-            |
-            | We will use the existing tax-rate flow here.
-            |
-            */
-
-            this.openTaxRateModal();
-
+            this.toggleTaxRate();
         }
 
 
@@ -4980,10 +5306,29 @@ async approveAdjustment() {
 
 },
 
+   /*
+    |--------------------------------------------------------------------------
+    | Open Held Sales Modal
+    |--------------------------------------------------------------------------
+    */
+
     async openHeldSalesModal() {
 
-        this.elements.heldSalesSearch.value =
-            '';
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Search
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            this.elements.heldSalesSearch
+        ) {
+
+            this.elements.heldSalesSearch.value =
+                '';
+
+        }
+
 
         this.state.heldSalesSearch =
             '';
@@ -4991,113 +5336,174 @@ async approveAdjustment() {
         this.state.heldSalesPage =
             1;
 
-        this.modals.heldSales?.show();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Modal
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !this.modals.heldSales
+        ) {
+
+            console.error(
+                'Held Sales modal was not initialized.'
+            );
+
+            return;
+        }
+
+
+        this.modals.heldSales.show();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Load Held Sales
+        |--------------------------------------------------------------------------
+        */
 
         await this.loadHeldSales();
 
     },
 
+   /*
+|--------------------------------------------------------------------------
+| Load Held Sales
+|--------------------------------------------------------------------------
+*/
 
-    async loadHeldSales() {
+async loadHeldSales() {
 
-        if (
-            !this.elements.heldSalesList
-        ) {
-            return;
-        }
+    if (
+        !this.elements.heldSalesList
+    ) {
+        return;
+    }
 
 
-        const params =
-            new URLSearchParams({
+    const params =
+        new URLSearchParams({
 
-                page:
-                    this.state.heldSalesPage,
+            page:
+                this.state.heldSalesPage,
 
-                search:
-                    this.state.heldSalesSearch,
+            search:
+                this.state.heldSalesSearch,
 
-            });
+        });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Loading State
+    |--------------------------------------------------------------------------
+    */
+
+    this.elements.heldSalesList.innerHTML = `
+
+        <div class="pos-modal-empty">
+
+            <div
+                class="spinner-border spinner-border-sm"
+                role="status"
+            ></div>
+
+            <span>
+                Loading held sales...
+            </span>
+
+        </div>
+
+    `;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Request
+    |--------------------------------------------------------------------------
+    */
+
+    try {
+
+        const response =
+            await this.request(
+
+                `${PosConfig.urls.heldOrders}?${params.toString()}`,
+
+                'GET'
+
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Orders
+        |--------------------------------------------------------------------------
+        */
+
+        const sales =
+            response.data
+            ?? response.orders
+            ?? [];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pagination
+        |--------------------------------------------------------------------------
+        */
+
+        const pagination =
+            response.pagination
+            ?? null;
+
+
+        this.state.heldSales =
+            sales;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Render
+        |--------------------------------------------------------------------------
+        */
+
+        this.renderHeldSales(
+            sales
+        );
+
+
+        this.renderHeldSalesPagination(
+            pagination
+        );
+
+    } catch (error) {
+
+        console.error(
+            'Unable to load held sales:',
+            error
+        );
 
 
         this.elements.heldSalesList.innerHTML = `
 
             <div class="pos-modal-empty">
 
-                <div
-                    class="spinner-border spinner-border-sm"
-                    role="status"
-                ></div>
+                <i class="bi bi-exclamation-circle"></i>
 
                 <span>
-                    Loading held sales...
+                    Unable to load held sales.
                 </span>
 
             </div>
 
         `;
 
+    }
 
-        try {
-
-            const response =
-                await this.request(
-
-                    `${PosConfig.urls.heldOrders}?${params.toString()}`,
-
-                    'GET'
-
-                );
-
-
-            const sales =
-                response.data
-                ?? response.orders
-                ?? [];
-
-
-            const pagination =
-                response.pagination
-                ?? null;
-
-
-            this.state.heldSales =
-                sales;
-
-
-            this.renderHeldSales(
-                sales
-            );
-
-
-            this.renderHeldSalesPagination(
-                pagination
-            );
-
-
-            this.updateHeldSalesCount(
-                pagination?.total
-            );
-
-
-        } catch (error) {
-
-            this.elements.heldSalesList.innerHTML = `
-
-                <div class="pos-modal-empty">
-
-                    <i class="bi bi-exclamation-circle"></i>
-
-                    <span>
-                        Unable to load held sales.
-                    </span>
-
-                </div>
-
-            `;
-
-        }
-
-    },
+},
 
 
     renderHeldSales(sales) {
@@ -5239,56 +5645,110 @@ async approveAdjustment() {
     },
 
 
-    async retrieveHeldSale(id) {
+   /*
+|--------------------------------------------------------------------------
+| Retrieve Held Sale
+|--------------------------------------------------------------------------
+*/
 
-        try {
+/**
+ * Retrieve a held sale back into the POS.
+ */
+async retrieveHeldSale(id) {
 
-            const url =
-                `${PosConfig.urls.retrieveOrder}/${id}/retrieve`;
+    try {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Retrieve URL
+        |--------------------------------------------------------------------------
+        */
 
-            const response =
-                await this.request(
-                    url,
-                    'POST'
-                );
-
-
-            const order =
-                response.data
-                ?? response.order;
-
-
-            if (!order) {
-                throw new Error(
-                    'Held sale data was not returned.'
-                );
-            }
+        const url =
+            `${PosConfig.urls.retrieveOrder}/${id}/retrieve`;
 
 
-            this.loadOrderIntoCart(
-                order
+        /*
+        |--------------------------------------------------------------------------
+        | Retrieve Order
+        |--------------------------------------------------------------------------
+        */
+
+        const response =
+            await this.request(
+                url,
+                'POST'
             );
 
 
-            this.modals.heldSales?.hide();
+        /*
+        |--------------------------------------------------------------------------
+        | Order
+        |--------------------------------------------------------------------------
+        */
+
+        const order =
+            response.data
+            ?? response.order;
 
 
-            this.showSuccess(
-                'Held sale retrieved.'
+        if (!order) {
+
+            throw new Error(
+                'Held sale data was not returned.'
             );
 
+        }       
 
-        } catch (error) {
 
-            this.handleRequestError(
-                error
-            );
+       /*
+        |--------------------------------------------------------------------------
+        | Load Order Into Cart
+        |--------------------------------------------------------------------------
+        */
 
-        }
+        this.loadOrderIntoCart(
+            order
+        );
 
-    },
 
+        /*
+        |--------------------------------------------------------------------------
+        | Close Modal
+        |--------------------------------------------------------------------------
+        */
+
+        this.modals.heldSales?.hide();
+        /*
+        |--------------------------------------------------------------------------
+        | Update Held Sales Count
+        |--------------------------------------------------------------------------
+        */
+
+        this.updateHeldSalesCount(
+            response.held_sales_count
+        );     
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Success
+        |--------------------------------------------------------------------------
+        */
+
+        this.showSuccess(
+            'Held sale retrieved.'
+        );
+
+    } catch (error) {
+
+        this.handleRequestError(
+            error
+        );
+
+    }
+
+},
 
     loadOrderIntoCart(order) {
 
@@ -5354,130 +5814,50 @@ async approveAdjustment() {
 
     },
 
+/*
+|--------------------------------------------------------------------------
+| Update Held Sales Count
+|--------------------------------------------------------------------------
+*/
 
-    async updateHeldSalesCount(
-        count = null
-    ) {
+/**
+ * Update the held sales badge.
+ */
+updateHeldSalesCount(count) {
 
-        if (
-            count !== null
-        ) {
-
-            this.toggle(
-                this.elements.heldSalesCount,
-                Number(count) > 0
-            );
-
-
-            if (
-                this.elements.heldSalesCount
-            ) {
-
-                this.elements.heldSalesCount.textContent =
-                    count;
-
-            }
+    const countValue =
+        Math.max(
+            0,
+            Number(count ?? 0)
+        );
 
 
-            return;
-
-        }
-
-
-        try {
-
-            const response =
-                await this.request(
-
-                    `${PosConfig.urls.heldOrders}?per_page=1`,
-
-                    'GET'
-
-                );
+    this.state.heldSalesCount =
+        countValue;
 
 
-            const pagination =
-                response.pagination;
+    const element =
+        document.getElementById(
+            'pos-held-sales-count'
+        );
 
 
-            const countValue =
-                Number(
-                    pagination?.total
-                    ?? 0
-                );
+    if (!element) {
+
+        return;
+    }
 
 
-            this.toggle(
-                this.elements.heldSalesCount,
-                countValue > 0
-            );
+    element.textContent =
+        countValue;
 
 
-            if (
-                this.elements.heldSalesCount
-            ) {
+    element.classList.toggle(
+        'd-none',
+        countValue <= 0
+    );
 
-                this.elements.heldSalesCount.textContent =
-                    countValue;
-
-            }
-
-        } catch (error) {
-
-            // Keep count hidden on failure.
-
-        }
-
-    },
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Product Inspector
-    |--------------------------------------------------------------------------
-    */
-
-    async openProductInspector(id) {
-
-        try {
-
-            const url =
-                `${PosConfig.urls.products}/${id}`;
-
-
-            const response =
-                await this.request(
-                    url,
-                    'GET'
-                );
-
-
-            const product =
-                response.data
-                ?? response.product;
-
-
-            this.state.selectedProduct =
-                product;
-
-
-            this.renderProductInspector(
-                product
-            );
-
-
-            this.productInspector?.show();
-
-        } catch (error) {
-
-            this.showError(
-                'Unable to load product details.'
-            );
-
-        }
-
-    },
-
+},
 
     renderProductInspector(product) {
 

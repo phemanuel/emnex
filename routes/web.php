@@ -179,11 +179,14 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/orders',[PosController::class, 'storeOrder'])->name('orders.store');
 
-            Route::get('/orders/{id}',[PosController::class, 'orderDetails'])->name('orders.details');            
-
             Route::post('/orders/hold',[PosController::class, 'holdOrder'])->name('orders.hold');
 
+            Route::get('/orders/held/count',[PosController::class, 'heldOrdersCount'])
+            ->name('held-orders.count');
+
             Route::get('/orders/held',[PosController::class, 'heldOrders'])->name('orders.held');
+
+            Route::get('/orders/{id}',[PosController::class, 'orderDetails'])->name('orders.details');             
 
             Route::post('/orders/{id}/retrieve',[PosController::class, 'retrieveOrder'])
             ->name('orders.retrieve');

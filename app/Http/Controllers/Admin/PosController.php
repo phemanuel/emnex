@@ -16,6 +16,7 @@ use App\Models\Product;
 use App\Models\ProductStock;
 use App\Models\TaxRate;
 use App\Models\User;
+use App\Models\Setting;
 use App\Models\StockMovement;
 use App\Models\TerminalAssignment;
 use Illuminate\Http\JsonResponse;
@@ -210,6 +211,51 @@ class PosController extends BaseController
                 );
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Held Sales Count
+        |--------------------------------------------------------------------------
+        */
+
+        $heldSalesCount =
+            Order::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'branch_id',
+                    $terminalAssignment->branch_id
+                )
+                ->where(
+                    'terminal_id',
+                    $terminalAssignment->terminal_id
+                )
+                ->where(
+                    'cashier_id',
+                    $user->id
+                )
+                ->where(
+                    'order_status',
+                    'Held'
+                )
+                ->count();
+
+         /*
+        |--------------------------------------------------------------------------
+        | Company Settings
+        |--------------------------------------------------------------------------
+        */
+
+        $settings =
+            Setting::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->active()
+                ->first();
+
 
         /*
         |--------------------------------------------------------------------------
@@ -224,7 +270,9 @@ class PosController extends BaseController
                 'terminalAssignment',
                 'branch',
                 'terminal',
-                'drawer'
+                'drawer',
+                'settings',
+                'heldSalesCount'
             )
         );
 
@@ -3646,6 +3694,12 @@ class PosController extends BaseController
         Request $request
     ): JsonResponse {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
         if (! canAccess('pos.sell')) {
 
             return response()->json([
@@ -3662,12 +3716,50 @@ class PosController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | Hold
+        | User
         |--------------------------------------------------------------------------
-        |
-        | The POS JavaScript will submit the current cart here.
-        | The order is deliberately kept Pending/Held until retrieved.
-        |
+        */
+
+        $user = auth()->user();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Terminal Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        $terminalAssignment =
+            TerminalAssignment::query()
+                ->where('company_id', $this->companyId)
+                ->where('user_id', $user->id)
+                ->where('status', 'active')
+                ->with([
+                    'branch',
+                    'terminal',
+                ])
+                ->latest('assigned_at')
+                ->first();
+
+
+        if (! $terminalAssignment) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have an active terminal assignment.',
+
+            ], 422);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
         */
 
         $validated =
@@ -3676,6 +3768,12 @@ class PosController extends BaseController
                 'customer_id' => [
                     'nullable',
                     'integer',
+                ],
+
+                'remarks' => [
+                    'nullable',
+                    'string',
+                    'max:1000',
                 ],
 
                 'items' => [
@@ -3706,38 +3804,350 @@ class PosController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | Create Order
+        | Customer
         |--------------------------------------------------------------------------
         */
 
-        $validated['remarks'] =
-            $request->input(
-                'remarks'
-            );
+        $customer = null;
+
+        if (! empty($validated['customer_id'])) {
+
+            $customer =
+                Customer::query()
+                    ->where('company_id', $this->companyId)
+                    ->find($validated['customer_id']);
 
 
-        $result =
-            $this->storeOrder(
-                new Request(
-                    $validated
-                )
+            if (! $customer) {
+
+                return response()->json([
+
+                    'success' =>
+                        false,
+
+                    'message' =>
+                        'The selected customer does not belong to this company.',
+
+                ], 422);
+            }
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Calculate Totals
+        |--------------------------------------------------------------------------
+        */
+
+        $subtotal = 0;
+        $totalQuantity = 0;
+
+        $items = [];
+
+
+        foreach ($validated['items'] as $item) {
+
+            $product =
+                Product::query()
+                    ->where('company_id', $this->companyId)
+                    ->find($item['product_id']);
+
+
+            if (! $product) {
+
+                return response()->json([
+
+                    'success' =>
+                        false,
+
+                    'message' =>
+                        'One of the selected products could not be found.',
+
+                ], 422);
+            }
+
+
+            $quantity =
+                (float) $item['quantity'];
+
+
+            $unitPrice =
+                (float) $item['unit_price'];
+
+
+            $itemTotal =
+                round(
+                    $quantity * $unitPrice,
+                    2
+                );
+
+
+            $subtotal += $itemTotal;
+
+            $totalQuantity += $quantity;
+
+
+            $items[] = [
+
+                'product' =>
+                    $product,
+
+                'product_id' =>
+                    $product->id,
+
+                'quantity' =>
+                    $quantity,
+
+                'unit_price' =>
+                    $unitPrice,
+
+                'total' =>
+                    $itemTotal,
+
+            ];
+        }
+
+
+        $subtotal =
+            round($subtotal, 2);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Hold Order Number
+        |--------------------------------------------------------------------------
+        */
+
+        $orderNumber =
+            DocumentNumberService::generate(
+                'Sales Order',
+                $this->companyId
             );
 
 
         /*
         |--------------------------------------------------------------------------
-        | Existing Order
+        | Order Totals
         |--------------------------------------------------------------------------
         |
-        | The detailed held-order lifecycle will be completed in pos.js
-        | and the dedicated order-state implementation.
+        | The hold order should preserve the current POS values.
+        | Payment is not created at this stage.
         |
         */
 
-        return $result;
+        $discount =
+            0;
 
+        $tax =
+            0;
+
+        $grandTotal =
+            round(
+                $subtotal
+                - $discount
+                + $tax,
+                2
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Create Held Order
+        |--------------------------------------------------------------------------
+        */
+
+        DB::beginTransaction();
+
+        try {
+
+            $order =
+                Order::query()->create([
+
+                    'company_id' =>
+                        $this->companyId,
+
+                    'branch_id' =>
+                        $terminalAssignment->branch_id,
+
+                    'terminal_id' =>
+                        $terminalAssignment->terminal_id,
+
+                    'customer_id' =>
+                        $customer?->id,
+
+                    'cashier_id' =>
+                        $user->id,
+
+                    'order_no' =>
+                        $orderNumber,
+
+                    'order_status' =>
+                        'Held',
+
+                    'subtotal' =>
+                        $subtotal,
+
+                    'discount_amount' =>
+                        $discount,
+
+                    'tax_amount' =>
+                        $tax,
+
+                    'total' =>
+                        $grandTotal,
+
+                    'grand_total' =>
+                        $grandTotal,
+
+                    'total_items' =>
+                        count($items),
+
+                    'total_quantity' =>
+                        $totalQuantity,
+
+                    'remarks' =>
+                        $validated['remarks'] ?? null,
+
+                    'created_by' =>
+                        $user->id,
+
+                ]);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Create Order Items
+            |--------------------------------------------------------------------------
+            */
+
+            foreach ($items as $item) {
+
+                $order->orderItems()->create([
+
+                    'company_id' =>
+                        $this->companyId,
+
+                    'product_id' =>
+                        $item['product_id'],
+
+                    'product_name' =>
+                        $item['product']->name,
+
+                    'quantity' =>
+                        $item['quantity'],
+
+                    'unit_price' =>
+                        $item['unit_price'],
+
+                    'total' =>
+                        $item['total'],
+
+                ]);
+            }
+
+            /*
+    |--------------------------------------------------------------------------
+    | Held Sales Count
+    |--------------------------------------------------------------------------
+    */
+
+    $heldSalesCount =
+        Order::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+            ->where(
+                'branch_id',
+                $terminalAssignment->branch_id
+            )
+            ->where(
+                'terminal_id',
+                $terminalAssignment->terminal_id
+            )
+            ->where(
+                'cashier_id',
+                $user->id
+            )
+            ->where(
+                'order_status',
+                'Held'
+            )
+            ->count();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Activity Log
+            |--------------------------------------------------------------------------
+            */
+
+            $this->activityLogger->log(
+
+                'pos',
+
+                'hold_order',
+
+                'Sale held: ' . $order->order_no,
+
+                $order,
+
+                null,
+
+                $order->toArray()
+
+            );
+
+
+            DB::commit();
+
+
+            return response()->json([
+
+                'success' =>
+                    true,
+
+                'message' =>
+                    'Sale held successfully.',
+
+                'order' => [
+
+                    'id' =>
+                        $order->id,
+
+                    'order_no' =>
+                        $order->order_no,
+
+                    'status' =>
+                        $order->order_status,
+
+                ],
+
+                 'held_sales_count' =>
+                     $heldSalesCount,
+
+            ]);
+
+
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+
+            report($e);
+
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'Unable to hold the sale.',
+
+            ], 500);
+        }
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -3751,6 +4161,12 @@ class PosController extends BaseController
     public function heldOrders(
         Request $request
     ): JsonResponse {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
 
         if (! canAccess('pos.sell')) {
 
@@ -3766,24 +4182,105 @@ class PosController extends BaseController
         }
 
 
-        $query =
-            Order::query()
+        /*
+        |--------------------------------------------------------------------------
+        | Current User
+        |--------------------------------------------------------------------------
+        */
 
+        $user =
+            auth()->user();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Active Terminal Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        $terminalAssignment =
+            TerminalAssignment::query()
                 ->where(
                     'company_id',
                     $this->companyId
                 )
+                ->where(
+                    'user_id',
+                    $user->id
+                )
+                ->where(
+                    'status',
+                    'active'
+                )
+                ->with([
+                    'branch',
+                    'terminal',
+                ])
+                ->latest(
+                    'assigned_at'
+                )
+                ->first();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Terminal Assignment Check
+        |--------------------------------------------------------------------------
+        */
+
+        if (! $terminalAssignment) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have an active terminal assignment.',
+
+            ], 422);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Query
+        |--------------------------------------------------------------------------
+        */
+
+        $query =
+            Order::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'branch_id',
+                    $terminalAssignment->branch_id
+                )
+                ->where(
+                    'terminal_id',
+                    $terminalAssignment->terminal_id
+                )
+                ->where(
+                    'cashier_id',
+                    $user->id
+                )
                 ->where(
                     'order_status',
                     'Held'
                 )
-
                 ->with([
                     'customer',
                     'orderItems',
                 ]);
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
 
         $search =
             trim(
@@ -3803,13 +4300,11 @@ class PosController extends BaseController
                 ) {
 
                     $q
-
                         ->where(
                             'order_no',
                             'like',
                             '%' . $search . '%'
                         )
-
                         ->orWhereHas(
                             'customer',
                             function (
@@ -3819,13 +4314,11 @@ class PosController extends BaseController
                             ) {
 
                                 $customerQuery
-
                                     ->where(
                                         'first_name',
                                         'like',
                                         '%' . $search . '%'
                                     )
-
                                     ->orWhere(
                                         'last_name',
                                         'like',
@@ -3838,9 +4331,14 @@ class PosController extends BaseController
                 }
 
             );
-
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pagination
+        |--------------------------------------------------------------------------
+        */
 
         $orders =
             $query
@@ -3849,6 +4347,12 @@ class PosController extends BaseController
                     15
                 );
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
 
         return response()->json([
 
@@ -3875,9 +4379,133 @@ class PosController extends BaseController
             ],
 
         ]);
-
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Held Sales Count
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return the number of held sales.
+     */
+    public function heldOrdersCount(): JsonResponse
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (! canAccess('pos.sell')) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have permission to view held sales.',
+
+            ], 403);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current User
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Active Terminal Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        $terminalAssignment =
+            TerminalAssignment::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'user_id',
+                    $user->id
+                )
+                ->where(
+                    'status',
+                    'active'
+                )
+                ->first();
+
+
+        if (! $terminalAssignment) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have an active terminal assignment.',
+
+            ], 422);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Count
+        |--------------------------------------------------------------------------
+        */
+
+        $count =
+            Order::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'branch_id',
+                    $terminalAssignment->branch_id
+                )
+                ->where(
+                    'terminal_id',
+                    $terminalAssignment->terminal_id
+                )
+                ->where(
+                    'cashier_id',
+                    $user->id
+                )
+                ->where(
+                    'order_status',
+                    'Held'
+                )
+                ->count();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
+        return response()->json([
+
+            'success' =>
+                true,
+
+            'count' =>
+                $count,
+
+        ]);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -3903,6 +4531,61 @@ class PosController extends BaseController
                     'You do not have permission to retrieve held sales.',
 
             ], 403);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current User
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Active Terminal Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        $terminalAssignment =
+            TerminalAssignment::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'user_id',
+                    $user->id
+                )
+                ->where(
+                    'status',
+                    'active'
+                )
+                ->latest(
+                    'assigned_at'
+                )
+                ->first();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Terminal Assignment Check
+        |--------------------------------------------------------------------------
+        */
+
+        if (! $terminalAssignment) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have an active terminal assignment.',
+
+            ], 422);
         }
 
 
@@ -3949,12 +4632,42 @@ class PosController extends BaseController
         $order->update([
 
             'order_status' =>
-                'Pending',
+                'Draft',
 
             'updated_by' =>
                 auth()->id(),
 
         ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Remaining Held Sales Count
+        |--------------------------------------------------------------------------
+        */
+
+        $heldSalesCount =
+            Order::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'branch_id',
+                    $terminalAssignment->branch_id
+                )
+                ->where(
+                    'terminal_id',
+                    $terminalAssignment->terminal_id
+                )
+                ->where(
+                    'cashier_id',
+                    $user->id
+                )
+                ->where(
+                    'order_status',
+                    'Held'
+                )
+                ->count();
 
 
         return response()->json([
@@ -3970,6 +4683,9 @@ class PosController extends BaseController
                     'customer',
                     'orderItems',
                 ]),
+
+             'held_sales_count' =>
+                $heldSalesCount,
 
         ]);
 

@@ -432,91 +432,15 @@
 
                     {{-- 
                     |--------------------------------------------------------------------------
-                    | Sale Header
-                    |--------------------------------------------------------------------------
-                    --}}
-
-                    <div class="pos-sale-header">
-
-                        <div>
-
-                            <span class="pos-sale-eyebrow">
-                                CURRENT TRANSACTION
-                            </span>
-
-                            <h5 class="pos-sale-title">
-                                New Sale
-                            </h5>
-
-                        </div>
-
-
-                        <div class="pos-sale-header-total">
-
-                            <span>
-                                Total
-                            </span>
-
-                            <strong id="pos-header-grand-total">
-                                ₦0.00
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- 
-                    |--------------------------------------------------------------------------
-                    | Customer Summary
-                    |--------------------------------------------------------------------------
-                    | Compact representation only. The full customer action
-                    | will be moved to the POS action toolbar.
-                    |--------------------------------------------------------------------------
-                    --}}
-
-                    <div class="pos-sale-customer-summary">
-
-                        <div class="pos-sale-customer-summary-icon">
-
-                            <i class="bi bi-person"></i>
-
-                        </div>
-
-
-                        <div class="pos-sale-customer-summary-content">
-
-                            <span>
-                                Customer
-                            </span>
-
-                            <strong
-                                id="pos-selected-customer-name"
-                            >
-                                Walk-in Customer
-                            </strong>
-
-                        </div>
-
-
-                        <small
-                            id="pos-selected-customer-detail"
-                        >
-                            Walk-in
-                        </small>
-
-                    </div>
-
-
-                    {{-- 
-                    |--------------------------------------------------------------------------
                     | Cart Header
                     |--------------------------------------------------------------------------
                     --}}
 
                     <div class="pos-cart-heading">
 
-                        <div>
+                        {{-- Items --}}
+
+                        <div class="pos-cart-heading-items">
 
                             <span class="pos-section-label">
                                 Items
@@ -532,6 +456,43 @@
                         </div>
 
 
+                        {{-- Customer --}}
+
+                        <div class="pos-sale-customer-summary">
+
+                            <div class="pos-sale-customer-summary-icon">
+
+                                <i class="bi bi-person"></i>
+
+                            </div>
+
+
+                            <div class="pos-sale-customer-summary-content">
+
+                                <span>
+                                    Customer
+                                </span>
+
+                                <strong
+                                    id="pos-selected-customer-name"
+                                >
+                                    Walk-in Customer
+                                </strong>
+
+                            </div>
+
+
+                            <small
+                                id="pos-selected-customer-detail"
+                            >
+                                Walk-in
+                            </small>
+
+                        </div>
+
+
+                        {{-- Quantity --}}
+
                         <span
                             class="pos-cart-quantity"
                             id="pos-cart-quantity"
@@ -541,6 +502,8 @@
 
                     </div>
 
+
+                    
 
                     {{-- 
                     |--------------------------------------------------------------------------
@@ -686,7 +649,7 @@
 
         </main>
 
-        {{-- 
+    {{--
     |--------------------------------------------------------------------------
     | POS Quick Actions
     |--------------------------------------------------------------------------
@@ -694,207 +657,267 @@
 
     <div class="pos-quick-actions">
 
-        {{-- Customer --}}
 
-        <button
-            type="button"
-            class="pos-quick-action pos-quick-action-customer"
-            id="pos-customer-selector"
-        >
+        {{-- ==============================================================
+            SALE ACTIONS
+        ============================================================== --}}
 
-            <span class="pos-quick-action-icon">
+        <div class="pos-quick-action-group">
 
-                <i class="bi bi-person"></i>
 
-            </span>
+            {{-- Customer --}}
 
-            <span class="pos-quick-action-content">
+            <button
+                type="button"
+                class="pos-quick-action pos-quick-action-customer"
+                id="pos-customer-selector"
+            >
 
-                <strong>
-                    Customer
-                </strong>
+                <span class="pos-quick-action-icon">
 
-                <small>
-                    Add customer
-                </small>
+                    <i class="bi bi-person"></i>
 
-            </span>
+                </span>
 
-        </button>
+                <span class="pos-quick-action-content">
 
+                    <strong>
+                        Customer
+                    </strong>
 
-        {{-- Discount --}}
+                    <small>
+                        Add customer
+                    </small>
 
-        <button
-            type="button"
-            class="pos-quick-action pos-quick-action-discount"
-            id="pos-discount-btn"
-        >
+                </span>
 
-            <span class="pos-quick-action-icon">
+            </button>
 
-                <i class="bi bi-percent"></i>
 
-            </span>
+            {{-- Discount --}}
 
-            <span class="pos-quick-action-content">
+            <button
+                type="button"
+                class="pos-quick-action pos-quick-action-discount"
+                id="pos-discount-btn"
+            >
 
-                <strong>
-                    Discount
-                </strong>
+                <span class="pos-quick-action-icon">
 
-                <small id="pos-discount-display">
-                    ₦0.00
-                </small>
+                    <i class="bi bi-percent"></i>
 
-            </span>
+                </span>
 
-        </button>
+                <span class="pos-quick-action-content">
 
+                    <strong>
+                        Discount
+                    </strong>
 
-        {{-- Tax --}}
+                    <small id="pos-discount-display">
+                        ₦0.00
+                    </small>
 
-        <button
-            type="button"
-            class="pos-quick-action pos-quick-action-tax"
-            id="pos-tax-btn"
-        >
+                </span>
 
-            <span class="pos-quick-action-icon">
+            </button>
 
-                <i class="bi bi-receipt"></i>
 
-            </span>
+            {{-- Tax --}}
 
-            <span class="pos-quick-action-content">
+            <button
+                type="button"
+                class="pos-quick-action pos-quick-action-tax"
+                id="pos-tax-btn"
+            >
 
-                <strong>
-                    Tax
-                </strong>
+                <span class="pos-quick-action-icon">
 
-                <small id="pos-tax-display">
-                    ₦0.00
-                </small>
+                    <i class="bi bi-receipt"></i>
 
-            </span>
+                </span>
 
-        </button>
+                <span class="pos-quick-action-content">
 
+                    <strong>
+                        Tax
+                    </strong>
 
-        {{-- Hold --}}
+                    <small id="pos-tax-display">
+                        ₦0.00
+                    </small>
 
-        <button
-            type="button"
-            class="pos-quick-action pos-quick-action-hold"
-            id="pos-hold-sale-btn"
-        >
+                </span>
 
-            <span class="pos-quick-action-icon">
+            </button>
 
-                <i class="bi bi-pause-circle"></i>
 
-            </span>
+            {{-- Hold Sale --}}
 
-            <span class="pos-quick-action-content">
+            <button
+                type="button"
+                class="pos-quick-action pos-quick-action-hold"
+                id="pos-hold-sale-btn"
+            >
 
-                <strong>
-                    Hold
-                </strong>
+                <span class="pos-quick-action-icon">
 
-                <small>
-                    Save for later
-                </small>
+                    <i class="bi bi-pause-circle"></i>
 
-            </span>
+                </span>
 
-        </button>
+                <span class="pos-quick-action-content">
 
+                    <strong>
+                        Hold Sale
+                    </strong>
 
-        {{-- Clear --}}
+                    <small>
+                        Continue later
+                    </small>
 
-        <button
-            type="button"
-            class="pos-quick-action pos-quick-action-clear"
-            id="pos-clear-cart"
-        >
+                </span>
 
-            <span class="pos-quick-action-icon">
+            </button>
 
-                <i class="bi bi-trash3"></i>
 
-            </span>
+            {{-- Clear Cart --}}
 
-            <span class="pos-quick-action-content">
+            <button
+                type="button"
+                class="pos-quick-action pos-quick-action-clear"
+                id="pos-clear-cart"
+            >
 
-                <strong>
-                    Clear
-                </strong>
+                <span class="pos-quick-action-icon">
 
-                <small>
-                    Empty sale
-                </small>
+                    <i class="bi bi-trash3"></i>
 
-            </span>
+                </span>
 
-        </button>
+                <span class="pos-quick-action-content">
 
+                    <strong>
+                        Clear Cart
+                    </strong>
 
-        {{-- Save --}}
+                    <small>
+                        Empty sale
+                    </small>
 
-        <button
-            type="button"
-            class="pos-quick-action pos-quick-action-save"
-            id="pos-save-order-btn"
-        >
+                </span>
 
-            <span class="pos-quick-action-icon">
+            </button>
 
-                <i class="bi bi-save"></i>
+        </div>
 
-            </span>
 
-            <span class="pos-quick-action-content">
+        {{-- ==============================================================
+            Separator
+        ============================================================== --}}
 
-                <strong>
-                    Save
-                </strong>
+        <div
+            class="pos-quick-actions-divider"
+            aria-hidden="true"
+        ></div>
 
-                <small>
-                    Save order
-                </small>
 
-            </span>
+        {{-- ==============================================================
+            REPORTS & RECOVERY
+        ============================================================== --}}
 
-        </button>
+        <div class="pos-quick-action-group">
 
 
-        {{-- Preview --}}
+            {{-- Today's Sales --}}
 
-        <button
-            type="button"
-            class="pos-quick-action pos-quick-action-preview"
-            id="pos-print-preview-btn"
-        >
+            <button
+                type="button"
+                class="pos-quick-action pos-quick-action-sales"
+                id="pos-save-order-btn"
+            >
 
-            <span class="pos-quick-action-icon">
+                <span class="pos-quick-action-icon">
 
-                <i class="bi bi-printer"></i>
+                    <i class="bi bi-bar-chart-line"></i>
 
-            </span>
+                </span>
 
-            <span class="pos-quick-action-content">
+                <span class="pos-quick-action-content">
 
-                <strong>
-                    Preview
-                </strong>
+                    <strong>
+                        Today's Sales
+                    </strong>
 
-                <small>
-                    View receipt
-                </small>
+                    <small>
+                        View your sales
+                    </small>
 
-            </span>
+                </span>
 
-        </button>
+            </button>
+
+
+           {{-- Held Sales --}}
+
+            <button
+                type="button"
+                class="pos-quick-action pos-quick-action-held-sales"
+                id="pos-held-sales-btn"
+            >
+                <span class="pos-quick-action-icon">
+                    <i class="bi bi-pause-circle"></i>
+                </span>
+
+                <span class="pos-quick-action-content">
+
+                    <strong>Held Sales</strong>
+
+                    <small>
+
+                        <span
+                            id="pos-held-sales-count"
+                            class="pos-header-count"
+                        >
+                            {{ $heldSalesCount }}
+                        </span>
+
+                        held
+
+                    </small>
+
+                </span>
+            </button>
+
+            {{-- Sales History --}}
+
+            <button
+                type="button"
+                class="pos-quick-action pos-quick-action-history"
+                id="pos-sales-history-btn"
+            >
+
+                <span class="pos-quick-action-icon">
+
+                    <i class="bi bi-clock-history"></i>
+
+                </span>
+
+                <span class="pos-quick-action-content">
+
+                    <strong>
+                        Sales History
+                    </strong>
+
+                    <small>
+                        Find completed sales
+                    </small>
+
+                </span>
+
+            </button>
+
+        </div>
 
     </div>
 
@@ -1011,6 +1034,28 @@
             drawerId:
                 {{ $drawer?->id ?? 'null' }},
 
+            tax: {
+                enabled:
+                    @json(
+                        (bool) (
+                            $settings?->tax_enabled
+                            ?? false
+                        )
+                    ),
+
+                rate:
+                    @json(
+                        (float) (
+                            $settings?->tax_rate
+                            ?? 0
+                        )
+                    ),
+
+                heldSalesCount:
+                 @json($heldSalesCount),
+
+            },
+
             urls: {
 
                 products:
@@ -1040,6 +1085,9 @@
                 heldOrders:
                     "{{ route('pos.orders.held') }}",
 
+                heldOrdersCount:
+                     "{{ route('pos.held-orders.count') }}",
+
                 holdOrder:
                     "{{ route('pos.orders.hold') }}",
 
@@ -1050,7 +1098,7 @@
                     "{{ route('pos.discounts') }}",
 
                 taxRates:
-                    "{{ route('pos.tax-rates') }}",
+                    "{{ route('pos.tax-rates') }}",               
 
                 payments:
                     "{{ url('/pos/orders') }}",

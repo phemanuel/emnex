@@ -100,6 +100,7 @@
                 'products.*',
                 'product-categories.*',
                 'units.*',
+                'tax-rates.*',
                 'discounts.*'
             );
 
@@ -189,6 +190,7 @@
             canAccess('products.view') ||
             canAccess('categories.view') ||
             canAccess('units.view') ||
+            canAccess('tax_rates.view') ||
             canAccess('discounts.view');
 
 
@@ -237,7 +239,8 @@
         $canViewReports =
             canAccess('reports.sales') ||
             canAccess('reports.inventory') ||
-            canAccess('reports.profit_loss') ;
+            canAccess('reports.profit_loss') ||
+            canAccess('reports.tax');
 
 
         /*
@@ -412,7 +415,32 @@
 
                         </a>
 
-                    @endif                    
+                    @endif
+
+
+                    @if(canAccess('tax_rates.view'))
+
+                        <a
+                            href="{{ route('tax-rates.index') }}"
+                            class="{{ request()->routeIs('tax-rates.*') ? 'active' : '' }}"
+                        >
+
+                            <span class="sub-icon">
+
+                                <i class="bi bi-percent"></i>
+
+                            </span>
+
+                            <span>
+
+                                Tax Rates
+
+                            </span>
+
+                        </a>
+
+                    @endif
+
 
                     @if(canAccess('discounts.view'))
 
@@ -1024,7 +1052,31 @@
 
                         </a>
 
-                    @endif                   
+                    @endif
+
+
+                    @if(canAccess('reports.tax'))
+
+                        <a
+                            href="{{ route('reports.tax') }}"
+                            class="{{ request()->routeIs('reports.tax') ? 'active' : '' }}"
+                        >
+
+                            <span class="sub-icon">
+
+                                <i class="bi bi-percent"></i>
+
+                            </span>
+
+                            <span>
+
+                                Tax Report
+
+                            </span>
+
+                        </a>
+
+                    @endif
 
 
                 </div>

@@ -401,9 +401,9 @@
 
 {{-- Existing POS JS --}}
 
-<script
+<!-- <script
     src="{{ asset('assets/js/pos.js') }}"
-></script>
+></script> -->
 
 
 {{-- Cashier Shell JS --}}
