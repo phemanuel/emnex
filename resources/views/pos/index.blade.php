@@ -47,201 +47,7 @@
 
     <div
         class="pos-app"
-        id="pos-app"  >    
-
-        {{-- 
-        |--------------------------------------------------------------------------
-        | Header
-        |--------------------------------------------------------------------------
-        --}}
-
-        <header class="pos-topbar">
-
-            <div class="pos-topbar-left">
-
-                <div class="pos-brand">
-
-                    <div class="pos-brand-mark">
-
-                        <i class="bi bi-cart3"></i>
-
-                    </div>
-
-                    <div class="pos-brand-content">
-
-                        <strong class="pos-brand-title">
-                            EMNEX POS
-                        </strong>
-
-                        <span class="pos-brand-subtitle">
-                            Point of Sale
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="pos-context-divider"></div>
-
-
-                <div class="pos-context">
-
-                    <div class="pos-context-item">
-
-                        <span class="pos-context-label">
-                            Branch
-                        </span>
-
-                        <strong
-                            class="pos-context-value"
-                            id="pos-branch-name"
-                        >
-                            {{ $branch?->name ?? '—' }}
-                        </strong>
-
-                    </div>
-
-
-                    <div class="pos-context-item">
-
-                        <span class="pos-context-label">
-                            Terminal
-                        </span>
-
-                        <strong
-                            class="pos-context-value"
-                            id="pos-terminal-name"
-                        >
-                            {{ $terminal?->terminal_name ?? '—' }}
-                        </strong>
-
-                    </div>
-
-
-                    <div class="pos-context-item">
-
-                        <span class="pos-context-label">
-                            Cashier
-                        </span>
-
-                        <strong
-                            class="pos-context-value"
-                            id="pos-cashier-name"
-                        >
-                            {{ trim(
-                                ($user->last_name ?? '')
-                                . ' '
-                                . ($user->first_name ?? '')
-                            ) }}
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="pos-company-brand">
-
-                <span class="pos-company-brand-icon">
-
-                    <i class="bi bi-building"></i>
-
-                </span>
-
-                <span
-                    class="pos-company-brand-name"
-                    title="{{ $user->company?->name ?? 'EMNEX POS' }}"
-                >
-
-                    {{ $user->company?->name ?? 'EMNEX POS' }}
-
-                </span>
-
-            </div>
-
-
-            <div class="pos-topbar-right">
-
-                {{-- Drawer Status --}}
-                <div
-                    class="pos-drawer-status"
-                    id="pos-drawer-status"
-                >
-                    <span class="pos-status-dot"></span>
-
-                    <span>
-                        Drawer Open
-                    </span>
-                </div>
-
-
-                {{-- Sales History --}}
-                <button
-                    type="button"
-                    class="pos-header-action pos-header-action-history"
-                    id="pos-sales-history-btn"
-                >
-                    <i class="bi bi-clock-history"></i>
-
-                    <span>
-                        Sales History
-                    </span>
-                </button>
-
-
-                {{-- Held Sales --}}
-                <button
-                    type="button"
-                    class="pos-header-action pos-header-action-held"
-                    id="pos-held-sales-btn"
-                >
-                    <i class="bi bi-pause-circle"></i>
-
-                    <span>
-                        Held Sales
-                    </span>
-
-                    <span
-                        class="pos-header-count d-none"
-                        id="pos-held-sales-count"
-                    >
-                        0
-                    </span>
-                </button>
-
-
-                {{-- Customer --}}
-                <button
-                    type="button"
-                    class="pos-header-action pos-header-action-customer"
-                    id="pos-customer-header-btn"
-                >
-                    <i class="bi bi-person"></i>
-
-                    <span>
-                        Customer
-                    </span>
-                </button>
-
-
-                {{-- Close POS --}}
-                <a
-                    href="{{ route('dashboard') }}"
-                    class="pos-close-action"
-                    id="pos-close-btn"
-                >
-                    <i class="bi bi-x-lg"></i>
-
-                    <span>
-                        Close POS
-                    </span>
-                </a>
-
-            </div>
-
-        </header>
+        id="pos-app"  >           
 
 
         {{-- 
@@ -579,6 +385,12 @@
 
                             <span>
                                 Tax
+                                <small
+                                    id="pos-summary-tax-rate"
+                                    class="pos-summary-tax-rate"
+                                >
+                                    (0%)
+                                </small>
                             </span>
 
                             <strong
@@ -656,6 +468,33 @@
     --}}
 
     <div class="pos-quick-actions">
+
+        {{-- ==============================================================
+            CURRENT DATE & TIME
+        ============================================================== --}}
+
+        <div
+            class="pos-footer-datetime"
+            id="pos-current-datetime"
+        >
+
+            <span class="pos-footer-datetime-icon">
+                <i class="bi bi-calendar3"></i>
+            </span>
+
+            <div class="pos-footer-datetime-content">
+
+                <strong id="pos-current-date">
+                    —
+                </strong>
+
+                <span id="pos-current-time">
+                    —
+                </span>
+
+            </div>
+
+        </div>
 
 
         {{-- ==============================================================
@@ -828,37 +667,7 @@
 
         <div class="pos-quick-action-group">
 
-
-            {{-- Today's Sales --}}
-
-            <button
-                type="button"
-                class="pos-quick-action pos-quick-action-sales"
-                id="pos-save-order-btn"
-            >
-
-                <span class="pos-quick-action-icon">
-
-                    <i class="bi bi-bar-chart-line"></i>
-
-                </span>
-
-                <span class="pos-quick-action-content">
-
-                    <strong>
-                        Today's Sales
-                    </strong>
-
-                    <small>
-                        View your sales
-                    </small>
-
-                </span>
-
-            </button>
-
-
-           {{-- Held Sales --}}
+          {{-- Held Sales --}}
 
             <button
                 type="button"
@@ -889,6 +698,44 @@
                 </span>
             </button>
 
+
+            {{-- Today's Sales --}}
+
+            <button
+                type="button"
+                class="pos-quick-action pos-quick-action-sales"
+                id="todaysSalesButton"
+            >
+
+                <span class="pos-quick-action-icon">
+
+                    <i class="bi bi-bar-chart-line"></i>
+
+                </span>
+
+                <span class="pos-quick-action-content">
+
+                    <strong>
+                        Today's Sales
+                    </strong>
+
+                    <small>
+
+                        <span
+                            id="pos-todays-sales-count"
+                            class="pos-header-count"
+                        >
+                            {{ $todaysSalesCount }}
+                        </span>
+
+                        transactions
+
+                    </small>
+
+                </span>
+
+            </button>     
+
             {{-- Sales History --}}
 
             <button
@@ -910,7 +757,16 @@
                     </strong>
 
                     <small>
-                        Find completed sales
+
+                        <span
+                            id="pos-sales-history-count"
+                            class="pos-header-count"
+                        >
+                            {{ $salesHistoryCount }}
+                        </span>
+
+                        transactions
+
                     </small>
 
                 </span>
@@ -982,6 +838,10 @@
         )
 
         @include(
+            'pos.modals.today-sale-modal'
+        )
+
+        @include(
             'pos.modals.discount-modal'
         )
 
@@ -1002,6 +862,10 @@
 
         @include(
             'pos.partials.product-inspector'
+        )
+
+        @include(
+            'pos.partials.sales-inspector'
         )
         
 
@@ -1117,6 +981,9 @@
 
                 salesHistory:
                     "{{ route('pos.sales-history') }}",
+
+                todaysSales:
+                    '{{ route('pos.todays-sales') }}',
 
                 approvers:
                     "{{ route('pos.approvers') }}",

@@ -177,6 +177,8 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/sales-history',[PosController::class, 'salesHistory'])->name('sales-history');
 
+            Route::get('/todays-sales',[PosController::class, 'todaysSales'])->name('todays-sales');
+
             Route::post('/orders',[PosController::class, 'storeOrder'])->name('orders.store');
 
             Route::post('/orders/hold',[PosController::class, 'holdOrder'])->name('orders.hold');

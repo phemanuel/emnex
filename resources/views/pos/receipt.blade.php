@@ -55,20 +55,21 @@
         <div class="receipt-toolbar-actions">
 
             <button
-                type="button"
-                class="receipt-close-button"
-                onclick="
-                    window.parent?.CashierShell?.showHome()
-                "
+            type="button"
+            class="receipt-close-button"
+            onclick="
+            window.parent?.CashierShell?.navigate(
+            '/pos?embedded=1'
+            )
+            "
+
             >
-
-                <i class="bi bi-x-lg"></i>
-
-                <span>
-                    Close
-                </span>
-
+            <i class="bi bi-x-lg"></i>
+            <span>
+                Close
+            </span>
             </button>
+
 
 
             <button

@@ -169,6 +169,20 @@ window.CashierShell = {
 
         this.loadInitialState();
 
+        /*
+        |--------------------------------------------------------------------------
+        | Current Date & Time
+        |--------------------------------------------------------------------------
+        */
+
+        this.updateCurrentDateTime();
+
+        this.currentDateTimeTimer =
+            setInterval(
+                () => this.updateCurrentDateTime(),
+                1000
+            );
+
     },
 
 
@@ -574,6 +588,59 @@ window.CashierShell = {
         }
 
     },
+
+     /*                                                                         |
+    | -------------------------------------------------------------------------- |
+    | Current Date & Time                                                        |
+    | -------------------------------------------------------------------------- |
+    | */                                                                        
+
+    updateCurrentDateTime() {
+
+  
+    const dateElement =
+        document.getElementById(
+            'cashier-current-date'
+        );
+
+    const timeElement =
+        document.getElementById(
+            'cashier-current-time'
+        );
+
+    const now =
+        new Date();
+
+    if (dateElement) {
+
+        dateElement.textContent =
+            now.toLocaleDateString(
+                undefined,
+                {
+                    weekday: 'short',
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                }
+            );
+    }
+
+    if (timeElement) {
+
+        timeElement.textContent =
+            now.toLocaleTimeString(
+                undefined,
+                {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                }
+            );
+    }
+
+
+    },
+
 
 
     /*

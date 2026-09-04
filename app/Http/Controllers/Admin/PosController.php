@@ -241,6 +241,84 @@ class PosController extends BaseController
                 )
                 ->count();
 
+        /*
+        |--------------------------------------------------------------------------
+        | Today's Sales Count
+        |--------------------------------------------------------------------------
+        */
+
+        $todaysSalesCount =
+
+            Order::query()
+
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+
+                ->where(
+                    'branch_id',
+                    $terminalAssignment->branch_id
+                )
+
+                ->where(
+                    'terminal_id',
+                    $terminalAssignment->terminal_id
+                )
+
+                ->where(
+                    'cashier_id',
+                    $user->id
+                )
+
+                ->where(
+                    'order_status',
+                    'Completed'
+                )
+
+                ->whereDate(
+                    'created_at',
+                    now()->toDateString()
+                )
+
+                ->count();
+
+            /*
+            |--------------------------------------------------------------------------
+            | Sales History Count
+            |--------------------------------------------------------------------------
+            */
+
+            $salesHistoryCount =
+                Order::query()
+
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+
+                    ->where(
+                        'branch_id',
+                        $terminalAssignment->branch_id
+                    )
+
+                    ->where(
+                        'terminal_id',
+                        $terminalAssignment->terminal_id
+                    )
+
+                    ->where(
+                        'cashier_id',
+                        $user->id
+                    )
+
+                    ->where(
+                        'order_status',
+                        'Completed'
+                    )
+
+                    ->count();
+
          /*
         |--------------------------------------------------------------------------
         | Company Settings
@@ -272,7 +350,9 @@ class PosController extends BaseController
                 'terminal',
                 'drawer',
                 'settings',
-                'heldSalesCount'
+                'heldSalesCount',
+                'todaysSalesCount',
+                'salesHistoryCount'
             )
         );
 
@@ -3540,6 +3620,48 @@ class PosController extends BaseController
 
             });
 
+            /*
+            |--------------------------------------------------------------------------
+            | Today's Sales Count
+            |--------------------------------------------------------------------------
+            */
+
+            $todaysSalesCount =
+
+                Order::query()
+
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+
+                    ->where(
+                        'branch_id',
+                        $result['order']->branch_id
+                    )
+
+                    ->where(
+                        'terminal_id',
+                        $result['order']->terminal_id
+                    )
+
+                    ->where(
+                        'cashier_id',
+                        $result['order']->cashier_id
+                    )
+
+                    ->where(
+                        'order_status',
+                        'Completed'
+                    )
+
+                    ->whereDate(
+                        'created_at',
+                        today()
+                    )
+
+                    ->count();
+
 
             /*
             |--------------------------------------------------------------------------
@@ -3581,6 +3703,9 @@ class PosController extends BaseController
                 'data' =>
                     $result,
 
+                'todays_sales_count' =>
+                     $todaysSalesCount,
+
             ]);
 
         } catch (ValidationException $e) {
@@ -3605,7 +3730,7 @@ class PosController extends BaseController
 
     }
 
-    /*
+   /*
     |--------------------------------------------------------------------------
     | Order Details
     |--------------------------------------------------------------------------
@@ -3618,6 +3743,12 @@ class PosController extends BaseController
         int $id
     ): JsonResponse {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
         if (! canAccess('pos.sell')) {
 
             return response()->json([
@@ -3629,8 +3760,84 @@ class PosController extends BaseController
                     'You do not have permission to view this order.',
 
             ], 403);
+
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Authenticated User
+        |--------------------------------------------------------------------------
+        */
+
+        $user =
+            auth()->user();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Active Terminal Assignment
+        |--------------------------------------------------------------------------
+        */
+
+        $terminalAssignment =
+            TerminalAssignment::query()
+
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+
+                ->where(
+                    'user_id',
+                    $user->id
+                )
+
+                ->where(
+                    'status',
+                    'active'
+                )
+
+                ->first();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Terminal Assignment Check
+        |--------------------------------------------------------------------------
+        */
+
+        if (! $terminalAssignment) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'You do not have an active terminal assignment.',
+
+            ], 422);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order
+        |--------------------------------------------------------------------------
+        |
+        | The order must belong to:
+        |
+        | - Current company
+        | | - Current branch
+        | - Current terminal
+        | - Current cashier
+        |
+        | This prevents a cashier from manually requesting
+        | another cashier's order by changing the order ID.
+        |
+        */
 
         $order =
             Order::query()
@@ -3641,18 +3848,40 @@ class PosController extends BaseController
                 )
 
                 ->where(
+                    'branch_id',
+                    $terminalAssignment->branch_id
+                )
+
+                ->where(
+                    'terminal_id',
+                    $terminalAssignment->terminal_id
+                )
+
+                ->where(
+                    'cashier_id',
+                    $user->id
+                )
+
+                ->where(
                     'id',
                     $id
                 )
 
                 ->with([
                     'customer',
+                    'cashier',
                     'orderItems',
                     'payments',
                 ])
 
                 ->first();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order Not Found
+        |--------------------------------------------------------------------------
+        */
 
         if (! $order) {
 
@@ -3665,8 +3894,15 @@ class PosController extends BaseController
                     'Order not found.',
 
             ], 404);
+
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
 
         return response()->json([
 
@@ -5212,14 +5448,14 @@ class PosController extends BaseController
             ->first();
     }
    
-    /*
+   /*
     |--------------------------------------------------------------------------
     | Sales History
     |--------------------------------------------------------------------------
     */
 
     /**
-     * Return today's completed sales history.
+     * Return completed sales history for the current cashier.
      */
     public function salesHistory(
         Request $request
@@ -5242,6 +5478,7 @@ class PosController extends BaseController
                     'You do not have permission to view sales history.',
 
             ], 403);
+
         }
 
 
@@ -5257,46 +5494,86 @@ class PosController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | Role
+        | Terminal Assignment
         |--------------------------------------------------------------------------
         */
 
-        $role =
-            $user->role?->code;
+        $terminalAssignment =
+            TerminalAssignment::query()
+
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+
+                ->where(
+                    'user_id',
+                    $user->id
+                )
+
+                ->where(
+                    'status',
+                    'active'
+                )
+
+                ->first();
+
+
+        if (! $terminalAssignment) {
+
+            return response()->json([
+
+                'success' =>
+                    false,
+
+                'message' =>
+                    'No active terminal assignment was found.',
+
+            ], 422);
+
+        }
 
 
         /*
         |--------------------------------------------------------------------------
-        | Access Scope
+        | Date Filters
         |--------------------------------------------------------------------------
         */
 
-        $canManageAllBranches =
-            in_array(
-                $role,
-                [
-                    'owner',
-                    'administrator',
-                ],
-                true
+        $dateFrom =
+            trim(
+                (string) $request->input(
+                    'date_from',
+                    ''
+                )
             );
 
 
-        $currentBranchId =
-            $user->branch_id;
+        $dateTo =
+            trim(
+                (string) $request->input(
+                    'date_to',
+                    ''
+                )
+            );
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Date
-        |--------------------------------------------------------------------------
-        */
+        $request->validate([
 
-        $startDate =
-            now()->startOfDay();
+            'date_from' =>
+                [
+                    'nullable',
+                    'date',
+                ],
 
-        $endDate =
-            now()->endOfDay();
+            'date_to' =>
+                [
+                    'nullable',
+                    'date',
+                    'after_or_equal:date_from',
+                ],
+
+        ]);
 
 
         /*
@@ -5314,16 +5591,23 @@ class PosController extends BaseController
                 )
 
                 ->where(
-                    'order_status',
-                    'Completed'
+                    'branch_id',
+                    $terminalAssignment->branch_id
                 )
 
-                ->whereBetween(
-                    'completed_at',
-                    [
-                        $startDate,
-                        $endDate,
-                    ]
+                ->where(
+                    'terminal_id',
+                    $terminalAssignment->terminal_id
+                )
+
+                ->where(
+                    'cashier_id',
+                    $user->id
+                )
+
+                ->where(
+                    'order_status',
+                    'Completed'
                 )
 
                 ->with([
@@ -5335,15 +5619,18 @@ class PosController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | Branch Scope
+        | Date From
         |--------------------------------------------------------------------------
         */
 
-        if (! $canManageAllBranches) {
+        if (
+            $dateFrom !== ''
+        ) {
 
-            $query->where(
-                'branch_id',
-                $currentBranchId
+            $query->whereDate(
+                'completed_at',
+                '>=',
+                $dateFrom
             );
 
         }
@@ -5351,21 +5638,18 @@ class PosController extends BaseController
 
         /*
         |--------------------------------------------------------------------------
-        | Cashier Scope
+        | Date To
         |--------------------------------------------------------------------------
-        |
-        | Cashiers only see their own completed sales.
-        |
         */
 
         if (
-            ! $canManageAllBranches
-            && $role === 'cashier'
+            $dateTo !== ''
         ) {
 
-            $query->where(
-                'cashier_id',
-                $user->id
+            $query->whereDate(
+                'completed_at',
+                '<=',
+                $dateTo
             );
 
         }
@@ -5391,13 +5675,11 @@ class PosController extends BaseController
         ) {
 
             $query->where(
-
                 function ($q) use (
                     $search
                 ) {
 
                     $q
-
                         ->where(
                             'order_no',
                             'like',
@@ -5436,7 +5718,6 @@ class PosController extends BaseController
                         );
 
                 }
-
             );
 
         }
@@ -5484,9 +5765,7 @@ class PosController extends BaseController
 
         $averageSale =
             $transactionCount > 0
-
                 ? $totalSales / $transactionCount
-
                 : 0;
 
 
@@ -5525,6 +5804,7 @@ class PosController extends BaseController
                         'paid',
                     ]
                 )
+
                 ->get();
 
 
@@ -5536,10 +5816,12 @@ class PosController extends BaseController
 
         $cashSales =
             (float) $payments
+
                 ->where(
                     'payment_method',
                     'Cash'
                 )
+
                 ->sum(
                     'amount'
                 );
@@ -5547,10 +5829,12 @@ class PosController extends BaseController
 
         $cardSales =
             (float) $payments
+
                 ->where(
                     'payment_method',
                     'Card'
                 )
+
                 ->sum(
                     'amount'
                 );
@@ -5558,10 +5842,12 @@ class PosController extends BaseController
 
         $transferSales =
             (float) $payments
+
                 ->where(
                     'payment_method',
                     'Transfer'
                 )
+
                 ->sum(
                     'amount'
                 );
@@ -5569,10 +5855,12 @@ class PosController extends BaseController
 
         $walletSales =
             (float) $payments
+
                 ->where(
                     'payment_method',
                     'Wallet'
                 )
+
                 ->sum(
                     'amount'
                 );
@@ -5606,6 +5894,7 @@ class PosController extends BaseController
             collect(
                 $sales->items()
             )
+
             ->map(
                 function (
                     $order
@@ -5625,32 +5914,31 @@ class PosController extends BaseController
 
                         'customer_name' =>
                             $order->customer
-
                                 ? trim(
                                     ($order->customer->last_name ?? '')
                                     . ' '
                                     . ($order->customer->first_name ?? '')
                                 )
-
                                 : 'Walk-in Customer',
 
                         'cashier_name' =>
                             $cashier
-
                                 ? trim(
                                     ($cashier->last_name ?? '')
                                     . ' '
                                     . ($cashier->first_name ?? '')
                                 )
-
                                 : '—',
 
                         'payment_method' =>
                             $order->payments
+
                                 ->pluck(
                                     'payment_method'
                                 )
+
                                 ->unique()
+
                                 ->implode(
                                     ', '
                                 ),
@@ -5666,6 +5954,7 @@ class PosController extends BaseController
 
                 }
             )
+
             ->values();
 
 
@@ -5725,9 +6014,7 @@ class PosController extends BaseController
             ],
 
         ]);
-
     }
-
     /*
     |--------------------------------------------------------------------------
     | Approvers
@@ -6218,4 +6505,522 @@ $data =
         ]);
 
     }
+
+    /*                                                                         |
+    | -------------------------------------------------------------------------- |
+    | Today's Sales                                                              |
+    | -------------------------------------------------------------------------- |
+    | */                                                                         
+
+    /**
+
+    * Return today's completed sales for the current cashier.
+    */
+    public function todaysSales(
+    Request $request
+    ): JsonResponse {
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Permission                                                                 |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        if (! canAccess('pos.sell')) {
+
+        
+        return response()->json([
+
+            'success' =>
+                false,
+
+            'message' =>
+                'You do not have permission to view today\'s sales.',
+
+        ], 403);
+        
+
+        }
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Current User                                                               |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $user =
+        auth()->user();
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Terminal Assignment                                                        |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $terminalAssignment =
+        TerminalAssignment::query()
+
+        
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+
+            ->where(
+                'user_id',
+                $user->id
+            )
+
+            ->where(
+                'status',
+                'active'
+            )
+
+            ->first();
+        
+
+        if (! $terminalAssignment) {
+
+        
+        return response()->json([
+
+            'success' =>
+                false,
+
+            'message' =>
+                'No active terminal assignment was found.',
+
+        ], 422);
+        
+
+        }
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Date                                                                       |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $startDate =
+        now()->startOfDay();
+
+        $endDate =
+        now()->endOfDay();
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Orders                                                                     |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $query =
+        Order::query()
+
+        
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+
+            ->where(
+                'branch_id',
+                $terminalAssignment->branch_id
+            )
+
+            ->where(
+                'terminal_id',
+                $terminalAssignment->terminal_id
+            )
+
+            ->where(
+                'cashier_id',
+                $user->id
+            )
+
+            ->where(
+                'order_status',
+                'Completed'
+            )
+
+            ->whereBetween(
+                'completed_at',
+                [
+                    $startDate,
+                    $endDate,
+                ]
+            )
+
+            ->with([
+                'customer',
+                'cashier',
+                'payments',
+            ]);
+        
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Search                                                                     |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $search =
+        trim(
+        (string) $request->input(
+        'search',
+        ''
+        )
+        );
+
+        if (
+        $search !== ''
+        ) {
+
+        
+        $query->where(
+            function ($q) use (
+                $search
+            ) {
+
+                $q
+                    ->where(
+                        'order_no',
+                        'like',
+                        '%' . $search . '%'
+                    )
+
+                    ->orWhereHas(
+                        'customer',
+                        function (
+                            $customerQuery
+                        ) use (
+                            $search
+                        ) {
+
+                            $customerQuery
+
+                                ->where(
+                                    'first_name',
+                                    'like',
+                                    '%' . $search . '%'
+                                )
+
+                                ->orWhere(
+                                    'last_name',
+                                    'like',
+                                    '%' . $search . '%'
+                                )
+
+                                ->orWhere(
+                                    'phone',
+                                    'like',
+                                    '%' . $search . '%'
+                                );
+
+                        }
+                    );
+
+            }
+        );
+        
+
+        }
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Summary Query                                                              |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $summaryOrders =
+        clone $query;
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Total Sales                                                                |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $totalSales =
+        (float) $summaryOrders
+        ->sum(
+        'grand_total'
+        );
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Transaction Count                                                          |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $transactionCount =
+        (clone $summaryOrders)
+        ->count();
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Average Sale                                                               |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $averageSale =
+        $transactionCount > 0
+        ? $totalSales / $transactionCount
+        : 0;
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Payments                                                                   |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $orderIds =
+        (clone $summaryOrders)
+        ->pluck(
+        'id'
+        );
+
+        $payments =
+        Payment::query()
+
+        
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+
+            ->whereIn(
+                'order_id',
+                $orderIds
+            )
+
+            ->whereIn(
+                'payment_status',
+                [
+                    'Completed',
+                    'Paid',
+                    'completed',
+                    'paid',
+                ]
+            )
+
+            ->get();
+        
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Payment Breakdown                                                          |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $cashSales =
+        (float) $payments
+
+        
+            ->where(
+                'payment_method',
+                'Cash'
+            )
+
+            ->sum(
+                'amount'
+            );
+        
+
+        $cardSales =
+        (float) $payments
+
+        
+            ->where(
+                'payment_method',
+                'Card'
+            )
+
+            ->sum(
+                'amount'
+            );
+        
+
+        $transferSales =
+        (float) $payments
+
+        
+            ->where(
+                'payment_method',
+                'Transfer'
+            )
+
+            ->sum(
+                'amount'
+            );
+        
+
+        $walletSales =
+        (float) $payments
+
+        
+            ->where(
+                'payment_method',
+                'Wallet'
+            )
+
+            ->sum(
+                'amount'
+            );
+        
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Pagination                                                                 |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $sales =
+        $query
+
+        
+            ->latest(
+                'completed_at'
+            )
+
+            ->paginate(
+                15
+            );
+        
+
+            /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Response Data                                                              |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        $data =
+        collect(
+        $sales->items()
+        )
+
+        
+        ->map(
+            function (
+                $order
+            ) {
+
+                $cashier =
+                    $order->cashier;
+
+
+                return [
+
+                    'id' =>
+                        $order->id,
+
+                    'order_no' =>
+                        $order->order_no,
+
+                    'customer_name' =>
+                        $order->customer
+                            ? trim(
+                                ($order->customer->last_name ?? '')
+                                . ' '
+                                . ($order->customer->first_name ?? '')
+                            )
+                            : 'Walk-in Customer',
+
+                    'cashier_name' =>
+                        $cashier
+                            ? trim(
+                                ($cashier->last_name ?? '')
+                                . ' '
+                                . ($cashier->first_name ?? '')
+                            )
+                            : '—',
+
+                    'payment_method' =>
+                        $order->payments
+
+                            ->pluck(
+                                'payment_method'
+                            )
+
+                            ->unique()
+
+                            ->implode(
+                                ', '
+                            ),
+
+                    'total' =>
+                        (float) $order->grand_total,
+
+                    'completed_at' =>
+                        $order->completed_at
+                            ?->toISOString(),
+
+                ];
+
+            }
+        )
+
+        ->values();
+        
+
+        /*                                                                         |
+        | -------------------------------------------------------------------------- |
+        | Response                                                                   |
+        | -------------------------------------------------------------------------- |
+        | */                                                                         
+
+        return response()->json([
+
+        
+        'success' =>
+            true,
+
+        'summary' => [
+
+            'total_sales' =>
+                $totalSales,
+
+            'transaction_count' =>
+                $transactionCount,
+
+            'average_sale' =>
+                (float) $averageSale,
+
+            'cash_sales' =>
+                $cashSales,
+
+            'card_sales' =>
+                $cardSales,
+
+            'transfer_sales' =>
+                $transferSales,
+
+            'wallet_sales' =>
+                $walletSales,
+
+        ],
+
+        'data' =>
+            $data,
+
+        'pagination' => [
+
+            'current_page' =>
+                $sales->currentPage(),
+
+            'last_page' =>
+                $sales->lastPage(),
+
+            'per_page' =>
+                $sales->perPage(),
+
+            'total' =>
+                $sales->total(),
+
+        ],
+        
+
+        ]);
+    }
+
+
 }

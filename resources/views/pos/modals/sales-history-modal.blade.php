@@ -1,3 +1,9 @@
+{{-- 
+|--------------------------------------------------------------------------
+| Sales History Modal
+|--------------------------------------------------------------------------
+--}}
+
 <div
     class="modal fade pos-modal"
     id="posSalesHistoryModal"
@@ -9,6 +15,13 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
 
         <div class="modal-content">
+
+
+            {{-- 
+            |--------------------------------------------------------------------------
+            | Header
+            |--------------------------------------------------------------------------
+            --}}
 
             <div class="modal-header">
 
@@ -30,7 +43,7 @@
                         </h5>
 
                         <p class="text-muted small mb-0">
-                            Today's completed sales and payment summary.
+                            View your completed sales and payment history.
                         </p>
 
                     </div>
@@ -48,7 +61,13 @@
             </div>
 
 
-            <div class="modal-body">
+            {{-- 
+            |--------------------------------------------------------------------------
+            | Body
+            |--------------------------------------------------------------------------
+            --}}
+
+            <div class="modal-body pos-sales-history-modal-body">
 
 
                 {{-- 
@@ -205,21 +224,112 @@
 
                 {{-- 
                 |--------------------------------------------------------------------------
-                | Search
+                | Filters
                 |--------------------------------------------------------------------------
                 --}}
 
-                <div class="pos-modal-search mb-3">
+                <div class="row g-3 mb-3">
 
-                    <i class="bi bi-search"></i>
 
-                    <input
-                        type="search"
-                        class="form-control"
-                        id="pos-sales-history-search"
-                        placeholder="Search order number or customer..."
-                        autocomplete="off"
-                    >
+                    {{-- 
+                    |--------------------------------------------------------------------------
+                    | Search
+                    |--------------------------------------------------------------------------
+                    --}}
+
+                    <div class="col-md-5">
+
+                        <label
+                            for="pos-sales-history-search"
+                            class="form-label"
+                        >
+                            Search
+                        </label>
+
+                        <div class="pos-modal-search">
+
+                            <i class="bi bi-search"></i>
+
+                            <input
+                                type="search"
+                                class="form-control"
+                                id="pos-sales-history-search"
+                                placeholder="Search order number or customer..."
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- 
+                    |--------------------------------------------------------------------------
+                    | Date From
+                    |--------------------------------------------------------------------------
+                    --}}
+
+                    <div class="col-md-2">
+
+                        <label
+                            for="pos-sales-history-date-from"
+                            class="form-label"
+                        >
+                            Date From
+                        </label>
+
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="pos-sales-history-date-from"
+                        >
+
+                    </div>
+
+
+                    {{-- 
+                    |--------------------------------------------------------------------------
+                    | Date To
+                    |--------------------------------------------------------------------------
+                    --}}
+
+                    <div class="col-md-2">
+
+                        <label
+                            for="pos-sales-history-date-to"
+                            class="form-label"
+                        >
+                            Date To
+                        </label>
+
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="pos-sales-history-date-to"
+                        >
+
+                    </div>
+
+
+                    {{-- 
+                    |--------------------------------------------------------------------------
+                    | Reset
+                    |--------------------------------------------------------------------------
+                    --}}
+
+                    <div class="col-md-3 d-flex align-items-end">
+
+                        <button
+                            type="button"
+                            class="btn btn-dark px-3"
+                            id="pos-sales-history-reset"
+                        >
+                            <i class="bi bi-arrow-counterclockwise me-1"></i>
+                            Reset
+                        </button>
+
+                    </div>
+
 
                 </div>
 
@@ -283,9 +393,7 @@
                                     colspan="7"
                                     class="text-center py-5 text-muted"
                                 >
-
                                     Loading sales...
-
                                 </td>
 
                             </tr>
@@ -297,13 +405,26 @@
                 </div>
 
 
+                {{-- 
+                |--------------------------------------------------------------------------
+                | Pagination
+                |--------------------------------------------------------------------------
+                --}}
+
                 <div
                     id="pos-sales-history-pagination"
                     class="mt-3"
                 ></div>
 
+
             </div>
 
+
+            {{-- 
+            |--------------------------------------------------------------------------
+            | Footer
+            |--------------------------------------------------------------------------
+            --}}
 
             <div class="modal-footer">
 
@@ -316,6 +437,7 @@
                 </button>
 
             </div>
+
 
         </div>
 

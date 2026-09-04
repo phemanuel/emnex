@@ -247,7 +247,7 @@
                 <i class="bi bi-cart-plus"></i>
 
                 <span>
-                    New Sale
+                   POS
                 </span>
 
             </button>

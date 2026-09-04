@@ -1,68 +1,136 @@
 <div class="cashier-home-content">
 
-
     {{--
     |--------------------------------------------------------------------------
-    | Welcome
+    | Welcome Header
     |--------------------------------------------------------------------------
     --}}
 
-    <section class="cashier-welcome">
+    <section class="cashier-dashboard-header">
 
-        <span class="cashier-eyebrow">
-            CASHIER OPERATIONS
-        </span>
+        <div class="cashier-dashboard-header-main">
 
-        <h2>
-            Welcome back,
-            {{ $user?->first_name ?? 'Cashier' }}
-        </h2>
+            <span class="cashier-dashboard-eyebrow">
+                CASHIER WORKSPACE
+            </span>
 
-        <p>
-            Manage your cash drawer and process sales from your cashier workspace.
-        </p>
+            <h2>
+                Welcome back,
+                {{ $user?->first_name ?? 'Cashier' }}
+            </h2>
+
+            <p>
+                Monitor today's performance and access your cashier
+                operations from one place.
+            </p>
+
+        </div>
+
+        <div class="cashier-dashboard-context">
+
+            <div class="cashier-context-item">
+
+                <span class="cashier-context-icon">
+                    <i class="bi bi-calendar3"></i>
+                </span>
+
+                <div>
+
+                    <small>
+                        Date
+                    </small>
+
+                    <strong id="cashier-current-date">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <div class="cashier-context-divider"></div>
+
+            <div class="cashier-context-item">
+
+                <span class="cashier-context-icon">
+                    <i class="bi bi-clock"></i>
+                </span>
+
+                <div>
+
+                    <small>
+                        Current Time
+                    </small>
+
+                    <strong id="cashier-current-time">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            </div>
+
 
     </section>
 
 
     {{--
     |--------------------------------------------------------------------------
-    | Today's Performance
+    | Dashboard Grid
     |--------------------------------------------------------------------------
     --}}
 
-    <section class="cashier-section">
+    <section class="cashier-dashboard-grid">
 
-        <div class="cashier-section-heading">
+        {{--
+        |--------------------------------------------------------------------------
+        | Performance Panel
+        |--------------------------------------------------------------------------
+        --}}
 
-            <h6>
-                Today's Performance
-            </h6>
+        <div class="cashier-performance-panel">
 
-            <p>
-                Your current cashier activity for today.
-            </p>
+            <div class="cashier-panel-heading">
 
-        </div>
+                <div>
+
+                    <span class="cashier-panel-eyebrow">
+                        TODAY
+                    </span>
+
+                    <h5>
+                        Performance
+                    </h5>
+
+                    <p>
+                        Your current cashier activity for today.
+                    </p>
+
+                </div>
+
+                <span class="cashier-panel-status">
+                    <span></span>
+                    Live
+                </span>
+
+            </div>
 
 
-        <div class="row g-3">
+            {{-- KPI Grid --}}
 
+            <div class="cashier-kpi-grid">
 
-            {{-- ==============================================================
-                Total Sales
-            ============================================================== --}}
+                {{-- Total Sales --}}
 
-            <div class="col-xl-3 col-md-6">
-
-                <div class="cashier-kpi-card">
+                <div class="cashier-kpi-card cashier-kpi-card-primary">
 
                     <div class="cashier-kpi-top">
 
                         <div class="cashier-kpi-icon sales">
-
                             <i class="bi bi-currency-exchange"></i>
-
                         </div>
 
                         <span>
@@ -71,13 +139,9 @@
 
                     </div>
 
-
                     <strong id="cashier-kpi-sales">
-
                         ₦0.00
-
                     </strong>
-
 
                     <small>
                         Today's completed sales
@@ -85,24 +149,15 @@
 
                 </div>
 
-            </div>
 
-
-
-            {{-- ==============================================================
-                Transactions
-            ============================================================== --}}
-
-            <div class="col-xl-3 col-md-6">
+                {{-- Transactions --}}
 
                 <div class="cashier-kpi-card">
 
                     <div class="cashier-kpi-top">
 
                         <div class="cashier-kpi-icon transactions">
-
                             <i class="bi bi-receipt"></i>
-
                         </div>
 
                         <span>
@@ -111,13 +166,9 @@
 
                     </div>
 
-
                     <strong id="cashier-kpi-transactions">
-
                         0
-
                     </strong>
-
 
                     <small>
                         Completed transactions
@@ -125,24 +176,15 @@
 
                 </div>
 
-            </div>
 
-
-
-            {{-- ==============================================================
-                Cash Sales
-            ============================================================== --}}
-
-            <div class="col-xl-3 col-md-6">
+                {{-- Cash Sales --}}
 
                 <div class="cashier-kpi-card">
 
                     <div class="cashier-kpi-top">
 
                         <div class="cashier-kpi-icon cash">
-
                             <i class="bi bi-cash-stack"></i>
-
                         </div>
 
                         <span>
@@ -151,118 +193,25 @@
 
                     </div>
 
-
                     <strong id="cashier-kpi-cash-sales">
-
                         ₦0.00
-
                     </strong>
 
-
                     <small>
-                        Cash sales for today
+                        Cash collected today
                     </small>
 
                 </div>
 
-            </div>
 
-
-
-            {{-- ==============================================================
-                Transfer Sales
-            ============================================================== --}}
-
-            <div class="col-xl-3 col-md-6">
-
-                <div class="cashier-kpi-card">
-
-                    <div class="cashier-kpi-top">
-
-                        <div class="cashier-kpi-icon transfer">
-
-                            <i class="bi bi-bank"></i>
-
-                        </div>
-
-                        <span>
-                            Transfer Sales
-                        </span>
-
-                    </div>
-
-
-                    <strong id="cashier-kpi-transfer-sales">
-
-                        ₦0.00
-
-                    </strong>
-
-
-                    <small>
-                        Transfer sales for today
-                    </small>
-
-                </div>
-
-            </div>
-
-
-
-            {{-- ==============================================================
-                Wallet Sales
-            ============================================================== --}}
-
-            <div class="col-xl-3 col-md-6">
-
-                <div class="cashier-kpi-card">
-
-                    <div class="cashier-kpi-top">
-
-                        <div class="cashier-kpi-icon wallet">
-
-                            <i class="bi bi-wallet2"></i>
-
-                        </div>
-
-                        <span>
-                            Wallet Sales
-                        </span>
-
-                    </div>
-
-
-                    <strong id="cashier-kpi-wallet-sales">
-
-                        ₦0.00
-
-                    </strong>
-
-
-                    <small>
-                        Wallet sales for today
-                    </small>
-
-                </div>
-
-            </div>
-
-
-
-            {{-- ==============================================================
-                Card Sales
-            ============================================================== --}}
-
-            <div class="col-xl-3 col-md-6">
+                {{-- Card Sales --}}
 
                 <div class="cashier-kpi-card">
 
                     <div class="cashier-kpi-top">
 
                         <div class="cashier-kpi-icon card">
-
                             <i class="bi bi-credit-card-2-front"></i>
-
                         </div>
 
                         <span>
@@ -271,38 +220,79 @@
 
                     </div>
 
-
                     <strong id="cashier-kpi-card-sales">
-
                         ₦0.00
-
                     </strong>
 
-
                     <small>
-                        Card sales for today
+                        Card payments today
                     </small>
 
                 </div>
 
-            </div>
+
+                {{-- Transfer Sales --}}
+
+                <div class="cashier-kpi-card">
+
+                    <div class="cashier-kpi-top">
+
+                        <div class="cashier-kpi-icon transfer">
+                            <i class="bi bi-bank"></i>
+                        </div>
+
+                        <span>
+                            Transfer Sales
+                        </span>
+
+                    </div>
+
+                    <strong id="cashier-kpi-transfer-sales">
+                        ₦0.00
+                    </strong>
+
+                    <small>
+                        Bank transfers today
+                    </small>
+
+                </div>
 
 
+                {{-- Wallet Sales --}}
 
-            {{-- ==============================================================
-                Drawer Balance
-            ============================================================== --}}
+                <div class="cashier-kpi-card">
 
-            <div class="col-xl-3 col-md-6">
+                    <div class="cashier-kpi-top">
+
+                        <div class="cashier-kpi-icon wallet">
+                            <i class="bi bi-wallet2"></i>
+                        </div>
+
+                        <span>
+                            Wallet Sales
+                        </span>
+
+                    </div>
+
+                    <strong id="cashier-kpi-wallet-sales">
+                        ₦0.00
+                    </strong>
+
+                    <small>
+                        Wallet payments today
+                    </small>
+
+                </div>
+
+
+                {{-- Drawer Balance --}}
 
                 <div class="cashier-kpi-card">
 
                     <div class="cashier-kpi-top">
 
                         <div class="cashier-kpi-icon drawer">
-
                             <i class="bi bi-safe2"></i>
-
                         </div>
 
                         <span>
@@ -311,13 +301,9 @@
 
                     </div>
 
-
                     <strong id="cashier-kpi-drawer">
-
                         ₦0.00
-
                     </strong>
-
 
                     <small>
                         Current expected balance
@@ -325,20 +311,15 @@
 
                 </div>
 
-            </div>
 
-            {{-- Expected Submission --}}
-
-            <div class="col-xl-3 col-md-6">
+                {{-- Expected Submission --}}
 
                 <div class="cashier-kpi-card cashier-kpi-card-highlight">
 
                     <div class="cashier-kpi-top">
 
                         <div class="cashier-kpi-icon submission">
-
                             <i class="bi bi-wallet-fill"></i>
-
                         </div>
 
                         <span>
@@ -347,71 +328,96 @@
 
                     </div>
 
-
                     <strong id="cashier-kpi-submission">
-
                         ₦0.00
-
                     </strong>
 
-
                     <small>
-                        Cash drawer + other payments
+                        Expected at drawer close
                     </small>
 
                 </div>
 
             </div>
 
-
-        </div>
-
-    </section>
-
-
-    {{--
-    |--------------------------------------------------------------------------
-    | Quick Actions
-    |--------------------------------------------------------------------------
-    --}}
-
-    <section class="cashier-section">
-
-
-        <div class="cashier-section-heading">
-
-            <h6>
-                Quick Actions
-            </h6>
-
-            <p>
-                Access your main cashier operations.
-            </p>
-
         </div>
 
 
-        <div class="cashier-actions-grid">
+        {{--
+        |--------------------------------------------------------------------------
+        | Operations Panel
+        |--------------------------------------------------------------------------
+        --}}
+
+        <aside class="cashier-operations-panel">
+
+            <div class="cashier-panel-heading">
+
+                <div>
+
+                    <span class="cashier-panel-eyebrow">
+                        OPERATIONS
+                    </span>                   
+
+                    <p>
+                        Your most important cashier tools.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- POS --}}
+
+            <button
+                type="button"
+                class="cashier-operation-card cashier-operation-pos"
+                data-cashier-page="{{ route('pos.index') }}"
+            >
+
+                <div class="cashier-operation-icon">
+                    <i class="bi bi-cart-plus"></i>
+                </div>
+
+                <div class="cashier-operation-content">
+
+                    <span>
+                        POINT OF SALE
+                    </span>
+
+                    <h4>
+                        POS
+                    </h4>
+
+                    <p>
+                        Start a new sale and process customer payments.
+                    </p>
+
+                </div>
+
+                <div class="cashier-operation-arrow">
+                    <i class="bi bi-arrow-up-right"></i>
+                </div>
+
+            </button>
 
 
             {{-- Cash Drawer --}}
 
             <button
                 type="button"
-                class="cashier-action-card cashier-action-drawer"
+                class="cashier-operation-card cashier-operation-drawer"
                 data-cashier-page="{{ route('cash-drawer.index') }}"
             >
 
-                <div class="cashier-action-icon">
-
-                    <i class="bi bi-cash-stack"></i>
-
+                <div class="cashier-operation-icon">
+                    <i class="bi bi-safe2"></i>
                 </div>
 
+                <div class="cashier-operation-content">
 
-                <div class="cashier-action-content">
-
-                    <span class="cashier-action-eyebrow">
+                    <span>
                         CASH MANAGEMENT
                     </span>
 
@@ -420,67 +426,74 @@
                     </h4>
 
                     <p>
-                        Open, monitor, reconcile and manage
-                        your current cash drawer session.
+                        Monitor, reconcile and manage your drawer session.
                     </p>
 
                 </div>
 
-
-                <span class="cashier-action-arrow">
-
-                    <i class="bi bi-arrow-right"></i>
-
-                </span>
+                <div class="cashier-operation-arrow">
+                    <i class="bi bi-arrow-up-right"></i>
+                </div>
 
             </button>
 
 
-            {{-- New Sale --}}
+            {{--
+            |--------------------------------------------------------------------------
+            | Drawer Status
+            |--------------------------------------------------------------------------
+            --}}
 
-            <button
-                type="button"
-                class="cashier-action-card cashier-action-sale"
-                data-cashier-page="{{ route('pos.index') }}"
-            >
+            <!-- <div class="cashier-drawer-status-card">
 
-                <div class="cashier-action-icon">
+                <div class="cashier-drawer-status-header">
 
-                    <i class="bi bi-cart-plus"></i>
+                    <div>
 
-                </div>
+                        <span class="cashier-panel-eyebrow">
+                            CURRENT DRAWER
+                        </span>
 
+                        <h6>
+                            Cash Session
+                        </h6>
 
-                <div class="cashier-action-content">
+                    </div>
 
-                    <span class="cashier-action-eyebrow">
-                        POINT OF SALE
+                    <span class="cashier-drawer-status-badge">
+                        <span></span>
+                        Open
                     </span>
 
-                    <h4>
-                        New Sale
-                    </h4>
+                </div>
 
-                    <p>
-                        Start a new transaction, add products,
-                        apply approved adjustments and process payment.
-                    </p>
+                <div class="cashier-drawer-status-value">
+
+                    <strong id="cashier-kpi-drawer-status">
+                        ₦0.00
+                    </strong>
+
+                    <span>
+                        Expected balance
+                    </span>
 
                 </div>
 
+                <div class="cashier-drawer-status-footer">
 
-                <span class="cashier-action-arrow">
+                    <span>
+                        <i class="bi bi-shield-check"></i>
+                        Session active
+                    </span>
 
                     <i class="bi bi-arrow-right"></i>
 
-                </span>
+                </div>
 
-            </button>
+            </div> -->
 
-
-        </div>
+        </aside>
 
     </section>
-
 
 </div>
