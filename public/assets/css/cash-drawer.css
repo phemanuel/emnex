@@ -3263,6 +3263,1131 @@ tbody td:nth-child(6) {
     }
 }
 
+/* =========================================================
+   CASH DRAWER — MODAL
+   ========================================================= */
+
+.cash-drawer-modal {
+    --cash-modal-radius: 18px;
+    --cash-modal-border: #e5e7eb;
+    --cash-modal-text: #111827;
+    --cash-modal-muted: #6b7280;
+    --cash-modal-green: #16a34a;
+    --cash-modal-green-dark: #15803d;
+}
+
+/* =========================================================
+   MODAL CONTAINER
+   ========================================================= */
+
+.cash-drawer-modal .modal-dialog {
+    max-width: 460px;
+    margin: 1.75rem auto;
+}
+
+.cash-drawer-modal .modal-content {
+    border: 1px solid var(--cash-modal-border);
+    border-radius: var(--cash-modal-radius);
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow:
+        0 24px 70px rgba(15, 23, 42, 0.18),
+        0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.cash-drawer-modal .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px;
+    border-bottom: 1px solid #eef0f2;
+    background: #ffffff;
+}
+
+.cash-drawer-modal .cash-modal-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+/* =========================================================
+   MODAL ICON
+   ========================================================= */
+
+.cash-drawer-modal .cash-modal-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+    font-size: 17px;
+}
+
+.cash-drawer-modal .cash-modal-icon.success {
+    background: #ecfdf5;
+    color: var(--cash-modal-green);
+    border: 1px solid #d1fae5;
+}
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.cash-drawer-modal .modal-title {
+    margin: 0 0 3px;
+    color: var(--cash-modal-text);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.cash-drawer-modal .cash-modal-heading .text-muted {
+    color: var(--cash-modal-muted) !important;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.cash-drawer-modal .btn-close {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+
+    border-radius: 9px;
+    opacity: 1;
+
+    background-color: #f3f4f6;
+    background-size: 10px;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cash-drawer-modal .btn-close:hover {
+    background-color: #e5e7eb;
+    transform: rotate(90deg);
+}
+
+.cash-drawer-modal .btn-close:focus {
+    box-shadow: none;
+}
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.cash-drawer-modal .modal-body {
+    padding: 20px;
+    background: #ffffff;
+}
+
+/* =========================================================
+   FORM FIELDS
+   ========================================================= */
+
+.cash-drawer-modal .cash-modal-field {
+    margin-bottom: 17px;
+}
+
+.cash-drawer-modal .form-label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #374151;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.cash-drawer-modal .form-label .text-danger {
+    color: #dc2626 !important;
+}
+
+/* =========================================================
+   FORM CONTROLS
+   ========================================================= */
+
+.cash-drawer-modal .form-control {
+    min-height: 42px;
+    padding: 10px 12px;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #111827;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+
+    box-shadow: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.cash-drawer-modal .form-control::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.cash-drawer-modal .form-control:hover {
+    border-color: #cbd5e1;
+}
+
+.cash-drawer-modal .form-control:focus {
+    border-color: #86efac;
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.10);
+
+    outline: none;
+}
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.cash-drawer-modal textarea.form-control {
+    min-height: 82px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   AMOUNT INPUT
+   ========================================================= */
+
+.cash-drawer-modal .cash-amount-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 11px;
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cash-drawer-modal .cash-amount-input > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    flex: 0 0 44px;
+
+    color: #374151;
+    font-size: 14px;
+    font-weight: 700;
+
+    border-right: 1px solid #eef0f2;
+}
+
+.cash-drawer-modal .cash-amount-input .form-control {
+    min-height: 44px;
+
+    border: 0;
+    border-radius: 0 10px 10px 0;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.cash-drawer-modal .cash-amount-input:focus-within {
+    border-color: #86efac;
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.10);
+}
+
+.cash-drawer-modal .cash-amount-input .form-control:focus {
+    box-shadow: none;
+}
+
+/* Remove number spinner */
+
+.cash-drawer-modal input[type="number"]::-webkit-inner-spin-button,
+.cash-drawer-modal input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.cash-drawer-modal input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* =========================================================
+   VALIDATION
+   ========================================================= */
+
+.cash-drawer-modal .invalid-feedback {
+    margin-top: 5px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.cash-drawer-modal .form-control.is-invalid {
+    border-color: #fca5a5;
+    background-image: none;
+}
+
+.cash-drawer-modal .form-control.is-invalid:focus {
+    border-color: #ef4444;
+    box-shadow:
+        0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+
+/* Amount wrapper validation */
+
+.cash-drawer-modal .cash-amount-input.is-invalid {
+    border-color: #fca5a5;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.cash-drawer-modal .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 9px;
+
+    padding: 14px 20px 18px;
+
+    border-top: 1px solid #eef0f2;
+    background: #fafafa;
+}
+
+/* =========================================================
+   CANCEL BUTTON
+   ========================================================= */
+
+.cash-drawer-modal .cash-modal-cancel {
+    min-height: 38px;
+    padding: 8px 15px;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #4b5563;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.cash-drawer-modal .cash-modal-cancel:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+.cash-drawer-modal .cash-modal-cancel:focus {
+    box-shadow: none;
+}
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.cash-drawer-modal .cash-modal-primary {
+    min-height: 38px;
+    padding: 8px 15px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    border: 1px solid var(--cash-modal-green-dark);
+    border-radius: 9px;
+
+    background: var(--cash-modal-green);
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    box-shadow:
+        0 4px 10px rgba(22, 163, 74, 0.14);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cash-drawer-modal .cash-modal-primary:hover {
+    background: var(--cash-modal-green-dark);
+    border-color: var(--cash-modal-green-dark);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(22, 163, 74, 0.20);
+}
+
+.cash-drawer-modal .cash-modal-primary:active {
+    transform: translateY(0);
+}
+
+.cash-drawer-modal .cash-modal-primary:focus {
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.14);
+}
+
+/* =========================================================
+   DISABLED / LOADING
+   ========================================================= */
+
+.cash-drawer-modal .cash-modal-primary:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+    box-shadow: none;
+}
+
+/* =========================================================
+   MODAL BACKDROP / STACKING
+   ========================================================= */
+
+/*
+ * Keep the modal above:
+ * - cash operations sticky panel
+ * - page content
+ * - inspector
+ */
+
+.cash-drawer-modal {
+    z-index: 1060;
+}
+
+.modal-backdrop {
+    z-index: 1055;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 575.98px) {
+
+    .cash-drawer-modal .modal-dialog {
+        max-width: none;
+        margin: 12px;
+    }
+
+    .cash-drawer-modal .modal-content {
+        border-radius: 15px;
+    }
+
+    .cash-drawer-modal .modal-header {
+        padding: 15px 16px;
+    }
+
+    .cash-drawer-modal .modal-body {
+        padding: 16px;
+    }
+
+    .cash-drawer-modal .modal-footer {
+        padding: 12px 16px 16px;
+    }
+
+    .cash-drawer-modal .cash-modal-primary,
+    .cash-drawer-modal .cash-modal-cancel {
+        min-height: 40px;
+    }
+}
+
+/* =========================================================
+   CASH OUT — DANGER VARIANT
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   HEADER ICON
+   --------------------------------------------------------- */
+
+.cash-drawer-modal .cash-modal-icon.danger {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fee2e2;
+}
+
+/* ---------------------------------------------------------
+   AMOUNT INPUT — CASH OUT FOCUS
+   --------------------------------------------------------- */
+
+.cash-drawer-modal:has(.cash-modal-icon.danger)
+    .cash-amount-input:focus-within {
+    border-color: #fca5a5;
+
+    box-shadow:
+        0 0 0 3px rgba(239, 68, 68, 0.10);
+}
+
+.cash-drawer-modal:has(.cash-modal-icon.danger)
+    .cash-amount-input .form-control:focus {
+    box-shadow: none;
+}
+
+/* ---------------------------------------------------------
+   CASH OUT PRIMARY BUTTON
+   --------------------------------------------------------- */
+
+.cash-drawer-modal .cash-modal-danger {
+    min-height: 38px;
+    padding: 8px 15px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    border: 1px solid #b91c1c;
+    border-radius: 9px;
+
+    background: #dc2626;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    box-shadow:
+        0 4px 10px rgba(220, 38, 38, 0.14);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cash-drawer-modal .cash-modal-danger:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(220, 38, 38, 0.20);
+}
+
+.cash-drawer-modal .cash-modal-danger:active {
+    transform: translateY(0);
+}
+
+.cash-drawer-modal .cash-modal-danger:focus {
+    box-shadow:
+        0 0 0 3px rgba(239, 68, 68, 0.14);
+}
+
+.cash-drawer-modal .cash-modal-danger:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ---------------------------------------------------------
+   CASH OUT VALIDATION
+   --------------------------------------------------------- */
+
+.cash-drawer-modal:has(.cash-modal-icon.danger)
+    .cash-amount-input.is-invalid {
+    border-color: #fca5a5;
+}
+
+.cash-drawer-modal:has(.cash-modal-icon.danger)
+    .cash-amount-input.is-invalid:focus-within {
+    box-shadow:
+        0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+
+/* =========================================================
+   CLOSE CASH DRAWER MODAL
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   RECONCILIATION SUMMARY
+   --------------------------------------------------------- */
+
+.cash-drawer-modal .drawer-close-summary {
+    margin-bottom: 18px;
+    padding: 14px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    background: #f8fafc;
+}
+
+.cash-drawer-modal .drawer-close-summary-heading {
+    margin-bottom: 11px;
+
+    color: #374151;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.cash-drawer-modal .drawer-close-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 9px 0;
+
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 500;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.cash-drawer-modal .drawer-close-row:first-of-type {
+    border-top: 0;
+}
+
+.cash-drawer-modal .drawer-close-row strong {
+    color: #111827;
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   ACTUAL CASH COUNT
+   --------------------------------------------------------- */
+
+.cash-drawer-modal #actual_balance {
+    font-size: 16px;
+    font-weight: 750;
+}
+
+/* Helper text */
+
+.cash-drawer-modal .form-text {
+    margin-top: 6px;
+
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+/* ---------------------------------------------------------
+   VARIANCE PREVIEW
+   --------------------------------------------------------- */
+
+.cash-drawer-modal .variance-preview {
+    margin: -2px 0 18px;
+    padding: 11px 13px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    background: #f9fafb;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.cash-drawer-modal .variance-preview > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.cash-drawer-modal .variance-preview span {
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.cash-drawer-modal .variance-preview strong {
+    color: #111827;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* ---------------------------------------------------------
+   VARIANCE STATES
+   Add these classes through JS when appropriate.
+   --------------------------------------------------------- */
+
+.cash-drawer-modal .variance-preview.positive {
+    background: #ecfdf5;
+    border-color: #bbf7d0;
+}
+
+.cash-drawer-modal .variance-preview.positive span,
+.cash-drawer-modal .variance-preview.positive strong {
+    color: #15803d;
+}
+
+.cash-drawer-modal .variance-preview.negative {
+    background: #fef2f2;
+    border-color: #fecaca;
+}
+
+.cash-drawer-modal .variance-preview.negative span,
+.cash-drawer-modal .variance-preview.negative strong {
+    color: #b91c1c;
+}
+
+.cash-drawer-modal .variance-preview.balanced {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+.cash-drawer-modal .variance-preview.balanced span,
+.cash-drawer-modal .variance-preview.balanced strong {
+    color: #1d4ed8;
+}
+
+/* ---------------------------------------------------------
+   CLOSE DRAWER ICON
+   --------------------------------------------------------- */
+
+.cash-drawer-modal .cash-modal-icon.danger {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fee2e2;
+}
+
+/* ---------------------------------------------------------
+   CLOSE DRAWER BUTTON
+   --------------------------------------------------------- */
+
+.cash-drawer-modal #close-drawer-submit {
+    min-width: 125px;
+}
+
+/* ---------------------------------------------------------
+   CLOSE DRAWER — EXTRA EMPHASIS
+   --------------------------------------------------------- */
+
+.cash-drawer-modal #close-drawer-submit i {
+    font-size: 12px;
+}
+
+.cash-drawer-modal #close-drawer-submit:hover {
+    background: #b91c1c;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 575.98px) {
+
+    .cash-drawer-modal .drawer-close-summary {
+        padding: 12px;
+    }
+
+    .cash-drawer-modal .drawer-close-row {
+        padding: 8px 0;
+    }
+
+    .cash-drawer-modal .variance-preview {
+        padding: 10px 12px;
+    }
+}
+
+/* =========================================================
+   CASH DRAWER — CONFIRMATION MODAL
+   ========================================================= */
+
+#cashDrawerConfirmationModal .modal-dialog {
+    max-width: 390px;
+}
+
+#cashDrawerConfirmationModal .modal-content {
+    border-radius: 16px;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+
+#cashDrawerConfirmationModal .modal-header {
+    padding: 16px 18px;
+}
+
+#cashDrawerConfirmationModal .modal-title {
+    font-size: 14px;
+    font-weight: 750;
+}
+
+/* ---------------------------------------------------------
+   BODY
+   --------------------------------------------------------- */
+
+#cashDrawerConfirmationModal .modal-body {
+    padding: 22px 20px 20px;
+}
+
+#cashDrawerConfirmationModal .confirmation-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* ---------------------------------------------------------
+   CONFIRMATION ICON
+   --------------------------------------------------------- */
+
+#cashDrawerConfirmationModal .confirmation-icon {
+    width: 54px;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 14px;
+
+    border: 1px solid #fee2e2;
+    border-radius: 15px;
+
+    background: #fef2f2;
+    color: #dc2626;
+
+    font-size: 22px;
+
+    box-shadow:
+        0 5px 14px rgba(220, 38, 38, 0.08);
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* ---------------------------------------------------------
+   TITLE
+   --------------------------------------------------------- */
+
+#cashDrawerConfirmationModal .confirmation-title {
+    margin: 0 0 6px;
+
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: 750;
+    line-height: 1.35;
+}
+
+/* ---------------------------------------------------------
+   MESSAGE
+   --------------------------------------------------------- */
+
+#cashDrawerConfirmationModal .confirmation-message {
+    max-width: 300px;
+
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.55;
+}
+
+/* ---------------------------------------------------------
+   FOOTER
+   --------------------------------------------------------- */
+
+#cashDrawerConfirmationModal .modal-footer {
+    justify-content: center;
+
+    padding: 13px 18px 17px;
+
+    gap: 8px;
+}
+
+/* Give both buttons equal visual weight */
+
+#cashDrawerConfirmationModal .cash-modal-cancel,
+#cashDrawerConfirmationModal .cash-modal-danger {
+    min-width: 100px;
+    min-height: 38px;
+}
+
+/* ---------------------------------------------------------
+   CONFIRM BUTTON
+   --------------------------------------------------------- */
+
+#cashDrawerConfirmationModal #confirmation-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    padding: 8px 15px;
+
+    border: 1px solid #b91c1c;
+    border-radius: 9px;
+
+    background: #dc2626;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    box-shadow:
+        0 4px 10px rgba(220, 38, 38, 0.14);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#cashDrawerConfirmationModal #confirmation-submit:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(220, 38, 38, 0.20);
+}
+
+#cashDrawerConfirmationModal #confirmation-submit:active {
+    transform: translateY(0);
+}
+
+#cashDrawerConfirmationModal #confirmation-submit:focus {
+    box-shadow:
+        0 0 0 3px rgba(239, 68, 68, 0.14);
+}
+
+#cashDrawerConfirmationModal #confirmation-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ---------------------------------------------------------
+   DYNAMIC CONFIRMATION STATES
+   --------------------------------------------------------- */
+
+/* Success / safe confirmation */
+
+#cashDrawerConfirmationModal.confirmation-success
+    .confirmation-icon {
+    background: #ecfdf5;
+    border-color: #d1fae5;
+    color: #16a34a;
+}
+
+#cashDrawerConfirmationModal.confirmation-success
+    #confirmation-submit {
+    background: #16a34a;
+    border-color: #15803d;
+}
+
+#cashDrawerConfirmationModal.confirmation-success
+    #confirmation-submit:hover {
+    background: #15803d;
+    border-color: #15803d;
+}
+
+/* Warning confirmation */
+
+#cashDrawerConfirmationModal.confirmation-warning
+    .confirmation-icon {
+    background: #fffbeb;
+    border-color: #fde68a;
+    color: #d97706;
+}
+
+#cashDrawerConfirmationModal.confirmation-warning
+    #confirmation-submit {
+    background: #d97706;
+    border-color: #b45309;
+}
+
+#cashDrawerConfirmationModal.confirmation-warning
+    #confirmation-submit:hover {
+    background: #b45309;
+    border-color: #b45309;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 575.98px) {
+
+    #cashDrawerConfirmationModal .modal-dialog {
+        max-width: none;
+        margin: 12px;
+    }
+
+    #cashDrawerConfirmationModal .modal-body {
+        padding: 20px 16px 18px;
+    }
+
+    #cashDrawerConfirmationModal .modal-footer {
+        padding: 12px 16px 16px;
+    }
+
+    #cashDrawerConfirmationModal .cash-modal-cancel,
+    #cashDrawerConfirmationModal #confirmation-submit {
+        flex: 1;
+    }
+}
+
+/* =========================================================
+   OPEN CASH DRAWER MODAL
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   PRIMARY ICON
+   --------------------------------------------------------- */
+
+#openDrawerModal .cash-modal-icon.primary {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #dbeafe;
+}
+
+/* ---------------------------------------------------------
+   OPENING BALANCE
+   --------------------------------------------------------- */
+
+#openDrawerModal #opening_balance {
+    font-size: 16px;
+    font-weight: 750;
+}
+
+/* Make the amount container use the primary blue focus */
+
+#openDrawerModal .cash-amount-input:focus-within {
+    border-color: #93c5fd;
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+#openDrawerModal .cash-amount-input .form-control:focus {
+    box-shadow: none;
+}
+
+/* ---------------------------------------------------------
+   OPEN DRAWER BUTTON
+   --------------------------------------------------------- */
+
+#openDrawerModal .cash-modal-primary {
+    min-width: 118px;
+
+    background: #2563eb;
+    border-color: #1d4ed8;
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.15);
+}
+
+#openDrawerModal .cash-modal-primary:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.22);
+}
+
+#openDrawerModal .cash-modal-primary:active {
+    transform: translateY(0);
+}
+
+#openDrawerModal .cash-modal-primary:focus {
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+#openDrawerModal .cash-modal-primary:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ---------------------------------------------------------
+   REMARKS
+   --------------------------------------------------------- */
+
+#openDrawerModal #opening_remarks {
+    min-height: 82px;
+}
+
+/* ---------------------------------------------------------
+   HIDDEN SESSION DATA
+   --------------------------------------------------------- */
+
+#openDrawerModal .modal-footer {
+    position: relative;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 575.98px) {
+
+    #openDrawerModal .cash-modal-primary,
+    #openDrawerModal .cash-modal-cancel {
+        min-height: 40px;
+    }
+
+    #openDrawerModal .cash-modal-primary {
+        min-width: 110px;
+    }
+}
+
 
 /* ============================================================
    END

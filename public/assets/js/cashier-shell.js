@@ -275,17 +275,15 @@ window.CashierShell = {
     },
 
  /*
-    |--------------------------------------------------------------------------
-    | Navigate Url
-    |--------------------------------------------------------------------------
-    */
-
-   navigate(url) {
+|--------------------------------------------------------------------------
+| Navigate Url
+|--------------------------------------------------------------------------
+*/
+async navigate(url) {
 
     if (!url) {
         return;
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -296,12 +294,31 @@ window.CashierShell = {
     if (
         this.isCashierHomeUrl(url)
     ) {
-
         this.showHome();
-
         return;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | POS Drawer Check
+    |--------------------------------------------------------------------------
+    |
+    | The POS controller already checks the current cashier drawer.
+    | We use the existing /pos route and request JSON first.
+    |
+    */
+
+    if (
+        this.isPosUrl(url)
+    ) {
+
+        const canOpenPos =
+            await this.checkPosDrawer();
+
+        if (!canOpenPos) {
+            return;
+        }
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -313,10 +330,8 @@ window.CashierShell = {
         !this.elements.frame
         || !this.elements.frameView
     ) {
-
         return;
     }
-
 
     this.state.currentView =
         'frame';
@@ -327,22 +342,16 @@ window.CashierShell = {
     this.state.frameLoading =
         true;
 
-
     /*
     |--------------------------------------------------------------------------
     | Hide Old Frame Content
     |--------------------------------------------------------------------------
-    |
-    | Prevent the previous page from flashing while the new
-    | embedded page is loading.
-    |
     */
 
     this.elements.frameView
         .classList.add(
             'is-loading'
         );
-
 
     /*
     |--------------------------------------------------------------------------
@@ -352,7 +361,6 @@ window.CashierShell = {
 
     this.elements.frame.src =
         'about:blank';
-
 
     /*
     |--------------------------------------------------------------------------
@@ -370,7 +378,6 @@ window.CashierShell = {
             'd-none'
         );
 
-
     /*
     |--------------------------------------------------------------------------
     | Load New Page
@@ -387,9 +394,7 @@ window.CashierShell = {
 
         }
     );
-
 },
-
 
     /*
     |--------------------------------------------------------------------------
@@ -478,6 +483,156 @@ window.CashierShell = {
         }
 
     },
+
+    /*
+|--------------------------------------------------------------------------
+| Determine POS URL
+|--------------------------------------------------------------------------
+*/
+isPosUrl(url) {
+
+    try {
+
+        const target =
+            new URL(
+                url,
+                window.location.origin
+            );
+
+        const pathname =
+            target.pathname.replace(
+                /\/+$/,
+                ''
+            );
+
+        return pathname === '/pos';
+
+    } catch (error) {
+
+        return String(url)
+            .replace(
+                /\/+$/,
+                ''
+            )
+            .endsWith('/pos');
+    }
+},
+
+/*
+|--------------------------------------------------------------------------
+| Check POS Drawer
+|--------------------------------------------------------------------------
+*/
+async checkPosDrawer() {
+
+    try {
+
+        const response =
+            await fetch(
+                '/pos?embedded=1',
+                {
+                    method: 'GET',
+
+                    headers: {
+                        'Accept':
+                            'application/json',
+
+                        'X-Requested-With':
+                            'XMLHttpRequest'
+                    }
+                }
+            );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
+        const contentType =
+            response.headers.get(
+                'content-type'
+            ) || '';
+
+        /*
+        |--------------------------------------------------------------------------
+        | JSON Response
+        |--------------------------------------------------------------------------
+        |
+        | When the drawer is closed, PosController@index()
+        | returns JSON with HTTP 403.
+        |
+        */
+
+        if (
+            contentType.includes(
+                'application/json'
+            )
+        ) {
+
+            const result =
+                await response.json();
+
+            if (
+                !response.ok
+                || !result.success
+                || !result.drawer_open
+            ) {
+
+                this.showToast(
+                    result.message
+                    || 'You must open your cash drawer before starting a sale.',
+                    'warning'
+                );
+
+                return false;
+            }
+
+            return true;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | HTML Response
+        |--------------------------------------------------------------------------
+        |
+        | When the drawer is open, PosController@index()
+        | returns the normal POS Blade view.
+        |
+        */
+
+        if (response.ok) {
+            return true;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Unexpected Response
+        |--------------------------------------------------------------------------
+        */
+
+        this.showToast(
+            'Unable to verify the cash drawer status.',
+            'danger'
+        );
+
+        return false;
+
+    } catch (error) {
+
+        console.error(
+            'POS drawer check failed:',
+            error
+        );
+
+        this.showToast(
+            'Unable to verify the cash drawer status.',
+            'danger'
+        );
+
+        return false;
+    }
+},
 
 
     /*
@@ -1493,6 +1648,166 @@ window.CashierShell = {
             );
 
     },
+
+/*
+|--------------------------------------------------------------------------
+| Show Toast
+|--------------------------------------------------------------------------
+*/
+showToast(message, type = 'warning') {
+    if (!message) {
+        return;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Toast Container
+    |--------------------------------------------------------------------------
+    */
+    let container =
+        document.getElementById(
+            'cashier-shell-toast-container'
+        );
+
+    if (!container) {
+        container =
+            document.createElement('div');
+
+        container.id =
+            'cashier-shell-toast-container';
+
+        container.className =
+            'position-fixed top-0 end-0 p-3';
+
+        container.style.zIndex = '1090';
+
+        document.body.appendChild(container);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Toast
+    |--------------------------------------------------------------------------
+    */
+    const toast =
+        document.createElement('div');
+
+    toast.className =
+        'toast align-items-center border-0';
+
+    toast.setAttribute(
+        'role',
+        'alert'
+    );
+
+    toast.setAttribute(
+        'aria-live',
+        'assertive'
+    );
+
+    toast.setAttribute(
+        'aria-atomic',
+        'true'
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Toast Type
+    |--------------------------------------------------------------------------
+    */
+    const typeClasses = {
+        success: 'text-bg-success',
+        danger: 'text-bg-danger',
+        warning: 'text-bg-warning',
+        info: 'text-bg-primary'
+    };
+
+    toast.classList.add(
+        typeClasses[type] ||
+        typeClasses.info
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Toast Content
+    |--------------------------------------------------------------------------
+    */
+    toast.innerHTML = `
+        <div class="d-flex">
+            <div class="toast-body">
+                ${this.escapeHtml(message)}
+            </div>
+
+            <button
+                type="button"
+                class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+            ></button>
+        </div>
+    `;
+
+    container.appendChild(toast);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Bootstrap Toast
+    |--------------------------------------------------------------------------
+    */
+    if (
+        window.bootstrap &&
+        typeof bootstrap.Toast === 'function'
+    ) {
+        const toastInstance =
+            bootstrap.Toast.getOrCreateInstance(
+                toast,
+                {
+                    delay: 4500
+                }
+            );
+
+        toast.addEventListener(
+            'hidden.bs.toast',
+            () => {
+                toast.remove();
+            }
+        );
+
+        toastInstance.show();
+
+        return;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Fallback
+    |--------------------------------------------------------------------------
+    */
+    toast.classList.add('show');
+
+    setTimeout(
+        () => {
+            toast.remove();
+        },
+        4500
+    );
+},
+
+/*
+|--------------------------------------------------------------------------
+| Escape HTML
+|--------------------------------------------------------------------------
+*/
+escapeHtml(value) {
+    const element =
+        document.createElement('div');
+
+    element.textContent =
+        String(value ?? '');
+
+    return element.innerHTML;
+},
+
 
 
     /*

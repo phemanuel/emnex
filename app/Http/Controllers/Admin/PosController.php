@@ -200,15 +200,11 @@ class PosController extends BaseController
         */
 
         if (! $drawer) {
-
-            return redirect()
-                ->route(
-                    'cash-drawer.index'
-                )
-                ->with(
-                    'error',
-                    'You must open your cash drawer before starting a sale.'
-                );
+           return response()->json([
+                'success' => false,
+                'drawer_open' => false,
+                'message' => 'You must open your cash drawer before starting a sale.',
+            ]);
         }
 
         /*
