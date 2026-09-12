@@ -1,24 +1,312 @@
-/* ==========================================================================
-   EMNEX POS
-   Cash Drawer
-   ========================================================================== */
+/* ============================================================
+   EMNEX POS — CASH DRAWER
+   Premium POS Dashboard Theme
+   ============================================================ */
 
 
-/* --------------------------------------------------------------------------
-   Page
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   1. ROOT / GLOBAL
+   ============================================================ */
 
-.cash-drawer-page {
-    width: 100%;
-    padding-bottom: 32px;
+:root {
+    --drawer-bg: #f4f6f9;
+    --drawer-card: #ffffff;
+    --drawer-dark: #111827;
+    --drawer-dark-2: #1f2937;
+    --drawer-primary: #2563eb;
+    --drawer-primary-dark: #1d4ed8;
+    --drawer-success: #16a34a;
+    --drawer-danger: #dc2626;
+    --drawer-warning: #d97706;
+    --drawer-text: #111827;
+    --drawer-muted: #6b7280;
+    --drawer-border: #e5e7eb;
+    --drawer-radius: 14px;
+    --drawer-shadow: 0 8px 30px rgba(15, 23, 42, 0.07);
+    --drawer-shadow-hover: 0 14px 35px rgba(15, 23, 42, 0.12);
 }
 
-.cash-drawer-page-header {
+
+/* ============================================================
+   2. PAGE
+   ============================================================ */
+
+.emnex-cashier-screen {
+    background: var(--drawer-bg) !important;
+    color: var(--drawer-text);
+    min-height: 100vh;
+}
+
+.cashier-app {
+    min-height: 100vh;
+    background: var(--drawer-bg);
+}
+
+.cashier-main {
+    background: var(--drawer-bg);
+    min-height: calc(100vh - 70px);
+}
+
+.cash-drawer-page {
+    padding: 28px 30px 50px !important;
+}
+
+
+/* ============================================================
+   3. TOP NAVIGATION / HEADER
+   ============================================================ */
+
+.cashier-topbar {
+    min-height: 70px;
+    padding: 0 28px;
+    background: #111827 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    margin-bottom: 24px;
+
+    position: relative;
+    z-index: 100;
+}
+
+.cashier-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.cashier-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* ============================================================
+   4. BRAND
+   ============================================================ */
+
+.cashier-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.cashier-brand-mark {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: var(--drawer-primary);
+    color: #ffffff;
+
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.35);
+}
+
+.cashier-brand-mark i {
+    font-size: 19px;
+}
+
+.cashier-brand-content {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.cashier-brand-title {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.cashier-brand-subtitle {
+    margin-top: 4px;
+    color: #9ca3af;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+}
+
+
+/* ============================================================
+   5. HEADER DIVIDER
+   ============================================================ */
+
+.cashier-context-divider {
+    width: 1px;
+    height: 35px;
+    background: rgba(255,255,255,0.12);
+}
+
+
+/* ============================================================
+   6. BRANCH / TERMINAL / CASHIER
+   ============================================================ */
+
+.cashier-context {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.cashier-context-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.cashier-context-label {
+    color: #6b7280;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cashier-context-value {
+    color: #f9fafb;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   7. COMPANY BRAND
+   ============================================================ */
+
+.cashier-company-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-right: auto;
+    margin-left: 30px;
+}
+
+.cashier-company-brand-icon {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,0.08);
+    color: #93c5fd;
+}
+
+.cashier-company-brand-name {
+    color: #d1d5db;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+
+/* ============================================================
+   8. DRAWER STATUS
+   ============================================================ */
+
+.cashier-drawer-status {
+    height: 36px;
+    padding: 0 12px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 8px;
+
+    background: rgba(255,255,255,0.05);
+
+    color: #d1d5db;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.cashier-status-dot,
+.drawer-status-dot {
+    width: 8px;
+    height: 8px;
+
+    display: inline-block;
+
+    border-radius: 50%;
+    background: #9ca3af;
+}
+
+.cashier-drawer-status:has(#header-drawer-status-text) .cashier-status-dot {
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34,197,94,.12);
+}
+
+
+/* ============================================================
+   9. HEADER ACTIONS
+   ============================================================ */
+
+.cashier-header-action {
+    min-height: 36px;
+    padding: 0 13px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 8px;
+
+    background: rgba(255,255,255,0.05);
+
+    color: #d1d5db !important;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all .2s ease;
+}
+
+.cashier-header-action:hover {
+    background: rgba(255,255,255,0.11);
+    color: #ffffff !important;
+    transform: translateY(-1px);
+}
+
+.cashier-header-action-exit:hover {
+    border-color: rgba(239,68,68,.35);
+    color: #fca5a5 !important;
+}
+
+
+/* ============================================================
+   10. PAGE HEADER
+   ============================================================ */
+
+.cash-drawer-page-header {
+    margin-bottom: 25px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid var(--drawer-border);
 }
 
 .cash-drawer-page-heading {
@@ -26,1131 +314,926 @@
 }
 
 .cash-drawer-eyebrow {
-    margin-bottom: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .12em;
-    color: #8a94a6;
+    margin-bottom: 7px;
+
+    color: var(--drawer-primary);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
 .cash-drawer-title-row {
     display: flex;
     align-items: center;
     gap: 12px;
-    flex-wrap: wrap;
 }
 
 .cash-drawer-title {
-    font-size: 24px;
-    line-height: 1.25;
-    font-weight: 700;
-    color: #172033;
+    color: #111827 !important;
+
+    font-size: 26px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: -0.5px;
 }
 
 .cash-drawer-subtitle {
-    margin-top: 6px;
-    max-width: 720px;
-    font-size: 13px;
+    margin-top: 7px;
+
+    max-width: 680px;
+
+    color: var(--drawer-muted);
+
+    font-size: 12px;
     line-height: 1.6;
-    color: #7b8495;
-}
-
-.cash-drawer-header-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
 }
 
 
-/* --------------------------------------------------------------------------
-   Status Badge
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   11. DRAWER STATUS BADGE
+   ============================================================ */
 
 .drawer-status-badge {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    min-height: 28px;
-    padding: 5px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1;
-}
 
-.drawer-status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-}
+    padding: 6px 10px;
 
-.drawer-status-badge.is-closed {
-    color: #667085;
-    background: #f2f4f7;
-}
+    border-radius: 20px;
 
-.drawer-status-badge.is-closed .drawer-status-dot {
-    background: #98a2b3;
+    font-size: 10px;
+    font-weight: 800;
 }
 
 .drawer-status-badge.is-open {
-    color: #087443;
-    background: #ecfdf3;
+    color: #15803d;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+}
+
+.drawer-status-badge.is-closed {
+    color: #6b7280;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
 }
 
 .drawer-status-badge.is-open .drawer-status-dot {
-    background: #12b76a;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34,197,94,.12);
+}
+
+.drawer-status-badge.is-closed .drawer-status-dot {
+    background: #9ca3af;
 }
 
 
-/* --------------------------------------------------------------------------
-   Buttons
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   12. HEADER BUTTONS
+   ============================================================ */
+
+.cash-drawer-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
 
 .cash-drawer-btn {
-    min-height: 38px;
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
+    min-height: 40px;
+    padding: 0 17px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 8px;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 700;
     transition:
-        background-color .15s ease,
-        border-color .15s ease,
-        box-shadow .15s ease,
-        transform .15s ease;
+        background-color .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
 }
 
 .cash-drawer-btn-primary {
-    color: #fff;
-    background: #1f2937;
-    border-color: #1f2937;
+    color: #ffffff !important;
+    background: var(--drawer-primary) !important;
+    border: 1px solid var(--drawer-primary) !important;
+
+    box-shadow: 0 5px 14px rgba(37,99,235,.22);
 }
 
 .cash-drawer-btn-primary:hover {
-    color: #fff;
-    background: #111827;
-    border-color: #111827;
+    background: var(--drawer-primary-dark) !important;
+    border-color: var(--drawer-primary-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(37,99,235,.28);
 }
 
 .cash-drawer-btn-secondary {
-    color: #344054;
-    background: #fff;
-    border-color: #d0d5dd;
+    color: #374151 !important;
+    background: #ffffff !important;
+    border: 1px solid var(--drawer-border) !important;
 }
 
 .cash-drawer-btn-secondary:hover {
-    color: #1d2939;
-    background: #f9fafb;
-    border-color: #98a2b3;
+    background: #f9fafb !important;
+    border-color: #d1d5db !important;
 }
 
 
-/* --------------------------------------------------------------------------
-   Current Drawer
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   13. ALL CARDS / PANELS
+   ============================================================ */
 
-.current-drawer-card {
-    position: relative;
+.cash-drawer-page .card,
+.cash-drawer-page .cash-drawer-card,
+.cash-drawer-page .card-body,
+.cash-drawer-page section,
+.cash-drawer-page .panel {
+    border-color: var(--drawer-border);
+}
+
+.cash-drawer-page .card {
+    border: 1px solid var(--drawer-border);
+    border-radius: var(--drawer-radius);
+
+    background: var(--drawer-card);
+
+    box-shadow: var(--drawer-shadow);
+
     overflow: hidden;
-    margin-bottom: 28px;
-    border: 1px solid #e4e7ec;
-    border-radius: 14px;
-    background: #fff;
-    box-shadow: 0 4px 18px rgba(16, 24, 40, .05);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
-.current-drawer-card-inner {
-    display: flex;
-    align-items: center;
-    min-height: 148px;
-    padding: 24px;
-    gap: 26px;
-}
-
-.current-drawer-main {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    min-width: 230px;
-}
-
-.current-drawer-icon {
-    width: 52px;
-    height: 52px;
-    flex: 0 0 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    color: #344054;
-    background: #f2f4f7;
-    font-size: 23px;
-}
-
-.current-drawer-context {
-    min-width: 0;
-}
-
-.current-drawer-label {
-    margin-bottom: 4px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    color: #98a2b3;
-}
-
-.current-drawer-terminal {
-    font-size: 17px;
-    font-weight: 700;
-    color: #172033;
-}
-
-.current-drawer-branch {
-    margin-top: 2px;
-    font-size: 12px;
-    color: #7b8495;
-}
-
-.current-drawer-divider {
-    width: 1px;
-    align-self: stretch;
-    background: #eaecf0;
-}
-
-.current-drawer-meta {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(130px, 1fr));
-    gap: 24px;
-    flex: 1;
-}
-
-.drawer-meta-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 0;
-}
-
-.drawer-meta-label {
-    margin-bottom: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #98a2b3;
-}
-
-.drawer-meta-value {
-    font-size: 14px;
-    font-weight: 700;
-    color: #344054;
-}
-
-.drawer-meta-amount {
-    font-size: 18px;
-    color: #172033;
-}
-
-.drawer-meta-secondary {
-    margin-top: 3px;
-    font-size: 11px;
-    color: #98a2b3;
-}
-
-.current-drawer-actions {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    flex-shrink: 0;
-}
-
-.cash-drawer-operation-btn {
-    min-height: 36px;
-    padding: 7px 11px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.cash-drawer-operation-in {
-    color: #067647;
-    background: #ecfdf3;
-    border-color: #abefc6;
-}
-
-.cash-drawer-operation-out {
-    color: #b42318;
-    background: #fef3f2;
-    border-color: #fecdca;
-}
-
-.cash-drawer-operation-close {
-    color: #344054;
-    background: #fff;
-    border-color: #d0d5dd;
+.cash-drawer-page .card:hover {
+    box-shadow: var(--drawer-shadow-hover);
 }
 
 
-/* --------------------------------------------------------------------------
-   Section Heading
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   14. COMMON SECTION HEADERS
+   ============================================================ */
 
-.cash-drawer-section-heading {
-    margin-bottom: 14px;
+.cash-drawer-page .card-header {
+    padding: 15px 18px;
+
+    background: #ffffff !important;
+
+    border-bottom: 1px solid var(--drawer-border);
+
+    color: #111827;
 }
 
-.cash-drawer-section-title {
+.cash-drawer-page .card-header h5,
+.cash-drawer-page .card-header h6,
+.cash-drawer-page .card-title {
     margin: 0;
-    font-size: 14px;
-    font-weight: 700;
-    color: #172033;
-}
 
-.cash-drawer-section-description {
-    margin: 4px 0 0;
-    font-size: 12px;
-    color: #98a2b3;
+    color: #111827;
+
+    font-size: 13px;
+    font-weight: 800;
 }
 
 
-/* --------------------------------------------------------------------------
-   KPI Cards
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   15. CARD BODY
+   ============================================================ */
 
-.cash-drawer-kpi-card {
-    height: 100%;
+.cash-drawer-page .card-body {
     padding: 18px;
-    border: 1px solid #e4e7ec;
+}
+
+
+/* ============================================================
+   16. FINANCIAL / SUMMARY VALUES
+   ============================================================ */
+
+.cash-drawer-page .display-amount,
+.cash-drawer-page .amount,
+.cash-drawer-page .currency-value {
+    color: #111827;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+}
+
+
+/* ============================================================
+   17. STAT / SUMMARY BOXES
+   ============================================================ */
+
+.cash-drawer-page .stat-card,
+.cash-drawer-page .summary-card,
+.cash-drawer-page .metric-card {
+    position: relative;
+
+    padding: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--drawer-border);
     border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(16, 24, 40, .035);
+
+    box-shadow: 0 4px 18px rgba(15,23,42,.05);
+
+    transition: all .2s ease;
 }
 
-.cash-drawer-kpi-top {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.cash-drawer-kpi-icon {
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9px;
-    color: #475467;
-    background: #f2f4f7;
-    font-size: 16px;
-}
-
-.cash-drawer-kpi-icon.sales {
-    color: #175cd3;
-    background: #eff8ff;
-}
-
-.cash-drawer-kpi-icon.cash-in {
-    color: #067647;
-    background: #ecfdf3;
-}
-
-.cash-drawer-kpi-icon.cash-out {
-    color: #b42318;
-    background: #fef3f2;
-}
-
-.cash-drawer-kpi-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #667085;
-}
-
-.cash-drawer-kpi-value {
-    margin-top: 17px;
-    font-size: 22px;
-    line-height: 1.2;
-    font-weight: 700;
-    color: #172033;
-}
-
-.cash-drawer-kpi-caption {
-    margin-top: 5px;
-    font-size: 11px;
-    color: #98a2b3;
+.cash-drawer-page .stat-card:hover,
+.cash-drawer-page .summary-card:hover,
+.cash-drawer-page .metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(15,23,42,.09);
 }
 
 
-/* --------------------------------------------------------------------------
-   Balance Position
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   18. ICON BOXES
+   ============================================================ */
 
-.balance-position-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-height: 92px;
-    padding: 17px;
-    border: 1px solid #e4e7ec;
-    border-radius: 12px;
-    background: #fff;
-}
-
-.balance-position-icon {
+.cash-drawer-page .icon-box,
+.cash-drawer-page .stat-icon,
+.cash-drawer-page .metric-icon {
     width: 40px;
     height: 40px;
-    flex: 0 0 40px;
-    display: flex;
+
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 10px;
-    color: #175cd3;
-    background: #eff8ff;
+
+    background: #eff6ff;
+    color: var(--drawer-primary);
 }
 
-.balance-position-icon.refund {
-    color: #b54708;
-    background: #fffaeb;
-}
-
-.balance-position-card.current .balance-position-icon {
-    color: #067647;
-    background: #ecfdf3;
-}
-
-.balance-position-content {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-}
-
-.balance-position-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #667085;
-}
-
-.balance-position-value {
-    margin-top: 4px;
+.cash-drawer-page .icon-box i,
+.cash-drawer-page .stat-icon i,
+.cash-drawer-page .metric-icon i {
     font-size: 17px;
-    font-weight: 700;
-    color: #172033;
 }
 
 
-/* --------------------------------------------------------------------------
-   Cash Operations
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   19. TABLES
+   ============================================================ */
 
-.cash-operations-card {
-    overflow: hidden;
-    border: 1px solid #e4e7ec;
-    border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(16, 24, 40, .035);
+.cash-drawer-page .table {
+    margin-bottom: 0;
+
+    color: #374151;
+
+    font-size: 12px;
 }
 
-.cash-operations-header {
-    padding: 18px 20px;
-    border-bottom: 1px solid #eaecf0;
-}
-
-.cash-operations-heading {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.cash-operations-icon {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9px;
-    color: #475467;
-    background: #f2f4f7;
-}
-
-.cash-operations-title {
-    margin: 0;
-    font-size: 13px;
-    font-weight: 700;
-    color: #172033;
-}
-
-.cash-operations-description {
-    margin-top: 3px;
-    font-size: 11px;
-    color: #98a2b3;
-}
-
-.cash-operations-body {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    padding: 16px;
-}
-
-.cash-operation-tile {
-    width: 100%;
-    min-height: 68px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.cash-drawer-page .table thead th {
     padding: 12px 14px;
-    text-align: left;
-    border: 1px solid #e4e7ec;
-    border-radius: 10px;
-    background: #fff;
-    transition:
-        background-color .15s ease,
-        border-color .15s ease,
-        box-shadow .15s ease;
-}
 
-.cash-operation-tile:not(:disabled):hover {
-    background: #f9fafb;
-    border-color: #d0d5dd;
-    box-shadow: 0 3px 10px rgba(16, 24, 40, .05);
-}
+    background: #f8fafc;
 
-.cash-operation-tile:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-}
+    color: #6b7280;
 
-.cash-operation-tile-icon {
-    width: 34px;
-    height: 34px;
-    flex: 0 0 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-}
+    border-bottom: 1px solid var(--drawer-border);
 
-.cash-operation-tile-in .cash-operation-tile-icon {
-    color: #067647;
-    background: #ecfdf3;
-}
+    font-size: 9px;
+    font-weight: 800;
 
-.cash-operation-tile-out .cash-operation-tile-icon {
-    color: #b42318;
-    background: #fef3f2;
-}
-
-.cash-operation-tile-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 0;
-}
-
-.cash-operation-tile-content strong {
-    font-size: 12px;
-    font-weight: 700;
-    color: #344054;
-}
-
-.cash-operation-tile-content small {
-    margin-top: 2px;
-    font-size: 11px;
-    color: #98a2b3;
-}
-
-.cash-operation-arrow {
-    color: #98a2b3;
-    font-size: 13px;
-}
-
-
-/* --------------------------------------------------------------------------
-   Tables
-   -------------------------------------------------------------------------- */
-
-.cash-drawer-table-card {
-    overflow: hidden;
-}
-
-.cash-drawer-table-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 18px 20px;
-    border-bottom: 1px solid #eaecf0;
-}
-
-.cash-drawer-table-title {
-    margin: 0;
-    font-size: 13px;
-    font-weight: 700;
-    color: #172033;
-}
-
-.cash-drawer-table-description {
-    margin: 4px 0 0;
-    font-size: 11px;
-    color: #98a2b3;
-}
-
-.cash-drawer-table-tools {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.cash-drawer-search {
-    position: relative;
-    width: 230px;
-}
-
-.cash-drawer-search > i {
-    position: absolute;
-    top: 50%;
-    left: 11px;
-    z-index: 2;
-    color: #98a2b3;
-    font-size: 13px;
-    transform: translateY(-50%);
-}
-
-.cash-drawer-search .form-control {
-    height: 36px;
-    padding-left: 32px;
-    border-color: #d0d5dd;
-    border-radius: 7px;
-    font-size: 12px;
-    box-shadow: none;
-}
-
-.cash-drawer-table-tools .form-select {
-    width: 135px;
-    height: 36px;
-    border-color: #d0d5dd;
-    border-radius: 7px;
-    font-size: 12px;
-    box-shadow: none;
-}
-
-.cash-drawer-search .form-control:focus,
-.cash-drawer-table-tools .form-select:focus {
-    border-color: #98a2b3;
-    box-shadow: 0 0 0 3px rgba(16, 24, 40, .05);
-}
-
-.cash-drawer-table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.cash-drawer-table {
-    min-width: 950px;
-}
-
-.cash-drawer-table thead th {
-    padding: 11px 16px;
-    white-space: nowrap;
-    border-bottom: 1px solid #eaecf0;
-    background: #f9fafb;
-    color: #667085;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .03em;
+    letter-spacing: .8px;
     text-transform: uppercase;
+
+    white-space: nowrap;
 }
 
-.cash-drawer-table tbody td {
-    padding: 13px 16px;
-    border-bottom: 1px solid #f2f4f7;
-    color: #344054;
-    font-size: 12px;
+.cash-drawer-page .table tbody td {
+    padding: 13px 14px;
+
+    border-color: #eef0f3;
+
     vertical-align: middle;
 }
 
-.cash-drawer-table tbody tr:last-child td {
-    border-bottom: 0;
+.cash-drawer-page .table tbody tr {
+    transition: background .15s ease;
 }
 
-.cash-drawer-table tbody tr:hover {
-    background: #fcfcfd;
+.cash-drawer-page .table tbody tr:hover {
+    background: #f8fafc;
 }
 
-.cash-drawer-pagination {
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 8px 16px;
-    border-top: 1px solid #eaecf0;
+
+/* ============================================================
+   20. TABLE BADGES
+   ============================================================ */
+
+.cash-drawer-page .badge {
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    font-size: 9px;
+    font-weight: 800;
 }
 
-.cash-drawer-empty-state {
-    height: 220px;
-    text-align: center !important;
-}
 
-.cash-drawer-empty-state > .empty-state-icon {
-    width: 44px;
-    height: 44px;
-    margin: 0 auto 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 11px;
-    color: #98a2b3;
-    background: #f2f4f7;
-    font-size: 18px;
-}
+/* ============================================================
+   21. FORMS
+   ============================================================ */
 
-.cash-drawer-empty-state strong {
-    display: block;
-    font-size: 13px;
-    color: #475467;
-}
+.cash-drawer-page .form-label {
+    margin-bottom: 6px;
 
-.cash-drawer-empty-state span {
-    display: block;
-    margin-top: 4px;
+    color: #374151;
+
     font-size: 11px;
-    color: #98a2b3;
-}
-
-
-/* --------------------------------------------------------------------------
-   Modals
-   -------------------------------------------------------------------------- */
-
-.cash-drawer-modal .modal-dialog {
-    max-width: 500px;
-}
-
-.cash-drawer-modal .modal-content {
-    overflow: hidden;
-    border: 0;
-    border-radius: 14px;
-    box-shadow: 0 20px 45px rgba(16, 24, 40, .16);
-}
-
-.cash-drawer-modal .modal-header {
-    padding: 18px 20px;
-    border-bottom: 1px solid #eaecf0;
-}
-
-.cash-modal-heading {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.cash-modal-icon {
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9px;
-}
-
-.cash-modal-icon.primary {
-    color: #175cd3;
-    background: #eff8ff;
-}
-
-.cash-modal-icon.success {
-    color: #067647;
-    background: #ecfdf3;
-}
-
-.cash-modal-icon.danger {
-    color: #b42318;
-    background: #fef3f2;
-}
-
-.cash-drawer-modal .modal-title {
-    font-size: 15px;
     font-weight: 700;
-    color: #172033;
 }
 
-.cash-drawer-modal .modal-body {
-    padding: 20px;
-}
+.cash-drawer-page .form-control,
+.cash-drawer-page .form-select {
+    min-height: 40px;
 
-.cash-drawer-modal .modal-footer {
-    padding: 14px 20px;
-    border-top: 1px solid #eaecf0;
-}
-
-.cash-modal-field {
-    margin-bottom: 18px;
-}
-
-.cash-modal-field .form-label {
-    margin-bottom: 7px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #344054;
-}
-
-.cash-modal-field .form-control {
-    min-height: 38px;
-    border-color: #d0d5dd;
+    border: 1px solid #dfe3e8;
     border-radius: 8px;
-    font-size: 13px;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-size: 12px;
+
     box-shadow: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
-.cash-modal-field .form-control:focus {
-    border-color: #98a2b3;
-    box-shadow: 0 0 0 3px rgba(16, 24, 40, .05);
+.cash-drawer-page .form-control:focus,
+.cash-drawer-page .form-select:focus {
+    border-color: var(--drawer-primary);
+
+    box-shadow: 0 0 0 3px rgba(37,99,235,.10);
 }
 
-.cash-modal-field textarea.form-control {
-    min-height: auto;
-}
 
-.cash-amount-input {
-    position: relative;
-}
+/* ============================================================
+   22. INPUT GROUPS
+   ============================================================ */
 
-.cash-amount-input > span {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    z-index: 2;
-    color: #667085;
-    font-size: 13px;
-    font-weight: 600;
-    transform: translateY(-50%);
-}
+.cash-drawer-page .input-group-text {
+    background: #f8fafc;
 
-.cash-amount-input .form-control {
-    padding-left: 30px;
-}
+    border-color: #dfe3e8;
 
-.cash-modal-cancel,
-.cash-modal-primary,
-.cash-modal-danger {
-    min-height: 36px;
-    padding: 7px 13px;
-    border-radius: 7px;
+    color: #6b7280;
+
     font-size: 12px;
+}
+
+
+/* ============================================================
+   23. MODALS
+   ============================================================ */
+
+.modal-content {
+    border: none !important;
+    border-radius: 15px !important;
+
+    box-shadow:
+        0 25px 70px rgba(15,23,42,.20) !important;
+
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 17px 20px;
+
+    background: #111827 !important;
+
+    color: #ffffff;
+
+    border-bottom: none !important;
+}
+
+.modal-title {
+    color: #ffffff !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+    opacity: .8;
+}
+
+.modal-body {
+    padding: 22px;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+
+    background: #f8fafc;
+
+    border-top: 1px solid var(--drawer-border);
+}
+
+
+/* ============================================================
+   24. MODAL BUTTONS
+   ============================================================ */
+
+.modal .btn {
+    min-height: 38px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   25. ALERTS
+   ============================================================ */
+
+.cash-drawer-page .alert,
+.modal .alert {
+    border-radius: 9px;
+
+    font-size: 11px;
+    border-width: 1px;
+}
+
+
+/* ============================================================
+   26. DROPDOWNS
+   ============================================================ */
+
+.cash-drawer-page .dropdown-menu,
+.modal .dropdown-menu {
+    padding: 6px;
+
+    border: 1px solid var(--drawer-border);
+    border-radius: 10px;
+
+    box-shadow: 0 12px 30px rgba(15,23,42,.12);
+}
+
+.cash-drawer-page .dropdown-item {
+    padding: 8px 10px;
+
+    border-radius: 6px;
+
+    color: #374151;
+
+    font-size: 11px;
     font-weight: 600;
 }
 
-.cash-modal-cancel {
-    color: #344054;
-    background: #fff;
-    border-color: #d0d5dd;
-}
-
-.cash-modal-primary {
-    color: #fff;
-    background: #1f2937;
-    border-color: #1f2937;
-}
-
-.cash-modal-danger {
-    color: #fff;
-    background: #b42318;
-    border-color: #b42318;
+.cash-drawer-page .dropdown-item:hover {
+    background: #eff6ff;
+    color: var(--drawer-primary);
 }
 
 
-/* --------------------------------------------------------------------------
-   Inspectors
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   27. PAGINATION
+   ============================================================ */
 
-.cash-drawer-inspector {
-    width: 440px !important;
-    border: 0;
-    box-shadow: -12px 0 30px rgba(16, 24, 40, .08);
+.cash-drawer-page .pagination {
+    margin-bottom: 0;
 }
 
-.cash-inspector-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 20px;
-    border-bottom: 1px solid #eaecf0;
-    background: #fff;
+.cash-drawer-page .page-link {
+    border-color: var(--drawer-border);
+
+    color: #4b5563;
+
+    font-size: 11px;
 }
 
-.cash-inspector-eyebrow {
-    margin-bottom: 4px;
+.cash-drawer-page .page-link:hover {
+    background: #eff6ff;
+    color: var(--drawer-primary);
+}
+
+.cash-drawer-page .page-item.active .page-link {
+    background: var(--drawer-primary);
+    border-color: var(--drawer-primary);
+}
+
+
+/* ============================================================
+   28. BUTTONS INSIDE CONTENT
+   ============================================================ */
+
+.cash-drawer-page .btn {
+    border-radius: 8px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    transition: all .2s ease;
+}
+
+.cash-drawer-page .btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   29. TEXT
+   ============================================================ */
+
+.cash-drawer-page small,
+.cash-drawer-page .small {
     font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    color: #98a2b3;
 }
 
-.cash-inspector-title {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 700;
-    color: #172033;
+.cash-drawer-page .text-muted {
+    color: #6b7280 !important;
 }
 
-.cash-inspector-subtitle {
-    margin-top: 3px;
+.cash-drawer-page strong {
+    font-weight: 750;
+}
+
+
+/* ============================================================
+   30. SCROLLBARS
+   ============================================================ */
+
+.cash-drawer-page ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+.cash-drawer-page ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.cash-drawer-page ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.cash-drawer-page ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* ============================================================
+   31. TOAST
+   ============================================================ */
+
+.toast-container {
+    z-index: 99999 !important;
+}
+
+.toast {
+    border: 1px solid var(--drawer-border) !important;
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 12px 30px rgba(15,23,42,.15) !important;
+
     font-size: 11px;
-    color: #98a2b3;
-}
-
-.cash-inspector-body {
-    padding: 20px;
-    background: #fff;
-}
-
-.cash-inspector-amount-card {
-    padding: 18px;
-    margin-bottom: 22px;
-    border: 1px solid #eaecf0;
-    border-radius: 11px;
-    background: #f9fafb;
-}
-
-.cash-inspector-amount-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .05em;
-    color: #98a2b3;
-    text-transform: uppercase;
-}
-
-.cash-inspector-amount {
-    margin-top: 6px;
-    font-size: 27px;
-    font-weight: 700;
-    color: #172033;
-}
-
-.cash-inspector-type {
-    margin-top: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #667085;
-}
-
-.cash-inspector-section {
-    margin-bottom: 24px;
-}
-
-.cash-inspector-section-title {
-    margin-bottom: 10px;
-    font-size: 11px;
-    font-weight: 700;
-    color: #667085;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-}
-
-.cash-inspector-balance-grid {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 10px;
-}
-
-.cash-inspector-balance-item {
-    padding: 12px;
-    border: 1px solid #eaecf0;
-    border-radius: 9px;
-}
-
-.cash-inspector-balance-item span {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 10px;
-    color: #98a2b3;
-}
-
-.cash-inspector-balance-item strong {
-    font-size: 13px;
-    color: #344054;
-}
-
-.cash-inspector-balance-arrow {
-    color: #98a2b3;
-}
-
-.cash-inspector-detail {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 10px 0;
-    border-bottom: 1px solid #f2f4f7;
-}
-
-.cash-inspector-detail:last-child {
-    border-bottom: 0;
-}
-
-.cash-inspector-detail span {
-    font-size: 11px;
-    color: #98a2b3;
-}
-
-.cash-inspector-detail strong {
-    max-width: 60%;
-    text-align: right;
-    font-size: 11px;
-    color: #344054;
-}
-
-.cash-inspector-remarks {
-    min-height: 70px;
-    padding: 12px;
-    border: 1px solid #eaecf0;
-    border-radius: 9px;
-    background: #f9fafb;
-    color: #667085;
-    font-size: 12px;
-    line-height: 1.6;
 }
 
 
-/* --------------------------------------------------------------------------
-   History Inspector
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   32. RESPONSIVE — TABLET
+   ============================================================ */
 
-.cash-history-summary {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    margin-bottom: 14px;
-}
+@media (max-width: 1100px) {
 
-.cash-history-summary-item {
-    padding: 12px;
-    border: 1px solid #eaecf0;
-    border-radius: 9px;
-}
-
-.cash-history-summary-item span {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 10px;
-    color: #98a2b3;
-}
-
-.cash-history-summary-item strong {
-    font-size: 13px;
-    color: #344054;
-}
-
-.cash-history-variance {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-    padding: 13px;
-    border-radius: 9px;
-    background: #f9fafb;
-}
-
-.cash-history-variance span {
-    font-size: 11px;
-    color: #667085;
-}
-
-.cash-history-variance strong {
-    font-size: 14px;
-    color: #344054;
-}
-
-
-/* --------------------------------------------------------------------------
-   Responsive
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 1199.98px) {
-
-    .current-drawer-card-inner {
-        flex-wrap: wrap;
+    .cashier-context {
+        gap: 12px;
     }
 
-    .current-drawer-divider {
+    .cashier-company-brand {
         display: none;
     }
 
-    .current-drawer-meta {
-        width: 100%;
-        flex-basis: 100%;
-    }
-
-    .current-drawer-actions {
-        width: 100%;
+    .cash-drawer-page {
+        padding: 22px 20px 40px !important;
     }
 
 }
 
 
-@media (max-width: 767.98px) {
+/* ============================================================
+   33. RESPONSIVE — MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    .cashier-topbar {
+        min-height: auto;
+        padding: 12px 15px;
+
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .cashier-topbar-left {
+        width: 100%;
+        gap: 12px;
+    }
+
+    .cashier-context-divider {
+        display: none;
+    }
+
+    .cashier-context {
+        display: none;
+    }
+
+    .cashier-topbar-right {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .cashier-drawer-status {
+        margin-right: auto;
+    }
+
+    .cashier-header-action span {
+        display: none;
+    }
+
+    .cashier-header-action {
+        width: 36px;
+        padding: 0;
+    }
+
+    .cash-drawer-page {
+        padding: 18px 14px 35px !important;
+    }
 
     .cash-drawer-page-header {
+        align-items: flex-start;
         flex-direction: column;
+        gap: 15px;
     }
 
     .cash-drawer-header-actions {
         width: 100%;
     }
 
-    .cash-drawer-header-actions .cash-drawer-btn {
+    .cash-drawer-btn {
         flex: 1;
     }
 
-    .current-drawer-card-inner {
-        padding: 18px;
+    .cash-drawer-title {
+        font-size: 22px !important;
     }
 
-    .current-drawer-main {
-        width: 100%;
+}
+
+
+/* ============================================================
+   34. RESPONSIVE — SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .cashier-brand-title {
+        font-size: 13px;
     }
 
-    .current-drawer-meta {
-        grid-template-columns: 1fr;
-        gap: 14px;
+    .cashier-brand-mark {
+        width: 36px;
+        height: 36px;
     }
 
-    .current-drawer-actions {
+    .cashier-topbar-right {
+        gap: 6px;
+    }
+
+    .cashier-drawer-status {
+        font-size: 10px;
+    }
+
+    .cash-drawer-title-row {
         flex-wrap: wrap;
     }
 
-    .current-drawer-actions .cash-drawer-operation-btn {
-        flex: 1;
+    .cash-drawer-page-header {
+        padding-bottom: 17px;
     }
 
-    .cash-operations-body {
-        grid-template-columns: 1fr;
+    .cash-drawer-btn {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
     }
 
-    .cash-drawer-table-header {
-        align-items: stretch;
-        flex-direction: column;
+}
+
+
+/* ============================================================
+   35. SMOOTH ANIMATIONS
+   ============================================================ */
+
+@keyframes drawerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
     }
 
-    .cash-drawer-table-tools {
-        width: 100%;
-        flex-direction: column;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cash-drawer-page > * {
+    animation: drawerFadeIn .35s ease both;
+}
+
+/* =========================================================
+   BALANCE POSITION
+   ========================================================= */
+
+.cash-drawer-page .balance-position-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 108px;
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+/* Subtle top accent */
+.cash-drawer-page .balance-position-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #2563eb;
+}
+
+/* Hover */
+.cash-drawer-page .balance-position-card:hover {
+    transform: translateY(-2px);
+    border-color: #d1d5db;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.10);
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.cash-drawer-page .balance-position-icon {
+    flex: 0 0 50px;
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 21px;
+}
+
+/* Refund */
+.cash-drawer-page .balance-position-icon.refund {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+/* Expected balance */
+.cash-drawer-page .balance-position-card.expected
+.balance-position-icon {
+    background: #fff7ed;
+    color: #d97706;
+}
+
+/* Current balance */
+.cash-drawer-page .balance-position-card.current
+.balance-position-icon {
+    background: #ecfdf5;
+    color: #16a34a;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.cash-drawer-page .balance-position-content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.cash-drawer-page .balance-position-label {
+    display: block;
+    margin: 0;
+
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   VALUE
+   ========================================================= */
+
+.cash-drawer-page .balance-position-value {
+    display: block;
+    margin: 0;
+
+    color: #111827;
+    font-size: 22px;
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+/* Refund amount */
+.cash-drawer-page .balance-position-card:has(
+    .balance-position-icon.refund
+) .balance-position-value {
+    color: #dc2626;
+}
+
+/* Expected amount */
+.cash-drawer-page .balance-position-card.expected
+.balance-position-value {
+    color: #b45309;
+}
+
+/* Current amount */
+.cash-drawer-page .balance-position-card.current
+.balance-position-value {
+    color: #15803d;
+}
+
+
+/* =========================================================
+   COLUMN ALIGNMENT
+   ========================================================= */
+
+.cash-drawer-page .row.g-3 > [class*="col-lg-4"] {
+    display: flex;
+}
+
+.cash-drawer-page .row.g-3 > [class*="col-lg-4"]
+.balance-position-card {
+    width: 100%;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991.98px) {
+
+    .cash-drawer-page .balance-position-card {
+        min-height: 100px;
+        padding: 18px 20px;
     }
 
-    .cash-drawer-search,
-    .cash-drawer-table-tools .form-select {
-        width: 100%;
-    }
-
-    .cash-drawer-inspector {
-        width: 100% !important;
+    .cash-drawer-page .balance-position-value {
+        font-size: 20px;
     }
 
 }
@@ -1158,218 +1241,2029 @@
 
 @media (max-width: 575.98px) {
 
-    .cash-drawer-title {
-        font-size: 21px;
+    .cash-drawer-page .row.g-3 {
+        --bs-gutter-y: 12px;
     }
 
-    .cash-drawer-kpi-card {
-        padding: 15px;
+    .cash-drawer-page .balance-position-card {
+        min-height: 92px;
+        padding: 16px 18px;
+        gap: 13px;
+        border-radius: 12px;
     }
 
-    .balance-position-card {
-        min-height: 78px;
+    .cash-drawer-page .balance-position-icon {
+        flex-basis: 44px;
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        font-size: 18px;
+    }
+
+    .cash-drawer-page .balance-position-label {
+        font-size: 11px;
+    }
+
+    .cash-drawer-page .balance-position-value {
+        font-size: 18px;
     }
 
 }
 
-.cash-drawer-kpi-info {
-    margin-top: 4px;
+/* =========================================================
+   CASH OPERATIONS — BOTTOM RIGHT FLOATING PANEL
+   ========================================================= */
+
+.cash-drawer-page .cash-operations-sticky {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+
+    z-index: 1030;
+
+    width: 320px;
+    max-width: calc(100vw - 48px);
+
+    margin: 0;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+
+    box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.16),
+        0 4px 12px rgba(15, 23, 42, 0.08);
+
+    overflow: hidden;
+
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.cash-drawer-page .cash-operations-sticky:hover {
+    box-shadow:
+        0 20px 48px rgba(15, 23, 42, 0.20),
+        0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.cash-drawer-page .cash-operations-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 68px;
+
+    margin: 0;
+    padding: 12px 14px 12px 16px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.cash-drawer-page .cash-operations-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.cash-drawer-page .cash-operations-icon {
+    flex: 0 0 40px;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.cash-drawer-page .cash-operations-title {
+    margin: 0 0 2px;
+
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.cash-drawer-page .cash-operations-description {
+    color: #6b7280;
+
     font-size: 11px;
-    line-height: 1.4;
-    color: #8a94a6;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   CHEVRON
+   ========================================================= */
+
+.cash-drawer-page .cash-operations-toggle-icon {
+    flex: 0 0 30px;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #f3f4f6;
+    color: #6b7280;
+
+    font-size: 12px;
+
+    transition:
+        transform 0.25s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* Open */
+.cash-drawer-page
+.cash-operations-toggle-input:checked
++ .cash-operations-header
+.cash-operations-toggle-icon {
+    transform: rotate(180deg);
+
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   ACTION BODY
+   ========================================================= */
+
+.cash-drawer-page .cash-operations-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    max-height: 0;
+
+    padding: 0 12px;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    transition:
+        max-height 0.3s ease,
+        opacity 0.2s ease,
+        padding 0.3s ease;
+}
+
+
+/* =========================================================
+   OPEN STATE
+   ========================================================= */
+
+.cash-drawer-page
+.cash-operations-toggle-input:checked
+~ .cash-operations-body {
+    max-height: 180px;
+
+    padding: 0 12px 12px;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   ACTION BUTTON
+   ========================================================= */
+
+.cash-drawer-page .cash-operation-tile {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-height: 58px;
+
+    padding: 10px 11px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 11px;
+
+    background: #ffffff;
+
+    text-align: left;
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =========================================================
+   ACTION ICON
+   ========================================================= */
+
+.cash-drawer-page .cash-operation-tile-icon {
+    flex: 0 0 36px;
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   CASH IN
+   ========================================================= */
+
+.cash-drawer-page .cash-operation-tile-in {
+    border-color: #d1fae5;
+}
+
+.cash-drawer-page .cash-operation-tile-in
+.cash-operation-tile-icon {
+    background: #ecfdf5;
+    color: #16a34a;
+}
+
+.cash-drawer-page .cash-operation-tile-in:hover:not(:disabled) {
+    background: #f0fdf4;
+    border-color: #86efac;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 5px 14px rgba(22, 163, 74, 0.10);
+}
+
+
+/* =========================================================
+   CASH OUT
+   ========================================================= */
+
+.cash-drawer-page .cash-operation-tile-out {
+    border-color: #fee2e2;
+}
+
+.cash-drawer-page .cash-operation-tile-out
+.cash-operation-tile-icon {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.cash-drawer-page .cash-operation-tile-out:hover:not(:disabled) {
+    background: #fef2f2;
+    border-color: #fca5a5;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 5px 14px rgba(220, 38, 38, 0.10);
+}
+
+
+/* =========================================================
+   BUTTON CONTENT
+   ========================================================= */
+
+.cash-drawer-page .cash-operation-tile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    flex: 1;
+    min-width: 0;
+}
+
+.cash-drawer-page .cash-operation-tile-content strong {
+    color: #111827;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.cash-drawer-page .cash-operation-tile-content small {
+    color: #6b7280;
+
+    font-size: 10px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   ARROW
+   ========================================================= */
+
+.cash-drawer-page .cash-operation-arrow {
+    flex: 0 0 auto;
+
+    margin-left: 8px;
+
+    color: #9ca3af;
+
+    font-size: 11px;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+.cash-drawer-page .cash-operation-tile:hover:not(:disabled)
+.cash-operation-arrow {
+    color: #2563eb;
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   DISABLED
+   ========================================================= */
+
+.cash-drawer-page .cash-operation-tile:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 575.98px) {
+
+    .cash-drawer-page .cash-operations-sticky {
+        right: 12px;
+        bottom: 12px;
+
+        width: calc(100vw - 24px);
+        max-width: none;
+
+        border-radius: 14px;
+    }
+
+}
+
+/* =========================================================
+   CURRENT DRAWER CARD
+   ========================================================= */
+
+.cash-drawer-page .current-drawer-card {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(15, 23, 42, 0.07);
+    overflow: hidden;
+}
+
+.cash-drawer-page .current-drawer-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 150px;
+    padding: 24px 26px;
+}
+
+/* ---------------------------------------------------------
+   LEFT: DRAWER / TERMINAL INFORMATION
+   --------------------------------------------------------- */
+
+.cash-drawer-page .current-drawer-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1 1 auto;
+    min-width: 260px;
+}
+
+.cash-drawer-page .current-drawer-icon {
+    flex: 0 0 54px;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 22px;
+}
+
+.cash-drawer-page .current-drawer-context {
+    min-width: 0;
+}
+
+.cash-drawer-page .current-drawer-label {
+    margin-bottom: 4px;
+    color: #6b7280;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+}
+
+.cash-drawer-page .current-drawer-terminal {
+    color: #111827;
+    font-size: 17px;
+    font-weight: 750;
+    line-height: 1.3;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-
-/*
-|--------------------------------------------------------------------------
-| Floating Cash Operations
-|--------------------------------------------------------------------------
-*/
-
-.cash-operations-sticky {
-
-    position: fixed;
-
-    right: 24px;
-
-    bottom: 24px;
-
-    width: 280px;
-
-    z-index: 1040;
-
-    margin: 0;
-
-    border-radius: 14px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 12px 35px rgba(15, 23, 42, 0.14);
-
+.cash-drawer-page .current-drawer-branch {
+    margin-top: 3px;
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 500;
 }
 
+/* ---------------------------------------------------------
+   DIVIDER
+   --------------------------------------------------------- */
 
-/*
-|--------------------------------------------------------------------------
-| Toggle Input
-|--------------------------------------------------------------------------
-*/
-
-.cash-operations-toggle-input {
-
-    position: absolute;
-
-    opacity: 0;
-
-    pointer-events: none;
-
+.cash-drawer-page .current-drawer-divider {
+    flex: 0 0 1px;
+    align-self: stretch;
+    width: 1px;
+    min-height: 70px;
+    background: #e5e7eb;
 }
 
+/* ---------------------------------------------------------
+   DRAWER META INFORMATION
+   --------------------------------------------------------- */
 
-/*
-|--------------------------------------------------------------------------
-| Header
-|--------------------------------------------------------------------------
-*/
-
-.cash-operations-sticky
-.cash-operations-header {
-
+.cash-drawer-page .current-drawer-meta {
     display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    width: 100%;
-
-    padding: 14px 16px;
-
-    cursor: pointer;
-
-    user-select: none;
-
-    margin: 0;
-
+    align-items: stretch;
+    gap: 0;
+    flex: 0 1 auto;
 }
 
-
-/*
-|--------------------------------------------------------------------------
-| Toggle Icon
-|--------------------------------------------------------------------------
-*/
-
-.cash-operations-toggle-icon {
-
-    transition:
-        transform 0.25s ease;
-
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| Operations Body
-|--------------------------------------------------------------------------
-*/
-
-.cash-operations-sticky
-.cash-operations-body {
-
+.cash-drawer-page .drawer-meta-item {
+    min-width: 145px;
+    padding: 0 22px;
     display: flex;
-
     flex-direction: column;
+    justify-content: center;
+}
 
+.cash-drawer-page .drawer-meta-item:first-child {
+    padding-left: 0;
+}
+
+.cash-drawer-page .drawer-meta-item + .drawer-meta-item {
+    border-left: 1px solid #e5e7eb;
+}
+
+.cash-drawer-page .drawer-meta-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #6b7280;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.cash-drawer-page .drawer-meta-value {
+    display: block;
+    margin: 0;
+    color: #111827;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.cash-drawer-page .drawer-meta-secondary {
+    display: block;
+    margin-top: 3px;
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.cash-drawer-page .drawer-meta-amount {
+    color: #111827;
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.cash-drawer-page .drawer-meta-current {
+    min-width: 170px;
+}
+
+.cash-drawer-page .drawer-meta-current .drawer-meta-amount {
+    color: #15803d;
+    font-size: 18px;
+}
+
+/* ---------------------------------------------------------
+   ACTION BUTTONS
+   --------------------------------------------------------- */
+
+.cash-drawer-page .current-drawer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     gap: 8px;
+    flex: 0 0 auto;
+}
 
-    max-height: 0;
-
-    overflow: hidden;
-
-    opacity: 0;
-
-    padding: 0 12px;
-
+.cash-drawer-page .cash-drawer-operation-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 8px 13px;
+    border-radius: 9px;
+    border: 1px solid transparent;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
     transition:
-        max-height 0.25s ease,
-        opacity 0.2s ease,
-        padding 0.25s ease;
-
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-
-/*
-|--------------------------------------------------------------------------
-| Expanded
-|--------------------------------------------------------------------------
-*/
-
-.cash-operations-toggle-input:checked
-~ .cash-operations-body {
-
-    max-height: 300px;
-
-    opacity: 1;
-
-    padding-top: 0;
-
-    padding-bottom: 12px;
-
+.cash-drawer-page .cash-drawer-operation-btn i {
+    font-size: 14px;
 }
 
+/* Cash In */
 
-/*
-|--------------------------------------------------------------------------
-| Expanded Icon
-|--------------------------------------------------------------------------
-*/
-
-.cash-operations-toggle-input:checked
-~ .cash-operations-header
-.cash-operations-toggle-icon {
-
-    transform: rotate(180deg);
-
+.cash-drawer-page .cash-drawer-operation-in {
+    background: #ecfdf5;
+    border-color: #bbf7d0;
+    color: #15803d;
 }
 
-
-/*
-|--------------------------------------------------------------------------
-| Operation Tiles
-|--------------------------------------------------------------------------
-*/
-
-.cash-operations-sticky
-.cash-operation-tile {
-
-    width: 100%;
-
+.cash-drawer-page .cash-drawer-operation-in:hover {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #166534;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(22, 163, 74, 0.12);
 }
 
+/* Cash Out */
 
-/*
-|--------------------------------------------------------------------------
-| Mobile
-|--------------------------------------------------------------------------
-*/
+.cash-drawer-page .cash-drawer-operation-out {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #dc2626;
+}
 
-@media (max-width: 767.98px) {
+.cash-drawer-page .cash-drawer-operation-out:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #b91c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(220, 38, 38, 0.12);
+}
 
-    .cash-operations-sticky {
+/* Close Drawer */
 
-        left: 12px;
+.cash-drawer-page .cash-drawer-operation-close {
+    background: #111827;
+    border-color: #111827;
+    color: #ffffff;
+}
 
-        right: 12px;
+.cash-drawer-page .cash-drawer-operation-close:hover {
+    background: #1f2937;
+    border-color: #1f2937;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(17, 24, 39, 0.18);
+}
 
-        bottom: 12px;
+/* ---------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------- */
 
-        width: auto;
-
+@media (max-width: 1199.98px) {
+    .cash-drawer-page .current-drawer-card-inner {
+        flex-wrap: wrap;
+        gap: 18px;
     }
 
+    .cash-drawer-page .current-drawer-main {
+        flex: 1 1 260px;
+    }
+
+    .cash-drawer-page .current-drawer-divider {
+        display: none;
+    }
+
+    .cash-drawer-page .current-drawer-meta {
+        flex: 1 1 100%;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 18px;
+    }
+
+    .cash-drawer-page .current-drawer-actions {
+        margin-left: auto;
+    }
 }
+
+@media (max-width: 767.98px) {
+    .cash-drawer-page .current-drawer-card-inner {
+        display: block;
+        padding: 20px;
+    }
+
+    .cash-drawer-page .current-drawer-main {
+        margin-bottom: 20px;
+    }
+
+    .cash-drawer-page .current-drawer-meta {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        padding-top: 18px;
+    }
+
+    .cash-drawer-page .drawer-meta-item {
+        min-width: 0;
+        padding: 0 14px;
+    }
+
+    .cash-drawer-page .drawer-meta-item:first-child {
+        padding-left: 0;
+    }
+
+    .cash-drawer-page .drawer-meta-current {
+        min-width: 0;
+    }
+
+    .cash-drawer-page .current-drawer-actions {
+        justify-content: flex-start;
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid #e5e7eb;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .cash-drawer-page .current-drawer-card-inner {
+        padding: 17px;
+    }
+
+    .cash-drawer-page .current-drawer-icon {
+        flex-basis: 46px;
+        width: 46px;
+        height: 46px;
+        border-radius: 11px;
+        font-size: 19px;
+    }
+
+    .cash-drawer-page .current-drawer-terminal {
+        font-size: 15px;
+    }
+
+    .cash-drawer-page .current-drawer-meta {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .cash-drawer-page .drawer-meta-item,
+    .cash-drawer-page .drawer-meta-item:first-child {
+        padding: 0;
+    }
+
+    .cash-drawer-page .drawer-meta-item + .drawer-meta-item {
+        padding-top: 14px;
+        border-top: 1px solid #e5e7eb;
+        border-left: 0;
+    }
+
+    .cash-drawer-page .current-drawer-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cash-drawer-page .cash-drawer-operation-btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   FINANCIAL OVERVIEW
+   ========================================================= */
+
+.cash-drawer-page .cash-drawer-section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 0 0 14px;
+}
+
+.cash-drawer-page .cash-drawer-section-title {
+    margin: 0;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 1.3;
+}
+
+.cash-drawer-page .cash-drawer-section-description {
+    margin: 4px 0 0;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* ---------------------------------------------------------
+   KPI CARD
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-kpi-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 164px;
+    height: 100%;
+    padding: 17px 17px 15px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cash-drawer-page .cash-drawer-kpi-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #2563eb;
+}
+
+.cash-drawer-page .cash-drawer-kpi-card:hover {
+    transform: translateY(-2px);
+    border-color: #d1d5db;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.09);
+}
+
+/* ---------------------------------------------------------
+   KPI TOP
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-kpi-top {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.cash-drawer-page .cash-drawer-kpi-icon {
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 15px;
+}
+
+.cash-drawer-page .cash-drawer-kpi-icon.sales {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+.cash-drawer-page .cash-drawer-kpi-icon.cash-in {
+    background: #ecfdf5;
+    color: #16a34a;
+}
+
+.cash-drawer-page .cash-drawer-kpi-icon.cash-out {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.cash-drawer-page .cash-drawer-kpi-label {
+    color: #4b5563;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* ---------------------------------------------------------
+   KPI VALUE
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-kpi-value {
+    margin-top: 17px;
+    color: #111827;
+    font-size: 20px;
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+/* Cash sales */
+
+.cash-drawer-page .cash-drawer-kpi-card:has(
+    .cash-drawer-kpi-icon.sales
+) .cash-drawer-kpi-value {
+    color: #6d28d9;
+}
+
+/* Cash In */
+
+.cash-drawer-page .cash-drawer-kpi-card:has(
+    .cash-drawer-kpi-icon.cash-in
+) .cash-drawer-kpi-value {
+    color: #15803d;
+}
+
+/* Cash Out */
+
+.cash-drawer-page .cash-drawer-kpi-card:has(
+    .cash-drawer-kpi-icon.cash-out
+) .cash-drawer-kpi-value {
+    color: #dc2626;
+}
+
+/* ---------------------------------------------------------
+   KPI INFORMATION
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-kpi-info {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    margin-top: 7px;
+    padding: 3px 7px;
+    border-radius: 6px;
+    background: #f3f4f6;
+    color: #6b7280;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.cash-drawer-page .cash-drawer-kpi-info:empty {
+    display: none;
+}
+
+/* ---------------------------------------------------------
+   KPI CAPTION
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-kpi-caption {
+    margin-top: auto;
+    padding-top: 12px;
+    color: #9ca3af;
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* ---------------------------------------------------------
+   BOOTSTRAP COLUMN EQUAL HEIGHT
+   --------------------------------------------------------- */
+
+.cash-drawer-page .row.row-cols-5 > .col {
+    display: flex;
+}
+
+.cash-drawer-page .row.row-cols-5 > .col
+.cash-drawer-kpi-card {
+    width: 100%;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------- */
+
+@media (max-width: 1199.98px) {
+    .cash-drawer-page .row.row-cols-5 {
+        --bs-columns: 3;
+    }
+
+    .cash-drawer-page .cash-drawer-kpi-card {
+        min-height: 155px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .cash-drawer-page .row.row-cols-5 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cash-drawer-page .cash-drawer-kpi-value {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .cash-drawer-page .cash-drawer-section-heading {
+        margin-bottom: 12px;
+    }
+
+    .cash-drawer-page .cash-drawer-section-title {
+        font-size: 14px;
+    }
+
+    .cash-drawer-page .cash-drawer-section-description {
+        font-size: 10px;
+    }
+
+    .cash-drawer-page .row.row-cols-5 {
+        grid-template-columns: 1fr;
+    }
+
+    .cash-drawer-page .cash-drawer-kpi-card {
+        min-height: 140px;
+        padding: 15px;
+    }
+
+    .cash-drawer-page .cash-drawer-kpi-value {
+        margin-top: 14px;
+        font-size: 19px;
+    }
+}
+
+/* =========================================================
+   DRAWER HISTORY TABLE
+   ========================================================= */
+
+.cash-drawer-page .cash-drawer-table-card {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   TABLE HEADER
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 20px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.cash-drawer-page .cash-drawer-table-title {
+    margin: 0;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 1.3;
+}
+
+.cash-drawer-page .cash-drawer-table-description {
+    margin: 4px 0 0;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* ---------------------------------------------------------
+   TABLE TOOLS / SEARCH
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-table-tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+}
+
+.cash-drawer-page .cash-drawer-search {
+    position: relative;
+    width: 245px;
+}
+
+.cash-drawer-page .cash-drawer-search > i {
+    position: absolute;
+    top: 50%;
+    left: 11px;
+    z-index: 2;
+    color: #9ca3af;
+    font-size: 13px;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.cash-drawer-page .cash-drawer-search .form-control {
+    width: 100%;
+    height: 36px;
+    padding: 7px 11px 7px 32px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    color: #111827;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cash-drawer-page .cash-drawer-search .form-control::placeholder {
+    color: #9ca3af;
+    opacity: 1;
+}
+
+.cash-drawer-page .cash-drawer-search .form-control:hover {
+    background: #ffffff;
+    border-color: #d1d5db;
+}
+
+.cash-drawer-page .cash-drawer-search .form-control:focus {
+    background: #ffffff;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+    outline: none;
+}
+
+/* ---------------------------------------------------------
+   TABLE WRAPPER
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.cash-drawer-page .cash-drawer-table {
+    width: 100%;
+    min-width: 900px;
+    margin: 0;
+    color: #111827;
+    font-size: 11px;
+    vertical-align: middle;
+}
+
+.cash-drawer-page .cash-drawer-table > :not(caption) > * > * {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f1f3f5;
+    background: #ffffff;
+}
+
+/* ---------------------------------------------------------
+   TABLE HEADER CELLS
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-table thead th {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+    color: #6b7280;
+    font-size: 9px;
+    font-weight: 750;
+    line-height: 1.3;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.cash-drawer-page .cash-drawer-table thead th:first-child {
+    padding-left: 20px;
+}
+
+.cash-drawer-page .cash-drawer-table thead th:last-child {
+    padding-right: 20px;
+}
+
+/* ---------------------------------------------------------
+   TABLE BODY
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.cash-drawer-page .cash-drawer-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.cash-drawer-page .cash-drawer-table tbody tr:hover > td {
+    background: #f8fafc;
+}
+
+.cash-drawer-page .cash-drawer-table tbody td {
+    color: #4b5563;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.cash-drawer-page .cash-drawer-table tbody td:first-child {
+    padding-left: 20px;
+    color: #111827;
+    font-weight: 700;
+}
+
+.cash-drawer-page .cash-drawer-table tbody td:last-child {
+    padding-right: 20px;
+}
+
+/* ---------------------------------------------------------
+   EMPTY STATE
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-empty-state {
+    height: 220px;
+    padding: 35px 20px !important;
+    text-align: center;
+    vertical-align: middle;
+    white-space: normal !important;
+}
+
+.cash-drawer-page .cash-drawer-empty-state .empty-state-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 20px;
+}
+
+.cash-drawer-page .cash-drawer-empty-state strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #374151;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.cash-drawer-page .cash-drawer-empty-state span {
+    display: block;
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* ---------------------------------------------------------
+   PAGINATION
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 52px;
+    padding: 9px 20px;
+    background: #ffffff;
+    border-top: 1px solid #f1f3f5;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------- */
+
+@media (max-width: 767.98px) {
+    .cash-drawer-page .cash-drawer-table-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 13px;
+        padding: 16px;
+    }
+
+    .cash-drawer-page .cash-drawer-table-tools {
+        width: 100%;
+    }
+
+    .cash-drawer-page .cash-drawer-search {
+        width: 100%;
+    }
+
+    .cash-drawer-page .cash-drawer-table thead th:first-child,
+    .cash-drawer-page .cash-drawer-table tbody td:first-child {
+        padding-left: 16px;
+    }
+
+    .cash-drawer-page .cash-drawer-table thead th:last-child,
+    .cash-drawer-page .cash-drawer-table tbody td:last-child {
+        padding-right: 16px;
+    }
+
+    .cash-drawer-page .cash-drawer-pagination {
+        justify-content: center;
+        padding: 9px 16px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .cash-drawer-page .cash-drawer-table-card {
+        border-radius: 12px;
+    }
+
+    .cash-drawer-page .cash-drawer-table-title {
+        font-size: 14px;
+    }
+
+    .cash-drawer-page .cash-drawer-table-description {
+        font-size: 10px;
+    }
+
+    .cash-drawer-page .cash-drawer-empty-state {
+        height: 190px;
+    }
+}
+
+
+/* =========================================================
+   CASH TRANSACTIONS TABLE
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   TABLE TOOLS
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-table-tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+/* ---------------------------------------------------------
+   TRANSACTION SEARCH
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-table-tools .cash-drawer-search {
+    position: relative;
+    width: 220px;
+    flex: 0 0 220px;
+}
+
+.cash-drawer-page .cash-drawer-table-tools .cash-drawer-search > i {
+    position: absolute;
+    top: 50%;
+    left: 11px;
+    z-index: 2;
+    color: #9ca3af;
+    font-size: 13px;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.cash-drawer-page .cash-drawer-table-tools .cash-drawer-search .form-control {
+    width: 100%;
+    height: 36px;
+    padding: 7px 11px 7px 32px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    color: #111827;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cash-drawer-page .cash-drawer-table-tools
+.cash-drawer-search .form-control::placeholder {
+    color: #9ca3af;
+}
+
+.cash-drawer-page .cash-drawer-table-tools
+.cash-drawer-search .form-control:hover {
+    background: #ffffff;
+    border-color: #d1d5db;
+}
+
+.cash-drawer-page .cash-drawer-table-tools
+.cash-drawer-search .form-control:focus {
+    background: #ffffff;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+    outline: none;
+}
+
+/* ---------------------------------------------------------
+   TRANSACTION TYPE FILTER
+   --------------------------------------------------------- */
+
+.cash-drawer-page .cash-drawer-table-tools .form-select {
+    width: 125px;
+    height: 36px;
+    padding: 7px 30px 7px 10px;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    color: #374151;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 600;
+    box-shadow: none;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cash-drawer-page .cash-drawer-table-tools .form-select:hover {
+    background-color: #ffffff;
+    border-color: #d1d5db;
+}
+
+.cash-drawer-page .cash-drawer-table-tools .form-select:focus {
+    background-color: #ffffff;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+    outline: none;
+}
+
+/* ---------------------------------------------------------
+   TRANSACTION TABLE
+   --------------------------------------------------------- */
+
+.cash-drawer-page #cash-drawer-transactions-table {
+    min-width: 850px;
+}
+
+/* Keep transaction type readable */
+
+.cash-drawer-page #cash-drawer-transactions-table
+tbody td:first-child {
+    color: #111827;
+    font-weight: 700;
+}
+
+/* Amount and balance columns */
+
+.cash-drawer-page #cash-drawer-transactions-table
+tbody td:nth-child(3),
+.cash-drawer-page #cash-drawer-transactions-table
+tbody td:nth-child(4) {
+    color: #111827;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Reference column */
+
+.cash-drawer-page #cash-drawer-transactions-table
+tbody td:nth-child(2) {
+    color: #6b7280;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+/* Date column */
+
+.cash-drawer-page #cash-drawer-transactions-table
+tbody td:nth-child(6) {
+    color: #6b7280;
+    font-size: 10px;
+}
+
+/* ---------------------------------------------------------
+   TRANSACTION TYPE COLORS
+   --------------------------------------------------------- */
+
+/*
+ * These styles will also work when your JavaScript adds
+ * the corresponding classes to transaction type elements.
+ */
+
+.cash-drawer-page .cash-transaction-sale {
+    color: #15803d;
+}
+
+.cash-drawer-page .cash-transaction-in {
+    color: #15803d;
+}
+
+.cash-drawer-page .cash-transaction-out {
+    color: #dc2626;
+}
+
+.cash-drawer-page .cash-transaction-refund {
+    color: #d97706;
+}
+
+/* ---------------------------------------------------------
+   EMPTY STATE
+   --------------------------------------------------------- */
+
+.cash-drawer-page #cash-drawer-transactions-body
+.cash-drawer-empty-state {
+    height: 220px;
+    padding: 35px 20px !important;
+    text-align: center;
+    vertical-align: middle;
+    white-space: normal !important;
+}
+
+.cash-drawer-page #cash-drawer-transactions-body
+.empty-state-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 20px;
+}
+
+.cash-drawer-page #cash-drawer-transactions-body
+.cash-drawer-empty-state strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #374151;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.cash-drawer-page #cash-drawer-transactions-body
+.cash-drawer-empty-state span {
+    display: block;
+    max-width: 360px;
+    margin: 0 auto;
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* ---------------------------------------------------------
+   PAGINATION
+   --------------------------------------------------------- */
+
+.cash-drawer-page #transactions-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 52px;
+    padding: 9px 20px;
+    background: #ffffff;
+    border-top: 1px solid #f1f3f5;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------- */
+
+@media (max-width: 767.98px) {
+    .cash-drawer-page .cash-drawer-table-tools {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .cash-drawer-page .cash-drawer-table-tools
+    .cash-drawer-search {
+        flex: 1 1 180px;
+        width: auto;
+    }
+
+    .cash-drawer-page .cash-drawer-table-tools .form-select {
+        flex: 0 0 125px;
+    }
+
+    .cash-drawer-page #transactions-pagination {
+        justify-content: center;
+        padding: 9px 16px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .cash-drawer-page .cash-drawer-table-tools {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cash-drawer-page .cash-drawer-table-tools
+    .cash-drawer-search {
+        width: 100%;
+        flex: none;
+    }
+
+    .cash-drawer-page .cash-drawer-table-tools .form-select {
+        width: 100%;
+        flex: none;
+    }
+
+    .cash-drawer-page #cash-drawer-transactions-table {
+        min-width: 800px;
+    }
+}
+
+#cashDrawerInspector.cash-drawer-inspector {
+    width: 430px;
+    max-width: 92vw;
+    background: #f8fafc;
+    border-left: 1px solid #e5e7eb;
+    box-shadow: -12px 0 35px rgba(15, 23, 42, 0.14);
+}
+
+#cashDrawerInspector .cash-inspector-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px;
+    background: #111827;
+    border-bottom: 1px solid #1f2937;
+}
+
+#cashDrawerInspector .cash-inspector-eyebrow {
+    margin-bottom: 5px;
+    color: #93c5fd;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+#cashDrawerInspector .cash-inspector-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#cashDrawerInspector .cash-inspector-subtitle {
+    margin-top: 5px;
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+#cashDrawerInspector .cash-inspector-header .btn-close {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+#cashDrawerInspector .cash-inspector-header .btn-close:hover {
+    opacity: 1;
+}
+
+#cashDrawerInspector .cash-inspector-body {
+    padding: 20px;
+    background: #f8fafc;
+}
+
+/* Summary */
+#cashDrawerInspector .cash-history-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+#cashDrawerInspector .cash-history-summary-item {
+    padding: 14px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+#cashDrawerInspector .cash-history-summary-item span {
+    display: block;
+    margin-bottom: 6px;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#cashDrawerInspector .cash-history-summary-item strong {
+    display: block;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Variance */
+#cashDrawerInspector .cash-history-variance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+#cashDrawerInspector .cash-history-variance span {
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#cashDrawerInspector .cash-history-variance strong {
+    color: #2563eb;
+    font-size: 16px;
+    font-weight: 750;
+}
+
+/* Sections */
+#cashDrawerInspector .cash-inspector-section {
+    margin-bottom: 18px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+#cashDrawerInspector .cash-inspector-section-title {
+    margin-bottom: 12px;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Details */
+#cashDrawerInspector .cash-inspector-detail {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+#cashDrawerInspector .cash-inspector-detail:first-of-type {
+    padding-top: 0;
+}
+
+#cashDrawerInspector .cash-inspector-detail:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+#cashDrawerInspector .cash-inspector-detail span {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+#cashDrawerInspector .cash-inspector-detail strong {
+    max-width: 60%;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 650;
+    text-align: right;
+}
+
+/* Remarks */
+#cashDrawerInspector .cash-inspector-remarks {
+    min-height: 70px;
+    padding: 12px;
+    color: #4b5563;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Mobile */
+@media (max-width: 575.98px) {
+    #cashDrawerInspector.cash-drawer-inspector {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #cashDrawerInspector .cash-inspector-header {
+        padding: 18px;
+    }
+
+    #cashDrawerInspector .cash-inspector-body {
+        padding: 16px;
+    }
+
+    #cashDrawerInspector .cash-history-summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   TRANSACTION INSPECTOR
+   ========================================================= */
+
+#cashDrawerTransactionInspector.cash-drawer-inspector {
+    width: 430px;
+    max-width: 92vw;
+    background: #f8fafc;
+    border-left: 1px solid #e5e7eb;
+    box-shadow: -12px 0 35px rgba(15, 23, 42, 0.14);
+}
+
+#cashDrawerTransactionInspector .cash-inspector-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px;
+    background: #111827;
+    border-bottom: 1px solid #1f2937;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-eyebrow {
+    margin-bottom: 5px;
+    color: #93c5fd;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-subtitle {
+    margin-top: 5px;
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-header .btn-close {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-header .btn-close:hover {
+    opacity: 1;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-body {
+    padding: 20px;
+    background: #f8fafc;
+}
+
+/* Transaction Amount */
+#cashDrawerTransactionInspector .cash-inspector-amount-card {
+    margin-bottom: 18px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    text-align: center;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-amount-label {
+    margin-bottom: 7px;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-amount {
+    color: #111827;
+    font-size: 28px;
+    font-weight: 750;
+    line-height: 1.2;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-type {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 9px;
+    padding: 5px 10px;
+    color: #2563eb;
+    background: #eff6ff;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* Sections */
+#cashDrawerTransactionInspector .cash-inspector-section {
+    margin-bottom: 18px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-section-title {
+    margin-bottom: 12px;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Balance Movement */
+#cashDrawerTransactionInspector .cash-inspector-balance-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 10px;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-balance-item {
+    min-width: 0;
+    padding: 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-balance-item span {
+    display: block;
+    margin-bottom: 5px;
+    color: #6b7280;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-balance-item strong {
+    display: block;
+    color: #111827;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-balance-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+/* Details */
+#cashDrawerTransactionInspector .cash-inspector-detail {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-detail:first-child {
+    padding-top: 0;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-detail:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-detail span {
+    flex: 0 0 auto;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+#cashDrawerTransactionInspector .cash-inspector-detail strong {
+    max-width: 60%;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 650;
+    text-align: right;
+}
+
+/* Remarks */
+#cashDrawerTransactionInspector .cash-inspector-remarks {
+    min-height: 70px;
+    padding: 12px;
+    color: #4b5563;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Mobile */
+@media (max-width: 575.98px) {
+
+    #cashDrawerTransactionInspector.cash-drawer-inspector {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #cashDrawerTransactionInspector .cash-inspector-header {
+        padding: 18px;
+    }
+
+    #cashDrawerTransactionInspector .cash-inspector-body {
+        padding: 16px;
+    }
+
+    #cashDrawerTransactionInspector .cash-inspector-amount {
+        font-size: 24px;
+    }
+
+    #cashDrawerTransactionInspector .cash-inspector-balance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #cashDrawerTransactionInspector .cash-inspector-balance-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+
+/* ============================================================
+   END
+   ============================================================ */
