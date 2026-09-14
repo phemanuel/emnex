@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/invoice.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/payment.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/returns.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('assets/css/sales-report.css') }}"
+    >
 
   
 

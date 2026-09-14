@@ -1,0 +1,1685 @@
+/* ==========================================================
+   EMNEX POS — SALES REPORT
+   ----------------------------------------------------------
+   File:
+   public/assets/css/modules/reports-sales.css
+
+   Purpose:
+   Premium responsive styling for the Sales Report module.
+
+   Design Direction:
+   - Modern SaaS dashboard
+   - Light gray workspace
+   - White cards
+   - Soft borders/shadows
+   - Premium spacing
+   - Clear information hierarchy
+   - Responsive tables
+   - Mobile friendly
+========================================================== */
+
+
+/* ==========================================================
+   1. PAGE ROOT
+========================================================== */
+
+.sales-report-page {
+    --sales-report-bg: #f6f7f9;
+    --sales-report-card: #ffffff;
+    --sales-report-border: #e7e9ee;
+    --sales-report-border-light: #eef0f3;
+    --sales-report-text: #17191c;
+    --sales-report-text-muted: #6b7280;
+    --sales-report-text-soft: #8a9099;
+    --sales-report-primary: #111827;
+    --sales-report-primary-hover: #1f2937;
+    --sales-report-success: #16845b;
+    --sales-report-danger: #c43d4b;
+    --sales-report-warning: #b7791f;
+    --sales-report-info: #2563eb;
+    --sales-report-radius: 14px;
+    --sales-report-radius-sm: 10px;
+    --sales-report-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.03),
+        0 5px 16px rgba(16, 24, 40, 0.035);
+
+    min-height: 100%;
+    padding: 24px;
+    background: var(--sales-report-bg);
+    color: var(--sales-report-text);
+}
+
+
+/* ==========================================================
+   2. PAGE HEADER
+========================================================== */
+
+.sales-report-header {
+    margin-bottom: 22px;
+}
+
+.sales-report-header-content {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.sales-report-heading {
+    min-width: 0;
+}
+
+.sales-report-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 7px;
+    color: var(--sales-report-text-soft);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.sales-report-eyebrow i {
+    font-size: 13px;
+}
+
+.sales-report-title {
+    margin: 0;
+    color: var(--sales-report-text);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+}
+
+.sales-report-description {
+    max-width: 720px;
+    margin: 7px 0 0;
+    color: var(--sales-report-text-muted);
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.sales-report-actions {
+    flex: 0 0 auto;
+}
+
+
+/* ==========================================================
+   3. EXPORT BUTTON
+========================================================== */
+
+.sales-report-export-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 15px;
+    border: 1px solid #dfe2e7;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #25282d;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.03);
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+.sales-report-export-btn:hover,
+.sales-report-export-btn:focus {
+    border-color: #cfd3da;
+    background: #fafbfc;
+    color: #17191c;
+    box-shadow: 0 3px 9px rgba(16, 24, 40, 0.06);
+}
+
+.sales-report-export-btn:active {
+    transform: translateY(1px);
+}
+
+.sales-report-export-btn i {
+    font-size: 15px;
+}
+
+.sales-report-export-menu {
+    min-width: 175px;
+    padding: 6px;
+    border: 1px solid var(--sales-report-border);
+    border-radius: 11px;
+    box-shadow:
+        0 10px 30px rgba(16, 24, 40, 0.10),
+        0 2px 8px rgba(16, 24, 40, 0.05);
+}
+
+.sales-report-export-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 38px;
+    padding: 8px 10px;
+    border-radius: 7px;
+    color: #34373d;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.sales-report-export-menu .dropdown-item:hover,
+.sales-report-export-menu .dropdown-item:focus {
+    background: #f4f5f7;
+    color: #17191c;
+}
+
+.sales-report-export-menu .dropdown-item i {
+    width: 17px;
+    color: #727984;
+    font-size: 15px;
+}
+
+
+/* ==========================================================
+   4. FILTER CARD
+========================================================== */
+
+.sales-report-filter-card {
+    margin-bottom: 24px;
+    overflow: visible;
+    border: 1px solid var(--sales-report-border);
+    border-radius: var(--sales-report-radius);
+    background: var(--sales-report-card);
+    box-shadow: var(--sales-report-shadow);
+}
+
+.sales-report-filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 17px 20px;
+    border-bottom: 1px solid var(--sales-report-border-light);
+}
+
+.sales-report-filter-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.sales-report-filter-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border: 1px solid #e6e8ec;
+    border-radius: 9px;
+    background: #f7f8fa;
+    color: #555b65;
+}
+
+.sales-report-filter-icon i {
+    font-size: 14px;
+}
+
+.sales-report-filter-title {
+    margin: 0;
+    color: var(--sales-report-text);
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.sales-report-filter-description {
+    margin: 2px 0 0;
+    color: var(--sales-report-text-soft);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.sales-report-clear-btn {
+    padding: 5px 0;
+    color: #646a74;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.sales-report-clear-btn:hover,
+.sales-report-clear-btn:focus {
+    color: #17191c;
+    text-decoration: none;
+}
+
+.sales-report-clear-btn i {
+    margin-right: 4px;
+}
+
+
+/* ==========================================================
+   5. FILTER BODY
+========================================================== */
+
+.sales-report-filter-body {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        minmax(0, 1.1fr)
+        minmax(0, 1.1fr);
+    gap: 14px 12px;
+    padding: 17px 20px 20px;
+}
+
+.sales-report-filter-group {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+}
+
+.sales-report-filter-control {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.sales-report-filter-label {
+    display: block;
+    margin: 0 0 6px;
+    color: #555b64;
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.sales-report-filter-control {
+    width: 100%;
+    min-height: 39px;
+    padding: 7px 11px;
+    border: 1px solid #dfe2e7;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #30343a;
+    font-size: 12px;
+    box-shadow: none;
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease;
+}
+
+.sales-report-filter-control:hover {
+    border-color: #cdd1d8;
+}
+
+.sales-report-filter-control:focus {
+    border-color: #aeb4bd;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.055);
+}
+
+.sales-report-filter-control::placeholder {
+    color: #a0a5ad;
+}
+
+.sales-report-filter-actions {
+    display: flex;
+    align-items: flex-end;
+}
+
+.sales-report-apply-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 39px;
+    width: 100%;
+    padding: 7px 14px;
+    border: 1px solid #111827;
+    border-radius: 8px;
+    background: #111827;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.sales-report-apply-btn:hover,
+.sales-report-apply-btn:focus {
+    border-color: #1f2937;
+    background: #1f2937;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(17, 24, 39, 0.12);
+}
+
+.sales-report-apply-btn:active {
+    transform: translateY(1px);
+}
+
+.sales-report-apply-btn i {
+    font-size: 13px;
+}
+
+
+/* ==========================================================
+   6. REPORT SECTIONS
+========================================================== */
+
+.sales-report-section {
+    margin-bottom: 28px;
+}
+
+.sales-report-section:last-child {
+    margin-bottom: 0;
+}
+
+.sales-report-section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 13px;
+}
+
+.sales-report-section-title {
+    margin: 0;
+    color: var(--sales-report-text);
+    font-size: 16px;
+    font-weight: 680;
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+}
+
+.sales-report-section-description {
+    margin: 4px 0 0;
+    color: var(--sales-report-text-soft);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.sales-report-section-count {
+    flex: 0 0 auto;
+    color: #858b94;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ==========================================================
+   7. KPI STATISTICS
+========================================================== */
+
+.sales-report-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.sales-report-stat-card {
+    position: relative;
+    min-width: 0;
+    min-height: 137px;
+    padding: 17px 18px;
+    overflow: hidden;
+    border: 1px solid var(--sales-report-border);
+    border-radius: var(--sales-report-radius);
+    background: #ffffff;
+    box-shadow: var(--sales-report-shadow);
+}
+
+.sales-report-stat-card::after {
+    position: absolute;
+    right: -22px;
+    bottom: -30px;
+    width: 85px;
+    height: 85px;
+    border: 1px solid rgba(17, 24, 39, 0.035);
+    border-radius: 50%;
+    content: "";
+}
+
+.sales-report-stat-card-primary {
+    border-color: #dfe2e7;
+    background: #ffffff;
+}
+
+.sales-report-stat-top {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 15px;
+}
+
+.sales-report-stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #f5f6f8;
+    color: #30343a;
+}
+
+.sales-report-stat-icon i {
+    font-size: 14px;
+}
+
+.sales-report-stat-icon-sales {
+    background: #f4f6f5;
+    color: #3e5149;
+}
+
+.sales-report-stat-icon-orders {
+    background: #f4f5f7;
+    color: #4d5561;
+}
+
+.sales-report-stat-icon-average {
+    background: #f5f5f6;
+    color: #4f5156;
+}
+
+.sales-report-stat-icon-discount {
+    background: #f7f5f1;
+    color: #66573f;
+}
+
+.sales-report-stat-icon-tax {
+    background: #f3f5f8;
+    color: #475569;
+}
+
+.sales-report-stat-icon-returns {
+    background: #f7f3f4;
+    color: #685057;
+}
+
+.sales-report-stat-icon-profit {
+    background: #f2f6f4;
+    color: #40594c;
+}
+
+.sales-report-stat-label {
+    color: #6c727c;
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 1.3;
+}
+
+.sales-report-stat-value {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    color: #17191c;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sales-report-stat-meta {
+    position: relative;
+    z-index: 1;
+    margin-top: 5px;
+    overflow: hidden;
+    color: #969ba3;
+    font-size: 10px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ==========================================================
+   8. CHART GRID
+========================================================== */
+
+.sales-report-charts-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
+    gap: 14px;
+}
+
+.sales-report-chart-card {
+    min-width: 0;
+    min-height: 330px;
+    overflow: hidden;
+    border: 1px solid var(--sales-report-border);
+    border-radius: var(--sales-report-radius);
+    background: #ffffff;
+    box-shadow: var(--sales-report-shadow);
+}
+
+.sales-report-chart-card-large {
+    grid-row: span 2;
+}
+
+.sales-report-chart-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    min-height: 74px;
+    padding: 17px 19px 12px;
+    border-bottom: 1px solid var(--sales-report-border-light);
+}
+
+.sales-report-chart-title {
+    margin: 0;
+    color: #24272c;
+    font-size: 13px;
+    font-weight: 680;
+}
+
+.sales-report-chart-description {
+    margin: 4px 0 0;
+    color: #9499a1;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.sales-report-chart-summary {
+    flex: 0 0 auto;
+    text-align: right;
+}
+
+.sales-report-chart-summary span {
+    display: block;
+    color: #9298a1;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.sales-report-chart-summary strong {
+    display: block;
+    margin-top: 2px;
+    color: #202328;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.sales-report-chart-body {
+    position: relative;
+    height: 255px;
+    padding: 13px 16px 16px;
+}
+
+.sales-report-chart-card-large .sales-report-chart-body {
+    height: calc(100% - 74px);
+    min-height: 255px;
+}
+
+.sales-report-chart-body canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.sales-report-chart-body-donut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 255px;
+    padding: 20px 30px;
+}
+
+.sales-report-chart-body-donut canvas {
+    max-width: 235px;
+    max-height: 235px;
+}
+
+
+/* ==========================================================
+   9. TABLE CARDS
+========================================================== */
+
+.sales-report-table-card {
+    overflow: hidden;
+    border: 1px solid var(--sales-report-border);
+    border-radius: var(--sales-report-radius);
+    background: #ffffff;
+    box-shadow: var(--sales-report-shadow);
+}
+
+.sales-report-table-card .table-responsive {
+    margin: 0;
+}
+
+.sales-report-table {
+    min-width: 780px;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.sales-report-table > :not(caption) > * > * {
+    padding: 12px 14px;
+    border-bottom-color: #eef0f2;
+}
+
+.sales-report-table thead th {
+    border-bottom: 1px solid #e6e8ec;
+    background: #fafbfc;
+    color: #777d86;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.sales-report-table tbody td {
+    color: #3b3f45;
+    font-size: 12px;
+    font-weight: 450;
+    line-height: 1.4;
+}
+
+.sales-report-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.sales-report-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.sales-report-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.sales-report-table td.text-end,
+.sales-report-table th.text-end {
+    white-space: nowrap;
+}
+
+.sales-report-table-placeholder:hover {
+    background: transparent !important;
+}
+
+.sales-report-inline-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 85px;
+    color: #9a9fa7;
+    font-size: 12px;
+}
+
+.sales-report-inline-empty i {
+    color: #a7acb4;
+    font-size: 15px;
+}
+
+
+/* ==========================================================
+   10. TABLE FOOTER / PAGINATION
+========================================================== */
+
+.sales-report-table-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 53px;
+    padding: 10px 15px;
+    border-top: 1px solid #eef0f2;
+}
+
+.sales-report-pagination-info {
+    color: #858b94;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.sales-report-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sales-report-pagination-controls .page-link {
+    min-width: 30px;
+    height: 30px;
+    padding: 5px 8px;
+    border: 1px solid #e1e4e8;
+    border-radius: 7px !important;
+    color: #60656e;
+    font-size: 11px;
+    text-align: center;
+}
+
+.sales-report-pagination-controls .page-item.active .page-link {
+    border-color: #1f2937;
+    background: #1f2937;
+    color: #ffffff;
+}
+
+.sales-report-pagination-controls .page-link:hover {
+    background: #f5f6f7;
+    color: #1f2937;
+}
+
+
+/* ==========================================================
+   11. STATUS BADGES
+========================================================== */
+
+.sales-report-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 650;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.sales-report-status-completed {
+    background: #eef7f2;
+    color: #277253;
+}
+
+.sales-report-status-pending {
+    background: #faf5e9;
+    color: #896b28;
+}
+
+.sales-report-status-cancelled {
+    background: #faeef0;
+    color: #9b4550;
+}
+
+.sales-report-status-refunded {
+    background: #f2f2f4;
+    color: #646873;
+}
+
+
+/* ==========================================================
+   12. TABLE ACTION
+========================================================== */
+
+.sales-report-inspect-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid #e2e5e9;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #646a73;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.sales-report-inspect-btn:hover,
+.sales-report-inspect-btn:focus {
+    border-color: #d5d8dd;
+    background: #f5f6f8;
+    color: #202328;
+}
+
+.sales-report-inspect-btn i {
+    font-size: 13px;
+}
+
+
+/* ==========================================================
+   13. INSPECTOR MODAL
+========================================================== */
+
+.sales-report-inspector-modal {
+    overflow: hidden;
+    border: 1px solid #e2e5e9;
+    border-radius: 14px;
+    box-shadow:
+        0 18px 50px rgba(16, 24, 40, 0.16),
+        0 5px 15px rgba(16, 24, 40, 0.06);
+}
+
+.sales-report-inspector-modal .modal-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid #eceef1;
+}
+
+.sales-report-inspector-modal .modal-title {
+    margin-top: 2px;
+    color: #1c1f23;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.sales-report-inspector-modal .modal-body {
+    padding: 20px;
+    background: #fafbfc;
+}
+
+.sales-report-inspector-modal .modal-footer {
+    padding: 12px 20px;
+    border-top: 1px solid #eceef1;
+    background: #ffffff;
+}
+
+.sales-report-inspector-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #8a9099;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.sales-report-inspector-eyebrow i {
+    font-size: 12px;
+}
+
+
+/* ==========================================================
+   14. INSPECTOR SUMMARY
+========================================================== */
+
+.sales-inspector-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.sales-inspector-summary-item {
+    padding: 14px;
+    border: 1px solid #e7e9ed;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.sales-inspector-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #90959d;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.sales-inspector-summary-item strong {
+    color: #25282d;
+    font-size: 13px;
+    font-weight: 680;
+}
+
+
+/* ==========================================================
+   15. INSPECTOR INFO GRID
+========================================================== */
+
+.sales-inspector-info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.sales-inspector-info-card {
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #e7e9ed;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.sales-inspector-info-card strong {
+    display: block;
+    overflow: hidden;
+    color: #2b2e33;
+    font-size: 12px;
+    font-weight: 620;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ==========================================================
+   16. INSPECTOR SECTIONS
+========================================================== */
+
+.sales-inspector-section {
+    margin-bottom: 14px;
+    padding: 15px;
+    border: 1px solid #e7e9ed;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.sales-inspector-section:last-child {
+    margin-bottom: 0;
+}
+
+.sales-inspector-section-header {
+    margin-bottom: 11px;
+}
+
+.sales-inspector-section-header h6 {
+    margin: 0;
+    color: #292c31;
+    font-size: 12px;
+    font-weight: 680;
+}
+
+
+/* ==========================================================
+   17. INSPECTOR PAYMENT
+========================================================== */
+
+.sales-inspector-payment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.sales-inspector-payment-grid strong {
+    color: #30343a;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+
+/* ==========================================================
+   18. INSPECTOR TOTALS
+========================================================== */
+
+.sales-inspector-totals {
+    max-width: 410px;
+    margin-left: auto;
+    padding: 15px;
+    border: 1px solid #e3e6ea;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.sales-inspector-total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 7px 0;
+    color: #777d86;
+    font-size: 12px;
+}
+
+.sales-inspector-total-row strong {
+    color: #363a40;
+    font-weight: 650;
+}
+
+.sales-inspector-total-final {
+    margin-top: 5px;
+    padding-top: 12px;
+    border-top: 1px solid #e8eaed;
+    color: #25282d;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.sales-inspector-total-final strong {
+    color: #17191c;
+    font-size: 15px;
+    font-weight: 750;
+}
+
+
+/* ==========================================================
+   19. LOADING STATE
+========================================================== */
+
+.sales-report-loading {
+    margin-bottom: 28px;
+}
+
+.sales-report-loading-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 240px;
+    border: 1px solid var(--sales-report-border);
+    border-radius: var(--sales-report-radius);
+    background: #ffffff;
+    color: #858b94;
+    font-size: 12px;
+    box-shadow: var(--sales-report-shadow);
+}
+
+.sales-report-loading-card .spinner-border {
+    width: 18px;
+    height: 18px;
+    border-width: 2px;
+}
+
+
+/* ==========================================================
+   20. EMPTY STATE
+========================================================== */
+
+.sales-report-empty,
+.sales-report-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 340px;
+    padding: 35px 20px;
+    border: 1px solid var(--sales-report-border);
+    border-radius: var(--sales-report-radius);
+    background: #ffffff;
+    text-align: center;
+    box-shadow: var(--sales-report-shadow);
+}
+
+.sales-report-empty-icon,
+.sales-report-error-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f6f7f8;
+    color: #858b94;
+}
+
+.sales-report-empty-icon i,
+.sales-report-error-icon i {
+    font-size: 19px;
+}
+
+.sales-report-empty h3,
+.sales-report-error h3 {
+    margin: 0;
+    color: #2a2d32;
+    font-size: 16px;
+    font-weight: 680;
+}
+
+.sales-report-empty p,
+.sales-report-error p {
+    max-width: 440px;
+    margin: 7px 0 17px;
+    color: #92979f;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.sales-report-empty-reset,
+.sales-report-error .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 36px;
+    padding: 7px 12px;
+    border: 1px solid #dfe2e6;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #4e545d;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.sales-report-empty-reset:hover,
+.sales-report-error .btn:hover {
+    border-color: #cfd3d8;
+    background: #f7f8f9;
+    color: #24272c;
+}
+
+
+/* ==========================================================
+   21. INSPECTOR LOADING
+========================================================== */
+
+.sales-report-inspector-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 260px;
+    color: #858b94;
+    font-size: 12px;
+}
+
+.sales-report-inspector-loading .spinner-border {
+    width: 18px;
+    height: 18px;
+    border-width: 2px;
+}
+
+
+/* ==========================================================
+   22. DISABLED / LOADING BUTTON STATES
+========================================================== */
+
+.sales-report-page .sales-report-apply-btn.is-loading,
+.sales-report-page .sales-report-export-btn.is-loading {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+.sales-report-page button:disabled {
+    cursor: not-allowed;
+}
+
+
+/* ==========================================================
+   23. RESPONSIVE — LARGE TABLET / SMALL DESKTOP
+========================================================== */
+
+@media (max-width: 1500px) {
+
+    .sales-report-filter-body {
+        grid-template-columns:
+            repeat(5, minmax(130px, 1fr));
+    }
+
+    .sales-report-filter-actions {
+        grid-column: span 1;
+    }
+
+    .sales-report-stats-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ==========================================================
+   24. RESPONSIVE — TABLET
+========================================================== */
+
+@media (max-width: 1199.98px) {
+
+    .sales-report-page {
+        padding: 20px;
+    }
+
+    .sales-report-header-content {
+        align-items: flex-start;
+    }
+
+    .sales-report-filter-body {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .sales-report-filter-actions {
+        grid-column: auto;
+    }
+
+    .sales-report-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sales-report-charts-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sales-report-chart-card-large {
+        grid-row: auto;
+    }
+
+    .sales-report-chart-card-large .sales-report-chart-body {
+        height: 300px;
+    }
+
+    .sales-inspector-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ==========================================================
+   25. RESPONSIVE — MOBILE
+========================================================== */
+
+@media (max-width: 767.98px) {
+
+    .sales-report-page {
+        padding: 15px;
+    }
+
+    .sales-report-header {
+        margin-bottom: 17px;
+    }
+
+    .sales-report-header-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .sales-report-title {
+        font-size: 23px;
+    }
+
+    .sales-report-description {
+        font-size: 13px;
+    }
+
+    .sales-report-actions {
+        width: 100%;
+    }
+
+    .sales-report-actions .dropdown,
+    .sales-report-export-btn {
+        width: 100%;
+    }
+
+    .sales-report-filter-card {
+        margin-bottom: 18px;
+    }
+
+    .sales-report-filter-header {
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .sales-report-filter-body {
+        grid-template-columns: 1fr;
+        gap: 11px;
+        padding: 15px;
+    }
+
+    .sales-report-filter-actions {
+        margin-top: 3px;
+    }
+
+    .sales-report-apply-btn {
+        width: 100%;
+    }
+
+    .sales-report-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .sales-report-stat-card {
+        min-height: 125px;
+    }
+
+    .sales-report-section {
+        margin-bottom: 21px;
+    }
+
+    .sales-report-section-header {
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .sales-report-section-title {
+        font-size: 15px;
+    }
+
+    .sales-report-chart-card {
+        min-height: 300px;
+    }
+
+    .sales-report-chart-body {
+        height: 225px;
+    }
+
+    .sales-report-chart-card-large .sales-report-chart-body {
+        height: 260px;
+        min-height: 260px;
+    }
+
+    .sales-report-chart-header {
+        min-height: 68px;
+        padding: 15px;
+    }
+
+    .sales-report-table-card {
+        border-radius: 11px;
+    }
+
+    .sales-report-table-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .sales-report-inspector-modal .modal-body {
+        padding: 14px;
+    }
+
+    .sales-inspector-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .sales-inspector-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sales-inspector-payment-grid {
+        grid-template-columns: 1fr;
+        gap: 11px;
+    }
+
+    .sales-inspector-totals {
+        max-width: none;
+    }
+
+}
+
+
+/* ==========================================================
+   26. RESPONSIVE — VERY SMALL MOBILE
+========================================================== */
+
+@media (max-width: 479.98px) {
+
+    .sales-report-page {
+        padding: 12px;
+    }
+
+    .sales-report-title {
+        font-size: 21px;
+    }
+
+    .sales-report-eyebrow {
+        font-size: 10px;
+    }
+
+    .sales-report-filter-title {
+        font-size: 13px;
+    }
+
+    .sales-report-filter-description {
+        font-size: 11px;
+    }
+
+    .sales-report-stat-value {
+        font-size: 19px;
+    }
+
+    .sales-report-chart-summary {
+        display: none;
+    }
+
+    .sales-report-chart-body-donut {
+        padding: 15px;
+    }
+
+    .sales-report-section-description {
+        font-size: 11px;
+    }
+
+}
+
+
+/* ==========================================================
+   27. ACCESSIBILITY / REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .sales-report-page *,
+    .sales-report-page *::before,
+    .sales-report-page *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+
+}
+
+
+/* ==========================================================
+   PRODUCT PERFORMANCE TABLE
+========================================================== */
+
+#product-performance-table {
+    width: 100%;
+    margin: 0;
+    font-size: 12.5px;
+}
+
+/* ----------------------------------------------------------
+   Header
+---------------------------------------------------------- */
+
+#product-performance-table thead th {
+    padding: 11px 14px;
+    background: #f8f9fb;
+    border-bottom: 1px solid #e9ecef;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+#product-performance-table thead th:first-child {
+    padding-left: 16px;
+}
+
+#product-performance-table thead th:last-child {
+    padding-right: 16px;
+}
+
+/* ----------------------------------------------------------
+   Body
+---------------------------------------------------------- */
+
+#product-performance-table tbody td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #f0f1f3;
+    color: #374151;
+    font-size: 12.5px;
+    line-height: 1.4;
+    vertical-align: middle;
+}
+
+#product-performance-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+#product-performance-table tbody tr {
+    transition:
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+#product-performance-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+#product-performance-table tbody td:first-child {
+    padding-left: 16px;
+}
+
+#product-performance-table tbody td:last-child {
+    padding-right: 16px;
+}
+
+/* ----------------------------------------------------------
+   Product Name
+---------------------------------------------------------- */
+
+#product-performance-table tbody td:first-child strong {
+    display: block;
+    color: #1f2937;
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+/* ----------------------------------------------------------
+   Category
+---------------------------------------------------------- */
+
+#product-performance-table tbody td:nth-child(2) {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+/* ----------------------------------------------------------
+   Numeric Columns
+---------------------------------------------------------- */
+
+#product-performance-table tbody td:nth-child(n + 3) {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* Units */
+
+#product-performance-table tbody td:nth-child(3) {
+    color: #4b5563;
+}
+
+/* Revenue */
+
+#product-performance-table tbody td:nth-child(4) {
+    color: #374151;
+    font-weight: 500;
+}
+
+/* COGS */
+
+#product-performance-table tbody td:nth-child(5) {
+    color: #6b7280;
+}
+
+/* Gross Profit */
+
+#product-performance-table tbody td:nth-child(6) {
+    color: #111827;
+    font-weight: 600;
+}
+
+/* ----------------------------------------------------------
+   Margin Badge
+---------------------------------------------------------- */
+
+#product-performance-table .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    padding: 4px 7px;
+    border-radius: 6px;
+    font-size: 10.5px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+#product-performance-table .text-bg-success {
+    background-color: #eaf7ef !important;
+    color: #18794e !important;
+}
+
+#product-performance-table .text-bg-danger {
+    background-color: #fdecec !important;
+    color: #b42318 !important;
+}
+
+/* ----------------------------------------------------------
+   Empty State
+---------------------------------------------------------- */
+
+#product-performance-table tbody td.text-muted {
+    padding: 28px 16px;
+    color: #9ca3af !important;
+    font-size: 12px;
+}
+
+/* ----------------------------------------------------------
+   Responsive
+---------------------------------------------------------- */
+
+@media (max-width: 992px) {
+
+    #product-performance-table {
+        min-width: 760px;
+    }
+
+    #product-performance-table thead th,
+    #product-performance-table tbody td {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    #product-performance-table {
+        min-width: 720px;
+    }
+
+    #product-performance-table thead th {
+        font-size: 10px;
+    }
+
+    #product-performance-table tbody td,
+    #product-performance-table tbody td:first-child strong {
+        font-size: 11.5px;
+    }
+
+    #product-performance-table .badge {
+        min-width: 48px;
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+}
+
+.salesperson-name {
+    line-height: 1.25;
+}
+
+.salesperson-name strong {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+.salesperson-role {
+    margin-top: 2px;
+    font-size: 10.5px;
+    line-height: 1.2;
+    color: #8a94a6;
+}
+

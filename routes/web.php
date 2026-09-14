@@ -40,7 +40,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\TerminalController;
 
-use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\SalesReportController;
 
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DocumentSequenceController;
@@ -914,23 +914,71 @@ Route::prefix('products')
     */
 
     Route::prefix('reports')
-        ->name('reports.')
-        ->controller(ReportController::class)
-        ->group(function(){
+    ->name('reports.')
+    ->group(function () {
 
-            Route::get('/sales','sales')
-                ->name('sales');
+        /*
+        |--------------------------------------------------------------------------
+        | Sales Report
+        |--------------------------------------------------------------------------
+        */
+        Route::get(
+            '/sales',
+            [SalesReportController::class, 'index']
+        )->name('sales.index');
 
-            Route::get('/inventory','inventory')
-                ->name('inventory');
+        Route::get(
+            '/sales/data',
+            [SalesReportController::class, 'data']
+        )->name('sales.data');
 
-            Route::get('/profit-loss','profitLoss')
-                ->name('profit-loss');
+        Route::get(
+            '/sales/export',
+            [SalesReportController::class, 'export']
+        )->name('sales.export');
 
-            Route::get('/tax','tax')
-                ->name('tax');
 
-        });
+        /*
+        |--------------------------------------------------------------------------
+        | Inventory Report
+        |--------------------------------------------------------------------------
+        */
+        Route::get(
+            '/inventory',
+            [InventoryReportController::class, 'index']
+        )->name('inventory.index');
+
+        Route::get(
+            '/inventory/data',
+            [InventoryReportController::class, 'data']
+        )->name('inventory.data');
+
+        Route::get(
+            '/inventory/export',
+            [InventoryReportController::class, 'export']
+        )->name('inventory.export');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Profit & Loss
+        |--------------------------------------------------------------------------
+        */
+        Route::get(
+            '/profit-loss',
+            [ProfitLossController::class, 'index']
+        )->name('profit-loss.index');
+
+        Route::get(
+            '/profit-loss/data',
+            [ProfitLossController::class, 'data']
+        )->name('profit-loss.data');
+
+        Route::get(
+            '/profit-loss/export',
+            [ProfitLossController::class, 'export']
+        )->name('profit-loss.export');
+    });
 
 
 

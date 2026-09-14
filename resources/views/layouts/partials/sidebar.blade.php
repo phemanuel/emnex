@@ -958,7 +958,7 @@
                     @if(canAccess('reports.sales'))
 
                         <a
-                            href="{{ route('reports.sales') }}"
+                            href="{{ route('reports.sales.index') }}"
                             class="{{ request()->routeIs('reports.sales') ? 'active' : '' }}"
                         >
 
@@ -982,8 +982,8 @@
                     @if(canAccess('reports.inventory'))
 
                         <a
-                            href="{{ route('reports.inventory') }}"
-                            class="{{ request()->routeIs('reports.inventory') ? 'active' : '' }}"
+                            href="{{ route('reports.inventory.index') }}"
+                            class="{{ request()->routeIs('reports.inventory.index') ? 'active' : '' }}"
                         >
 
                             <span class="sub-icon">
@@ -1006,7 +1006,7 @@
                     @if(canAccess('reports.profit_loss'))
 
                         <a
-                            href="{{ route('reports.profit-loss') }}"
+                            href="{{ route('reports.profit-loss.index') }}"
                             class="{{ request()->routeIs('reports.profit-loss') ? 'active' : '' }}"
                         >
 

@@ -3119,6 +3119,9 @@ class PosController extends BaseController
                         'unit_price' =>
                             $item['unit_price'],
 
+                        'unit_cost' => 
+                            (float) $product->cost_price,
+
                         'discount' =>
                             $item['discount'],
 

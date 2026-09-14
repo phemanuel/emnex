@@ -2038,6 +2038,9 @@ class OrderController extends BaseController
                                 'unit_price' =>
                                     $unitPrice,
 
+                                'unit_cost' => 
+                                    (float) $product->cost_price,
+
                                 'discount' =>
                                     $discount,
 
@@ -2221,6 +2224,9 @@ class OrderController extends BaseController
 
                                 'unit_price' =>
                                     $item['unit_price'],
+
+                                'unit_cost' => 
+                                    $item['unit_cost'],
 
                                 'discount' =>
                                     $item['discount'],
@@ -3100,6 +3106,9 @@ class OrderController extends BaseController
                             'unit_price' =>
                                 $unitPrice,
 
+                            'unit_cost' => 
+                                (float) $product->cost_price,
+
                             'discount' =>
                                 $discount,
 
@@ -3296,6 +3305,9 @@ class OrderController extends BaseController
 
                             'unit_price' =>
                                 $item['unit_price'],
+
+                            'unit_cost' => 
+                                $item['unit_cost'],
 
                             'discount' =>
                                 $item['discount'],

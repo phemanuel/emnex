@@ -983,25 +983,19 @@
                 <div class="nav-children">
 
 
-                    @if(canAccess('reports.sales'))
+                    @if(canAccess('reports.view'))
 
                         <a
-                            href="{{ route('reports.sales') }}"
-                            class="{{ request()->routeIs('reports.sales') ? 'active' : '' }}"
+                            href="{{ route('reports.sales.index') }}"
+                            class="{{ request()->routeIs('reports.sales.index') ? 'active' : '' }}"
                         >
-
                             <span class="sub-icon">
-
                                 <i class="bi bi-graph-up"></i>
-
                             </span>
 
                             <span>
-
                                 Sales Report
-
                             </span>
-
                         </a>
 
                     @endif
