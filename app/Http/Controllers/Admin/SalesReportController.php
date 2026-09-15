@@ -57,7 +57,7 @@ class SalesReportController extends BaseController
         */
 
         abort_unless(
-            canAccess('reports.view'),
+            canAccess('reports.sales'),
             403
         );
 
@@ -124,7 +124,7 @@ class SalesReportController extends BaseController
         */
 
         abort_unless(
-            canAccess('reports.view'),
+            canAccess('reports.sales'),
             403
         );
 
@@ -173,9 +173,10 @@ class SalesReportController extends BaseController
             | Payment method
             */
 
-            'payment_method_id' => [
+            'payment_method' => [
                 'nullable',
-                'integer',
+                'string',
+                'in:Cash,Transfer,Card,Wallet',
             ],
 
             /*
@@ -330,7 +331,7 @@ class SalesReportController extends BaseController
         */
 
         abort_unless(
-            canAccess('reports.export'),
+            canAccess('reports.sales'),
             403
         );
 
@@ -379,9 +380,10 @@ class SalesReportController extends BaseController
             | Payment method
             */
 
-            'payment_method_id' => [
+            'payment_method' => [
                 'nullable',
-                'integer',
+                'string',
+                'in:Cash,Transfer,Card,Wallet',
             ],
 
             /*

@@ -71,7 +71,7 @@
                 {{-- ------------------------------------------
                     HEADER ACTIONS
                 ------------------------------------------- --}}
-                @permission('reports.export')
+                @permission('reports.sales')
                     <div class="sales-report-actions">
 
                         <div class="dropdown">

@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Company;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -17,6 +18,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Support\Facades\Log;
+use App\Exports\Reports\SalesReportExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SalesReportService
 {
@@ -1934,6 +1937,102 @@ class SalesReportService
         ];
     }
 
+    /**
+     * |--------------------------------------------------------------------------
+     * | Transaction Export Rows
+     * |--------------------------------------------------------------------------
+     * |
+     * | Returns all matching transactions for export.
+     * | Unlike buildTransactions(), this is intentionally not paginated.
+     * |
+     */
+    protected function buildTransactionExportRows(
+        Builder $query
+    ): array {
+        $transactions = $query
+            ->with([
+                'branch',
+                'cashier',
+                'customer',
+                'terminal',
+                'payments' => function ($paymentQuery) {
+                    $paymentQuery
+                        ->completed()
+                        ->orderBy('id');
+                },
+            ])
+            ->orderByDesc('completed_at')
+            ->get();
+
+        return $transactions
+            ->map(function ($order) {
+
+                $paymentMethods = $order->payments
+                    ->pluck('payment_method')
+                    ->filter()
+                    ->unique()
+                    ->values();
+
+                $payment = $paymentMethods->isNotEmpty()
+                    ? $paymentMethods->implode(', ')
+                    : '—';
+
+                return [
+                    'order_no' => $order->order_no,
+
+                    'date' => $order->completed_at
+                        ? $order->completed_at->format(
+                            'Y-m-d H:i:s'
+                        )
+                        : null,
+
+                    'customer' => $order->customer
+                        ? $order->customer->displayName()
+                        : 'Walk-in Customer',
+
+                    'cashier' => $order->cashier
+                        ? $this->userName(
+                            $order->cashier
+                        )
+                        : 'Unknown',
+
+                    'branch' => $order->branch
+                        ? $order->branch->name
+                        : 'Unknown',
+
+                    'terminal' => $order->terminal
+                        ? $order->terminal->terminal_name
+                        : '—',
+
+                    'payment' => $payment,
+
+                    'gross' => round(
+                        (float) $order->subtotal,
+                        2
+                    ),
+
+                    'discount' => round(
+                        (float) $order->discount,
+                        2
+                    ),
+
+                    'tax' => round(
+                        (float) $order->tax,
+                        2
+                    ),
+
+                    'total' => round(
+                        (float) $order->grand_total,
+                        2
+                    ),
+
+                    'status' => $order->order_status,
+                ];
+            })
+            ->values()
+            ->all();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Transaction Inspector
@@ -2143,36 +2242,29 @@ class SalesReportService
         array $filters,
         ?User $user = null
     ) {
-        $filters = $this->normaliseFilters(
-            $filters
-        );
+        $filters = $this->normaliseFilters($filters);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Currently Supported Native Export
-        |--------------------------------------------------------------------------
-        */
-
-        if ($filters['format'] === 'csv') {
-            return $this->exportCsv(
+         return match ($filters['format']) {
+            'xlsx' => $this->exportXlsx(
                 $filters,
                 $user
-            );
-        }
+            ),
 
-        /*
-        |--------------------------------------------------------------------------
-        | XLSX / PDF
-        |--------------------------------------------------------------------------
-        |
-        | Do not silently generate an incorrectly formatted file.
-        |
-        */
+            'csv' => $this->exportCsv(
+                $filters,
+                $user
+            ),
 
-        abort(
-            501,
-            'This export format has not yet been configured.'
-        );
+            'pdf' => $this->exportPdf(
+                $filters,
+                $user
+            ),
+
+            default => abort(
+                501,
+                'This export format has not yet been configured.'
+            ),
+        };
     }
 
     /*
@@ -2181,20 +2273,33 @@ class SalesReportService
     |--------------------------------------------------------------------------
     */
 
+    /**
+     * Export transaction-level sales data as CSV.
+     */
     protected function exportCsv(
         array $filters,
-        ?User $user
-    ): StreamedResponse {
+        ?User $user = null
+    ) {
         $query = Order::query()
-            ->forCompany(
-                $filters['company_id']
-            )
+            ->forCompany($filters['company_id'])
             ->completed();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Scope
+        |--------------------------------------------------------------------------
+        */
 
         $this->applyOrderScope(
             $query,
             $user
         );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Filters
+        |--------------------------------------------------------------------------
+        */
 
         $this->applyDateFilter(
             $query,
@@ -2211,12 +2316,20 @@ class SalesReportService
             $filters
         );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Payment Method Filter
+        |--------------------------------------------------------------------------
+        |
+        | Payment filtering is done through whereHas() so payment rows do not
+        | multiply the order records or affect transaction-level exports.
+        |
+        */
+
         if (! empty($filters['payment_method'])) {
             $query->whereHas(
                 'payments',
-                function (Builder $paymentQuery) use (
-                    $filters
-                ) {
+                function (Builder $paymentQuery) use ($filters) {
                     $paymentQuery
                         ->completed()
                         ->where(
@@ -2227,16 +2340,32 @@ class SalesReportService
             );
         }
 
-        $filename =
-            'sales-report-' .
-            $filters['date_from'] .
-            '-to-' .
-            $filters['date_to'] .
-            '.csv';
+        /*
+        |--------------------------------------------------------------------------
+        | Filename
+        |--------------------------------------------------------------------------
+        */
+
+        $dateFrom = $filters['date_from']
+            ?? now()->format('Y-m-d');
+
+        $dateTo = $filters['date_to']
+            ?? now()->format('Y-m-d');
+
+        $filename = sprintf(
+            'sales-report-%s-to-%s.csv',
+            $dateFrom,
+            $dateTo
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | CSV Response
+        |--------------------------------------------------------------------------
+        */
 
         return response()->streamDownload(
             function () use ($query) {
-
                 $handle = fopen(
                     'php://output',
                     'w'
@@ -2244,30 +2373,45 @@ class SalesReportService
 
                 /*
                 |--------------------------------------------------------------------------
-                | CSV Header
+                | UTF-8 BOM
                 |--------------------------------------------------------------------------
+                |
+                | Helps Excel correctly recognise UTF-8 CSV files.
+                |
                 */
 
-                fputcsv($handle, [
-                    'Order No',
-                    'Date',
-                    'Customer',
-                    'Cashier',
-                    'Branch',
-                    'Terminal',
-                    'Items',
-                    'Sales Channel',
-                    'Payment Status',
-                    'Gross Sales',
-                    'Discount',
-                    'Tax',
-                    'Total',
-                    'Order Status',
-                ]);
+                // fwrite(
+                //     $handle,
+                //     "\xEF\xBB\xBF"
+                // );
 
                 /*
                 |--------------------------------------------------------------------------
-                | Stream Orders
+                | Header
+                |--------------------------------------------------------------------------
+                */
+
+                fputcsv(
+                    $handle,
+                    [
+                        'Order No.',
+                        'Date',
+                        'Customer',
+                        'Salesperson',
+                        'Branch',
+                        'Terminal',
+                        'Payment',
+                        'Gross Sales',
+                        'Discount',
+                        'Tax',
+                        'Total',
+                        'Status',
+                    ]
+                );
+
+                /*
+                |--------------------------------------------------------------------------
+                | Transactions
                 |--------------------------------------------------------------------------
                 */
 
@@ -2276,82 +2420,110 @@ class SalesReportService
                         'branch',
                         'cashier',
                         'customer',
-                        'terminal',
+                         'terminal',
+                        'payments' => function ($paymentQuery) {
+                            $paymentQuery
+                                ->completed()
+                                ->orderBy('id');
+                        },
                     ])
-                    ->orderBy(
-                        'completed_at'
-                    )
-                    ->chunk(
+                    ->orderByDesc('completed_at')
+                    ->chunkById(
                         500,
-                        function ($orders) use (
-                            $handle
-                        ) {
+                        function ($orders) use ($handle) {
                             foreach ($orders as $order) {
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Customer
+                                |--------------------------------------------------------------------------
+                                */
 
-                                fputcsv($handle, [
-                                    $order->order_no,
+                                $customer = $order->customer
+                                    ? $order->customer->displayName()
+                                    : 'Walk-in Customer';
 
-                                    $order->completed_at
-                                        ? $order->completed_at
-                                            ->format(
-                                                'Y-m-d H:i:s'
-                                            )
-                                        : '',
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Salesperson
+                                |--------------------------------------------------------------------------
+                                */
 
-                                    $order->customer
-                                        ? $order->customer->name
-                                        : 'Walk-in Customer',
-
+                                $salesperson = $this->userName(
                                     $order->cashier
-                                        ? $this->userName(
-                                            $order->cashier
-                                        )
-                                        : 'Unknown',
+                                );
 
-                                    $order->branch
-                                        ? $order->branch->name
-                                        : 'Unknown',
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Payment Methods
+                                |--------------------------------------------------------------------------
+                                */
 
-                                    $order->terminal
-                                        ? $order->terminal->name
-                                        : '',
+                                $paymentMethods = $order->payments
+                                    ->pluck('payment_method')
+                                    ->filter()
+                                    ->unique()
+                                    ->values()
+                                    ->implode(', ');
 
-                                    $order->total_items,
+                                if ($paymentMethods === '') {
+                                    $paymentMethods = '—';
+                                }
 
-                                    $order->sales_channel,
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Date
+                                |--------------------------------------------------------------------------
+                                */
 
-                                    $order->payment_status,
+                                $date = $order->completed_at
+                                    ? $order->completed_at->format(
+                                        'Y-m-d H:i:s'
+                                    )
+                                    : '—';
 
-                                    number_format(
-                                        (float) $order->subtotal,
-                                        2,
-                                        '.',
-                                        ''
-                                    ),
+                                /*
+                                |--------------------------------------------------------------------------
+                                | CSV Row
+                                |--------------------------------------------------------------------------
+                                */
 
-                                    number_format(
-                                        (float) $order->discount,
-                                        2,
-                                        '.',
-                                        ''
-                                    ),
-
-                                    number_format(
-                                        (float) $order->tax,
-                                        2,
-                                        '.',
-                                        ''
-                                    ),
-
-                                    number_format(
-                                        (float) $order->grand_total,
-                                        2,
-                                        '.',
-                                        ''
-                                    ),
-
-                                    $order->order_status,
-                                ]);
+                                fputcsv(
+                                    $handle,
+                                    [
+                                        $order->order_no,
+                                        $date,
+                                        $customer,
+                                        $salesperson,
+                                        $order->branch?->name ?? '—',
+                                        $order->terminal?->terminal_name ?? '—',
+                                        $paymentMethods,
+                                        number_format(
+                                            (float) $order->subtotal,
+                                            2,
+                                            '.',
+                                            ''
+                                        ),
+                                        number_format(
+                                            (float) $order->discount,
+                                            2,
+                                            '.',
+                                            ''
+                                        ),
+                                        number_format(
+                                            (float) $order->tax,
+                                            2,
+                                            '.',
+                                            ''
+                                        ),
+                                        number_format(
+                                            (float) $order->grand_total,
+                                            2,
+                                            '.',
+                                            ''
+                                        ),
+                                        $order->order_status ?? '—',
+                                    ]
+                                );
                             }
                         }
                     );
@@ -2366,6 +2538,175 @@ class SalesReportService
         );
     }
 
+    
+    /**
+     * Export the sales report as PDF.
+     */
+    protected function exportPdf(
+        array $filters,
+        ?User $user = null
+    ) {
+        $filters = $this->normaliseFilters($filters);
+
+        $companyId = (int) $filters['company_id'];
+
+        $report = $this->generate(
+            $filters,
+            $user
+        );
+
+        $company = Company::query()
+            ->whereKey($companyId)
+            ->first();
+
+        $dateFrom = $filters['date_from']
+            ?? now()->format('Y-m-d');
+
+        $dateTo = $filters['date_to']
+            ?? now()->format('Y-m-d');
+
+        $filename = sprintf(
+            'sales-report-%s-to-%s.pdf',
+            $dateFrom,
+            $dateTo
+        );
+
+        $pdf = app('dompdf.wrapper');
+
+        $pdf->loadView(
+            'reports.sales.pdf',
+            [
+                'company' => $company,
+                'report' => $report,
+                'filters' => $filters,
+                'user' => $user,
+            ]
+        );
+
+        $pdf->setPaper(
+            'a4',
+            'landscape'
+        );
+
+        return $pdf->download(
+            $filename
+        );
+    }
+
+     /**
+     * Export the sales report as Excel.
+     */
+
+    protected function exportXlsx(
+        array $filters,
+        ?User $user = null
+    ) {
+        $filters = $this->normaliseFilters(
+            $filters
+        );
+
+        $companyId = (int) $filters['company_id'];
+
+        /*
+        * Build the same report data used by the
+        * Sales Report dashboard.
+        *
+        * This keeps the Excel export aligned with
+        * the existing report calculations instead
+        * of duplicating them inside the export classes.
+        */
+        $report = $this->generate(
+            $filters,
+            $user
+        );
+
+        /*
+        * Build the transaction query separately.
+        *
+        * The dashboard transaction table is paginated,
+        * but an Excel export must contain ALL matching
+        * transactions.
+        */
+        $transactionQuery = Order::query()
+            ->forCompany($companyId)
+            ->completed();
+
+        $this->applyOrderScope(
+            $transactionQuery,
+            $user
+        );
+
+        $this->applyDateFilter(
+            $transactionQuery,
+            $filters
+        );
+
+        $this->applyOrderFilters(
+            $transactionQuery,
+            $filters
+        );
+
+        $this->applyProductFilters(
+            $transactionQuery,
+            $filters
+        );
+
+        /*
+        * Payment filtering must use whereHas()
+        * so payment rows cannot multiply order
+        * aggregates.
+        */
+        if (! empty($filters['payment_method'])) {
+            $paymentMethod =
+                $filters['payment_method'];
+
+            $transactionQuery->whereHas(
+                'payments',
+                function (Builder $query) use (
+                    $paymentMethod
+                ) {
+                    $query
+                        ->completed()
+                        ->where(
+                            'payment_method',
+                            $paymentMethod
+                        );
+                }
+            );
+        }
+
+        /*
+        * Add all matching transactions specifically
+        * for the Excel Transactions worksheet.
+        *
+        * Do not modify the normal paginated
+        * transactions response.
+        */
+        $report['transaction_export_rows'] =
+            $this->buildTransactionExportRows(
+                $transactionQuery
+            );
+
+        $dateFrom = $filters['date_from']
+            ?? now()->format('Y-m-d');
+
+        $dateTo = $filters['date_to']
+            ?? now()->format('Y-m-d');
+
+        $filename = sprintf(
+            'sales-report-%s-to-%s.xlsx',
+            $dateFrom,
+            $dateTo
+        );
+
+        return Excel::download(
+            new SalesReportExport(
+                $report,
+                $filters
+            ),
+            $filename
+        );
+    }
     /*
     |--------------------------------------------------------------------------
     | Normalise Filters

@@ -975,7 +975,7 @@
                         ? this.elements.cashier.value
                         : '',
 
-                payment_method_id:
+                payment_method:
                     this.elements.paymentMethod
                         ? this.elements.paymentMethod.value
                         : '',
