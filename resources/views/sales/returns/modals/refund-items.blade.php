@@ -5,39 +5,37 @@
     aria-labelledby="refundOrderItemsModalLabel"
     aria-hidden="true"
 >
-
     <div
         class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable returns-items-modal-dialog"
     >
-
         <div class="modal-content">
 
-            {{-- Header --}}
-
+            {{-- ==================================================
+                Header
+            =================================================== --}}
             <div class="modal-header">
-
                 <div>
-
                     <h5
                         class="modal-title"
                         id="refundOrderItemsModalLabel"
                     >
-                        Order Items
+                        Partial Return
                     </h5>
 
                     <p
-                        class="text-muted small mb-0"
+                        class="text-muted small mb-1"
                         id="refundOrderItemsSubtitle"
                     >
                         —
                     </p>
 
-                    <span class="text-muted small" id="refundOrderItemsBranch" > 
-                        <i class="bi bi-shop me-1"></i> — 
+                    <span
+                        class="text-muted small"
+                        id="refundOrderItemsBranch"
+                    >
+                        <i class="bi bi-shop me-1"></i> —
                     </span>
-
                 </div>
-
 
                 <button
                     type="button"
@@ -45,31 +43,22 @@
                     data-bs-dismiss="modal"
                     aria-label="Close"
                 ></button>
-
             </div>
-            
+
             {{-- ==================================================
                 Body
-            ================================================== --}}
-
+            =================================================== --}}
             <div class="modal-body">
-
 
                 {{-- ==================================================
                     Order Summary
                 =================================================== --}}
-
                 <div class="order-items-summary mb-4">
-
                     <div class="row g-3">
 
-
                         {{-- Total Items --}}
-
                         <div class="col-md-4">
-
                             <div class="order-items-summary-card">
-
                                 <span class="text-muted small">
                                     Total Items
                                 </span>
@@ -79,19 +68,12 @@
                                 >
                                     0
                                 </strong>
-
                             </div>
-
                         </div>
 
-
                         {{-- Total Amount --}}
-
-                       
                         <div class="col-md-4">
-
                             <div class="order-items-summary-card">
-
                                 <span class="text-muted small">
                                     Total Amount
                                 </span>
@@ -101,18 +83,12 @@
                                 >
                                     {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
                                 </strong>
-
                             </div>
-
                         </div>
 
-
                         {{-- Amount Paid --}}
-
                         <div class="col-md-4">
-
                             <div class="order-items-summary-card">
-
                                 <span class="text-muted small">
                                     Amount Paid
                                 </span>
@@ -122,18 +98,12 @@
                                 >
                                     {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
                                 </strong>
-
                             </div>
-
                         </div>
 
-
                         {{-- Balance --}}
-
                         <div class="col-md-4">
-
                             <div class="order-items-summary-card">
-
                                 <span class="text-muted small">
                                     Balance
                                 </span>
@@ -143,20 +113,12 @@
                                 >
                                     {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
                                 </strong>
-
                             </div>
-
                         </div>
 
-
-
-
                         {{-- Payment Status --}}
-
                         <div class="col-md-4">
-
                             <div class="order-items-summary-card">
-
                                 <span class="text-muted small d-block">
                                     Payment Status
                                 </span>
@@ -167,76 +129,79 @@
                                 >
                                     —
                                 </span>
-
                             </div>
-
                         </div>
 
                     </div>
-
                 </div>
 
+                {{-- ==================================================
+                    Partial Return Instruction
+                =================================================== --}}
+                <div
+                    class="alert alert-light border d-flex align-items-start gap-2 mb-4"
+                >
+                    <i class="bi bi-info-circle text-primary mt-1"></i>
+
+                    <div>
+                        <div class="fw-semibold">
+                            Select items to return
+                        </div>
+
+                        <div class="small text-muted">
+                            Enter the quantity you want to return.
+                            You cannot return more than the available
+                            quantity.
+                        </div>
+                    </div>
+                </div>
 
                 {{-- ==================================================
                     Loading
                 =================================================== --}}
-
                 <div
                     id="refundOrderItemsLoading"
                     class="text-center py-5 d-none"
                 >
-
                     <div
                         class="spinner-border text-primary"
                         role="status"
                     >
-
                         <span class="visually-hidden">
                             Loading...
                         </span>
-
                     </div>
 
                     <div class="text-muted small mt-2">
                         Loading order items...
                     </div>
-
                 </div>
-
 
                 {{-- ==================================================
                     Empty State
                 =================================================== --}}
-
                 <div
                     id="refundOrderItemsEmpty"
                     class="text-center py-5 d-none"
                 >
-
                     <i class="bi bi-box-seam fs-2 text-muted"></i>
 
                     <p class="text-muted mt-2 mb-0">
-                        No items found for this order.
+                        No items available for partial return.
                     </p>
-
                 </div>
-
 
                 {{-- ==================================================
                     Items Table
                 =================================================== --}}
-
                 <div
                     id="refundOrderItemsContainer"
                     class="table-responsive"
                 >
-
                     <table class="table align-middle mb-0">
 
                         <thead>
-
                             <tr>
-
                                 <th>
                                     Product
                                 </th>
@@ -246,19 +211,28 @@
                                 </th>
 
                                 <th class="text-center">
-                                    Qty
+                                    Sold Qty
+                                </th>
+
+                                <th class="text-center">
+                                    Returned
+                                </th>
+
+                                <th class="text-center">
+                                    Available
+                                </th>
+
+                                <th
+                                    class="text-center"
+                                    style="min-width: 120px;"
+                                >
+                                    Return Qty
                                 </th>
 
                                 <th class="text-end">
-                                    Unit Price
+                                    Amount
                                 </th>
-
-                                <th class="text-end">
-                                    Total
-                                </th>
-
                             </tr>
-
                         </thead>
 
                         <tbody
@@ -266,15 +240,79 @@
                         ></tbody>
 
                     </table>
-
                 </div>
+
+                {{-- ==================================================
+                    Partial Return Summary
+                =================================================== --}}
+                <div
+                    id="refundOrderItemsReturnSummary"
+                    class="order-items-return-summary mt-4 d-none"
+                >
+                    <div class="row g-3">
+
+                        {{-- Items Selected --}}
+                        <div class="col-md-4">
+                            <div class="order-items-summary-card">
+                                <span class="text-muted small">
+                                    Items to Return
+                                </span>
+
+                                <strong
+                                    id="refundOrderItemsSelectedCount"
+                                >
+                                    0
+                                </strong>
+                            </div>
+                        </div>
+
+                        {{-- Quantity --}}
+                        <div class="col-md-4">
+                            <div class="order-items-summary-card">
+                                <span class="text-muted small">
+                                    Return Quantity
+                                </span>
+
+                                <strong
+                                    id="refundOrderItemsReturnQuantity"
+                                >
+                                    0
+                                </strong>
+                            </div>
+                        </div>
+
+                        {{-- Refund Amount --}}
+                        <div class="col-md-4">
+                            <div class="order-items-summary-card">
+                                <span class="text-muted small">
+                                    Refund Amount
+                                </span>
+
+                                <strong
+                                    id="refundOrderItemsReturnAmount"
+                                >
+                                    {{ \App\Helpers\CurrencyHelper::symbol() }}0.00
+                                </strong>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- ==================================================
+                    Validation Message
+                =================================================== --}}
+                <div
+                    id="refundOrderItemsValidation"
+                    class="alert alert-danger mt-3 d-none"
+                    role="alert"
+                ></div>
 
             </div>
 
-
-
-            {{-- Footer --}}
-
+            {{-- ==================================================
+                Footer
+            =================================================== --}}
             <div class="modal-footer">
 
                 <button
@@ -282,15 +320,23 @@
                     class="btn btn-light"
                     data-bs-dismiss="modal"
                 >
-
                     Close
-
                 </button>
+
+                @permission('sales.returns.create')
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="processPartialReturnButton"
+                        disabled
+                    >
+                        <i class="bi bi-arrow-counterclockwise me-2"></i>
+                        Process Partial Return
+                    </button>
+                @endpermission
 
             </div>
 
         </div>
-
     </div>
-
 </div>

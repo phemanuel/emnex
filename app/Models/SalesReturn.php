@@ -270,6 +270,17 @@ class SalesReturn extends Model
 
     }
 
+    /**
+     * Return Items
+     */
+    public function items(): HasMany
+    {
+        return $this->hasMany(
+            SalesReturnItem::class,
+            'sales_return_id'
+        );
+    }
+
 
     /*
     |--------------------------------------------------------------------------

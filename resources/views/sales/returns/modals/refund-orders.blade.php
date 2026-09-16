@@ -284,13 +284,17 @@
                 <div class="table-responsive">
 
                     <table
-                        class="table table-hover align-middle mb-0"
+                        class="table table-hover align-middle mb-0 returns-orders-table"
                         id="refundOrdersTable"
                     >
 
                         <thead class="table-light">
 
                             <tr>
+
+                           <th class="ps-4 returns-actions-column">
+                                Actions
+                            </th>
 
                                 <th class="ps-4">
                                     Order No.
@@ -327,10 +331,7 @@
                                 <th>
                                     Payment Status
                                 </th>
-
-                                <th class="text-end pe-4">
-                                    Action
-                                </th>
+                                
 
                             </tr>
 

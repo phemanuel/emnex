@@ -702,6 +702,9 @@ Route::prefix('products')
             Route::post('/orders/{id}/process', [SalesReturnController::class, 'process'])
             ->name('returns.process');
 
+            Route::post('/orders/{id}/partial',[SalesReturnController::class, 'processPartial'])
+            ->name('returns.process-partial');
+
         });
 
     });  

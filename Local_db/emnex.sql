@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 14, 2026 at 06:09 PM
+-- Generation Time: Sep 16, 2026 at 03:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -408,7 +408,16 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (342, 1, 2, 15, 'pos', 'sale_completed', 'POS sale ORD-000040 completed.', 'Order', 79, NULL, '{\"id\":79,\"company_id\":1,\"branch_id\":2,\"order_no\":\"ORD-000040\",\"customer_id\":null,\"cashier_id\":15,\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"90.00\",\"total\":\"1200.00\",\"amount_paid\":\"1290.00\",\"balance\":\"0.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"1290.00\",\"completed_at\":\"2026-09-14T14:30:52.000000Z\",\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":14,\"receipt_printed\":false,\"remarks\":\"1290\",\"created_by\":15,\"updated_by\":15,\"created_at\":\"2026-09-14T14:30:52.000000Z\",\"updated_at\":\"2026-09-14T14:30:52.000000Z\",\"deleted_at\":null,\"order_items\":[{\"id\":104,\"company_id\":1,\"order_id\":79,\"product_id\":19,\"product_name\":\"Three Crown Evaporated Milk\",\"product_barcode\":\"TH123456\",\"quantity\":\"1.00\",\"unit_price\":\"1200.00\",\"unit_cost\":\"1000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"1200.00\",\"created_at\":\"2026-09-14T14:30:52.000000Z\",\"updated_at\":\"2026-09-14T14:30:52.000000Z\"}],\"payments\":[{\"id\":34,\"company_id\":1,\"branch_id\":2,\"order_id\":79,\"customer_id\":null,\"terminal_id\":14,\"amount\":\"1290.00\",\"payment_status\":\"Completed\",\"payment_method_id\":3,\"payment_method\":\"Transfer\",\"payment_date\":\"2026-09-14T14:30:52.000000Z\",\"transaction_reference\":null,\"payment_gateway\":null,\"reference_no\":\"yr8df345\",\"remarks\":\"1290\",\"received_by\":15,\"payment_number\":\"PAY-000029\",\"created_at\":\"2026-09-14T14:30:52.000000Z\",\"updated_at\":\"2026-09-14T14:30:52.000000Z\"}],\"invoice\":{\"id\":33,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"order_id\":79,\"customer_id\":null,\"invoice_no\":\"INV-000027\",\"invoice_date\":\"2026-09-14T00:00:00.000000Z\",\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"tax\":\"90.00\",\"total\":\"1200.00\",\"amount_paid\":\"1290.00\",\"balance\":\"0.00\",\"total_quantity\":\"1.00\",\"total_items\":1,\"grand_total\":\"1290.00\",\"payment_status\":\"Paid\",\"invoice_status\":\"Active\",\"remarks\":\"1290\",\"created_by\":15,\"updated_by\":15,\"created_at\":\"2026-09-14T14:30:52.000000Z\",\"updated_at\":\"2026-09-14T14:30:52.000000Z\",\"deleted_at\":null}}', 'pos/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-14 13:30:52', '2026-09-14 13:30:52'),
 (343, 1, 1, 1, 'orders', 'create', 'Created sales order: ORD-000041', 'Order', 80, NULL, '{\"company_id\":1,\"branch_id\":4,\"terminal_id\":12,\"customer_id\":9,\"cashier_id\":1,\"order_no\":\"ORD-000041\",\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"1200.00\",\"amount_paid\":\"0.00\",\"balance\":\"1200.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"1200.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"updated_at\":\"2026-09-14T14:32:47.000000Z\",\"created_at\":\"2026-09-14T14:32:47.000000Z\",\"id\":80}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-14 13:32:47', '2026-09-14 13:32:47'),
 (344, 1, 1, 1, 'invoices', 'create', 'Created invoice: INV-000028', 'Invoice', 34, NULL, '{\"company_id\":1,\"branch_id\":4,\"terminal_id\":12,\"customer_id\":9,\"order_id\":80,\"invoice_no\":\"INV-000028\",\"invoice_date\":\"2026-09-14T00:00:00.000000Z\",\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"1200.00\",\"amount_paid\":\"0.00\",\"balance\":\"1200.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"grand_total\":\"1200.00\",\"payment_status\":\"Pending\",\"invoice_status\":\"Active\",\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"updated_at\":\"2026-09-14T14:32:47.000000Z\",\"created_at\":\"2026-09-14T14:32:47.000000Z\",\"id\":34}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-14 13:32:47', '2026-09-14 13:32:47'),
-(345, 1, 1, 1, 'sales_orders', 'Completed', 'Completed sales order: ORD-000041', 'Order', 80, '{\"id\":80,\"company_id\":1,\"branch_id\":4,\"order_no\":\"ORD-000041\",\"customer_id\":9,\"cashier_id\":1,\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"1200.00\",\"amount_paid\":\"0.00\",\"balance\":\"1200.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"1200.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"terminal_id\":12,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-09-14T14:32:47.000000Z\",\"updated_at\":\"2026-09-14T14:32:47.000000Z\",\"deleted_at\":null}', '{\"id\":80,\"company_id\":1,\"branch_id\":4,\"order_no\":\"ORD-000041\",\"customer_id\":9,\"cashier_id\":1,\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"1200.00\",\"amount_paid\":\"1200.00\",\"balance\":\"0.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"1200.00\",\"completed_at\":\"2026-09-14T14:38:08.000000Z\",\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":12,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-09-14T14:32:47.000000Z\",\"updated_at\":\"2026-09-14T14:38:08.000000Z\",\"deleted_at\":null}', 'sales/orders/80/complete', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-14 13:38:08', '2026-09-14 13:38:08');
+(345, 1, 1, 1, 'sales_orders', 'Completed', 'Completed sales order: ORD-000041', 'Order', 80, '{\"id\":80,\"company_id\":1,\"branch_id\":4,\"order_no\":\"ORD-000041\",\"customer_id\":9,\"cashier_id\":1,\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"1200.00\",\"amount_paid\":\"0.00\",\"balance\":\"1200.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"1200.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"terminal_id\":12,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-09-14T14:32:47.000000Z\",\"updated_at\":\"2026-09-14T14:32:47.000000Z\",\"deleted_at\":null}', '{\"id\":80,\"company_id\":1,\"branch_id\":4,\"order_no\":\"ORD-000041\",\"customer_id\":9,\"cashier_id\":1,\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"1200.00\",\"amount_paid\":\"1200.00\",\"balance\":\"0.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"1200.00\",\"completed_at\":\"2026-09-14T14:38:08.000000Z\",\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":12,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-09-14T14:32:47.000000Z\",\"updated_at\":\"2026-09-14T14:38:08.000000Z\",\"deleted_at\":null}', 'sales/orders/80/complete', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-14 13:38:08', '2026-09-14 13:38:08'),
+(346, 1, 1, 1, 'orders', 'create', 'Created sales order: ORD-000042', 'Order', 81, NULL, '{\"company_id\":1,\"branch_id\":1,\"terminal_id\":1,\"customer_id\":6,\"cashier_id\":1,\"order_no\":\"ORD-000042\",\"subtotal\":\"3350.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"3350.00\",\"amount_paid\":\"0.00\",\"balance\":\"3350.00\",\"total_items\":3,\"total_quantity\":\"4.00\",\"change_given\":\"0.00\",\"grand_total\":\"3350.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"updated_at\":\"2026-09-16T11:39:51.000000Z\",\"created_at\":\"2026-09-16T11:39:51.000000Z\",\"id\":81}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 10:39:51', '2026-09-16 10:39:51'),
+(347, 1, 1, 1, 'invoices', 'create', 'Created invoice: INV-000029', 'Invoice', 35, NULL, '{\"company_id\":1,\"branch_id\":1,\"terminal_id\":1,\"customer_id\":6,\"order_id\":81,\"invoice_no\":\"INV-000029\",\"invoice_date\":\"2026-09-16T00:00:00.000000Z\",\"subtotal\":\"3350.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"3350.00\",\"amount_paid\":\"0.00\",\"balance\":\"3350.00\",\"total_items\":3,\"total_quantity\":\"4.00\",\"grand_total\":\"3350.00\",\"payment_status\":\"Pending\",\"invoice_status\":\"Active\",\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"updated_at\":\"2026-09-16T11:39:51.000000Z\",\"created_at\":\"2026-09-16T11:39:51.000000Z\",\"id\":35}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 10:39:51', '2026-09-16 10:39:51'),
+(348, 1, 1, 1, 'sales_orders', 'Completed', 'Completed sales order: ORD-000042', 'Order', 81, '{\"id\":81,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000042\",\"customer_id\":6,\"cashier_id\":1,\"subtotal\":\"3350.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"3350.00\",\"amount_paid\":\"0.00\",\"balance\":\"3350.00\",\"total_items\":3,\"total_quantity\":\"4.00\",\"change_given\":\"0.00\",\"grand_total\":\"3350.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"terminal_id\":1,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-09-16T11:39:51.000000Z\",\"updated_at\":\"2026-09-16T11:39:51.000000Z\",\"deleted_at\":null}', '{\"id\":81,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000042\",\"customer_id\":6,\"cashier_id\":1,\"subtotal\":\"3350.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"3350.00\",\"amount_paid\":\"3350.00\",\"balance\":\"0.00\",\"total_items\":3,\"total_quantity\":\"4.00\",\"change_given\":\"0.00\",\"grand_total\":\"3350.00\",\"completed_at\":\"2026-09-16T11:40:05.000000Z\",\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":1,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-09-16T11:39:51.000000Z\",\"updated_at\":\"2026-09-16T11:40:05.000000Z\",\"deleted_at\":null}', 'sales/orders/81/complete', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 10:40:05', '2026-09-16 10:40:05'),
+(349, 1, 1, 1, 'orders', 'create', 'Created sales order: ORD-000043', 'Order', 82, NULL, '{\"company_id\":1,\"branch_id\":1,\"terminal_id\":2,\"customer_id\":null,\"cashier_id\":1,\"order_no\":\"ORD-000043\",\"subtotal\":\"10500.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"10500.00\",\"amount_paid\":\"0.00\",\"balance\":\"10500.00\",\"total_items\":4,\"total_quantity\":\"10.00\",\"change_given\":\"0.00\",\"grand_total\":\"10500.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"updated_at\":\"2026-09-16T13:02:21.000000Z\",\"created_at\":\"2026-09-16T13:02:21.000000Z\",\"id\":82}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(350, 1, 1, 1, 'invoices', 'create', 'Created invoice: INV-000030', 'Invoice', 36, NULL, '{\"company_id\":1,\"branch_id\":1,\"terminal_id\":2,\"customer_id\":null,\"order_id\":82,\"invoice_no\":\"INV-000030\",\"invoice_date\":\"2026-09-16T00:00:00.000000Z\",\"subtotal\":\"10500.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"10500.00\",\"amount_paid\":\"0.00\",\"balance\":\"10500.00\",\"total_items\":4,\"total_quantity\":\"10.00\",\"grand_total\":\"10500.00\",\"payment_status\":\"Pending\",\"invoice_status\":\"Active\",\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"updated_at\":\"2026-09-16T13:02:21.000000Z\",\"created_at\":\"2026-09-16T13:02:21.000000Z\",\"id\":36}', 'sales/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(351, 1, 1, 1, 'sales_orders', 'Completed', 'Completed sales order: ORD-000043', 'Order', 82, '{\"id\":82,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000043\",\"customer_id\":null,\"cashier_id\":1,\"subtotal\":\"10500.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"10500.00\",\"amount_paid\":\"0.00\",\"balance\":\"10500.00\",\"total_items\":4,\"total_quantity\":\"10.00\",\"change_given\":\"0.00\",\"grand_total\":\"10500.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"terminal_id\":2,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-09-16T13:02:21.000000Z\",\"updated_at\":\"2026-09-16T13:02:21.000000Z\",\"deleted_at\":null}', '{\"id\":82,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000043\",\"customer_id\":null,\"cashier_id\":1,\"subtotal\":\"10500.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"10500.00\",\"amount_paid\":\"10500.00\",\"balance\":\"0.00\",\"total_items\":4,\"total_quantity\":\"10.00\",\"change_given\":\"0.00\",\"grand_total\":\"10500.00\",\"completed_at\":\"2026-09-16T13:02:34.000000Z\",\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":2,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-09-16T13:02:21.000000Z\",\"updated_at\":\"2026-09-16T13:02:34.000000Z\",\"deleted_at\":null}', 'sales/orders/82/complete', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:02:34', '2026-09-16 12:02:34'),
+(352, 1, 1, 1, 'sales_returns', 'create', 'Full refund processed for sales order: ORD-000043', 'SalesReturn', 2, NULL, '{\"return_number\":\"RET-000002\",\"order_id\":82,\"refund_amount\":10500,\"return_type\":\"Full\"}', 'sales/returns/orders/82/process', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(353, 1, 1, 1, 'sales_returns', 'partial_return', 'Processed partial return RET-000003 for sales order ORD-000042. Refund amount: 1,900.00. Returned quantity: 2.00.', 'SalesReturn', 3, NULL, '{\"refund_amount\":1900,\"returned_cogs\":1630,\"returned_quantity\":2,\"fully_returned\":false}', 'sales/returns/orders/81/partial', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
+(354, 1, 1, 1, 'sales_returns', 'partial_return', 'Processed partial return RET-000004 for sales order ORD-000042. Refund amount: 250.00. Returned quantity: 1.00.', 'SalesReturn', 4, NULL, '{\"refund_amount\":250,\"returned_cogs\":180,\"returned_quantity\":1,\"fully_returned\":false}', 'sales/returns/orders/81/partial', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:18:22', '2026-09-16 12:18:22');
 
 -- --------------------------------------------------------
 
@@ -459,7 +468,7 @@ CREATE TABLE `cache` (
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('emnex-cache-user_permissions_15', 'a:13:{i:0;s:14:\"dashboard.view\";i:1;s:14:\"customers.view\";i:2;s:16:\"customers.create\";i:3;s:13:\"products.view\";i:4;s:11:\"orders.view\";i:5;s:13:\"orders.create\";i:6;s:13:\"payments.view\";i:7;s:15:\"payments.create\";i:8;s:8:\"pos.sell\";i:9;s:13:\"pos.hold_sale\";i:10;s:15:\"pos.open_orders\";i:11;s:15:\"pos.return_sale\";i:12;s:15:\"pos.cash_drawer\";}', 1788432552),
-('emnex-cache-user_permissions_17', 'a:47:{i:0;s:14:\"dashboard.view\";i:1;s:13:\"branches.view\";i:2;s:15:\"branches.update\";i:3;s:14:\"terminals.view\";i:4;s:10:\"users.view\";i:5;s:13:\"products.view\";i:6;s:15:\"categories.view\";i:7;s:10:\"units.view\";i:8;s:14:\"tax_rates.view\";i:9;s:16:\"tax_rates.create\";i:10;s:16:\"tax_rates.update\";i:11;s:16:\"tax_rates.delete\";i:12;s:14:\"discounts.view\";i:13;s:16:\"discounts.create\";i:14;s:16:\"discounts.update\";i:15;s:16:\"discounts.delete\";i:16;s:14:\"inventory.view\";i:17;s:21:\"inventory.stock_count\";i:18;s:19:\"inventory.low_stock\";i:19;s:14:\"customers.view\";i:20;s:16:\"customers.create\";i:21;s:16:\"customers.update\";i:22;s:16:\"customers.export\";i:23;s:14:\"suppliers.view\";i:24;s:16:\"suppliers.create\";i:25;s:16:\"suppliers.update\";i:26;s:16:\"suppliers.delete\";i:27;s:14:\"purchases.view\";i:28;s:16:\"purchases.create\";i:29;s:16:\"purchases.update\";i:30;s:16:\"purchases.delete\";i:31;s:17:\"purchases.approve\";i:32;s:11:\"orders.view\";i:33;s:13:\"orders.create\";i:34;s:13:\"orders.update\";i:35;s:13:\"orders.cancel\";i:36;s:13:\"orders.refund\";i:37;s:13:\"payments.view\";i:38;s:13:\"reports.sales\";i:39;s:17:\"reports.inventory\";i:40;s:8:\"pos.sell\";i:41;s:13:\"pos.hold_sale\";i:42;s:15:\"pos.open_orders\";i:43;s:15:\"pos.return_sale\";i:44;s:15:\"pos.cash_drawer\";i:45;s:15:\"payments.create\";i:46;s:15:\"payments.refund\";}', 1788447531),
+('emnex-cache-user_permissions_17', 'a:47:{i:0;s:14:\"dashboard.view\";i:1;s:13:\"branches.view\";i:2;s:15:\"branches.update\";i:3;s:14:\"terminals.view\";i:4;s:10:\"users.view\";i:5;s:13:\"products.view\";i:6;s:15:\"categories.view\";i:7;s:10:\"units.view\";i:8;s:14:\"tax_rates.view\";i:9;s:16:\"tax_rates.create\";i:10;s:16:\"tax_rates.update\";i:11;s:16:\"tax_rates.delete\";i:12;s:14:\"discounts.view\";i:13;s:16:\"discounts.create\";i:14;s:16:\"discounts.update\";i:15;s:16:\"discounts.delete\";i:16;s:14:\"inventory.view\";i:17;s:21:\"inventory.stock_count\";i:18;s:19:\"inventory.low_stock\";i:19;s:14:\"customers.view\";i:20;s:16:\"customers.create\";i:21;s:16:\"customers.update\";i:22;s:16:\"customers.export\";i:23;s:14:\"suppliers.view\";i:24;s:16:\"suppliers.create\";i:25;s:16:\"suppliers.update\";i:26;s:16:\"suppliers.delete\";i:27;s:14:\"purchases.view\";i:28;s:16:\"purchases.create\";i:29;s:16:\"purchases.update\";i:30;s:16:\"purchases.delete\";i:31;s:17:\"purchases.approve\";i:32;s:11:\"orders.view\";i:33;s:13:\"orders.create\";i:34;s:13:\"orders.update\";i:35;s:13:\"orders.cancel\";i:36;s:13:\"orders.refund\";i:37;s:13:\"payments.view\";i:38;s:13:\"reports.sales\";i:39;s:17:\"reports.inventory\";i:40;s:8:\"pos.sell\";i:41;s:13:\"pos.hold_sale\";i:42;s:15:\"pos.open_orders\";i:43;s:15:\"pos.return_sale\";i:44;s:15:\"pos.cash_drawer\";i:45;s:15:\"payments.create\";i:46;s:15:\"payments.refund\";}', 1789554579),
 ('emnex-cache-user_permissions_5', 'a:13:{i:0;s:14:\"dashboard.view\";i:1;s:14:\"customers.view\";i:2;s:16:\"customers.create\";i:3;s:13:\"products.view\";i:4;s:11:\"orders.view\";i:5;s:13:\"orders.create\";i:6;s:13:\"payments.view\";i:7;s:15:\"payments.create\";i:8;s:8:\"pos.sell\";i:9;s:13:\"pos.hold_sale\";i:10;s:15:\"pos.open_orders\";i:11;s:15:\"pos.return_sale\";i:12;s:15:\"pos.cash_drawer\";}', 1788159229);
 
 -- --------------------------------------------------------
@@ -762,8 +771,8 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (2, 1, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (3, 1, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(5, 1, 'order', 'ORD', NULL, '-', 42, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-14 13:32:47', 0),
-(6, 1, 'payment', 'PAY', NULL, '-', 31, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-14 13:38:08', 0),
+(5, 1, 'order', 'ORD', NULL, '-', 44, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-16 12:02:21', 0),
+(6, 1, 'payment', 'PAY', NULL, '-', 33, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-16 12:02:34', 0),
 (7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (8, 1, 'purchase_return', 'PRN', NULL, '-', 5, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-27 09:44:50', 0),
 (9, 1, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
@@ -773,7 +782,7 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (13, 1, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (14, 1, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (15, 1, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(16, 1, 'Invoice', 'INV', NULL, '-', 29, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-14 13:32:47', 0),
+(16, 1, 'Invoice', 'INV', NULL, '-', 31, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-16 12:02:21', 0),
 (17, 1, 'Receipt', 'REC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (18, 1, 'Sales Order', 'SO', NULL, '-', 31, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-04 08:03:52', 0),
 (19, 1, 'Purchase Order', 'PO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
@@ -933,7 +942,9 @@ INSERT INTO `invoices` (`id`, `company_id`, `branch_id`, `terminal_id`, `order_i
 (31, 1, 2, 14, 77, NULL, 'INV-000025', '2026-09-04', 1200.00, 0.00, 90.00, 1200.00, 1290.00, 0.00, 1.00, 1, 1290.00, 'Paid', 'Active', NULL, 15, 15, '2026-09-04 08:22:48', '2026-09-04 08:22:48', NULL),
 (32, 1, 2, 14, 78, 10, 'INV-000026', '2026-09-04', 8600.00, 0.00, 645.00, 8600.00, 9245.00, 0.00, 1.00, 1, 9245.00, 'Paid', 'Active', NULL, 15, 15, '2026-09-04 08:57:18', '2026-09-04 08:57:18', NULL),
 (33, 1, 2, 14, 79, NULL, 'INV-000027', '2026-09-14', 1200.00, 0.00, 90.00, 1200.00, 1290.00, 0.00, 1.00, 1, 1290.00, 'Paid', 'Active', '1290', 15, 15, '2026-09-14 13:30:52', '2026-09-14 13:30:52', NULL),
-(34, 1, 4, 12, 80, 9, 'INV-000028', '2026-09-14', 1200.00, 0.00, 0.00, 1200.00, 1200.00, 0.00, 1.00, 1, 1200.00, 'Paid', 'Active', NULL, 1, 1, '2026-09-14 13:32:47', '2026-09-14 13:38:08', NULL);
+(34, 1, 4, 12, 80, 9, 'INV-000028', '2026-09-14', 1200.00, 0.00, 0.00, 1200.00, 0.00, 0.00, 1.00, 1, 1200.00, 'Refunded', 'Refunded', NULL, 1, 1, '2026-09-14 13:32:47', '2026-09-16 10:21:18', NULL),
+(35, 1, 1, 1, 81, 6, 'INV-000029', '2026-09-16', 3350.00, 0.00, 0.00, 3350.00, 3350.00, 0.00, 4.00, 3, 3350.00, 'Paid', 'Active', NULL, 1, 1, '2026-09-16 10:39:51', '2026-09-16 10:40:05', NULL),
+(36, 1, 1, 2, 82, NULL, 'INV-000030', '2026-09-16', 10500.00, 0.00, 0.00, 10500.00, 0.00, 0.00, 10.00, 4, 10500.00, 'Refunded', 'Refunded', NULL, 1, 1, '2026-09-16 12:02:21', '2026-09-16 12:03:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -1000,7 +1011,14 @@ INSERT INTO `invoice_items` (`id`, `company_id`, `invoice_id`, `product_id`, `pr
 (56, 1, 31, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-09-04 08:22:48', '2026-09-04 08:22:48'),
 (57, 1, 32, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-04 08:57:18', '2026-09-04 08:57:18'),
 (58, 1, 33, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-09-14 13:30:52', '2026-09-14 13:30:52'),
-(59, 1, 34, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-09-14 13:32:47', '2026-09-14 13:32:47');
+(59, 1, 34, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-09-14 13:32:47', '2026-09-14 13:32:47'),
+(60, 1, 35, 6, 'Dangote Sugar 1kg', '100000000006', 1.00, 1650.00, 0.00, 0.00, 1650.00, '2026-09-16 10:39:51', '2026-09-16 10:39:51'),
+(61, 1, 35, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-09-16 10:39:51', '2026-09-16 10:39:51'),
+(62, 1, 35, 5, 'Indomie Chicken Noodles', '100000000005', 2.00, 250.00, 0.00, 0.00, 500.00, '2026-09-16 10:39:51', '2026-09-16 10:39:51'),
+(63, 1, 36, 7, 'Family Bread', '100000000007', 2.00, 1200.00, 0.00, 0.00, 2400.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(64, 1, 36, 6, 'Dangote Sugar 1kg', '100000000006', 3.00, 1650.00, 0.00, 0.00, 4950.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(65, 1, 36, 19, 'Three Crown Evaporated Milk', 'TH123456', 2.00, 1200.00, 0.00, 0.00, 2400.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(66, 1, 36, 5, 'Indomie Chicken Noodles', '100000000005', 3.00, 250.00, 0.00, 0.00, 750.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21');
 
 -- --------------------------------------------------------
 
@@ -1115,7 +1133,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (63, '2026_08_30_021155_create_cash_drawers_table', 21),
 (64, '2026_08_30_021227_create_cash_drawer_transactions_table', 21),
 (65, '2026_08_30_112306_create_terminal_assignments_table', 21),
-(66, '2026_09_14_134815_add_unit_cost_to_order_items_table', 22);
+(66, '2026_09_14_134815_add_unit_cost_to_order_items_table', 22),
+(67, '2026_09_16_114806_create_sales_return_items_table', 23);
 
 -- --------------------------------------------------------
 
@@ -1189,7 +1208,9 @@ INSERT INTO `orders` (`id`, `company_id`, `branch_id`, `order_no`, `customer_id`
 (77, 1, 2, 'ORD-000038', NULL, 15, 1200.00, 0.00, NULL, NULL, 90.00, 1200.00, 1290.00, 0.00, 1, 1.00, 0.00, 1290.00, '2026-09-04 08:22:48', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:22:48', '2026-09-04 08:22:48', NULL),
 (78, 1, 2, 'ORD-000039', 10, 15, 8600.00, 0.00, NULL, NULL, 645.00, 8600.00, 9245.00, 0.00, 1, 1.00, 5.00, 9245.00, '2026-09-04 08:57:18', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:57:18', '2026-09-04 08:57:18', NULL),
 (79, 1, 2, 'ORD-000040', NULL, 15, 1200.00, 0.00, NULL, NULL, 90.00, 1200.00, 1290.00, 0.00, 1, 1.00, 0.00, 1290.00, '2026-09-14 13:30:52', 'Paid', 'Completed', 'POS', 14, 0, '1290', 15, 15, '2026-09-14 13:30:52', '2026-09-14 13:30:52', NULL),
-(80, 1, 4, 'ORD-000041', 9, 1, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 1200.00, 0.00, 1, 1.00, 0.00, 1200.00, '2026-09-14 13:38:08', 'Paid', 'Completed', 'POS', 12, 0, NULL, 1, 1, '2026-09-14 13:32:47', '2026-09-14 13:38:08', NULL);
+(80, 1, 4, 'ORD-000041', 9, 1, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 0.00, 0.00, 1, 1.00, 0.00, 1200.00, '2026-09-14 13:38:08', 'Refunded', 'Refunded', 'POS', 12, 0, NULL, 1, 1, '2026-09-14 13:32:47', '2026-09-16 10:21:18', NULL),
+(81, 1, 1, 'ORD-000042', 6, 1, 3350.00, 0.00, NULL, NULL, 0.00, 3350.00, 3350.00, 0.00, 3, 4.00, 0.00, 3350.00, '2026-09-16 10:40:05', 'Paid', 'Completed', 'POS', 1, 0, NULL, 1, 1, '2026-09-16 10:39:51', '2026-09-16 10:40:05', NULL),
+(82, 1, 1, 'ORD-000043', NULL, 1, 10500.00, 0.00, NULL, NULL, 0.00, 10500.00, 0.00, 0.00, 4, 10.00, 0.00, 10500.00, '2026-09-16 12:02:34', 'Refunded', 'Refunded', 'POS', 2, 0, NULL, 1, 1, '2026-09-16 12:02:21', '2026-09-16 12:03:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -1258,7 +1279,14 @@ INSERT INTO `order_items` (`id`, `company_id`, `order_id`, `product_id`, `produc
 (102, 1, 77, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 1000.00, 0.00, 0.00, 1200.00, '2026-09-04 08:22:48', '2026-09-04 08:22:48'),
 (103, 1, 78, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-04 08:57:18', '2026-09-04 08:57:18'),
 (104, 1, 79, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 1000.00, 0.00, 0.00, 1200.00, '2026-09-14 13:30:52', '2026-09-14 13:30:52'),
-(105, 1, 80, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 900.00, 0.00, 0.00, 1200.00, '2026-09-14 13:32:47', '2026-09-14 13:32:47');
+(105, 1, 80, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 900.00, 0.00, 0.00, 1200.00, '2026-09-14 13:32:47', '2026-09-14 13:32:47'),
+(106, 1, 81, 6, 'Dangote Sugar 1kg', '100000000006', 1.00, 1650.00, 1450.00, 0.00, 0.00, 1650.00, '2026-09-16 10:39:51', '2026-09-16 10:39:51'),
+(107, 1, 81, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 900.00, 0.00, 0.00, 1200.00, '2026-09-16 10:39:51', '2026-09-16 10:39:51'),
+(108, 1, 81, 5, 'Indomie Chicken Noodles', '100000000005', 2.00, 250.00, 180.00, 0.00, 0.00, 500.00, '2026-09-16 10:39:51', '2026-09-16 10:39:51'),
+(109, 1, 82, 7, 'Family Bread', '100000000007', 2.00, 1200.00, 900.00, 0.00, 0.00, 2400.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(110, 1, 82, 6, 'Dangote Sugar 1kg', '100000000006', 3.00, 1650.00, 1450.00, 0.00, 0.00, 4950.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(111, 1, 82, 19, 'Three Crown Evaporated Milk', 'TH123456', 2.00, 1200.00, 1000.00, 0.00, 0.00, 2400.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(112, 1, 82, 5, 'Indomie Chicken Noodles', '100000000005', 3.00, 250.00, 180.00, 0.00, 0.00, 750.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21');
 
 -- --------------------------------------------------------
 
@@ -1334,7 +1362,9 @@ INSERT INTO `payments` (`id`, `company_id`, `branch_id`, `order_id`, `customer_i
 (32, 1, 2, 77, NULL, 14, 1290.00, 'Completed', 8, 'Card', '2026-09-04 09:22:48', NULL, NULL, 'card-2039393030', NULL, 15, 'PAY-000027', '2026-09-04 08:22:48', '2026-09-04 08:22:48'),
 (33, 1, 2, 78, 10, 14, 9245.00, 'Completed', 1, 'Cash', '2026-09-04 09:57:18', NULL, NULL, NULL, NULL, 15, 'PAY-000028', '2026-09-04 08:57:18', '2026-09-04 08:57:18'),
 (34, 1, 2, 79, NULL, 14, 1290.00, 'Completed', 3, 'Transfer', '2026-09-14 14:30:52', NULL, NULL, 'yr8df345', '1290', 15, 'PAY-000029', '2026-09-14 13:30:52', '2026-09-14 13:30:52'),
-(38, 1, 4, 80, 9, 12, 1200.00, 'Completed', 3, 'Transfer', '2026-09-14 14:38:08', NULL, NULL, 'ORD-000041', 'Payment received for sales order: ORD-000041', 1, 'PAY-000030', '2026-09-14 13:38:08', '2026-09-14 13:38:08');
+(38, 1, 4, 80, 9, 12, 1200.00, 'Refunded', 3, 'Transfer', '2026-09-14 14:38:08', NULL, NULL, 'ORD-000041', 'Payment received for sales order: ORD-000041', 1, 'PAY-000030', '2026-09-14 13:38:08', '2026-09-16 10:21:18'),
+(39, 1, 1, 81, 6, 1, 3350.00, 'Completed', 8, 'Card', '2026-09-16 11:40:05', NULL, NULL, 'ORD-000042', 'Payment received for sales order: ORD-000042', 1, 'PAY-000031', '2026-09-16 10:40:05', '2026-09-16 10:40:05'),
+(40, 1, 1, 82, NULL, 2, 10500.00, 'Refunded', 3, 'Transfer', '2026-09-16 13:02:34', NULL, NULL, 'ORD-000043', 'Payment received for sales order: ORD-000043', 1, 'PAY-000032', '2026-09-16 12:02:34', '2026-09-16 12:03:19');
 
 -- --------------------------------------------------------
 
@@ -1616,19 +1646,19 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (2, 1, 1, 2, 2040.00, 0.00, 2040.00, 20.00, 2100.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
 (3, 1, 1, 3, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
 (4, 1, 1, 4, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(5, 1, 1, 5, 80.00, 0.00, 80.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(6, 1, 1, 6, 1525.00, 0.00, 1525.00, 20.00, 1595.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(7, 1, 1, 7, 85.00, 0.00, 85.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(5, 1, 1, 5, 80.00, 0.00, 78.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-09-16 12:18:22'),
+(6, 1, 1, 6, 1525.00, 0.00, 1524.00, 20.00, 1595.00, '2026-07-29 10:37:13', '2026-09-16 12:16:43'),
+(7, 1, 1, 7, 84.00, 0.00, 84.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-09-16 12:03:19'),
 (8, 1, 1, 8, 75.00, 0.00, 75.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
 (9, 1, 1, 9, 70.00, 0.00, 70.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
 (10, 1, 1, 10, 1020.00, 0.00, 1020.00, 20.00, 1085.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(13, 1, 1, 19, 1605.00, 0.00, 1605.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-08-31 10:05:07'),
+(13, 1, 1, 19, 1605.00, 0.00, 1605.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-09-16 12:03:19'),
 (20, 1, 6, 19, 5.00, 0.00, 5.00, 100.00, 1635.00, '2026-08-11 09:39:39', '2026-08-22 13:10:17'),
 (21, 1, 6, 10, 5.00, 0.00, 5.00, 20.00, 1085.00, '2026-08-11 09:39:39', '2026-08-22 13:16:04'),
 (22, 1, 6, 9, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
 (23, 1, 4, 9, 9.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
 (24, 1, 4, 8, 0.00, 0.00, 0.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-28 09:20:27'),
-(25, 1, 4, 7, 3.00, 0.00, 3.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-09-14 13:38:08'),
+(25, 1, 4, 7, 4.00, 0.00, 4.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-09-16 10:21:18'),
 (26, 1, 4, 6, 1.00, 0.00, 1.00, 20.00, 1595.00, '2026-08-14 10:15:11', '2026-08-28 09:20:27'),
 (27, 1, 4, 5, 15.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
 (28, 1, 2, 19, 6.00, 0.00, 6.00, 100.00, 1635.00, '2026-08-31 10:05:07', '2026-09-14 13:30:52'),
@@ -2186,6 +2216,53 @@ CREATE TABLE `sales_returns` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sales_returns`
+--
+
+INSERT INTO `sales_returns` (`id`, `company_id`, `branch_id`, `terminal_id`, `order_id`, `invoice_id`, `customer_id`, `return_number`, `return_type`, `order_total`, `amount_paid`, `balance`, `refund_amount`, `refund_method`, `return_status`, `reason`, `remarks`, `processed_by`, `processed_at`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 12, 80, 34, 9, 'RET-000001', 'Completed', 1200.00, 1200.00, 0.00, 1200.00, NULL, 'Completed', NULL, 'Full refund processed for sales order: ORD-000041', 1, NULL, 1, NULL, '2026-09-16 10:21:18', '2026-09-16 10:21:18'),
+(2, 1, 1, 2, 82, 36, NULL, 'RET-000002', 'Completed', 10500.00, 10500.00, 0.00, 10500.00, 'Transfer', 'Completed', 'Full refund', 'Full refund processed for sales order: ORD-000043', 1, '2026-09-16 13:03:19', 1, 1, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(3, 1, 1, 1, 81, 35, 6, 'RET-000003', 'Completed', 3350.00, 3350.00, 0.00, 1900.00, 'Card', 'Completed', 'Partial return', 'Partial return processed for sales order:', 1, '2026-09-16 13:16:43', 1, 1, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
+(4, 1, 1, 1, 81, 35, 6, 'RET-000004', 'Completed', 3350.00, 3350.00, 0.00, 250.00, 'Card', 'Completed', 'Partial return', 'Partial return processed for sales order:', 1, '2026-09-16 13:18:22', 1, 1, '2026-09-16 12:18:22', '2026-09-16 12:18:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales_return_items`
+--
+
+CREATE TABLE `sales_return_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `sales_return_id` bigint(20) UNSIGNED NOT NULL,
+  `order_item_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `product_barcode` varchar(255) DEFAULT NULL,
+  `quantity` decimal(15,2) NOT NULL,
+  `unit_price` decimal(15,2) NOT NULL,
+  `unit_cost` decimal(15,2) NOT NULL,
+  `discount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `tax` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `total` decimal(15,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sales_return_items`
+--
+
+INSERT INTO `sales_return_items` (`id`, `company_id`, `sales_return_id`, `order_item_id`, `product_id`, `product_name`, `product_barcode`, `quantity`, `unit_price`, `unit_cost`, `discount`, `tax`, `total`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 109, 7, 'Family Bread', '100000000007', 2.00, 1200.00, 900.00, 0.00, 0.00, 2400.00, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(2, 1, 2, 110, 6, 'Dangote Sugar 1kg', '100000000006', 3.00, 1650.00, 1450.00, 0.00, 0.00, 4950.00, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(3, 1, 2, 111, 19, 'Three Crown Evaporated Milk', 'TH123456', 2.00, 1200.00, 1000.00, 0.00, 0.00, 2400.00, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(4, 1, 2, 112, 5, 'Indomie Chicken Noodles', '100000000005', 3.00, 250.00, 180.00, 0.00, 0.00, 750.00, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(5, 1, 3, 106, 6, 'Dangote Sugar 1kg', '100000000006', 1.00, 1650.00, 1450.00, 0.00, 0.00, 1650.00, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
+(6, 1, 3, 108, 5, 'Indomie Chicken Noodles', '100000000005', 1.00, 250.00, 180.00, 0.00, 0.00, 250.00, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
+(7, 1, 4, 108, 5, 'Indomie Chicken Noodles', '100000000005', 1.00, 250.00, 180.00, 0.00, 0.00, 250.00, '2026-09-16 12:18:22', '2026-09-16 12:18:22');
+
 -- --------------------------------------------------------
 
 --
@@ -2200,6 +2277,16 @@ CREATE TABLE `sales_return_payments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sales_return_payments`
+--
+
+INSERT INTO `sales_return_payments` (`id`, `sales_return_id`, `payment_id`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 1, 38, 1200.00, '2026-09-16 10:21:18', '2026-09-16 10:21:18'),
+(2, 2, 40, 10500.00, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(3, 3, 39, 1900.00, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
+(4, 4, 39, 250.00, '2026-09-16 12:18:22', '2026-09-16 12:18:22');
 
 -- --------------------------------------------------------
 
@@ -2221,7 +2308,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ORkuNeUwNrQjySdDEZM5cgxGP3EZMoDKYCIsoYQL', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6IjRmVzhISk1tN2Q1OEVhTEw4b3NkSEVscHNQUmpYQ2JLdWY2QVlJQkYiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjM1OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcmVwb3J0cy9zYWxlcyI7czo1OiJyb3V0ZSI7czoxOToicmVwb3J0cy5zYWxlcy5pbmRleCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1789402002);
+('VeV2jsJgy2U0ulfLDx6cMINDQE4NjTIymgLD0mA4', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6IlVIQmM5eVdwMnNEbUZNWnJhOElTenR2NWIzQ3NrVlhOVkNzanhjN1MiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjM1OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc2FsZXMvcmV0dXJucyI7czo1OiJyb3V0ZSI7czoxMzoicmV0dXJucy5pbmRleCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1789565452);
 
 -- --------------------------------------------------------
 
@@ -2450,7 +2537,22 @@ INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `m
 (110, 1, 2, 19, 'Sale', 77, 'ORD-000038', 1000.00, 1.00, 8.00, 7.00, 'POS Sale', 15, '2026-09-04 08:22:48', '2026-09-04 08:22:48'),
 (111, 1, 2, 10, 'Sale', 78, 'ORD-000039', 7800.00, 1.00, 7.00, 6.00, 'POS Sale', 15, '2026-09-04 08:57:18', '2026-09-04 08:57:18'),
 (112, 1, 2, 19, 'Sale', 79, 'ORD-000040', 1000.00, 1.00, 7.00, 6.00, 'POS Sale', 15, '2026-09-14 13:30:52', '2026-09-14 13:30:52'),
-(116, 1, 4, 7, 'Sale', 80, 'ORD-000041', 900.00, 1.00, 4.00, 3.00, 'Sales Order completed: ORD-000041', 1, '2026-09-14 13:38:08', '2026-09-14 13:38:08');
+(116, 1, 4, 7, 'Sale', 80, 'ORD-000041', 900.00, 1.00, 4.00, 3.00, 'Sales Order completed: ORD-000041', 1, '2026-09-14 13:38:08', '2026-09-14 13:38:08'),
+(117, 1, 4, 7, 'Return', 80, 'RET-000001', 900.00, 1.00, 3.00, 4.00, 'Stock returned from sales refund: ORD-000041', 1, '2026-09-16 10:21:18', '2026-09-16 10:21:18'),
+(118, 1, 1, 6, 'Sale', 81, 'ORD-000042', 1450.00, 1.00, 1525.00, 1524.00, 'Sales Order completed: ORD-000042', 1, '2026-09-16 10:40:05', '2026-09-16 10:40:05'),
+(119, 1, 1, 7, 'Sale', 81, 'ORD-000042', 900.00, 1.00, 85.00, 84.00, 'Sales Order completed: ORD-000042', 1, '2026-09-16 10:40:05', '2026-09-16 10:40:05'),
+(120, 1, 1, 5, 'Sale', 81, 'ORD-000042', 180.00, 2.00, 80.00, 78.00, 'Sales Order completed: ORD-000042', 1, '2026-09-16 10:40:05', '2026-09-16 10:40:05'),
+(121, 1, 1, 7, 'Sale', 82, 'ORD-000043', 900.00, 2.00, 84.00, 82.00, 'Sales Order completed: ORD-000043', 1, '2026-09-16 12:02:34', '2026-09-16 12:02:34'),
+(122, 1, 1, 6, 'Sale', 82, 'ORD-000043', 1450.00, 3.00, 1524.00, 1521.00, 'Sales Order completed: ORD-000043', 1, '2026-09-16 12:02:34', '2026-09-16 12:02:34'),
+(123, 1, 1, 19, 'Sale', 82, 'ORD-000043', 1000.00, 2.00, 1605.00, 1603.00, 'Sales Order completed: ORD-000043', 1, '2026-09-16 12:02:34', '2026-09-16 12:02:34'),
+(124, 1, 1, 5, 'Sale', 82, 'ORD-000043', 180.00, 3.00, 78.00, 75.00, 'Sales Order completed: ORD-000043', 1, '2026-09-16 12:02:34', '2026-09-16 12:02:34'),
+(125, 1, 1, 7, 'Return', 82, 'RET-000002', 900.00, 2.00, 82.00, 84.00, 'Stock returned from sales refund: ORD-000043', 1, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(126, 1, 1, 6, 'Return', 82, 'RET-000002', 1450.00, 3.00, 1521.00, 1524.00, 'Stock returned from sales refund: ORD-000043', 1, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(127, 1, 1, 19, 'Return', 82, 'RET-000002', 1000.00, 2.00, 1603.00, 1605.00, 'Stock returned from sales refund: ORD-000043', 1, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(128, 1, 1, 5, 'Return', 82, 'RET-000002', 180.00, 3.00, 75.00, 78.00, 'Stock returned from sales refund: ORD-000043', 1, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
+(129, 1, 1, 6, 'Return', 81, 'RET-000003', 1450.00, 1.00, 1524.00, 1525.00, 'Partial return for sales order ORD-000042.', 1, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
+(130, 1, 1, 5, 'Return', 81, 'RET-000003', 180.00, 1.00, 78.00, 79.00, 'Partial return for sales order ORD-000042.', 1, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
+(131, 1, 1, 5, 'Return', 81, 'RET-000004', 180.00, 1.00, 79.00, 80.00, 'Partial return for sales order ORD-000042.', 1, '2026-09-16 12:18:22', '2026-09-16 12:18:22');
 
 -- --------------------------------------------------------
 
@@ -3052,6 +3154,18 @@ ALTER TABLE `sales_returns`
   ADD KEY `sales_returns_updated_by_foreign` (`updated_by`);
 
 --
+-- Indexes for table `sales_return_items`
+--
+ALTER TABLE `sales_return_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sales_return_items_sales_return_id_foreign` (`sales_return_id`),
+  ADD KEY `sales_return_items_order_item_id_foreign` (`order_item_id`),
+  ADD KEY `sales_return_items_product_id_foreign` (`product_id`),
+  ADD KEY `sales_return_items_company_id_sales_return_id_index` (`company_id`,`sales_return_id`),
+  ADD KEY `sales_return_items_company_id_order_item_id_index` (`company_id`,`order_item_id`),
+  ADD KEY `sales_return_items_company_id_product_id_index` (`company_id`,`product_id`);
+
+--
 -- Indexes for table `sales_return_payments`
 --
 ALTER TABLE `sales_return_payments`
@@ -3178,7 +3292,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=355;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -3256,13 +3370,13 @@ ALTER TABLE `goods_received_items`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -3274,25 +3388,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -3370,13 +3484,19 @@ ALTER TABLE `sales_orders`
 -- AUTO_INCREMENT for table `sales_returns`
 --
 ALTER TABLE `sales_returns`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `sales_return_items`
+--
+ALTER TABLE `sales_return_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sales_return_payments`
 --
 ALTER TABLE `sales_return_payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -3400,7 +3520,7 @@ ALTER TABLE `stock_count_items`
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -3695,6 +3815,15 @@ ALTER TABLE `sales_returns`
   ADD CONSTRAINT `sales_returns_processed_by_foreign` FOREIGN KEY (`processed_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `sales_returns_terminal_id_foreign` FOREIGN KEY (`terminal_id`) REFERENCES `terminals` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `sales_returns_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `sales_return_items`
+--
+ALTER TABLE `sales_return_items`
+  ADD CONSTRAINT `sales_return_items_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `sales_return_items_order_item_id_foreign` FOREIGN KEY (`order_item_id`) REFERENCES `order_items` (`id`),
+  ADD CONSTRAINT `sales_return_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `sales_return_items_sales_return_id_foreign` FOREIGN KEY (`sales_return_id`) REFERENCES `sales_returns` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `sales_return_payments`

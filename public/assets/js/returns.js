@@ -59,6 +59,12 @@ const SalesReturns = {
 
         isProcessingRefund: false,
 
+        selectedReturnItems: {},
+        
+        partialReturnTotal: 0,
+
+        isProcessingPartialReturn: false
+
     },
 
 
@@ -372,7 +378,7 @@ const SalesReturns = {
             );        
 
 
-        /*
+                /*
         |--------------------------------------------------------------------------
         | Refund Order Items Summary
         |--------------------------------------------------------------------------
@@ -383,24 +389,20 @@ const SalesReturns = {
                 'refundOrderItemsTotalItems'
             );
 
-
         this.elements.refundOrderItemsTotalAmount =
             document.getElementById(
                 'refundOrderItemsTotalAmount'
             );
-
 
         this.elements.refundOrderItemsAmountPaid =
             document.getElementById(
                 'refundOrderItemsAmountPaid'
             );
 
-
         this.elements.refundOrderItemsBalance =
             document.getElementById(
                 'refundOrderItemsBalance'
             );
-
 
         this.elements.refundOrderItemsPaymentStatus =
             document.getElementById(
@@ -412,6 +414,53 @@ const SalesReturns = {
                 'refundOrderItemsBranch'
             );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Partial Return Summary
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.refundOrderItemsReturnSummary =
+            document.getElementById(
+                'refundOrderItemsReturnSummary'
+            );
+
+        this.elements.refundOrderItemsSelectedCount =
+            document.getElementById(
+                'refundOrderItemsSelectedCount'
+            );
+
+        this.elements.refundOrderItemsReturnQuantity =
+            document.getElementById(
+                'refundOrderItemsReturnQuantity'
+            );
+
+        this.elements.refundOrderItemsReturnAmount =
+            document.getElementById(
+                'refundOrderItemsReturnAmount'
+            );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Partial Return Validation
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.refundOrderItemsValidation =
+            document.getElementById(
+                'refundOrderItemsValidation'
+            );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Partial Return Action
+        |--------------------------------------------------------------------------
+        */
+
+        this.elements.processPartialReturnButton =
+            document.getElementById(
+                'processPartialReturnButton'
+            );
         /*
         |----------------------------------------------------------------------
         | Order Payments Modal
@@ -1418,6 +1467,19 @@ const SalesReturns = {
                 }
             );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Process Partial Return
+        |--------------------------------------------------------------------------
+        */
+        this.elements.processPartialReturnButton
+            ?.addEventListener(
+                'click',
+                () => {
+                    this.processPartialReturn();
+                }
+            );
+
 
         /*
         |----------------------------------------------------------------------
@@ -1500,6 +1562,29 @@ const SalesReturns = {
 
                     }
 
+                }
+            );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Partial Return Quantity Changes
+            |--------------------------------------------------------------------------
+            */
+            this.elements.refundOrderItemsTableBody?.addEventListener(
+                'input',
+                (event) => {
+
+                    const input = event.target.closest(
+                        '.partial-return-quantity'
+                    );
+
+                    if (!input) {
+                        return;
+                    }
+
+                    this.updatePartialReturnItem(
+                        input
+                    );
                 }
             );
 
@@ -2511,7 +2596,7 @@ const SalesReturns = {
     },
   
     
-    /*
+      /*
     |--------------------------------------------------------------------------
     | Populate Refund Order Items
     |--------------------------------------------------------------------------
@@ -2520,10 +2605,8 @@ const SalesReturns = {
     populateRefundOrderItems(
         data
     ) {
-
         const order =
             data.order || {};
-
 
         const items =
             Array.isArray(
@@ -2531,66 +2614,66 @@ const SalesReturns = {
             )
                 ? data.items
                 : [];
-        
-              
-            /*
-            |--------------------------------------------------------------------------
-            | Order Summary
-            |--------------------------------------------------------------------------
-            */
 
-            const totalItems =
-                items.reduce(
-                    (
-                        total,
-                        item
-                    ) => {
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Partial Return State
+        |--------------------------------------------------------------------------
+        */
 
-                        return total +
-                            Number(
-                                item.quantity || 0
-                            );
+        this.state.selectedReturnItems = {};
+        this.state.partialReturnTotal = 0;
 
-                    },
-                    0
-                );
+        /*
+        |--------------------------------------------------------------------------
+        | Order Summary
+        |--------------------------------------------------------------------------
+        */
 
-
-            this.setText(
-                this.elements.refundOrderItemsTotalItems,
-                totalItems
+        const totalItems =
+            items.reduce(
+                (
+                    total,
+                    item
+                ) => {
+                    return total +
+                        Number(
+                            item.quantity || 0
+                        );
+                },
+                0
             );
 
+        this.setText(
+            this.elements.refundOrderItemsTotalItems,
+            totalItems
+        );
 
-            this.setText(
-                this.elements.refundOrderItemsTotalAmount,
-                this.formatCurrency(
-                    order.grand_total || 0
-                )
-            );
+        this.setText(
+            this.elements.refundOrderItemsTotalAmount,
+            this.formatCurrency(
+                order.grand_total || 0
+            )
+        );
 
+        this.setText(
+            this.elements.refundOrderItemsAmountPaid,
+            this.formatCurrency(
+                order.amount_paid || 0
+            )
+        );
 
-            this.setText(
-                this.elements.refundOrderItemsAmountPaid,
-                this.formatCurrency(
-                    order.amount_paid || 0
-                )
-            );
+        this.setText(
+            this.elements.refundOrderItemsBalance,
+            this.formatCurrency(
+                order.balance || 0
+            )
+        );
 
-
-            this.setText(
-                this.elements.refundOrderItemsBalance,
-                this.formatCurrency(
-                    order.balance || 0
-                )
-            );
-
-
-            this.setBadge(
-                this.elements.refundOrderItemsPaymentStatus,
-                order.payment_status
-            );
-
+        this.setBadge(
+            this.elements.refundOrderItemsPaymentStatus,
+            order.payment_status
+        );
 
         /*
         |--------------------------------------------------------------------------
@@ -2605,16 +2688,10 @@ const SalesReturns = {
                 : 'Order items'
         );
 
-       
         this.setText(
             this.elements.refundOrderItemsBranch,
-            order.branch_name
-                ||
-                '—'
+            order.branch_name || '—'
         );
-
-
-
 
         /*
         |--------------------------------------------------------------------------
@@ -2622,34 +2699,28 @@ const SalesReturns = {
         |--------------------------------------------------------------------------
         */
 
-        if (
-            !items.length
-        ) {
+        if (! items.length) {
 
             this.hideElement(
                 this.elements.refundOrderItemsContainer
             );
 
-
             this.showElement(
                 this.elements.refundOrderItemsEmpty
             );
 
+            this.updatePartialReturnSummary();
 
             return;
-
         }
-
 
         this.showElement(
             this.elements.refundOrderItemsContainer
         );
 
-
         this.hideElement(
             this.elements.refundOrderItemsEmpty
         );
-
 
         /*
         |--------------------------------------------------------------------------
@@ -2658,13 +2729,10 @@ const SalesReturns = {
         */
 
         if (
-            !this.elements.refundOrderItemsTableBody
+            ! this.elements.refundOrderItemsTableBody
         ) {
-
             return;
-
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -2675,62 +2743,145 @@ const SalesReturns = {
         this.elements.refundOrderItemsTableBody.innerHTML =
             items
                 .map(
-                    item => `
+                    item => {
 
-                        <tr>
+                        const soldQuantity =
+                            Number(
+                                item.quantity || 0
+                            );
 
-                            <td>
+                        const returnedQuantity =
+                            Number(
+                                item.returned_quantity || 0
+                            );
 
-                                <div class="fw-semibold">
+                        const availableQuantity =
+                            Math.max(
+                                0,
+                                Number(
+                                    item.available_quantity ??
+                                    (
+                                        soldQuantity -
+                                        returnedQuantity
+                                    )
+                                )
+                            );
 
-                                    ${item.product_name || '—'}
+                        const isAvailable =
+                            availableQuantity > 0;
 
-                                </div>
+                        return `
+                            <tr
+                                data-order-item-id="${item.id}"
+                                data-sold-quantity="${soldQuantity}"
+                                data-returned-quantity="${returnedQuantity}"
+                                data-available-quantity="${availableQuantity}"
+                                data-unit-price="${Number(
+                                    item.unit_price || 0
+                                )}"
+                                data-discount="${Number(
+                                    item.discount || 0
+                                )}"
+                                data-tax="${Number(
+                                    item.tax || 0
+                                )}"
+                                data-line-total="${Number(
+                                    item.line_total || 0
+                                )}"
+                            >
 
-                            </td>
+                                <td>
+                                    <div class="fw-semibold">
+                                        ${item.product_name || '—'}
+                                    </div>
+                                </td>
 
+                                <td>
+                                    <span class="text-muted">
+                                        ${item.sku || '—'}
+                                    </span>
+                                </td>
 
-                            <td>
+                                <td class="text-center">
+                                    ${this.formatQuantity(
+                                        soldQuantity
+                                    )}
+                                </td>
 
-                                <span class="text-muted">
+                                <td class="text-center">
+                                    <span class="text-muted">
+                                        ${this.formatQuantity(
+                                            returnedQuantity
+                                        )}
+                                    </span>
+                                </td>
 
-                                    ${item.sku || '—'}
+                                <td class="text-center">
+                                    <span
+                                        class="${
+                                            isAvailable
+                                                ? 'fw-semibold text-dark'
+                                                : 'text-muted'
+                                        }"
+                                    >
+                                        ${this.formatQuantity(
+                                            availableQuantity
+                                        )}
+                                    </span>
+                                </td>
 
-                                </span>
+                                <td class="text-center">
+                                    <input
+                                        type="number"
+                                        class="form-control form-control-sm text-center partial-return-quantity"
+                                        data-order-item-id="${item.id}"
+                                        min="0"
+                                        max="${availableQuantity}"
+                                        step="0.01"
+                                        value="0"
+                                        ${! isAvailable ? 'disabled' : ''}
+                                        aria-label="Return quantity for ${item.product_name || 'item'}"
+                                    >
+                                </td>
 
-                            </td>
+                                <td class="text-end fw-semibold">
+                                    <span
+                                        class="partial-return-item-amount"
+                                        data-order-item-id="${item.id}"
+                                    >
+                                        ${this.formatCurrency(0)}
+                                    </span>
+                                </td>
 
-
-                            <td class="text-center">
-
-                                ${item.quantity ?? 0}
-
-                            </td>
-
-
-                            <td class="text-end">
-
-                                ${this.formatCurrency(
-                                    item.unit_price
-                                )}
-
-                            </td>
-
-
-                            <td class="text-end fw-semibold">
-
-                                ${this.formatCurrency(
-                                    item.line_total
-                                )}
-
-                            </td>
-
-                        </tr>
-
-                    `
+                            </tr>
+                        `;
+                    }
                 )
                 .join('');
 
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Summary
+        |--------------------------------------------------------------------------
+        */
+
+        this.updatePartialReturnSummary();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Validation
+        |--------------------------------------------------------------------------
+        */
+
+        this.hidePartialReturnValidation();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Process Button
+        |--------------------------------------------------------------------------
+        */
+
+        this.updatePartialReturnButton();
     },
 
 
@@ -2744,6 +2895,10 @@ const SalesReturns = {
     async loadRefundOrderItems(
         orderId
     ) {
+
+         this.state.selectedOrderId = orderId;
+        this.state.selectedReturnItems = {};
+        this.state.partialReturnTotal = 0;
 
         this.state.selectedOrderId =
             orderId;
@@ -2893,192 +3048,138 @@ const SalesReturns = {
     },
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Render Refund Orders
-    |--------------------------------------------------------------------------
-    */
+   /**
+     * |--------------------------------------------------------------------------
+     * | Render Refund Orders
+     * |--------------------------------------------------------------------------
+     */
 
-    renderRefundOrders(
-        orders
-    ) {
-      
+    renderRefundOrders(orders) {
 
         this.hideElement(
             this.elements.refundOrdersError
         );
 
-
-        if (
-            !orders.length
-        ) {
-
-            this.elements.refundOrdersTableBody.innerHTML =
-                '';
+        if (!orders.length) {
+            this.elements.refundOrdersTableBody.innerHTML = '';
 
             this.showElement(
                 this.elements.refundOrdersEmpty
             );
 
             return;
-
         }
-
 
         this.hideElement(
             this.elements.refundOrdersEmpty
         );
 
-
         this.elements.refundOrdersTableBody.innerHTML =
             orders
-                .map(
-                    (order) => {
+                .map((order) => {
 
-                        return `
+                    return `
+                        <tr>
 
-                            <tr>
+                        <td class="text-end pe-4">
 
-                                <td class="ps-4">
+                                <div
+                                    class="d-inline-flex
+                                        align-items-center
+                                        gap-2
+                                        returns-order-actions"
+                                >
+                                    <button
+                                        type="button"
+                                        class="btn btn-light border btn-sm returns-partial-return-btn"
+                                        data-order-action="items"
+                                        data-order-id="${order.id}"
+                                        title="Process Partial Return"
+                                    >
+                                        <i class="bi bi-box-arrow-in-down me-1"></i>
+                                        Partial Return
+                                    </button>
 
-                                    <strong>
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary btn-sm returns-full-refund-btn"
+                                        data-order-action="payments"
+                                        data-order-id="${order.id}"
+                                        title="Process Full Refund"
+                                    >
+                                        <i class="bi bi-arrow-counterclockwise me-1"></i>
+                                        Full Refund
+                                    </button>
 
-                                        ${this.escapeHtml(
-                                            order.order_no || '—'
-                                        )}
+                                </div>
 
-                                    </strong>
+                            </td>
 
-                                </td>
-
-
-                                <td>
-
+                            <td class="ps-4">
+                                <strong>
                                     ${this.escapeHtml(
-                                        order.invoice_no || '—'
+                                        order.order_no || '—'
                                     )}
+                                </strong>
+                            </td>
 
-                                </td>
+                            <td>
+                                ${this.escapeHtml(
+                                    order.invoice_no || '—'
+                                )}
+                            </td>
 
+                            <td>
+                                ${this.escapeHtml(
+                                    order.customer ||
+                                    'Walk-in Customer'
+                                )}
+                            </td>
 
-                                <td>
-
+                            <td>
+                                <span class="fw-medium">
                                     ${this.escapeHtml(
-                                        order.customer || 'Walk-in Customer'
+                                        order.branch_name || '—'
                                     )}
+                                </span>
+                            </td>
 
-                                </td>
+                            <td>
+                                ${this.formatCurrency(
+                                    order.grand_total
+                                )}
+                            </td>
 
-                                
-                                <td>
+                            <td>
+                                ${this.formatCurrency(
+                                    order.amount_paid
+                                )}
+                            </td>
 
-                                    <span class="fw-medium">
+                            <td>
+                                ${this.formatCurrency(
+                                    order.balance
+                                )}
+                            </td>
 
-                                        ${this.escapeHtml(
-                                            order.branch_name
-                                            ||
-                                            '—'
-                                        )}
+                            <td>
+                                ${this.statusBadge(
+                                    order.order_status
+                                )}
+                            </td>
 
-                                    </span>
+                            <td>
+                                ${this.statusBadge(
+                                    order.payment_status
+                                )}
+                            </td>                            
 
-                                </td>
-
-
-                                <td>
-
-                                    ${this.formatCurrency(
-                                        order.grand_total
-                                    )}
-
-                                </td>
-
-
-                                <td>
-
-                                    ${this.formatCurrency(
-                                        order.amount_paid
-                                    )}
-
-                                </td>
-
-
-                                <td>
-
-                                    ${this.formatCurrency(
-                                        order.balance
-                                    )}
-
-                                </td>
-
-
-                                <td>
-
-                                    ${this.statusBadge(
-                                        order.order_status
-                                    )}
-
-                                </td>
-
-
-                                <td>
-
-                                    ${this.statusBadge(
-                                        order.payment_status
-                                    )}
-
-                                </td>
-
-                                
-                                <td class="text-end pe-4">
-
-                                    <div class="d-inline-flex align-items-center gap-2">
-
-                                        <button
-                                            type="button"
-                                            class="btn btn-light border btn-sm"
-                                            data-order-action="items"
-                                            data-order-id="${order.id}"
-                                            title="View Items"
-                                        >
-
-                                            <i class="bi bi-box-seam me-1"></i>
-
-                                            View Items
-
-                                        </button>
-
-                                        <button
-                                            type="button"
-                                            class="btn btn-primary btn-sm"
-                                            data-order-action="payments"
-                                            data-order-id="${order.id}"
-                                            title="Process Refund"
-                                        >
-
-                                            <i class="bi bi-arrow-counterclockwise me-1"></i>
-
-                                            Refund
-
-                                        </button>
-
-                                    </div>
-
-                                </td>
-
-
-
-                            </tr>
-
-                        `;
-
-                    }
-                )
+                        </tr>
+                    `;
+                })
                 .join('');
 
-
         this.bindRefundOrderActions();
-
     },
     
     /*
@@ -3844,6 +3945,212 @@ const SalesReturns = {
         }
 
     },
+
+    /*
+    |--------------------------------------------------------------------------
+    | Process partial Refund
+    |--------------------------------------------------------------------------
+    */
+
+    processPartialReturn() {
+    if (this.state.isProcessingPartialReturn) {
+        return;
+    }
+
+    const orderId = this.state.selectedOrderId;
+
+    if (!orderId) {
+        this.showToast(
+            'No sales order is selected.',
+            'warning'
+        );
+
+        return;
+    }
+
+    const selectedItems =
+        this.state.selectedReturnItems || {};
+
+    const items = Object.entries(selectedItems)
+        .map(([orderItemId, quantity]) => ({
+            order_item_id: Number(orderItemId),
+            quantity: Number(quantity),
+        }))
+        .filter(item =>
+            Number.isInteger(item.order_item_id) &&
+            Number.isFinite(item.quantity) &&
+            item.quantity > 0
+        );
+
+    if (!items.length) {
+        this.showPartialReturnValidation(
+            'Please select at least one item to return.'
+        );
+
+        return;
+    }
+
+    this.state.isProcessingPartialReturn = true;
+
+    this.setPartialReturnButtonLoading(true);
+
+    this.hidePartialReturnValidation();
+
+    fetch(
+        `/sales/returns/orders/${orderId}/partial`,
+        {
+            method: 'POST',
+
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': this.getCsrfToken(),
+            },
+
+            credentials: 'same-origin',
+
+            body: JSON.stringify({
+                items: items,
+
+                remarks:
+                    `Partial return processed for sales order: ${
+                        this.state.selectedOrder?.order_no || ''
+                    }`,
+            }),
+        }
+    )
+        .then(async response => {
+            const result =
+                await this.parseResponse(response);
+
+            if (!response.ok || !result.success) {
+                throw new Error(
+                    result.message ||
+                    'Unable to process the partial return.'
+                );
+            }
+
+            return result;
+        })
+        .then(result => {
+
+           const refundOrderItemsModal =
+                bootstrap.Modal.getInstance(
+                    this.elements.refundOrderItemsModal
+                );
+
+            if (refundOrderItemsModal) {
+                refundOrderItemsModal.hide();
+            }
+
+            this.showToast(
+                result.message ||
+                'Partial return processed successfully.',
+                'success'
+            );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Reset partial-return state
+            |--------------------------------------------------------------------------
+            */
+
+            this.state.selectedReturnItems = {};
+            this.state.partialReturnTotal = 0;
+            this.state.selectedOrderId = null;
+            this.state.selectedOrder = null;
+
+            this.state.returnsPage = 1;
+
+            /*
+            |--------------------------------------------------------------------------
+            | Refresh returns table / KPIs
+            |--------------------------------------------------------------------------
+            */
+
+            this.loadReturns();
+
+            /*
+            |--------------------------------------------------------------------------
+            | Refresh refund orders list
+            |--------------------------------------------------------------------------
+            |
+            | This is important because an order that has now been fully
+            | returned should no longer appear as an eligible order.
+            |
+            */
+
+            this.loadRefundOrders();
+
+        })
+        .catch(error => {
+
+            console.error(
+                'Partial return processing error:',
+                error
+            );
+
+            this.showToast(
+                error.message ||
+                'Unable to process the partial return.',
+                'danger'
+            );
+
+        })
+        .finally(() => {
+
+            this.state.isProcessingPartialReturn = false;
+
+            this.setPartialReturnButtonLoading(false);
+
+        });
+},
+
+setPartialReturnButtonLoading(isLoading) {
+    const button =
+        this.elements.processPartialReturnButton;
+
+    if (!button) {
+        return;
+    }
+
+    if (isLoading) {
+
+        if (!button.dataset.originalHtml) {
+            button.dataset.originalHtml =
+                button.innerHTML;
+        }
+
+        button.disabled = true;
+
+        button.innerHTML = `
+            <span
+                class="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+            ></span>
+            Processing...
+        `;
+
+        return;
+    }
+
+    button.disabled = false;
+
+    if (button.dataset.originalHtml) {
+        button.innerHTML =
+            button.dataset.originalHtml;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Re-evaluate whether an item is actually selected
+    |--------------------------------------------------------------------------
+    */
+
+    this.updatePartialReturnButton();
+},
 
 
     /*
@@ -4989,6 +5296,21 @@ const SalesReturns = {
 
     },
 
+    /*
+    |--------------------------------------------------------------------------
+    | Quantity
+    |--------------------------------------------------------------------------
+    */
+
+    formatQuantity(quantity) {
+        const value = Number(quantity || 0);
+
+        return new Intl.NumberFormat('en-NG', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2,
+        }).format(value);
+    },
+
 
     /*
     |--------------------------------------------------------------------------
@@ -5046,6 +5368,308 @@ const SalesReturns = {
             }
         ).format(
             date
+        );
+
+    },
+
+     /*
+    |--------------------------------------------------------------------------
+    | Update Partial Return Item
+    |--------------------------------------------------------------------------
+    */
+    updatePartialReturnItem(
+        input
+    ) {
+        if (!input) {
+            return;
+        }
+
+        const row = input.closest(
+            'tr[data-order-item-id]'
+        );
+
+        if (!row) {
+            return;
+        }
+
+        const orderItemId =
+            parseInt(
+                row.dataset.orderItemId,
+                10
+            );
+
+        if (!Number.isInteger(orderItemId)) {
+            return;
+        }
+
+        const availableQuantity =
+            Number(
+                row.dataset.availableQuantity || 0
+            );
+
+        let quantity =
+            Number(
+                input.value || 0
+            );
+
+        if (!Number.isFinite(quantity)) {
+            quantity = 0;
+        }
+
+        quantity = Math.max(
+            0,
+            Math.min(
+                quantity,
+                availableQuantity
+            )
+        );
+
+        input.value =
+            quantity > 0
+                ? quantity
+                : '';
+
+        if (quantity > 0) {
+            this.state.selectedReturnItems[
+                orderItemId
+            ] = quantity;
+        } else {
+            delete this.state.selectedReturnItems[
+                orderItemId
+            ];
+        }
+
+        const soldQuantity =
+            Number(
+                row.dataset.soldQuantity || 0
+            );
+
+        const lineTotal =
+            Number(
+                row.dataset.lineTotal || 0
+            );
+
+        let itemAmount = 0;
+
+        if (
+            soldQuantity > 0 &&
+            quantity > 0
+        ) {
+            const ratio =
+                quantity / soldQuantity;
+
+            itemAmount =
+                lineTotal * ratio;
+        }
+
+        const amountElement =
+            row.querySelector(
+                '.partial-return-item-amount'
+            );
+
+        this.setText(
+            amountElement,
+            this.formatCurrency(
+                itemAmount
+            )
+        );
+
+        this.updatePartialReturnSummary();
+        this.hidePartialReturnValidation();
+        this.updatePartialReturnButton();
+    },
+
+     /*
+    |--------------------------------------------------------------------------
+    | Update Partial Return Summary
+    |--------------------------------------------------------------------------
+    */
+    updatePartialReturnSummary() {
+
+        const selectedItems =
+            this.state.selectedReturnItems || {};
+
+        let selectedCount = 0;
+        let returnQuantity = 0;
+        let returnAmount = 0;
+
+        Object.entries(
+            selectedItems
+        ).forEach(
+            ([
+                orderItemId,
+                quantity
+            ]) => {
+
+                const row =
+                    this.elements
+                        .refundOrderItemsTableBody
+                        ?.querySelector(
+                            `tr[data-order-item-id="${orderItemId}"]`
+                        );
+
+                if (!row) {
+                    return;
+                }
+
+                const soldQuantity =
+                    Number(
+                        row.dataset.soldQuantity || 0
+                    );
+
+                const lineTotal =
+                    Number(
+                        row.dataset.lineTotal || 0
+                    );
+
+                const selectedQuantity =
+                    Number(
+                        quantity || 0
+                    );
+
+                if (
+                    soldQuantity <= 0 ||
+                    selectedQuantity <= 0
+                ) {
+                    return;
+                }
+
+                const ratio =
+                    selectedQuantity /
+                    soldQuantity;
+
+                const itemAmount =
+                    lineTotal * ratio;
+
+                selectedCount += 1;
+
+                returnQuantity +=
+                    selectedQuantity;
+
+                returnAmount +=
+                    itemAmount;
+            }
+        );
+
+        this.state.partialReturnTotal =
+            returnAmount;
+
+        this.setText(
+            this.elements
+                .refundOrderItemsSelectedCount,
+            selectedCount
+        );
+
+        this.setText(
+            this.elements
+                .refundOrderItemsReturnQuantity,
+            this.formatNumber(
+                returnQuantity
+            )
+        );
+
+        this.setText(
+            this.elements
+                .refundOrderItemsReturnAmount,
+            this.formatCurrency(
+                returnAmount
+            )
+        );
+
+        if (
+            this.elements
+                .refundOrderItemsReturnSummary
+        ) {
+            if (selectedCount > 0) {
+                this.showElement(
+                    this.elements
+                        .refundOrderItemsReturnSummary
+                );
+            } else {
+                this.hideElement(
+                    this.elements
+                        .refundOrderItemsReturnSummary
+                );
+            }
+        }
+    },
+
+     /*
+    |--------------------------------------------------------------------------
+    | Update Partial Return Button
+    |--------------------------------------------------------------------------
+    */
+    updatePartialReturnButton() {
+
+        const button =
+            this.elements
+                .processPartialReturnButton;
+
+        if (!button) {
+            return;
+        }
+
+        const selectedItems =
+            this.state.selectedReturnItems || {};
+
+        const hasSelectedItems =
+            Object.values(
+                selectedItems
+            ).some(
+                quantity =>
+                    Number(quantity || 0) > 0
+            );
+
+        button.disabled =
+            !hasSelectedItems;
+
+    },
+
+     /*
+    |--------------------------------------------------------------------------
+    | Hide Partial Return Validation
+    |--------------------------------------------------------------------------
+    */
+    hidePartialReturnValidation() {
+
+        const validation =
+            this.elements
+                .refundOrderItemsValidation;
+
+        if (!validation) {
+            return;
+        }
+
+        validation.textContent = '';
+
+        this.hideElement(
+            validation
+        );
+
+    },
+
+     /*
+    |--------------------------------------------------------------------------
+    | Show Partial Return Validation
+    |--------------------------------------------------------------------------
+    */
+    showPartialReturnValidation(
+        message
+    ) {
+
+        const validation =
+            this.elements
+                .refundOrderItemsValidation;
+
+        if (!validation) {
+            return;
+        }
+
+        validation.textContent =
+            message || 'Please select at least one item to return.';
+
+        this.showElement(
+            validation
         );
 
     },
