@@ -42,6 +42,7 @@ use App\Http\Controllers\Admin\TerminalController;
 
 use App\Http\Controllers\Admin\SalesReportController;
 use App\Http\Controllers\Admin\InventoryReportController;
+use App\Http\Controllers\Admin\ProfitLossController;
 
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DocumentSequenceController;

@@ -1320,3 +1320,19 @@ body > .toast-container,
     z-index: 10000 !important;
 }
 
+.stock-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+@media (max-width: 575.98px) {
+    .stock-header {
+        align-items: flex-start;
+    }
+
+    .stock-header > div:last-child {
+        flex-shrink: 0;
+    }
+}

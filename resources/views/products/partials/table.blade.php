@@ -16,6 +16,10 @@
                 </th>
 
                 <th>
+                    Cost Price
+                </th>
+
+                <th>
                     Selling Price
                 </th>
 
@@ -118,9 +122,18 @@
 
                 </td>
 
+                {{-- Cost Price --}}
+                <td>
 
 
+                    <strong class="product-price">
 
+                        {{ number_format($product->cost_price,2) }}
+
+                    </strong>
+
+
+                </td>
 
                 {{-- Selling Price --}}
                 <td>

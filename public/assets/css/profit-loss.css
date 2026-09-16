@@ -1,0 +1,983 @@
+/* ==========================================================================
+   EMNEX POS
+   Profit & Loss Report
+   ========================================================================== */
+
+.profit-loss-report {
+    padding-bottom: 2rem;
+}
+
+
+/* ==========================================================================
+   Page Header
+   ========================================================================== */
+
+.profit-loss-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.profit-loss-header-content h4 {
+    color: #1f2937;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.profit-loss-header-content p {
+    font-size: 0.875rem;
+}
+
+.profit-loss-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.profit-loss-header-actions .btn {
+    min-height: 38px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+
+/* ==========================================================================
+   Shared Cards
+   ========================================================================== */
+
+.profit-loss-report .card {
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+
+/* ==========================================================================
+   Filters
+   ========================================================================== */
+
+.profit-loss-filter-card {
+    overflow: visible;
+}
+
+.profit-loss-filter-card .card-body {
+    padding: 1.25rem;
+}
+
+.profit-loss-filter-card .form-label {
+    color: #374151;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+}
+
+.profit-loss-filter-card .form-control,
+.profit-loss-filter-card .form-select {
+    min-height: 40px;
+    border-color: #dfe3e8;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    box-shadow: none;
+}
+
+.profit-loss-filter-card .form-control:focus,
+.profit-loss-filter-card .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.08);
+}
+
+.profit-loss-filter-card .btn {
+    min-height: 36px;
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+.profit-loss-filter-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f0f1f3;
+}
+
+.profit-loss-filter-summary-label {
+    color: #6b7280;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.profit-loss-filter-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 28px;
+    padding: 0.25rem 0.65rem;
+    color: #4b5563;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.profit-loss-filter-badge i {
+    color: #6b7280;
+}
+
+
+/* ==========================================================================
+   KPI Statistics
+   ========================================================================== */
+
+.profit-loss-stat-card {
+    height: 100%;
+    padding: 1.15rem;
+    background: #ffffff;
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.profit-loss-stat-card:hover {
+    transform: translateY(-1px);
+    border-color: #dfe3e8;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+}
+
+.profit-loss-stat-label {
+    color: #6b7280;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.profit-loss-stat-value {
+    margin-top: 0.45rem;
+    color: #111827;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+.profit-loss-stat-meta {
+    margin-top: 0.35rem;
+    color: #9ca3af;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+}
+
+.profit-loss-stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0.8rem;
+    color: #495057;
+    background: #f5f6f8;
+    border-radius: 9px;
+    font-size: 0.95rem;
+}
+
+
+/* ==========================================================================
+   Charts
+   ========================================================================== */
+
+.profit-loss-charts {
+    margin-bottom: 1.5rem;
+}
+
+.profit-loss-chart-card {
+    height: 100%;
+    padding: 1.15rem;
+}
+
+.profit-loss-chart-header {
+    margin-bottom: 0.9rem;
+}
+
+.profit-loss-chart-title {
+    color: #1f2937;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.profit-loss-chart-description {
+    margin-top: 0.2rem;
+    color: #9ca3af;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+}
+
+.profit-loss-chart-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.profit-loss-chart-container-sm {
+    position: relative;
+    width: 100%;
+    height: 240px;
+}
+
+.profit-loss-chart-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 180px;
+    color: #9ca3af;
+    font-size: 0.8125rem;
+    text-align: center;
+}
+
+
+/* ==========================================================================
+   Statement Sections
+   ========================================================================== */
+
+.profit-loss-section {
+    margin-bottom: 1.5rem;
+}
+
+.profit-loss-statement-card {
+    overflow: hidden;
+}
+
+.profit-loss-statement-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.profit-loss-statement-title {
+    color: #1f2937;
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.profit-loss-statement-description {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+.profit-loss-statement-body {
+    padding: 0.35rem 1.25rem;
+}
+
+.profit-loss-line-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 64px;
+    padding: 0.8rem 0;
+}
+
+.profit-loss-line-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+}
+
+.profit-loss-line-label > div:last-child {
+    min-width: 0;
+}
+
+.profit-loss-line-icon {
+    display: inline-flex;
+    flex: 0 0 34px;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    color: #6b7280;
+    background: #f6f7f8;
+    border-radius: 8px;
+    font-size: 0.875rem;
+}
+
+.profit-loss-line-description {
+    margin-top: 0.15rem;
+    color: #9ca3af;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+}
+
+.profit-loss-line-value {
+    flex: 0 0 auto;
+    color: #1f2937;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.profit-loss-value-negative {
+    color: #b42318;
+}
+
+.profit-loss-line-divider {
+    height: 1px;
+    margin: 0.25rem 0;
+    background: #edf0f2;
+}
+
+.profit-loss-line-total {
+    min-height: 72px;
+}
+
+.profit-loss-line-total .profit-loss-line-icon {
+    color: #374151;
+    background: #eef1f4;
+}
+
+.profit-loss-value-total {
+    color: #111827;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+
+/* ==========================================================================
+   Profit & Loss Summary
+   ========================================================================== */
+
+.profit-loss-summary-card {
+    overflow: hidden;
+}
+
+.profit-loss-summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.2rem 1.25rem;
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.profit-loss-summary-title {
+    color: #1f2937;
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.profit-loss-summary-description {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+.profit-loss-summary-body {
+    padding: 1.25rem;
+}
+
+.profit-loss-summary-group {
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid #edf0f2;
+    border-radius: 10px;
+}
+
+.profit-loss-summary-group:last-of-type {
+    margin-bottom: 1.25rem;
+}
+
+.profit-loss-summary-group-header {
+    padding: 0.75rem 0.9rem;
+    background: #fafbfc;
+    border-bottom: 1px solid #edf0f2;
+}
+
+.profit-loss-summary-group-title {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #374151;
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+
+.profit-loss-summary-group-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: #6b7280;
+    background: #f0f2f4;
+    border-radius: 7px;
+    font-size: 0.8rem;
+}
+
+.profit-loss-summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 48px;
+    padding: 0.65rem 0.9rem;
+    border-bottom: 1px solid #f1f2f4;
+}
+
+.profit-loss-summary-row:last-child {
+    border-bottom: 0;
+}
+
+.profit-loss-summary-label {
+    color: #4b5563;
+    font-size: 0.8125rem;
+}
+
+.profit-loss-summary-value {
+    flex: 0 0 auto;
+    color: #1f2937;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.profit-loss-summary-subtotal {
+    background: #fafbfc;
+}
+
+.profit-loss-summary-result {
+    align-items: center;
+    min-height: 72px;
+    background: #f8fafc;
+    border-top: 1px solid #e9ecef;
+}
+
+.profit-loss-summary-meta {
+    margin-top: 0.15rem;
+    color: #9ca3af;
+    font-size: 0.6875rem;
+}
+
+.profit-loss-summary-result-value {
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.profit-loss-summary-result-margin {
+    margin-top: 0.15rem;
+    color: #6b7280;
+    font-size: 0.6875rem;
+    font-weight: 500;
+}
+
+.profit-loss-summary-final {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.2rem 1.25rem;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.profit-loss-summary-final-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-width: 0;
+}
+
+.profit-loss-summary-final-icon {
+    display: inline-flex;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    color: #374151;
+    background: #e9edf1;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.profit-loss-summary-final-label {
+    color: #1f2937;
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.profit-loss-summary-final-description {
+    margin-top: 0.2rem;
+    color: #6b7280;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+}
+
+.profit-loss-summary-final-value-wrapper {
+    flex: 0 0 auto;
+    text-align: right;
+}
+
+.profit-loss-summary-final-value {
+    color: #111827;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.profit-loss-summary-final-margin {
+    margin-top: 0.2rem;
+    color: #6b7280;
+    font-size: 0.6875rem;
+    font-weight: 500;
+}
+
+.profit-loss-summary-final-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    margin-top: 0.4rem;
+    padding: 0.2rem 0.55rem;
+    color: #495057;
+    background: #e9ecef;
+    border-radius: 999px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+}
+
+
+/* ==========================================================================
+   Financial Breakdown
+   ========================================================================== */
+
+.profit-loss-breakdown-card {
+    overflow: hidden;
+}
+
+.profit-loss-breakdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.profit-loss-breakdown-title {
+    color: #1f2937;
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.profit-loss-breakdown-description {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+.profit-loss-breakdown-body {
+    padding: 1.25rem;
+}
+
+.profit-loss-breakdown-item {
+    height: 100%;
+    padding: 1rem;
+    background: #fafbfc;
+    border: 1px solid #edf0f2;
+    border-radius: 10px;
+}
+
+.profit-loss-breakdown-item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.profit-loss-breakdown-item-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: #6b7280;
+    background: #eef1f3;
+    border-radius: 8px;
+    font-size: 0.8rem;
+}
+
+.profit-loss-breakdown-item-label {
+    color: #6b7280;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.profit-loss-breakdown-item-value {
+    margin-top: 0.75rem;
+    color: #111827;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+.profit-loss-breakdown-item-meta {
+    margin-top: 0.3rem;
+    color: #9ca3af;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+}
+
+.profit-loss-breakdown-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.15rem 1.2rem;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 11px;
+}
+
+.profit-loss-breakdown-result-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+}
+
+.profit-loss-breakdown-result-icon {
+    display: inline-flex;
+    flex: 0 0 40px;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #374151;
+    background: #e9edf1;
+    border-radius: 9px;
+}
+
+.profit-loss-breakdown-result-label {
+    color: #1f2937;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.profit-loss-breakdown-result-description {
+    margin-top: 0.15rem;
+    color: #9ca3af;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+}
+
+.profit-loss-breakdown-result-value {
+    color: #111827;
+    font-size: 1.1rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.profit-loss-breakdown-result-margin {
+    margin-top: 0.2rem;
+    color: #6b7280;
+    font-size: 0.6875rem;
+    font-weight: 500;
+}
+
+
+/* ==========================================================================
+   Loading State
+   ========================================================================== */
+
+#profitLossLoadingState {
+    padding: 1.5rem 0;
+}
+
+.profit-loss-loading-card {
+    padding: 1.25rem;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+}
+
+.profit-loss-loading-row {
+    height: 14px;
+    margin-bottom: 0.75rem;
+    background: #f1f3f5;
+    border-radius: 6px;
+}
+
+.profit-loss-loading-row:last-child {
+    width: 65%;
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+#profitLossEmptyState {
+    padding: 2rem 0;
+}
+
+.profit-loss-empty-card {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+}
+
+.profit-loss-empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 1rem;
+    color: #6b7280;
+    background: #f1f3f5;
+    border-radius: 12px;
+    font-size: 1.25rem;
+}
+
+.profit-loss-empty-title {
+    color: #374151;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.profit-loss-empty-description {
+    max-width: 460px;
+    margin: 0.4rem auto 1rem;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+
+/* ==========================================================================
+   Error State
+   ========================================================================== */
+
+#profitLossErrorState {
+    padding: 1.5rem 0;
+}
+
+.profit-loss-error-card {
+    padding: 1.25rem;
+    background: #ffffff;
+    border: 1px solid #f1d1d1;
+    border-radius: 12px;
+}
+
+.profit-loss-error-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.75rem;
+    color: #b42318;
+    background: #fef3f2;
+    border-radius: 9px;
+}
+
+.profit-loss-error-title {
+    color: #7a271a;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.profit-loss-error-message {
+    margin-top: 0.3rem;
+    color: #667085;
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.profit-loss-report .btn-primary {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.profit-loss-report .btn-outline-secondary {
+    border-color: #d9dde3;
+    color: #4b5563;
+}
+
+.profit-loss-report .btn-outline-secondary:hover {
+    background: #f8f9fa;
+    border-color: #cfd4da;
+    color: #374151;
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 991.98px) {
+
+    .profit-loss-header {
+        align-items: flex-start;
+    }
+
+    .profit-loss-stat-value {
+        font-size: 1.1rem;
+    }
+
+    .profit-loss-chart-container {
+        height: 280px;
+    }
+
+    .profit-loss-chart-container-sm {
+        height: 220px;
+    }
+}
+
+
+@media (max-width: 767.98px) {
+
+    .profit-loss-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .profit-loss-header-actions {
+        justify-content: flex-start;
+    }
+
+    .profit-loss-header-actions .btn {
+        width: 100%;
+    }
+
+    .profit-loss-filter-card .card-body {
+        padding: 1rem;
+    }
+
+    .profit-loss-statement-header,
+    .profit-loss-summary-header,
+    .profit-loss-breakdown-header {
+        padding: 1rem;
+    }
+
+    .profit-loss-statement-body,
+    .profit-loss-summary-body,
+    .profit-loss-breakdown-body {
+        padding: 1rem;
+    }
+
+    .profit-loss-line-item {
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .profit-loss-line-label {
+        flex: 1 1 auto;
+    }
+
+    .profit-loss-line-value {
+        font-size: 0.8125rem;
+    }
+
+    .profit-loss-summary-final {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .profit-loss-summary-final-value-wrapper {
+        text-align: left;
+    }
+
+    .profit-loss-breakdown-result {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profit-loss-breakdown-result-value {
+        white-space: normal;
+    }
+
+    .profit-loss-breakdown-result .text-end {
+        width: 100%;
+        text-align: left !important;
+    }
+}
+
+
+@media (max-width: 575.98px) {
+
+    .profit-loss-report {
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+    }
+
+    .profit-loss-header-content h4 {
+        font-size: 1.1rem;
+    }
+
+    .profit-loss-stat-card {
+        padding: 1rem;
+    }
+
+    .profit-loss-stat-value {
+        font-size: 1rem;
+    }
+
+    .profit-loss-chart-container {
+        height: 240px;
+    }
+
+    .profit-loss-chart-container-sm {
+        height: 200px;
+    }
+
+    .profit-loss-line-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .profit-loss-line-value {
+        padding-left: 2.75rem;
+        text-align: left;
+    }
+
+    .profit-loss-summary-row {
+        align-items: flex-start;
+    }
+
+    .profit-loss-summary-value {
+        text-align: right;
+    }
+
+    .profit-loss-summary-final-value {
+        font-size: 1.1rem;
+    }
+}
+

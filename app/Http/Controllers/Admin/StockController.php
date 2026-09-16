@@ -1228,12 +1228,12 @@ class StockController extends BaseController
         ]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Store Stock Adjustment
-    |--------------------------------------------------------------------------
-    */
-
+   
+    /**
+     * |--------------------------------------------------------------------------
+     * | Store Stock Adjustment
+     * |--------------------------------------------------------------------------
+     */
     public function store(Request $request)
     {
         if (! canAccess('stock.update')) {
@@ -1244,290 +1244,197 @@ class StockController extends BaseController
         }
 
         $validated = $request->validate([
-
             'product_id' => [
-
                 'required',
-
                 'integer',
-
             ],
-
             'branch_id' => [
-
                 'nullable',
-
                 'integer',
-
             ],
-
             'type' => [
-
                 'required',
-
                 'string',
-
                 'max:50',
-
             ],
-
             'quantity' => [
-
                 'required',
-
                 'numeric',
-
                 'min:0.01',
-
             ],
-
             'reason' => [
-
                 'nullable',
-
                 'string',
-
                 'max:255',
-
             ],
-
         ]);
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Determine Branch
-        |--------------------------------------------------------------------------
-        |
-        | Owner / Administrator:
-        | Use the submitted branch.
-        |
-        | Branch-level users:
-        | Completely ignore submitted branch_id and force
-        | the authenticated user's assigned branch.
-        |
-        */
-
+        /**
+         * |--------------------------------------------------------------------------
+         * | Determine Branch
+         * |--------------------------------------------------------------------------
+         *
+         * | Owner / Administrator:
+         * | Use the submitted branch.
+         * |
+         * | Branch-level users:
+         * | Completely ignore submitted branch_id and force
+         * | the authenticated user's assigned branch.
+         * |--------------------------------------------------------------------------
+         */
         if (canManageAllBranches()) {
-
             if (empty($validated['branch_id'])) {
-
                 return response()->json([
-
                     'success' => false,
-
-                    'message' =>
-                        'Please select a branch.'
-
+                    'message' => 'Please select a branch.'
                 ], 422);
-
             }
 
+            $branchId = $validated['branch_id'];
+        } else {
+            $branchId = currentBranchId();
 
-            $branchId =
-                $validated['branch_id'];
-
-        }
-        else {
-
-            $branchId =
-                currentBranchId();
-
-
-            if (!$branchId) {
-
+            if (! $branchId) {
                 return response()->json([
-
                     'success' => false,
-
-                    'message' =>
-                        'Your account is not assigned to a branch.'
-
+                    'message' => 'Your account is not assigned to a branch.'
                 ], 422);
-
             }
-
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Verify Branch Belongs To Company
-        |--------------------------------------------------------------------------
-        */
-
+        /**
+         * |--------------------------------------------------------------------------
+         * | Verify Branch Belongs To Company
+         * |--------------------------------------------------------------------------
+         */
         $branchExists = Branch::query()
-
             ->where(
                 'company_id',
                 companyId()
             )
-
             ->where(
                 'id',
                 $branchId
             )
-
             ->where(
                 'status',
                 true
             )
-
             ->exists();
 
-
-        if (!$branchExists) {
-
+        if (! $branchExists) {
             return response()->json([
-
                 'success' => false,
-
-                'message' =>
-                    'Invalid branch selected.'
-
+                'message' => 'Invalid branch selected.'
             ], 422);
-
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Verify Product Belongs To Company
-        |--------------------------------------------------------------------------
-        */
-
-        $productExists = Product::query()
-
+        /**
+         * |--------------------------------------------------------------------------
+         * | Get Product
+         * |--------------------------------------------------------------------------
+         *
+         * | We retrieve the actual product so that its current cost_price
+         * | can be captured as the historical unit_cost for this movement.
+         * |--------------------------------------------------------------------------
+         */
+        $product = Product::query()
             ->where(
                 'company_id',
                 companyId()
             )
-
             ->where(
                 'id',
                 $validated['product_id']
             )
+            ->first();
 
-            ->exists();
-
-
-        if (!$productExists) {
-
+        if (! $product) {
             return response()->json([
-
                 'success' => false,
-
-                'message' =>
-                    'Invalid product selected.'
-
+                'message' => 'Invalid product selected.'
             ], 422);
-
         }
 
+        /**
+         * |--------------------------------------------------------------------------
+         * | Capture Historical Unit Cost
+         * |--------------------------------------------------------------------------
+         *
+         * | The value is captured now and stored on StockMovement.
+         * | Future changes to Product.cost_price will not affect this movement.
+         * |--------------------------------------------------------------------------
+         */
+        $unitCost = (float) ($product->cost_price ?? 0);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Transaction
-        |--------------------------------------------------------------------------
-        */
-
+        /**
+         * |--------------------------------------------------------------------------
+         * | Transaction
+         * |--------------------------------------------------------------------------
+         */
         return DB::transaction(function () use (
             $validated,
-            $branchId
+            $branchId,
+            $unitCost
         ) {
 
-            /*
-            |--------------------------------------------------------------------------
-            | Get Stock Record
-            |--------------------------------------------------------------------------
-            */
-
+            /**
+             * |--------------------------------------------------------------------------
+             * | Get Stock Record
+             * |--------------------------------------------------------------------------
+             */
             $stock = ProductStock::query()
-
                 ->where(
                     'company_id',
                     companyId()
                 )
-
                 ->where(
                     'branch_id',
                     $branchId
                 )
-
                 ->where(
                     'product_id',
                     $validated['product_id']
                 )
-
+                ->lockForUpdate()
                 ->first();
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Create Stock Record If It Does Not Exist
-            |--------------------------------------------------------------------------
-            */
-
-            if (!$stock) {
-
+            /**
+             * |--------------------------------------------------------------------------
+             * | Create Stock Record If It Does Not Exist
+             * |--------------------------------------------------------------------------
+             */
+            if (! $stock) {
                 $stock = ProductStock::create([
-
-                    'company_id' =>
-                        companyId(),
-
-                    'branch_id' =>
-                        $branchId,
-
-                    'product_id' =>
-                        $validated['product_id'],
-
-                    'quantity' =>
-                        0,
-
-                    'reserved_quantity' =>
-                        0,
-
-                    'available_quantity' =>
-                        0,
-
-                    'reorder_level' =>
-                        0,
-
+                    'company_id' => companyId(),
+                    'branch_id' => $branchId,
+                    'product_id' => $validated['product_id'],
+                    'quantity' => 0,
+                    'reserved_quantity' => 0,
+                    'available_quantity' => 0,
+                    'reorder_level' => 0,
                 ]);
-
             }
 
+            /**
+             * |--------------------------------------------------------------------------
+             * | Capture Old Quantity
+             * |--------------------------------------------------------------------------
+             */
+            $oldQuantity = $stock->quantity;
 
-            /*
-            |--------------------------------------------------------------------------
-            | Capture Old Quantity
-            |--------------------------------------------------------------------------
-            */
-
-            $oldQuantity =
-                $stock->quantity;
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Determine Adjustment Direction
-            |--------------------------------------------------------------------------
-            */
-
+            /**
+             * |--------------------------------------------------------------------------
+             * | Determine Adjustment Direction
+             * |--------------------------------------------------------------------------
+             */
             $increaseTypes = [
-
                 'Opening Stock',
-
                 'Adjustment In',
-
                 'Purchase',
-
                 'Customer Return',
-
                 'Transfer In',
-
             ];
-
 
             if (
                 in_array(
@@ -1536,51 +1443,35 @@ class StockController extends BaseController
                     true
                 )
             ) {
-
                 $newQuantity =
                     $oldQuantity
                     +
                     $validated['quantity'];
-
-            }
-            else {
-
+            } else {
                 $newQuantity =
                     $oldQuantity
                     -
                     $validated['quantity'];
-
             }
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Prevent Negative Stock
-            |--------------------------------------------------------------------------
-            */
-
+            /**
+             * |--------------------------------------------------------------------------
+             * | Prevent Negative Stock
+             * |--------------------------------------------------------------------------
+             */
             if ($newQuantity < 0) {
-
                 return response()->json([
-
                     'success' => false,
-
-                    'message' =>
-                        'Insufficient stock quantity.'
-
+                    'message' => 'Insufficient stock quantity.'
                 ], 422);
-
             }
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Update Stock
-            |--------------------------------------------------------------------------
-            */
-
+            /**
+             * |--------------------------------------------------------------------------
+             * | Update Stock
+             * |--------------------------------------------------------------------------
+             */
             $stock->update([
-
                 'quantity' =>
                     $newQuantity,
 
@@ -1591,18 +1482,18 @@ class StockController extends BaseController
 
                 'last_stock_update' =>
                     now(),
-
             ]);
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Create Stock Movement
-            |--------------------------------------------------------------------------
-            */
-
+            /**
+             * |--------------------------------------------------------------------------
+             * | Create Stock Movement
+             * |--------------------------------------------------------------------------
+             *
+             * | unit_cost is the historical cost snapshot at the time
+             * | this stock adjustment was performed.
+             * |--------------------------------------------------------------------------
+             */
             StockMovement::create([
-
                 'company_id' =>
                     companyId(),
 
@@ -1621,6 +1512,9 @@ class StockController extends BaseController
                 'quantity' =>
                     $validated['quantity'],
 
+                'unit_cost' =>
+                    $unitCost,
+
                 'stock_before' =>
                     $oldQuantity,
 
@@ -1629,57 +1523,40 @@ class StockController extends BaseController
 
                 'remarks' =>
                     $validated['reason'] ?? null,
-
             ]);
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Activity Log
-            |--------------------------------------------------------------------------
-            */
-
+            /**
+             * |--------------------------------------------------------------------------
+             * | Activity Log
+             * |--------------------------------------------------------------------------
+             */
             $this->activityLogger->log(
-
                 'Stock',
-
                 'Updated',
-
                 'Stock adjusted for product ID '
                     . $validated['product_id']
                     . ' at branch ID '
                     . $branchId,
-
                 $stock,
-
                 [
-
                     'quantity' =>
                         $oldQuantity
-
                 ],
-
                 [
-
                     'quantity' =>
                         $newQuantity
-
                 ]
-
             );
 
-
             return response()->json([
-
                 'success' => true,
-
                 'message' =>
                     'Stock adjusted successfully.'
-
             ]);
-
         });
     }
+
+
 
     /*
     |--------------------------------------------------------------------------

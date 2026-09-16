@@ -9,51 +9,32 @@
     {{-- PAGE HEADER --}}
     {{-- ================================================= --}} -->
 
-
-
     <div class="stock-header mb-4">
 
-
         <div>
-
-
             <h4 class="mb-1">
-
                 Stock Management
-
             </h4>
 
-
             <p class="text-muted mb-0">
-
                 Monitor inventory levels and make stock adjustments.
-
             </p>
-
-
         </div>
 
-
-        <div>
-
+        <div class="ms-auto">
 
             @permission('stock.update')
-
                 <button
+                    type="button"
                     class="btn btn-primary"
-                    id="openStockAdjustmentBtn">
-
+                    id="openStockAdjustmentBtn"
+                >
                     <i class="bi bi-sliders me-2"></i>
-
                     Adjust Stock
-
                 </button>
-
             @endpermission
 
-
         </div>
-
 
     </div>
 

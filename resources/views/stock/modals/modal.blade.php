@@ -306,6 +306,10 @@
                                         </th>
 
                                         <th>
+                                           Units
+                                        </th>
+
+                                        <th>
                                             Price
                                         </th>
 
