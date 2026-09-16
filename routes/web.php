@@ -41,6 +41,7 @@ use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\TerminalController;
 
 use App\Http\Controllers\Admin\SalesReportController;
+use App\Http\Controllers\Admin\InventoryReportController;
 
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DocumentSequenceController;
