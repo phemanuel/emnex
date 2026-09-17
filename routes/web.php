@@ -49,6 +49,57 @@ use App\Http\Controllers\Admin\DocumentSequenceController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ActivityLogController;
 
+use App\Http\Controllers\Admin\CompanyRegistrationController;
+
+Route::prefix('onboarding')
+    ->name('onboarding.')
+    ->group(function () {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Company Registration
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/register', [
+            CompanyRegistrationController::class,
+            'create',
+        ])->name('register');
+
+        Route::post('/register', [
+            CompanyRegistrationController::class,
+            'store',
+        ])->name('register.store');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Registration Steps
+        |--------------------------------------------------------------------------
+        |
+        | These endpoints will be used by the multi-step onboarding interface.
+        | The actual step handling will be implemented after the Blade/JS
+        | structure is created.
+        |
+        */
+
+        Route::post('/company', [
+            CompanyRegistrationController::class,
+            'storeCompany',
+        ])->name('company.store');
+
+        Route::post('/owner', [
+            CompanyRegistrationController::class,
+            'storeOwner',
+        ])->name('owner.store');
+
+        Route::post('/complete', [
+            CompanyRegistrationController::class,
+            'complete',
+        ])->name('complete');
+
+    });
+
+
 
 Route::middleware('guest')->group(function () {
 
@@ -409,6 +460,22 @@ Route::prefix('products')
 
         Route::put('/{product}/maximum-stock', 'updateMaximumStock')
         ->name('maximum-stock');
+      
+        /*
+        |--------------------------------------------------------------------------
+        | Product Import
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/import/template/excel', [ProductController::class,'downloadImportExcelTemplate',
+        ])->name('import.template.excel');
+
+        Route::get('/import/template/csv', [ProductController::class,'downloadImportCsvTemplate',
+        ])->name('import.template.csv');
+
+        Route::post('/import/preview', [ProductController::class,'previewImport',])->name('import.preview');
+
+        Route::post('/import', [ProductController::class,'import',])->name('import');
 
     });
 

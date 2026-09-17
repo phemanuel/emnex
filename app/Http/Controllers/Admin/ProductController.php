@@ -17,6 +17,8 @@ use App\Models\ProductStock;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
+use App\Services\ProductImportService;
+
 
 class ProductController extends BaseController
 {
@@ -24,12 +26,24 @@ class ProductController extends BaseController
     protected ActivityLogger $activityLogger;
 
 
-    public function __construct(ActivityLogger $activityLogger)
-    {
+    // public function __construct(ActivityLogger $activityLogger)
+    // {
+    //     parent::__construct();
+
+    //     $this->activityLogger = $activityLogger;
+    // }
+    
+    public function __construct(
+        ActivityLogger $activityLogger,
+        ProductImportService $productImportService
+    ) {
         parent::__construct();
 
         $this->activityLogger = $activityLogger;
+        $this->productImportService = $productImportService;
     }
+
+
     /**
      * Display Products page.
      */
@@ -2063,6 +2077,137 @@ class ProductController extends BaseController
         }
 
     }
+
+
+    protected ProductImportService $productImportService;
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Product Import
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Download Excel import template.
+     */
+    public function downloadImportExcelTemplate()
+    {
+        abort_unless(
+            canAccess('products.create'),
+            403
+        );
+
+        return $this->productImportService
+            ->downloadExcelTemplate();
+    }
+
+
+    /**
+     * Download CSV import template.
+     */
+    public function downloadImportCsvTemplate()
+    {
+        abort_unless(
+            canAccess('products.create'),
+            403
+        );
+
+        return $this->productImportService
+            ->downloadCsvTemplate();
+    }
+
+
+    /**
+     * Preview product import.
+     */   
+    public function previewImport(Request $request)
+    {
+        abort_unless(canAccess('products.create'), 403);
+
+        $request->validate([
+            'file' => [
+                'required',
+                'file',
+                'mimes:xlsx,xls,csv',
+                'max:10240',
+            ],
+        ]);
+
+        try {
+            $preview = $this->productImportService->preview(
+                $request->file('file'),
+                $this->companyId
+            );
+
+            return response()->json([
+                'success' => true,
+                'data' => $preview,
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'The uploaded file could not be validated.',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to process the uploaded product file.',
+            ], 500);
+        }
+    }
+
+
+
+
+    /**
+     * Import validated products.
+     */
+    public function import(Request $request)
+    {
+        abort_unless(
+            canAccess('products.create'),
+            403
+        );
+
+        $request->validate([
+            'file' => [
+                'required',
+                'file',
+                'mimes:xlsx,xls,csv',
+                'max:10240',
+            ],
+        ]);
+
+        try {
+
+            $result = $this->productImportService
+                ->import(
+                    $request->file('file'),
+                    $this->companyId,
+                    $request->user()
+                );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Products imported successfully.',
+                'data' => $result,
+            ]);
+
+        } catch (\Throwable $e) {
+
+            report($e);
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+
 
 
 
