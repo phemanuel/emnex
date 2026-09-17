@@ -17,6 +17,7 @@ class ProfitLossService
             $filters,
             $user
         );
+        
 
         $format = strtolower(
             trim(
@@ -37,7 +38,7 @@ class ProfitLossService
             ),
 
             'csv' => (
-                new \App\Exports\Reports\ProfitLossReportExport(
+                new \App\Exports\Reports\ProfitLossCsvExport(
                     $report,
                     $filters
                 )
@@ -48,6 +49,7 @@ class ProfitLossService
                 [
                     'report' => $report,
                     'filters' => $filters,
+                    'company' => \App\Models\Company::find($user->company_id),
                 ]
             )
                 ->setPaper('a4', 'landscape')
@@ -357,6 +359,44 @@ class ProfitLossService
 
                 'operating_result' => round(
                     $operatingResult,
+                    2
+                ),
+
+                'operating_margin' => round(
+                    $operatingMargin,
+                    2
+                ),
+            ],
+
+
+            'financial_position' => [
+                'net_revenue' => round(
+                    $netRevenue,
+                    2
+                ),
+
+                'net_cogs' => round(
+                    $netCogs,
+                    2
+                ),
+
+                'gross_profit' => round(
+                    $grossProfit,
+                    2
+                ),
+
+                'inventory_loss' => round(
+                    $inventoryLosses['total'],
+                    2
+                ),
+
+                'operating_result' => round(
+                    $operatingResult,
+                    2
+                ),
+
+                'gross_margin' => round(
+                    $grossMargin,
                     2
                 ),
 
@@ -1163,6 +1203,73 @@ class ProfitLossService
         }
 
         return now()->endOfDay();
+    }
+
+    protected function writeFinancialPosition($handle): void
+    {
+        $position =
+            $this->report['financial_position']
+                ?? [];
+
+        fputcsv($handle, [
+            'FINANCIAL POSITION',
+        ]);
+
+        fputcsv($handle, [
+            'Metric',
+            'Amount',
+        ]);
+
+        fputcsv($handle, [
+            'Net Revenue',
+            $this->number(
+                $position['net_revenue'] ?? 0
+            ),
+        ]);
+
+        fputcsv($handle, [
+            'Net Cost of Goods Sold',
+            $this->number(
+                $position['net_cogs'] ?? 0
+            ),
+        ]);
+
+        fputcsv($handle, [
+            'Gross Profit',
+            $this->number(
+                $position['gross_profit'] ?? 0
+            ),
+        ]);
+
+        fputcsv($handle, [
+            'Inventory Loss',
+            $this->number(
+                $position['inventory_loss'] ?? 0
+            ),
+        ]);
+
+        fputcsv($handle, [
+            'Operating Result',
+            $this->number(
+                $position['operating_result'] ?? 0
+            ),
+        ]);
+
+        fputcsv($handle, [
+            'Gross Margin',
+            $this->percentage(
+                $position['gross_margin'] ?? 0
+            ),
+        ]);
+
+        fputcsv($handle, [
+            'Operating Margin',
+            $this->percentage(
+                $position['operating_margin'] ?? 0
+            ),
+        ]);
+
+        fputcsv($handle, []);
     }
 }
 
