@@ -2346,12 +2346,11 @@ const Products = {
     },
 
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Render Import Preview
     |--------------------------------------------------------------------------
     */
-
     renderImportPreview(data)
     {
         const summary =
@@ -2363,7 +2362,6 @@ const Products = {
             data.preview ||
             data.products ||
             [];
-
 
         /*
         |--------------------------------------------------------------------------
@@ -2399,7 +2397,6 @@ const Products = {
             0
         );
 
-
         /*
         |--------------------------------------------------------------------------
         | File Name
@@ -2411,17 +2408,13 @@ const Products = {
             this.importFile?.name || ''
         );
 
-
         /*
         |--------------------------------------------------------------------------
         | Preview Rows
         |--------------------------------------------------------------------------
         */
 
-        this.renderImportPreviewRows(
-            rows
-        );
-
+        this.renderImportPreviewRows(rows);
 
         /*
         |--------------------------------------------------------------------------
@@ -2443,6 +2436,35 @@ const Products = {
                 0
             );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Button State
+        |--------------------------------------------------------------------------
+        |
+        | At this point the file has already been validated.
+        | Therefore:
+        |
+        | Validate & Preview = hidden
+        | Import Products    = shown
+        |
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.elements.importPreviewBtn) {
+            this.elements.importPreviewBtn.classList.add('d-none');
+            this.elements.importPreviewBtn.disabled = true;
+        }
+
+        if (this.elements.importConfirmBtn) {
+            this.elements.importConfirmBtn.classList.remove('d-none');
+            this.elements.importConfirmBtn.disabled = true;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Errors
+        |--------------------------------------------------------------------------
+        */
 
         if (errorCount > 0) {
 
@@ -2452,15 +2474,14 @@ const Products = {
                 'Please correct the errors shown in the preview before importing the products.'
             );
 
-            if (this.elements.importConfirmBtn) {
-
-                this.elements.importConfirmBtn.disabled =
-                    true;
-            }
-
             return;
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Warnings
+        |--------------------------------------------------------------------------
+        */
 
         if (warningCount > 0) {
 
@@ -2478,42 +2499,45 @@ const Products = {
                 'Ready to import',
                 'All product rows passed validation and are ready to be imported.'
             );
+
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Enable Import
+        |--------------------------------------------------------------------------
+        */
 
         if (this.elements.importConfirmBtn) {
-
-            this.elements.importConfirmBtn.disabled =
-                false;
+            this.elements.importConfirmBtn.disabled = false;
         }
     },
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Render Preview Rows
-    |--------------------------------------------------------------------------
-    */
-
+    /**
+     * |--------------------------------------------------------------------------
+     * | Render Preview Rows
+     * |--------------------------------------------------------------------------
+     */
+    
     renderImportPreviewRows(rows)
     {
         const tbody =
             this.elements.importPreviewTableBody;
 
         if (!tbody) {
-
             return;
         }
 
         tbody.innerHTML = '';
 
-
-        if (!Array.isArray(rows) || !rows.length) {
-
+        if (!Array.isArray(rows) || rows.length === 0) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="100%" class="text-center py-4 text-muted">
-                        No preview rows were returned.
+                    <td colspan="10" class="text-center py-4">
+                        <div class="text-muted">
+                            No product rows were found in the import file.
+                        </div>
                     </td>
                 </tr>
             `;
@@ -2521,184 +2545,220 @@ const Products = {
             return;
         }
 
+        rows.forEach((row, index) => {
 
-        rows.forEach(
-            (row, index) => {
+            const display =
+                row.display || {};
 
-                const tr =
-                    document.createElement(
-                        'tr'
-                    );
+            const normalized =
+                row.normalized || {};
 
+            const rowNumber =
+                row.row ??
+                row.row_number ??
+                (index + 2);
 
-                const rowNumber =
-                    row.row ??
-                    row.row_number ??
-                    index + 2;
+            const status =
+                row.status ??
+                'valid';
 
-                const status =
-                    String(
-                        row.status ??
-                        ''
-                    ).toLowerCase();
+            const name =
+                display.name ??
+                normalized.name ??
+                row.name ??
+                row.data?.name ??
+                '-';
 
+            const sku =
+                display.sku ??
+                normalized.sku ??
+                row.sku ??
+                row.data?.sku ??
+                '-';
 
-                let statusClass =
-                    'bg-secondary';
+            const category =
+                display.category ??
+                normalized.category ??
+                row.category ??
+                row.data?.category ??
+                '-';
 
-                let statusText =
-                    row.status ||
-                    'Unknown';
+            const unit =
+                display.unit ??
+                normalized.unit ??
+                row.unit ??
+                row.data?.unit ??
+                '-';
 
+            const costPrice =
+                display.cost_price ??
+                normalized.cost_price ??
+                row.cost_price ??
+                row.data?.cost_price ??
+                '-';
 
-                if (
-                    status === 'valid' ||
-                    status === 'success' ||
-                    status === 'ok'
-                ) {
+            const sellingPrice =
+                display.selling_price ??
+                normalized.selling_price ??
+                row.selling_price ??
+                row.data?.selling_price ??
+                '-';
 
-                    statusClass =
-                        'bg-success';
+            const openingStock =
+                display.opening_stock ??
+                normalized.opening_stock ??
+                row.opening_stock ??
+                row.data?.opening_stock ??
+                0;
 
-                    statusText =
-                        'Valid';
+            const errors =
+                Array.isArray(row.errors)
+                    ? row.errors
+                    : [];
 
-                }
-                else if (
-                    status === 'warning' ||
-                    status === 'warnings'
-                ) {
+            const warnings =
+                Array.isArray(row.warnings)
+                    ? row.warnings
+                    : [];
 
-                    statusClass =
-                        'bg-warning text-dark';
+            const hasErrors =
+                errors.length > 0 ||
+                status === 'error';
 
-                    statusText =
-                        'Warning';
+            const hasWarnings =
+                warnings.length > 0 ||
+                status === 'warning';
 
-                }
-                else if (
-                    status === 'error' ||
-                    status === 'invalid'
-                ) {
+            let statusBadge = '';
 
-                    statusClass =
-                        'bg-danger';
-
-                    statusText =
-                        'Error';
-                }
-
-
-                const errors =
-                    Array.isArray(
-                        row.errors
-                    )
-                        ? row.errors
-                        : [];
-
-                const warnings =
-                    Array.isArray(
-                        row.warnings
-                    )
-                        ? row.warnings
-                        : [];
-
-
-                const messages =
-                    [
-                        ...errors,
-                        ...warnings
-                    ];
-
-
-                const messageText =
-                    messages.length
-                        ? messages.join(
-                            ' '
-                        )
-                        : (
-                            row.message ||
-                            ''
-                        );
-
-
-                const name =
-                    row.name ??
-                    row.data?.name ??
-                    '-';
-
-                const sku =
-                    row.sku ??
-                    row.data?.sku ??
-                    '-';
-
-                const barcode =
-                    row.barcode ??
-                    row.data?.barcode ??
-                    '-';
-
-                const category =
-                    row.category ??
-                    row.data?.category ??
-                    '-';
-
-                const unit =
-                    row.unit ??
-                    row.data?.unit ??
-                    '-';
-
-
-                tr.innerHTML = `
-                    <td>${this.escapeHtml(rowNumber)}</td>
-
-                    <td>
-                        <div class="fw-semibold">
-                            ${this.escapeHtml(name)}
-                        </div>
-                    </td>
-
-                    <td>
-                        ${this.escapeHtml(sku)}
-                    </td>
-
-                    <td>
-                        ${this.escapeHtml(barcode)}
-                    </td>
-
-                    <td>
-                        ${this.escapeHtml(category)}
-                    </td>
-
-                    <td>
-                        ${this.escapeHtml(unit)}
-                    </td>
-
-                    <td>
-                        <span class="badge ${statusClass}">
-                            ${this.escapeHtml(statusText)}
-                        </span>
-
-                        ${
-                            messageText
-                                ? `
-                                    <div class="small text-muted mt-1">
-                                        ${this.escapeHtml(
-                                            messageText
-                                        )}
-                                    </div>
-                                `
-                                : ''
-                        }
-                    </td>
+            if (hasErrors) {
+                statusBadge = `
+                    <span class="badge rounded-pill text-bg-danger">
+                        <i class="bi bi-x-circle me-1"></i>
+                        Error
+                    </span>
                 `;
-
-
-                tbody.appendChild(
-                    tr
-                );
             }
-        );
+            else if (hasWarnings) {
+                statusBadge = `
+                    <span class="badge rounded-pill text-bg-warning">
+                        <i class="bi bi-exclamation-triangle me-1"></i>
+                        Warning
+                    </span>
+                `;
+            }
+            else {
+                statusBadge = `
+                    <span class="badge rounded-pill text-bg-success">
+                        <i class="bi bi-check-circle me-1"></i>
+                        Valid
+                    </span>
+                `;
+            }
+
+            const validationMessages = [];
+
+            errors.forEach(error => {
+                if (error) {
+                    validationMessages.push(`
+                        <div class="text-danger">
+                            <i class="bi bi-x-circle me-1"></i>
+                            ${this.escapeHtml(error)}
+                        </div>
+                    `);
+                }
+            });
+
+            warnings.forEach(warning => {
+                if (warning) {
+                    validationMessages.push(`
+                        <div class="text-warning">
+                            <i class="bi bi-exclamation-triangle me-1"></i>
+                            ${this.escapeHtml(warning)}
+                        </div>
+                    `);
+                }
+            });
+
+            if (validationMessages.length === 0) {
+                validationMessages.push(`
+                    <span class="text-success">
+                        <i class="bi bi-check2-circle me-1"></i>
+                        Valid
+                    </span>
+                `);
+            }
+
+            const validationHtml =
+                validationMessages.join('');
+
+            const rowClass =
+                hasErrors
+                    ? 'product-import-row-error'
+                    : hasWarnings
+                        ? 'product-import-row-warning'
+                        : '';
+
+            tbody.insertAdjacentHTML(
+                'beforeend',
+                `
+                    <tr class="${rowClass}">
+                        <td>
+                            <span class="product-import-row-number">
+                                ${this.escapeHtml(String(rowNumber))}
+                            </span>
+                        </td>
+
+                        <td>
+                            ${statusBadge}
+                        </td>
+
+                        <td>
+                            <div class="product-import-product-cell">
+                                <strong>
+                                    ${this.escapeHtml(String(name))}
+                                </strong>
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="product-import-mono">
+                                ${this.escapeHtml(String(sku))}
+                            </span>
+                        </td>
+
+                        <td>
+                            ${this.escapeHtml(String(category))}
+                        </td>
+
+                        <td>
+                            ${this.escapeHtml(String(unit))}
+                        </td>
+
+                        <td>
+                            ${this.escapeHtml(String(costPrice))}
+                        </td>
+
+                        <td>
+                            ${this.escapeHtml(String(sellingPrice))}
+                        </td>
+
+                        <td>
+                            ${this.escapeHtml(String(openingStock))}
+                        </td>
+
+                        <td>
+                            <div class="product-import-validation">
+                                ${validationHtml}
+                            </div>
+                        </td>
+                    </tr>
+                `
+            );
+        });
     },
+
+
 
 
     /*
@@ -2789,13 +2849,11 @@ const Products = {
         );
     },
 
-
     /*
     |--------------------------------------------------------------------------
     | Confirm Import
     |--------------------------------------------------------------------------
     */
-
     async confirmImport()
     {
         if (!this.importFile) {
@@ -2808,10 +2866,7 @@ const Products = {
             return;
         }
 
-
-        if (
-            !this.importPreviewData
-        ) {
+        if (!this.importPreviewData) {
 
             this.showImportError(
                 'Preview Required',
@@ -2820,7 +2875,6 @@ const Products = {
 
             return;
         }
-
 
         const summary =
             this.importPreviewData.summary ||
@@ -2833,7 +2887,6 @@ const Products = {
                 0
             );
 
-
         if (errorCount > 0) {
 
             this.showImportError(
@@ -2843,7 +2896,6 @@ const Products = {
 
             return;
         }
-
 
         try {
 
@@ -2856,7 +2908,6 @@ const Products = {
                 'Importing products...'
             );
 
-
             const formData =
                 new FormData();
 
@@ -2864,7 +2915,6 @@ const Products = {
                 'file',
                 this.importFile
             );
-
 
             /*
             |--------------------------------------------------------------------------
@@ -2885,6 +2935,11 @@ const Products = {
                 );
             }
 
+            /*
+            |--------------------------------------------------------------------------
+            | Import Request
+            |--------------------------------------------------------------------------
+            */
 
             const response =
                 await fetch(
@@ -2893,7 +2948,6 @@ const Products = {
                         method: 'POST',
 
                         headers: {
-
                             'X-CSRF-TOKEN':
                                 this.csrfToken,
 
@@ -2908,19 +2962,23 @@ const Products = {
                     }
                 );
 
-
             const result =
                 await this.parseImportResponse(
                     response
                 );
 
+            this.setImportLoading(false);
 
-            this.setImportLoading(
-                false
-            );
+            /*
+            |--------------------------------------------------------------------------
+            | Import Error
+            |--------------------------------------------------------------------------
+            */
 
-
-            if (!response.ok || !result.success) {
+            if (
+                !response.ok ||
+                !result.success
+            ) {
 
                 if (
                     response.status === 422 &&
@@ -2942,12 +3000,60 @@ const Products = {
                 );
             }
 
+            /*
+            |--------------------------------------------------------------------------
+            | Import Successful
+            |--------------------------------------------------------------------------
+            */
 
             this.showImportComplete(
                 result.data || {},
                 result.message
             );
 
+            /*
+            |--------------------------------------------------------------------------
+            | Footer Button State
+            |--------------------------------------------------------------------------
+            |
+            | Import is complete, so:
+            |
+            | Validate & Preview = hidden
+            | Import Products    = hidden
+            | Done               = visible
+            |
+            |--------------------------------------------------------------------------
+            */
+
+            if (this.elements.importPreviewBtn) {
+
+                this.elements.importPreviewBtn.classList.add(
+                    'd-none'
+                );
+
+                this.elements.importPreviewBtn.disabled =
+                    true;
+            }
+
+            if (this.elements.importConfirmBtn) {
+
+                this.elements.importConfirmBtn.classList.add(
+                    'd-none'
+                );
+
+                this.elements.importConfirmBtn.disabled =
+                    true;
+            }
+
+            if (this.elements.importDoneBtn) {
+
+                this.elements.importDoneBtn.classList.remove(
+                    'd-none'
+                );
+
+                this.elements.importDoneBtn.disabled =
+                    false;
+            }
 
             /*
             |--------------------------------------------------------------------------
@@ -2956,7 +3062,6 @@ const Products = {
             */
 
             await this.loadTable();
-
 
             showToast(
                 result.message ||
@@ -2968,9 +3073,7 @@ const Products = {
         }
         catch (error) {
 
-            this.setImportLoading(
-                false
-            );
+            this.setImportLoading(false);
 
             console.error(
                 'Product import error:',
@@ -2984,6 +3087,7 @@ const Products = {
             );
         }
     },
+
 
 
     /*

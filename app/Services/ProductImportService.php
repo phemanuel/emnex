@@ -12,7 +12,6 @@ use App\Models\DocumentSequence;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductStock;
-use App\Models\TaxRate;
 use App\Models\Unit;
 
 use Illuminate\Http\UploadedFile;
@@ -968,15 +967,20 @@ class ProductImportService
     | Lookups
     |--------------------------------------------------------------------------
     */
-
     /**
      * Build company-scoped relationship lookups.
-     */
+     */  
     protected function buildLookups(
         int $companyId
     ): array {
 
         return [
+
+            /*
+            |--------------------------------------------------------------------------
+            | Product Categories
+            |--------------------------------------------------------------------------
+            */
 
             'categories' =>
                 ProductCategory::query()
@@ -992,6 +996,11 @@ class ProductImportService
                             )
                     ),
 
+            /*
+            |--------------------------------------------------------------------------
+            | Units
+            |--------------------------------------------------------------------------
+            */
 
             'units' =>
                 Unit::query()
@@ -1007,21 +1016,11 @@ class ProductImportService
                             )
                     ),
 
-
-            'tax_rates' =>
-                TaxRate::query()
-                    ->where(
-                        'company_id',
-                        $companyId
-                    )
-                    ->get()
-                    ->keyBy(
-                        fn ($item) =>
-                            $this->lookupKey(
-                                $item->name
-                            )
-                    ),
-
+            /*
+            |--------------------------------------------------------------------------
+            | Discounts
+            |--------------------------------------------------------------------------
+            */
 
             'discounts' =>
                 Discount::query()
@@ -1038,6 +1037,7 @@ class ProductImportService
                     ),
         ];
     }
+
 
 
     /*
@@ -1555,8 +1555,6 @@ class ProductImportService
 
                 'unit' =>
                     $unit?->name,
-
-                'tax_rate' => $taxRate,
 
                 'discount' =>
                     $discount?->name,
