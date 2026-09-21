@@ -151,13 +151,6 @@ class ProductImportInstructionsSheet implements
             ],
 
             [
-                'Tax Rate',
-                'No',
-                'Existing tax rate name.',
-                'VAT 7.5%',
-            ],
-
-            [
                 'Discount',
                 'No',
                 'Existing discount name.',

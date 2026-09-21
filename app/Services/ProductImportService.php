@@ -2,6 +2,10 @@
 
 namespace App\Services;
 
+use App\Exports\Reports\Products\ProductImportTemplateExport;
+use App\Imports\Products\ProductImport;
+
+use App\Models\Setting;
 use App\Models\Branch;
 use App\Models\Discount;
 use App\Models\DocumentSequence;
@@ -10,26 +14,32 @@ use App\Models\ProductCategory;
 use App\Models\ProductStock;
 use App\Models\TaxRate;
 use App\Models\Unit;
-use App\Services\ActivityLogger;
+
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-use App\Exports\Reports\Products\ProductImportTemplateExport;
-use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelFormat;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Illuminate\Support\Collection;
+
 
 use Throwable;
 
 class ProductImportService
 {
-    /**
-     * Import columns.
-     *
-     * Product codes are deliberately excluded because they are
-     * generated from the company's product document sequence.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Import Columns
+    |--------------------------------------------------------------------------
+    |
+    | Product codes are deliberately excluded because they are generated
+    | from the company's product document sequence.
+    |
+    */
+
     protected array $columns = [
         'name',
         'sku',
@@ -40,7 +50,6 @@ class ProductImportService
         'manufacturer',
         'category',
         'unit',
-        'tax_rate',
         'discount',
         'cost_price',
         'selling_price',
@@ -52,9 +61,13 @@ class ProductImportService
         'status',
     ];
 
-    /**
-     * Human-readable column labels.
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Human-readable Column Labels
+    |--------------------------------------------------------------------------
+    */
+
     protected array $columnLabels = [
         'name' => 'Name',
         'sku' => 'SKU',
@@ -65,7 +78,6 @@ class ProductImportService
         'manufacturer' => 'Manufacturer',
         'category' => 'Category',
         'unit' => 'Unit',
-        'tax_rate' => 'Tax Rate',
         'discount' => 'Discount',
         'cost_price' => 'Cost Price',
         'selling_price' => 'Selling Price',
@@ -77,18 +89,28 @@ class ProductImportService
         'status' => 'Status',
     ];
 
-    /**
-     * Activity logger.
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Activity Logger
+    |--------------------------------------------------------------------------
+    */
+
     protected ActivityLogger $activityLogger;
 
-    /**
-     * Create service.
-     */
-    public function __construct(ActivityLogger $activityLogger)
-    {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Constructor
+    |--------------------------------------------------------------------------
+    */
+
+    public function __construct(
+        ActivityLogger $activityLogger
+    ) {
         $this->activityLogger = $activityLogger;
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +118,6 @@ class ProductImportService
     |--------------------------------------------------------------------------
     */
 
-   
     /**
      * Download Excel import template.
      */
@@ -120,7 +141,7 @@ class ProductImportService
             ExcelFormat::CSV
         );
     }
-   
+
 
     /*
     |--------------------------------------------------------------------------
@@ -139,11 +160,14 @@ class ProductImportService
 
         if (empty($rows)) {
             throw ValidationException::withMessages([
-                'file' => 'The import file does not contain any product rows.',
+                'file' =>
+                    'The import file does not contain any product rows.',
             ]);
         }
 
-        $lookups = $this->buildLookups($companyId);
+        $lookups = $this->buildLookups(
+            $companyId
+        );
 
         $validatedRows = [];
 
@@ -179,9 +203,10 @@ class ProductImportService
                 $errorCount++;
             }
 
+
             /*
             |--------------------------------------------------------------------------
-            | Track values appearing in the uploaded file.
+            | Track Uploaded SKU
             |--------------------------------------------------------------------------
             */
 
@@ -193,8 +218,16 @@ class ProductImportService
                     true
                 )
             ) {
-                $seenSkus[] = $result['normalized']['sku'];
+                $seenSkus[] =
+                    $result['normalized']['sku'];
             }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Track Uploaded Barcode
+            |--------------------------------------------------------------------------
+            */
 
             if (
                 !empty($result['normalized']['barcode'])
@@ -204,22 +237,34 @@ class ProductImportService
                     true
                 )
             ) {
-                $seenBarcodes[] = $result['normalized']['barcode'];
+                $seenBarcodes[] =
+                    $result['normalized']['barcode'];
             }
         }
 
         return [
             'summary' => [
-                'total' => count($validatedRows),
-                'valid' => $validCount,
-                'warnings' => $warningCount,
-                'errors' => $errorCount,
-                'can_import' => $errorCount === 0,
+                'total' =>
+                    count($validatedRows),
+
+                'valid' =>
+                    $validCount,
+
+                'warnings' =>
+                    $warningCount,
+
+                'errors' =>
+                    $errorCount,
+
+                'can_import' =>
+                    $errorCount === 0,
             ],
 
-            'rows' => $validatedRows,
+            'rows' =>
+                $validatedRows,
         ];
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -230,8 +275,8 @@ class ProductImportService
     /**
      * Import products from a validated spreadsheet.
      *
-     * The file is parsed and validated again. The preview response
-     * is never trusted as the source of truth.
+     * The file is parsed and validated again.
+     * The preview response is never trusted as the source of truth.
      */
     public function import(
         UploadedFile $file,
@@ -242,397 +287,588 @@ class ProductImportService
 
         if (empty($rows)) {
             throw ValidationException::withMessages([
-                'file' => 'The import file does not contain any product rows.',
+                'file' =>
+                    'The import file does not contain any product rows.',
             ]);
         }
 
-        return DB::transaction(function () use (
-            $rows,
-            $companyId,
-            $user
-        ) {
+        return DB::transaction(
+            function () use (
+                $rows,
+                $companyId,
+                $user
+            ) {
 
-            /*
-            |--------------------------------------------------------------------------
-            | Resolve all relationships before writing products.
-            |--------------------------------------------------------------------------
-            */
+                /*
+                |--------------------------------------------------------------------------
+                | Build Company-scoped Lookups
+                |--------------------------------------------------------------------------
+                */
 
-            $lookups = $this->buildLookups($companyId);
+                $lookups =
+                    $this->buildLookups(
+                        $companyId
+                    );
 
-            $validatedRows = [];
 
-            $seenSkus = [];
-            $seenBarcodes = [];
+                $validatedRows = [];
 
-            foreach ($rows as $row) {
+                $seenSkus = [];
+                $seenBarcodes = [];
 
-                $result = $this->validateRow(
-                    $row,
-                    $companyId,
-                    $lookups,
-                    $seenSkus,
-                    $seenBarcodes
-                );
 
-                if ($result['status'] === 'error') {
+                /*
+                |--------------------------------------------------------------------------
+                | Validate Every Row Again
+                |--------------------------------------------------------------------------
+                */
+
+                foreach ($rows as $row) {
+
+                    $result =
+                        $this->validateRow(
+                            $row,
+                            $companyId,
+                            $lookups,
+                            $seenSkus,
+                            $seenBarcodes
+                        );
+
+
+                    if (
+                        $result['status'] === 'error'
+                    ) {
+
+                        throw ValidationException::withMessages([
+                            "row_{$result['row']}" =>
+                                implode(
+                                    ' ',
+                                    $result['errors']
+                                ),
+                        ]);
+                    }
+
+
+                    $validatedRows[] =
+                        $result;
+
+
+                    if (
+                        !empty(
+                            $result['normalized']['sku']
+                        )
+                    ) {
+                        $seenSkus[] =
+                            $result['normalized']['sku'];
+                    }
+
+
+                    if (
+                        !empty(
+                            $result['normalized']['barcode']
+                        )
+                    ) {
+                        $seenBarcodes[] =
+                            $result['normalized']['barcode'];
+                    }
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Product Document Sequence
+                |--------------------------------------------------------------------------
+                */
+
+                $sequence =
+                    DocumentSequence::query()
+                        ->where(
+                            'company_id',
+                            $companyId
+                        )
+                        ->where(
+                            'document_type',
+                            'product'
+                        )
+                        ->where(
+                            'status',
+                            true
+                        )
+                        ->lockForUpdate()
+                        ->first();
+
+
+                if (!$sequence) {
+
                     throw ValidationException::withMessages([
-                        "row_{$result['row']}" =>
-                            implode(' ', $result['errors']),
+                        'file' =>
+                            'The product document sequence is not configured for this company.',
                     ]);
                 }
 
-                $validatedRows[] = $result;
-
-                if (!empty($result['normalized']['sku'])) {
-                    $seenSkus[] = $result['normalized']['sku'];
-                }
-
-                if (!empty($result['normalized']['barcode'])) {
-                    $seenBarcodes[] = $result['normalized']['barcode'];
-                }
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Product sequence
-            |--------------------------------------------------------------------------
-            */
-
-            $sequence = DocumentSequence::query()
-                ->where('company_id', $companyId)
-                ->where('document_type', 'product')
-                ->where('status', true)
-                ->lockForUpdate()
-                ->first();
-
-            if (!$sequence) {
-                throw ValidationException::withMessages([
-                    'file' =>
-                        'The product document sequence is not configured for this company.',
-                ]);
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Head Office
-            |--------------------------------------------------------------------------
-            */
-
-            $headOffice = Branch::query()
-                ->where('company_id', $companyId)
-                ->headOffice()
-                ->first();
-
-            if (!$headOffice) {
-                throw ValidationException::withMessages([
-                    'file' =>
-                        'A Head Office branch could not be found for this company.',
-                ]);
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Import products
-            |--------------------------------------------------------------------------
-            */
-
-            $imported = 0;
-
-            $products = [];
-
-            foreach ($validatedRows as $result) {
-
-                $data = $result['normalized'];
 
                 /*
                 |--------------------------------------------------------------------------
-                | Generate product code from locked sequence.
+                | Head Office
                 |--------------------------------------------------------------------------
                 */
 
-                $productCode = $sequence->formattedNumber(
-                    $sequence->current_number
+                $headOffice =
+                    Branch::query()
+                        ->where(
+                            'company_id',
+                            $companyId
+                        )
+                        ->headOffice()
+                        ->first();
+
+
+                if (!$headOffice) {
+
+                    throw ValidationException::withMessages([
+                        'file' =>
+                            'A Head Office branch could not be found for this company.',
+                    ]);
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Import Products
+                |--------------------------------------------------------------------------
+                */
+
+                $imported = 0;
+
+                $products = [];
+
+
+                foreach (
+                    $validatedRows as $result
+                ) {
+
+                    $data =
+                        $result['normalized'];
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Generate Product Code
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $productCode =
+                        $sequence->formattedNumber(
+                            $sequence->current_number
+                        );
+
+                    $sequence->current_number++;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Product Data
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $productData = [
+
+                        'company_id' =>
+                            $companyId,
+
+                        'product_category_id' =>
+                            $data['product_category_id'],
+
+                        'unit_id' =>
+                            $data['unit_id'],
+
+                        'discount_id' =>
+                            $data['discount_id'],
+
+                        'product_code' =>
+                            $productCode,
+
+                        'sku' =>
+                            $data['sku'],
+
+                        'barcode' =>
+                            $data['barcode'],
+
+                        'qr_code' =>
+                            $data['qr_code'],
+
+                        'name' =>
+                            $data['name'],
+
+                        'description' =>
+                            $data['description'],
+
+                        'brand' =>
+                            $data['brand'],
+
+                        'manufacturer' =>
+                            $data['manufacturer'],
+
+                        'cost_price' =>
+                            $data['cost_price'],
+
+                        'selling_price' =>
+                            $data['selling_price'],
+
+                        'minimum_stock' =>
+                            $data['minimum_stock'],
+
+                        'maximum_stock' =>
+                            $data['maximum_stock'],
+
+                        'weight' =>
+                            $data['weight'],
+
+                        'expiry_date' =>
+                            $data['expiry_date'],
+
+                        'status' =>
+                            $data['status'],
+                    ];
+
+
+                    $product =
+                        Product::create(
+                            $productData
+                        );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Head Office Opening Stock
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $openingStock =
+                        $data['opening_stock'];
+
+
+                    ProductStock::create([
+
+                        'company_id' =>
+                            $companyId,
+
+                        'branch_id' =>
+                            $headOffice->id,
+
+                        'product_id' =>
+                            $product->id,
+
+                        'quantity' =>
+                            $openingStock,
+
+                        'reserved_quantity' =>
+                            0,
+
+                        'available_quantity' =>
+                            $openingStock,
+
+                        'reorder_level' =>
+                            $data['minimum_stock'],
+
+                        'maximum_stock' =>
+                            $data['maximum_stock'],
+                    ]);
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Generated Product Information
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $products[] = [
+
+                        'id' =>
+                            $product->id,
+
+                        'product_code' =>
+                            $productCode,
+
+                        'name' =>
+                            $product->name,
+
+                        'sku' =>
+                            $product->sku,
+                    ];
+
+
+                    $imported++;
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Persist Sequence
+                |--------------------------------------------------------------------------
+                */
+
+                $sequence->save();
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Activity Log
+                |--------------------------------------------------------------------------
+                */
+
+                $this->activityLogger->log(
+                    'Products',
+                    'Imported',
+                    "{$imported} product(s) imported successfully.",
+                    null,
+                    null,
+                    [
+                        'company_id' =>
+                            $companyId,
+
+                        'count' =>
+                            $imported,
+
+                        'products' =>
+                            $products,
+                    ]
                 );
 
-                $sequence->current_number++;
 
                 /*
                 |--------------------------------------------------------------------------
-                | Product data
+                | Response
                 |--------------------------------------------------------------------------
                 */
 
-                $productData = [
-                    'company_id' => $companyId,
+                return [
+                    'imported' =>
+                        $imported,
 
-                    'product_category_id' =>
-                        $data['product_category_id'],
-
-                    'unit_id' =>
-                        $data['unit_id'],
-
-                    'tax_rate_id' =>
-                        $data['tax_rate_id'],
-
-                    'discount_id' =>
-                        $data['discount_id'],
-
-                    'product_code' =>
-                        $productCode,
-
-                    'sku' =>
-                        $data['sku'],
-
-                    'barcode' =>
-                        $data['barcode'],
-
-                    'qr_code' =>
-                        $data['qr_code'],
-
-                    'name' =>
-                        $data['name'],
-
-                    'description' =>
-                        $data['description'],
-
-                    'brand' =>
-                        $data['brand'],
-
-                    'manufacturer' =>
-                        $data['manufacturer'],
-
-                    'cost_price' =>
-                        $data['cost_price'],
-
-                    'selling_price' =>
-                        $data['selling_price'],
-
-                    'minimum_stock' =>
-                        $data['minimum_stock'],
-
-                    'maximum_stock' =>
-                        $data['maximum_stock'],
-
-                    'weight' =>
-                        $data['weight'],
-
-                    'expiry_date' =>
-                        $data['expiry_date'],
-
-                    'status' =>
-                        $data['status'],
+                    'products' =>
+                        $products,
                 ];
-
-                $product = Product::create($productData);
-
-                /*
-                |--------------------------------------------------------------------------
-                | Head Office stock
-                |--------------------------------------------------------------------------
-                */
-
-                $openingStock = $data['opening_stock'];
-
-                ProductStock::create([
-                    'company_id' => $companyId,
-
-                    'branch_id' =>
-                        $headOffice->id,
-
-                    'product_id' =>
-                        $product->id,
-
-                    'quantity' =>
-                        $openingStock,
-
-                    'reserved_quantity' =>
-                        0,
-
-                    'available_quantity' =>
-                        $openingStock,
-
-                    'reorder_level' =>
-                        $data['minimum_stock'],
-
-                    'maximum_stock' =>
-                        $data['maximum_stock'],
-                ]);
-
-                $products[] = [
-                    'id' => $product->id,
-                    'product_code' => $productCode,
-                    'name' => $product->name,
-                    'sku' => $product->sku,
-                ];
-
-                $imported++;
             }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Persist sequence
-            |--------------------------------------------------------------------------
-            */
-
-            $sequence->save();
-
-            /*
-            |--------------------------------------------------------------------------
-            | Activity log
-            |--------------------------------------------------------------------------
-            */
-
-            $this->activityLogger->log(
-                'Products',
-                'Imported',
-                "{$imported} product(s) imported successfully.",
-                null,
-                null,
-                [
-                    'company_id' => $companyId,
-                    'count' => $imported,
-                    'products' => $products,
-                ]
-            );
-
-            return [
-                'imported' => $imported,
-                'products' => $products,
-            ];
-        });
+        );
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | File Reading
-    |--------------------------------------------------------------------------
-    */
-
+    
     /**
-     * Read XLSX, XLS or CSV file into normalized row arrays.
+     * Read XLSX, XLS or CSV using Maatwebsite Excel.
+     *
+     * Maatwebsite Excel handles the underlying spreadsheet reader.
      */
     protected function readFile(UploadedFile $file): array
     {
         try {
+            $import = new class implements ToCollection {
 
-            $spreadsheet = IOFactory::load(
-                $file->getRealPath()
-            );
+                public Collection $rows;
 
-        } catch (Throwable $e) {
+                public function __construct()
+                {
+                    $this->rows = collect();
+                }
 
-            throw ValidationException::withMessages([
-                'file' =>
-                    'The uploaded file could not be read. Please use a valid Excel or CSV file.',
-            ]);
-        }
-
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $rows = $sheet->toArray(
-            null,
-            true,
-            true,
-            true
-        );
-
-        if (count($rows) < 2) {
-            return [];
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Header
-        |--------------------------------------------------------------------------
-        */
-
-        $headerRow = array_shift($rows);
-
-        $headers = [];
-
-        foreach ($headerRow as $column => $header) {
-
-            $normalizedHeader =
-                $this->normalizeHeader($header);
-
-            if ($normalizedHeader === '') {
-                continue;
-            }
-
-            $headers[$column] = $normalizedHeader;
-        }
-
-        $this->validateHeaders($headers);
-
-        /*
-        |--------------------------------------------------------------------------
-        | Data rows
-        |--------------------------------------------------------------------------
-        */
-
-        $result = [];
-
-        foreach ($rows as $index => $row) {
-
-            $excelRow = $index + 2;
+                public function collection(Collection $collection): void
+                {
+                    $this->rows = $collection;
+                }
+            };
 
             /*
             |--------------------------------------------------------------------------
-            | Skip completely empty rows.
+            | Read Uploaded File
+            |--------------------------------------------------------------------------
+            |
+            | Maatwebsite Excel automatically detects XLSX, XLS and CSV from
+            | the uploaded file.
+            |
+            */
+
+            Excel::import(
+                $import,
+                $file
+            );
+
+            $rows = $import->rows;
+
+            if ($rows->isEmpty()) {
+                return [];
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Convert Rows To Arrays
             |--------------------------------------------------------------------------
             */
 
-            $hasValue = false;
+            $rows = $rows
+                ->map(function ($row) {
+                    if ($row instanceof Collection) {
+                        return $row->toArray();
+                    }
 
-            foreach ($row as $value) {
-                if (
-                    $value !== null
-                    && trim((string) $value) !== ''
-                ) {
-                    $hasValue = true;
-                    break;
+                    return (array) $row;
+                })
+                ->values()
+                ->all();
+
+            if (count($rows) < 2) {
+                return [];
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Header
+            |--------------------------------------------------------------------------
+            */
+
+            $headerRow = array_shift($rows);
+
+            $headers = [];
+
+            foreach ($headerRow as $column => $header) {
+                $normalizedHeader = $this->normalizeHeader($header);
+
+                if ($normalizedHeader === '') {
+                    continue;
                 }
+
+                $headers[$column] = $normalizedHeader;
             }
 
-            if (!$hasValue) {
-                continue;
+            $this->validateHeaders($headers);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Data Rows
+            |--------------------------------------------------------------------------
+            */
+
+            $result = [];
+
+            foreach ($rows as $index => $row) {
+                $excelRow = $index + 2;
+
+                /*
+                |--------------------------------------------------------------------------
+                | Skip Completely Empty Rows
+                |--------------------------------------------------------------------------
+                */
+
+                $hasValue = false;
+
+                foreach ($row as $value) {
+                    if (
+                        $value !== null
+                        && trim((string) $value) !== ''
+                    ) {
+                        $hasValue = true;
+                        break;
+                    }
+                }
+
+                if (!$hasValue) {
+                    continue;
+                }
+
+                /*
+                |--------------------------------------------------------------------------
+                | Normalize Row
+                |--------------------------------------------------------------------------
+                */
+
+                $normalized = [
+                    'row' => $excelRow,
+                ];
+
+                foreach ($headers as $column => $header) {
+                    $normalized[$header] =
+                        array_key_exists($column, $row)
+                            ? $this->cleanValue($row[$column])
+                            : null;
+                }
+
+                $result[] = $normalized;
             }
 
-            $normalized = [
-                'row' => $excelRow,
-            ];
+            return $result;
 
-            foreach ($headers as $column => $header) {
-                $normalized[$header] =
-                    isset($row[$column])
-                        ? $this->cleanValue($row[$column])
-                        : null;
-            }
+        } catch (Throwable $e) {
 
-            $result[] = $normalized;
+            /*
+            |--------------------------------------------------------------------------
+            | Log Actual Import Error
+            |--------------------------------------------------------------------------
+            |
+            | Do not expose the raw exception to the browser, but log it so
+            | we can diagnose malformed files or reader configuration issues.
+            |
+            */
+
+            report($e);
+
+            throw ValidationException::withMessages([
+                'file' =>
+                    'The uploaded file could not be read. Please make sure the file is a valid XLSX, XLS or CSV product import file.',
+            ]);
         }
-
-        return $result;
     }
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header Normalization
+    |--------------------------------------------------------------------------
+    */
 
     /**
      * Normalize spreadsheet header names.
      */
-    protected function normalizeHeader($header): string
-    {
-        $header = trim((string) $header);
+    protected function normalizeHeader(
+        $header
+    ): string {
 
-        $header = strtolower($header);
+        $header =
+            trim((string) $header);
 
-        $header = str_replace(
-            [
-                ' ',
-                '-',
-            ],
-            '_',
-            $header
-        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Remove UTF-8 BOM
+        |--------------------------------------------------------------------------
+        |
+        | This protects CSV headers from invisible BOM characters.
+        |
+        */
+
+        $header =
+            preg_replace(
+                '/^\xEF\xBB\xBF/',
+                '',
+                $header
+            );
+
+
+        $header =
+            strtolower(
+                $header
+            );
+
+
+        $header =
+            str_replace(
+                [
+                    ' ',
+                    '-',
+                ],
+                '_',
+                $header
+            );
+
 
         return preg_replace(
             '/[^a-z0-9_]/',
@@ -641,28 +877,46 @@ class ProductImportService
         );
     }
 
-    /**
-     * Clean imported cell values.
-     */
-    protected function cleanValue($value): ?string
-    {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Clean Cell Value
+    |--------------------------------------------------------------------------
+    */
+
+    protected function cleanValue(
+        $value
+    ): ?string {
+
         if ($value === null) {
             return null;
         }
 
-        $value = trim((string) $value);
+
+        $value =
+            trim(
+                (string) $value
+            );
+
 
         return $value === ''
             ? null
             : $value;
     }
 
-    /**
-     * Validate required spreadsheet headers.
-     */
-    protected function validateHeaders(array $headers): void
-    {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Headers
+    |--------------------------------------------------------------------------
+    */
+
+    protected function validateHeaders(
+        array $headers
+    ): void {
+
         $required = [
+
             'name',
             'category',
             'unit',
@@ -671,24 +925,43 @@ class ProductImportService
             'minimum_stock',
         ];
 
+
         $missing = [];
 
-        foreach ($required as $column) {
-            if (!in_array($column, $headers, true)) {
+
+        foreach (
+            $required as $column
+        ) {
+
+            if (
+                !in_array(
+                    $column,
+                    $headers,
+                    true
+                )
+            ) {
+
                 $missing[] =
-                    $this->columnLabels[$column] ?? $column;
+                    $this->columnLabels[$column]
+                    ?? $column;
             }
         }
 
+
         if (!empty($missing)) {
+
             throw ValidationException::withMessages([
                 'file' =>
                     'The import file is missing required columns: '
-                    . implode(', ', $missing)
+                    . implode(
+                        ', ',
+                        $missing
+                    )
                     . '.',
             ]);
         }
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -699,56 +972,91 @@ class ProductImportService
     /**
      * Build company-scoped relationship lookups.
      */
-    protected function buildLookups(int $companyId): array
-    {
+    protected function buildLookups(
+        int $companyId
+    ): array {
+
         return [
+
             'categories' =>
                 ProductCategory::query()
-                    ->where('company_id', $companyId)
+                    ->where(
+                        'company_id',
+                        $companyId
+                    )
                     ->get()
                     ->keyBy(
                         fn ($item) =>
-                            $this->lookupKey($item->name)
+                            $this->lookupKey(
+                                $item->name
+                            )
                     ),
+
 
             'units' =>
                 Unit::query()
-                    ->where('company_id', $companyId)
+                    ->where(
+                        'company_id',
+                        $companyId
+                    )
                     ->get()
                     ->keyBy(
                         fn ($item) =>
-                            $this->lookupKey($item->name)
+                            $this->lookupKey(
+                                $item->name
+                            )
                     ),
+
 
             'tax_rates' =>
                 TaxRate::query()
-                    ->where('company_id', $companyId)
+                    ->where(
+                        'company_id',
+                        $companyId
+                    )
                     ->get()
                     ->keyBy(
                         fn ($item) =>
-                            $this->lookupKey($item->name)
+                            $this->lookupKey(
+                                $item->name
+                            )
                     ),
+
 
             'discounts' =>
                 Discount::query()
-                    ->where('company_id', $companyId)
+                    ->where(
+                        'company_id',
+                        $companyId
+                    )
                     ->get()
                     ->keyBy(
                         fn ($item) =>
-                            $this->lookupKey($item->name)
+                            $this->lookupKey(
+                                $item->name
+                            )
                     ),
         ];
     }
 
-    /**
-     * Normalize lookup value.
-     */
-    protected function lookupKey($value): string
-    {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lookup Key
+    |--------------------------------------------------------------------------
+    */
+
+    protected function lookupKey(
+        $value
+    ): string {
+
         return mb_strtolower(
-            trim((string) $value)
+            trim(
+                (string) $value
+            )
         );
     }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -770,78 +1078,132 @@ class ProductImportService
         $errors = [];
         $warnings = [];
 
-        $normalized = [
-            'name' => $this->stringValue($row['name'] ?? null),
-
-            'sku' => $this->stringValue($row['sku'] ?? null),
-
-            'barcode' =>
-                $this->stringValue($row['barcode'] ?? null),
-
-            'qr_code' =>
-                $this->stringValue($row['qr_code'] ?? null),
-
-            'description' =>
-                $this->stringValue($row['description'] ?? null),
-
-            'brand' =>
-                $this->stringValue($row['brand'] ?? null),
-
-            'manufacturer' =>
-                $this->stringValue($row['manufacturer'] ?? null),
-
-            'cost_price' =>
-                $this->numericValue($row['cost_price'] ?? null),
-
-            'selling_price' =>
-                $this->numericValue($row['selling_price'] ?? null),
-
-            'minimum_stock' =>
-                $this->numericValue($row['minimum_stock'] ?? null),
-
-            'maximum_stock' =>
-                $this->numericValue($row['maximum_stock'] ?? null),
-
-            'opening_stock' =>
-                $this->numericValue($row['opening_stock'] ?? null),
-
-            'weight' =>
-                $this->numericValue($row['weight'] ?? null),
-
-            'expiry_date' =>
-                $this->dateValue($row['expiry_date'] ?? null),
-
-            'status' =>
-                $this->statusValue($row['status'] ?? null),
-        ];
 
         /*
         |--------------------------------------------------------------------------
-        | Required fields
+        | Normalize Values
         |--------------------------------------------------------------------------
         */
 
-        if ($normalized['name'] === null) {
-            $errors[] = 'Name is required.';
-        }
+        $normalized = [
 
-        if (
-            $this->stringValue($row['category'] ?? null)
-            === null
-        ) {
-            $errors[] = 'Category is required.';
-        }
+            'name' =>
+                $this->stringValue(
+                    $row['name'] ?? null
+                ),
 
-        if (
-            $this->stringValue($row['unit'] ?? null)
-            === null
-        ) {
-            $errors[] = 'Unit is required.';
-        }
+            'sku' =>
+                $this->stringValue(
+                    $row['sku'] ?? null
+                ),
+
+            'barcode' =>
+                $this->stringValue(
+                    $row['barcode'] ?? null
+                ),
+
+            'qr_code' =>
+                $this->stringValue(
+                    $row['qr_code'] ?? null
+                ),
+
+            'description' =>
+                $this->stringValue(
+                    $row['description'] ?? null
+                ),
+
+            'brand' =>
+                $this->stringValue(
+                    $row['brand'] ?? null
+                ),
+
+            'manufacturer' =>
+                $this->stringValue(
+                    $row['manufacturer'] ?? null
+                ),
+
+            'cost_price' =>
+                $this->numericValue(
+                    $row['cost_price'] ?? null
+                ),
+
+            'selling_price' =>
+                $this->numericValue(
+                    $row['selling_price'] ?? null
+                ),
+
+            'minimum_stock' =>
+                $this->numericValue(
+                    $row['minimum_stock'] ?? null
+                ),
+
+            'maximum_stock' =>
+                $this->numericValue(
+                    $row['maximum_stock'] ?? null
+                ),
+
+            'opening_stock' =>
+                $this->numericValue(
+                    $row['opening_stock'] ?? null
+                ),
+
+            'weight' =>
+                $this->numericValue(
+                    $row['weight'] ?? null
+                ),
+
+            'expiry_date' =>
+                $this->dateValue(
+                    $row['expiry_date'] ?? null
+                ),
+
+            'status' =>
+                $this->statusValue(
+                    $row['status'] ?? null
+                ),
+        ];
+
 
         /*
         |--------------------------------------------------------------------------
-        | Numeric fields
+        | Required Fields
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $normalized['name'] === null
+        ) {
+
+            $errors[] =
+                'Name is required.';
+        }
+
+
+        if (
+            $this->stringValue(
+                $row['category'] ?? null
+            ) === null
+        ) {
+
+            $errors[] =
+                'Category is required.';
+        }
+
+
+        if (
+            $this->stringValue(
+                $row['unit'] ?? null
+            ) === null
+        ) {
+
+            $errors[] =
+                'Unit is required.';
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Numeric Fields
         |--------------------------------------------------------------------------
         */
 
@@ -852,12 +1214,14 @@ class ProductImportService
             $errors
         );
 
+
         $this->validateNumericField(
             $row['selling_price'] ?? null,
             'Selling price',
             true,
             $errors
         );
+
 
         $this->validateNumericField(
             $row['minimum_stock'] ?? null,
@@ -866,12 +1230,14 @@ class ProductImportService
             $errors
         );
 
+
         $this->validateNumericField(
             $row['maximum_stock'] ?? null,
             'Maximum stock',
             false,
             $errors
         );
+
 
         $this->validateNumericField(
             $row['opening_stock'] ?? null,
@@ -880,6 +1246,7 @@ class ProductImportService
             $errors
         );
 
+
         $this->validateNumericField(
             $row['weight'] ?? null,
             'Weight',
@@ -887,9 +1254,10 @@ class ProductImportService
             $errors
         );
 
+
         /*
         |--------------------------------------------------------------------------
-        | Minimum / maximum stock relationship
+        | Minimum / Maximum Stock
         |--------------------------------------------------------------------------
         */
 
@@ -899,13 +1267,15 @@ class ProductImportService
             && $normalized['maximum_stock']
                 < $normalized['minimum_stock']
         ) {
+
             $errors[] =
                 'Maximum stock cannot be less than minimum stock.';
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Expiry date
+        | Expiry Date
         |--------------------------------------------------------------------------
         */
 
@@ -913,8 +1283,11 @@ class ProductImportService
             ($row['expiry_date'] ?? null) !== null
             && $normalized['expiry_date'] === null
         ) {
-            $errors[] = 'Expiry date is invalid.';
+
+            $errors[] =
+                'Expiry date is invalid.';
         }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -927,20 +1300,30 @@ class ProductImportService
                 $row['category'] ?? null
             );
 
+
         $category =
             $categoryName !== null
                 ? $lookups['categories']->get(
-                    $this->lookupKey($categoryName)
+                    $this->lookupKey(
+                        $categoryName
+                    )
                 )
                 : null;
 
-        if ($categoryName !== null && !$category) {
+
+        if (
+            $categoryName !== null
+            && !$category
+        ) {
+
             $errors[] =
                 "Category '{$categoryName}' does not exist for this company.";
         }
 
+
         $normalized['product_category_id'] =
             $category?->id;
+
 
         /*
         |--------------------------------------------------------------------------
@@ -953,46 +1336,30 @@ class ProductImportService
                 $row['unit'] ?? null
             );
 
+
         $unit =
             $unitName !== null
                 ? $lookups['units']->get(
-                    $this->lookupKey($unitName)
+                    $this->lookupKey(
+                        $unitName
+                    )
                 )
                 : null;
 
-        if ($unitName !== null && !$unit) {
+
+        if (
+            $unitName !== null
+            && !$unit
+        ) {
+
             $errors[] =
                 "Unit '{$unitName}' does not exist for this company.";
         }
 
+
         $normalized['unit_id'] =
-            $unit?->id;
+            $unit?->id;   
 
-        /*
-        |--------------------------------------------------------------------------
-        | Tax rate
-        |--------------------------------------------------------------------------
-        */
-
-        $taxRateName =
-            $this->stringValue(
-                $row['tax_rate'] ?? null
-            );
-
-        $taxRate =
-            $taxRateName !== null
-                ? $lookups['tax_rates']->get(
-                    $this->lookupKey($taxRateName)
-                )
-                : null;
-
-        if ($taxRateName !== null && !$taxRate) {
-            $errors[] =
-                "Tax rate '{$taxRateName}' does not exist for this company.";
-        }
-
-        $normalized['tax_rate_id'] =
-            $taxRate?->id;
 
         /*
         |--------------------------------------------------------------------------
@@ -1005,30 +1372,46 @@ class ProductImportService
                 $row['discount'] ?? null
             );
 
+
         $discount =
             $discountName !== null
                 ? $lookups['discounts']->get(
-                    $this->lookupKey($discountName)
+                    $this->lookupKey(
+                        $discountName
+                    )
                 )
                 : null;
 
-        if ($discountName !== null && !$discount) {
+
+        if (
+            $discountName !== null
+            && !$discount
+        ) {
+
             $errors[] =
                 "Discount '{$discountName}' does not exist for this company.";
         }
 
+
         $normalized['discount_id'] =
             $discount?->id;
 
+
         /*
         |--------------------------------------------------------------------------
-        | SKU duplicates
+        | SKU
         |--------------------------------------------------------------------------
         */
 
-        if (!empty($normalized['sku'])) {
+        if (
+            !empty(
+                $normalized['sku']
+            )
+        ) {
 
-            $sku = $normalized['sku'];
+            $sku =
+                $normalized['sku'];
+
 
             if (
                 in_array(
@@ -1037,31 +1420,48 @@ class ProductImportService
                     true
                 )
             ) {
+
                 $errors[] =
                     "SKU '{$sku}' appears more than once in this file.";
             }
 
-            $existingSku = Product::withTrashed()
-                ->where('company_id', $companyId)
-                ->where('sku', $sku)
-                ->exists();
+
+            $existingSku =
+                Product::withTrashed()
+                    ->where(
+                        'company_id',
+                        $companyId
+                    )
+                    ->where(
+                        'sku',
+                        $sku
+                    )
+                    ->exists();
+
 
             if ($existingSku) {
+
                 $errors[] =
                     "SKU '{$sku}' already exists.";
             }
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Barcode duplicates
+        | Barcode
         |--------------------------------------------------------------------------
         */
 
-        if (!empty($normalized['barcode'])) {
+        if (
+            !empty(
+                $normalized['barcode']
+            )
+        ) {
 
             $barcode =
                 $normalized['barcode'];
+
 
             if (
                 in_array(
@@ -1070,36 +1470,60 @@ class ProductImportService
                     true
                 )
             ) {
+
                 $errors[] =
                     "Barcode '{$barcode}' appears more than once in this file.";
             }
 
-            $existingBarcode = Product::withTrashed()
-                ->where('company_id', $companyId)
-                ->where('barcode', $barcode)
-                ->exists();
+
+            $existingBarcode =
+                Product::withTrashed()
+                    ->where(
+                        'company_id',
+                        $companyId
+                    )
+                    ->where(
+                        'barcode',
+                        $barcode
+                    )
+                    ->exists();
+
 
             if ($existingBarcode) {
+
                 $errors[] =
                     "Barcode '{$barcode}' already exists.";
             }
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Return row result
+        | Row Status
         |--------------------------------------------------------------------------
         */
 
         $status = 'valid';
 
+
         if (!empty($errors)) {
+
             $status = 'error';
+
         } elseif (!empty($warnings)) {
+
             $status = 'warning';
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Return
+        |--------------------------------------------------------------------------
+        */
+
         return [
+
             'row' =>
                 $row['row'] ?? null,
 
@@ -1116,6 +1540,7 @@ class ProductImportService
                 $normalized,
 
             'display' => [
+
                 'name' =>
                     $normalized['name'],
 
@@ -1131,8 +1556,7 @@ class ProductImportService
                 'unit' =>
                     $unit?->name,
 
-                'tax_rate' =>
-                    $taxRate?->name,
+                'tax_rate' => $taxRate,
 
                 'discount' =>
                     $discount?->name,
@@ -1158,87 +1582,129 @@ class ProductImportService
         ];
     }
 
+
     /*
     |--------------------------------------------------------------------------
-    | Value Helpers
+    | String Value
     |--------------------------------------------------------------------------
     */
 
-    /**
-     * Normalize string.
-     */
-    protected function stringValue($value): ?string
-    {
+    protected function stringValue(
+        $value
+    ): ?string {
+
         if ($value === null) {
             return null;
         }
 
-        $value = trim((string) $value);
+
+        $value =
+            trim(
+                (string) $value
+            );
+
 
         return $value === ''
             ? null
             : $value;
     }
 
-    /**
-     * Convert numeric value.
-     */
-    protected function numericValue($value): ?float
-    {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Numeric Value
+    |--------------------------------------------------------------------------
+    */
+
+    protected function numericValue(
+        $value
+    ): ?float {
+
         if (
             $value === null
             || trim((string) $value) === ''
         ) {
+
             return null;
         }
+
 
         if (!is_numeric($value)) {
             return null;
         }
 
+
         return (float) $value;
     }
 
-    /**
-     * Parse date.
-     */
-    protected function dateValue($value): ?string
-    {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Date Value
+    |--------------------------------------------------------------------------
+    */
+
+    protected function dateValue(
+        $value
+    ): ?string {
+
         if (
             $value === null
             || trim((string) $value) === ''
         ) {
+
             return null;
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Excel serial dates
+        | Maatwebsite Excel Date Handling
         |--------------------------------------------------------------------------
+        |
+        | Depending on the import configuration, Excel dates can arrive as
+        | formatted strings or numeric Excel serial values.
+        |
         */
 
         if (
             is_numeric($value)
             && (float) $value > 0
         ) {
+
             try {
 
-                $date =
-                    \PhpOffice\PhpSpreadsheet\Shared\Date
-                        ::excelToDateTimeObject(
-                            (float) $value
-                        );
+                /*
+                |--------------------------------------------------------------------------
+                | Use Carbon through Laravel Excel's converted value.
+                |--------------------------------------------------------------------------
+                |
+                | We deliberately do not call PhpSpreadsheet directly here.
+                | Numeric spreadsheet dates are handled by the import layer
+                | where possible. If a numeric value reaches this point,
+                | we leave it to Carbon only when it represents a timestamp.
+                |
+                */
 
-                return $date->format('Y-m-d');
+                $timestamp =
+                    ((float) $value - 25569)
+                    * 86400;
+
+                return gmdate(
+                    'Y-m-d',
+                    (int) $timestamp
+                );
 
             } catch (Throwable $e) {
+
                 return null;
             }
         }
 
+
         /*
         |--------------------------------------------------------------------------
-        | Normal date strings
+        | Normal Date String
         |--------------------------------------------------------------------------
         */
 
@@ -1249,46 +1715,67 @@ class ProductImportService
             )->format('Y-m-d');
 
         } catch (Throwable $e) {
+
             return null;
         }
     }
 
-    /**
-     * Normalize status.
-     */
-    protected function statusValue($value): bool
-    {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status Value
+    |--------------------------------------------------------------------------
+    */
+
+    protected function statusValue(
+        $value
+    ): bool {
+
         if (
             $value === null
             || trim((string) $value) === ''
         ) {
+
             return true;
         }
 
-        $value = mb_strtolower(
-            trim((string) $value)
-        );
+
+        $value =
+            mb_strtolower(
+                trim(
+                    (string) $value
+                )
+            );
+
 
         return match ($value) {
+
             '1',
             'true',
             'yes',
             'active',
-            'enabled' => true,
+            'enabled' =>
+                true,
 
             '0',
             'false',
             'no',
             'inactive',
-            'disabled' => false,
+            'disabled' =>
+                false,
 
-            default => true,
+            default =>
+                true,
         };
     }
 
-    /**
-     * Validate numeric spreadsheet value.
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Numeric Field
+    |--------------------------------------------------------------------------
+    */
+
     protected function validateNumericField(
         $value,
         string $label,
@@ -1300,7 +1787,9 @@ class ProductImportService
             $value === null
             || trim((string) $value) === ''
         ) {
+
             if ($required) {
+
                 $errors[] =
                     "{$label} is required.";
             }
@@ -1308,17 +1797,20 @@ class ProductImportService
             return;
         }
 
+
         if (!is_numeric($value)) {
+
             $errors[] =
                 "{$label} must be a valid number.";
 
             return;
         }
 
+
         if ((float) $value < 0) {
+
             $errors[] =
                 "{$label} cannot be negative.";
         }
     }
 }
-

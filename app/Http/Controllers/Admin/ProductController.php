@@ -2116,15 +2116,17 @@ class ProductController extends BaseController
             ->downloadCsvTemplate();
     }
 
-
+  
     /**
-     * Preview product import.
-     */   
+     * --------------------------------------------------------------------------
+     * Preview Product Import
+     * --------------------------------------------------------------------------
+     */
     public function previewImport(Request $request)
     {
         abort_unless(canAccess('products.create'), 403);
 
-        $request->validate([
+        $validated = $request->validate([
             'file' => [
                 'required',
                 'file',
@@ -2134,32 +2136,77 @@ class ProductController extends BaseController
         ]);
 
         try {
+
             $preview = $this->productImportService->preview(
-                $request->file('file'),
+                $validated['file'],
                 $this->companyId
             );
 
             return response()->json([
                 'success' => true,
-                'data' => $preview,
+                'data' => [
+                    'summary' => $preview['summary'] ?? [
+                        'total' => 0,
+                        'valid' => 0,
+                        'warnings' => 0,
+                        'errors' => 0,
+                        'can_import' => false,
+                    ],
+                    'rows' => $preview['rows'] ?? [],
+                ],
             ]);
+
         } catch (ValidationException $e) {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Preserve ProductImportService validation errors
+            |--------------------------------------------------------------------------
+            |
+            | ProductImportService already knows the actual problem with the
+            | uploaded file — invalid headers, missing columns, invalid values,
+            | duplicate SKU/barcode, missing relationships, etc.
+            |
+            | Do not replace those errors with a generic message.
+            |
+            */
+
+            $errors = $e->errors();
+
+            $message = collect($errors)
+                ->flatten()
+                ->filter()
+                ->first();
+
             return response()->json([
                 'success' => false,
-                'message' => 'The uploaded file could not be validated.',
-                'errors' => $e->errors(),
+                'message' => $message
+                    ?? 'The uploaded product file could not be validated.',
+                'errors' => $errors,
             ], 422);
-        } catch (\Throwable $e) {
+
+        } catch (Throwable $e) {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Unexpected Exception
+            |--------------------------------------------------------------------------
+            |
+            | This is for genuine application/import failures rather than normal
+            | validation failures. Log the exception but do not expose internal
+            | exception details to the browser.
+            |
+            */
+
             report($e);
 
             return response()->json([
                 'success' => false,
                 'message' => 'Unable to process the uploaded product file.',
+                'errors' => [],
             ], 500);
         }
     }
-
-
 
 
     /**
