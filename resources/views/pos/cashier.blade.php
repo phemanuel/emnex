@@ -334,7 +334,7 @@
     |--------------------------------------------------------------------------
     --}}
 
-    <!-- <div
+    <div
         class="pos-fullscreen-overlay"
         id="pos-fullscreen-overlay"
     >
@@ -386,7 +386,7 @@
 
         </div>
 
-    </div> -->
+    </div>
 
 
 </div>

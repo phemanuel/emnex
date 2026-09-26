@@ -77,7 +77,8 @@ class CompanyRegistrationController extends Controller
         try {
             $result = $this->onboardingService->create(
                 $companyData,
-                $ownerData
+                $ownerData,
+                (bool) ($validated['add_storefront'] ?? false)
             );
 
             /*
@@ -180,6 +181,11 @@ class CompanyRegistrationController extends Controller
                 ]),
             ],
 
+            'add_storefront' => [
+                'nullable',
+                'boolean',
+            ],
+
             /*
              * Owner
              */
@@ -257,6 +263,7 @@ class CompanyRegistrationController extends Controller
                     'Grocery Store',
                     'Pharmacy',
                     'Electronics Store',
+                    'Mobile & Digital Accessories',
                     'Fashion & Clothing',
                     'Beauty & Cosmetics',
                     'Restaurant',

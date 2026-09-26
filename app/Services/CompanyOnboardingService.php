@@ -18,15 +18,28 @@ use RuntimeException;
 
 class CompanyOnboardingService
 {
+     public function __construct(
+        protected StorefrontSetupService $storefrontSetupService
+    ) {
+    }
     /*
     |--------------------------------------------------------------------------
     | Create Company
     |--------------------------------------------------------------------------
     */
 
-    public function create(array $companyData, array $ownerData): array
+    public function create(
+        array $companyData,
+        array $ownerData,
+        bool $addStorefront = false
+    ): array
     {
-        return DB::transaction(function () use ($companyData, $ownerData) {
+        return DB::transaction(
+        function () use (
+            $companyData,
+            $ownerData,
+            $addStorefront
+        ) {
 
             /*
              * -----------------------------------------------------------------
@@ -233,13 +246,29 @@ class CompanyOnboardingService
 
             $this->createPaymentMethods($company);
 
+            /**
+             * -----------------------------------------------------------------
+             * Optional Storefront
+             * -----------------------------------------------------------------
+             */
+
+            $storefront = null;
+
+            if ($addStorefront) {
+                $storefront = $this->storefrontSetupService
+                    ->createForCompany(
+                        $company,
+                        $owner
+                    );
+            }
+
             /*
              * -----------------------------------------------------------------
              * Result
              * -----------------------------------------------------------------
              */
 
-            return [
+           return [
                 'company' => $company->fresh(),
 
                 'head_office' => $headOffice->fresh(),
@@ -250,6 +279,8 @@ class CompanyOnboardingService
                     'role',
                     'branch',
                 ]),
+
+                'storefront' => $storefront?->fresh(),
             ];
         });
     }

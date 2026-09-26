@@ -68,6 +68,17 @@
 
     </div>
 
+    <a
+    href="{{ route('storefront.manage') }}"
+    class="topbar-storefront-btn"
+    >
+        <i class="bi bi-shop-window"></i>
+
+        <span>
+            Storefront
+        </span>
+    </a>
+
 
 
     <!-- Right -->

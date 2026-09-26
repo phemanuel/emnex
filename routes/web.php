@@ -51,6 +51,10 @@ use App\Http\Controllers\Admin\ActivityLogController;
 
 use App\Http\Controllers\Admin\CompanyRegistrationController;
 
+use App\Http\Controllers\Admin\StorefrontController;
+
+use App\Http\Controllers\Api\SyncController;
+
 Route::prefix('onboarding')
     ->name('onboarding.')
     ->group(function () {
@@ -61,7 +65,7 @@ Route::prefix('onboarding')
         |--------------------------------------------------------------------------
         */
 
-        Route::get('/register', [
+        Route::get('/', [
             CompanyRegistrationController::class,
             'create',
         ])->name('register');
@@ -113,7 +117,33 @@ Route::middleware('guest')->group(function () {
 
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () { 
+
+
+    Route::prefix('storefront')
+        ->name('storefront.')
+        ->group(function () {
+
+            Route::get(
+                '/',
+                [StorefrontController::class, 'manage']
+            )->name('manage');
+
+            Route::put(
+                '/',
+                [StorefrontController::class, 'update']
+            )->name('update');
+
+            Route::post(
+                '/activate',
+                [StorefrontController::class, 'activate']
+            )->name('activate');
+
+            Route::post(
+                '/disable',
+                [StorefrontController::class, 'disable']
+            )->name('disable');
+    });
     
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -1360,6 +1390,17 @@ Route::prefix('products')
     });
 
 });
+
+
+Route::prefix('api/sync')
+    ->middleware('sync.device')
+    ->group(function () {
+
+        Route::post('/push', [
+            SyncController::class,
+            'push',
+        ])->name('sync.push');
+    });
 
 
 

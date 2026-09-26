@@ -89,7 +89,7 @@ window.Onboarding = {
             submitButton: document.getElementById('onboardingSubmit'),
             submitLabel: document.querySelector('.onboarding-submit-label'),
             submitLoading: document.querySelector('.onboarding-submit-loading'),
-            submitIcon: document.querySelector('.onboarding-submit-icon'),
+            submitIcon: document.querySelector('.onboarding-submit-icon'),           
 
             success: document.getElementById('onboardingSuccess'),
 
@@ -123,6 +123,7 @@ window.Onboarding = {
             ownerEmail: document.getElementById('owner_email'),
             ownerPhone: document.getElementById('owner_phone'),
             ownerPassword: document.getElementById('owner_password'),
+            addStorefront: document.getElementById('add_storefront'),
             ownerPasswordConfirmation: document.getElementById(
                 'owner_password_confirmation'
             ),
@@ -171,6 +172,14 @@ window.Onboarding = {
 
             reviewOwnerPhone: document.getElementById(
                 'reviewOwnerPhone'
+            ),
+
+            reviewStorefrontStatus: document.getElementById(
+                'reviewStorefrontStatus'
+            ),
+
+            reviewStorefrontDescription: document.getElementById(
+                'reviewStorefrontDescription'
             ),
 
         };
@@ -966,6 +975,23 @@ window.Onboarding = {
             value(this.elements.companyAddress)
         );
 
+        const storefrontEnabled =
+            this.elements.addStorefront?.checked === true;
+
+        this.setReviewValue(
+            this.elements.reviewStorefrontStatus,
+            storefrontEnabled
+                ? 'Will be created'
+                : 'Not enabled'
+        );
+
+        if (this.elements.reviewStorefrontDescription) {
+            this.elements.reviewStorefrontDescription.textContent =
+                storefrontEnabled
+                    ? 'Your online storefront will be created with your workspace and can be configured after sign in.'
+                    : 'You can enable an online storefront later from your dashboard.';
+        }
+
 
         /*
         |--------------------------------------------------------------------------
@@ -1367,6 +1393,7 @@ window.Onboarding = {
             'company_address',
             'currency',
             'timezone',
+            'add_storefront',
         ];
 
 

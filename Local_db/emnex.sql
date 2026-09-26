@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2026 at 03:31 PM
+-- Generation Time: Sep 27, 2026 at 12:01 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -417,7 +417,19 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (351, 1, 1, 1, 'sales_orders', 'Completed', 'Completed sales order: ORD-000043', 'Order', 82, '{\"id\":82,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000043\",\"customer_id\":null,\"cashier_id\":1,\"subtotal\":\"10500.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"10500.00\",\"amount_paid\":\"0.00\",\"balance\":\"10500.00\",\"total_items\":4,\"total_quantity\":\"10.00\",\"change_given\":\"0.00\",\"grand_total\":\"10500.00\",\"completed_at\":null,\"payment_status\":\"Pending\",\"order_status\":\"Draft\",\"sales_channel\":\"POS\",\"terminal_id\":2,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":null,\"created_at\":\"2026-09-16T13:02:21.000000Z\",\"updated_at\":\"2026-09-16T13:02:21.000000Z\",\"deleted_at\":null}', '{\"id\":82,\"company_id\":1,\"branch_id\":1,\"order_no\":\"ORD-000043\",\"customer_id\":null,\"cashier_id\":1,\"subtotal\":\"10500.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"0.00\",\"total\":\"10500.00\",\"amount_paid\":\"10500.00\",\"balance\":\"0.00\",\"total_items\":4,\"total_quantity\":\"10.00\",\"change_given\":\"0.00\",\"grand_total\":\"10500.00\",\"completed_at\":\"2026-09-16T13:02:34.000000Z\",\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":2,\"receipt_printed\":false,\"remarks\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-09-16T13:02:21.000000Z\",\"updated_at\":\"2026-09-16T13:02:34.000000Z\",\"deleted_at\":null}', 'sales/orders/82/complete', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:02:34', '2026-09-16 12:02:34'),
 (352, 1, 1, 1, 'sales_returns', 'create', 'Full refund processed for sales order: ORD-000043', 'SalesReturn', 2, NULL, '{\"return_number\":\"RET-000002\",\"order_id\":82,\"refund_amount\":10500,\"return_type\":\"Full\"}', 'sales/returns/orders/82/process', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
 (353, 1, 1, 1, 'sales_returns', 'partial_return', 'Processed partial return RET-000003 for sales order ORD-000042. Refund amount: 1,900.00. Returned quantity: 2.00.', 'SalesReturn', 3, NULL, '{\"refund_amount\":1900,\"returned_cogs\":1630,\"returned_quantity\":2,\"fully_returned\":false}', 'sales/returns/orders/81/partial', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
-(354, 1, 1, 1, 'sales_returns', 'partial_return', 'Processed partial return RET-000004 for sales order ORD-000042. Refund amount: 250.00. Returned quantity: 1.00.', 'SalesReturn', 4, NULL, '{\"refund_amount\":250,\"returned_cogs\":180,\"returned_quantity\":1,\"fully_returned\":false}', 'sales/returns/orders/81/partial', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:18:22', '2026-09-16 12:18:22');
+(354, 1, 1, 1, 'sales_returns', 'partial_return', 'Processed partial return RET-000004 for sales order ORD-000042. Refund amount: 250.00. Returned quantity: 1.00.', 'SalesReturn', 4, NULL, '{\"refund_amount\":250,\"returned_cogs\":180,\"returned_quantity\":1,\"fully_returned\":false}', 'sales/returns/orders/81/partial', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:18:22', '2026-09-16 12:18:22'),
+(355, 1, 1, 1, 'Stock', 'Updated', 'Stock adjusted for product ID 19 at branch ID 1', 'ProductStock', 13, '{\"quantity\":\"1605.00\"}', '{\"quantity\":1600}', 'stock', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:34:45', '2026-09-16 12:34:45'),
+(356, 1, 1, 1, 'Stock', 'Updated', 'Stock adjusted for product ID 1 at branch ID 1', 'ProductStock', 1, '{\"quantity\":\"980.00\"}', '{\"quantity\":975.02}', 'stock', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-16 12:46:46', '2026-09-16 12:46:46'),
+(357, 4, 11, 20, 'Settings Management', 'Updated', 'Updated company settings', 'Setting', 2, '{\"id\":2,\"company_id\":4,\"company_name\":\"JustRite Mart\",\"company_email\":\"justritemart@gmail.com\",\"company_phone\":\"08012345678\",\"company_address\":\"12, Alakia, Off New Ife Road.\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"7.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":null,\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":false,\"allow_negative_stock\":false,\"low_stock_alert\":10,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":null,\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"d-m-Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-09-17T13:10:35.000000Z\",\"updated_at\":\"2026-09-17T13:10:35.000000Z\"}', '{\"id\":2,\"company_id\":4,\"company_name\":\"JustRite Mart\",\"company_email\":\"justritemart@gmail.com\",\"company_phone\":\"08012345678\",\"company_address\":\"12, Alakia, Off New Ife Road.\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"7.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":null,\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":false,\"allow_negative_stock\":false,\"low_stock_alert\":10,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":null,\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"d\\/m\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-09-17T13:10:35.000000Z\",\"updated_at\":\"2026-09-17T13:18:37.000000Z\"}', 'settings/general', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-17 12:18:37', '2026-09-17 12:18:37'),
+(358, 4, 11, 20, 'Settings Management', 'Updated', 'Updated company settings', 'Setting', 2, '{\"id\":2,\"company_id\":4,\"company_name\":\"JustRite Mart\",\"company_email\":\"justritemart@gmail.com\",\"company_phone\":\"08012345678\",\"company_address\":\"12, Alakia, Off New Ife Road.\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"7.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":null,\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":false,\"allow_negative_stock\":false,\"low_stock_alert\":10,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":null,\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"d\\/m\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-09-17T13:10:35.000000Z\",\"updated_at\":\"2026-09-17T13:18:37.000000Z\"}', '{\"id\":2,\"company_id\":4,\"company_name\":\"JustRite Mart\",\"company_email\":\"justritemart@gmail.com\",\"company_phone\":\"08012345678\",\"company_address\":\"12, Alakia, Off New Ife Road.\",\"company_logo\":null,\"currency\":\"NGN\",\"currency_symbol\":\"\\u20a6\",\"tax_rate\":\"7.50\",\"tax_enabled\":true,\"receipt_footer\":\"Thank you for shopping with us.\",\"receipt_header\":\"JustRite Mart\",\"receipt_width\":80,\"print_logo\":true,\"print_barcode\":false,\"allow_negative_stock\":false,\"low_stock_alert\":10,\"allow_price_change\":0,\"allow_price_override\":false,\"enable_discounts\":1,\"allow_discount\":true,\"enable_customer_credit\":false,\"default_customer\":null,\"default_customer_id\":null,\"timezone\":\"Africa\\/Lagos\",\"date_format\":\"d\\/m\\/Y\",\"time_format\":\"h:i A\",\"maintenance_mode\":false,\"status\":true,\"created_at\":\"2026-09-17T13:10:35.000000Z\",\"updated_at\":\"2026-09-17T13:18:53.000000Z\"}', 'settings/general', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-17 12:18:53', '2026-09-17 12:18:53'),
+(359, 4, 11, 20, 'Units', 'Created', 'Created unit: Piece', 'Unit', 15, NULL, NULL, 'units', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 08:58:45', '2026-09-21 08:58:45'),
+(360, 4, 11, 20, 'Product Categories', 'Created', 'Created product category: Dairy', 'ProductCategory', 15, NULL, '{\"id\":15,\"company_id\":4,\"category_code\":\"CAT000001\",\"name\":\"Dairy\",\"description\":\"Dairy\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":20,\"updated_by\":20,\"created_at\":\"2026-09-21T10:22:40.000000Z\",\"updated_at\":\"2026-09-21T10:22:40.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 09:22:40', '2026-09-21 09:22:40'),
+(361, 4, 11, 20, 'Discounts', 'Created', 'Created discount: None', 'Discount', 6, NULL, NULL, 'discounts', 'POST', 'Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 09:24:17', '2026-09-21 09:24:17'),
+(362, 4, 11, 20, 'Products', 'Imported', '1 product(s) imported successfully.', NULL, NULL, NULL, '{\"company_id\":4,\"count\":1,\"products\":[{\"id\":20,\"product_code\":\"PRD-000001\",\"name\":\"Three Crown\",\"sku\":\"SKU-0001\"}]}', 'products/import', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 11:55:14', '2026-09-21 11:55:14'),
+(363, 4, 11, 20, 'Products', 'Updated', 'Updated product: Three Crown', 'Product', 20, '{\"id\":20,\"company_id\":4,\"product_category_id\":15,\"product_code\":\"PRD-000001\",\"barcode\":\"12345\",\"sku\":\"SKU-0001\",\"qr_code\":\"QR-0001\",\"name\":\"Three Crown\",\"description\":\"Three Crown\",\"image\":null,\"cost_price\":\"5000.00\",\"selling_price\":\"7500.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Three Crown\",\"manufacturer\":\"Three Crown Ltd\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T12:55:14.000000Z\",\"updated_at\":\"2026-09-21T12:55:14.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":20,\"company_id\":4,\"product_category_id\":15,\"product_code\":\"PRD-000001\",\"barcode\":\"12345\",\"sku\":\"SKU-0001\",\"qr_code\":\"QR-0001\",\"name\":\"Three Crown\",\"description\":\"Three Crown\",\"image\":\"1789995718_6ab12ac629c4e.png\",\"cost_price\":\"5000.00\",\"selling_price\":\"7500.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Three Crown\",\"manufacturer\":\"Three Crown Ltd\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T12:55:14.000000Z\",\"updated_at\":\"2026-09-21T13:01:58.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/20', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 12:01:58', '2026-09-21 12:01:58'),
+(364, 4, 11, 20, 'Product Categories', 'Created', 'Created product category: Groceries', 'ProductCategory', 16, NULL, '{\"id\":16,\"company_id\":4,\"category_code\":\"CAT000002\",\"name\":\"Groceries\",\"description\":\"Groceries\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":20,\"updated_by\":20,\"created_at\":\"2026-09-21T13:09:24.000000Z\",\"updated_at\":\"2026-09-21T13:09:24.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 12:09:24', '2026-09-21 12:09:24'),
+(365, 4, 11, 20, 'Products', 'Imported', '1 product(s) imported successfully.', NULL, NULL, NULL, '{\"company_id\":4,\"count\":1,\"products\":[{\"id\":21,\"product_code\":\"PRD-000002\",\"name\":\"Dangote Sugar 1kg\",\"sku\":\"SKU-0002\"}]}', 'products/import', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 12:09:46', '2026-09-21 12:09:46'),
+(366, 4, 11, 20, 'Products', 'Updated', 'Updated product: Dangote Sugar 1kg', 'Product', 21, '{\"id\":21,\"company_id\":4,\"product_category_id\":16,\"product_code\":\"PRD-000002\",\"barcode\":\"452345\",\"sku\":\"SKU-0002\",\"qr_code\":\"QR-0002\",\"name\":\"Dangote Sugar 1kg\",\"description\":\"Dangote Sugar 1kg\",\"image\":null,\"cost_price\":\"180.00\",\"selling_price\":\"250.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T13:09:46.000000Z\",\"updated_at\":\"2026-09-21T13:09:46.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":21,\"company_id\":4,\"product_category_id\":16,\"product_code\":\"PRD-000002\",\"barcode\":\"452345\",\"sku\":\"SKU-0002\",\"qr_code\":\"QR-0002\",\"name\":\"Dangote Sugar 1kg\",\"description\":\"Dangote Sugar 1kg\",\"image\":\"1789996254_6ab12cde96345.jpeg\",\"cost_price\":\"180.00\",\"selling_price\":\"250.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T13:09:46.000000Z\",\"updated_at\":\"2026-09-21T13:10:54.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/21', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 12:10:54', '2026-09-21 12:10:54');
 
 -- --------------------------------------------------------
 
@@ -448,7 +460,9 @@ INSERT INTO `branches` (`id`, `company_id`, `branch_code`, `name`, `phone`, `ema
 (1, 1, 'BR001', 'Head Office', '08012345678', 'headoffice@emmanexitconsult.com', 'Lagos, Nigeria', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
 (2, 1, 'BR002', 'Lekki Branch', '08087654321', 'lekki@emmanexitconsult.com', 'Lekki, Lagos', 0, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
 (4, 1, 'BR003', 'Ajah Outlet New', '07034657383', 'ajah@emmanexitconsult.com', 'Agbado, Ajah express way, Lagos.', 0, 1, '2026-07-31 14:47:21', '2026-08-01 20:36:13', NULL),
-(6, 1, 'BR004', 'Ikorodu Outlet', '07038899203', 'Ikd@emmanexitconsult.com', 'Odogunyan, Ikorodu, Lagos.', 0, 1, '2026-07-31 14:52:50', '2026-08-01 21:41:51', NULL);
+(6, 1, 'BR004', 'Ikorodu Outlet', '07038899203', 'Ikd@emmanexitconsult.com', 'Odogunyan, Ikorodu, Lagos.', 0, 1, '2026-07-31 14:52:50', '2026-08-01 21:41:51', NULL),
+(11, 4, 'BR789649', 'Head Office', '08012345678', 'justritemart@gmail.com', '12, Alakia, Off New Ife Road.', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(12, 5, 'BR818641', 'Head Office', '08104196102', 'gadgetpadi@gmail.com', 'Ibadan', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -461,15 +475,6 @@ CREATE TABLE `cache` (
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `cache`
---
-
-INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('emnex-cache-user_permissions_15', 'a:13:{i:0;s:14:\"dashboard.view\";i:1;s:14:\"customers.view\";i:2;s:16:\"customers.create\";i:3;s:13:\"products.view\";i:4;s:11:\"orders.view\";i:5;s:13:\"orders.create\";i:6;s:13:\"payments.view\";i:7;s:15:\"payments.create\";i:8;s:8:\"pos.sell\";i:9;s:13:\"pos.hold_sale\";i:10;s:15:\"pos.open_orders\";i:11;s:15:\"pos.return_sale\";i:12;s:15:\"pos.cash_drawer\";}', 1788432552),
-('emnex-cache-user_permissions_17', 'a:47:{i:0;s:14:\"dashboard.view\";i:1;s:13:\"branches.view\";i:2;s:15:\"branches.update\";i:3;s:14:\"terminals.view\";i:4;s:10:\"users.view\";i:5;s:13:\"products.view\";i:6;s:15:\"categories.view\";i:7;s:10:\"units.view\";i:8;s:14:\"tax_rates.view\";i:9;s:16:\"tax_rates.create\";i:10;s:16:\"tax_rates.update\";i:11;s:16:\"tax_rates.delete\";i:12;s:14:\"discounts.view\";i:13;s:16:\"discounts.create\";i:14;s:16:\"discounts.update\";i:15;s:16:\"discounts.delete\";i:16;s:14:\"inventory.view\";i:17;s:21:\"inventory.stock_count\";i:18;s:19:\"inventory.low_stock\";i:19;s:14:\"customers.view\";i:20;s:16:\"customers.create\";i:21;s:16:\"customers.update\";i:22;s:16:\"customers.export\";i:23;s:14:\"suppliers.view\";i:24;s:16:\"suppliers.create\";i:25;s:16:\"suppliers.update\";i:26;s:16:\"suppliers.delete\";i:27;s:14:\"purchases.view\";i:28;s:16:\"purchases.create\";i:29;s:16:\"purchases.update\";i:30;s:16:\"purchases.delete\";i:31;s:17:\"purchases.approve\";i:32;s:11:\"orders.view\";i:33;s:13:\"orders.create\";i:34;s:13:\"orders.update\";i:35;s:13:\"orders.cancel\";i:36;s:13:\"orders.refund\";i:37;s:13:\"payments.view\";i:38;s:13:\"reports.sales\";i:39;s:17:\"reports.inventory\";i:40;s:8:\"pos.sell\";i:41;s:13:\"pos.hold_sale\";i:42;s:15:\"pos.open_orders\";i:43;s:15:\"pos.return_sale\";i:44;s:15:\"pos.cash_drawer\";i:45;s:15:\"payments.create\";i:46;s:15:\"payments.refund\";}', 1789554579),
-('emnex-cache-user_permissions_5', 'a:13:{i:0;s:14:\"dashboard.view\";i:1;s:14:\"customers.view\";i:2;s:16:\"customers.create\";i:3;s:13:\"products.view\";i:4;s:11:\"orders.view\";i:5;s:13:\"orders.create\";i:6;s:13:\"payments.view\";i:7;s:15:\"payments.create\";i:8;s:8:\"pos.sell\";i:9;s:13:\"pos.hold_sale\";i:10;s:15:\"pos.open_orders\";i:11;s:15:\"pos.return_sale\";i:12;s:15:\"pos.cash_drawer\";}', 1788159229);
 
 -- --------------------------------------------------------
 
@@ -615,7 +620,9 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `company_code`, `name`, `slug`, `email`, `phone`, `address`, `logo`, `currency`, `currency_symbol`, `timezone`, `subscription_start`, `subscription_end`, `subscription_status`, `business_type`, `registration_no`, `tin`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'COMP-0001', 'Emmanex Supermarket', 'emmanex-supermarket', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', '1788343028_emmanex-logo.png', 'NGN', '₦', 'Africa/Lagos', '2026-07-29', '2027-07-29', 'Active', 'Retail Supermarket', 'RC123456', 'TIN123456789', 1, '2026-07-29 10:37:09', '2026-09-02 08:57:08', NULL);
+(1, 'COMP-0001', 'Emmanex Supermarket', 'emmanex-supermarket', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', '1788343028_emmanex-logo.png', 'NGN', '₦', 'Africa/Lagos', '2026-07-29', '2027-07-29', 'Active', 'Retail Supermarket', 'RC123456', 'TIN123456789', 1, '2026-07-29 10:37:09', '2026-09-02 08:57:08', NULL),
+(4, 'COMP-243658', 'JustRite Mart', 'justrite-mart', 'justritemart@gmail.com', '08012345678', '12, Alakia, Off New Ife Road.', NULL, 'NGN', '₦', 'Africa/Lagos', '2026-09-17', '2026-10-17', 'Trial', 'Mini Mart', NULL, NULL, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(5, 'COMP-313117', 'Gadget Padi', 'gadget-padi', 'gadgetpadi@gmail.com', '08104196102', 'Ibadan', NULL, 'NGN', '₦', 'Africa/Lagos', '2026-09-26', '2026-10-26', 'Trial', 'Mobile & Digital Accessories', NULL, NULL, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -737,7 +744,8 @@ INSERT INTO `discounts` (`id`, `company_id`, `name`, `is_automatic`, `type`, `va
 (2, 1, 'Opening Promotion', 1, 'Percentage', 5.00, '2026-07-29', '2026-08-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (3, 1, 'Manager Discount', 0, 'Percentage', 10.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (4, 1, 'Special Customer', 0, 'Fixed', 500.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(5, 1, 'Test Discount', 1, 'Percentage', 2.00, '2026-08-04', '2026-08-31', 1, '2026-08-04 10:06:31', '2026-08-04 10:30:03', '2026-08-04 10:30:03');
+(5, 1, 'Test Discount', 1, 'Percentage', 2.00, '2026-08-04', '2026-08-31', 1, '2026-08-04 10:06:31', '2026-08-04 10:30:03', '2026-08-04 10:30:03'),
+(6, 4, 'None', 0, 'Percentage', 0.00, '2026-09-21', '2026-09-30', 1, '2026-09-21 09:24:17', '2026-09-21 09:24:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -792,7 +800,43 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (24, 1, 'goods_received', 'GR', NULL, '-', 7, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-22 13:16:15', 0),
 (25, 1, 'Sales Return', 'SR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-03 20:59:24', '2026-09-03 20:59:24', 0),
 (26, 1, 'Stock Transfer', 'ST', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-03 20:59:24', '2026-09-03 20:59:24', 0),
-(27, 1, 'Stock Adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-03 20:59:24', '2026-09-03 20:59:24', 0);
+(27, 1, 'Stock Adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-03 20:59:24', '2026-09-03 20:59:24', 0),
+(28, 4, 'category', 'CAT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(29, 4, 'product', 'PRD', NULL, '-', 3, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-21 12:09:46', 0),
+(30, 4, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(31, 4, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(32, 4, 'order', 'ORD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(33, 4, 'payment', 'PAY', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(34, 4, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(35, 4, 'purchase_return', 'PRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(36, 4, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(37, 4, 'stock_movement', 'STM', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(38, 4, 'stock_adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(39, 4, 'stock_transfer', 'ST', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(40, 4, 'stock_count', 'SC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(41, 4, 'expense', 'EXP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(42, 4, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(43, 4, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(44, 4, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(45, 4, 'goods_received', 'GR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
+(46, 5, 'category', 'CAT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:56', '2026-09-26 20:02:56', 0),
+(47, 5, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(48, 5, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(49, 5, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(50, 5, 'order', 'ORD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(51, 5, 'payment', 'PAY', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(52, 5, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(53, 5, 'purchase_return', 'PRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(54, 5, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(55, 5, 'stock_movement', 'STM', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(56, 5, 'stock_adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(57, 5, 'stock_transfer', 'ST', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(58, 5, 'stock_count', 'SC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(59, 5, 'expense', 'EXP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(60, 5, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(61, 5, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(62, 5, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(63, 5, 'goods_received', 'GR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0);
 
 -- --------------------------------------------------------
 
@@ -1134,7 +1178,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (64, '2026_08_30_021227_create_cash_drawer_transactions_table', 21),
 (65, '2026_08_30_112306_create_terminal_assignments_table', 21),
 (66, '2026_09_14_134815_add_unit_cost_to_order_items_table', 22),
-(67, '2026_09_16_114806_create_sales_return_items_table', 23);
+(67, '2026_09_16_114806_create_sales_return_items_table', 23),
+(68, '2026_09_21_131904_create_sync_devices_table', 24),
+(69, '2026_09_21_132116_create_sync_queue_table', 24),
+(70, '2026_09_21_132304_create_sync_logs_table', 24),
+(71, '2026_09_21_141419_create_sync_mutations_table', 25),
+(72, '2026_09_26_203336_create_store_fronts_table', 26);
 
 -- --------------------------------------------------------
 
@@ -1397,7 +1446,19 @@ INSERT INTO `payment_methods` (`id`, `company_id`, `name`, `code`, `icon`, `colo
 (1, 1, 'Cash', 'CASH', 'bi-cash', 'success', 0, 1, 1, 1, 1, '2026-08-02 09:51:36', '2026-08-02 11:43:07', NULL),
 (3, 1, 'Transfer', 'TRANSFER', 'bi-bank', 'info', 1, 0, 0, 3, 1, '2026-08-02 09:51:36', '2026-08-02 09:51:36', NULL),
 (4, 1, 'Wallet', 'WALLET', 'bi-wallet2', 'warning', 0, 0, 0, 4, 1, '2026-08-02 09:51:36', '2026-08-02 09:51:36', NULL),
-(8, 1, 'Card', 'CARD', 'bi-credit-card', 'dark', 1, 0, 0, 1, 1, '2026-09-03 15:02:29', '2026-09-03 15:02:29', NULL);
+(8, 1, 'Card', 'CARD', 'bi-credit-card', 'dark', 1, 0, 0, 1, 1, '2026-09-03 15:02:29', '2026-09-03 15:02:29', NULL),
+(9, 4, 'Cash', 'CASH', 'bi-cash', 'success', 0, 1, 1, 1, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', NULL),
+(10, 4, 'POS', 'POS', 'bi-credit-card', 'primary', 1, 0, 0, 2, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', NULL),
+(11, 4, 'Transfer', 'TRANSFER', 'bi-bank', 'info', 1, 0, 0, 3, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', NULL),
+(12, 4, 'Wallet', 'WALLET', 'bi-wallet2', 'warning', 0, 0, 0, 4, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', NULL),
+(13, 4, 'Credit', 'CREDIT', 'bi-person-lines-fill', 'secondary', 0, 0, 0, 5, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', NULL),
+(14, 4, 'Cheque', 'CHEQUE', 'bi-receipt', 'dark', 1, 0, 0, 6, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', NULL),
+(15, 5, 'Cash', 'CASH', 'bi-cash', 'success', 0, 1, 1, 1, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', NULL),
+(16, 5, 'POS', 'POS', 'bi-credit-card', 'primary', 1, 0, 0, 2, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', NULL),
+(17, 5, 'Transfer', 'TRANSFER', 'bi-bank', 'info', 1, 0, 0, 3, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', NULL),
+(18, 5, 'Wallet', 'WALLET', 'bi-wallet2', 'warning', 0, 0, 0, 4, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', NULL),
+(19, 5, 'Credit', 'CREDIT', 'bi-person-lines-fill', 'secondary', 0, 0, 0, 5, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', NULL),
+(20, 5, 'Cheque', 'CHEQUE', 'bi-receipt', 'dark', 1, 0, 0, 6, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -1517,7 +1578,203 @@ INSERT INTO `permissions` (`id`, `company_id`, `module`, `name`, `code`, `displa
 (90, 1, 'Payment Methods', 'payment_methods.create', 'payment_methods.create', 'Create Payment Methods', 'Create Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
 (91, 1, 'Payment Methods', 'payment_methods.update', 'payment_methods.update', 'Update Payment Methods', 'Update Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
 (92, 1, 'Payment Methods', 'payment_methods.delete', 'payment_methods.delete', 'Delete Payment Methods', 'Delete Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(93, 1, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL);
+(93, 1, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
+(290, 4, 'Dashboard', 'dashboard.view', 'dashboard.view', 'View Dashboard', 'View Dashboard', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(291, 4, 'Company', 'company.view', 'company.view', 'View Company', 'View Company', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(292, 4, 'Company', 'company.update', 'company.update', 'Update Company', 'Update Company', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(293, 4, 'Branches', 'branches.view', 'branches.view', 'View Branches', 'View Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(294, 4, 'Branches', 'branches.create', 'branches.create', 'Create Branches', 'Create Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(295, 4, 'Branches', 'branches.update', 'branches.update', 'Update Branches', 'Update Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(296, 4, 'Branches', 'branches.delete', 'branches.delete', 'Delete Branches', 'Delete Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(297, 4, 'Branches', 'branches.analytics', 'branches.analytics', 'Analytics Branches', 'Analytics Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(298, 4, 'Branches', 'branches.export', 'branches.export', 'Export Branches', 'Export Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(299, 4, 'Terminals', 'terminals.view', 'terminals.view', 'View Terminals', 'View Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(300, 4, 'Terminals', 'terminals.create', 'terminals.create', 'Create Terminals', 'Create Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(301, 4, 'Terminals', 'terminals.update', 'terminals.update', 'Update Terminals', 'Update Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(302, 4, 'Terminals', 'terminals.delete', 'terminals.delete', 'Delete Terminals', 'Delete Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(303, 4, 'Users', 'users.view', 'users.view', 'View Users', 'View Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(304, 4, 'Users', 'users.create', 'users.create', 'Create Users', 'Create Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(305, 4, 'Users', 'users.update', 'users.update', 'Update Users', 'Update Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(306, 4, 'Users', 'users.delete', 'users.delete', 'Delete Users', 'Delete Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(307, 4, 'Users', 'users.reset_password', 'users.reset_password', 'Reset Password Users', 'Reset Password Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(308, 4, 'Roles', 'roles.view', 'roles.view', 'View Roles', 'View Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(309, 4, 'Roles', 'roles.create', 'roles.create', 'Create Roles', 'Create Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(310, 4, 'Roles', 'roles.update', 'roles.update', 'Update Roles', 'Update Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(311, 4, 'Roles', 'roles.delete', 'roles.delete', 'Delete Roles', 'Delete Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(312, 4, 'Roles', 'roles.assign_permissions', 'roles.assign_permissions', 'Assign Permissions Roles', 'Assign Permissions Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(313, 4, 'Permissions', 'permissions.view', 'permissions.view', 'View Permissions', 'View Permissions', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(314, 4, 'Products', 'products.view', 'products.view', 'View Products', 'View Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(315, 4, 'Products', 'products.create', 'products.create', 'Create Products', 'Create Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(316, 4, 'Products', 'products.update', 'products.update', 'Update Products', 'Update Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(317, 4, 'Products', 'products.delete', 'products.delete', 'Delete Products', 'Delete Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(318, 4, 'Products', 'products.import', 'products.import', 'Import Products', 'Import Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(319, 4, 'Products', 'products.export', 'products.export', 'Export Products', 'Export Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(320, 4, 'Categories', 'categories.view', 'categories.view', 'View Categories', 'View Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(321, 4, 'Categories', 'categories.create', 'categories.create', 'Create Categories', 'Create Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(322, 4, 'Categories', 'categories.update', 'categories.update', 'Update Categories', 'Update Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(323, 4, 'Categories', 'categories.delete', 'categories.delete', 'Delete Categories', 'Delete Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(324, 4, 'Units', 'units.view', 'units.view', 'View Units', 'View Units', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(325, 4, 'Units', 'units.create', 'units.create', 'Create Units', 'Create Units', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(326, 4, 'Units', 'units.update', 'units.update', 'Update Units', 'Update Units', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(327, 4, 'Units', 'units.delete', 'units.delete', 'Delete Units', 'Delete Units', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(328, 4, 'Tax Rates', 'tax_rates.view', 'tax_rates.view', 'View Tax Rates', 'View Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(329, 4, 'Tax Rates', 'tax_rates.create', 'tax_rates.create', 'Create Tax Rates', 'Create Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(330, 4, 'Tax Rates', 'tax_rates.update', 'tax_rates.update', 'Update Tax Rates', 'Update Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(331, 4, 'Tax Rates', 'tax_rates.delete', 'tax_rates.delete', 'Delete Tax Rates', 'Delete Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(332, 4, 'Discounts', 'discounts.view', 'discounts.view', 'View Discounts', 'View Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(333, 4, 'Discounts', 'discounts.create', 'discounts.create', 'Create Discounts', 'Create Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(334, 4, 'Discounts', 'discounts.update', 'discounts.update', 'Update Discounts', 'Update Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(335, 4, 'Discounts', 'discounts.delete', 'discounts.delete', 'Delete Discounts', 'Delete Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(336, 4, 'Inventory', 'inventory.view', 'inventory.view', 'View Inventory', 'View Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(337, 4, 'Inventory', 'inventory.adjust_stock', 'inventory.adjust_stock', 'Adjust Stock Inventory', 'Adjust Stock Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(338, 4, 'Inventory', 'inventory.transfer_stock', 'inventory.transfer_stock', 'Transfer Stock Inventory', 'Transfer Stock Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(339, 4, 'Inventory', 'inventory.stock_count', 'inventory.stock_count', 'Stock Count Inventory', 'Stock Count Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(340, 4, 'Inventory', 'inventory.low_stock', 'inventory.low_stock', 'Low Stock Inventory', 'Low Stock Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(341, 4, 'Customers', 'customers.view', 'customers.view', 'View Customers', 'View Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(342, 4, 'Customers', 'customers.create', 'customers.create', 'Create Customers', 'Create Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(343, 4, 'Customers', 'customers.update', 'customers.update', 'Update Customers', 'Update Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(344, 4, 'Customers', 'customers.delete', 'customers.delete', 'Delete Customers', 'Delete Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(345, 4, 'Customers', 'customers.export', 'customers.export', 'Export Customers', 'Export Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(346, 4, 'Customer Groups', 'customer_groups.view', 'customer_groups.view', 'View Customer Groups', 'View Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(347, 4, 'Customer Groups', 'customer_groups.create', 'customer_groups.create', 'Create Customer Groups', 'Create Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(348, 4, 'Customer Groups', 'customer_groups.update', 'customer_groups.update', 'Update Customer Groups', 'Update Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(349, 4, 'Customer Groups', 'customer_groups.delete', 'customer_groups.delete', 'Delete Customer Groups', 'Delete Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(350, 4, 'Suppliers', 'suppliers.view', 'suppliers.view', 'View Suppliers', 'View Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(351, 4, 'Suppliers', 'suppliers.create', 'suppliers.create', 'Create Suppliers', 'Create Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(352, 4, 'Suppliers', 'suppliers.update', 'suppliers.update', 'Update Suppliers', 'Update Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(353, 4, 'Suppliers', 'suppliers.delete', 'suppliers.delete', 'Delete Suppliers', 'Delete Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(354, 4, 'Purchases', 'purchases.view', 'purchases.view', 'View Purchases', 'View Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(355, 4, 'Purchases', 'purchases.create', 'purchases.create', 'Create Purchases', 'Create Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(356, 4, 'Purchases', 'purchases.update', 'purchases.update', 'Update Purchases', 'Update Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(357, 4, 'Purchases', 'purchases.delete', 'purchases.delete', 'Delete Purchases', 'Delete Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(358, 4, 'Purchases', 'purchases.approve', 'purchases.approve', 'Approve Purchases', 'Approve Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(359, 4, 'Purchases', 'purchases.submit', 'purchases.submit', 'Submit Purchases', 'Submit Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(360, 4, 'Pos', 'pos.sell', 'pos.sell', 'Sell Pos', 'Sell Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(361, 4, 'Pos', 'pos.hold_sale', 'pos.hold_sale', 'Hold Sale Pos', 'Hold Sale Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(362, 4, 'Pos', 'pos.open_orders', 'pos.open_orders', 'Open Orders Pos', 'Open Orders Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(363, 4, 'Pos', 'pos.return_sale', 'pos.return_sale', 'Return Sale Pos', 'Return Sale Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(364, 4, 'Pos', 'pos.cash_drawer', 'pos.cash_drawer', 'Cash Drawer Pos', 'Cash Drawer Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(365, 4, 'Orders', 'orders.view', 'orders.view', 'View Orders', 'View Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(366, 4, 'Orders', 'orders.create', 'orders.create', 'Create Orders', 'Create Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(367, 4, 'Orders', 'orders.update', 'orders.update', 'Update Orders', 'Update Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(368, 4, 'Orders', 'orders.cancel', 'orders.cancel', 'Cancel Orders', 'Cancel Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(369, 4, 'Orders', 'orders.refund', 'orders.refund', 'Refund Orders', 'Refund Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(370, 4, 'Payments', 'payments.view', 'payments.view', 'View Payments', 'View Payments', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(371, 4, 'Payments', 'payments.create', 'payments.create', 'Create Payments', 'Create Payments', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(372, 4, 'Payments', 'payments.refund', 'payments.refund', 'Refund Payments', 'Refund Payments', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(373, 4, 'Reports', 'reports.sales', 'reports.sales', 'Sales Reports', 'Sales Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(374, 4, 'Reports', 'reports.inventory', 'reports.inventory', 'Inventory Reports', 'Inventory Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(375, 4, 'Reports', 'reports.profit_loss', 'reports.profit_loss', 'Profit Loss Reports', 'Profit Loss Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(376, 4, 'Reports', 'reports.tax', 'reports.tax', 'Tax Reports', 'Tax Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(377, 4, 'Settings', 'settings.view', 'settings.view', 'View Settings', 'View Settings', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(378, 4, 'Settings', 'settings.update', 'settings.update', 'Update Settings', 'Update Settings', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(379, 4, 'Document Sequences', 'document_sequences.view', 'document_sequences.view', 'View Document Sequences', 'View Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(380, 4, 'Document Sequences', 'document_sequences.create', 'document_sequences.create', 'Create Document Sequences', 'Create Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(381, 4, 'Document Sequences', 'document_sequences.update', 'document_sequences.update', 'Update Document Sequences', 'Update Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(382, 4, 'Document Sequences', 'document_sequences.delete', 'document_sequences.delete', 'Delete Document Sequences', 'Delete Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(383, 4, 'Payment Methods', 'payment_methods.view', 'payment_methods.view', 'View Payment Methods', 'View Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(384, 4, 'Payment Methods', 'payment_methods.create', 'payment_methods.create', 'Create Payment Methods', 'Create Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(385, 4, 'Payment Methods', 'payment_methods.update', 'payment_methods.update', 'Update Payment Methods', 'Update Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(386, 4, 'Payment Methods', 'payment_methods.delete', 'payment_methods.delete', 'Delete Payment Methods', 'Delete Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(387, 4, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(388, 5, 'Dashboard', 'dashboard.view', 'dashboard.view', 'View Dashboard', 'View Dashboard', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(389, 5, 'Company', 'company.view', 'company.view', 'View Company', 'View Company', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(390, 5, 'Company', 'company.update', 'company.update', 'Update Company', 'Update Company', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(391, 5, 'Branches', 'branches.view', 'branches.view', 'View Branches', 'View Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(392, 5, 'Branches', 'branches.create', 'branches.create', 'Create Branches', 'Create Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(393, 5, 'Branches', 'branches.update', 'branches.update', 'Update Branches', 'Update Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(394, 5, 'Branches', 'branches.delete', 'branches.delete', 'Delete Branches', 'Delete Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(395, 5, 'Branches', 'branches.analytics', 'branches.analytics', 'Analytics Branches', 'Analytics Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(396, 5, 'Branches', 'branches.export', 'branches.export', 'Export Branches', 'Export Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(397, 5, 'Terminals', 'terminals.view', 'terminals.view', 'View Terminals', 'View Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(398, 5, 'Terminals', 'terminals.create', 'terminals.create', 'Create Terminals', 'Create Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(399, 5, 'Terminals', 'terminals.update', 'terminals.update', 'Update Terminals', 'Update Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(400, 5, 'Terminals', 'terminals.delete', 'terminals.delete', 'Delete Terminals', 'Delete Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(401, 5, 'Users', 'users.view', 'users.view', 'View Users', 'View Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(402, 5, 'Users', 'users.create', 'users.create', 'Create Users', 'Create Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(403, 5, 'Users', 'users.update', 'users.update', 'Update Users', 'Update Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(404, 5, 'Users', 'users.delete', 'users.delete', 'Delete Users', 'Delete Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(405, 5, 'Users', 'users.reset_password', 'users.reset_password', 'Reset Password Users', 'Reset Password Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(406, 5, 'Roles', 'roles.view', 'roles.view', 'View Roles', 'View Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(407, 5, 'Roles', 'roles.create', 'roles.create', 'Create Roles', 'Create Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(408, 5, 'Roles', 'roles.update', 'roles.update', 'Update Roles', 'Update Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(409, 5, 'Roles', 'roles.delete', 'roles.delete', 'Delete Roles', 'Delete Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(410, 5, 'Roles', 'roles.assign_permissions', 'roles.assign_permissions', 'Assign Permissions Roles', 'Assign Permissions Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(411, 5, 'Permissions', 'permissions.view', 'permissions.view', 'View Permissions', 'View Permissions', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(412, 5, 'Products', 'products.view', 'products.view', 'View Products', 'View Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(413, 5, 'Products', 'products.create', 'products.create', 'Create Products', 'Create Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(414, 5, 'Products', 'products.update', 'products.update', 'Update Products', 'Update Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(415, 5, 'Products', 'products.delete', 'products.delete', 'Delete Products', 'Delete Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(416, 5, 'Products', 'products.import', 'products.import', 'Import Products', 'Import Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(417, 5, 'Products', 'products.export', 'products.export', 'Export Products', 'Export Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(418, 5, 'Categories', 'categories.view', 'categories.view', 'View Categories', 'View Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(419, 5, 'Categories', 'categories.create', 'categories.create', 'Create Categories', 'Create Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(420, 5, 'Categories', 'categories.update', 'categories.update', 'Update Categories', 'Update Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(421, 5, 'Categories', 'categories.delete', 'categories.delete', 'Delete Categories', 'Delete Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(422, 5, 'Units', 'units.view', 'units.view', 'View Units', 'View Units', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(423, 5, 'Units', 'units.create', 'units.create', 'Create Units', 'Create Units', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(424, 5, 'Units', 'units.update', 'units.update', 'Update Units', 'Update Units', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(425, 5, 'Units', 'units.delete', 'units.delete', 'Delete Units', 'Delete Units', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(426, 5, 'Tax Rates', 'tax_rates.view', 'tax_rates.view', 'View Tax Rates', 'View Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(427, 5, 'Tax Rates', 'tax_rates.create', 'tax_rates.create', 'Create Tax Rates', 'Create Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(428, 5, 'Tax Rates', 'tax_rates.update', 'tax_rates.update', 'Update Tax Rates', 'Update Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(429, 5, 'Tax Rates', 'tax_rates.delete', 'tax_rates.delete', 'Delete Tax Rates', 'Delete Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(430, 5, 'Discounts', 'discounts.view', 'discounts.view', 'View Discounts', 'View Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(431, 5, 'Discounts', 'discounts.create', 'discounts.create', 'Create Discounts', 'Create Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(432, 5, 'Discounts', 'discounts.update', 'discounts.update', 'Update Discounts', 'Update Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(433, 5, 'Discounts', 'discounts.delete', 'discounts.delete', 'Delete Discounts', 'Delete Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(434, 5, 'Inventory', 'inventory.view', 'inventory.view', 'View Inventory', 'View Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(435, 5, 'Inventory', 'inventory.adjust_stock', 'inventory.adjust_stock', 'Adjust Stock Inventory', 'Adjust Stock Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(436, 5, 'Inventory', 'inventory.transfer_stock', 'inventory.transfer_stock', 'Transfer Stock Inventory', 'Transfer Stock Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(437, 5, 'Inventory', 'inventory.stock_count', 'inventory.stock_count', 'Stock Count Inventory', 'Stock Count Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(438, 5, 'Inventory', 'inventory.low_stock', 'inventory.low_stock', 'Low Stock Inventory', 'Low Stock Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(439, 5, 'Customers', 'customers.view', 'customers.view', 'View Customers', 'View Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(440, 5, 'Customers', 'customers.create', 'customers.create', 'Create Customers', 'Create Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(441, 5, 'Customers', 'customers.update', 'customers.update', 'Update Customers', 'Update Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(442, 5, 'Customers', 'customers.delete', 'customers.delete', 'Delete Customers', 'Delete Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(443, 5, 'Customers', 'customers.export', 'customers.export', 'Export Customers', 'Export Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(444, 5, 'Customer Groups', 'customer_groups.view', 'customer_groups.view', 'View Customer Groups', 'View Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(445, 5, 'Customer Groups', 'customer_groups.create', 'customer_groups.create', 'Create Customer Groups', 'Create Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(446, 5, 'Customer Groups', 'customer_groups.update', 'customer_groups.update', 'Update Customer Groups', 'Update Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(447, 5, 'Customer Groups', 'customer_groups.delete', 'customer_groups.delete', 'Delete Customer Groups', 'Delete Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(448, 5, 'Suppliers', 'suppliers.view', 'suppliers.view', 'View Suppliers', 'View Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(449, 5, 'Suppliers', 'suppliers.create', 'suppliers.create', 'Create Suppliers', 'Create Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(450, 5, 'Suppliers', 'suppliers.update', 'suppliers.update', 'Update Suppliers', 'Update Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(451, 5, 'Suppliers', 'suppliers.delete', 'suppliers.delete', 'Delete Suppliers', 'Delete Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(452, 5, 'Purchases', 'purchases.view', 'purchases.view', 'View Purchases', 'View Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(453, 5, 'Purchases', 'purchases.create', 'purchases.create', 'Create Purchases', 'Create Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(454, 5, 'Purchases', 'purchases.update', 'purchases.update', 'Update Purchases', 'Update Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(455, 5, 'Purchases', 'purchases.delete', 'purchases.delete', 'Delete Purchases', 'Delete Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(456, 5, 'Purchases', 'purchases.approve', 'purchases.approve', 'Approve Purchases', 'Approve Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(457, 5, 'Purchases', 'purchases.submit', 'purchases.submit', 'Submit Purchases', 'Submit Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(458, 5, 'Pos', 'pos.sell', 'pos.sell', 'Sell Pos', 'Sell Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(459, 5, 'Pos', 'pos.hold_sale', 'pos.hold_sale', 'Hold Sale Pos', 'Hold Sale Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(460, 5, 'Pos', 'pos.open_orders', 'pos.open_orders', 'Open Orders Pos', 'Open Orders Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(461, 5, 'Pos', 'pos.return_sale', 'pos.return_sale', 'Return Sale Pos', 'Return Sale Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(462, 5, 'Pos', 'pos.cash_drawer', 'pos.cash_drawer', 'Cash Drawer Pos', 'Cash Drawer Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(463, 5, 'Orders', 'orders.view', 'orders.view', 'View Orders', 'View Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(464, 5, 'Orders', 'orders.create', 'orders.create', 'Create Orders', 'Create Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(465, 5, 'Orders', 'orders.update', 'orders.update', 'Update Orders', 'Update Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(466, 5, 'Orders', 'orders.cancel', 'orders.cancel', 'Cancel Orders', 'Cancel Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(467, 5, 'Orders', 'orders.refund', 'orders.refund', 'Refund Orders', 'Refund Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(468, 5, 'Payments', 'payments.view', 'payments.view', 'View Payments', 'View Payments', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(469, 5, 'Payments', 'payments.create', 'payments.create', 'Create Payments', 'Create Payments', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(470, 5, 'Payments', 'payments.refund', 'payments.refund', 'Refund Payments', 'Refund Payments', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(471, 5, 'Reports', 'reports.sales', 'reports.sales', 'Sales Reports', 'Sales Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(472, 5, 'Reports', 'reports.inventory', 'reports.inventory', 'Inventory Reports', 'Inventory Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(473, 5, 'Reports', 'reports.profit_loss', 'reports.profit_loss', 'Profit Loss Reports', 'Profit Loss Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(474, 5, 'Reports', 'reports.tax', 'reports.tax', 'Tax Reports', 'Tax Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(475, 5, 'Settings', 'settings.view', 'settings.view', 'View Settings', 'View Settings', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(476, 5, 'Settings', 'settings.update', 'settings.update', 'Update Settings', 'Update Settings', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(477, 5, 'Document Sequences', 'document_sequences.view', 'document_sequences.view', 'View Document Sequences', 'View Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(478, 5, 'Document Sequences', 'document_sequences.create', 'document_sequences.create', 'Create Document Sequences', 'Create Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(479, 5, 'Document Sequences', 'document_sequences.update', 'document_sequences.update', 'Update Document Sequences', 'Update Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(480, 5, 'Document Sequences', 'document_sequences.delete', 'document_sequences.delete', 'Delete Document Sequences', 'Delete Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(481, 5, 'Payment Methods', 'payment_methods.view', 'payment_methods.view', 'View Payment Methods', 'View Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(482, 5, 'Payment Methods', 'payment_methods.create', 'payment_methods.create', 'Create Payment Methods', 'Create Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(483, 5, 'Payment Methods', 'payment_methods.update', 'payment_methods.update', 'Update Payment Methods', 'Update Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(484, 5, 'Payment Methods', 'payment_methods.delete', 'payment_methods.delete', 'Delete Payment Methods', 'Delete Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(485, 5, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -1575,7 +1832,9 @@ INSERT INTO `products` (`id`, `company_id`, `product_category_id`, `product_code
 (8, 1, 2, 'PRD000008', '100000000008', 'RICE50KG', NULL, 'Mama Gold Rice 50kg', NULL, NULL, 82000.00, 90000.00, 1, 11, NULL, 1, 'Mama Gold', 'Mama Gold', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (9, 1, 7, 'PRD000009', '100000000009', 'SOAP001', NULL, 'Premier Soap', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Premier', 'PZ', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
 (10, 1, 9, 'PRD000010', '100000000010', 'PAMP001', NULL, 'Pampers Size 3', NULL, NULL, 7800.00, 8600.00, 1, 2, NULL, 1, 'Pampers', 'P&G', NULL, 1, 2, 1, 10.00, 1085.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-22 13:16:04', NULL, 20.00),
-(19, 1, 5, 'PRD000011', 'TH123456', NULL, NULL, 'Three Crown Evaporated Milk', 'Three Crown Evaporated Milk', '1786301525_6a78cc5535908.png', 1000.00, 1200.00, NULL, 5, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-11-25', 1, NULL, 1, 100.00, 1635.00, NULL, NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-22 13:10:17', NULL, 0.00);
+(19, 1, 5, 'PRD000011', 'TH123456', NULL, NULL, 'Three Crown Evaporated Milk', 'Three Crown Evaporated Milk', '1786301525_6a78cc5535908.png', 1000.00, 1200.00, NULL, 5, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-11-25', 1, NULL, 1, 100.00, 1635.00, NULL, NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-22 13:10:17', NULL, 0.00),
+(20, 4, 15, 'PRD-000001', '12345', 'SKU-0001', 'QR-0001', 'Three Crown', 'Three Crown', '1789995718_6ab12ac629c4e.png', 5000.00, 7500.00, 6, 15, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 11:55:14', '2026-09-21 12:01:58', NULL, 0.00),
+(21, 4, 16, 'PRD-000002', '452345', 'SKU-0002', 'QR-0002', 'Dangote Sugar 1kg', 'Dangote Sugar 1kg', '1789996254_6ab12cde96345.jpeg', 180.00, 250.00, 6, 15, NULL, 1, 'Dangote', 'Dangote', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 12:09:46', '2026-09-21 12:10:54', NULL, 0.00);
 
 -- --------------------------------------------------------
 
@@ -1615,7 +1874,9 @@ INSERT INTO `product_categories` (`id`, `company_id`, `category_code`, `name`, `
 (8, 1, 'CAT000008', 'Toiletries', 'Personal care and hygiene products.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (9, 1, 'CAT000009', 'Baby Products', 'Baby food, diapers and accessories.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (10, 1, 'CAT000010', 'Stationery', 'Office and school supplies.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(14, 1, 'CAT000011', 'TEXT', 'TEXT', NULL, NULL, 0, 1, 1, 1, '2026-08-02 14:53:48', '2026-08-04 08:48:45', '2026-08-04 08:48:45');
+(14, 1, 'CAT000011', 'TEXT', 'TEXT', NULL, NULL, 0, 1, 1, 1, '2026-08-02 14:53:48', '2026-08-04 08:48:45', '2026-08-04 08:48:45'),
+(15, 4, 'CAT000001', 'Dairy', 'Dairy', NULL, NULL, 0, 1, 20, 20, '2026-09-21 09:22:40', '2026-09-21 09:22:40', NULL),
+(16, 4, 'CAT000002', 'Groceries', 'Groceries', NULL, NULL, 0, 1, 20, 20, '2026-09-21 12:09:24', '2026-09-21 12:09:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -1642,7 +1903,7 @@ CREATE TABLE `product_stocks` (
 --
 
 INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `quantity`, `reserved_quantity`, `available_quantity`, `reorder_level`, `maximum_stock`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 980.00, 0.00, 980.00, 10.00, 2000.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
+(1, 1, 1, 1, 975.02, 0.00, 975.02, 10.00, 2000.00, '2026-07-29 10:37:13', '2026-09-16 12:46:46'),
 (2, 1, 1, 2, 2040.00, 0.00, 2040.00, 20.00, 2100.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
 (3, 1, 1, 3, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
 (4, 1, 1, 4, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
@@ -1652,7 +1913,7 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (8, 1, 1, 8, 75.00, 0.00, 75.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
 (9, 1, 1, 9, 70.00, 0.00, 70.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
 (10, 1, 1, 10, 1020.00, 0.00, 1020.00, 20.00, 1085.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(13, 1, 1, 19, 1605.00, 0.00, 1605.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-09-16 12:03:19'),
+(13, 1, 1, 19, 1600.00, 0.00, 1600.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-09-16 12:34:45'),
 (20, 1, 6, 19, 5.00, 0.00, 5.00, 100.00, 1635.00, '2026-08-11 09:39:39', '2026-08-22 13:10:17'),
 (21, 1, 6, 10, 5.00, 0.00, 5.00, 20.00, 1085.00, '2026-08-11 09:39:39', '2026-08-22 13:16:04'),
 (22, 1, 6, 9, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
@@ -1671,7 +1932,9 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (35, 1, 2, 4, 9.00, 0.00, 9.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-09-03 14:41:19'),
 (36, 1, 2, 3, 9.00, 0.00, 9.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-09-02 11:38:01'),
 (37, 1, 2, 2, 7.00, 0.00, 7.00, 20.00, 2100.00, '2026-08-31 10:05:07', '2026-09-03 13:30:47'),
-(38, 1, 2, 1, 8.00, 0.00, 8.00, 10.00, 2000.00, '2026-08-31 10:05:07', '2026-09-03 14:44:26');
+(38, 1, 2, 1, 8.00, 0.00, 8.00, 10.00, 2000.00, '2026-08-31 10:05:07', '2026-09-03 14:44:26'),
+(39, 4, 11, 20, 25.00, 0.00, 25.00, 10.00, 100.00, '2026-09-21 11:55:14', '2026-09-21 12:01:58'),
+(40, 4, 11, 21, 25.00, 0.00, 25.00, 10.00, 100.00, '2026-09-21 12:09:46', '2026-09-21 12:10:54');
 
 -- --------------------------------------------------------
 
@@ -1841,7 +2104,21 @@ INSERT INTO `roles` (`id`, `company_id`, `name`, `code`, `display_name`, `descri
 (4, 1, 'supervisor', 'supervisor', 'Supervisor', 'Supervises daily business operations.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL),
 (5, 1, 'cashier', 'cashier', 'Cashier', 'Processes customer sales.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL),
 (6, 1, 'inventory_manager', 'inventory_manager', 'Inventory Manager', 'Manages inventory and stock.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL),
-(7, 1, 'accountant', 'accountant', 'Accountant', 'Handles financial operations.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL);
+(7, 1, 'accountant', 'accountant', 'Accountant', 'Handles financial operations.', 1, 0, '2026-07-29 10:37:09', '2026-07-29 11:14:01', NULL),
+(30, 4, 'owner', 'owner', 'Owner', 'System owner with unrestricted access.', 1, 0, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(31, 4, 'administrator', 'administrator', 'Administrator', 'Company administrator.', 1, 0, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(32, 4, 'branch_manager', 'branch_manager', 'Branch Manager', 'Manages a business branch.', 1, 0, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(33, 4, 'supervisor', 'supervisor', 'Supervisor', 'Supervises daily business operations.', 1, 0, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(34, 4, 'cashier', 'cashier', 'Cashier', 'Processes customer sales.', 1, 0, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(35, 4, 'inventory_manager', 'inventory_manager', 'Inventory Manager', 'Manages inventory and stock.', 1, 0, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(36, 4, 'accountant', 'accountant', 'Accountant', 'Handles financial operations.', 1, 0, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(37, 5, 'owner', 'owner', 'Owner', 'System owner with unrestricted access.', 1, 0, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(38, 5, 'administrator', 'administrator', 'Administrator', 'Company administrator.', 1, 0, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(39, 5, 'branch_manager', 'branch_manager', 'Branch Manager', 'Manages a business branch.', 1, 0, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(40, 5, 'supervisor', 'supervisor', 'Supervisor', 'Supervises daily business operations.', 1, 0, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(41, 5, 'cashier', 'cashier', 'Cashier', 'Processes customer sales.', 1, 0, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(42, 5, 'inventory_manager', 'inventory_manager', 'Inventory Manager', 'Manages inventory and stock.', 1, 0, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
+(43, 5, 'accountant', 'accountant', 'Accountant', 'Handles financial operations.', 1, 0, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -2157,7 +2434,646 @@ INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, 
 (306, 1, 7, 81, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
 (307, 1, 7, 82, '2026-07-29 11:20:43', '2026-07-29 11:20:43'),
 (312, 1, 3, 77, '2026-08-31 05:58:30', '2026-08-31 05:58:30'),
-(313, 1, 3, 78, '2026-08-31 05:58:30', '2026-08-31 05:58:30');
+(313, 1, 3, 78, '2026-08-31 05:58:30', '2026-08-31 05:58:30'),
+(952, 4, 30, 290, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(953, 4, 30, 291, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(954, 4, 30, 292, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(955, 4, 30, 293, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(956, 4, 30, 294, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(957, 4, 30, 295, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(958, 4, 30, 296, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(959, 4, 30, 297, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(960, 4, 30, 298, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(961, 4, 30, 299, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(962, 4, 30, 300, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(963, 4, 30, 301, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(964, 4, 30, 302, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(965, 4, 30, 303, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(966, 4, 30, 304, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(967, 4, 30, 305, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(968, 4, 30, 306, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(969, 4, 30, 307, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(970, 4, 30, 308, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(971, 4, 30, 309, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(972, 4, 30, 310, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(973, 4, 30, 311, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(974, 4, 30, 312, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(975, 4, 30, 313, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(976, 4, 30, 314, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(977, 4, 30, 315, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(978, 4, 30, 316, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(979, 4, 30, 317, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(980, 4, 30, 318, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(981, 4, 30, 319, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(982, 4, 30, 320, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(983, 4, 30, 321, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(984, 4, 30, 322, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(985, 4, 30, 323, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(986, 4, 30, 324, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(987, 4, 30, 325, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(988, 4, 30, 326, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(989, 4, 30, 327, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(990, 4, 30, 328, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(991, 4, 30, 329, '2026-09-17 12:10:34', '2026-09-17 12:10:34'),
+(992, 4, 30, 330, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(993, 4, 30, 331, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(994, 4, 30, 332, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(995, 4, 30, 333, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(996, 4, 30, 334, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(997, 4, 30, 335, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(998, 4, 30, 336, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(999, 4, 30, 337, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1000, 4, 30, 338, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1001, 4, 30, 339, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1002, 4, 30, 340, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1003, 4, 30, 341, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1004, 4, 30, 342, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1005, 4, 30, 343, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1006, 4, 30, 344, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1007, 4, 30, 345, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1008, 4, 30, 346, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1009, 4, 30, 347, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1010, 4, 30, 348, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1011, 4, 30, 349, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1012, 4, 30, 350, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1013, 4, 30, 351, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1014, 4, 30, 352, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1015, 4, 30, 353, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1016, 4, 30, 354, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1017, 4, 30, 355, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1018, 4, 30, 356, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1019, 4, 30, 357, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1020, 4, 30, 358, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1021, 4, 30, 359, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1022, 4, 30, 360, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1023, 4, 30, 361, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1024, 4, 30, 362, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1025, 4, 30, 363, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1026, 4, 30, 364, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1027, 4, 30, 365, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1028, 4, 30, 366, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1029, 4, 30, 367, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1030, 4, 30, 368, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1031, 4, 30, 369, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1032, 4, 30, 370, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1033, 4, 30, 371, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1034, 4, 30, 372, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1035, 4, 30, 373, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1036, 4, 30, 374, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1037, 4, 30, 375, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1038, 4, 30, 376, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1039, 4, 30, 377, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1040, 4, 30, 378, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1041, 4, 30, 379, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1042, 4, 30, 380, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1043, 4, 30, 381, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1044, 4, 30, 382, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1045, 4, 30, 383, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1046, 4, 30, 384, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1047, 4, 30, 385, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1048, 4, 30, 386, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1049, 4, 30, 387, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1050, 4, 31, 290, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1051, 4, 31, 291, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1052, 4, 31, 292, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1053, 4, 31, 293, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1054, 4, 31, 294, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1055, 4, 31, 295, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1056, 4, 31, 296, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1057, 4, 31, 297, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1058, 4, 31, 298, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1059, 4, 31, 299, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1060, 4, 31, 300, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1061, 4, 31, 301, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1062, 4, 31, 302, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1063, 4, 31, 303, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1064, 4, 31, 304, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1065, 4, 31, 305, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1066, 4, 31, 306, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1067, 4, 31, 307, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1068, 4, 31, 308, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1069, 4, 31, 309, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1070, 4, 31, 310, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1071, 4, 31, 311, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1072, 4, 31, 312, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1073, 4, 31, 313, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1074, 4, 31, 314, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1075, 4, 31, 315, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1076, 4, 31, 316, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1077, 4, 31, 317, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1078, 4, 31, 318, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1079, 4, 31, 319, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1080, 4, 31, 320, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1081, 4, 31, 321, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1082, 4, 31, 322, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1083, 4, 31, 323, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1084, 4, 31, 324, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1085, 4, 31, 325, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1086, 4, 31, 326, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1087, 4, 31, 327, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1088, 4, 31, 328, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1089, 4, 31, 329, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1090, 4, 31, 330, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1091, 4, 31, 331, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1092, 4, 31, 332, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1093, 4, 31, 333, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1094, 4, 31, 334, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1095, 4, 31, 335, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1096, 4, 31, 336, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1097, 4, 31, 337, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1098, 4, 31, 338, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1099, 4, 31, 339, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1100, 4, 31, 340, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1101, 4, 31, 341, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1102, 4, 31, 342, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1103, 4, 31, 343, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1104, 4, 31, 344, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1105, 4, 31, 345, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1106, 4, 31, 346, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1107, 4, 31, 347, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1108, 4, 31, 348, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1109, 4, 31, 349, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1110, 4, 31, 350, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1111, 4, 31, 351, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1112, 4, 31, 352, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1113, 4, 31, 353, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1114, 4, 31, 354, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1115, 4, 31, 355, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1116, 4, 31, 356, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1117, 4, 31, 357, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1118, 4, 31, 358, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1119, 4, 31, 359, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1120, 4, 31, 360, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1121, 4, 31, 361, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1122, 4, 31, 362, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1123, 4, 31, 363, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1124, 4, 31, 364, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1125, 4, 31, 365, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1126, 4, 31, 366, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1127, 4, 31, 367, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1128, 4, 31, 368, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1129, 4, 31, 369, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1130, 4, 31, 370, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1131, 4, 31, 371, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1132, 4, 31, 372, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1133, 4, 31, 373, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1134, 4, 31, 374, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1135, 4, 31, 375, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1136, 4, 31, 376, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1137, 4, 31, 377, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1138, 4, 31, 378, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1139, 4, 31, 379, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1140, 4, 31, 380, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1141, 4, 31, 381, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1142, 4, 31, 382, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1143, 4, 31, 383, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1144, 4, 31, 384, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1145, 4, 31, 385, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1146, 4, 31, 386, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1147, 4, 31, 387, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1148, 4, 32, 290, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1149, 4, 32, 293, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1150, 4, 32, 295, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1151, 4, 32, 299, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1152, 4, 32, 303, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1153, 4, 32, 314, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1154, 4, 32, 315, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1155, 4, 32, 316, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1156, 4, 32, 317, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1157, 4, 32, 318, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1158, 4, 32, 319, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1159, 4, 32, 320, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1160, 4, 32, 321, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1161, 4, 32, 322, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1162, 4, 32, 323, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1163, 4, 32, 324, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1164, 4, 32, 325, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1165, 4, 32, 326, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1166, 4, 32, 327, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1167, 4, 32, 328, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1168, 4, 32, 329, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1169, 4, 32, 330, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1170, 4, 32, 331, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1171, 4, 32, 332, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1172, 4, 32, 333, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1173, 4, 32, 334, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1174, 4, 32, 335, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1175, 4, 32, 336, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1176, 4, 32, 337, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1177, 4, 32, 338, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1178, 4, 32, 339, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1179, 4, 32, 340, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1180, 4, 32, 341, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1181, 4, 32, 342, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1182, 4, 32, 343, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1183, 4, 32, 344, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1184, 4, 32, 345, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1185, 4, 32, 350, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1186, 4, 32, 351, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1187, 4, 32, 352, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1188, 4, 32, 353, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1189, 4, 32, 354, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1190, 4, 32, 355, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1191, 4, 32, 356, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1192, 4, 32, 357, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1193, 4, 32, 358, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1194, 4, 32, 359, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1195, 4, 32, 365, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1196, 4, 32, 366, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1197, 4, 32, 367, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1198, 4, 32, 368, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1199, 4, 32, 369, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1200, 4, 32, 370, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1201, 4, 32, 373, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1202, 4, 32, 374, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1203, 4, 32, 360, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1204, 4, 32, 361, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1205, 4, 32, 362, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1206, 4, 32, 363, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1207, 4, 32, 364, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1208, 4, 33, 290, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1209, 4, 33, 314, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1210, 4, 33, 336, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1211, 4, 33, 341, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1212, 4, 33, 365, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1213, 4, 33, 373, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1214, 4, 33, 360, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1215, 4, 33, 361, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1216, 4, 33, 362, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1217, 4, 34, 290, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1218, 4, 34, 341, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1219, 4, 34, 342, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1220, 4, 34, 314, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1221, 4, 34, 365, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1222, 4, 34, 366, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1223, 4, 34, 370, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1224, 4, 34, 371, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1225, 4, 34, 360, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1226, 4, 34, 361, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1227, 4, 34, 362, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1228, 4, 34, 363, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1229, 4, 34, 364, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1230, 4, 35, 290, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1231, 4, 35, 314, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1232, 4, 35, 315, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1233, 4, 35, 316, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1234, 4, 35, 317, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1235, 4, 35, 318, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1236, 4, 35, 319, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1237, 4, 35, 320, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1238, 4, 35, 321, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1239, 4, 35, 322, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1240, 4, 35, 323, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1241, 4, 35, 324, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1242, 4, 35, 325, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1243, 4, 35, 326, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1244, 4, 35, 327, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1245, 4, 35, 336, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1246, 4, 35, 337, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1247, 4, 35, 338, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1248, 4, 35, 339, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1249, 4, 35, 340, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1250, 4, 35, 350, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1251, 4, 35, 351, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1252, 4, 35, 352, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1253, 4, 35, 353, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1254, 4, 35, 354, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1255, 4, 35, 355, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1256, 4, 35, 356, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1257, 4, 35, 357, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1258, 4, 35, 358, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1259, 4, 35, 359, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1260, 4, 35, 374, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1261, 4, 36, 290, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1262, 4, 36, 370, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1263, 4, 36, 371, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1264, 4, 36, 372, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1265, 4, 36, 365, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1266, 4, 36, 341, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1267, 4, 36, 373, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1268, 4, 36, 374, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1269, 4, 36, 375, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1270, 4, 36, 376, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
+(1271, 5, 37, 388, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1272, 5, 37, 389, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1273, 5, 37, 390, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1274, 5, 37, 391, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1275, 5, 37, 392, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1276, 5, 37, 393, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1277, 5, 37, 394, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1278, 5, 37, 395, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1279, 5, 37, 396, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1280, 5, 37, 397, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1281, 5, 37, 398, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1282, 5, 37, 399, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1283, 5, 37, 400, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1284, 5, 37, 401, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1285, 5, 37, 402, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1286, 5, 37, 403, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1287, 5, 37, 404, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1288, 5, 37, 405, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1289, 5, 37, 406, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1290, 5, 37, 407, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1291, 5, 37, 408, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1292, 5, 37, 409, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1293, 5, 37, 410, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1294, 5, 37, 411, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1295, 5, 37, 412, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1296, 5, 37, 413, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1297, 5, 37, 414, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1298, 5, 37, 415, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1299, 5, 37, 416, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1300, 5, 37, 417, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1301, 5, 37, 418, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1302, 5, 37, 419, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1303, 5, 37, 420, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1304, 5, 37, 421, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1305, 5, 37, 422, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1306, 5, 37, 423, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1307, 5, 37, 424, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1308, 5, 37, 425, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1309, 5, 37, 426, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1310, 5, 37, 427, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1311, 5, 37, 428, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1312, 5, 37, 429, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1313, 5, 37, 430, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1314, 5, 37, 431, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1315, 5, 37, 432, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1316, 5, 37, 433, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1317, 5, 37, 434, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1318, 5, 37, 435, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1319, 5, 37, 436, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1320, 5, 37, 437, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1321, 5, 37, 438, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1322, 5, 37, 439, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1323, 5, 37, 440, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1324, 5, 37, 441, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1325, 5, 37, 442, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1326, 5, 37, 443, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1327, 5, 37, 444, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1328, 5, 37, 445, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1329, 5, 37, 446, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1330, 5, 37, 447, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1331, 5, 37, 448, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1332, 5, 37, 449, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1333, 5, 37, 450, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1334, 5, 37, 451, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1335, 5, 37, 452, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1336, 5, 37, 453, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1337, 5, 37, 454, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1338, 5, 37, 455, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1339, 5, 37, 456, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1340, 5, 37, 457, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1341, 5, 37, 458, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1342, 5, 37, 459, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1343, 5, 37, 460, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1344, 5, 37, 461, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1345, 5, 37, 462, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1346, 5, 37, 463, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1347, 5, 37, 464, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1348, 5, 37, 465, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1349, 5, 37, 466, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1350, 5, 37, 467, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1351, 5, 37, 468, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1352, 5, 37, 469, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1353, 5, 37, 470, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1354, 5, 37, 471, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1355, 5, 37, 472, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1356, 5, 37, 473, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1357, 5, 37, 474, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1358, 5, 37, 475, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1359, 5, 37, 476, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1360, 5, 37, 477, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1361, 5, 37, 478, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1362, 5, 37, 479, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1363, 5, 37, 480, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1364, 5, 37, 481, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1365, 5, 37, 482, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1366, 5, 37, 483, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1367, 5, 37, 484, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1368, 5, 37, 485, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1369, 5, 38, 388, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1370, 5, 38, 389, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1371, 5, 38, 390, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1372, 5, 38, 391, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1373, 5, 38, 392, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1374, 5, 38, 393, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1375, 5, 38, 394, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1376, 5, 38, 395, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1377, 5, 38, 396, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1378, 5, 38, 397, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1379, 5, 38, 398, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1380, 5, 38, 399, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1381, 5, 38, 400, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1382, 5, 38, 401, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1383, 5, 38, 402, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1384, 5, 38, 403, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1385, 5, 38, 404, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1386, 5, 38, 405, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1387, 5, 38, 406, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1388, 5, 38, 407, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1389, 5, 38, 408, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1390, 5, 38, 409, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1391, 5, 38, 410, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1392, 5, 38, 411, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1393, 5, 38, 412, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1394, 5, 38, 413, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1395, 5, 38, 414, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1396, 5, 38, 415, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1397, 5, 38, 416, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1398, 5, 38, 417, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1399, 5, 38, 418, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1400, 5, 38, 419, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1401, 5, 38, 420, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1402, 5, 38, 421, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1403, 5, 38, 422, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1404, 5, 38, 423, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1405, 5, 38, 424, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1406, 5, 38, 425, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1407, 5, 38, 426, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1408, 5, 38, 427, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1409, 5, 38, 428, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1410, 5, 38, 429, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1411, 5, 38, 430, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1412, 5, 38, 431, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1413, 5, 38, 432, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1414, 5, 38, 433, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1415, 5, 38, 434, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1416, 5, 38, 435, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1417, 5, 38, 436, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1418, 5, 38, 437, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1419, 5, 38, 438, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1420, 5, 38, 439, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1421, 5, 38, 440, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1422, 5, 38, 441, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1423, 5, 38, 442, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1424, 5, 38, 443, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1425, 5, 38, 444, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1426, 5, 38, 445, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1427, 5, 38, 446, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1428, 5, 38, 447, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1429, 5, 38, 448, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1430, 5, 38, 449, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1431, 5, 38, 450, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1432, 5, 38, 451, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1433, 5, 38, 452, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1434, 5, 38, 453, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1435, 5, 38, 454, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1436, 5, 38, 455, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1437, 5, 38, 456, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1438, 5, 38, 457, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1439, 5, 38, 458, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1440, 5, 38, 459, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1441, 5, 38, 460, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1442, 5, 38, 461, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1443, 5, 38, 462, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1444, 5, 38, 463, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1445, 5, 38, 464, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1446, 5, 38, 465, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1447, 5, 38, 466, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1448, 5, 38, 467, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1449, 5, 38, 468, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1450, 5, 38, 469, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1451, 5, 38, 470, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1452, 5, 38, 471, '2026-09-26 20:02:56', '2026-09-26 20:02:56');
+INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, `created_at`, `updated_at`) VALUES
+(1453, 5, 38, 472, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1454, 5, 38, 473, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1455, 5, 38, 474, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1456, 5, 38, 475, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1457, 5, 38, 476, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1458, 5, 38, 477, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1459, 5, 38, 478, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1460, 5, 38, 479, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1461, 5, 38, 480, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1462, 5, 38, 481, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1463, 5, 38, 482, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1464, 5, 38, 483, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1465, 5, 38, 484, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1466, 5, 38, 485, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1467, 5, 39, 388, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1468, 5, 39, 391, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1469, 5, 39, 393, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1470, 5, 39, 397, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1471, 5, 39, 401, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1472, 5, 39, 412, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1473, 5, 39, 413, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1474, 5, 39, 414, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1475, 5, 39, 415, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1476, 5, 39, 416, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1477, 5, 39, 417, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1478, 5, 39, 418, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1479, 5, 39, 419, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1480, 5, 39, 420, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1481, 5, 39, 421, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1482, 5, 39, 422, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1483, 5, 39, 423, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1484, 5, 39, 424, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1485, 5, 39, 425, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1486, 5, 39, 426, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1487, 5, 39, 427, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1488, 5, 39, 428, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1489, 5, 39, 429, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1490, 5, 39, 430, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1491, 5, 39, 431, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1492, 5, 39, 432, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1493, 5, 39, 433, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1494, 5, 39, 434, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1495, 5, 39, 435, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1496, 5, 39, 436, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1497, 5, 39, 437, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1498, 5, 39, 438, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1499, 5, 39, 439, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1500, 5, 39, 440, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1501, 5, 39, 441, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1502, 5, 39, 442, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1503, 5, 39, 443, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1504, 5, 39, 448, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1505, 5, 39, 449, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1506, 5, 39, 450, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1507, 5, 39, 451, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1508, 5, 39, 452, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1509, 5, 39, 453, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1510, 5, 39, 454, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1511, 5, 39, 455, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1512, 5, 39, 456, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1513, 5, 39, 457, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1514, 5, 39, 463, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1515, 5, 39, 464, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1516, 5, 39, 465, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1517, 5, 39, 466, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1518, 5, 39, 467, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1519, 5, 39, 468, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1520, 5, 39, 471, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1521, 5, 39, 472, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1522, 5, 39, 458, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1523, 5, 39, 459, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1524, 5, 39, 460, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1525, 5, 39, 461, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1526, 5, 39, 462, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1527, 5, 40, 388, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1528, 5, 40, 412, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1529, 5, 40, 434, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1530, 5, 40, 439, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1531, 5, 40, 463, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1532, 5, 40, 471, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1533, 5, 40, 458, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1534, 5, 40, 459, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1535, 5, 40, 460, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1536, 5, 41, 388, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1537, 5, 41, 439, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1538, 5, 41, 440, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1539, 5, 41, 412, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1540, 5, 41, 463, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1541, 5, 41, 464, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1542, 5, 41, 468, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1543, 5, 41, 469, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1544, 5, 41, 458, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1545, 5, 41, 459, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1546, 5, 41, 460, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1547, 5, 41, 461, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1548, 5, 41, 462, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1549, 5, 42, 388, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1550, 5, 42, 412, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1551, 5, 42, 413, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1552, 5, 42, 414, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1553, 5, 42, 415, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1554, 5, 42, 416, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1555, 5, 42, 417, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1556, 5, 42, 418, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1557, 5, 42, 419, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1558, 5, 42, 420, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1559, 5, 42, 421, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1560, 5, 42, 422, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1561, 5, 42, 423, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1562, 5, 42, 424, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1563, 5, 42, 425, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1564, 5, 42, 434, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1565, 5, 42, 435, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1566, 5, 42, 436, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1567, 5, 42, 437, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1568, 5, 42, 438, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1569, 5, 42, 448, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1570, 5, 42, 449, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1571, 5, 42, 450, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1572, 5, 42, 451, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1573, 5, 42, 452, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1574, 5, 42, 453, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1575, 5, 42, 454, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1576, 5, 42, 455, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1577, 5, 42, 456, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1578, 5, 42, 457, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1579, 5, 42, 472, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1580, 5, 43, 388, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1581, 5, 43, 468, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1582, 5, 43, 469, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1583, 5, 43, 470, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1584, 5, 43, 463, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1585, 5, 43, 439, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1586, 5, 43, 471, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1587, 5, 43, 472, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1588, 5, 43, 473, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1589, 5, 43, 474, '2026-09-26 20:02:56', '2026-09-26 20:02:56');
 
 -- --------------------------------------------------------
 
@@ -2308,7 +3224,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('VeV2jsJgy2U0ulfLDx6cMINDQE4NjTIymgLD0mA4', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6IlVIQmM5eVdwMnNEbUZNWnJhOElTenR2NWIzQ3NrVlhOVkNzanhjN1MiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjM1OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc2FsZXMvcmV0dXJucyI7czo1OiJyb3V0ZSI7czoxMzoicmV0dXJucy5pbmRleCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxMDoiY29tcGFueV9pZCI7aToxO3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxOToiRW1tYW5leCBTdXBlcm1hcmtldCI7czoxMjoiY29tcGFueV9jb2RlIjtzOjk6IkNPTVAtMDAwMSI7czo5OiJicmFuY2hfaWQiO2k6MTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1789565452);
+('lpRLLztGMPIsnYF3D8HiGo4VnxIjGVzP9r5Mhgb3', 20, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6IlVtNlB1TkY1bUhjSUVaWmZvbjUweFhxRHhqWktWZTBPS01FWDdFOXUiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjMyOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3RvcmVmcm9udCI7czo1OiJyb3V0ZSI7czoxNzoic3RvcmVmcm9udC5tYW5hZ2UiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDtzOjEwOiJjb21wYW55X2lkIjtpOjQ7czoxMjoiY29tcGFueV9uYW1lIjtzOjEzOiJKdXN0Uml0ZSBNYXJ0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6MTE6IkNPTVAtMjQzNjU4IjtzOjk6ImJyYW5jaF9pZCI7aToxMTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1790459635);
 
 -- --------------------------------------------------------
 
@@ -2356,7 +3272,9 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `company_id`, `company_name`, `company_email`, `company_phone`, `company_address`, `company_logo`, `currency`, `currency_symbol`, `tax_rate`, `tax_enabled`, `receipt_footer`, `receipt_header`, `receipt_width`, `print_logo`, `print_barcode`, `allow_negative_stock`, `low_stock_alert`, `allow_price_change`, `allow_price_override`, `enable_discounts`, `allow_discount`, `enable_customer_credit`, `default_customer`, `default_customer_id`, `timezone`, `date_format`, `time_format`, `maintenance_mode`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Emmanex Supermarket Ng', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', NULL, 'NGN', '₦', 7.50, 1, 'Thank you for shopping with us.', 'Emmanex Supermarket', 80, 1, 1, 0, 5, 0, 0, 1, 1, 0, 'Walk-in Customer', NULL, 'Africa/Lagos', 'm/d/Y', 'h:i A', 0, 1, '2026-07-29 10:37:13', '2026-09-03 21:09:39');
+(1, 1, 'Emmanex Supermarket Ng', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', NULL, 'NGN', '₦', 7.50, 1, 'Thank you for shopping with us.', 'Emmanex Supermarket', 80, 1, 1, 0, 5, 0, 0, 1, 1, 0, 'Walk-in Customer', NULL, 'Africa/Lagos', 'm/d/Y', 'h:i A', 0, 1, '2026-07-29 10:37:13', '2026-09-03 21:09:39'),
+(2, 4, 'JustRite Mart', 'justritemart@gmail.com', '08012345678', '12, Alakia, Off New Ife Road.', NULL, 'NGN', '₦', 7.50, 1, 'Thank you for shopping with us.', 'JustRite Mart', 80, 1, 0, 0, 10, 0, 0, 1, 1, 0, NULL, NULL, 'Africa/Lagos', 'd/m/Y', 'h:i A', 0, 1, '2026-09-17 12:10:35', '2026-09-17 12:18:53'),
+(3, 5, 'Gadget Padi', 'gadgetpadi@gmail.com', '08104196102', 'Ibadan', NULL, 'NGN', '₦', 7.50, 1, 'Thank you for shopping with us.', NULL, 80, 1, 0, 0, 10, 0, 0, 1, 1, 0, NULL, NULL, 'Africa/Lagos', 'd-m-Y', 'h:i A', 0, 1, '2026-09-26 20:02:56', '2026-09-26 20:02:56');
 
 -- --------------------------------------------------------
 
@@ -2552,7 +3470,36 @@ INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `m
 (128, 1, 1, 5, 'Return', 82, 'RET-000002', 180.00, 3.00, 75.00, 78.00, 'Stock returned from sales refund: ORD-000043', 1, '2026-09-16 12:03:19', '2026-09-16 12:03:19'),
 (129, 1, 1, 6, 'Return', 81, 'RET-000003', 1450.00, 1.00, 1524.00, 1525.00, 'Partial return for sales order ORD-000042.', 1, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
 (130, 1, 1, 5, 'Return', 81, 'RET-000003', 180.00, 1.00, 78.00, 79.00, 'Partial return for sales order ORD-000042.', 1, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
-(131, 1, 1, 5, 'Return', 81, 'RET-000004', 180.00, 1.00, 79.00, 80.00, 'Partial return for sales order ORD-000042.', 1, '2026-09-16 12:18:22', '2026-09-16 12:18:22');
+(131, 1, 1, 5, 'Return', 81, 'RET-000004', 180.00, 1.00, 79.00, 80.00, 'Partial return for sales order ORD-000042.', 1, '2026-09-16 12:18:22', '2026-09-16 12:18:22'),
+(132, 1, 1, 19, 'Damage', NULL, NULL, 1000.00, 5.00, 1605.00, 1600.00, '5 damaged items', NULL, '2026-09-16 12:34:45', '2026-09-16 12:34:45'),
+(133, 1, 1, 1, 'Expired', NULL, NULL, 500.00, 4.98, 980.00, 975.02, NULL, NULL, '2026-09-16 12:46:46', '2026-09-16 12:46:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `storefronts`
+--
+
+CREATE TABLE `storefronts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `status` enum('Setup','Active','Disabled') NOT NULL DEFAULT 'Setup',
+  `enabled_at` timestamp NULL DEFAULT NULL,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `storefronts`
+--
+
+INSERT INTO `storefronts` (`id`, `company_id`, `name`, `slug`, `status`, `enabled_at`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 5, 'Gadget Padi', 'gadget-padi', 'Active', '2026-09-26 20:46:04', 21, 21, '2026-09-26 20:02:57', '2026-09-26 20:48:43'),
+(2, 4, 'JustRite Mart', 'justrite-mart', 'Active', '2026-09-26 20:53:54', 20, 20, '2026-09-26 20:53:38', '2026-09-26 20:53:54');
 
 -- --------------------------------------------------------
 
@@ -2593,6 +3540,110 @@ CREATE TABLE `suppliers` (
 INSERT INTO `suppliers` (`id`, `company_id`, `supplier_code`, `name`, `contact_person`, `email`, `phone`, `alternate_phone`, `address`, `city`, `state`, `country`, `tax_number`, `payment_terms`, `credit_limit`, `current_balance`, `notes`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 'SUP-00001', 'Friezland Group of Companies', 'Mr Adeleke Abayomi', 'info@friezland.com', '07032109983', '07032109983', '17, Ojokoro avenue, abeokuta, Ogun State.', 'Abeokuta', 'Ogun', 'Nigeria', '29839393', '30 days', 1000000.00, 0.00, 'Friezland.', 1, 1, 1, '2026-08-16 11:27:31', '2026-08-16 11:27:31', NULL),
 (2, 1, 'SUP-00002', 'Nigerian Breweries', 'Mrs Afonja Omowunmi', 'info@nigbreweries.com', '08034271855', '08034271855', 'Nigerial Breweries, Off Alakia Road, Ibadan', 'Ibadan', 'Oyo', 'Nigeria', '09030922', '30 days', 2000000.00, 0.00, 'Nigerian Breweries.', 1, 1, 1, '2026-08-16 11:35:20', '2026-08-16 11:45:37', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sync_devices`
+--
+
+CREATE TABLE `sync_devices` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `terminal_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `device_uuid` char(36) NOT NULL,
+  `device_name` varchar(255) DEFAULT NULL,
+  `device_type` varchar(255) NOT NULL DEFAULT 'local',
+  `app_version` varchar(255) DEFAULT NULL,
+  `database_version` varchar(255) DEFAULT NULL,
+  `sync_token_hash` varchar(255) DEFAULT NULL,
+  `token_created_at` timestamp NULL DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `last_seen_at` timestamp NULL DEFAULT NULL,
+  `last_sync_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sync_devices`
+--
+
+INSERT INTO `sync_devices` (`id`, `company_id`, `branch_id`, `terminal_id`, `device_uuid`, `device_name`, `device_type`, `app_version`, `database_version`, `sync_token_hash`, `token_created_at`, `is_active`, `last_seen_at`, `last_sync_at`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, NULL, '1c77e876-5fd7-4306-b8d5-8ff3ee1ea905', 'EMNEX Sync Test Device', 'local', '1.0.0', '1.0.0', '$2y$12$pduDpZNlFml7eufd.mr49O/KxLhJBHvra6rweqdeYy0vouqAKRe3u', '2026-09-22 08:17:42', 1, '2026-09-22 08:17:42', NULL, '2026-09-22 08:17:42', '2026-09-22 08:17:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sync_logs`
+--
+
+CREATE TABLE `sync_logs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `device_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `mutation_uuid` char(36) DEFAULT NULL,
+  `entity_sync_uuid` char(36) DEFAULT NULL,
+  `entity` varchar(255) DEFAULT NULL,
+  `operation` varchar(255) DEFAULT NULL,
+  `direction` varchar(255) NOT NULL DEFAULT 'push',
+  `status` varchar(255) NOT NULL,
+  `message` text DEFAULT NULL,
+  `error` text DEFAULT NULL,
+  `duration_ms` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sync_mutations`
+--
+
+CREATE TABLE `sync_mutations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `device_id` bigint(20) UNSIGNED NOT NULL,
+  `mutation_uuid` char(36) NOT NULL,
+  `entity` varchar(255) NOT NULL,
+  `entity_sync_uuid` char(36) NOT NULL,
+  `operation` varchar(255) NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`payload`)),
+  `response` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`response`)),
+  `status` varchar(255) NOT NULL DEFAULT 'processing',
+  `error` text DEFAULT NULL,
+  `processed_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sync_queue`
+--
+
+CREATE TABLE `sync_queue` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `device_id` bigint(20) UNSIGNED NOT NULL,
+  `mutation_uuid` char(36) NOT NULL,
+  `entity` varchar(255) NOT NULL,
+  `entity_sync_uuid` char(36) NOT NULL,
+  `operation` varchar(255) NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`payload`)),
+  `status` varchar(255) NOT NULL DEFAULT 'pending',
+  `attempts` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `available_at` timestamp NULL DEFAULT NULL,
+  `processing_started_at` timestamp NULL DEFAULT NULL,
+  `processed_at` timestamp NULL DEFAULT NULL,
+  `failed_at` timestamp NULL DEFAULT NULL,
+  `last_error` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -2653,7 +3704,9 @@ INSERT INTO `terminals` (`id`, `company_id`, `branch_id`, `terminal_code`, `term
 (11, 1, 4, 'Ajah-Pos1', 'Front Counter POS', 'Main Checkout', 'Dell Optilex', '192.168.0.24', 1, NULL, '2026-08-01 22:42:04', '2026-08-01 23:42:15', '2026-08-01 23:42:15'),
 (12, 1, 4, 'Ajah-01', 'Front Counter-Ajah01', 'Dell Optilex', 'Dell Optilex', '192.168.0.23', 1, NULL, '2026-08-27 13:06:31', '2026-08-27 13:06:31', NULL),
 (13, 1, 2, 'Lek-Pos2', 'Lekki-Pos2', 'Main Checkout', 'Dell Optilex', NULL, 1, NULL, '2026-08-30 15:19:56', '2026-08-30 15:19:56', NULL),
-(14, 1, 2, 'Lek-Pos3', 'Lekki-Pos3', NULL, 'Desktop POS', NULL, 1, NULL, '2026-08-30 15:20:14', '2026-08-30 15:20:14', NULL);
+(14, 1, 2, 'Lek-Pos3', 'Lekki-Pos3', NULL, 'Desktop POS', NULL, 1, NULL, '2026-08-30 15:20:14', '2026-08-30 15:20:14', NULL),
+(17, 4, 11, 'BR789649-POS01', 'Head Office POS 1', NULL, 'Desktop POS', NULL, 1, NULL, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(18, 5, 12, 'BR818641-POS01', 'Head Office POS 1', NULL, 'Desktop POS', NULL, 1, NULL, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -2723,7 +3776,8 @@ INSERT INTO `units` (`id`, `company_id`, `unit_code`, `name`, `short_name`, `des
 (11, 1, 'UNT000011', 'Bag', 'BAG', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
 (12, 1, 'UNT000012', 'Roll', 'ROL', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
 (13, 1, 'UNT000013', 'Box', 'BOX', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(14, 1, 'UNT000014', 'Text', 'TXT', 'Text', 1, 1, 1, '2026-08-03 14:02:30', '2026-08-04 08:48:18', '2026-08-04 08:48:18');
+(14, 1, 'UNT000014', 'Text', 'TXT', 'Text', 1, 1, 1, '2026-08-03 14:02:30', '2026-08-04 08:48:18', '2026-08-04 08:48:18'),
+(15, 4, 'UNT000001', 'Piece', 'PCS', 'Piece', 1, 20, 20, '2026-09-21 08:58:45', '2026-09-21 08:58:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -2778,7 +3832,9 @@ INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `employee_no`, 
 (6, 1, 1, 6, 'EMP0006', 'Inventory', NULL, 'Manager', 'inventory', 'inventory@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$lWJtwgUPhnO44mwKMNifgeZiD.oVJwv9QqHYPCMNMOSpP0IhCHNAC', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:12', '2026-07-29 10:37:12', NULL),
 (7, 1, 1, 7, 'EMP0007', 'Company', NULL, 'Accountant', 'accountant', 'accountant@emmanexitconsult.com', 0, '2026-07-29 10:37:12', 0, NULL, '$2y$12$Aj3KYFJ24AXQQWWE3taN.uWPk/7eQSkS9oH84LMpPHxJ6nq1vXS5i', NULL, NULL, NULL, '2026-07-29', NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (15, 1, 2, 5, 'CH-2026-001', 'Paul', 'Olusogo', 'Awolola', 'paul', 'bizcare@gmail.com', 0, NULL, 0, '07038899203', '$2y$12$Sstz2CJuURgxEXVIu/DD3.yNOZrTmaT/UcICvHI7J4Qa5RX/e4AYu', NULL, 'Male', '1987-11-25', '2026-07-06', 'Adelu, Ido, Ibadan.', 'Transfered from Ajah branch', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-30 00:35:56', '2026-08-30 16:02:34', NULL),
-(17, 1, 2, 3, 'MG-2026-001', 'Maxwell', 'Akinkunmi', 'Akinyooye', 'maxwell', 'maxwell@gmail.com', 0, NULL, 0, '08034271855', '$2y$12$YS766Mx5bkWAuuDym1EBy.OtUEY3ZGb0OJ7pkrLEZtXraADh8iMf.', NULL, 'Male', '2017-09-27', '2026-08-03', 'Ibadan', 'Branch manager of lekki branch.', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-08-09 07:43:51', '2026-08-31 05:55:33', NULL);
+(17, 1, 2, 3, 'MG-2026-001', 'Maxwell', 'Akinkunmi', 'Akinyooye', 'maxwell', 'maxwell@gmail.com', 0, NULL, 0, '08034271855', '$2y$12$YS766Mx5bkWAuuDym1EBy.OtUEY3ZGb0OJ7pkrLEZtXraADh8iMf.', NULL, 'Male', '2017-09-27', '2026-08-03', 'Ibadan', 'Branch manager of lekki branch.', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-08-09 07:43:51', '2026-08-31 05:55:33', NULL),
+(20, 4, 11, 30, 'EMP349474', 'Maxwell', NULL, 'Akinkunmi', 'maxwell', 'maxwell@yahoo.com', 0, NULL, 0, '07034657383', '$2y$12$DnDbvBNCMCu.7hVSTvvNQ.JO2HhoafnjfpozoB1WoZy8okDawKHHS', NULL, NULL, NULL, '2026-09-17', NULL, NULL, 1, NULL, NULL, NULL, 0, '2026-09-17 12:10:35', NULL, '2026-09-17 12:10:35', '2026-09-17 12:10:35', NULL),
+(21, 5, 12, 37, 'EMP610845', 'Miracle', NULL, 'Peter', 'miracle', 'miracle.kingsbranding@gmail.com', 0, NULL, 0, '08104196102', '$2y$12$NsRo4hk8yz7zCsjcECKGU.r1X9mzpR.aL2chVg5abmvy9Q724eThC', NULL, NULL, NULL, '2026-09-26', NULL, NULL, 1, NULL, NULL, NULL, 0, '2026-09-26 20:02:56', NULL, '2026-09-26 20:02:56', '2026-09-26 20:02:56', NULL);
 
 --
 -- Indexes for dumped tables
@@ -3221,6 +4277,16 @@ ALTER TABLE `stock_movements`
   ADD KEY `stock_movements_created_by_foreign` (`created_by`);
 
 --
+-- Indexes for table `storefronts`
+--
+ALTER TABLE `storefronts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `storefronts_company_id_unique` (`company_id`),
+  ADD UNIQUE KEY `storefronts_slug_unique` (`slug`),
+  ADD KEY `storefronts_created_by_foreign` (`created_by`),
+  ADD KEY `storefronts_updated_by_foreign` (`updated_by`);
+
+--
 -- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -3232,6 +4298,49 @@ ALTER TABLE `suppliers`
   ADD KEY `suppliers_company_id_status_index` (`company_id`,`status`),
   ADD KEY `suppliers_company_id_email_index` (`company_id`,`email`),
   ADD KEY `suppliers_company_id_phone_index` (`company_id`,`phone`);
+
+--
+-- Indexes for table `sync_devices`
+--
+ALTER TABLE `sync_devices`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sync_devices_device_uuid_unique` (`device_uuid`),
+  ADD KEY `sync_devices_branch_id_foreign` (`branch_id`),
+  ADD KEY `sync_devices_terminal_id_foreign` (`terminal_id`),
+  ADD KEY `sync_devices_company_id_branch_id_index` (`company_id`,`branch_id`),
+  ADD KEY `sync_devices_company_id_is_active_index` (`company_id`,`is_active`);
+
+--
+-- Indexes for table `sync_logs`
+--
+ALTER TABLE `sync_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sync_logs_company_id_created_at_index` (`company_id`,`created_at`),
+  ADD KEY `sync_logs_device_id_created_at_index` (`device_id`,`created_at`),
+  ADD KEY `sync_logs_mutation_uuid_index` (`mutation_uuid`),
+  ADD KEY `sync_logs_status_index` (`status`);
+
+--
+-- Indexes for table `sync_mutations`
+--
+ALTER TABLE `sync_mutations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sync_mutations_mutation_uuid_unique` (`mutation_uuid`),
+  ADD KEY `sync_mutations_company_id_device_id_index` (`company_id`,`device_id`),
+  ADD KEY `sync_mutations_entity_entity_sync_uuid_index` (`entity`,`entity_sync_uuid`),
+  ADD KEY `sync_mutations_device_id_created_at_index` (`device_id`,`created_at`),
+  ADD KEY `sync_mutations_status_index` (`status`);
+
+--
+-- Indexes for table `sync_queue`
+--
+ALTER TABLE `sync_queue`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sync_queue_mutation_uuid_unique` (`mutation_uuid`),
+  ADD KEY `sync_queue_company_id_status_index` (`company_id`,`status`),
+  ADD KEY `sync_queue_device_id_status_index` (`device_id`,`status`),
+  ADD KEY `sync_queue_entity_entity_sync_uuid_index` (`entity`,`entity_sync_uuid`),
+  ADD KEY `sync_queue_status_available_at_index` (`status`,`available_at`);
 
 --
 -- Indexes for table `tax_rates`
@@ -3292,13 +4401,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=355;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=367;
 
 --
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `cash_drawers`
@@ -3316,7 +4425,7 @@ ALTER TABLE `cash_drawer_transactions`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `currencies`
@@ -3340,13 +4449,13 @@ ALTER TABLE `customer_groups`
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `document_sequences`
 --
 ALTER TABLE `document_sequences`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -3388,7 +4497,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -3412,31 +4521,31 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `payment_methods`
 --
 ALTER TABLE `payment_methods`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=486;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `product_stocks`
 --
 ALTER TABLE `product_stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `purchase_orders`
@@ -3466,13 +4575,13 @@ ALTER TABLE `purchase_return_items`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `role_permissions`
 --
 ALTER TABLE `role_permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=314;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1590;
 
 --
 -- AUTO_INCREMENT for table `sales_orders`
@@ -3502,7 +4611,7 @@ ALTER TABLE `sales_return_payments`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `stock_counts`
@@ -3520,13 +4629,43 @@ ALTER TABLE `stock_count_items`
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+
+--
+-- AUTO_INCREMENT for table `storefronts`
+--
+ALTER TABLE `storefronts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `sync_devices`
+--
+ALTER TABLE `sync_devices`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `sync_logs`
+--
+ALTER TABLE `sync_logs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sync_mutations`
+--
+ALTER TABLE `sync_mutations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sync_queue`
+--
+ALTER TABLE `sync_queue`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tax_rates`
@@ -3538,7 +4677,7 @@ ALTER TABLE `tax_rates`
 -- AUTO_INCREMENT for table `terminals`
 --
 ALTER TABLE `terminals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `terminal_assignments`
@@ -3550,13 +4689,13 @@ ALTER TABLE `terminal_assignments`
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
@@ -3866,12 +5005,49 @@ ALTER TABLE `stock_movements`
   ADD CONSTRAINT `stock_movements_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `storefronts`
+--
+ALTER TABLE `storefronts`
+  ADD CONSTRAINT `storefronts_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `storefronts_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `storefronts_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
 -- Constraints for table `suppliers`
 --
 ALTER TABLE `suppliers`
   ADD CONSTRAINT `suppliers_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `suppliers_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `suppliers_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `sync_devices`
+--
+ALTER TABLE `sync_devices`
+  ADD CONSTRAINT `sync_devices_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `sync_devices_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `sync_devices_terminal_id_foreign` FOREIGN KEY (`terminal_id`) REFERENCES `terminals` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `sync_logs`
+--
+ALTER TABLE `sync_logs`
+  ADD CONSTRAINT `sync_logs_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `sync_logs_device_id_foreign` FOREIGN KEY (`device_id`) REFERENCES `sync_devices` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `sync_mutations`
+--
+ALTER TABLE `sync_mutations`
+  ADD CONSTRAINT `sync_mutations_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `sync_mutations_device_id_foreign` FOREIGN KEY (`device_id`) REFERENCES `sync_devices` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `sync_queue`
+--
+ALTER TABLE `sync_queue`
+  ADD CONSTRAINT `sync_queue_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `sync_queue_device_id_foreign` FOREIGN KEY (`device_id`) REFERENCES `sync_devices` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tax_rates`

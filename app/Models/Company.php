@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -78,6 +79,14 @@ class Company extends Model
         return $this->hasOne(Setting::class);
     }
 
+    public function storefront(): HasOne
+    {
+        return $this->hasOne(
+            Storefront::class,
+            'company_id'
+        );
+    }
+
     public function permissions(): HasMany
     {
         return $this->hasMany(Permission::class);
@@ -145,8 +154,9 @@ class Company extends Model
 
     public function activityLogs(): HasMany
     {
-        return $this->hasMany(ActivityLog::class);
-    }
+        return $this->hasMany(ActivityLog::class);    }
+
+    
 
     /*
     |--------------------------------------------------------------------------

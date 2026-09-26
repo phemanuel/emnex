@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/sales-report.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/inventory-report.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/profit-loss.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/storefront.css') }}">
 
   
 

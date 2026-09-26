@@ -13,9 +13,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
+        $middleware->validateCsrfTokens(except: [ 'api/sync/*', ]);
+        //
          $middleware->alias([
             'company' => \App\Http\Middleware\CompanyMiddleware::class,
             'permission' => \App\Http\Middleware\PermissionMiddleware::class,
+            'sync.device' => \App\Http\Middleware\AuthenticateSyncDevice::class,
         ]);
         
     })

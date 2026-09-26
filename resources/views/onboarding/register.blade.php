@@ -301,6 +301,7 @@
                                             <option value="Grocery Store">Grocery Store</option>
                                             <option value="Pharmacy">Pharmacy</option>
                                             <option value="Electronics Store">Electronics Store</option>
+                                            <option value="Mobile & Digital Accessories">Mobile & Digital Accessories</option>
                                             <option value="Fashion & Clothing">Fashion & Clothing</option>
                                             <option value="Beauty & Cosmetics">Beauty & Cosmetics</option>
                                             <option value="Restaurant">Restaurant</option>
@@ -543,6 +544,53 @@
                                         ></div>
 
                                     </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {{-- Optional Online Storefront --}}
+
+                        <div class="onboarding-storefront-option">
+
+                            <div class="onboarding-storefront-icon">
+                                <i class="bi bi-shop"></i>
+                            </div>
+
+                            <div class="onboarding-storefront-content">
+
+                                <div class="onboarding-storefront-copy">
+
+                                    <h3>
+                                        Online Storefront
+                                    </h3>
+
+                                    <p>
+                                        Sell your products online with an EMNEX Storefront.
+                                        You can also enable this later from your dashboard.
+                                    </p>
+
+                                </div>
+
+                                <div class="form-check form-switch onboarding-storefront-switch">
+
+                                    <input
+                                        type="checkbox"
+                                        class="form-check-input"
+                                        id="add_storefront"
+                                        name="add_storefront"
+                                        value="1"
+                                        @checked(old('add_storefront'))
+                                    >
+
+                                    <label
+                                        class="form-check-label"
+                                        for="add_storefront"
+                                    >
+                                        Add an online storefront
+                                    </label>
 
                                 </div>
 
@@ -1119,7 +1167,7 @@
                                                 —
                                             </strong>
 
-                                        </div>
+                                        </div>                                        
 
                                     </div>
 
@@ -1211,6 +1259,59 @@
                                             >
                                                 —
                                             </strong>
+
+                                        </div>                                        
+
+                                    </div>
+
+                                </div>
+
+                                {{-- Storefront Review --}}
+
+                                <div class="onboarding-review-section onboarding-review-storefront">
+
+                                    <div class="onboarding-review-heading">
+
+                                        <div>
+                                            <span class="onboarding-review-kicker">
+                                                Storefront
+                                            </span>
+
+                                            <h3>
+                                                Online Storefront
+                                            </h3>
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            class="onboarding-review-edit"
+                                            data-edit-step="1"
+                                        >
+                                            <i class="bi bi-pencil"></i>
+                                            Edit
+                                        </button>
+
+                                    </div>
+
+                                    <div class="onboarding-storefront-review-card">
+
+                                        <div class="onboarding-storefront-review-icon">
+                                            <i class="bi bi-shop"></i>
+                                        </div>
+
+                                        <div class="onboarding-storefront-review-content">
+
+                                            <span class="onboarding-storefront-review-label">
+                                                Storefront setup
+                                            </span>
+
+                                            <strong id="reviewStorefrontStatus">
+                                                Not enabled
+                                            </strong>
+
+                                            <p id="reviewStorefrontDescription">
+                                                You can enable an online storefront later from your dashboard.
+                                            </p>
 
                                         </div>
 
