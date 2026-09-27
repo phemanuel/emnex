@@ -3768,3 +3768,126 @@ a {
     }
 
 }
+
+.pc-topbar-admin-dropdown {
+    position: relative;
+}
+
+.pc-topbar-admin-trigger {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.pc-topbar-admin-copy {
+    text-align: left;
+}
+
+.pc-admin-chevron {
+    margin-left: 3px;
+    color: var(--pc-muted);
+    font-size: 10px;
+    transition: transform .18s ease;
+}
+
+.pc-topbar-admin-dropdown.open .pc-admin-chevron {
+    transform: rotate(180deg);
+}
+
+.pc-admin-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 1200;
+    width: 260px;
+    overflow: hidden;
+    padding: 8px;
+    border: 1px solid var(--pc-line);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow:
+        0 18px 45px
+        rgba(14, 24, 39, .13);
+}
+
+.pc-admin-dropdown-menu[hidden] {
+    display: none !important;
+}
+
+.pc-admin-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px;
+}
+
+.pc-admin-dropdown-header .pc-admin-avatar {
+    background: var(--pc-shell);
+}
+
+.pc-admin-dropdown-header strong {
+    display: block;
+    font-size: 10px;
+}
+
+.pc-admin-dropdown-header span {
+    display: block;
+    margin-top: 3px;
+    color: var(--pc-muted);
+    font-size: 8px;
+}
+
+.pc-admin-dropdown-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 5px 8px 8px;
+    padding: 10px;
+    border-radius: 9px;
+    background: var(--pc-background-soft);
+}
+
+.pc-admin-dropdown-meta span {
+    color: var(--pc-muted);
+    font-size: 8px;
+}
+
+.pc-admin-dropdown-meta strong {
+    font-size: 8px;
+}
+
+.pc-admin-dropdown-divider {
+    height: 1px;
+    margin: 7px 6px;
+    background: var(--pc-line);
+}
+
+.pc-admin-dropdown-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--pc-muted-dark);
+    cursor: pointer;
+    text-align: left;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.pc-admin-dropdown-item:hover {
+    background: var(--pc-background-soft);
+    color: var(--pc-text);
+}
+
+.pc-admin-dropdown-item.danger {
+    color: var(--pc-red);
+}
+
+.pc-admin-dropdown-item.danger:hover {
+    background: var(--pc-red-soft);
+}

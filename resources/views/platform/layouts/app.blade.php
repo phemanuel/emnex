@@ -286,26 +286,122 @@
                 </button>
 
 
-                <div class="pc-topbar-admin">
+                <div
+                    class="pc-topbar-admin-dropdown"
+                    id="platformAdminDropdown"
+                >
 
-                    <span class="pc-admin-avatar compact">
-                        {{ auth('platform')->user()->initials() }}
-                    </span>
+                    <button
+                        type="button"
+                        class="pc-topbar-admin pc-topbar-admin-trigger"
+                        id="platformAdminDropdownTrigger"
+                        aria-expanded="false"
+                    >
 
-                    <div>
+                        <span class="pc-admin-avatar compact">
+                            {{ auth('platform')->user()->initials() }}
+                        </span>
 
-                        <strong>
-                            {{ auth('platform')->user()->first_name }}
-                        </strong>
+                        <div class="pc-topbar-admin-copy">
 
-                        <small>
-                            {{ ucfirst(auth('platform')->user()->access_level) }}
-                        </small>
+                            <strong>
+                                {{ auth('platform')->user()->first_name }}
+                            </strong>
+
+                            <small>
+                                {{ ucfirst(auth('platform')->user()->access_level) }}
+                            </small>
+
+                        </div>
+
+                        <i class="bi bi-chevron-down pc-admin-chevron"></i>
+
+                    </button>
+
+
+                    <div
+                        class="pc-admin-dropdown-menu"
+                        id="platformAdminDropdownMenu"
+                        hidden
+                    >
+
+                        <div class="pc-admin-dropdown-header">
+
+                            <span class="pc-admin-avatar">
+                                {{ auth('platform')->user()->initials() }}
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    {{ auth('platform')->user()->fullName() }}
+                                </strong>
+
+                                <span>
+                                    {{ auth('platform')->user()->email }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="pc-admin-dropdown-meta">
+
+                            <span>
+                                Access level
+                            </span>
+
+                            <strong>
+                                {{ ucfirst(auth('platform')->user()->access_level) }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="pc-admin-dropdown-divider"></div>
+
+
+                        <button
+                            type="button"
+                            class="pc-admin-dropdown-item"
+                        >
+                            <i class="bi bi-person"></i>
+                            Profile
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="pc-admin-dropdown-item"
+                        >
+                            <i class="bi bi-shield-lock"></i>
+                            Security
+                        </button>
+
+
+                        <div class="pc-admin-dropdown-divider"></div>
+
+
+                        <form
+                            method="POST"
+                            action="{{ route('platform.logout') }}"
+                        >
+                            @csrf
+
+                            <button
+                                type="submit"
+                                class="pc-admin-dropdown-item danger"
+                            >
+                                <i class="bi bi-box-arrow-right"></i>
+                                Sign out
+                            </button>
+
+                        </form>
 
                     </div>
 
                 </div>
-
             </div>
 
         </header>

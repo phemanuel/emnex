@@ -80,6 +80,21 @@ window.PlatformAdmin = {
                     'archiveConfirmMessage'
                 ),
 
+            adminDropdown:
+                document.getElementById(
+                    'platformAdminDropdown'
+                ),
+
+            adminDropdownTrigger:
+                document.getElementById(
+                    'platformAdminDropdownTrigger'
+                ),
+
+            adminDropdownMenu:
+                document.getElementById(
+                    'platformAdminDropdownMenu'
+                ),
+
         };
 
     },
@@ -213,6 +228,38 @@ window.PlatformAdmin = {
 
                     }
                 );
+
+            this.elements.adminDropdownTrigger
+                ?.addEventListener(
+                    'click',
+                    event => {
+
+                        event.stopPropagation();
+
+                        this.toggleAdminDropdown();
+
+                    }
+                );
+
+
+            document.addEventListener(
+                'click',
+                event => {
+
+                    if (
+                        this.elements.adminDropdown
+                        &&
+                        !this.elements.adminDropdown.contains(
+                            event.target
+                        )
+                    ) {
+
+                        this.closeAdminDropdown();
+
+                    }
+
+                }
+            );
 
     },
 
@@ -657,6 +704,77 @@ window.PlatformAdmin = {
         }
 
     },
+
+    toggleAdminDropdown() {
+
+    const dropdown =
+        this.elements.adminDropdown;
+
+    const menu =
+        this.elements.adminDropdownMenu;
+
+    const trigger =
+        this.elements.adminDropdownTrigger;
+
+
+    if (!dropdown || !menu || !trigger) {
+        return;
+    }
+
+
+    const isOpen =
+        dropdown.classList.contains(
+            'open'
+        );
+
+
+    if (isOpen) {
+
+        this.closeAdminDropdown();
+
+    } else {
+
+        dropdown.classList.add(
+            'open'
+        );
+
+        menu.removeAttribute(
+            'hidden'
+        );
+
+        trigger.setAttribute(
+            'aria-expanded',
+            'true'
+        );
+
+    }
+
+},
+
+
+closeAdminDropdown() {
+
+    this.elements.adminDropdown
+        ?.classList
+        .remove(
+            'open'
+        );
+
+
+    this.elements.adminDropdownMenu
+        ?.setAttribute(
+            'hidden',
+            ''
+        );
+
+
+    this.elements.adminDropdownTrigger
+        ?.setAttribute(
+            'aria-expanded',
+            'false'
+        );
+
+},
 
 };
 
