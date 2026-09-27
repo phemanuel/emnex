@@ -1583,6 +1583,34 @@ class StorefrontCheckoutService
                 |
                 */
 
+                $gatewayChannel =
+                    strtolower(
+                        (string) (
+                            $gatewayData['channel']
+                            ?? ''
+                        )
+                    );
+
+
+                $paymentMethodValue =
+                    match ($gatewayChannel) {
+
+                        'card' =>
+                            'Card',
+
+                        'bank',
+                        'bank_transfer',
+                        'transfer' =>
+                            'Transfer',
+
+                        'ussd' =>
+                            'Transfer',
+
+                        default =>
+                            'Transfer',
+
+                    };
+
                 Payment::create([
 
                     'company_id' =>
@@ -1610,7 +1638,7 @@ class StorefrontCheckoutService
                         $paymentMethod->id,
 
                     'payment_method' =>
-                        'Transfer',
+                        $paymentMethodValue,
 
                     'amount' =>
                         (float)

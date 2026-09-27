@@ -54,6 +54,85 @@ use App\Http\Controllers\Admin\StorefrontController;
 use App\Http\Controllers\Api\SyncController;
 use App\Http\Controllers\Storefront\PublicStorefrontController;
 use App\Http\Controllers\Storefront\StorefrontCheckoutController;
+//-----------------Platform----------------------------------
+use App\Http\Controllers\Platform\Auth\PlatformLoginController;
+use App\Http\Controllers\Platform\CompanyController as PlatformCompanyController;
+use App\Http\Controllers\Platform\DashboardController as PlatformDashboardController;
+use App\Http\Controllers\Platform\OnboardingController as PlatformOnboardingController;
+use App\Http\Controllers\Platform\OrderController as PlatformOrderController;
+use App\Http\Controllers\Platform\PaymentController as PlatformPaymentController;
+use App\Http\Controllers\Platform\StorefrontController as PlatformStorefrontController;
+use App\Http\Controllers\Platform\UserController as PlatformUserController;
+use App\Http\Controllers\Platform\ActivityController as PlatformActivityController;
+use App\Http\Controllers\Platform\DataLifecycleController as PlatformDataLifecycleController;
+use App\Http\Controllers\Platform\SystemHealthController as PlatformSystemHealthController;
+
+Route::prefix('platform')
+    ->name('platform.')
+    ->group(function () {
+
+        Route::middleware(
+            'guest:platform'
+        )
+        ->group(function () {
+
+            Route::get('/login',[PlatformLoginController::class,'show'])->name('login');
+
+            Route::post('/login',[PlatformLoginController::class,'login'])->name('login.store');
+
+        });
+
+        Route::middleware('auth:platform')->group(function () {
+
+            Route::get('/',[PlatformDashboardController::class,'index'])->name('dashboard');
+
+            Route::get('/companies',[PlatformCompanyController::class, 'index'])->name('companies.index');
+
+            Route::get('/companies/{company}',[PlatformCompanyController::class,'show'])
+            ->name('companies.show');
+
+            Route::get('/onboarding', [PlatformOnboardingController::class, 'index'])
+            ->name('onboarding.index');
+
+            Route::get('/storefronts',[PlatformStorefrontController::class, 'index'])
+            ->name('storefronts.index');
+
+            Route::get('/users',[PlatformUserController::class,'index'])
+            ->name('users.index');
+
+            Route::get('/orders',[PlatformOrderController::class, 'index'])
+            ->name('orders.index');
+
+            Route::get('/payments',[PlatformPaymentController::class, 'index'])
+            ->name('payments.index');
+
+            Route::post('/logout',[PlatformLoginController::class,'logout'])
+            ->name('logout');
+
+            Route::get('/activity',[PlatformActivityController::class, 'index'])
+            ->name('activity.index');
+
+            Route::get('/system-health',[PlatformSystemHealthController::class, 'index'])
+            ->name('system-health.index');
+
+            Route::get('/data-lifecycle', [PlatformDataLifecycleController::class,'index'])
+            ->name('data-lifecycle.index');
+
+            Route::post('/data-lifecycle/scan', [PlatformDataLifecycleController::class,'scan'])
+            ->name('data-lifecycle.scan');
+
+            Route::put('/data-lifecycle/settings',[PlatformDataLifecycleController::class,'updateSettings'
+                ])->name('data-lifecycle.settings.update');
+
+            Route::post('/data-lifecycle/companies/{company}/archive',[PlatformDataLifecycleController::class,
+                    'scheduleArchive'])->name('data-lifecycle.archive');
+
+            Route::get('/data-lifecycle/archives/{archive}/download',[PlatformDataLifecycleController::class,
+                    'downloadArchive'])->name('data-lifecycle.archives.download');
+
+        });
+
+    });
 
 /*
 |--------------------------------------------------------------------------

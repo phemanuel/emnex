@@ -37,6 +37,12 @@ class Company extends Model
         'subscription_end',
         'subscription_status',
         'status',
+        'last_activity_at',
+        'lifecycle_status',
+        'archive_eligible_at',
+        'archive_scheduled_at',
+        'archived_at',
+        'lifecycle_locked',
     ];
 
     /**
@@ -46,6 +52,20 @@ class Company extends Model
         'subscription_start' => 'date',
         'subscription_end'   => 'date',
         'status'             => 'boolean',
+         'last_activity_at' =>
+            'datetime',
+
+        'archive_eligible_at' =>
+            'datetime',
+
+        'archive_scheduled_at' =>
+            'datetime',
+
+        'archived_at' =>
+            'datetime',
+
+        'lifecycle_locked' =>
+            'boolean',
     ];
 
     /*

@@ -1,0 +1,57 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('platform_admins', function (Blueprint $table) {
+
+            $table->id();
+
+            $table->string('first_name', 100);
+
+            $table->string('last_name', 100)
+                ->nullable();
+
+            $table->string('email')
+                ->unique();
+
+            $table->string('password');
+
+            $table->enum(
+                'access_level',
+                [
+                    'owner',
+                    'admin',
+                    'support',
+                ]
+            )->default('support');
+
+            $table->boolean('status')
+                ->default(true);
+
+            $table->boolean('two_factor_enabled')
+                ->default(false);
+
+            $table->timestamp('last_login_at')
+                ->nullable();
+
+            $table->timestamp('last_activity_at')
+                ->nullable();
+
+            $table->rememberToken();
+
+            $table->timestamps();
+        });
+    }
+
+
+    public function down(): void
+    {
+        Schema::dropIfExists('platform_admins');
+    }
+};
