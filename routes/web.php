@@ -50,10 +50,83 @@ use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ActivityLogController;
 
 use App\Http\Controllers\Admin\CompanyRegistrationController;
-
 use App\Http\Controllers\Admin\StorefrontController;
-
 use App\Http\Controllers\Api\SyncController;
+use App\Http\Controllers\Storefront\PublicStorefrontController;
+use App\Http\Controllers\Storefront\StorefrontCheckoutController;
+
+/*
+|--------------------------------------------------------------------------
+| Public Storefront
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('store/{storefrontSlug}')
+    ->name('storefront.public.')
+    ->group(function () {
+
+        Route::get(
+            '/',
+            [PublicStorefrontController::class, 'home']
+        )->name('home');
+
+
+        Route::get(
+            '/category/{categoryCode}',
+            [PublicStorefrontController::class, 'category']
+        )->name('category');
+
+
+        Route::get(
+            '/product/{productCode}',
+            [PublicStorefrontController::class, 'product']
+        )->name('product');
+
+
+        Route::get(
+            '/search',
+            [PublicStorefrontController::class, 'search']
+        )->name('search');
+
+
+        Route::get(
+            '/cart',
+            [PublicStorefrontController::class, 'cart']
+        )->name('cart');
+
+         /*
+        |--------------------------------------------------------------------------
+        | Checkout
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/checkout',
+            [StorefrontCheckoutController::class, 'checkout']
+        )->name('checkout');
+
+
+        Route::post(
+            '/checkout/quote',
+            [StorefrontCheckoutController::class, 'quote']
+        )->name('checkout.quote');
+
+
+        Route::post(
+            '/checkout/pay',
+            [StorefrontCheckoutController::class, 'initialize']
+        )->name('checkout.initialize');
+
+
+        Route::get(
+            '/checkout/payment/callback',
+            [StorefrontCheckoutController::class, 'callback']
+        )->name('checkout.callback');
+
+    });
+
+
+//------------------------------Admin Routes----------------------------------------------
 
 Route::prefix('onboarding')
     ->name('onboarding.')

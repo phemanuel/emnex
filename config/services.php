@@ -82,6 +82,19 @@ return [
 
     ],
 
+    'paystack' => [
+
+        'secret_key' =>
+            env('PAYSTACK_SECRET_KEY'),
+
+        'currency' =>
+            env('PAYSTACK_CURRENCY', 'NGN'),
+
+        'base_url' =>
+            'https://api.paystack.co',
+
+    ],
+
 
 
 ];
