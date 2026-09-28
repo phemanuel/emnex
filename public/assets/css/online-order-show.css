@@ -1,0 +1,909 @@
+/*
+|--------------------------------------------------------------------------
+| EMNEX POS
+|--------------------------------------------------------------------------
+| Shipping - Online Order Details
+|--------------------------------------------------------------------------
+*/
+
+
+/*
+|--------------------------------------------------------------------------
+| Page
+|--------------------------------------------------------------------------
+*/
+
+.online-order-show-page {
+    padding: 28px;
+}
+
+
+.online-order-show-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+
+.online-order-show-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 14px;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+
+.online-order-show-back:hover {
+    color: #0f172a;
+}
+
+
+.online-order-show-title-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+
+.online-order-show-kicker {
+    display: block;
+    margin-bottom: 5px;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+
+.online-order-show-header h1 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -.03em;
+}
+
+
+.online-order-show-header p {
+    margin: 8px 0 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Alerts
+|--------------------------------------------------------------------------
+*/
+
+.online-order-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 13px 15px;
+    border-radius: 11px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+.online-order-alert.success {
+    border: 1px solid #bbf7d0;
+    background: #f0fdf4;
+    color: #166534;
+}
+
+
+.online-order-alert.error {
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+
+.online-order-alert i {
+    margin-top: 2px;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Status Badges
+|--------------------------------------------------------------------------
+*/
+
+.online-order-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+.online-order-status-badge.pending {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+
+.online-order-status-badge.processing {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+.online-order-status-badge.shipped {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+
+.online-order-status-badge.delivered {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Meta Grid
+|--------------------------------------------------------------------------
+*/
+
+.online-order-meta-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+
+.online-order-meta-card {
+    padding: 17px 18px;
+    border: 1px solid #e7ebf0;
+    border-radius: 13px;
+    background: #ffffff;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, .03);
+}
+
+
+.online-order-meta-card > span {
+    display: block;
+    margin-bottom: 5px;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+
+.online-order-meta-card > strong {
+    display: block;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+
+.online-order-payment-paid {
+    color: #15803d !important;
+}
+
+
+.online-order-payment-paid i {
+    margin-right: 5px;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Cards
+|--------------------------------------------------------------------------
+*/
+
+.online-order-card {
+    border: 1px solid #e7ebf0;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 28px rgba(15, 23, 42, .035);
+    overflow: hidden;
+}
+
+
+.online-order-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 21px 22px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+
+.online-order-card-header.compact {
+    padding-bottom: 18px;
+}
+
+
+.online-order-section-kicker {
+    display: block;
+    margin-bottom: 4px;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+
+.online-order-card-header h2 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.online-order-item-count {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Order Items
+|--------------------------------------------------------------------------
+*/
+
+.online-order-items {
+    padding: 0 22px;
+}
+
+
+.online-order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid #eef2f6;
+}
+
+
+.online-order-item:last-child {
+    border-bottom: 0;
+}
+
+
+.online-order-item-main {
+    min-width: 0;
+}
+
+
+.online-order-item-name {
+    display: block;
+    margin-bottom: 5px;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+.online-order-item-meta {
+    color: #94a3b8;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+.online-order-item-total {
+    flex-shrink: 0;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Totals
+|--------------------------------------------------------------------------
+*/
+
+.online-order-totals {
+    padding: 18px 22px 22px;
+    border-top: 1px solid #eef2f6;
+    background: #fbfcfe;
+}
+
+
+.online-order-total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 5px 0;
+    color: #64748b;
+    font-size: 12px;
+}
+
+
+.online-order-total-row strong {
+    color: #334155;
+}
+
+
+.online-order-total-row .discount {
+    color: #15803d;
+}
+
+
+.online-order-total-row.grand {
+    margin-top: 10px;
+    padding-top: 14px;
+    border-top: 1px solid #e8edf3;
+    color: #0f172a;
+    font-size: 14px;
+}
+
+
+.online-order-total-row.grand strong {
+    color: #0f172a;
+    font-size: 18px;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Detail Lists
+|--------------------------------------------------------------------------
+*/
+
+.online-order-detail-list,
+.online-order-delivery-content {
+    padding: 10px 22px 20px;
+}
+
+
+.online-order-detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 0;
+}
+
+
+.online-order-detail-row + .online-order-detail-row {
+    border-top: 1px solid #f0f3f7;
+}
+
+
+.online-order-detail-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 34px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 14px;
+}
+
+
+.online-order-detail-row > div {
+    min-width: 0;
+}
+
+
+.online-order-detail-row small {
+    display: block;
+    margin-bottom: 3px;
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+
+.online-order-detail-row strong {
+    display: block;
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+
+.online-order-notes {
+    white-space: pre-line;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Timeline
+|--------------------------------------------------------------------------
+*/
+
+.online-order-timeline {
+    position: relative;
+    padding: 22px;
+}
+
+
+.online-order-timeline-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    min-height: 72px;
+}
+
+
+.online-order-timeline-item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    left: 14px;
+    width: 1px;
+    height: calc(100% - 4px);
+    background: #e2e8f0;
+}
+
+
+.online-order-timeline-marker {
+    position: relative;
+    z-index: 2;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 29px;
+    font-size: 11px;
+}
+
+
+.online-order-timeline-item.complete
+.online-order-timeline-marker {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+
+.online-order-timeline-item.pending
+.online-order-timeline-marker {
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #cbd5e1;
+}
+
+
+.online-order-timeline-item > div {
+    padding-top: 2px;
+}
+
+
+.online-order-timeline-item strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.online-order-timeline-item span:not(.online-order-timeline-marker) {
+    display: block;
+    color: #94a3b8;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Fulfilment Panel
+|--------------------------------------------------------------------------
+*/
+
+.online-order-fulfilment-panel {
+    padding: 20px 22px 22px;
+}
+
+
+.online-order-current-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eef2f6;
+}
+
+
+.online-order-current-status > span {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+.online-order-form-field {
+    margin-bottom: 16px;
+}
+
+
+.online-order-form-field label {
+    display: block;
+    margin-bottom: 6px;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+
+.online-order-form-field input,
+.online-order-form-field textarea {
+    width: 100%;
+    border: 1px solid #dbe2ea;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 12px;
+    outline: none;
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.online-order-form-field input {
+    min-height: 42px;
+    padding: 0 12px;
+}
+
+
+.online-order-form-field textarea {
+    min-height: 110px;
+    padding: 11px 12px;
+    resize: vertical;
+}
+
+
+.online-order-form-field input::placeholder,
+.online-order-form-field textarea::placeholder {
+    color: #94a3b8;
+}
+
+
+.online-order-form-field input:focus,
+.online-order-form-field textarea:focus {
+    border-color: #0f172a;
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, .05);
+}
+
+
+.online-order-primary-action {
+    width: 100%;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    border-radius: 10px;
+    background: #111827;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background .18s ease,
+        transform .18s ease;
+}
+
+
+.online-order-primary-action:hover {
+    background: #0f172a;
+    transform: translateY(-1px);
+}
+
+
+.online-order-primary-action:disabled {
+    cursor: not-allowed;
+    opacity: .65;
+    transform: none;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Complete State
+|--------------------------------------------------------------------------
+*/
+
+.online-order-complete-state {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid #bbf7d0;
+    border-radius: 11px;
+    background: #f0fdf4;
+}
+
+
+.online-order-complete-state > span {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 34px;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 16px;
+}
+
+
+.online-order-complete-state strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #166534;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.online-order-complete-state p {
+    margin: 0;
+    color: #4d7c5e;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Confirmation Modal
+|--------------------------------------------------------------------------
+*/
+
+.online-order-status-modal {
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, .16);
+    overflow: hidden;
+}
+
+
+.online-order-status-modal .modal-header {
+    padding: 20px 22px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+
+.online-order-status-modal .modal-body {
+    padding: 24px 22px;
+}
+
+
+.online-order-status-modal .modal-footer {
+    padding: 14px 22px 20px;
+    border-top: 1px solid #edf1f5;
+}
+
+
+.online-order-modal-kicker {
+    display: block;
+    margin-bottom: 4px;
+    color: #94a3b8;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+
+.online-order-status-modal .modal-title {
+    color: #0f172a;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.online-order-modal-icon {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 19px;
+}
+
+
+.online-order-status-modal .modal-body p {
+    margin: 0;
+    color: #475569;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+.online-order-status-modal .modal-body p strong {
+    color: #0f172a;
+}
+
+
+.online-order-modal-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+.online-order-modal-note i {
+    margin-top: 2px;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 1199.98px) {
+
+    .online-order-meta-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .online-order-show-page {
+        padding: 20px 14px 40px;
+    }
+
+
+    .online-order-show-header {
+        margin-bottom: 20px;
+    }
+
+
+    .online-order-show-header h1 {
+        font-size: 24px;
+    }
+
+
+    .online-order-show-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+
+    .online-order-meta-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+
+    .online-order-card-header {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+
+    .online-order-items {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+
+    .online-order-item {
+        align-items: flex-start;
+    }
+
+
+    .online-order-totals,
+    .online-order-detail-list,
+    .online-order-delivery-content,
+    .online-order-timeline,
+    .online-order-fulfilment-panel {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+
+    .online-order-current-status {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+
+    .online-order-status-modal .modal-header,
+    .online-order-status-modal .modal-body,
+    .online-order-status-modal .modal-footer {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+}
+
+.online-order-js-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin-bottom: 14px;
+    padding: 10px 12px;
+    border: 1px solid #fecaca;
+    border-radius: 9px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.online-order-js-error i {
+    margin-top: 1px;
+}

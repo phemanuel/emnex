@@ -810,8 +810,8 @@
                     @if(canAccess('shipping.orders'))
 
                         <a
-                            href="{{ route('shipping.orders') }}"
-                            class="{{ request()->routeIs('shipping.orders*') ? 'active' : '' }}"
+                            href="{{ route('shipping.orders.index') }}"
+                            class="{{ request()->routeIs('shipping.orders.index*') ? 'active' : '' }}"
                         >
 
                             <span class="sub-icon">

@@ -41,7 +41,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/profit-loss.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/storefront.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/storefront-public.css') }}">
-     <link rel="stylesheet" href="{{ asset('assets/css/shipping.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/shipping.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/online-orders.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/online-order-show.css') }}"
+    >
    
 
   

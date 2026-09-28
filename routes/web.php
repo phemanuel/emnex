@@ -56,6 +56,7 @@ use App\Http\Controllers\Storefront\PublicStorefrontController;
 use App\Http\Controllers\Storefront\StorefrontCheckoutController;
 use App\Http\Controllers\Storefront\PublicOrderController;
 use App\Http\Controllers\Admin\ShippingController;
+use App\Http\Controllers\Admin\OnlineOrderController;
 
 //-----------------Platform----------------------------------
 use App\Http\Controllers\Platform\Auth\PlatformLoginController;
@@ -308,8 +309,6 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/setup',[ShippingController::class,'setup',])->name('setup');
 
-        Route::get('/orders',[ShippingController::class,'orders',])->name('orders');
-
         Route::put('/setup',[ShippingController::class,'updateSettings',])->name('settings.update');
 
         Route::post('/locations',[ShippingController::class,'storeLocation',])->name('locations.store');
@@ -323,8 +322,20 @@ Route::middleware('auth')->group(function () {
         Route::delete('/locations/{shippingLocation}',[ShippingController::class,'deleteLocation',])
         ->name('locations.destroy');
 
+         /*
+        |--------------------------------------------------------------------------
+        | Shipping - Online Orders
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/online-orders',[OnlineOrderController::class,'index',])->name('orders.index');
+
+        Route::get('/online-orders/{order}',[OnlineOrderController::class,'show',])->name('orders.show');
+
+        Route::patch('/online-orders/{order}/fulfilment',[OnlineOrderController::class,'updateFulfilment',])
+        ->name('orders.fulfilment');
+
     });
-    
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
