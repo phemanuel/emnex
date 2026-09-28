@@ -199,6 +199,12 @@ return [
             'refund',
         ],
 
+        'shipping' => [
+            'view',
+            'manage',
+            'orders',
+        ],
+
         'payments' => [
             'view',
             'create',

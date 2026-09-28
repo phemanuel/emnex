@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Storefront;
 
 use App\Http\Controllers\Controller;
 use App\Services\StorefrontCheckoutService;
+use App\Models\ShippingLocation;
+use App\Models\ShippingSetting;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -48,27 +50,64 @@ class StorefrontCheckoutController extends Controller
         }
 
 
+        $shippingSettings =
+            ShippingSetting::query()
+                ->where(
+                    'company_id',
+                    $storefront->company_id
+                )
+                ->first();
+
+
+        $shippingLocations =
+            collect();
+
+
+        if (
+            $shippingSettings?->enabled &&
+            $shippingSettings->shipping_mode === 'location'
+        ) {
+
+            $shippingLocations =
+                ShippingLocation::query()
+                    ->where(
+                        'company_id',
+                        $storefront->company_id
+                    )
+                    ->where(
+                        'status',
+                        true
+                    )
+                    ->orderBy('sort_order')
+                    ->orderBy('name')
+                    ->get();
+
+        }
+
+
         return view(
             'storefront.public.checkout',
             [
-
                 'storefront' =>
                     $storefront,
 
                 'company' =>
                     $storefront->company,
 
+                'shippingSettings' =>
+                    $shippingSettings,
+
+                'shippingLocations' =>
+                    $shippingLocations,
+
                 'currencySymbol' =>
                     $storefront
                         ->company
                         ->currency_symbol
                     ?: '₦',
-
             ]
         );
-
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +115,7 @@ class StorefrontCheckoutController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function quote(
+   public function quote(
         Request $request,
         string $storefrontSlug
     ): JsonResponse {
@@ -84,26 +123,29 @@ class StorefrontCheckoutController extends Controller
         $validated =
             $request->validate([
 
-                'items' =>
-                    [
-                        'required',
-                        'array',
-                        'min:1',
-                    ],
+                'items' => [
+                    'required',
+                    'array',
+                    'min:1',
+                ],
 
-                'items.*.id' =>
-                    [
-                        'required',
-                        'integer',
-                        'min:1',
-                    ],
+                'items.*.id' => [
+                    'required',
+                    'integer',
+                    'min:1',
+                ],
 
-                'items.*.quantity' =>
-                    [
-                        'required',
-                        'integer',
-                        'min:1',
-                    ],
+                'items.*.quantity' => [
+                    'required',
+                    'integer',
+                    'min:1',
+                ],
+
+                'shipping_location_id' => [
+                    'nullable',
+                    'integer',
+                    'min:1',
+                ],
 
             ]);
 
@@ -119,49 +161,63 @@ class StorefrontCheckoutController extends Controller
             $this->checkoutService
                 ->quote(
                     $storefront,
-                    $validated['items']
+                    $validated['items'],
+                    $validated['shipping_location_id']
+                        ?? null
                 );
 
 
         return response()->json([
 
-            'success' =>
-                true,
+            'success' => true,
 
-            'data' =>
-                [
+            'data' => [
 
-                    'items' =>
-                        $quote['items'],
+                'items' =>
+                    $quote['items'],
 
-                    'subtotal' =>
-                        $quote['subtotal'],
+                'subtotal' =>
+                    $quote['subtotal'],
 
-                    'discount' =>
-                        $quote['discount'],
+                'discount' =>
+                    $quote['discount'],
 
-                    'tax' =>
-                        $quote['tax'],
+                'tax' =>
+                    $quote['tax'],
 
-                    'grand_total' =>
-                        $quote['grand_total'],
+                'shipping_enabled' =>
+                    $quote['shipping_enabled'],
 
-                    'total_quantity' =>
-                        $quote['total_quantity'],
+                'shipping_mode' =>
+                    $quote['shipping_mode'],
 
-                    'total_items' =>
-                        $quote['total_items'],
+                'shipping_fee' =>
+                    $quote['shipping_fee'],
 
-                    'currency_symbol' =>
-                        $storefront
-                            ->company
-                            ->currency_symbol
-                        ?: '₦',
+                'shipping_resolved' =>
+                    $quote['shipping_resolved'],
 
-                ],
+                'shipping_location' =>
+                    $quote['shipping_location'],
+
+                'grand_total' =>
+                    $quote['grand_total'],
+
+                'total_quantity' =>
+                    $quote['total_quantity'],
+
+                'total_items' =>
+                    $quote['total_items'],
+
+                'currency_symbol' =>
+                    $storefront
+                        ->company
+                        ->currency_symbol
+                    ?: '₦',
+
+            ],
 
         ]);
-
     }
 
 
@@ -176,81 +232,109 @@ class StorefrontCheckoutController extends Controller
         string $storefrontSlug
     ): JsonResponse {
 
-        $validated =
-            $request->validate([
+    $storefront =
+        $this->checkoutService
+            ->requireActiveStorefront(
+                $storefrontSlug
+            );
 
-                'first_name' =>
-                    [
-                        'required',
-                        'string',
-                        'max:100',
-                    ],
 
-                'last_name' =>
-                    [
-                        'nullable',
-                        'string',
-                        'max:100',
-                    ],
+    $shippingSettings =
+        ShippingSetting::query()
+            ->where(
+                'company_id',
+                $storefront->company_id
+            )
+            ->first();
 
-                'email' =>
-                    [
-                        'required',
-                        'email',
-                        'max:190',
-                    ],
 
-                'phone' =>
-                    [
-                        'required',
-                        'string',
-                        'max:30',
-                    ],
+    $requiresAddress =
+        !$shippingSettings?->enabled ||
+        $shippingSettings->shipping_mode === 'manual';
 
-                'address' =>
-                    [
-                        'required',
-                        'string',
-                        'max:500',
-                    ],
 
-                'city' =>
-                    [
-                        'required',
-                        'string',
-                        'max:100',
-                    ],
+    $requiresLocation =
+        $shippingSettings?->enabled &&
+        $shippingSettings->shipping_mode === 'location';
 
-                'state' =>
-                    [
-                        'required',
-                        'string',
-                        'max:100',
-                    ],
+       $validated =
+        $request->validate([
 
-                'items' =>
-                    [
-                        'required',
-                        'array',
-                        'min:1',
-                    ],
+            'first_name' => [
+                'required',
+                'string',
+                'max:100',
+            ],
 
-                'items.*.id' =>
-                    [
-                        'required',
-                        'integer',
-                        'min:1',
-                    ],
+            'last_name' => [
+                'nullable',
+                'string',
+                'max:100',
+            ],
 
-                'items.*.quantity' =>
-                    [
-                        'required',
-                        'integer',
-                        'min:1',
-                    ],
+            'email' => [
+                'required',
+                'email',
+                'max:190',
+            ],
 
-            ]);
+            'phone' => [
+                'required',
+                'string',
+                'max:30',
+            ],
 
+            'address' => [
+                $requiresAddress
+                    ? 'required'
+                    : 'nullable',
+                'string',
+                'max:500',
+            ],
+
+            'city' => [
+                $requiresAddress
+                    ? 'required'
+                    : 'nullable',
+                'string',
+                'max:100',
+            ],
+
+            'state' => [
+                $requiresAddress
+                    ? 'required'
+                    : 'nullable',
+                'string',
+                'max:100',
+            ],
+
+            'shipping_location_id' => [
+                $requiresLocation
+                    ? 'required'
+                    : 'nullable',
+                'integer',
+                'min:1',
+            ],
+
+            'items' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+
+            'items.*.id' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+
+            'items.*.quantity' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+
+        ]);
 
         $storefront =
             $this->checkoutService

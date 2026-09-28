@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use App\Services\ProductImportService;
+use App\Models\Storefront;
 
 
 class ProductController extends BaseController
@@ -188,6 +189,17 @@ class ProductController extends BaseController
 
         ];
 
+        $storefront = Storefront::query()
+        ->where(
+            'company_id',
+            $this->companyId
+        )
+        ->where(
+            'status',
+            'Active'
+        )
+        ->first();
+
 
         /*
         |--------------------------------------------------------------------------
@@ -204,6 +216,8 @@ class ProductController extends BaseController
 
                 'stats' =>
                     $stats,
+
+                'storefront' => $storefront,
 
                 'categories' =>
 
@@ -432,6 +446,17 @@ class ProductController extends BaseController
             }
         );
 
+        $storefront = Storefront::query()
+        ->where(
+            'company_id',
+            $this->companyId
+        )
+        ->where(
+            'status',
+            'Active'
+        )
+        ->first();
+
 
         /*
         |--------------------------------------------------------------------------
@@ -457,7 +482,10 @@ class ProductController extends BaseController
 
         return view(
             'products.partials.table',
-            compact('products')
+            compact(
+                'products',
+                'storefront'
+            )
         );
 
     }

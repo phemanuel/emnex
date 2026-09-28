@@ -186,7 +186,7 @@
                         <div>
 
                             <h2>
-                                Delivery address
+                                Delivery
                             </h2>
 
                             <p>
@@ -198,59 +198,147 @@
                     </div>
 
 
-                    <div class="shop-checkout-fields">
+                    @if(
+                        $shippingSettings?->enabled &&
+                        $shippingSettings->shipping_mode === 'location'
+                    )
 
-                        <div class="shop-field shop-field-wide">
+                        {{-- ======================================================
+                            PREDEFINED SHIPPING LOCATION
+                        ======================================================= --}}
 
-                            <label for="address">
-                                Street address
-                            </label>
+                        <div class="shop-checkout-fields">
 
-                            <textarea
-                                id="address"
-                                name="address"
-                                rows="3"
-                                autocomplete="street-address"
-                                required
-                            ></textarea>
+                            <div class="shop-field shop-field-wide shop-shipping-field">
+
+                                <label for="shipping_location_id">
+                                    Shipping location
+                                </label>
+
+                                <div class="shop-shipping-select-wrap">
+
+                                    <i class="bi bi-geo-alt shop-shipping-select-icon"></i>
+
+                                    <select
+                                        id="shipping_location_id"
+                                        name="shipping_location_id"
+                                        class="shop-shipping-select"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select your delivery location
+                                        </option>
+
+                                        @foreach($shippingLocations as $location)
+
+                                            <option value="{{ $location->id }}">
+
+                                                {{ $location->name }}
+                                                —
+                                                {{ $currencySymbol }}{{ number_format(
+                                                    (float) $location->shipping_fee,
+                                                    2
+                                                ) }}
+
+                                            </option>
+
+                                        @endforeach
+
+                                    </select>
+
+                                    <i class="bi bi-chevron-down shop-shipping-chevron"></i>
+
+                                </div>
+
+
+                                @if($shippingLocations->isEmpty())
+
+                                    <small class="shop-shipping-help text-danger">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        There are currently no shipping locations available.
+
+                                    </small>
+
+                                @else
+
+                                    <small class="shop-shipping-help">
+
+                                        <i class="bi bi-info-circle"></i>
+
+                                        Select the area where your order should be delivered.
+
+                                    </small>
+
+                                @endif
+
+                            </div>
 
                         </div>
 
+                    @else
 
-                        <div class="shop-field">
+                        {{-- ======================================================
+                            MANUAL ADDRESS / SHIPPING DISABLED
+                        ======================================================= --}}
 
-                            <label for="city">
-                                City
-                            </label>
+                        <div class="shop-checkout-fields">
 
-                            <input
-                                type="text"
-                                id="city"
-                                name="city"
-                                autocomplete="address-level2"
-                                required
-                            >
+                            <div class="shop-field shop-field-wide">
+
+                                <label for="address">
+                                    Street address
+                                </label>
+
+                                <textarea
+                                    id="address"
+                                    name="address"
+                                    rows="3"
+                                    autocomplete="street-address"
+                                    required
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="shop-field">
+
+                                <label for="city">
+                                    City
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="city"
+                                    name="city"
+                                    autocomplete="address-level2"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="shop-field">
+
+                                <label for="state">
+                                    State
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="state"
+                                    name="state"
+                                    autocomplete="address-level1"
+                                    required
+                                >
+
+                            </div>
 
                         </div>
 
-
-                        <div class="shop-field">
-
-                            <label for="state">
-                                State
-                            </label>
-
-                            <input
-                                type="text"
-                                id="state"
-                                name="state"
-                                autocomplete="address-level1"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
+                    @endif
 
 
                     <div class="shop-checkout-security">
@@ -442,6 +530,19 @@
                                 {{ $currencySymbol }}0.00
                             </strong>
 
+                        </div>
+
+                        <div
+                            id="checkoutShippingRow"
+                            hidden
+                        >
+                            <span>
+                                Shipping
+                            </span>
+
+                            <strong id="checkoutShipping">
+                                {{ $currencySymbol }}0.00
+                            </strong>
                         </div>
 
 

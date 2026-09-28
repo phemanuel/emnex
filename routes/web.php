@@ -54,6 +54,9 @@ use App\Http\Controllers\Admin\StorefrontController;
 use App\Http\Controllers\Api\SyncController;
 use App\Http\Controllers\Storefront\PublicStorefrontController;
 use App\Http\Controllers\Storefront\StorefrontCheckoutController;
+use App\Http\Controllers\Storefront\PublicOrderController;
+use App\Http\Controllers\Admin\ShippingController;
+
 //-----------------Platform----------------------------------
 use App\Http\Controllers\Platform\Auth\PlatformLoginController;
 use App\Http\Controllers\Platform\CompanyController as PlatformCompanyController;
@@ -202,6 +205,8 @@ Route::prefix('store/{storefrontSlug}')
             [StorefrontCheckoutController::class, 'callback']
         )->name('checkout.callback');
 
+        Route::get('/order/{token}',[PublicOrderController::class, 'show'])->name('order.show');
+
     });
 
 
@@ -295,6 +300,29 @@ Route::middleware('auth')->group(function () {
                 '/disable',
                 [StorefrontController::class, 'disable']
             )->name('disable');
+    });
+
+    Route::prefix('shipping')
+    ->name('shipping.')
+    ->group(function () {
+
+        Route::get('/setup',[ShippingController::class,'setup',])->name('setup');
+
+        Route::get('/orders',[ShippingController::class,'orders',])->name('orders');
+
+        Route::put('/setup',[ShippingController::class,'updateSettings',])->name('settings.update');
+
+        Route::post('/locations',[ShippingController::class,'storeLocation',])->name('locations.store');
+
+        Route::put('/locations/{shippingLocation}',[ShippingController::class,'updateLocation',])
+        ->name('locations.update');
+
+        Route::patch('/locations/{shippingLocation}/toggle',[ShippingController::class,'toggleLocation',])
+        ->name('locations.toggle');
+
+        Route::delete('/locations/{shippingLocation}',[ShippingController::class,'deleteLocation',])
+        ->name('locations.destroy');
+
     });
     
 

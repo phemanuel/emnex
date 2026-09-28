@@ -121,6 +121,11 @@
                 'returns.*'
             );
 
+        $shippingOpen =
+            request()->routeIs(
+                'shipping.*'
+            );
+
 
         $customerOpen =
             request()->routeIs(
@@ -211,6 +216,11 @@
         $canViewSales =
             canAccess('orders.view') ||
             canAccess('payments.view');
+
+        $canViewShipping =
+            canAccess('shipping.view') ||
+            canAccess('shipping.manage') ||
+            canAccess('shipping.orders');
 
 
         /*
@@ -319,6 +329,7 @@
             $canViewCatalog ||
             $canViewInventory ||
             $canViewSales ||
+            $canViewShipping ||
             $canViewCustomers ||
             $canViewPurchases
         )
@@ -737,6 +748,83 @@
 
                     @endif
 
+
+                </div>
+
+            </div>
+
+        @endif
+
+       {{-- ==========================================
+            SHIPPING
+        =========================================== --}}
+
+        @if($canViewShipping)
+
+            <div class="nav-group {{ $shippingOpen ? 'open' : '' }}">
+
+                <button class="nav-parent">
+
+                    <div class="nav-left">
+
+                        <span class="nav-icon">
+                            <i class="bi bi-truck"></i>
+                        </span>
+
+                        <span class="nav-title">
+                            Shipping
+                        </span>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right nav-chevron"></i>
+
+                </button>
+
+
+                <div class="nav-children">
+
+                    @if(
+						canAccess('shipping.view') ||
+						canAccess('shipping.manage')
+					)
+
+                        <a
+                            href="{{ route('shipping.setup') }}"
+                            class="{{ request()->routeIs('shipping.setup') ? 'active' : '' }}"
+                        >
+
+                            <span class="sub-icon">
+                                <i class="bi bi-geo-alt"></i>
+                            </span>
+
+                            <span>
+                                Shipping Setup
+                            </span>
+
+                        </a>
+
+                    @endif
+
+
+                    @if(canAccess('shipping.orders'))
+
+                        <a
+                            href="{{ route('shipping.orders') }}"
+                            class="{{ request()->routeIs('shipping.orders*') ? 'active' : '' }}"
+                        >
+
+                            <span class="sub-icon">
+                                <i class="bi bi-box-seam"></i>
+                            </span>
+
+                            <span>
+                                Online Orders
+                            </span>
+
+                        </a>
+
+                    @endif
 
                 </div>
 

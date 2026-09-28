@@ -121,6 +121,21 @@ window.StorefrontCheckout = {
                     'checkoutPayLoader'
                 ),
 
+            shippingLocation:
+                document.getElementById(
+                    'shipping_location_id'
+                ),
+
+            shippingRow:
+                document.getElementById(
+                    'checkoutShippingRow'
+                ),
+
+            shipping:
+                document.getElementById(
+                    'checkoutShipping'
+                ),
+
         };
 
     },
@@ -139,6 +154,66 @@ window.StorefrontCheckout = {
 
                 }
             );
+
+            this.elements.shippingLocation
+            ?.addEventListener(
+                'change',
+                () => {
+
+                    this.loadQuote();
+
+                }
+            );
+
+        document
+        .querySelectorAll('.shop-shipping-option')
+        .forEach(option => {
+
+            option.addEventListener(
+                'click',
+                () => {
+
+                    const select =
+                        document.getElementById(
+                            'shipping_location_id'
+                        );
+
+                    const buttonText =
+                        document.getElementById(
+                            'shippingLocationButtonText'
+                        );
+
+
+                    if (!select || !buttonText) {
+                        return;
+                    }
+
+
+                    select.value =
+                        option.dataset.locationId;
+
+
+                    buttonText.textContent =
+                        `${option.dataset.locationName} — ${
+                            this.state.quote?.currency_symbol || '₦'
+                        }${this.money(
+                            option.dataset.locationFee
+                        )}`;
+
+
+                    select.dispatchEvent(
+                        new Event(
+                            'change',
+                            {
+                                bubbles: true
+                            }
+                        )
+                    );
+
+                }
+            );
+
+        });
 
     },
 
@@ -235,6 +310,8 @@ window.StorefrontCheckout = {
                 'hidden'
             );
 
+            this.elements.payButton.disabled =  true;
+
 
         try {
 
@@ -262,12 +339,21 @@ window.StorefrontCheckout = {
                         },
 
                         body:
-                            JSON.stringify({
+                        JSON.stringify({
 
-                                items:
-                                    this.state.items,
+                            items:
+                                this.state.items,
 
-                            }),
+                            shipping_location_id:
+                                this.elements.shippingLocation
+                                    ? Number(
+                                        this.elements
+                                            .shippingLocation
+                                            .value
+                                    ) || null
+                                    : null,
+
+                        }),
 
                     }
                 );
@@ -471,6 +557,33 @@ window.StorefrontCheckout = {
 
         }
 
+        if (quote.shipping_enabled) {
+
+            this.elements.shippingRow
+                ?.removeAttribute(
+                    'hidden'
+                );
+
+
+            if (this.elements.shipping) {
+
+                this.elements.shipping.textContent =
+                    `${currency}${this.money(
+                        quote.shipping_fee
+                    )}`;
+
+            }
+
+        } else {
+
+            this.elements.shippingRow
+                ?.setAttribute(
+                    'hidden',
+                    'hidden'
+                );
+
+        }
+
 
         this.elements.grandTotal.textContent =
             `${currency}${this.money(
@@ -479,7 +592,7 @@ window.StorefrontCheckout = {
 
 
         this.elements.payButton.disabled =
-            false;
+         quote.shipping_resolved === false;
 
     },
 
@@ -609,11 +722,21 @@ window.StorefrontCheckout = {
                     'state'
                 ),
 
+            shipping_location_id:
+                formData.get(
+                    'shipping_location_id'
+                )
+                    ? Number(
+                        formData.get(
+                            'shipping_location_id'
+                        )
+                    )
+                    : null,
+
             items:
                 this.state.items,
 
         };
-
 
         try {
 
@@ -968,6 +1091,55 @@ clearCart() {
     },
 
 };
+
+window.addEventListener(
+    'pageshow',
+    event => {
+
+        const checkout =
+            window.StorefrontCheckout;
+
+
+        if (
+            !checkout ||
+            !checkout.elements?.root
+        ) {
+            return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Payment Button
+        |--------------------------------------------------------------------------
+        |
+        | When the customer returns from Paystack, the browser may restore the
+        | checkout page from its back-forward cache with the payment button
+        | still showing "Preparing payment...".
+        |
+        */
+
+        checkout.setLoading(false);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Revalidate Quote After Returning
+        |--------------------------------------------------------------------------
+        |
+        | If this page was restored from browser history, re-check the cart,
+        | stock and shipping fee before allowing another payment attempt.
+        |
+        */
+
+        if (event.persisted) {
+
+            checkout.loadQuote();
+
+        }
+
+    }
+);
 
 
 document.addEventListener(

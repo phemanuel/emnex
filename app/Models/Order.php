@@ -77,6 +77,24 @@ class Order extends Model
 
         'updated_by',
 
+        'public_token',
+
+        'confirmation_email_sent_at',
+
+        'shipping_method',
+        'shipping_location_id',
+        'shipping_location_name',
+        'shipping_address',
+        'shipping_city',
+        'shipping_state',
+        'shipping_fee',
+
+        'fulfilment_status',
+        'tracking_reference',
+        'shipping_notes',
+        'shipped_at',
+        'delivered_at',
+
     ];
 
 
@@ -152,6 +170,21 @@ class Order extends Model
 
             'updated_by' =>
                 'integer',
+
+            'confirmation_email_sent_at' =>
+                 'datetime',
+
+            'shipping_location_id' =>
+                'integer',
+
+            'shipping_fee' =>
+                'decimal:2',
+
+            'shipped_at' =>
+                'datetime',
+
+            'delivered_at' =>
+                'datetime',
 
         ];
     }

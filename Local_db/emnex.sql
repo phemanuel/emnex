@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2026 at 12:01 AM
+-- Generation Time: Sep 28, 2026 at 02:18 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -429,7 +429,18 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (363, 4, 11, 20, 'Products', 'Updated', 'Updated product: Three Crown', 'Product', 20, '{\"id\":20,\"company_id\":4,\"product_category_id\":15,\"product_code\":\"PRD-000001\",\"barcode\":\"12345\",\"sku\":\"SKU-0001\",\"qr_code\":\"QR-0001\",\"name\":\"Three Crown\",\"description\":\"Three Crown\",\"image\":null,\"cost_price\":\"5000.00\",\"selling_price\":\"7500.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Three Crown\",\"manufacturer\":\"Three Crown Ltd\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T12:55:14.000000Z\",\"updated_at\":\"2026-09-21T12:55:14.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":20,\"company_id\":4,\"product_category_id\":15,\"product_code\":\"PRD-000001\",\"barcode\":\"12345\",\"sku\":\"SKU-0001\",\"qr_code\":\"QR-0001\",\"name\":\"Three Crown\",\"description\":\"Three Crown\",\"image\":\"1789995718_6ab12ac629c4e.png\",\"cost_price\":\"5000.00\",\"selling_price\":\"7500.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Three Crown\",\"manufacturer\":\"Three Crown Ltd\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T12:55:14.000000Z\",\"updated_at\":\"2026-09-21T13:01:58.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/20', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 12:01:58', '2026-09-21 12:01:58'),
 (364, 4, 11, 20, 'Product Categories', 'Created', 'Created product category: Groceries', 'ProductCategory', 16, NULL, '{\"id\":16,\"company_id\":4,\"category_code\":\"CAT000002\",\"name\":\"Groceries\",\"description\":\"Groceries\",\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":20,\"updated_by\":20,\"created_at\":\"2026-09-21T13:09:24.000000Z\",\"updated_at\":\"2026-09-21T13:09:24.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 12:09:24', '2026-09-21 12:09:24'),
 (365, 4, 11, 20, 'Products', 'Imported', '1 product(s) imported successfully.', NULL, NULL, NULL, '{\"company_id\":4,\"count\":1,\"products\":[{\"id\":21,\"product_code\":\"PRD-000002\",\"name\":\"Dangote Sugar 1kg\",\"sku\":\"SKU-0002\"}]}', 'products/import', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 12:09:46', '2026-09-21 12:09:46'),
-(366, 4, 11, 20, 'Products', 'Updated', 'Updated product: Dangote Sugar 1kg', 'Product', 21, '{\"id\":21,\"company_id\":4,\"product_category_id\":16,\"product_code\":\"PRD-000002\",\"barcode\":\"452345\",\"sku\":\"SKU-0002\",\"qr_code\":\"QR-0002\",\"name\":\"Dangote Sugar 1kg\",\"description\":\"Dangote Sugar 1kg\",\"image\":null,\"cost_price\":\"180.00\",\"selling_price\":\"250.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T13:09:46.000000Z\",\"updated_at\":\"2026-09-21T13:09:46.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":21,\"company_id\":4,\"product_category_id\":16,\"product_code\":\"PRD-000002\",\"barcode\":\"452345\",\"sku\":\"SKU-0002\",\"qr_code\":\"QR-0002\",\"name\":\"Dangote Sugar 1kg\",\"description\":\"Dangote Sugar 1kg\",\"image\":\"1789996254_6ab12cde96345.jpeg\",\"cost_price\":\"180.00\",\"selling_price\":\"250.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T13:09:46.000000Z\",\"updated_at\":\"2026-09-21T13:10:54.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/21', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 12:10:54', '2026-09-21 12:10:54');
+(366, 4, 11, 20, 'Products', 'Updated', 'Updated product: Dangote Sugar 1kg', 'Product', 21, '{\"id\":21,\"company_id\":4,\"product_category_id\":16,\"product_code\":\"PRD-000002\",\"barcode\":\"452345\",\"sku\":\"SKU-0002\",\"qr_code\":\"QR-0002\",\"name\":\"Dangote Sugar 1kg\",\"description\":\"Dangote Sugar 1kg\",\"image\":null,\"cost_price\":\"180.00\",\"selling_price\":\"250.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T13:09:46.000000Z\",\"updated_at\":\"2026-09-21T13:09:46.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":21,\"company_id\":4,\"product_category_id\":16,\"product_code\":\"PRD-000002\",\"barcode\":\"452345\",\"sku\":\"SKU-0002\",\"qr_code\":\"QR-0002\",\"name\":\"Dangote Sugar 1kg\",\"description\":\"Dangote Sugar 1kg\",\"image\":\"1789996254_6ab12cde96345.jpeg\",\"cost_price\":\"180.00\",\"selling_price\":\"250.00\",\"discount_id\":6,\"unit_id\":15,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":\"2027-12-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"100.00\",\"weight\":\"0.50\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-21T13:09:46.000000Z\",\"updated_at\":\"2026-09-21T13:10:54.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/21', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-21 12:10:54', '2026-09-21 12:10:54'),
+(367, 1, 1, 1, 'Products', 'Updated', 'Updated product: Coca-Cola 50cl', 'Product', 1, '{\"id\":1,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000001\",\"barcode\":\"100000000001\",\"sku\":\"COKE50CL\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"expiry_date\":\"2026-09-23T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"2000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T09:53:46.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":1,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000001\",\"barcode\":\"100000000001\",\"sku\":\"COKE50CL\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"image\":\"1790543689_6ab98749371c7.jpg\",\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"expiry_date\":\"2026-09-23T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"2000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:14:49.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/1', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:14:49', '2026-09-27 20:14:49'),
+(368, 1, 1, 1, 'Products', 'Updated', 'Updated product: Fanta 50cl', 'Product', 2, '{\"id\":2,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000002\",\"barcode\":\"100000000002\",\"sku\":\"FANTA50CL\",\"qr_code\":null,\"name\":\"Fanta 50cl\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Fanta\",\"manufacturer\":\"NBC\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"2100.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:55:45.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":2,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000002\",\"barcode\":\"100000000002\",\"sku\":\"FANTA50CL\",\"qr_code\":null,\"name\":\"Fanta 50cl\",\"description\":null,\"image\":\"1790543985_6ab9887108da1.jpeg\",\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Fanta\",\"manufacturer\":\"NBC\",\"expiry_date\":\"2026-09-27T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"2100.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:19:45.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/2', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:19:45', '2026-09-27 20:19:45'),
+(369, 1, 1, 1, 'Products', 'Updated', 'Updated product: Sprite 50cl', 'Product', 3, '{\"id\":3,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000003\",\"barcode\":\"100000000003\",\"sku\":\"SPRITE50CL\",\"qr_code\":null,\"name\":\"Sprite 50cl\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Sprite\",\"manufacturer\":\"NBC\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":3,\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD000003\",\"barcode\":\"100000000003\",\"sku\":\"SPRITE50CL\",\"qr_code\":null,\"name\":\"Sprite 50cl\",\"description\":null,\"image\":\"1790544002_6ab9888210fe1.jpeg\",\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Sprite\",\"manufacturer\":\"NBC\",\"expiry_date\":\"2026-09-27T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:20:02.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/3', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:20:02', '2026-09-27 20:20:02'),
+(370, 1, 1, 1, 'Products', 'Updated', 'Updated product: Peak Milk 500g', 'Product', 4, '{\"id\":4,\"company_id\":1,\"product_category_id\":5,\"product_code\":\"PRD000004\",\"barcode\":\"100000000004\",\"sku\":\"PEAK500\",\"qr_code\":null,\"name\":\"Peak Milk 500g\",\"description\":\"Peak Milk 500g\",\"image\":null,\"cost_price\":\"4200.00\",\"selling_price\":\"4800.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Peak\",\"manufacturer\":\"FrieslandCampina\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-09T17:32:26.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":4,\"company_id\":1,\"product_category_id\":5,\"product_code\":\"PRD000004\",\"barcode\":\"100000000004\",\"sku\":\"PEAK500\",\"qr_code\":null,\"name\":\"Peak Milk 500g\",\"description\":\"Peak Milk 500g\",\"image\":\"1790544024_6ab988982f02b.jpeg\",\"cost_price\":\"4200.00\",\"selling_price\":\"4800.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Peak\",\"manufacturer\":\"FrieslandCampina\",\"expiry_date\":\"2030-10-27T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:20:24.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/4', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:20:24', '2026-09-27 20:20:24'),
+(371, 1, 1, 1, 'Products', 'Updated', 'Updated product: Indomie Chicken Noodles', 'Product', 5, '{\"id\":5,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000005\",\"barcode\":\"100000000005\",\"sku\":\"INDM70\",\"qr_code\":null,\"name\":\"Indomie Chicken Noodles\",\"description\":null,\"image\":null,\"cost_price\":\"180.00\",\"selling_price\":\"250.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Indomie\",\"manufacturer\":\"Dufil\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":5,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000005\",\"barcode\":\"100000000005\",\"sku\":\"INDM70\",\"qr_code\":null,\"name\":\"Indomie Chicken Noodles\",\"description\":null,\"image\":\"1790544043_6ab988ab3d54f.jpeg\",\"cost_price\":\"180.00\",\"selling_price\":\"250.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Indomie\",\"manufacturer\":\"Dufil\",\"expiry_date\":\"2029-10-25T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:20:43.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/5', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:20:43', '2026-09-27 20:20:43');
+INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module`, `action`, `description`, `record_type`, `record_id`, `old_values`, `new_values`, `url`, `method`, `user_agent`, `terminal_id`, `ip_address`, `browser`, `platform`, `device`, `created_at`, `updated_at`) VALUES
+(372, 1, 1, 1, 'Products', 'Updated', 'Updated product: Dangote Sugar 1kg', 'Product', 6, '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":null,\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1595.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T13:50:47.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":6,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000006\",\"barcode\":\"100000000006\",\"sku\":\"SUG1KG\",\"qr_code\":null,\"name\":\"Dangote Sugar 1kg\",\"description\":null,\"image\":\"1790544062_6ab988bedab7b.jpeg\",\"cost_price\":\"1450.00\",\"selling_price\":\"1650.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Dangote\",\"manufacturer\":\"Dangote\",\"expiry_date\":\"2030-09-26T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1595.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:21:02.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/6', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:21:02', '2026-09-27 20:21:02'),
+(373, 1, 1, 1, 'Products', 'Updated', 'Updated product: Family Bread', 'Product', 7, '{\"id\":7,\"company_id\":1,\"product_category_id\":3,\"product_code\":\"PRD000007\",\"barcode\":\"100000000007\",\"sku\":\"BREAD001\",\"qr_code\":null,\"name\":\"Family Bread\",\"description\":null,\"image\":null,\"cost_price\":\"900.00\",\"selling_price\":\"1200.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Local\",\"manufacturer\":\"Bakery\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":7,\"company_id\":1,\"product_category_id\":3,\"product_code\":\"PRD000007\",\"barcode\":\"100000000007\",\"sku\":\"BREAD001\",\"qr_code\":null,\"name\":\"Family Bread\",\"description\":null,\"image\":\"1790544083_6ab988d35c62a.jpeg\",\"cost_price\":\"900.00\",\"selling_price\":\"1200.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Local\",\"manufacturer\":\"Bakery\",\"expiry_date\":\"2026-10-18T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:21:23.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/7', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:21:23', '2026-09-27 20:21:23'),
+(374, 1, 1, 1, 'Products', 'Updated', 'Updated product: Mama Gold Rice 50kg', 'Product', 8, '{\"id\":8,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000008\",\"barcode\":\"100000000008\",\"sku\":\"RICE50KG\",\"qr_code\":null,\"name\":\"Mama Gold Rice 50kg\",\"description\":null,\"image\":null,\"cost_price\":\"82000.00\",\"selling_price\":\"90000.00\",\"discount_id\":1,\"unit_id\":11,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Mama Gold\",\"manufacturer\":\"Mama Gold\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":8,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000008\",\"barcode\":\"100000000008\",\"sku\":\"RICE50KG\",\"qr_code\":null,\"name\":\"Mama Gold Rice 50kg\",\"description\":null,\"image\":\"1790544101_6ab988e5e3018.jpeg\",\"cost_price\":\"82000.00\",\"selling_price\":\"90000.00\",\"discount_id\":1,\"unit_id\":11,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Mama Gold\",\"manufacturer\":\"Mama Gold\",\"expiry_date\":\"2032-10-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:21:41.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/8', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:21:41', '2026-09-27 20:21:41'),
+(375, 1, 1, 1, 'Products', 'Updated', 'Updated product: Premier Soap', 'Product', 9, '{\"id\":9,\"company_id\":1,\"product_category_id\":7,\"product_code\":\"PRD000009\",\"barcode\":\"100000000009\",\"sku\":\"SOAP001\",\"qr_code\":null,\"name\":\"Premier Soap\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Premier\",\"manufacturer\":\"PZ\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":9,\"company_id\":1,\"product_category_id\":7,\"product_code\":\"PRD000009\",\"barcode\":\"100000000009\",\"sku\":\"SOAP001\",\"qr_code\":null,\"name\":\"Premier Soap\",\"description\":null,\"image\":\"1790544120_6ab988f8b0af7.jpg\",\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Premier\",\"manufacturer\":\"PZ\",\"expiry_date\":\"2028-11-30T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:22:00.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/9', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:22:00', '2026-09-27 20:22:00'),
+(376, 1, 1, 1, 'Products', 'Updated', 'Updated product: Pampers Size 3', 'Product', 10, '{\"id\":10,\"company_id\":1,\"product_category_id\":9,\"product_code\":\"PRD000010\",\"barcode\":\"100000000010\",\"sku\":\"PAMP001\",\"qr_code\":null,\"name\":\"Pampers Size 3\",\"description\":null,\"image\":null,\"cost_price\":\"7800.00\",\"selling_price\":\"8600.00\",\"discount_id\":1,\"unit_id\":2,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Pampers\",\"manufacturer\":\"P&G\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1085.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T14:16:04.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":10,\"company_id\":1,\"product_category_id\":9,\"product_code\":\"PRD000010\",\"barcode\":\"100000000010\",\"sku\":\"PAMP001\",\"qr_code\":null,\"name\":\"Pampers Size 3\",\"description\":null,\"image\":\"1790544154_6ab9891a6b244.jpeg\",\"cost_price\":\"7800.00\",\"selling_price\":\"8600.00\",\"discount_id\":1,\"unit_id\":2,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Pampers\",\"manufacturer\":\"P&G\",\"expiry_date\":\"2028-10-11T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1085.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:22:34.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/10', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:22:34', '2026-09-27 20:22:34');
 
 -- --------------------------------------------------------
 
@@ -610,6 +621,12 @@ CREATE TABLE `companies` (
   `registration_no` varchar(255) DEFAULT NULL,
   `tin` varchar(255) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
+  `last_activity_at` timestamp NULL DEFAULT NULL,
+  `lifecycle_status` varchar(40) NOT NULL DEFAULT 'Active',
+  `archive_eligible_at` timestamp NULL DEFAULT NULL,
+  `archive_scheduled_at` timestamp NULL DEFAULT NULL,
+  `archived_at` timestamp NULL DEFAULT NULL,
+  `lifecycle_locked` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -619,10 +636,60 @@ CREATE TABLE `companies` (
 -- Dumping data for table `companies`
 --
 
-INSERT INTO `companies` (`id`, `company_code`, `name`, `slug`, `email`, `phone`, `address`, `logo`, `currency`, `currency_symbol`, `timezone`, `subscription_start`, `subscription_end`, `subscription_status`, `business_type`, `registration_no`, `tin`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'COMP-0001', 'Emmanex Supermarket', 'emmanex-supermarket', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', '1788343028_emmanex-logo.png', 'NGN', '₦', 'Africa/Lagos', '2026-07-29', '2027-07-29', 'Active', 'Retail Supermarket', 'RC123456', 'TIN123456789', 1, '2026-07-29 10:37:09', '2026-09-02 08:57:08', NULL),
-(4, 'COMP-243658', 'JustRite Mart', 'justrite-mart', 'justritemart@gmail.com', '08012345678', '12, Alakia, Off New Ife Road.', NULL, 'NGN', '₦', 'Africa/Lagos', '2026-09-17', '2026-10-17', 'Trial', 'Mini Mart', NULL, NULL, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(5, 'COMP-313117', 'Gadget Padi', 'gadget-padi', 'gadgetpadi@gmail.com', '08104196102', 'Ibadan', NULL, 'NGN', '₦', 'Africa/Lagos', '2026-09-26', '2026-10-26', 'Trial', 'Mobile & Digital Accessories', NULL, NULL, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL);
+INSERT INTO `companies` (`id`, `company_code`, `name`, `slug`, `email`, `phone`, `address`, `logo`, `currency`, `currency_symbol`, `timezone`, `subscription_start`, `subscription_end`, `subscription_status`, `business_type`, `registration_no`, `tin`, `status`, `last_activity_at`, `lifecycle_status`, `archive_eligible_at`, `archive_scheduled_at`, `archived_at`, `lifecycle_locked`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'COMP-0001', 'Emmanex Supermarket', 'emmanex-supermarket', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', '1788343028_emmanex-logo.png', 'NGN', '₦', 'Africa/Lagos', '2026-07-29', '2027-07-29', 'Active', 'Retail Supermarket', 'RC123456', 'TIN123456789', 1, '2026-09-26 23:06:08', 'Active', '2026-10-26 23:06:08', NULL, NULL, 0, '2026-07-29 10:37:09', '2026-09-27 00:55:55', NULL),
+(4, 'COMP-243658', 'JustRite Mart', 'justrite-mart', 'justritemart@gmail.com', '08012345678', '12, Alakia, Off New Ife Road.', NULL, 'NGN', '₦', 'Africa/Lagos', '2026-09-17', '2026-10-17', 'Trial', 'Mini Mart', NULL, NULL, 1, '2026-09-17 12:10:34', 'Active', '2026-10-17 12:10:34', NULL, NULL, 0, '2026-09-17 12:10:34', '2026-09-27 00:55:55', NULL),
+(5, 'COMP-313117', 'Gadget Padi', 'gadget-padi', 'gadgetpadi@gmail.com', '08104196102', 'Ibadan', NULL, 'NGN', '₦', 'Africa/Lagos', '2026-09-26', '2026-10-26', 'Trial', 'Mobile & Digital Accessories', NULL, NULL, 1, '2026-09-26 20:02:55', 'Active', '2026-10-26 20:02:55', NULL, NULL, 0, '2026-09-26 20:02:55', '2026-09-27 00:55:55', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_archives`
+--
+
+CREATE TABLE `company_archives` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `original_company_id` bigint(20) UNSIGNED NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `company_code` varchar(255) DEFAULT NULL,
+  `status` varchar(40) NOT NULL DEFAULT 'Pending',
+  `archive_format` varchar(20) NOT NULL DEFAULT 'zip-json',
+  `storage_disk` varchar(255) NOT NULL,
+  `storage_path` text DEFAULT NULL,
+  `archive_size` bigint(20) UNSIGNED DEFAULT NULL,
+  `checksum` varchar(128) DEFAULT NULL,
+  `manifest` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`manifest`)),
+  `verification` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`verification`)),
+  `error_message` text DEFAULT NULL,
+  `requested_at` timestamp NULL DEFAULT NULL,
+  `started_at` timestamp NULL DEFAULT NULL,
+  `completed_at` timestamp NULL DEFAULT NULL,
+  `verified_at` timestamp NULL DEFAULT NULL,
+  `purged_at` timestamp NULL DEFAULT NULL,
+  `requested_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_lifecycle_events`
+--
+
+CREATE TABLE `company_lifecycle_events` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `archive_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `event` varchar(80) NOT NULL,
+  `from_status` varchar(40) DEFAULT NULL,
+  `to_status` varchar(40) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `metadata` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`metadata`)),
+  `platform_admin_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -675,9 +742,10 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `company_id`, `customer_group_id`, `branch_id`, `customer_code`, `first_name`, `last_name`, `email`, `phone`, `address`, `credit_limit`, `current_balance`, `customer_type`, `loyalty_points`, `last_purchase_date`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '07032689329', 'Ibadan', 50000.00, 0.00, 'Walk-in', 0, NULL, 1, 1, 1, '2026-08-16 02:50:25', '2026-08-16 10:34:35', NULL),
+(6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '08104786432', 'Alaro, Ibadan, Oyo', 50000.00, 0.00, 'Online', 0, '2026-09-28', 1, 1, NULL, '2026-08-16 02:50:25', '2026-09-27 23:17:12', NULL),
 (9, 1, 7, NULL, 'CUS-00007', 'Clement', 'Elugbaju', 'clement@gmail.com', '07038899203', 'Ibadan', 5000000.00, 0.00, 'Business', 0, NULL, 1, 1, NULL, '2026-08-16 10:35:39', '2026-08-16 10:35:39', NULL),
-(10, 1, 6, NULL, 'CUS-00010', 'Miracle', 'Peter', 'miracle.kingsbranding@gmail.com', '08104786432', 'Ibadan', 2000000.00, 0.00, 'Corporate', 0, NULL, 1, 1, NULL, '2026-08-27 13:04:26', '2026-08-27 13:04:26', NULL);
+(10, 1, 6, NULL, 'CUS-00010', 'Miracle', 'Peter', 'miracle.kingsbranding@gmail.com', '08104786432', 'Ibadan', 2000000.00, 0.00, 'Corporate', 0, NULL, 1, 1, NULL, '2026-08-27 13:04:26', '2026-08-27 13:04:26', NULL),
+(11, 1, NULL, NULL, 'CUS-000001', 'Paul', 'Awolola', 'paulawolola@gmail.com', '07032109983', 'Alaro Street, Ibadan, Oyo', 0.00, 0.00, 'Online', 0, '2026-09-26', 1, NULL, NULL, '2026-09-26 22:47:27', '2026-09-26 22:47:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -713,6 +781,35 @@ INSERT INTO `customer_groups` (`id`, `company_id`, `name`, `code`, `description`
 (6, 1, 'Corporate Customers', 'CORPORATE', 'Companies and organizations', 5.00, 2000000.00, 1, 1, 1, '2026-08-16 02:14:42', '2026-08-16 04:12:23'),
 (7, 1, 'Distributors', 'DISTRIBUTOR', 'Large-volume distribution customers', 10.00, 5000000.00, 1, 1, NULL, '2026-08-16 02:15:27', '2026-08-16 02:15:27'),
 (13, 1, 'Staff', 'STAFF', 'Employee', 5.00, 20000.00, 1, 1, 1, '2026-08-16 02:40:32', '2026-08-16 04:45:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_lifecycle_settings`
+--
+
+CREATE TABLE `data_lifecycle_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `inactivity_days` int(10) UNSIGNED NOT NULL DEFAULT 540,
+  `grace_period_days` int(10) UNSIGNED NOT NULL DEFAULT 30,
+  `warning_days` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`warning_days`)),
+  `automatic_scheduling` tinyint(1) NOT NULL DEFAULT 0,
+  `automatic_purge` tinyint(1) NOT NULL DEFAULT 0,
+  `archive_disk` varchar(255) NOT NULL DEFAULT 'local',
+  `archive_directory` varchar(255) NOT NULL DEFAULT 'company-archives',
+  `archive_retention_days` int(10) UNSIGNED DEFAULT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `data_lifecycle_settings`
+--
+
+INSERT INTO `data_lifecycle_settings` (`id`, `enabled`, `inactivity_days`, `grace_period_days`, `warning_days`, `automatic_scheduling`, `automatic_purge`, `archive_disk`, `archive_directory`, `archive_retention_days`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 30, 0, '[90,30,7]', 0, 0, 'local', 'company-archives', NULL, 1, '2026-09-27 00:46:41', '2026-09-27 00:53:53');
 
 -- --------------------------------------------------------
 
@@ -777,10 +874,10 @@ CREATE TABLE `document_sequences` (
 INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`, `suffix`, `separator`, `current_number`, `number_length`, `reset_frequency`, `last_reset_at`, `status`, `created_at`, `updated_at`, `use_date_in_sequence`) VALUES
 (1, 1, 'category', 'CAT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (2, 1, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(3, 1, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
+(3, 1, 'customer', 'CUS', NULL, '-', 2, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-26 22:47:27', 0),
 (4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(5, 1, 'order', 'ORD', NULL, '-', 44, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-16 12:02:21', 0),
-(6, 1, 'payment', 'PAY', NULL, '-', 33, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-16 12:02:34', 0),
+(5, 1, 'order', 'ORD', NULL, '-', 59, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-27 23:17:01', 0),
+(6, 1, 'payment', 'PAY', NULL, '-', 44, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-27 23:17:12', 0),
 (7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (8, 1, 'purchase_return', 'PRN', NULL, '-', 5, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-27 09:44:50', 0),
 (9, 1, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
@@ -790,7 +887,7 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (13, 1, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (14, 1, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (15, 1, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(16, 1, 'Invoice', 'INV', NULL, '-', 31, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-16 12:02:21', 0),
+(16, 1, 'Invoice', 'INV', NULL, '-', 46, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-27 23:17:01', 0),
 (17, 1, 'Receipt', 'REC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (18, 1, 'Sales Order', 'SO', NULL, '-', 31, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-04 08:03:52', 0),
 (19, 1, 'Purchase Order', 'PO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
@@ -988,7 +1085,22 @@ INSERT INTO `invoices` (`id`, `company_id`, `branch_id`, `terminal_id`, `order_i
 (33, 1, 2, 14, 79, NULL, 'INV-000027', '2026-09-14', 1200.00, 0.00, 90.00, 1200.00, 1290.00, 0.00, 1.00, 1, 1290.00, 'Paid', 'Active', '1290', 15, 15, '2026-09-14 13:30:52', '2026-09-14 13:30:52', NULL),
 (34, 1, 4, 12, 80, 9, 'INV-000028', '2026-09-14', 1200.00, 0.00, 0.00, 1200.00, 0.00, 0.00, 1.00, 1, 1200.00, 'Refunded', 'Refunded', NULL, 1, 1, '2026-09-14 13:32:47', '2026-09-16 10:21:18', NULL),
 (35, 1, 1, 1, 81, 6, 'INV-000029', '2026-09-16', 3350.00, 0.00, 0.00, 3350.00, 3350.00, 0.00, 4.00, 3, 3350.00, 'Paid', 'Active', NULL, 1, 1, '2026-09-16 10:39:51', '2026-09-16 10:40:05', NULL),
-(36, 1, 1, 2, 82, NULL, 'INV-000030', '2026-09-16', 10500.00, 0.00, 0.00, 10500.00, 0.00, 0.00, 10.00, 4, 10500.00, 'Refunded', 'Refunded', NULL, 1, 1, '2026-09-16 12:02:21', '2026-09-16 12:03:19', NULL);
+(36, 1, 1, 2, 82, NULL, 'INV-000030', '2026-09-16', 10500.00, 0.00, 0.00, 10500.00, 0.00, 0.00, 10.00, 4, 10500.00, 'Refunded', 'Refunded', NULL, 1, 1, '2026-09-16 12:02:21', '2026-09-16 12:03:19', NULL),
+(37, 1, 1, NULL, 83, 11, 'INV-000031', '2026-09-26', 102000.00, 0.00, 0.00, 102000.00, 102000.00, 0.00, 5.00, 3, 102000.00, 'Paid', 'Active', 'Online Storefront order ORD-000044', NULL, NULL, '2026-09-26 22:47:27', '2026-09-26 22:47:47', NULL),
+(38, 1, 1, NULL, 84, 6, 'INV-000032', '2026-09-26', 2400.00, 0.00, 0.00, 2400.00, 2400.00, 0.00, 2.00, 1, 2400.00, 'Paid', 'Active', 'Online Storefront order ORD-000045', NULL, NULL, '2026-09-26 22:58:30', '2026-09-26 22:58:41', NULL),
+(39, 1, 1, NULL, 85, 6, 'INV-000033', '2026-09-27', 90000.00, 0.00, 0.00, 90000.00, 90000.00, 0.00, 1.00, 1, 90000.00, 'Paid', 'Active', 'Online Storefront order ORD-000046', NULL, NULL, '2026-09-26 23:05:55', '2026-09-26 23:06:08', NULL),
+(40, 1, 1, NULL, 86, 6, 'INV-000034', '2026-09-27', 8600.00, 0.00, 0.00, 8600.00, 8600.00, 0.00, 1.00, 1, 8600.00, 'Paid', 'Active', 'Online Storefront order ORD-000047', NULL, NULL, '2026-09-27 12:41:11', '2026-09-27 12:41:34', NULL),
+(41, 1, 1, NULL, 87, 6, 'INV-000035', '2026-09-27', 1200.00, 0.00, 0.00, 1200.00, 1200.00, 0.00, 1.00, 1, 1200.00, 'Paid', 'Active', 'Online Storefront order ORD-000048', NULL, NULL, '2026-09-27 20:45:10', '2026-09-27 20:45:24', NULL),
+(42, 1, 1, NULL, 88, 6, 'INV-000036', '2026-09-27', 1400.00, 0.00, 0.00, 1400.00, 1400.00, 0.00, 2.00, 1, 1400.00, 'Paid', 'Active', 'Online Storefront order ORD-000049', NULL, NULL, '2026-09-27 20:57:42', '2026-09-27 20:57:54', NULL),
+(43, 1, 1, NULL, 89, 6, 'INV-000037', '2026-09-27', 8600.00, 0.00, 0.00, 13600.00, 0.00, 13600.00, 1.00, 1, 13600.00, 'Pending', 'Active', 'Online Storefront order ORD-000050', NULL, NULL, '2026-09-27 22:43:35', '2026-09-27 22:43:35', NULL),
+(44, 1, 1, NULL, 90, 6, 'INV-000038', '2026-09-27', 8600.00, 0.00, 0.00, 13600.00, 0.00, 13600.00, 1.00, 1, 13600.00, 'Pending', 'Active', 'Online Storefront order ORD-000051', NULL, NULL, '2026-09-27 22:44:26', '2026-09-27 22:44:26', NULL),
+(45, 1, 1, NULL, 91, 6, 'INV-000039', '2026-09-27', 8600.00, 0.00, 0.00, 13600.00, 0.00, 13600.00, 1.00, 1, 13600.00, 'Pending', 'Active', 'Online Storefront order ORD-000052', NULL, NULL, '2026-09-27 22:45:38', '2026-09-27 22:45:38', NULL),
+(46, 1, 1, NULL, 92, 6, 'INV-000040', '2026-09-27', 8600.00, 0.00, 0.00, 14100.00, 0.00, 14100.00, 1.00, 1, 14100.00, 'Pending', 'Active', 'Online Storefront order ORD-000053', NULL, NULL, '2026-09-27 22:47:00', '2026-09-27 22:47:00', NULL),
+(47, 1, 1, NULL, 93, 6, 'INV-000041', '2026-09-27', 8600.00, 0.00, 0.00, 13600.00, 13600.00, 0.00, 1.00, 1, 13600.00, 'Paid', 'Active', 'Online Storefront order ORD-000054', NULL, NULL, '2026-09-27 22:51:17', '2026-09-27 22:51:27', NULL),
+(48, 1, 1, NULL, 94, 6, 'INV-000042', '2026-09-27', 700.00, 0.00, 0.00, 6200.00, 6200.00, 0.00, 1.00, 1, 6200.00, 'Paid', 'Active', 'Online Storefront order ORD-000055', NULL, NULL, '2026-09-27 22:59:50', '2026-09-27 23:00:03', NULL),
+(49, 1, 1, NULL, 95, 6, 'INV-000043', '2026-09-28', 1200.00, 0.00, 0.00, 6200.00, 6200.00, 0.00, 1.00, 1, 6200.00, 'Paid', 'Active', 'Online Storefront order ORD-000056', NULL, NULL, '2026-09-27 23:07:21', '2026-09-27 23:07:29', NULL),
+(50, 1, 1, NULL, 96, 6, 'INV-000044', '2026-09-28', 8600.00, 0.00, 0.00, 13600.00, 13600.00, 0.00, 1.00, 1, 13600.00, 'Paid', 'Active', 'Online Storefront order ORD-000057', NULL, NULL, '2026-09-27 23:11:18', '2026-09-27 23:11:25', NULL),
+(51, 1, 1, NULL, 97, 6, 'INV-000045', '2026-09-28', 1000.00, 0.00, 0.00, 2000.00, 2000.00, 0.00, 4.00, 1, 2000.00, 'Paid', 'Active', 'Online Storefront order ORD-000058', NULL, NULL, '2026-09-27 23:17:01', '2026-09-27 23:17:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -1062,7 +1174,24 @@ INSERT INTO `invoice_items` (`id`, `company_id`, `invoice_id`, `product_id`, `pr
 (63, 1, 36, 7, 'Family Bread', '100000000007', 2.00, 1200.00, 0.00, 0.00, 2400.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
 (64, 1, 36, 6, 'Dangote Sugar 1kg', '100000000006', 3.00, 1650.00, 0.00, 0.00, 4950.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
 (65, 1, 36, 19, 'Three Crown Evaporated Milk', 'TH123456', 2.00, 1200.00, 0.00, 0.00, 2400.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
-(66, 1, 36, 5, 'Indomie Chicken Noodles', '100000000005', 3.00, 250.00, 0.00, 0.00, 750.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21');
+(66, 1, 36, 5, 'Indomie Chicken Noodles', '100000000005', 3.00, 250.00, 0.00, 0.00, 750.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(67, 1, 37, 19, 'Three Crown Evaporated Milk', 'TH123456', 2.00, 1200.00, 0.00, 0.00, 2400.00, '2026-09-26 22:47:27', '2026-09-26 22:47:27'),
+(68, 1, 37, 4, 'Peak Milk 500g', '100000000004', 2.00, 4800.00, 0.00, 0.00, 9600.00, '2026-09-26 22:47:27', '2026-09-26 22:47:27'),
+(69, 1, 37, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 0.00, 0.00, 90000.00, '2026-09-26 22:47:27', '2026-09-26 22:47:27'),
+(70, 1, 38, 19, 'Three Crown Evaporated Milk', 'TH123456', 2.00, 1200.00, 0.00, 0.00, 2400.00, '2026-09-26 22:58:30', '2026-09-26 22:58:30'),
+(71, 1, 39, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 0.00, 0.00, 90000.00, '2026-09-26 23:05:55', '2026-09-26 23:05:55'),
+(72, 1, 40, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-27 12:41:11', '2026-09-27 12:41:11'),
+(73, 1, 41, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-09-27 20:45:10', '2026-09-27 20:45:10'),
+(74, 1, 42, 1, 'Coca-Cola 50cl', '100000000001', 2.00, 700.00, 0.00, 0.00, 1400.00, '2026-09-27 20:57:42', '2026-09-27 20:57:42'),
+(75, 1, 43, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-27 22:43:35', '2026-09-27 22:43:35'),
+(76, 1, 44, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-27 22:44:26', '2026-09-27 22:44:26'),
+(77, 1, 45, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-27 22:45:38', '2026-09-27 22:45:38'),
+(78, 1, 46, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-27 22:47:00', '2026-09-27 22:47:00'),
+(79, 1, 47, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-27 22:51:17', '2026-09-27 22:51:17'),
+(80, 1, 48, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-09-27 22:59:50', '2026-09-27 22:59:50'),
+(81, 1, 49, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-09-27 23:07:21', '2026-09-27 23:07:21'),
+(82, 1, 50, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-27 23:11:18', '2026-09-27 23:11:18'),
+(83, 1, 51, 5, 'Indomie Chicken Noodles', '100000000005', 4.00, 250.00, 0.00, 0.00, 1000.00, '2026-09-27 23:17:01', '2026-09-27 23:17:01');
 
 -- --------------------------------------------------------
 
@@ -1183,7 +1312,19 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (69, '2026_09_21_132116_create_sync_queue_table', 24),
 (70, '2026_09_21_132304_create_sync_logs_table', 24),
 (71, '2026_09_21_141419_create_sync_mutations_table', 25),
-(72, '2026_09_26_203336_create_store_fronts_table', 26);
+(72, '2026_09_26_203336_create_store_fronts_table', 26),
+(73, '2026_09_26_232040_make_cashier_id_nullable_on_orders_table', 27),
+(74, '2026_09_26_232431_make_online_sales_user_fields_nullable', 28),
+(75, '2026_09_26_232746_make_online_sales_user_fields_nullable', 29),
+(76, '2026_09_27_001854_create_platform_admins_table', 30),
+(77, '2026_09_27_012938_add_data_lifecycle_fields_to_companies_table', 31),
+(78, '2026_09_27_013237_create_data_lifecycle_settings_table', 31),
+(79, '2026_09_27_013305_create_company_archives_table', 31),
+(80, '2026_09_27_013330_create_company_lifecycle_events_table', 31),
+(81, '2026_09_27_213040_add_storefront_public_fields_to_orders_table', 32),
+(82, '2026_09_27_220804_create_shipping_settings_table', 33),
+(83, '2026_09_27_220814_create_shipping_locations_table', 33),
+(84, '2026_09_27_220831_add_shipping_fields_to_orders_table', 33);
 
 -- --------------------------------------------------------
 
@@ -1196,8 +1337,9 @@ CREATE TABLE `orders` (
   `company_id` bigint(20) UNSIGNED NOT NULL,
   `branch_id` bigint(20) UNSIGNED NOT NULL,
   `order_no` varchar(255) NOT NULL,
+  `public_token` varchar(64) DEFAULT NULL,
   `customer_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `cashier_id` bigint(20) UNSIGNED NOT NULL,
+  `cashier_id` bigint(20) UNSIGNED DEFAULT NULL,
   `subtotal` decimal(15,2) NOT NULL DEFAULT 0.00,
   `discount` decimal(15,2) NOT NULL DEFAULT 0.00,
   `discount_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1211,6 +1353,7 @@ CREATE TABLE `orders` (
   `change_given` decimal(15,2) NOT NULL DEFAULT 0.00,
   `grand_total` decimal(15,2) NOT NULL DEFAULT 0.00,
   `completed_at` timestamp NULL DEFAULT NULL,
+  `confirmation_email_sent_at` timestamp NULL DEFAULT NULL,
   `payment_status` enum('Pending','Partial','Paid','Refunded') NOT NULL DEFAULT 'Pending',
   `order_status` enum('Draft','Held','Completed','Cancelled','Refunded') NOT NULL DEFAULT 'Draft',
   `sales_channel` enum('POS','Online','Phone') NOT NULL DEFAULT 'POS',
@@ -1221,45 +1364,72 @@ CREATE TABLE `orders` (
   `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `shipping_method` varchar(30) DEFAULT NULL,
+  `shipping_location_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `shipping_location_name` varchar(255) DEFAULT NULL,
+  `shipping_address` text DEFAULT NULL,
+  `shipping_city` varchar(100) DEFAULT NULL,
+  `shipping_state` varchar(100) DEFAULT NULL,
+  `shipping_fee` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `fulfilment_status` varchar(30) DEFAULT NULL,
+  `tracking_reference` varchar(255) DEFAULT NULL,
+  `shipping_notes` text DEFAULT NULL,
+  `shipped_at` timestamp NULL DEFAULT NULL,
+  `delivered_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `company_id`, `branch_id`, `order_no`, `customer_id`, `cashier_id`, `subtotal`, `discount`, `discount_id`, `tax_rate_id`, `tax`, `total`, `amount_paid`, `balance`, `total_items`, `total_quantity`, `change_given`, `grand_total`, `completed_at`, `payment_status`, `order_status`, `sales_channel`, `terminal_id`, `receipt_printed`, `remarks`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(17, 1, 4, 'ORD-000014', NULL, 1, 91650.00, 0.00, NULL, NULL, 0.00, 91650.00, 92000.00, 0.00, 2, 2.00, 350.00, 91650.00, '2026-08-28 09:20:27', 'Paid', 'Completed', 'POS', 12, 0, NULL, 1, 1, '2026-08-28 07:37:23', '2026-08-28 09:20:27', NULL),
-(18, 1, 1, 'ORD-000015', 6, 1, 983500.00, 0.00, NULL, NULL, 0.00, 983500.00, 983500.00, 0.00, 4, 45.00, 0.00, 983500.00, '2026-08-28 10:11:22', 'Paid', 'Completed', 'POS', 1, 0, 'Items totalled to 983,500, with no discount or tax', 1, 1, '2026-08-28 09:23:30', '2026-08-28 10:11:22', NULL),
-(19, 1, 4, 'ORD-000016', 10, 1, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 0.00, 1200.00, 1, 1.00, 0.00, 1200.00, NULL, 'Pending', 'Draft', 'POS', 12, 0, NULL, 1, NULL, '2026-08-28 10:08:09', '2026-08-28 10:08:09', NULL),
-(20, 1, 1, 'ORD-000017', 9, 1, 522000.00, 2.00, NULL, NULL, 0.00, 521998.00, 150000.00, 371998.00, 3, 65.00, 0.00, 521998.00, NULL, 'Partial', 'Held', 'POS', 2, 0, NULL, 1, 1, '2026-08-29 12:02:14', '2026-08-29 12:02:39', NULL),
-(21, 1, 2, 'ORD-000018', NULL, 17, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 0.00, 700.00, 1, 1.00, 0.00, 700.00, NULL, 'Pending', 'Draft', 'POS', 14, 0, NULL, 17, NULL, '2026-08-31 10:09:28', '2026-08-31 10:09:28', NULL),
-(22, 1, 2, 'ORD-000019', NULL, 17, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 700.00, 0.00, 1, 1.00, 0.00, 700.00, '2026-08-31 10:15:05', 'Paid', 'Completed', 'POS', 14, 0, NULL, 17, 17, '2026-08-31 10:10:48', '2026-08-31 10:15:05', NULL),
-(28, 1, 2, 'ORD-000020', NULL, 15, 4250.00, 0.00, NULL, NULL, 0.00, 4250.00, 4250.00, 0.00, 4, 4.00, 0.00, 4250.00, '2026-09-02 11:38:01', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-02 11:38:01', '2026-09-02 11:38:01', NULL),
-(29, 1, 2, 'ORD-000021', NULL, 15, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 1200.00, 0.00, 1, 1.00, 0.00, 1200.00, '2026-09-03 12:53:32', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 12:53:32', '2026-09-03 12:53:32', NULL),
-(30, 1, 2, 'ORD-000022', NULL, 15, 90000.00, 0.00, NULL, NULL, 0.00, 90000.00, 90000.00, 0.00, 1, 1.00, 0.00, 90000.00, '2026-09-03 13:26:09', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 13:26:09', '2026-09-03 13:26:09', NULL),
-(31, 1, 2, 'ORD-000023', NULL, 17, 1400.00, 0.00, NULL, NULL, 0.00, 1400.00, 1400.00, 0.00, 1, 2.00, 0.00, 1400.00, '2026-09-03 13:30:47', 'Paid', 'Completed', 'POS', 14, 0, NULL, 17, 17, '2026-09-03 13:29:17', '2026-09-03 13:30:47', NULL),
-(32, 1, 2, 'ORD-000024', NULL, 15, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 1200.00, 0.00, 1, 1.00, 0.00, 1200.00, '2026-09-03 14:04:14', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:04:14', '2026-09-03 14:04:14', NULL),
-(33, 1, 2, 'ORD-000025', NULL, 15, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 700.00, 0.00, 1, 1.00, 0.00, 700.00, '2026-09-03 14:35:52', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:35:52', '2026-09-03 14:35:52', NULL),
-(34, 1, 2, 'ORD-000026', NULL, 15, 4800.00, 0.00, NULL, NULL, 0.00, 4800.00, 4800.00, 0.00, 1, 1.00, 0.00, 4800.00, '2026-09-03 14:41:19', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:41:19', '2026-09-03 14:41:19', NULL),
-(35, 1, 2, 'ORD-000027', NULL, 15, 250.00, 0.00, NULL, NULL, 0.00, 250.00, 250.00, 0.00, 1, 1.00, 0.00, 250.00, '2026-09-03 14:42:11', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:42:11', '2026-09-03 14:42:11', NULL),
-(37, 1, 2, 'ORD-000028', NULL, 15, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 700.00, 0.00, 1, 1.00, 0.00, 700.00, '2026-09-03 14:44:26', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:44:26', '2026-09-03 14:44:26', NULL),
-(38, 1, 2, 'ORD-000029', NULL, 15, 2400.00, 0.00, NULL, NULL, 0.00, 2400.00, 2400.00, 0.00, 1, 2.00, 0.00, 2400.00, '2026-09-03 14:48:07', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:48:07', '2026-09-03 14:48:07', NULL),
-(39, 1, 2, 'ORD-000030', NULL, 15, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 700.00, 0.00, 1, 1.00, 0.00, 700.00, '2026-09-03 14:49:35', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:49:35', '2026-09-03 14:49:35', NULL),
-(40, 1, 2, 'ORD-000031', NULL, 15, 11450.00, 0.00, NULL, NULL, 0.00, 11450.00, 11450.00, 0.00, 3, 3.00, 0.00, 11450.00, '2026-09-03 14:57:36', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:57:36', '2026-09-03 14:57:36', NULL),
-(41, 1, 2, 'ORD-000032', NULL, 15, 8600.00, 0.00, NULL, NULL, 0.00, 8600.00, 8600.00, 0.00, 1, 1.00, 0.00, 8600.00, '2026-09-03 15:22:00', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 15:22:00', '2026-09-03 15:22:00', NULL),
-(42, 1, 2, 'ORD-000033', 10, 15, 90000.00, 5.00, 2, NULL, 0.00, 89995.00, 89995.00, 0.00, 1, 1.00, 0.00, 89995.00, '2026-09-03 20:14:44', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 20:14:44', '2026-09-03 20:14:44', NULL),
-(72, 1, 2, 'SO-000030', NULL, 15, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 0.00, 0.00, 1, 1.00, 0.00, 700.00, NULL, 'Pending', 'Draft', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:03:52', '2026-09-04 08:08:55', NULL),
-(73, 1, 2, 'ORD-000034', NULL, 15, 700.00, 0.00, NULL, NULL, 52.50, 700.00, 752.50, 0.00, 1, 1.00, 2.50, 752.50, '2026-09-04 08:09:17', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:09:17', '2026-09-04 08:09:17', NULL),
-(74, 1, 2, 'ORD-000035', NULL, 15, 700.00, 0.00, NULL, NULL, 52.50, 700.00, 752.50, 0.00, 1, 1.00, 2.50, 752.50, '2026-09-04 08:09:32', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:09:32', '2026-09-04 08:09:32', NULL),
-(75, 1, 2, 'ORD-000036', NULL, 15, 700.00, 0.00, NULL, NULL, 52.50, 700.00, 752.50, 0.00, 1, 1.00, 2.50, 752.50, '2026-09-04 08:17:39', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:17:39', '2026-09-04 08:17:39', NULL),
-(76, 1, 2, 'ORD-000037', NULL, 15, 8600.00, 0.00, NULL, NULL, 645.00, 8600.00, 9245.00, 0.00, 1, 1.00, 0.00, 9245.00, '2026-09-04 08:19:05', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:19:05', '2026-09-04 08:19:05', NULL),
-(77, 1, 2, 'ORD-000038', NULL, 15, 1200.00, 0.00, NULL, NULL, 90.00, 1200.00, 1290.00, 0.00, 1, 1.00, 0.00, 1290.00, '2026-09-04 08:22:48', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:22:48', '2026-09-04 08:22:48', NULL),
-(78, 1, 2, 'ORD-000039', 10, 15, 8600.00, 0.00, NULL, NULL, 645.00, 8600.00, 9245.00, 0.00, 1, 1.00, 5.00, 9245.00, '2026-09-04 08:57:18', 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:57:18', '2026-09-04 08:57:18', NULL),
-(79, 1, 2, 'ORD-000040', NULL, 15, 1200.00, 0.00, NULL, NULL, 90.00, 1200.00, 1290.00, 0.00, 1, 1.00, 0.00, 1290.00, '2026-09-14 13:30:52', 'Paid', 'Completed', 'POS', 14, 0, '1290', 15, 15, '2026-09-14 13:30:52', '2026-09-14 13:30:52', NULL),
-(80, 1, 4, 'ORD-000041', 9, 1, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 0.00, 0.00, 1, 1.00, 0.00, 1200.00, '2026-09-14 13:38:08', 'Refunded', 'Refunded', 'POS', 12, 0, NULL, 1, 1, '2026-09-14 13:32:47', '2026-09-16 10:21:18', NULL),
-(81, 1, 1, 'ORD-000042', 6, 1, 3350.00, 0.00, NULL, NULL, 0.00, 3350.00, 3350.00, 0.00, 3, 4.00, 0.00, 3350.00, '2026-09-16 10:40:05', 'Paid', 'Completed', 'POS', 1, 0, NULL, 1, 1, '2026-09-16 10:39:51', '2026-09-16 10:40:05', NULL),
-(82, 1, 1, 'ORD-000043', NULL, 1, 10500.00, 0.00, NULL, NULL, 0.00, 10500.00, 0.00, 0.00, 4, 10.00, 0.00, 10500.00, '2026-09-16 12:02:34', 'Refunded', 'Refunded', 'POS', 2, 0, NULL, 1, 1, '2026-09-16 12:02:21', '2026-09-16 12:03:19', NULL);
+INSERT INTO `orders` (`id`, `company_id`, `branch_id`, `order_no`, `public_token`, `customer_id`, `cashier_id`, `subtotal`, `discount`, `discount_id`, `tax_rate_id`, `tax`, `total`, `amount_paid`, `balance`, `total_items`, `total_quantity`, `change_given`, `grand_total`, `completed_at`, `confirmation_email_sent_at`, `payment_status`, `order_status`, `sales_channel`, `terminal_id`, `receipt_printed`, `remarks`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`, `shipping_method`, `shipping_location_id`, `shipping_location_name`, `shipping_address`, `shipping_city`, `shipping_state`, `shipping_fee`, `fulfilment_status`, `tracking_reference`, `shipping_notes`, `shipped_at`, `delivered_at`) VALUES
+(17, 1, 4, 'ORD-000014', NULL, NULL, 1, 91650.00, 0.00, NULL, NULL, 0.00, 91650.00, 92000.00, 0.00, 2, 2.00, 350.00, 91650.00, '2026-08-28 09:20:27', NULL, 'Paid', 'Completed', 'POS', 12, 0, NULL, 1, 1, '2026-08-28 07:37:23', '2026-08-28 09:20:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(18, 1, 1, 'ORD-000015', NULL, 6, 1, 983500.00, 0.00, NULL, NULL, 0.00, 983500.00, 983500.00, 0.00, 4, 45.00, 0.00, 983500.00, '2026-08-28 10:11:22', NULL, 'Paid', 'Completed', 'POS', 1, 0, 'Items totalled to 983,500, with no discount or tax', 1, 1, '2026-08-28 09:23:30', '2026-08-28 10:11:22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(19, 1, 4, 'ORD-000016', NULL, 10, 1, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 0.00, 1200.00, 1, 1.00, 0.00, 1200.00, NULL, NULL, 'Pending', 'Draft', 'POS', 12, 0, NULL, 1, NULL, '2026-08-28 10:08:09', '2026-08-28 10:08:09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(20, 1, 1, 'ORD-000017', NULL, 9, 1, 522000.00, 2.00, NULL, NULL, 0.00, 521998.00, 150000.00, 371998.00, 3, 65.00, 0.00, 521998.00, NULL, NULL, 'Partial', 'Held', 'POS', 2, 0, NULL, 1, 1, '2026-08-29 12:02:14', '2026-08-29 12:02:39', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(21, 1, 2, 'ORD-000018', NULL, NULL, 17, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 0.00, 700.00, 1, 1.00, 0.00, 700.00, NULL, NULL, 'Pending', 'Draft', 'POS', 14, 0, NULL, 17, NULL, '2026-08-31 10:09:28', '2026-08-31 10:09:28', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(22, 1, 2, 'ORD-000019', NULL, NULL, 17, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 700.00, 0.00, 1, 1.00, 0.00, 700.00, '2026-08-31 10:15:05', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 17, 17, '2026-08-31 10:10:48', '2026-08-31 10:15:05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(28, 1, 2, 'ORD-000020', NULL, NULL, 15, 4250.00, 0.00, NULL, NULL, 0.00, 4250.00, 4250.00, 0.00, 4, 4.00, 0.00, 4250.00, '2026-09-02 11:38:01', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-02 11:38:01', '2026-09-02 11:38:01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(29, 1, 2, 'ORD-000021', NULL, NULL, 15, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 1200.00, 0.00, 1, 1.00, 0.00, 1200.00, '2026-09-03 12:53:32', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 12:53:32', '2026-09-03 12:53:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(30, 1, 2, 'ORD-000022', NULL, NULL, 15, 90000.00, 0.00, NULL, NULL, 0.00, 90000.00, 90000.00, 0.00, 1, 1.00, 0.00, 90000.00, '2026-09-03 13:26:09', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 13:26:09', '2026-09-03 13:26:09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(31, 1, 2, 'ORD-000023', NULL, NULL, 17, 1400.00, 0.00, NULL, NULL, 0.00, 1400.00, 1400.00, 0.00, 1, 2.00, 0.00, 1400.00, '2026-09-03 13:30:47', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 17, 17, '2026-09-03 13:29:17', '2026-09-03 13:30:47', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(32, 1, 2, 'ORD-000024', NULL, NULL, 15, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 1200.00, 0.00, 1, 1.00, 0.00, 1200.00, '2026-09-03 14:04:14', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:04:14', '2026-09-03 14:04:14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(33, 1, 2, 'ORD-000025', NULL, NULL, 15, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 700.00, 0.00, 1, 1.00, 0.00, 700.00, '2026-09-03 14:35:52', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:35:52', '2026-09-03 14:35:52', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(34, 1, 2, 'ORD-000026', NULL, NULL, 15, 4800.00, 0.00, NULL, NULL, 0.00, 4800.00, 4800.00, 0.00, 1, 1.00, 0.00, 4800.00, '2026-09-03 14:41:19', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:41:19', '2026-09-03 14:41:19', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(35, 1, 2, 'ORD-000027', NULL, NULL, 15, 250.00, 0.00, NULL, NULL, 0.00, 250.00, 250.00, 0.00, 1, 1.00, 0.00, 250.00, '2026-09-03 14:42:11', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:42:11', '2026-09-03 14:42:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(37, 1, 2, 'ORD-000028', NULL, NULL, 15, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 700.00, 0.00, 1, 1.00, 0.00, 700.00, '2026-09-03 14:44:26', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:44:26', '2026-09-03 14:44:26', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(38, 1, 2, 'ORD-000029', NULL, NULL, 15, 2400.00, 0.00, NULL, NULL, 0.00, 2400.00, 2400.00, 0.00, 1, 2.00, 0.00, 2400.00, '2026-09-03 14:48:07', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:48:07', '2026-09-03 14:48:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(39, 1, 2, 'ORD-000030', NULL, NULL, 15, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 700.00, 0.00, 1, 1.00, 0.00, 700.00, '2026-09-03 14:49:35', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:49:35', '2026-09-03 14:49:35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(40, 1, 2, 'ORD-000031', NULL, NULL, 15, 11450.00, 0.00, NULL, NULL, 0.00, 11450.00, 11450.00, 0.00, 3, 3.00, 0.00, 11450.00, '2026-09-03 14:57:36', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 14:57:36', '2026-09-03 14:57:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(41, 1, 2, 'ORD-000032', NULL, NULL, 15, 8600.00, 0.00, NULL, NULL, 0.00, 8600.00, 8600.00, 0.00, 1, 1.00, 0.00, 8600.00, '2026-09-03 15:22:00', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 15:22:00', '2026-09-03 15:22:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(42, 1, 2, 'ORD-000033', NULL, 10, 15, 90000.00, 5.00, 2, NULL, 0.00, 89995.00, 89995.00, 0.00, 1, 1.00, 0.00, 89995.00, '2026-09-03 20:14:44', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-03 20:14:44', '2026-09-03 20:14:44', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(72, 1, 2, 'SO-000030', NULL, NULL, 15, 700.00, 0.00, NULL, NULL, 0.00, 700.00, 0.00, 0.00, 1, 1.00, 0.00, 700.00, NULL, NULL, 'Pending', 'Draft', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:03:52', '2026-09-04 08:08:55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(73, 1, 2, 'ORD-000034', NULL, NULL, 15, 700.00, 0.00, NULL, NULL, 52.50, 700.00, 752.50, 0.00, 1, 1.00, 2.50, 752.50, '2026-09-04 08:09:17', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:09:17', '2026-09-04 08:09:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(74, 1, 2, 'ORD-000035', NULL, NULL, 15, 700.00, 0.00, NULL, NULL, 52.50, 700.00, 752.50, 0.00, 1, 1.00, 2.50, 752.50, '2026-09-04 08:09:32', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:09:32', '2026-09-04 08:09:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(75, 1, 2, 'ORD-000036', NULL, NULL, 15, 700.00, 0.00, NULL, NULL, 52.50, 700.00, 752.50, 0.00, 1, 1.00, 2.50, 752.50, '2026-09-04 08:17:39', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:17:39', '2026-09-04 08:17:39', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(76, 1, 2, 'ORD-000037', NULL, NULL, 15, 8600.00, 0.00, NULL, NULL, 645.00, 8600.00, 9245.00, 0.00, 1, 1.00, 0.00, 9245.00, '2026-09-04 08:19:05', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:19:05', '2026-09-04 08:19:05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(77, 1, 2, 'ORD-000038', NULL, NULL, 15, 1200.00, 0.00, NULL, NULL, 90.00, 1200.00, 1290.00, 0.00, 1, 1.00, 0.00, 1290.00, '2026-09-04 08:22:48', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:22:48', '2026-09-04 08:22:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(78, 1, 2, 'ORD-000039', NULL, 10, 15, 8600.00, 0.00, NULL, NULL, 645.00, 8600.00, 9245.00, 0.00, 1, 1.00, 5.00, 9245.00, '2026-09-04 08:57:18', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-09-04 08:57:18', '2026-09-04 08:57:18', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(79, 1, 2, 'ORD-000040', NULL, NULL, 15, 1200.00, 0.00, NULL, NULL, 90.00, 1200.00, 1290.00, 0.00, 1, 1.00, 0.00, 1290.00, '2026-09-14 13:30:52', NULL, 'Paid', 'Completed', 'POS', 14, 0, '1290', 15, 15, '2026-09-14 13:30:52', '2026-09-14 13:30:52', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(80, 1, 4, 'ORD-000041', NULL, 9, 1, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 0.00, 0.00, 1, 1.00, 0.00, 1200.00, '2026-09-14 13:38:08', NULL, 'Refunded', 'Refunded', 'POS', 12, 0, NULL, 1, 1, '2026-09-14 13:32:47', '2026-09-16 10:21:18', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(81, 1, 1, 'ORD-000042', NULL, 6, 1, 3350.00, 0.00, NULL, NULL, 0.00, 3350.00, 3350.00, 0.00, 3, 4.00, 0.00, 3350.00, '2026-09-16 10:40:05', NULL, 'Paid', 'Completed', 'POS', 1, 0, NULL, 1, 1, '2026-09-16 10:39:51', '2026-09-16 10:40:05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(82, 1, 1, 'ORD-000043', NULL, NULL, 1, 10500.00, 0.00, NULL, NULL, 0.00, 10500.00, 0.00, 0.00, 4, 10.00, 0.00, 10500.00, '2026-09-16 12:02:34', NULL, 'Refunded', 'Refunded', 'POS', 2, 0, NULL, 1, 1, '2026-09-16 12:02:21', '2026-09-16 12:03:19', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(83, 1, 1, 'ORD-000044', NULL, 11, NULL, 102000.00, 0.00, NULL, NULL, 0.00, 102000.00, 102000.00, 0.00, 3, 5.00, 0.00, 102000.00, '2026-09-26 22:47:47', NULL, 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-26 22:47:27', '2026-09-26 22:47:47', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(84, 1, 1, 'ORD-000045', NULL, 6, NULL, 2400.00, 0.00, NULL, NULL, 0.00, 2400.00, 2400.00, 0.00, 1, 2.00, 0.00, 2400.00, '2026-09-26 22:58:41', NULL, 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-26 22:58:30', '2026-09-26 22:58:41', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(85, 1, 1, 'ORD-000046', NULL, 6, NULL, 90000.00, 0.00, NULL, NULL, 0.00, 90000.00, 90000.00, 0.00, 1, 1.00, 0.00, 90000.00, '2026-09-26 23:06:08', NULL, 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-26 23:05:55', '2026-09-26 23:06:08', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(86, 1, 1, 'ORD-000047', NULL, 6, NULL, 8600.00, 0.00, NULL, NULL, 0.00, 8600.00, 8600.00, 0.00, 1, 1.00, 0.00, 8600.00, '2026-09-27 12:41:34', NULL, 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 12:41:11', '2026-09-27 12:41:34', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(87, 1, 1, 'ORD-000048', 'ErWD483I7IaAV60zTMxWEKxBElTSu3ciDd8hlgevjZzbHZ3uyvdvuhzTAzv9KJxx', 6, NULL, 1200.00, 0.00, NULL, NULL, 0.00, 1200.00, 1200.00, 0.00, 1, 1.00, 0.00, 1200.00, '2026-09-27 20:45:24', '2026-09-27 20:45:32', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 20:45:10', '2026-09-27 20:45:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(88, 1, 1, 'ORD-000049', 'DsGJpjiCuVTUQaYxWux23Mo3VKd2hMJXXmGN2aXF66bg9Dsse9vucktsmlJQBe2G', 6, NULL, 1400.00, 0.00, NULL, NULL, 0.00, 1400.00, 1400.00, 0.00, 1, 2.00, 0.00, 1400.00, '2026-09-27 20:57:54', '2026-09-27 20:58:01', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 20:57:42', '2026-09-27 20:58:01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(89, 1, 1, 'ORD-000050', 'Z911OZH1ccBjrfjE4KJXskjCnxMay2FttjHGRkW3rCm44AeSoL3hZFPBbwQEoYP4', 6, NULL, 8600.00, 0.00, NULL, NULL, 0.00, 13600.00, 0.00, 13600.00, 1, 1.00, 0.00, 13600.00, NULL, NULL, 'Pending', 'Draft', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 22:43:35', '2026-09-27 22:43:35', NULL, 'location', 1, 'Apata', NULL, NULL, NULL, 5000.00, 'Pending', NULL, NULL, NULL, NULL),
+(90, 1, 1, 'ORD-000051', 'MUU1csetosHt8zV2dZxp2SJOzOECeTyt39jWA4TmjZtXAT7MGenBOOTujv6w3Pg6', 6, NULL, 8600.00, 0.00, NULL, NULL, 0.00, 13600.00, 0.00, 13600.00, 1, 1.00, 0.00, 13600.00, NULL, NULL, 'Pending', 'Draft', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 22:44:26', '2026-09-27 22:44:26', NULL, 'location', 1, 'Apata', NULL, NULL, NULL, 5000.00, 'Pending', NULL, NULL, NULL, NULL),
+(91, 1, 1, 'ORD-000052', 'VzZZegmG53RHlLKw6mvB1CHOeJLUYzyc9hV9VD87b6fyascZW4Xhbu2wjIHivEa5', 6, NULL, 8600.00, 0.00, NULL, NULL, 0.00, 13600.00, 0.00, 13600.00, 1, 1.00, 0.00, 13600.00, NULL, NULL, 'Pending', 'Draft', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 22:45:38', '2026-09-27 22:45:38', NULL, 'location', 1, 'Apata', NULL, NULL, NULL, 5000.00, 'Pending', NULL, NULL, NULL, NULL),
+(92, 1, 1, 'ORD-000053', 'AJdG6lOR1TYKNZt6ibFUEJQlt8l94TCZfjv3IpqNajTbKcA3RtqiQyHcGgGsvvVI', 6, NULL, 8600.00, 0.00, NULL, NULL, 0.00, 14100.00, 0.00, 14100.00, 1, 1.00, 0.00, 14100.00, NULL, NULL, 'Pending', 'Draft', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 22:47:00', '2026-09-27 22:47:00', NULL, 'location', 2, 'Challenge Terminal 1', NULL, NULL, NULL, 5500.00, 'Pending', NULL, NULL, NULL, NULL),
+(93, 1, 1, 'ORD-000054', '4eF1SSEEodHXoB38AScPF9OKKR4HuigTQ30k6rwEL1EaH4avmKZq6xh3mDzRQosE', 6, NULL, 8600.00, 0.00, NULL, NULL, 0.00, 13600.00, 13600.00, 0.00, 1, 1.00, 0.00, 13600.00, '2026-09-27 22:51:27', '2026-09-27 22:51:33', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 22:51:17', '2026-09-27 22:51:33', NULL, 'location', 1, 'Apata', NULL, NULL, NULL, 5000.00, 'Pending', NULL, NULL, NULL, NULL),
+(94, 1, 1, 'ORD-000055', 'Y0eE30j0KK6MkXqyQtF4IS5EjE9WVYUEQzf9SKuJm0VKEKCZUTNgHzFovFZSnoKA', 6, NULL, 700.00, 0.00, NULL, NULL, 0.00, 6200.00, 6200.00, 0.00, 1, 1.00, 0.00, 6200.00, '2026-09-27 23:00:03', '2026-09-27 23:00:11', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 22:59:50', '2026-09-27 23:00:11', NULL, 'location', 2, 'Challenge Terminal 1', NULL, NULL, NULL, 5500.00, 'Pending', NULL, NULL, NULL, NULL),
+(95, 1, 1, 'ORD-000056', 'zy9WFMQW6Gh9KCXs9NHNkuymYU3DWJcwX8Mj40c3djPfEer6NxkWaO7nul7cGQmI', 6, NULL, 1200.00, 0.00, NULL, NULL, 0.00, 6200.00, 6200.00, 0.00, 1, 1.00, 0.00, 6200.00, '2026-09-27 23:07:29', '2026-09-27 23:07:37', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 23:07:21', '2026-09-27 23:07:37', NULL, 'location', 1, 'Apata', NULL, NULL, NULL, 5000.00, 'Pending', NULL, NULL, NULL, NULL),
+(96, 1, 1, 'ORD-000057', '4kqRbr3BUdEUqeZRDHp8x3aOxatAsdpFBztGsH4S1jZur7gLeri1kv2lvTQhULiJ', 6, NULL, 8600.00, 0.00, NULL, NULL, 0.00, 13600.00, 13600.00, 0.00, 1, 1.00, 0.00, 13600.00, '2026-09-27 23:11:25', '2026-09-27 23:11:33', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 23:11:18', '2026-09-27 23:11:33', NULL, 'location', 1, 'Apata', NULL, NULL, NULL, 5000.00, 'Pending', NULL, NULL, NULL, NULL),
+(97, 1, 1, 'ORD-000058', 'ksRsQJU0RsL9tKdENFyQK4Gh6ngw9Uyuc9pEuub8Eo7FoDJwI4hPRLZZPIPdNEyV', 6, NULL, 1000.00, 0.00, NULL, NULL, 0.00, 2000.00, 2000.00, 0.00, 1, 4.00, 0.00, 2000.00, '2026-09-27 23:17:12', '2026-09-27 23:17:18', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 23:17:01', '2026-09-27 23:17:18', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1335,7 +1505,24 @@ INSERT INTO `order_items` (`id`, `company_id`, `order_id`, `product_id`, `produc
 (109, 1, 82, 7, 'Family Bread', '100000000007', 2.00, 1200.00, 900.00, 0.00, 0.00, 2400.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
 (110, 1, 82, 6, 'Dangote Sugar 1kg', '100000000006', 3.00, 1650.00, 1450.00, 0.00, 0.00, 4950.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
 (111, 1, 82, 19, 'Three Crown Evaporated Milk', 'TH123456', 2.00, 1200.00, 1000.00, 0.00, 0.00, 2400.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
-(112, 1, 82, 5, 'Indomie Chicken Noodles', '100000000005', 3.00, 250.00, 180.00, 0.00, 0.00, 750.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21');
+(112, 1, 82, 5, 'Indomie Chicken Noodles', '100000000005', 3.00, 250.00, 180.00, 0.00, 0.00, 750.00, '2026-09-16 12:02:21', '2026-09-16 12:02:21'),
+(113, 1, 83, 19, 'Three Crown Evaporated Milk', 'TH123456', 2.00, 1200.00, 1000.00, 0.00, 0.00, 2400.00, '2026-09-26 22:47:27', '2026-09-26 22:47:27'),
+(114, 1, 83, 4, 'Peak Milk 500g', '100000000004', 2.00, 4800.00, 4200.00, 0.00, 0.00, 9600.00, '2026-09-26 22:47:27', '2026-09-26 22:47:27'),
+(115, 1, 83, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 82000.00, 0.00, 0.00, 90000.00, '2026-09-26 22:47:27', '2026-09-26 22:47:27'),
+(116, 1, 84, 19, 'Three Crown Evaporated Milk', 'TH123456', 2.00, 1200.00, 1000.00, 0.00, 0.00, 2400.00, '2026-09-26 22:58:30', '2026-09-26 22:58:30'),
+(117, 1, 85, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 82000.00, 0.00, 0.00, 90000.00, '2026-09-26 23:05:55', '2026-09-26 23:05:55'),
+(118, 1, 86, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-27 12:41:11', '2026-09-27 12:41:11'),
+(119, 1, 87, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 1000.00, 0.00, 0.00, 1200.00, '2026-09-27 20:45:10', '2026-09-27 20:45:10'),
+(120, 1, 88, 1, 'Coca-Cola 50cl', '100000000001', 2.00, 700.00, 500.00, 0.00, 0.00, 1400.00, '2026-09-27 20:57:42', '2026-09-27 20:57:42'),
+(121, 1, 89, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-27 22:43:35', '2026-09-27 22:43:35'),
+(122, 1, 90, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-27 22:44:26', '2026-09-27 22:44:26'),
+(123, 1, 91, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-27 22:45:38', '2026-09-27 22:45:38'),
+(124, 1, 92, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-27 22:47:00', '2026-09-27 22:47:00'),
+(125, 1, 93, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-27 22:51:17', '2026-09-27 22:51:17'),
+(126, 1, 94, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 500.00, 0.00, 0.00, 700.00, '2026-09-27 22:59:50', '2026-09-27 22:59:50'),
+(127, 1, 95, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 900.00, 0.00, 0.00, 1200.00, '2026-09-27 23:07:21', '2026-09-27 23:07:21'),
+(128, 1, 96, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-27 23:11:18', '2026-09-27 23:11:18'),
+(129, 1, 97, 5, 'Indomie Chicken Noodles', '100000000005', 4.00, 250.00, 180.00, 0.00, 0.00, 1000.00, '2026-09-27 23:17:01', '2026-09-27 23:17:01');
 
 -- --------------------------------------------------------
 
@@ -1371,7 +1558,7 @@ CREATE TABLE `payments` (
   `payment_gateway` varchar(255) DEFAULT NULL,
   `reference_no` varchar(255) DEFAULT NULL,
   `remarks` text DEFAULT NULL,
-  `received_by` bigint(20) UNSIGNED NOT NULL,
+  `received_by` bigint(20) UNSIGNED DEFAULT NULL,
   `payment_number` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1413,7 +1600,18 @@ INSERT INTO `payments` (`id`, `company_id`, `branch_id`, `order_id`, `customer_i
 (34, 1, 2, 79, NULL, 14, 1290.00, 'Completed', 3, 'Transfer', '2026-09-14 14:30:52', NULL, NULL, 'yr8df345', '1290', 15, 'PAY-000029', '2026-09-14 13:30:52', '2026-09-14 13:30:52'),
 (38, 1, 4, 80, 9, 12, 1200.00, 'Refunded', 3, 'Transfer', '2026-09-14 14:38:08', NULL, NULL, 'ORD-000041', 'Payment received for sales order: ORD-000041', 1, 'PAY-000030', '2026-09-14 13:38:08', '2026-09-16 10:21:18'),
 (39, 1, 1, 81, 6, 1, 3350.00, 'Completed', 8, 'Card', '2026-09-16 11:40:05', NULL, NULL, 'ORD-000042', 'Payment received for sales order: ORD-000042', 1, 'PAY-000031', '2026-09-16 10:40:05', '2026-09-16 10:40:05'),
-(40, 1, 1, 82, NULL, 2, 10500.00, 'Refunded', 3, 'Transfer', '2026-09-16 13:02:34', NULL, NULL, 'ORD-000043', 'Payment received for sales order: ORD-000043', 1, 'PAY-000032', '2026-09-16 12:02:34', '2026-09-16 12:03:19');
+(40, 1, 1, 82, NULL, 2, 10500.00, 'Refunded', 3, 'Transfer', '2026-09-16 13:02:34', NULL, NULL, 'ORD-000043', 'Payment received for sales order: ORD-000043', 1, 'PAY-000032', '2026-09-16 12:02:34', '2026-09-16 12:03:19'),
+(41, 1, 1, 83, 11, NULL, 102000.00, 'Completed', 3, 'Transfer', '2026-09-26 23:47:47', 'SF-83-COBK6FO0P4AG', 'Paystack', 'ORD-000044', 'Paystack online payment. Channel: card. Order: ORD-000044', NULL, 'PAY-000033', '2026-09-26 22:47:47', '2026-09-26 22:47:47'),
+(42, 1, 1, 84, 6, NULL, 2400.00, 'Completed', 3, 'Transfer', '2026-09-26 23:58:41', 'SF-84-NA3FR2BEYHUX', 'Paystack', 'ORD-000045', 'Paystack online payment. Channel: card. Order: ORD-000045', NULL, 'PAY-000034', '2026-09-26 22:58:41', '2026-09-26 22:58:41'),
+(43, 1, 1, 85, 6, NULL, 90000.00, 'Completed', 3, 'Card', '2026-09-27 00:06:08', 'SF-85-DPQOBB2RTVAX', 'Paystack', 'ORD-000046', 'Paystack online payment. Channel: card. Order: ORD-000046', NULL, 'PAY-000035', '2026-09-26 23:06:08', '2026-09-26 23:06:08'),
+(44, 1, 1, 86, 6, NULL, 8600.00, 'Completed', 3, 'Card', '2026-09-27 13:41:34', 'SF-86-IADNVYRYWIMT', 'Paystack', 'ORD-000047', 'Paystack online payment. Channel: card. Order: ORD-000047', NULL, 'PAY-000036', '2026-09-27 12:41:34', '2026-09-27 12:41:34'),
+(45, 1, 1, 87, 6, NULL, 1200.00, 'Completed', 3, 'Card', '2026-09-27 21:45:24', 'SF-87-JLY0A7ZD6Q8T', 'Paystack', 'ORD-000048', 'Paystack online payment. Channel: card. Order: ORD-000048', NULL, 'PAY-000037', '2026-09-27 20:45:24', '2026-09-27 20:45:24'),
+(46, 1, 1, 88, 6, NULL, 1400.00, 'Completed', 3, 'Card', '2026-09-27 21:57:54', 'SF-88-FBZSOD6W2OPF', 'Paystack', 'ORD-000049', 'Paystack online payment. Channel: card. Order: ORD-000049', NULL, 'PAY-000038', '2026-09-27 20:57:54', '2026-09-27 20:57:54'),
+(47, 1, 1, 93, 6, NULL, 13600.00, 'Completed', 3, 'Card', '2026-09-27 23:51:27', 'SF-93-U88XHLCXEBIY', 'Paystack', 'ORD-000054', 'Paystack online payment. Channel: card. Order: ORD-000054', NULL, 'PAY-000039', '2026-09-27 22:51:27', '2026-09-27 22:51:27'),
+(48, 1, 1, 94, 6, NULL, 6200.00, 'Completed', 3, 'Card', '2026-09-28 00:00:03', 'SF-94-DZOPVIZMX5AI', 'Paystack', 'ORD-000055', 'Paystack online payment. Channel: card. Order: ORD-000055', NULL, 'PAY-000040', '2026-09-27 23:00:03', '2026-09-27 23:00:03'),
+(49, 1, 1, 95, 6, NULL, 6200.00, 'Completed', 3, 'Card', '2026-09-28 00:07:29', 'SF-95-3PR9F3C03VG7', 'Paystack', 'ORD-000056', 'Paystack online payment. Channel: card. Order: ORD-000056', NULL, 'PAY-000041', '2026-09-27 23:07:29', '2026-09-27 23:07:29'),
+(50, 1, 1, 96, 6, NULL, 13600.00, 'Completed', 3, 'Card', '2026-09-28 00:11:25', 'SF-96-4GRJHYKKTL5A', 'Paystack', 'ORD-000057', 'Paystack online payment. Channel: card. Order: ORD-000057', NULL, 'PAY-000042', '2026-09-27 23:11:25', '2026-09-27 23:11:25'),
+(51, 1, 1, 97, 6, NULL, 2000.00, 'Completed', 3, 'Card', '2026-09-28 00:17:12', 'SF-97-YIDUCX9FHZ17', 'Paystack', 'ORD-000058', 'Paystack online payment. Channel: card. Order: ORD-000058', NULL, 'PAY-000043', '2026-09-27 23:17:12', '2026-09-27 23:17:12');
 
 -- --------------------------------------------------------
 
@@ -1486,295 +1684,338 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `company_id`, `module`, `name`, `code`, `display_name`, `description`, `status`, `is_system`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Dashboard', 'dashboard.view', 'dashboard.view', 'View Dashboard', 'View Dashboard', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(2, 1, 'Company', 'company.view', 'company.view', 'View Company', 'View Company', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(3, 1, 'Company', 'company.update', 'company.update', 'Update Company', 'Update Company', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(4, 1, 'Branches', 'branches.view', 'branches.view', 'View Branches', 'View Branches', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(5, 1, 'Branches', 'branches.create', 'branches.create', 'Create Branches', 'Create Branches', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(6, 1, 'Branches', 'branches.update', 'branches.update', 'Update Branches', 'Update Branches', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(7, 1, 'Branches', 'branches.delete', 'branches.delete', 'Delete Branches', 'Delete Branches', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(8, 1, 'Branches', 'branches.analytics', 'branches.analytics', 'Analytics Branches', 'Analytics Branches', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(9, 1, 'Branches', 'branches.export', 'branches.export', 'Export Branches', 'Export Branches', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(10, 1, 'Terminals', 'terminals.view', 'terminals.view', 'View Terminals', 'View Terminals', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(11, 1, 'Terminals', 'terminals.create', 'terminals.create', 'Create Terminals', 'Create Terminals', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(12, 1, 'Terminals', 'terminals.update', 'terminals.update', 'Update Terminals', 'Update Terminals', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(13, 1, 'Terminals', 'terminals.delete', 'terminals.delete', 'Delete Terminals', 'Delete Terminals', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(14, 1, 'Users', 'users.view', 'users.view', 'View Users', 'View Users', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(15, 1, 'Users', 'users.create', 'users.create', 'Create Users', 'Create Users', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(16, 1, 'Users', 'users.update', 'users.update', 'Update Users', 'Update Users', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(17, 1, 'Users', 'users.delete', 'users.delete', 'Delete Users', 'Delete Users', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(18, 1, 'Users', 'users.reset_password', 'users.reset_password', 'Reset Password Users', 'Reset Password Users', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(19, 1, 'Roles', 'roles.view', 'roles.view', 'View Roles', 'View Roles', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(20, 1, 'Roles', 'roles.create', 'roles.create', 'Create Roles', 'Create Roles', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(21, 1, 'Roles', 'roles.update', 'roles.update', 'Update Roles', 'Update Roles', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(22, 1, 'Roles', 'roles.delete', 'roles.delete', 'Delete Roles', 'Delete Roles', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(23, 1, 'Roles', 'roles.assign_permissions', 'roles.assign_permissions', 'Assign Permissions Roles', 'Assign Permissions Roles', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(24, 1, 'Permissions', 'permissions.view', 'permissions.view', 'View Permissions', 'View Permissions', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(25, 1, 'Products', 'products.view', 'products.view', 'View Products', 'View Products', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(26, 1, 'Products', 'products.create', 'products.create', 'Create Products', 'Create Products', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(27, 1, 'Products', 'products.update', 'products.update', 'Update Products', 'Update Products', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(28, 1, 'Products', 'products.delete', 'products.delete', 'Delete Products', 'Delete Products', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(29, 1, 'Products', 'products.import', 'products.import', 'Import Products', 'Import Products', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(30, 1, 'Products', 'products.export', 'products.export', 'Export Products', 'Export Products', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(31, 1, 'Categories', 'categories.view', 'categories.view', 'View Categories', 'View Categories', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(32, 1, 'Categories', 'categories.create', 'categories.create', 'Create Categories', 'Create Categories', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(33, 1, 'Categories', 'categories.update', 'categories.update', 'Update Categories', 'Update Categories', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(34, 1, 'Categories', 'categories.delete', 'categories.delete', 'Delete Categories', 'Delete Categories', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(35, 1, 'Units', 'units.view', 'units.view', 'View Units', 'View Units', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(36, 1, 'Units', 'units.create', 'units.create', 'Create Units', 'Create Units', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(37, 1, 'Units', 'units.update', 'units.update', 'Update Units', 'Update Units', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(38, 1, 'Units', 'units.delete', 'units.delete', 'Delete Units', 'Delete Units', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(39, 1, 'Tax Rates', 'tax_rates.view', 'tax_rates.view', 'View Tax Rates', 'View Tax Rates', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(40, 1, 'Tax Rates', 'tax_rates.create', 'tax_rates.create', 'Create Tax Rates', 'Create Tax Rates', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(41, 1, 'Tax Rates', 'tax_rates.update', 'tax_rates.update', 'Update Tax Rates', 'Update Tax Rates', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(42, 1, 'Tax Rates', 'tax_rates.delete', 'tax_rates.delete', 'Delete Tax Rates', 'Delete Tax Rates', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(43, 1, 'Discounts', 'discounts.view', 'discounts.view', 'View Discounts', 'View Discounts', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(44, 1, 'Discounts', 'discounts.create', 'discounts.create', 'Create Discounts', 'Create Discounts', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(45, 1, 'Discounts', 'discounts.update', 'discounts.update', 'Update Discounts', 'Update Discounts', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(46, 1, 'Discounts', 'discounts.delete', 'discounts.delete', 'Delete Discounts', 'Delete Discounts', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(47, 1, 'Inventory', 'inventory.view', 'inventory.view', 'View Inventory', 'View Inventory', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(48, 1, 'Inventory', 'inventory.adjust_stock', 'inventory.adjust_stock', 'Adjust Stock Inventory', 'Adjust Stock Inventory', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(49, 1, 'Inventory', 'inventory.transfer_stock', 'inventory.transfer_stock', 'Transfer Stock Inventory', 'Transfer Stock Inventory', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(50, 1, 'Inventory', 'inventory.stock_count', 'inventory.stock_count', 'Stock Count Inventory', 'Stock Count Inventory', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(51, 1, 'Inventory', 'inventory.low_stock', 'inventory.low_stock', 'Low Stock Inventory', 'Low Stock Inventory', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(52, 1, 'Customers', 'customers.view', 'customers.view', 'View Customers', 'View Customers', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(53, 1, 'Customers', 'customers.create', 'customers.create', 'Create Customers', 'Create Customers', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(54, 1, 'Customers', 'customers.update', 'customers.update', 'Update Customers', 'Update Customers', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(55, 1, 'Customers', 'customers.delete', 'customers.delete', 'Delete Customers', 'Delete Customers', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(56, 1, 'Customers', 'customers.export', 'customers.export', 'Export Customers', 'Export Customers', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(57, 1, 'Suppliers', 'suppliers.view', 'suppliers.view', 'View Suppliers', 'View Suppliers', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(58, 1, 'Suppliers', 'suppliers.create', 'suppliers.create', 'Create Suppliers', 'Create Suppliers', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(59, 1, 'Suppliers', 'suppliers.update', 'suppliers.update', 'Update Suppliers', 'Update Suppliers', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(60, 1, 'Suppliers', 'suppliers.delete', 'suppliers.delete', 'Delete Suppliers', 'Delete Suppliers', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(61, 1, 'Purchases', 'purchases.view', 'purchases.view', 'View Purchases', 'View Purchases', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(62, 1, 'Purchases', 'purchases.create', 'purchases.create', 'Create Purchases', 'Create Purchases', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(63, 1, 'Purchases', 'purchases.update', 'purchases.update', 'Update Purchases', 'Update Purchases', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(64, 1, 'Purchases', 'purchases.delete', 'purchases.delete', 'Delete Purchases', 'Delete Purchases', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(65, 1, 'Purchases', 'purchases.approve', 'purchases.approve', 'Approve Purchases', 'Approve Purchases', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(66, 1, 'Pos', 'pos.sell', 'pos.sell', 'Sell Pos', 'Sell Pos', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(67, 1, 'Pos', 'pos.hold_sale', 'pos.hold_sale', 'Hold Sale Pos', 'Hold Sale Pos', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(68, 1, 'Pos', 'pos.open_orders', 'pos.open_orders', 'Open Orders Pos', 'Open Orders Pos', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(69, 1, 'Pos', 'pos.return_sale', 'pos.return_sale', 'Return Sale Pos', 'Return Sale Pos', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(70, 1, 'Pos', 'pos.cash_drawer', 'pos.cash_drawer', 'Cash Drawer Pos', 'Cash Drawer Pos', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(71, 1, 'Orders', 'orders.view', 'orders.view', 'View Orders', 'View Orders', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(72, 1, 'Orders', 'orders.create', 'orders.create', 'Create Orders', 'Create Orders', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(73, 1, 'Orders', 'orders.update', 'orders.update', 'Update Orders', 'Update Orders', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(74, 1, 'Orders', 'orders.cancel', 'orders.cancel', 'Cancel Orders', 'Cancel Orders', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(75, 1, 'Orders', 'orders.refund', 'orders.refund', 'Refund Orders', 'Refund Orders', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(76, 1, 'Payments', 'payments.view', 'payments.view', 'View Payments', 'View Payments', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(77, 1, 'Payments', 'payments.create', 'payments.create', 'Create Payments', 'Create Payments', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(78, 1, 'Payments', 'payments.refund', 'payments.refund', 'Refund Payments', 'Refund Payments', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(79, 1, 'Reports', 'reports.sales', 'reports.sales', 'Sales Reports', 'Sales Reports', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(80, 1, 'Reports', 'reports.inventory', 'reports.inventory', 'Inventory Reports', 'Inventory Reports', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(81, 1, 'Reports', 'reports.profit_loss', 'reports.profit_loss', 'Profit Loss Reports', 'Profit Loss Reports', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(82, 1, 'Reports', 'reports.tax', 'reports.tax', 'Tax Reports', 'Tax Reports', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(83, 1, 'Settings', 'settings.view', 'settings.view', 'View Settings', 'View Settings', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(84, 1, 'Settings', 'settings.update', 'settings.update', 'Update Settings', 'Update Settings', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(85, 1, 'Document Sequences', 'document_sequences.view', 'document_sequences.view', 'View Document Sequences', 'View Document Sequences', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(86, 1, 'Document Sequences', 'document_sequences.create', 'document_sequences.create', 'Create Document Sequences', 'Create Document Sequences', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(87, 1, 'Document Sequences', 'document_sequences.update', 'document_sequences.update', 'Update Document Sequences', 'Update Document Sequences', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(88, 1, 'Document Sequences', 'document_sequences.delete', 'document_sequences.delete', 'Delete Document Sequences', 'Delete Document Sequences', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(89, 1, 'Payment Methods', 'payment_methods.view', 'payment_methods.view', 'View Payment Methods', 'View Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(90, 1, 'Payment Methods', 'payment_methods.create', 'payment_methods.create', 'Create Payment Methods', 'Create Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(91, 1, 'Payment Methods', 'payment_methods.update', 'payment_methods.update', 'Update Payment Methods', 'Update Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(92, 1, 'Payment Methods', 'payment_methods.delete', 'payment_methods.delete', 'Delete Payment Methods', 'Delete Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(93, 1, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-07-29 10:37:10', '2026-07-29 10:37:10', NULL),
-(290, 4, 'Dashboard', 'dashboard.view', 'dashboard.view', 'View Dashboard', 'View Dashboard', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(291, 4, 'Company', 'company.view', 'company.view', 'View Company', 'View Company', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(292, 4, 'Company', 'company.update', 'company.update', 'Update Company', 'Update Company', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(293, 4, 'Branches', 'branches.view', 'branches.view', 'View Branches', 'View Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(294, 4, 'Branches', 'branches.create', 'branches.create', 'Create Branches', 'Create Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(295, 4, 'Branches', 'branches.update', 'branches.update', 'Update Branches', 'Update Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(296, 4, 'Branches', 'branches.delete', 'branches.delete', 'Delete Branches', 'Delete Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(297, 4, 'Branches', 'branches.analytics', 'branches.analytics', 'Analytics Branches', 'Analytics Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(298, 4, 'Branches', 'branches.export', 'branches.export', 'Export Branches', 'Export Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(299, 4, 'Terminals', 'terminals.view', 'terminals.view', 'View Terminals', 'View Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(300, 4, 'Terminals', 'terminals.create', 'terminals.create', 'Create Terminals', 'Create Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(301, 4, 'Terminals', 'terminals.update', 'terminals.update', 'Update Terminals', 'Update Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(302, 4, 'Terminals', 'terminals.delete', 'terminals.delete', 'Delete Terminals', 'Delete Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(303, 4, 'Users', 'users.view', 'users.view', 'View Users', 'View Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(304, 4, 'Users', 'users.create', 'users.create', 'Create Users', 'Create Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(305, 4, 'Users', 'users.update', 'users.update', 'Update Users', 'Update Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(306, 4, 'Users', 'users.delete', 'users.delete', 'Delete Users', 'Delete Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(307, 4, 'Users', 'users.reset_password', 'users.reset_password', 'Reset Password Users', 'Reset Password Users', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(308, 4, 'Roles', 'roles.view', 'roles.view', 'View Roles', 'View Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(309, 4, 'Roles', 'roles.create', 'roles.create', 'Create Roles', 'Create Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(310, 4, 'Roles', 'roles.update', 'roles.update', 'Update Roles', 'Update Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(311, 4, 'Roles', 'roles.delete', 'roles.delete', 'Delete Roles', 'Delete Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(312, 4, 'Roles', 'roles.assign_permissions', 'roles.assign_permissions', 'Assign Permissions Roles', 'Assign Permissions Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(313, 4, 'Permissions', 'permissions.view', 'permissions.view', 'View Permissions', 'View Permissions', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(314, 4, 'Products', 'products.view', 'products.view', 'View Products', 'View Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(315, 4, 'Products', 'products.create', 'products.create', 'Create Products', 'Create Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(316, 4, 'Products', 'products.update', 'products.update', 'Update Products', 'Update Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(317, 4, 'Products', 'products.delete', 'products.delete', 'Delete Products', 'Delete Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(318, 4, 'Products', 'products.import', 'products.import', 'Import Products', 'Import Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(319, 4, 'Products', 'products.export', 'products.export', 'Export Products', 'Export Products', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(320, 4, 'Categories', 'categories.view', 'categories.view', 'View Categories', 'View Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(321, 4, 'Categories', 'categories.create', 'categories.create', 'Create Categories', 'Create Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(322, 4, 'Categories', 'categories.update', 'categories.update', 'Update Categories', 'Update Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(323, 4, 'Categories', 'categories.delete', 'categories.delete', 'Delete Categories', 'Delete Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(324, 4, 'Units', 'units.view', 'units.view', 'View Units', 'View Units', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(325, 4, 'Units', 'units.create', 'units.create', 'Create Units', 'Create Units', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(326, 4, 'Units', 'units.update', 'units.update', 'Update Units', 'Update Units', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(327, 4, 'Units', 'units.delete', 'units.delete', 'Delete Units', 'Delete Units', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(328, 4, 'Tax Rates', 'tax_rates.view', 'tax_rates.view', 'View Tax Rates', 'View Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(329, 4, 'Tax Rates', 'tax_rates.create', 'tax_rates.create', 'Create Tax Rates', 'Create Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(330, 4, 'Tax Rates', 'tax_rates.update', 'tax_rates.update', 'Update Tax Rates', 'Update Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(331, 4, 'Tax Rates', 'tax_rates.delete', 'tax_rates.delete', 'Delete Tax Rates', 'Delete Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(332, 4, 'Discounts', 'discounts.view', 'discounts.view', 'View Discounts', 'View Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(333, 4, 'Discounts', 'discounts.create', 'discounts.create', 'Create Discounts', 'Create Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(334, 4, 'Discounts', 'discounts.update', 'discounts.update', 'Update Discounts', 'Update Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(335, 4, 'Discounts', 'discounts.delete', 'discounts.delete', 'Delete Discounts', 'Delete Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(336, 4, 'Inventory', 'inventory.view', 'inventory.view', 'View Inventory', 'View Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(337, 4, 'Inventory', 'inventory.adjust_stock', 'inventory.adjust_stock', 'Adjust Stock Inventory', 'Adjust Stock Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(338, 4, 'Inventory', 'inventory.transfer_stock', 'inventory.transfer_stock', 'Transfer Stock Inventory', 'Transfer Stock Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(339, 4, 'Inventory', 'inventory.stock_count', 'inventory.stock_count', 'Stock Count Inventory', 'Stock Count Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(340, 4, 'Inventory', 'inventory.low_stock', 'inventory.low_stock', 'Low Stock Inventory', 'Low Stock Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(341, 4, 'Customers', 'customers.view', 'customers.view', 'View Customers', 'View Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(342, 4, 'Customers', 'customers.create', 'customers.create', 'Create Customers', 'Create Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(343, 4, 'Customers', 'customers.update', 'customers.update', 'Update Customers', 'Update Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(344, 4, 'Customers', 'customers.delete', 'customers.delete', 'Delete Customers', 'Delete Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(345, 4, 'Customers', 'customers.export', 'customers.export', 'Export Customers', 'Export Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(346, 4, 'Customer Groups', 'customer_groups.view', 'customer_groups.view', 'View Customer Groups', 'View Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(347, 4, 'Customer Groups', 'customer_groups.create', 'customer_groups.create', 'Create Customer Groups', 'Create Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(348, 4, 'Customer Groups', 'customer_groups.update', 'customer_groups.update', 'Update Customer Groups', 'Update Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(349, 4, 'Customer Groups', 'customer_groups.delete', 'customer_groups.delete', 'Delete Customer Groups', 'Delete Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(350, 4, 'Suppliers', 'suppliers.view', 'suppliers.view', 'View Suppliers', 'View Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(351, 4, 'Suppliers', 'suppliers.create', 'suppliers.create', 'Create Suppliers', 'Create Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(352, 4, 'Suppliers', 'suppliers.update', 'suppliers.update', 'Update Suppliers', 'Update Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(353, 4, 'Suppliers', 'suppliers.delete', 'suppliers.delete', 'Delete Suppliers', 'Delete Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(354, 4, 'Purchases', 'purchases.view', 'purchases.view', 'View Purchases', 'View Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(355, 4, 'Purchases', 'purchases.create', 'purchases.create', 'Create Purchases', 'Create Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(356, 4, 'Purchases', 'purchases.update', 'purchases.update', 'Update Purchases', 'Update Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(357, 4, 'Purchases', 'purchases.delete', 'purchases.delete', 'Delete Purchases', 'Delete Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(358, 4, 'Purchases', 'purchases.approve', 'purchases.approve', 'Approve Purchases', 'Approve Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(359, 4, 'Purchases', 'purchases.submit', 'purchases.submit', 'Submit Purchases', 'Submit Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(360, 4, 'Pos', 'pos.sell', 'pos.sell', 'Sell Pos', 'Sell Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(361, 4, 'Pos', 'pos.hold_sale', 'pos.hold_sale', 'Hold Sale Pos', 'Hold Sale Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(362, 4, 'Pos', 'pos.open_orders', 'pos.open_orders', 'Open Orders Pos', 'Open Orders Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(363, 4, 'Pos', 'pos.return_sale', 'pos.return_sale', 'Return Sale Pos', 'Return Sale Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(364, 4, 'Pos', 'pos.cash_drawer', 'pos.cash_drawer', 'Cash Drawer Pos', 'Cash Drawer Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(365, 4, 'Orders', 'orders.view', 'orders.view', 'View Orders', 'View Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(366, 4, 'Orders', 'orders.create', 'orders.create', 'Create Orders', 'Create Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(367, 4, 'Orders', 'orders.update', 'orders.update', 'Update Orders', 'Update Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(368, 4, 'Orders', 'orders.cancel', 'orders.cancel', 'Cancel Orders', 'Cancel Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(369, 4, 'Orders', 'orders.refund', 'orders.refund', 'Refund Orders', 'Refund Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(370, 4, 'Payments', 'payments.view', 'payments.view', 'View Payments', 'View Payments', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(371, 4, 'Payments', 'payments.create', 'payments.create', 'Create Payments', 'Create Payments', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(372, 4, 'Payments', 'payments.refund', 'payments.refund', 'Refund Payments', 'Refund Payments', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(373, 4, 'Reports', 'reports.sales', 'reports.sales', 'Sales Reports', 'Sales Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(374, 4, 'Reports', 'reports.inventory', 'reports.inventory', 'Inventory Reports', 'Inventory Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(375, 4, 'Reports', 'reports.profit_loss', 'reports.profit_loss', 'Profit Loss Reports', 'Profit Loss Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(376, 4, 'Reports', 'reports.tax', 'reports.tax', 'Tax Reports', 'Tax Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(377, 4, 'Settings', 'settings.view', 'settings.view', 'View Settings', 'View Settings', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(378, 4, 'Settings', 'settings.update', 'settings.update', 'Update Settings', 'Update Settings', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(379, 4, 'Document Sequences', 'document_sequences.view', 'document_sequences.view', 'View Document Sequences', 'View Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(380, 4, 'Document Sequences', 'document_sequences.create', 'document_sequences.create', 'Create Document Sequences', 'Create Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(381, 4, 'Document Sequences', 'document_sequences.update', 'document_sequences.update', 'Update Document Sequences', 'Update Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(382, 4, 'Document Sequences', 'document_sequences.delete', 'document_sequences.delete', 'Delete Document Sequences', 'Delete Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(383, 4, 'Payment Methods', 'payment_methods.view', 'payment_methods.view', 'View Payment Methods', 'View Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(384, 4, 'Payment Methods', 'payment_methods.create', 'payment_methods.create', 'Create Payment Methods', 'Create Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(385, 4, 'Payment Methods', 'payment_methods.update', 'payment_methods.update', 'Update Payment Methods', 'Update Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(386, 4, 'Payment Methods', 'payment_methods.delete', 'payment_methods.delete', 'Delete Payment Methods', 'Delete Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(387, 4, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(388, 5, 'Dashboard', 'dashboard.view', 'dashboard.view', 'View Dashboard', 'View Dashboard', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(389, 5, 'Company', 'company.view', 'company.view', 'View Company', 'View Company', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(390, 5, 'Company', 'company.update', 'company.update', 'Update Company', 'Update Company', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(391, 5, 'Branches', 'branches.view', 'branches.view', 'View Branches', 'View Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(392, 5, 'Branches', 'branches.create', 'branches.create', 'Create Branches', 'Create Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(393, 5, 'Branches', 'branches.update', 'branches.update', 'Update Branches', 'Update Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(394, 5, 'Branches', 'branches.delete', 'branches.delete', 'Delete Branches', 'Delete Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(395, 5, 'Branches', 'branches.analytics', 'branches.analytics', 'Analytics Branches', 'Analytics Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(396, 5, 'Branches', 'branches.export', 'branches.export', 'Export Branches', 'Export Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(397, 5, 'Terminals', 'terminals.view', 'terminals.view', 'View Terminals', 'View Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(398, 5, 'Terminals', 'terminals.create', 'terminals.create', 'Create Terminals', 'Create Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(399, 5, 'Terminals', 'terminals.update', 'terminals.update', 'Update Terminals', 'Update Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(400, 5, 'Terminals', 'terminals.delete', 'terminals.delete', 'Delete Terminals', 'Delete Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(401, 5, 'Users', 'users.view', 'users.view', 'View Users', 'View Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(402, 5, 'Users', 'users.create', 'users.create', 'Create Users', 'Create Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(403, 5, 'Users', 'users.update', 'users.update', 'Update Users', 'Update Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(404, 5, 'Users', 'users.delete', 'users.delete', 'Delete Users', 'Delete Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(405, 5, 'Users', 'users.reset_password', 'users.reset_password', 'Reset Password Users', 'Reset Password Users', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(406, 5, 'Roles', 'roles.view', 'roles.view', 'View Roles', 'View Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(407, 5, 'Roles', 'roles.create', 'roles.create', 'Create Roles', 'Create Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(408, 5, 'Roles', 'roles.update', 'roles.update', 'Update Roles', 'Update Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(409, 5, 'Roles', 'roles.delete', 'roles.delete', 'Delete Roles', 'Delete Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(410, 5, 'Roles', 'roles.assign_permissions', 'roles.assign_permissions', 'Assign Permissions Roles', 'Assign Permissions Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(411, 5, 'Permissions', 'permissions.view', 'permissions.view', 'View Permissions', 'View Permissions', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(412, 5, 'Products', 'products.view', 'products.view', 'View Products', 'View Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(413, 5, 'Products', 'products.create', 'products.create', 'Create Products', 'Create Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(414, 5, 'Products', 'products.update', 'products.update', 'Update Products', 'Update Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(415, 5, 'Products', 'products.delete', 'products.delete', 'Delete Products', 'Delete Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(416, 5, 'Products', 'products.import', 'products.import', 'Import Products', 'Import Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(417, 5, 'Products', 'products.export', 'products.export', 'Export Products', 'Export Products', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(418, 5, 'Categories', 'categories.view', 'categories.view', 'View Categories', 'View Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(419, 5, 'Categories', 'categories.create', 'categories.create', 'Create Categories', 'Create Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(420, 5, 'Categories', 'categories.update', 'categories.update', 'Update Categories', 'Update Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(421, 5, 'Categories', 'categories.delete', 'categories.delete', 'Delete Categories', 'Delete Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(422, 5, 'Units', 'units.view', 'units.view', 'View Units', 'View Units', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(423, 5, 'Units', 'units.create', 'units.create', 'Create Units', 'Create Units', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(424, 5, 'Units', 'units.update', 'units.update', 'Update Units', 'Update Units', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(425, 5, 'Units', 'units.delete', 'units.delete', 'Delete Units', 'Delete Units', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(426, 5, 'Tax Rates', 'tax_rates.view', 'tax_rates.view', 'View Tax Rates', 'View Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(427, 5, 'Tax Rates', 'tax_rates.create', 'tax_rates.create', 'Create Tax Rates', 'Create Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(428, 5, 'Tax Rates', 'tax_rates.update', 'tax_rates.update', 'Update Tax Rates', 'Update Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(429, 5, 'Tax Rates', 'tax_rates.delete', 'tax_rates.delete', 'Delete Tax Rates', 'Delete Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(430, 5, 'Discounts', 'discounts.view', 'discounts.view', 'View Discounts', 'View Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(431, 5, 'Discounts', 'discounts.create', 'discounts.create', 'Create Discounts', 'Create Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(432, 5, 'Discounts', 'discounts.update', 'discounts.update', 'Update Discounts', 'Update Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(433, 5, 'Discounts', 'discounts.delete', 'discounts.delete', 'Delete Discounts', 'Delete Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(434, 5, 'Inventory', 'inventory.view', 'inventory.view', 'View Inventory', 'View Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(435, 5, 'Inventory', 'inventory.adjust_stock', 'inventory.adjust_stock', 'Adjust Stock Inventory', 'Adjust Stock Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(436, 5, 'Inventory', 'inventory.transfer_stock', 'inventory.transfer_stock', 'Transfer Stock Inventory', 'Transfer Stock Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(437, 5, 'Inventory', 'inventory.stock_count', 'inventory.stock_count', 'Stock Count Inventory', 'Stock Count Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(438, 5, 'Inventory', 'inventory.low_stock', 'inventory.low_stock', 'Low Stock Inventory', 'Low Stock Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(439, 5, 'Customers', 'customers.view', 'customers.view', 'View Customers', 'View Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(440, 5, 'Customers', 'customers.create', 'customers.create', 'Create Customers', 'Create Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(441, 5, 'Customers', 'customers.update', 'customers.update', 'Update Customers', 'Update Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(442, 5, 'Customers', 'customers.delete', 'customers.delete', 'Delete Customers', 'Delete Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(443, 5, 'Customers', 'customers.export', 'customers.export', 'Export Customers', 'Export Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(444, 5, 'Customer Groups', 'customer_groups.view', 'customer_groups.view', 'View Customer Groups', 'View Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(445, 5, 'Customer Groups', 'customer_groups.create', 'customer_groups.create', 'Create Customer Groups', 'Create Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(446, 5, 'Customer Groups', 'customer_groups.update', 'customer_groups.update', 'Update Customer Groups', 'Update Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(447, 5, 'Customer Groups', 'customer_groups.delete', 'customer_groups.delete', 'Delete Customer Groups', 'Delete Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(448, 5, 'Suppliers', 'suppliers.view', 'suppliers.view', 'View Suppliers', 'View Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(449, 5, 'Suppliers', 'suppliers.create', 'suppliers.create', 'Create Suppliers', 'Create Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(450, 5, 'Suppliers', 'suppliers.update', 'suppliers.update', 'Update Suppliers', 'Update Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(451, 5, 'Suppliers', 'suppliers.delete', 'suppliers.delete', 'Delete Suppliers', 'Delete Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(452, 5, 'Purchases', 'purchases.view', 'purchases.view', 'View Purchases', 'View Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(453, 5, 'Purchases', 'purchases.create', 'purchases.create', 'Create Purchases', 'Create Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(454, 5, 'Purchases', 'purchases.update', 'purchases.update', 'Update Purchases', 'Update Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(455, 5, 'Purchases', 'purchases.delete', 'purchases.delete', 'Delete Purchases', 'Delete Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(456, 5, 'Purchases', 'purchases.approve', 'purchases.approve', 'Approve Purchases', 'Approve Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(457, 5, 'Purchases', 'purchases.submit', 'purchases.submit', 'Submit Purchases', 'Submit Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(458, 5, 'Pos', 'pos.sell', 'pos.sell', 'Sell Pos', 'Sell Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(459, 5, 'Pos', 'pos.hold_sale', 'pos.hold_sale', 'Hold Sale Pos', 'Hold Sale Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(460, 5, 'Pos', 'pos.open_orders', 'pos.open_orders', 'Open Orders Pos', 'Open Orders Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(461, 5, 'Pos', 'pos.return_sale', 'pos.return_sale', 'Return Sale Pos', 'Return Sale Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(462, 5, 'Pos', 'pos.cash_drawer', 'pos.cash_drawer', 'Cash Drawer Pos', 'Cash Drawer Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(463, 5, 'Orders', 'orders.view', 'orders.view', 'View Orders', 'View Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(464, 5, 'Orders', 'orders.create', 'orders.create', 'Create Orders', 'Create Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(465, 5, 'Orders', 'orders.update', 'orders.update', 'Update Orders', 'Update Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(466, 5, 'Orders', 'orders.cancel', 'orders.cancel', 'Cancel Orders', 'Cancel Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(467, 5, 'Orders', 'orders.refund', 'orders.refund', 'Refund Orders', 'Refund Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(468, 5, 'Payments', 'payments.view', 'payments.view', 'View Payments', 'View Payments', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(469, 5, 'Payments', 'payments.create', 'payments.create', 'Create Payments', 'Create Payments', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(470, 5, 'Payments', 'payments.refund', 'payments.refund', 'Refund Payments', 'Refund Payments', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(471, 5, 'Reports', 'reports.sales', 'reports.sales', 'Sales Reports', 'Sales Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(472, 5, 'Reports', 'reports.inventory', 'reports.inventory', 'Inventory Reports', 'Inventory Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(473, 5, 'Reports', 'reports.profit_loss', 'reports.profit_loss', 'Profit Loss Reports', 'Profit Loss Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(474, 5, 'Reports', 'reports.tax', 'reports.tax', 'Tax Reports', 'Tax Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(475, 5, 'Settings', 'settings.view', 'settings.view', 'View Settings', 'View Settings', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(476, 5, 'Settings', 'settings.update', 'settings.update', 'Update Settings', 'Update Settings', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(477, 5, 'Document Sequences', 'document_sequences.view', 'document_sequences.view', 'View Document Sequences', 'View Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(478, 5, 'Document Sequences', 'document_sequences.create', 'document_sequences.create', 'Create Document Sequences', 'Create Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(479, 5, 'Document Sequences', 'document_sequences.update', 'document_sequences.update', 'Update Document Sequences', 'Update Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(480, 5, 'Document Sequences', 'document_sequences.delete', 'document_sequences.delete', 'Delete Document Sequences', 'Delete Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(481, 5, 'Payment Methods', 'payment_methods.view', 'payment_methods.view', 'View Payment Methods', 'View Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(482, 5, 'Payment Methods', 'payment_methods.create', 'payment_methods.create', 'Create Payment Methods', 'Create Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(483, 5, 'Payment Methods', 'payment_methods.update', 'payment_methods.update', 'Update Payment Methods', 'Update Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(484, 5, 'Payment Methods', 'payment_methods.delete', 'payment_methods.delete', 'Delete Payment Methods', 'Delete Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL),
-(485, 5, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL);
+(1, 1, 'Dashboard', 'dashboard.view', 'dashboard.view', 'View Dashboard', 'View Dashboard', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:36', NULL),
+(2, 1, 'Company', 'company.view', 'company.view', 'View Company', 'View Company', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(3, 1, 'Company', 'company.update', 'company.update', 'Update Company', 'Update Company', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(4, 1, 'Branches', 'branches.view', 'branches.view', 'View Branches', 'View Branches', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(5, 1, 'Branches', 'branches.create', 'branches.create', 'Create Branches', 'Create Branches', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(6, 1, 'Branches', 'branches.update', 'branches.update', 'Update Branches', 'Update Branches', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(7, 1, 'Branches', 'branches.delete', 'branches.delete', 'Delete Branches', 'Delete Branches', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(8, 1, 'Branches', 'branches.analytics', 'branches.analytics', 'Analytics Branches', 'Analytics Branches', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(9, 1, 'Branches', 'branches.export', 'branches.export', 'Export Branches', 'Export Branches', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(10, 1, 'Terminals', 'terminals.view', 'terminals.view', 'View Terminals', 'View Terminals', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(11, 1, 'Terminals', 'terminals.create', 'terminals.create', 'Create Terminals', 'Create Terminals', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(12, 1, 'Terminals', 'terminals.update', 'terminals.update', 'Update Terminals', 'Update Terminals', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(13, 1, 'Terminals', 'terminals.delete', 'terminals.delete', 'Delete Terminals', 'Delete Terminals', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(14, 1, 'Users', 'users.view', 'users.view', 'View Users', 'View Users', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(15, 1, 'Users', 'users.create', 'users.create', 'Create Users', 'Create Users', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(16, 1, 'Users', 'users.update', 'users.update', 'Update Users', 'Update Users', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(17, 1, 'Users', 'users.delete', 'users.delete', 'Delete Users', 'Delete Users', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(18, 1, 'Users', 'users.reset_password', 'users.reset_password', 'Reset Password Users', 'Reset Password Users', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(19, 1, 'Roles', 'roles.view', 'roles.view', 'View Roles', 'View Roles', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(20, 1, 'Roles', 'roles.create', 'roles.create', 'Create Roles', 'Create Roles', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(21, 1, 'Roles', 'roles.update', 'roles.update', 'Update Roles', 'Update Roles', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(22, 1, 'Roles', 'roles.delete', 'roles.delete', 'Delete Roles', 'Delete Roles', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(23, 1, 'Roles', 'roles.assign_permissions', 'roles.assign_permissions', 'Assign Permissions Roles', 'Assign Permissions Roles', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(24, 1, 'Permissions', 'permissions.view', 'permissions.view', 'View Permissions', 'View Permissions', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(25, 1, 'Products', 'products.view', 'products.view', 'View Products', 'View Products', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(26, 1, 'Products', 'products.create', 'products.create', 'Create Products', 'Create Products', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(27, 1, 'Products', 'products.update', 'products.update', 'Update Products', 'Update Products', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(28, 1, 'Products', 'products.delete', 'products.delete', 'Delete Products', 'Delete Products', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(29, 1, 'Products', 'products.import', 'products.import', 'Import Products', 'Import Products', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(30, 1, 'Products', 'products.export', 'products.export', 'Export Products', 'Export Products', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(31, 1, 'Categories', 'categories.view', 'categories.view', 'View Categories', 'View Categories', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(32, 1, 'Categories', 'categories.create', 'categories.create', 'Create Categories', 'Create Categories', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(33, 1, 'Categories', 'categories.update', 'categories.update', 'Update Categories', 'Update Categories', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(34, 1, 'Categories', 'categories.delete', 'categories.delete', 'Delete Categories', 'Delete Categories', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(35, 1, 'Units', 'units.view', 'units.view', 'View Units', 'View Units', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(36, 1, 'Units', 'units.create', 'units.create', 'Create Units', 'Create Units', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(37, 1, 'Units', 'units.update', 'units.update', 'Update Units', 'Update Units', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(38, 1, 'Units', 'units.delete', 'units.delete', 'Delete Units', 'Delete Units', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(39, 1, 'Tax Rates', 'tax_rates.view', 'tax_rates.view', 'View Tax Rates', 'View Tax Rates', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(40, 1, 'Tax Rates', 'tax_rates.create', 'tax_rates.create', 'Create Tax Rates', 'Create Tax Rates', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(41, 1, 'Tax Rates', 'tax_rates.update', 'tax_rates.update', 'Update Tax Rates', 'Update Tax Rates', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(42, 1, 'Tax Rates', 'tax_rates.delete', 'tax_rates.delete', 'Delete Tax Rates', 'Delete Tax Rates', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(43, 1, 'Discounts', 'discounts.view', 'discounts.view', 'View Discounts', 'View Discounts', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(44, 1, 'Discounts', 'discounts.create', 'discounts.create', 'Create Discounts', 'Create Discounts', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(45, 1, 'Discounts', 'discounts.update', 'discounts.update', 'Update Discounts', 'Update Discounts', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(46, 1, 'Discounts', 'discounts.delete', 'discounts.delete', 'Delete Discounts', 'Delete Discounts', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(47, 1, 'Inventory', 'inventory.view', 'inventory.view', 'View Inventory', 'View Inventory', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(48, 1, 'Inventory', 'inventory.adjust_stock', 'inventory.adjust_stock', 'Adjust Stock Inventory', 'Adjust Stock Inventory', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(49, 1, 'Inventory', 'inventory.transfer_stock', 'inventory.transfer_stock', 'Transfer Stock Inventory', 'Transfer Stock Inventory', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(50, 1, 'Inventory', 'inventory.stock_count', 'inventory.stock_count', 'Stock Count Inventory', 'Stock Count Inventory', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(51, 1, 'Inventory', 'inventory.low_stock', 'inventory.low_stock', 'Low Stock Inventory', 'Low Stock Inventory', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(52, 1, 'Customers', 'customers.view', 'customers.view', 'View Customers', 'View Customers', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(53, 1, 'Customers', 'customers.create', 'customers.create', 'Create Customers', 'Create Customers', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(54, 1, 'Customers', 'customers.update', 'customers.update', 'Update Customers', 'Update Customers', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(55, 1, 'Customers', 'customers.delete', 'customers.delete', 'Delete Customers', 'Delete Customers', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(56, 1, 'Customers', 'customers.export', 'customers.export', 'Export Customers', 'Export Customers', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(57, 1, 'Suppliers', 'suppliers.view', 'suppliers.view', 'View Suppliers', 'View Suppliers', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(58, 1, 'Suppliers', 'suppliers.create', 'suppliers.create', 'Create Suppliers', 'Create Suppliers', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(59, 1, 'Suppliers', 'suppliers.update', 'suppliers.update', 'Update Suppliers', 'Update Suppliers', 1, 1, '2026-07-29 10:37:09', '2026-09-27 21:18:37', NULL),
+(60, 1, 'Suppliers', 'suppliers.delete', 'suppliers.delete', 'Delete Suppliers', 'Delete Suppliers', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(61, 1, 'Purchases', 'purchases.view', 'purchases.view', 'View Purchases', 'View Purchases', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(62, 1, 'Purchases', 'purchases.create', 'purchases.create', 'Create Purchases', 'Create Purchases', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(63, 1, 'Purchases', 'purchases.update', 'purchases.update', 'Update Purchases', 'Update Purchases', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(64, 1, 'Purchases', 'purchases.delete', 'purchases.delete', 'Delete Purchases', 'Delete Purchases', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(65, 1, 'Purchases', 'purchases.approve', 'purchases.approve', 'Approve Purchases', 'Approve Purchases', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(66, 1, 'Pos', 'pos.sell', 'pos.sell', 'Sell Pos', 'Sell Pos', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(67, 1, 'Pos', 'pos.hold_sale', 'pos.hold_sale', 'Hold Sale Pos', 'Hold Sale Pos', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(68, 1, 'Pos', 'pos.open_orders', 'pos.open_orders', 'Open Orders Pos', 'Open Orders Pos', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(69, 1, 'Pos', 'pos.return_sale', 'pos.return_sale', 'Return Sale Pos', 'Return Sale Pos', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(70, 1, 'Pos', 'pos.cash_drawer', 'pos.cash_drawer', 'Cash Drawer Pos', 'Cash Drawer Pos', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(71, 1, 'Orders', 'orders.view', 'orders.view', 'View Orders', 'View Orders', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(72, 1, 'Orders', 'orders.create', 'orders.create', 'Create Orders', 'Create Orders', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(73, 1, 'Orders', 'orders.update', 'orders.update', 'Update Orders', 'Update Orders', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(74, 1, 'Orders', 'orders.cancel', 'orders.cancel', 'Cancel Orders', 'Cancel Orders', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(75, 1, 'Orders', 'orders.refund', 'orders.refund', 'Refund Orders', 'Refund Orders', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(76, 1, 'Payments', 'payments.view', 'payments.view', 'View Payments', 'View Payments', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(77, 1, 'Payments', 'payments.create', 'payments.create', 'Create Payments', 'Create Payments', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(78, 1, 'Payments', 'payments.refund', 'payments.refund', 'Refund Payments', 'Refund Payments', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(79, 1, 'Reports', 'reports.sales', 'reports.sales', 'Sales Reports', 'Sales Reports', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(80, 1, 'Reports', 'reports.inventory', 'reports.inventory', 'Inventory Reports', 'Inventory Reports', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(81, 1, 'Reports', 'reports.profit_loss', 'reports.profit_loss', 'Profit Loss Reports', 'Profit Loss Reports', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(82, 1, 'Reports', 'reports.tax', 'reports.tax', 'Tax Reports', 'Tax Reports', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(83, 1, 'Settings', 'settings.view', 'settings.view', 'View Settings', 'View Settings', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(84, 1, 'Settings', 'settings.update', 'settings.update', 'Update Settings', 'Update Settings', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(85, 1, 'Document Sequences', 'document_sequences.view', 'document_sequences.view', 'View Document Sequences', 'View Document Sequences', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(86, 1, 'Document Sequences', 'document_sequences.create', 'document_sequences.create', 'Create Document Sequences', 'Create Document Sequences', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(87, 1, 'Document Sequences', 'document_sequences.update', 'document_sequences.update', 'Update Document Sequences', 'Update Document Sequences', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(88, 1, 'Document Sequences', 'document_sequences.delete', 'document_sequences.delete', 'Delete Document Sequences', 'Delete Document Sequences', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(89, 1, 'Payment Methods', 'payment_methods.view', 'payment_methods.view', 'View Payment Methods', 'View Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(90, 1, 'Payment Methods', 'payment_methods.create', 'payment_methods.create', 'Create Payment Methods', 'Create Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(91, 1, 'Payment Methods', 'payment_methods.update', 'payment_methods.update', 'Update Payment Methods', 'Update Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(92, 1, 'Payment Methods', 'payment_methods.delete', 'payment_methods.delete', 'Delete Payment Methods', 'Delete Payment Methods', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(93, 1, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-07-29 10:37:10', '2026-09-27 21:18:37', NULL),
+(290, 4, 'Dashboard', 'dashboard.view', 'dashboard.view', 'View Dashboard', 'View Dashboard', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(291, 4, 'Company', 'company.view', 'company.view', 'View Company', 'View Company', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(292, 4, 'Company', 'company.update', 'company.update', 'Update Company', 'Update Company', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(293, 4, 'Branches', 'branches.view', 'branches.view', 'View Branches', 'View Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(294, 4, 'Branches', 'branches.create', 'branches.create', 'Create Branches', 'Create Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(295, 4, 'Branches', 'branches.update', 'branches.update', 'Update Branches', 'Update Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(296, 4, 'Branches', 'branches.delete', 'branches.delete', 'Delete Branches', 'Delete Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(297, 4, 'Branches', 'branches.analytics', 'branches.analytics', 'Analytics Branches', 'Analytics Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(298, 4, 'Branches', 'branches.export', 'branches.export', 'Export Branches', 'Export Branches', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(299, 4, 'Terminals', 'terminals.view', 'terminals.view', 'View Terminals', 'View Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(300, 4, 'Terminals', 'terminals.create', 'terminals.create', 'Create Terminals', 'Create Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(301, 4, 'Terminals', 'terminals.update', 'terminals.update', 'Update Terminals', 'Update Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(302, 4, 'Terminals', 'terminals.delete', 'terminals.delete', 'Delete Terminals', 'Delete Terminals', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(303, 4, 'Users', 'users.view', 'users.view', 'View Users', 'View Users', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(304, 4, 'Users', 'users.create', 'users.create', 'Create Users', 'Create Users', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(305, 4, 'Users', 'users.update', 'users.update', 'Update Users', 'Update Users', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(306, 4, 'Users', 'users.delete', 'users.delete', 'Delete Users', 'Delete Users', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(307, 4, 'Users', 'users.reset_password', 'users.reset_password', 'Reset Password Users', 'Reset Password Users', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(308, 4, 'Roles', 'roles.view', 'roles.view', 'View Roles', 'View Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(309, 4, 'Roles', 'roles.create', 'roles.create', 'Create Roles', 'Create Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(310, 4, 'Roles', 'roles.update', 'roles.update', 'Update Roles', 'Update Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(311, 4, 'Roles', 'roles.delete', 'roles.delete', 'Delete Roles', 'Delete Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(312, 4, 'Roles', 'roles.assign_permissions', 'roles.assign_permissions', 'Assign Permissions Roles', 'Assign Permissions Roles', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(313, 4, 'Permissions', 'permissions.view', 'permissions.view', 'View Permissions', 'View Permissions', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(314, 4, 'Products', 'products.view', 'products.view', 'View Products', 'View Products', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(315, 4, 'Products', 'products.create', 'products.create', 'Create Products', 'Create Products', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(316, 4, 'Products', 'products.update', 'products.update', 'Update Products', 'Update Products', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(317, 4, 'Products', 'products.delete', 'products.delete', 'Delete Products', 'Delete Products', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(318, 4, 'Products', 'products.import', 'products.import', 'Import Products', 'Import Products', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(319, 4, 'Products', 'products.export', 'products.export', 'Export Products', 'Export Products', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(320, 4, 'Categories', 'categories.view', 'categories.view', 'View Categories', 'View Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(321, 4, 'Categories', 'categories.create', 'categories.create', 'Create Categories', 'Create Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(322, 4, 'Categories', 'categories.update', 'categories.update', 'Update Categories', 'Update Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(323, 4, 'Categories', 'categories.delete', 'categories.delete', 'Delete Categories', 'Delete Categories', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(324, 4, 'Units', 'units.view', 'units.view', 'View Units', 'View Units', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(325, 4, 'Units', 'units.create', 'units.create', 'Create Units', 'Create Units', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(326, 4, 'Units', 'units.update', 'units.update', 'Update Units', 'Update Units', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(327, 4, 'Units', 'units.delete', 'units.delete', 'Delete Units', 'Delete Units', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(328, 4, 'Tax Rates', 'tax_rates.view', 'tax_rates.view', 'View Tax Rates', 'View Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(329, 4, 'Tax Rates', 'tax_rates.create', 'tax_rates.create', 'Create Tax Rates', 'Create Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(330, 4, 'Tax Rates', 'tax_rates.update', 'tax_rates.update', 'Update Tax Rates', 'Update Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(331, 4, 'Tax Rates', 'tax_rates.delete', 'tax_rates.delete', 'Delete Tax Rates', 'Delete Tax Rates', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(332, 4, 'Discounts', 'discounts.view', 'discounts.view', 'View Discounts', 'View Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(333, 4, 'Discounts', 'discounts.create', 'discounts.create', 'Create Discounts', 'Create Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(334, 4, 'Discounts', 'discounts.update', 'discounts.update', 'Update Discounts', 'Update Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(335, 4, 'Discounts', 'discounts.delete', 'discounts.delete', 'Delete Discounts', 'Delete Discounts', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(336, 4, 'Inventory', 'inventory.view', 'inventory.view', 'View Inventory', 'View Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(337, 4, 'Inventory', 'inventory.adjust_stock', 'inventory.adjust_stock', 'Adjust Stock Inventory', 'Adjust Stock Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(338, 4, 'Inventory', 'inventory.transfer_stock', 'inventory.transfer_stock', 'Transfer Stock Inventory', 'Transfer Stock Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(339, 4, 'Inventory', 'inventory.stock_count', 'inventory.stock_count', 'Stock Count Inventory', 'Stock Count Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(340, 4, 'Inventory', 'inventory.low_stock', 'inventory.low_stock', 'Low Stock Inventory', 'Low Stock Inventory', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(341, 4, 'Customers', 'customers.view', 'customers.view', 'View Customers', 'View Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(342, 4, 'Customers', 'customers.create', 'customers.create', 'Create Customers', 'Create Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(343, 4, 'Customers', 'customers.update', 'customers.update', 'Update Customers', 'Update Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(344, 4, 'Customers', 'customers.delete', 'customers.delete', 'Delete Customers', 'Delete Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(345, 4, 'Customers', 'customers.export', 'customers.export', 'Export Customers', 'Export Customers', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(346, 4, 'Customer Groups', 'customer_groups.view', 'customer_groups.view', 'View Customer Groups', 'View Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(347, 4, 'Customer Groups', 'customer_groups.create', 'customer_groups.create', 'Create Customer Groups', 'Create Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(348, 4, 'Customer Groups', 'customer_groups.update', 'customer_groups.update', 'Update Customer Groups', 'Update Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(349, 4, 'Customer Groups', 'customer_groups.delete', 'customer_groups.delete', 'Delete Customer Groups', 'Delete Customer Groups', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(350, 4, 'Suppliers', 'suppliers.view', 'suppliers.view', 'View Suppliers', 'View Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(351, 4, 'Suppliers', 'suppliers.create', 'suppliers.create', 'Create Suppliers', 'Create Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(352, 4, 'Suppliers', 'suppliers.update', 'suppliers.update', 'Update Suppliers', 'Update Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(353, 4, 'Suppliers', 'suppliers.delete', 'suppliers.delete', 'Delete Suppliers', 'Delete Suppliers', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(354, 4, 'Purchases', 'purchases.view', 'purchases.view', 'View Purchases', 'View Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(355, 4, 'Purchases', 'purchases.create', 'purchases.create', 'Create Purchases', 'Create Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(356, 4, 'Purchases', 'purchases.update', 'purchases.update', 'Update Purchases', 'Update Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(357, 4, 'Purchases', 'purchases.delete', 'purchases.delete', 'Delete Purchases', 'Delete Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(358, 4, 'Purchases', 'purchases.approve', 'purchases.approve', 'Approve Purchases', 'Approve Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(359, 4, 'Purchases', 'purchases.submit', 'purchases.submit', 'Submit Purchases', 'Submit Purchases', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(360, 4, 'Pos', 'pos.sell', 'pos.sell', 'Sell Pos', 'Sell Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(361, 4, 'Pos', 'pos.hold_sale', 'pos.hold_sale', 'Hold Sale Pos', 'Hold Sale Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(362, 4, 'Pos', 'pos.open_orders', 'pos.open_orders', 'Open Orders Pos', 'Open Orders Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(363, 4, 'Pos', 'pos.return_sale', 'pos.return_sale', 'Return Sale Pos', 'Return Sale Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(364, 4, 'Pos', 'pos.cash_drawer', 'pos.cash_drawer', 'Cash Drawer Pos', 'Cash Drawer Pos', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(365, 4, 'Orders', 'orders.view', 'orders.view', 'View Orders', 'View Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(366, 4, 'Orders', 'orders.create', 'orders.create', 'Create Orders', 'Create Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(367, 4, 'Orders', 'orders.update', 'orders.update', 'Update Orders', 'Update Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(368, 4, 'Orders', 'orders.cancel', 'orders.cancel', 'Cancel Orders', 'Cancel Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(369, 4, 'Orders', 'orders.refund', 'orders.refund', 'Refund Orders', 'Refund Orders', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(370, 4, 'Payments', 'payments.view', 'payments.view', 'View Payments', 'View Payments', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(371, 4, 'Payments', 'payments.create', 'payments.create', 'Create Payments', 'Create Payments', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(372, 4, 'Payments', 'payments.refund', 'payments.refund', 'Refund Payments', 'Refund Payments', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(373, 4, 'Reports', 'reports.sales', 'reports.sales', 'Sales Reports', 'Sales Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(374, 4, 'Reports', 'reports.inventory', 'reports.inventory', 'Inventory Reports', 'Inventory Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(375, 4, 'Reports', 'reports.profit_loss', 'reports.profit_loss', 'Profit Loss Reports', 'Profit Loss Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(376, 4, 'Reports', 'reports.tax', 'reports.tax', 'Tax Reports', 'Tax Reports', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(377, 4, 'Settings', 'settings.view', 'settings.view', 'View Settings', 'View Settings', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(378, 4, 'Settings', 'settings.update', 'settings.update', 'Update Settings', 'Update Settings', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(379, 4, 'Document Sequences', 'document_sequences.view', 'document_sequences.view', 'View Document Sequences', 'View Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(380, 4, 'Document Sequences', 'document_sequences.create', 'document_sequences.create', 'Create Document Sequences', 'Create Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(381, 4, 'Document Sequences', 'document_sequences.update', 'document_sequences.update', 'Update Document Sequences', 'Update Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(382, 4, 'Document Sequences', 'document_sequences.delete', 'document_sequences.delete', 'Delete Document Sequences', 'Delete Document Sequences', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(383, 4, 'Payment Methods', 'payment_methods.view', 'payment_methods.view', 'View Payment Methods', 'View Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(384, 4, 'Payment Methods', 'payment_methods.create', 'payment_methods.create', 'Create Payment Methods', 'Create Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(385, 4, 'Payment Methods', 'payment_methods.update', 'payment_methods.update', 'Update Payment Methods', 'Update Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(386, 4, 'Payment Methods', 'payment_methods.delete', 'payment_methods.delete', 'Delete Payment Methods', 'Delete Payment Methods', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(387, 4, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-09-17 12:10:34', '2026-09-27 21:18:37', NULL),
+(388, 5, 'Dashboard', 'dashboard.view', 'dashboard.view', 'View Dashboard', 'View Dashboard', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(389, 5, 'Company', 'company.view', 'company.view', 'View Company', 'View Company', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(390, 5, 'Company', 'company.update', 'company.update', 'Update Company', 'Update Company', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(391, 5, 'Branches', 'branches.view', 'branches.view', 'View Branches', 'View Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(392, 5, 'Branches', 'branches.create', 'branches.create', 'Create Branches', 'Create Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(393, 5, 'Branches', 'branches.update', 'branches.update', 'Update Branches', 'Update Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(394, 5, 'Branches', 'branches.delete', 'branches.delete', 'Delete Branches', 'Delete Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(395, 5, 'Branches', 'branches.analytics', 'branches.analytics', 'Analytics Branches', 'Analytics Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(396, 5, 'Branches', 'branches.export', 'branches.export', 'Export Branches', 'Export Branches', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(397, 5, 'Terminals', 'terminals.view', 'terminals.view', 'View Terminals', 'View Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(398, 5, 'Terminals', 'terminals.create', 'terminals.create', 'Create Terminals', 'Create Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(399, 5, 'Terminals', 'terminals.update', 'terminals.update', 'Update Terminals', 'Update Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(400, 5, 'Terminals', 'terminals.delete', 'terminals.delete', 'Delete Terminals', 'Delete Terminals', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(401, 5, 'Users', 'users.view', 'users.view', 'View Users', 'View Users', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(402, 5, 'Users', 'users.create', 'users.create', 'Create Users', 'Create Users', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(403, 5, 'Users', 'users.update', 'users.update', 'Update Users', 'Update Users', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(404, 5, 'Users', 'users.delete', 'users.delete', 'Delete Users', 'Delete Users', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(405, 5, 'Users', 'users.reset_password', 'users.reset_password', 'Reset Password Users', 'Reset Password Users', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(406, 5, 'Roles', 'roles.view', 'roles.view', 'View Roles', 'View Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(407, 5, 'Roles', 'roles.create', 'roles.create', 'Create Roles', 'Create Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(408, 5, 'Roles', 'roles.update', 'roles.update', 'Update Roles', 'Update Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(409, 5, 'Roles', 'roles.delete', 'roles.delete', 'Delete Roles', 'Delete Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(410, 5, 'Roles', 'roles.assign_permissions', 'roles.assign_permissions', 'Assign Permissions Roles', 'Assign Permissions Roles', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(411, 5, 'Permissions', 'permissions.view', 'permissions.view', 'View Permissions', 'View Permissions', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(412, 5, 'Products', 'products.view', 'products.view', 'View Products', 'View Products', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(413, 5, 'Products', 'products.create', 'products.create', 'Create Products', 'Create Products', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(414, 5, 'Products', 'products.update', 'products.update', 'Update Products', 'Update Products', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(415, 5, 'Products', 'products.delete', 'products.delete', 'Delete Products', 'Delete Products', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(416, 5, 'Products', 'products.import', 'products.import', 'Import Products', 'Import Products', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(417, 5, 'Products', 'products.export', 'products.export', 'Export Products', 'Export Products', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:37', NULL),
+(418, 5, 'Categories', 'categories.view', 'categories.view', 'View Categories', 'View Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(419, 5, 'Categories', 'categories.create', 'categories.create', 'Create Categories', 'Create Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(420, 5, 'Categories', 'categories.update', 'categories.update', 'Update Categories', 'Update Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(421, 5, 'Categories', 'categories.delete', 'categories.delete', 'Delete Categories', 'Delete Categories', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(422, 5, 'Units', 'units.view', 'units.view', 'View Units', 'View Units', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(423, 5, 'Units', 'units.create', 'units.create', 'Create Units', 'Create Units', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(424, 5, 'Units', 'units.update', 'units.update', 'Update Units', 'Update Units', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(425, 5, 'Units', 'units.delete', 'units.delete', 'Delete Units', 'Delete Units', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(426, 5, 'Tax Rates', 'tax_rates.view', 'tax_rates.view', 'View Tax Rates', 'View Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(427, 5, 'Tax Rates', 'tax_rates.create', 'tax_rates.create', 'Create Tax Rates', 'Create Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(428, 5, 'Tax Rates', 'tax_rates.update', 'tax_rates.update', 'Update Tax Rates', 'Update Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(429, 5, 'Tax Rates', 'tax_rates.delete', 'tax_rates.delete', 'Delete Tax Rates', 'Delete Tax Rates', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(430, 5, 'Discounts', 'discounts.view', 'discounts.view', 'View Discounts', 'View Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(431, 5, 'Discounts', 'discounts.create', 'discounts.create', 'Create Discounts', 'Create Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(432, 5, 'Discounts', 'discounts.update', 'discounts.update', 'Update Discounts', 'Update Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(433, 5, 'Discounts', 'discounts.delete', 'discounts.delete', 'Delete Discounts', 'Delete Discounts', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(434, 5, 'Inventory', 'inventory.view', 'inventory.view', 'View Inventory', 'View Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(435, 5, 'Inventory', 'inventory.adjust_stock', 'inventory.adjust_stock', 'Adjust Stock Inventory', 'Adjust Stock Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(436, 5, 'Inventory', 'inventory.transfer_stock', 'inventory.transfer_stock', 'Transfer Stock Inventory', 'Transfer Stock Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(437, 5, 'Inventory', 'inventory.stock_count', 'inventory.stock_count', 'Stock Count Inventory', 'Stock Count Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(438, 5, 'Inventory', 'inventory.low_stock', 'inventory.low_stock', 'Low Stock Inventory', 'Low Stock Inventory', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(439, 5, 'Customers', 'customers.view', 'customers.view', 'View Customers', 'View Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(440, 5, 'Customers', 'customers.create', 'customers.create', 'Create Customers', 'Create Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(441, 5, 'Customers', 'customers.update', 'customers.update', 'Update Customers', 'Update Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(442, 5, 'Customers', 'customers.delete', 'customers.delete', 'Delete Customers', 'Delete Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(443, 5, 'Customers', 'customers.export', 'customers.export', 'Export Customers', 'Export Customers', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(444, 5, 'Customer Groups', 'customer_groups.view', 'customer_groups.view', 'View Customer Groups', 'View Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(445, 5, 'Customer Groups', 'customer_groups.create', 'customer_groups.create', 'Create Customer Groups', 'Create Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(446, 5, 'Customer Groups', 'customer_groups.update', 'customer_groups.update', 'Update Customer Groups', 'Update Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(447, 5, 'Customer Groups', 'customer_groups.delete', 'customer_groups.delete', 'Delete Customer Groups', 'Delete Customer Groups', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(448, 5, 'Suppliers', 'suppliers.view', 'suppliers.view', 'View Suppliers', 'View Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(449, 5, 'Suppliers', 'suppliers.create', 'suppliers.create', 'Create Suppliers', 'Create Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(450, 5, 'Suppliers', 'suppliers.update', 'suppliers.update', 'Update Suppliers', 'Update Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(451, 5, 'Suppliers', 'suppliers.delete', 'suppliers.delete', 'Delete Suppliers', 'Delete Suppliers', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(452, 5, 'Purchases', 'purchases.view', 'purchases.view', 'View Purchases', 'View Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(453, 5, 'Purchases', 'purchases.create', 'purchases.create', 'Create Purchases', 'Create Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(454, 5, 'Purchases', 'purchases.update', 'purchases.update', 'Update Purchases', 'Update Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(455, 5, 'Purchases', 'purchases.delete', 'purchases.delete', 'Delete Purchases', 'Delete Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(456, 5, 'Purchases', 'purchases.approve', 'purchases.approve', 'Approve Purchases', 'Approve Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(457, 5, 'Purchases', 'purchases.submit', 'purchases.submit', 'Submit Purchases', 'Submit Purchases', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(458, 5, 'Pos', 'pos.sell', 'pos.sell', 'Sell Pos', 'Sell Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(459, 5, 'Pos', 'pos.hold_sale', 'pos.hold_sale', 'Hold Sale Pos', 'Hold Sale Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(460, 5, 'Pos', 'pos.open_orders', 'pos.open_orders', 'Open Orders Pos', 'Open Orders Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(461, 5, 'Pos', 'pos.return_sale', 'pos.return_sale', 'Return Sale Pos', 'Return Sale Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(462, 5, 'Pos', 'pos.cash_drawer', 'pos.cash_drawer', 'Cash Drawer Pos', 'Cash Drawer Pos', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(463, 5, 'Orders', 'orders.view', 'orders.view', 'View Orders', 'View Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(464, 5, 'Orders', 'orders.create', 'orders.create', 'Create Orders', 'Create Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(465, 5, 'Orders', 'orders.update', 'orders.update', 'Update Orders', 'Update Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(466, 5, 'Orders', 'orders.cancel', 'orders.cancel', 'Cancel Orders', 'Cancel Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(467, 5, 'Orders', 'orders.refund', 'orders.refund', 'Refund Orders', 'Refund Orders', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(468, 5, 'Payments', 'payments.view', 'payments.view', 'View Payments', 'View Payments', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(469, 5, 'Payments', 'payments.create', 'payments.create', 'Create Payments', 'Create Payments', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(470, 5, 'Payments', 'payments.refund', 'payments.refund', 'Refund Payments', 'Refund Payments', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(471, 5, 'Reports', 'reports.sales', 'reports.sales', 'Sales Reports', 'Sales Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(472, 5, 'Reports', 'reports.inventory', 'reports.inventory', 'Inventory Reports', 'Inventory Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(473, 5, 'Reports', 'reports.profit_loss', 'reports.profit_loss', 'Profit Loss Reports', 'Profit Loss Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(474, 5, 'Reports', 'reports.tax', 'reports.tax', 'Tax Reports', 'Tax Reports', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(475, 5, 'Settings', 'settings.view', 'settings.view', 'View Settings', 'View Settings', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(476, 5, 'Settings', 'settings.update', 'settings.update', 'Update Settings', 'Update Settings', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(477, 5, 'Document Sequences', 'document_sequences.view', 'document_sequences.view', 'View Document Sequences', 'View Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(478, 5, 'Document Sequences', 'document_sequences.create', 'document_sequences.create', 'Create Document Sequences', 'Create Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(479, 5, 'Document Sequences', 'document_sequences.update', 'document_sequences.update', 'Update Document Sequences', 'Update Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(480, 5, 'Document Sequences', 'document_sequences.delete', 'document_sequences.delete', 'Delete Document Sequences', 'Delete Document Sequences', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(481, 5, 'Payment Methods', 'payment_methods.view', 'payment_methods.view', 'View Payment Methods', 'View Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(482, 5, 'Payment Methods', 'payment_methods.create', 'payment_methods.create', 'Create Payment Methods', 'Create Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(483, 5, 'Payment Methods', 'payment_methods.update', 'payment_methods.update', 'Update Payment Methods', 'Update Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(484, 5, 'Payment Methods', 'payment_methods.delete', 'payment_methods.delete', 'Delete Payment Methods', 'Delete Payment Methods', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(485, 5, 'Audit Logs', 'audit_logs.view', 'audit_logs.view', 'View Audit Logs', 'View Audit Logs', 1, 1, '2026-09-26 20:02:55', '2026-09-27 21:18:38', NULL),
+(486, 1, 'Customer Groups', 'customer_groups.view', 'customer_groups.view', 'View Customer Groups', 'View Customer Groups', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(487, 1, 'Customer Groups', 'customer_groups.create', 'customer_groups.create', 'Create Customer Groups', 'Create Customer Groups', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(488, 1, 'Customer Groups', 'customer_groups.update', 'customer_groups.update', 'Update Customer Groups', 'Update Customer Groups', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(489, 1, 'Customer Groups', 'customer_groups.delete', 'customer_groups.delete', 'Delete Customer Groups', 'Delete Customer Groups', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(490, 1, 'Purchases', 'purchases.submit', 'purchases.submit', 'Submit Purchases', 'Submit Purchases', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(491, 1, 'Shipping', 'shipping.view', 'shipping.view', 'View Shipping', 'View Shipping', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(492, 1, 'Shipping', 'shipping.manage', 'shipping.manage', 'Manage Shipping', 'Manage Shipping', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(493, 1, 'Shipping', 'shipping.orders', 'shipping.orders', 'Orders Shipping', 'Orders Shipping', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(494, 4, 'Shipping', 'shipping.view', 'shipping.view', 'View Shipping', 'View Shipping', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(495, 4, 'Shipping', 'shipping.manage', 'shipping.manage', 'Manage Shipping', 'Manage Shipping', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(496, 4, 'Shipping', 'shipping.orders', 'shipping.orders', 'Orders Shipping', 'Orders Shipping', 1, 1, '2026-09-27 21:18:37', '2026-09-27 21:18:37', NULL),
+(497, 5, 'Shipping', 'shipping.view', 'shipping.view', 'View Shipping', 'View Shipping', 1, 1, '2026-09-27 21:18:38', '2026-09-27 21:18:38', NULL),
+(498, 5, 'Shipping', 'shipping.manage', 'shipping.manage', 'Manage Shipping', 'Manage Shipping', 1, 1, '2026-09-27 21:18:38', '2026-09-27 21:18:38', NULL),
+(499, 5, 'Shipping', 'shipping.orders', 'shipping.orders', 'Orders Shipping', 'Orders Shipping', 1, 1, '2026-09-27 21:18:38', '2026-09-27 21:18:38', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `platform_admins`
+--
+
+CREATE TABLE `platform_admins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `access_level` enum('owner','admin','support') NOT NULL DEFAULT 'support',
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `two_factor_enabled` tinyint(1) NOT NULL DEFAULT 0,
+  `last_login_at` timestamp NULL DEFAULT NULL,
+  `last_activity_at` timestamp NULL DEFAULT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `platform_admins`
+--
+
+INSERT INTO `platform_admins` (`id`, `first_name`, `last_name`, `email`, `password`, `access_level`, `status`, `two_factor_enabled`, `last_login_at`, `last_activity_at`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Platform', 'Owner', 'admin@eitc.com.ng', '$2y$12$S9uJREr/Xt/oDTqWaWdFKOuSZ.vKewCn/3oDApjMPDuT1VCq61u6W', 'owner', 1, 0, '2026-09-26 23:58:50', '2026-09-26 23:58:50', NULL, '2026-09-26 23:41:08', '2026-09-26 23:58:50');
 
 -- --------------------------------------------------------
 
@@ -1822,16 +2063,16 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `company_id`, `product_category_id`, `product_code`, `barcode`, `sku`, `qr_code`, `name`, `description`, `image`, `cost_price`, `selling_price`, `discount_id`, `unit_id`, `shelf_location`, `track_stock`, `brand`, `manufacturer`, `expiry_date`, `taxable`, `tax_rate_id`, `status`, `minimum_stock`, `maximum_stock`, `weight`, `dimensions`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`, `reorder_level`) VALUES
-(1, 1, 1, 'PRD000001', '100000000001', 'COKE50CL', NULL, 'Coca-Cola 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Coca-Cola', 'NBC', '2026-09-23', 1, 2, 1, 10.00, 2000.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-22 08:53:46', NULL, 20.00),
-(2, 1, 1, 'PRD000002', '100000000002', 'FANTA50CL', NULL, 'Fanta 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Fanta', 'NBC', NULL, 1, 2, 1, 10.00, 2100.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-22 12:55:45', NULL, 20.00),
-(3, 1, 1, 'PRD000003', '100000000003', 'SPRITE50CL', NULL, 'Sprite 50cl', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Sprite', 'NBC', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(4, 1, 5, 'PRD000004', '100000000004', 'PEAK500', NULL, 'Peak Milk 500g', 'Peak Milk 500g', NULL, 4200.00, 4800.00, 1, 1, NULL, 1, 'Peak', 'FrieslandCampina', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-09 16:32:26', NULL, 20.00),
-(5, 1, 2, 'PRD000005', '100000000005', 'INDM70', NULL, 'Indomie Chicken Noodles', NULL, NULL, 180.00, 250.00, 1, 1, NULL, 1, 'Indomie', 'Dufil', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(6, 1, 2, 'PRD000006', '100000000006', 'SUG1KG', NULL, 'Dangote Sugar 1kg', NULL, NULL, 1450.00, 1650.00, 1, 1, NULL, 1, 'Dangote', 'Dangote', NULL, 1, 2, 1, 10.00, 1595.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-22 12:50:47', NULL, 20.00),
-(7, 1, 3, 'PRD000007', '100000000007', 'BREAD001', NULL, 'Family Bread', NULL, NULL, 900.00, 1200.00, 1, 1, NULL, 1, 'Local', 'Bakery', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(8, 1, 2, 'PRD000008', '100000000008', 'RICE50KG', NULL, 'Mama Gold Rice 50kg', NULL, NULL, 82000.00, 90000.00, 1, 11, NULL, 1, 'Mama Gold', 'Mama Gold', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(9, 1, 7, 'PRD000009', '100000000009', 'SOAP001', NULL, 'Premier Soap', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Premier', 'PZ', NULL, 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL, 20.00),
-(10, 1, 9, 'PRD000010', '100000000010', 'PAMP001', NULL, 'Pampers Size 3', NULL, NULL, 7800.00, 8600.00, 1, 2, NULL, 1, 'Pampers', 'P&G', NULL, 1, 2, 1, 10.00, 1085.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-08-22 13:16:04', NULL, 20.00),
+(1, 1, 1, 'PRD000001', '100000000001', 'COKE50CL', NULL, 'Coca-Cola 50cl', NULL, '1790543689_6ab98749371c7.jpg', 500.00, 700.00, 1, 1, NULL, 1, 'Coca-Cola', 'NBC', '2026-09-23', 1, 2, 1, 10.00, 2000.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:14:49', NULL, 20.00),
+(2, 1, 1, 'PRD000002', '100000000002', 'FANTA50CL', NULL, 'Fanta 50cl', NULL, '1790543985_6ab9887108da1.jpeg', 500.00, 700.00, 1, 1, NULL, 1, 'Fanta', 'NBC', '2026-09-27', 1, 2, 1, 10.00, 2100.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:19:45', NULL, 20.00),
+(3, 1, 1, 'PRD000003', '100000000003', 'SPRITE50CL', NULL, 'Sprite 50cl', NULL, '1790544002_6ab9888210fe1.jpeg', 500.00, 700.00, 1, 1, NULL, 1, 'Sprite', 'NBC', '2026-09-27', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:20:02', NULL, 20.00),
+(4, 1, 5, 'PRD000004', '100000000004', 'PEAK500', NULL, 'Peak Milk 500g', 'Peak Milk 500g', '1790544024_6ab988982f02b.jpeg', 4200.00, 4800.00, 1, 1, NULL, 1, 'Peak', 'FrieslandCampina', '2030-10-27', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:20:24', NULL, 20.00),
+(5, 1, 2, 'PRD000005', '100000000005', 'INDM70', NULL, 'Indomie Chicken Noodles', NULL, '1790544043_6ab988ab3d54f.jpeg', 180.00, 250.00, 1, 1, NULL, 1, 'Indomie', 'Dufil', '2029-10-25', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:20:43', NULL, 20.00),
+(6, 1, 2, 'PRD000006', '100000000006', 'SUG1KG', NULL, 'Dangote Sugar 1kg', NULL, '1790544062_6ab988bedab7b.jpeg', 1450.00, 1650.00, 1, 1, NULL, 1, 'Dangote', 'Dangote', '2030-09-26', 1, 2, 1, 10.00, 1595.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:21:02', NULL, 20.00),
+(7, 1, 3, 'PRD000007', '100000000007', 'BREAD001', NULL, 'Family Bread', NULL, '1790544083_6ab988d35c62a.jpeg', 900.00, 1200.00, 1, 1, NULL, 1, 'Local', 'Bakery', '2026-10-18', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:21:23', NULL, 20.00),
+(8, 1, 2, 'PRD000008', '100000000008', 'RICE50KG', NULL, 'Mama Gold Rice 50kg', NULL, '1790544101_6ab988e5e3018.jpeg', 82000.00, 90000.00, 1, 11, NULL, 1, 'Mama Gold', 'Mama Gold', '2032-10-31', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:21:41', NULL, 20.00),
+(9, 1, 7, 'PRD000009', '100000000009', 'SOAP001', NULL, 'Premier Soap', NULL, '1790544120_6ab988f8b0af7.jpg', 500.00, 700.00, 1, 1, NULL, 1, 'Premier', 'PZ', '2028-11-30', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:22:00', NULL, 20.00),
+(10, 1, 9, 'PRD000010', '100000000010', 'PAMP001', NULL, 'Pampers Size 3', NULL, '1790544154_6ab9891a6b244.jpeg', 7800.00, 8600.00, 1, 2, NULL, 1, 'Pampers', 'P&G', '2028-10-11', 1, 2, 1, 10.00, 1085.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:22:34', NULL, 20.00),
 (19, 1, 5, 'PRD000011', 'TH123456', NULL, NULL, 'Three Crown Evaporated Milk', 'Three Crown Evaporated Milk', '1786301525_6a78cc5535908.png', 1000.00, 1200.00, NULL, 5, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-11-25', 1, NULL, 1, 100.00, 1635.00, NULL, NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-22 13:10:17', NULL, 0.00),
 (20, 4, 15, 'PRD-000001', '12345', 'SKU-0001', 'QR-0001', 'Three Crown', 'Three Crown', '1789995718_6ab12ac629c4e.png', 5000.00, 7500.00, 6, 15, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 11:55:14', '2026-09-21 12:01:58', NULL, 0.00),
 (21, 4, 16, 'PRD-000002', '452345', 'SKU-0002', 'QR-0002', 'Dangote Sugar 1kg', 'Dangote Sugar 1kg', '1789996254_6ab12cde96345.jpeg', 180.00, 250.00, 6, 15, NULL, 1, 'Dangote', 'Dangote', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 12:09:46', '2026-09-21 12:10:54', NULL, 0.00);
@@ -1903,36 +2144,36 @@ CREATE TABLE `product_stocks` (
 --
 
 INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `quantity`, `reserved_quantity`, `available_quantity`, `reorder_level`, `maximum_stock`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 975.02, 0.00, 975.02, 10.00, 2000.00, '2026-07-29 10:37:13', '2026-09-16 12:46:46'),
-(2, 1, 1, 2, 2040.00, 0.00, 2040.00, 20.00, 2100.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(3, 1, 1, 3, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(4, 1, 1, 4, 90.00, 0.00, 90.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(5, 1, 1, 5, 80.00, 0.00, 78.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-09-16 12:18:22'),
-(6, 1, 1, 6, 1525.00, 0.00, 1524.00, 20.00, 1595.00, '2026-07-29 10:37:13', '2026-09-16 12:16:43'),
-(7, 1, 1, 7, 84.00, 0.00, 84.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-09-16 12:03:19'),
-(8, 1, 1, 8, 75.00, 0.00, 75.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(9, 1, 1, 9, 70.00, 0.00, 70.00, 20.00, 500.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(10, 1, 1, 10, 1020.00, 0.00, 1020.00, 20.00, 1085.00, '2026-07-29 10:37:13', '2026-08-31 10:05:07'),
-(13, 1, 1, 19, 1600.00, 0.00, 1600.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-09-16 12:34:45'),
+(1, 1, 1, 1, 973.02, 0.00, 973.02, 10.00, 2000.00, '2026-07-29 10:37:13', '2026-09-27 20:57:54'),
+(2, 1, 1, 2, 2040.00, 0.00, 2040.00, 10.00, 2100.00, '2026-07-29 10:37:13', '2026-09-27 20:19:45'),
+(3, 1, 1, 3, 90.00, 0.00, 90.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 20:20:02'),
+(4, 1, 1, 4, 88.00, 0.00, 88.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 20:20:24'),
+(5, 1, 1, 5, 76.00, 0.00, 76.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 23:17:12'),
+(6, 1, 1, 6, 1525.00, 0.00, 1524.00, 10.00, 1595.00, '2026-07-29 10:37:13', '2026-09-27 20:21:02'),
+(7, 1, 1, 7, 83.00, 0.00, 83.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 23:07:29'),
+(8, 1, 1, 8, 73.00, 0.00, 73.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 20:21:41'),
+(9, 1, 1, 9, 69.00, 0.00, 69.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 23:00:03'),
+(10, 1, 1, 10, 1017.00, 0.00, 1017.00, 10.00, 1085.00, '2026-07-29 10:37:13', '2026-09-27 23:11:25'),
+(13, 1, 1, 19, 1595.00, 0.00, 1595.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-09-27 20:45:24'),
 (20, 1, 6, 19, 5.00, 0.00, 5.00, 100.00, 1635.00, '2026-08-11 09:39:39', '2026-08-22 13:10:17'),
-(21, 1, 6, 10, 5.00, 0.00, 5.00, 20.00, 1085.00, '2026-08-11 09:39:39', '2026-08-22 13:16:04'),
-(22, 1, 6, 9, 10.00, 0.00, 10.00, 20.00, 500.00, '2026-08-11 09:39:39', '2026-08-11 09:39:39'),
-(23, 1, 4, 9, 9.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
-(24, 1, 4, 8, 0.00, 0.00, 0.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-28 09:20:27'),
-(25, 1, 4, 7, 4.00, 0.00, 4.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-09-16 10:21:18'),
-(26, 1, 4, 6, 1.00, 0.00, 1.00, 20.00, 1595.00, '2026-08-14 10:15:11', '2026-08-28 09:20:27'),
-(27, 1, 4, 5, 15.00, 0.00, 10.00, 20.00, 500.00, '2026-08-14 10:15:11', '2026-08-15 11:11:39'),
+(21, 1, 6, 10, 5.00, 0.00, 5.00, 10.00, 1085.00, '2026-08-11 09:39:39', '2026-09-27 20:22:34'),
+(22, 1, 6, 9, 10.00, 0.00, 10.00, 10.00, 500.00, '2026-08-11 09:39:39', '2026-09-27 20:22:00'),
+(23, 1, 4, 9, 9.00, 0.00, 10.00, 10.00, 500.00, '2026-08-14 10:15:11', '2026-09-27 20:22:00'),
+(24, 1, 4, 8, 0.00, 0.00, 0.00, 10.00, 500.00, '2026-08-14 10:15:11', '2026-09-27 20:21:41'),
+(25, 1, 4, 7, 4.00, 0.00, 4.00, 10.00, 500.00, '2026-08-14 10:15:11', '2026-09-27 20:21:23'),
+(26, 1, 4, 6, 1.00, 0.00, 1.00, 10.00, 1595.00, '2026-08-14 10:15:11', '2026-09-27 20:21:02'),
+(27, 1, 4, 5, 15.00, 0.00, 10.00, 10.00, 500.00, '2026-08-14 10:15:11', '2026-09-27 20:20:43'),
 (28, 1, 2, 19, 6.00, 0.00, 6.00, 100.00, 1635.00, '2026-08-31 10:05:07', '2026-09-14 13:30:52'),
-(29, 1, 2, 10, 6.00, 0.00, 6.00, 20.00, 1085.00, '2026-08-31 10:05:07', '2026-09-04 08:57:18'),
-(30, 1, 2, 9, 5.00, 0.00, 5.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-09-04 08:17:39'),
-(31, 1, 2, 8, 8.00, 0.00, 8.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-09-03 20:14:44'),
-(32, 1, 2, 7, 6.00, 0.00, 6.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-09-03 14:57:36'),
-(33, 1, 2, 6, 8.00, 0.00, 8.00, 20.00, 1595.00, '2026-08-31 10:05:07', '2026-09-03 14:57:36'),
-(34, 1, 2, 5, 9.00, 0.00, 9.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-09-03 14:42:11'),
-(35, 1, 2, 4, 9.00, 0.00, 9.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-09-03 14:41:19'),
-(36, 1, 2, 3, 9.00, 0.00, 9.00, 20.00, 500.00, '2026-08-31 10:05:07', '2026-09-02 11:38:01'),
-(37, 1, 2, 2, 7.00, 0.00, 7.00, 20.00, 2100.00, '2026-08-31 10:05:07', '2026-09-03 13:30:47'),
-(38, 1, 2, 1, 8.00, 0.00, 8.00, 10.00, 2000.00, '2026-08-31 10:05:07', '2026-09-03 14:44:26'),
+(29, 1, 2, 10, 6.00, 0.00, 6.00, 10.00, 1085.00, '2026-08-31 10:05:07', '2026-09-27 20:22:34'),
+(30, 1, 2, 9, 5.00, 0.00, 5.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:22:00'),
+(31, 1, 2, 8, 8.00, 0.00, 8.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:21:41'),
+(32, 1, 2, 7, 6.00, 0.00, 6.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:21:23'),
+(33, 1, 2, 6, 8.00, 0.00, 8.00, 10.00, 1595.00, '2026-08-31 10:05:07', '2026-09-27 20:21:02'),
+(34, 1, 2, 5, 9.00, 0.00, 9.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:20:43'),
+(35, 1, 2, 4, 9.00, 0.00, 9.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:20:24'),
+(36, 1, 2, 3, 9.00, 0.00, 9.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:20:02'),
+(37, 1, 2, 2, 7.00, 0.00, 7.00, 10.00, 2100.00, '2026-08-31 10:05:07', '2026-09-27 20:19:45'),
+(38, 1, 2, 1, 8.00, 0.00, 8.00, 10.00, 2000.00, '2026-08-31 10:05:07', '2026-09-27 20:14:49'),
 (39, 4, 11, 20, 25.00, 0.00, 25.00, 10.00, 100.00, '2026-09-21 11:55:14', '2026-09-21 12:01:58'),
 (40, 4, 11, 21, 25.00, 0.00, 25.00, 10.00, 100.00, '2026-09-21 12:09:46', '2026-09-21 12:10:54');
 
@@ -3224,7 +3465,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('lpRLLztGMPIsnYF3D8HiGo4VnxIjGVzP9r5Mhgb3', 20, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6IlVtNlB1TkY1bUhjSUVaWmZvbjUweFhxRHhqWktWZTBPS01FWDdFOXUiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjMyOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3RvcmVmcm9udCI7czo1OiJyb3V0ZSI7czoxNzoic3RvcmVmcm9udC5tYW5hZ2UiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDtzOjEwOiJjb21wYW55X2lkIjtpOjQ7czoxMjoiY29tcGFueV9uYW1lIjtzOjEzOiJKdXN0Uml0ZSBNYXJ0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6MTE6IkNPTVAtMjQzNjU4IjtzOjk6ImJyYW5jaF9pZCI7aToxMTtzOjg6ImN1cnJlbmN5IjtzOjM6Ik5HTiI7czoxNToiY3VycmVuY3lfc3ltYm9sIjtzOjM6IuKCpiI7czo4OiJ0aW1lem9uZSI7czoxMjoiQWZyaWNhL0xhZ29zIjt9', 1790459635);
+('9cRPMthg3WU1B55OtXfflPEhIPMEv4Z2GsEVFNGK', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMEVROXBZVFJaSGZYRVhpdEpSVVBoYjRENW9DWm5OQWhCNXhJYzJCZiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MTA2OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3RvcmUvZW1tYW5leC9vcmRlci9Ec0dKcGppQ3VWVFVRYVl4V3V4MjNNbzNWS2QyaE1KWFhtR04yYVhGNjZiZzlEc3NlOXZ1Y2t0c21sSlFCZTJHIjtzOjU6InJvdXRlIjtzOjI4OiJzdG9yZWZyb250LnB1YmxpYy5vcmRlci5zaG93Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1790546316),
+('Wjua7fBhxfJ78vuP17LRyos1Lhogpetcw3zYnMCL', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYW9GeXNaU2dMbnlNOHphaG9tbVB4UGl5THZQeWFjYlBhU2RXaTU2cyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MTA2OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3RvcmUvZW1tYW5leC9vcmRlci9rc1JzUUpVMFJzTDl0S2RFTkZ5UUs0R2g2bmd3OVV5dWM5cEV1dWI4RW83Rm9ESndJNGhQUkxaWlBJUGRORXlWIjtzOjU6InJvdXRlIjtzOjI4OiJzdG9yZWZyb250LnB1YmxpYy5vcmRlci5zaG93Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1790554656),
+('ylavpfNZlfsekImI5s9yUz8dYFb5wVdsnQLnsMyz', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6Im52RjJDT25HeGpENWw4S0lJQ3V2bnZhdklXMlFlZWFwR0FPT1NwUlMiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wbGF0Zm9ybSI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjExNjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3N0b3JlL2VtbWFuZXgvY2hlY2tvdXQvcGF5bWVudC9jYWxsYmFjaz9yZWZlcmVuY2U9U0YtOTctWUlEVUNYOUZIWjE3JnRyeHJlZj1TRi05Ny1ZSURVQ1g5RkhaMTciO3M6NToicm91dGUiO3M6MzU6InN0b3JlZnJvbnQucHVibGljLmNoZWNrb3V0LmNhbGxiYWNrIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjEwOiJjb21wYW55X2lkIjtpOjE7czoxMjoiY29tcGFueV9uYW1lIjtzOjE5OiJFbW1hbmV4IFN1cGVybWFya2V0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6OToiQ09NUC0wMDAxIjtzOjk6ImJyYW5jaF9pZCI7aToxO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1790554638);
 
 -- --------------------------------------------------------
 
@@ -3275,6 +3518,59 @@ INSERT INTO `settings` (`id`, `company_id`, `company_name`, `company_email`, `co
 (1, 1, 'Emmanex Supermarket Ng', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', NULL, 'NGN', '₦', 7.50, 1, 'Thank you for shopping with us.', 'Emmanex Supermarket', 80, 1, 1, 0, 5, 0, 0, 1, 1, 0, 'Walk-in Customer', NULL, 'Africa/Lagos', 'm/d/Y', 'h:i A', 0, 1, '2026-07-29 10:37:13', '2026-09-03 21:09:39'),
 (2, 4, 'JustRite Mart', 'justritemart@gmail.com', '08012345678', '12, Alakia, Off New Ife Road.', NULL, 'NGN', '₦', 7.50, 1, 'Thank you for shopping with us.', 'JustRite Mart', 80, 1, 0, 0, 10, 0, 0, 1, 1, 0, NULL, NULL, 'Africa/Lagos', 'd/m/Y', 'h:i A', 0, 1, '2026-09-17 12:10:35', '2026-09-17 12:18:53'),
 (3, 5, 'Gadget Padi', 'gadgetpadi@gmail.com', '08104196102', 'Ibadan', NULL, 'NGN', '₦', 7.50, 1, 'Thank you for shopping with us.', NULL, 80, 1, 0, 0, 10, 0, 0, 1, 1, 0, NULL, NULL, 'Africa/Lagos', 'd-m-Y', 'h:i A', 0, 1, '2026-09-26 20:02:56', '2026-09-26 20:02:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shipping_locations`
+--
+
+CREATE TABLE `shipping_locations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `shipping_fee` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `sort_order` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shipping_locations`
+--
+
+INSERT INTO `shipping_locations` (`id`, `company_id`, `name`, `description`, `shipping_fee`, `sort_order`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Apata', 'Apata, Bitmore Junction', 5000.00, 1, 1, 1, 1, '2026-09-27 21:45:50', '2026-09-27 21:59:22'),
+(2, 1, 'Challenge Terminal 1', 'Challenge Terminal 1', 5500.00, 2, 1, 1, 1, '2026-09-27 21:56:07', '2026-09-27 21:56:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shipping_settings`
+--
+
+CREATE TABLE `shipping_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT 0,
+  `shipping_mode` varchar(30) NOT NULL DEFAULT 'location',
+  `manual_shipping_fee` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shipping_settings`
+--
+
+INSERT INTO `shipping_settings` (`id`, `company_id`, `enabled`, `shipping_mode`, `manual_shipping_fee`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'manual', 1000.00, 1, 1, '2026-09-27 21:32:05', '2026-09-27 23:16:25');
 
 -- --------------------------------------------------------
 
@@ -3472,7 +3768,20 @@ INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `m
 (130, 1, 1, 5, 'Return', 81, 'RET-000003', 180.00, 1.00, 78.00, 79.00, 'Partial return for sales order ORD-000042.', 1, '2026-09-16 12:16:43', '2026-09-16 12:16:43'),
 (131, 1, 1, 5, 'Return', 81, 'RET-000004', 180.00, 1.00, 79.00, 80.00, 'Partial return for sales order ORD-000042.', 1, '2026-09-16 12:18:22', '2026-09-16 12:18:22'),
 (132, 1, 1, 19, 'Damage', NULL, NULL, 1000.00, 5.00, 1605.00, 1600.00, '5 damaged items', NULL, '2026-09-16 12:34:45', '2026-09-16 12:34:45'),
-(133, 1, 1, 1, 'Expired', NULL, NULL, 500.00, 4.98, 980.00, 975.02, NULL, NULL, '2026-09-16 12:46:46', '2026-09-16 12:46:46');
+(133, 1, 1, 1, 'Expired', NULL, NULL, 500.00, 4.98, 980.00, 975.02, NULL, NULL, '2026-09-16 12:46:46', '2026-09-16 12:46:46'),
+(134, 1, 1, 19, 'Sale', 83, 'ORD-000044', 1000.00, 2.00, 1600.00, 1598.00, 'Online Storefront order completed: ORD-000044', NULL, '2026-09-26 22:47:47', '2026-09-26 22:47:47'),
+(135, 1, 1, 4, 'Sale', 83, 'ORD-000044', 4200.00, 2.00, 90.00, 88.00, 'Online Storefront order completed: ORD-000044', NULL, '2026-09-26 22:47:47', '2026-09-26 22:47:47'),
+(136, 1, 1, 8, 'Sale', 83, 'ORD-000044', 82000.00, 1.00, 75.00, 74.00, 'Online Storefront order completed: ORD-000044', NULL, '2026-09-26 22:47:47', '2026-09-26 22:47:47'),
+(137, 1, 1, 19, 'Sale', 84, 'ORD-000045', 1000.00, 2.00, 1598.00, 1596.00, 'Online Storefront order completed: ORD-000045', NULL, '2026-09-26 22:58:41', '2026-09-26 22:58:41'),
+(138, 1, 1, 8, 'Sale', 85, 'ORD-000046', 82000.00, 1.00, 74.00, 73.00, 'Online Storefront order completed: ORD-000046', NULL, '2026-09-26 23:06:08', '2026-09-26 23:06:08'),
+(139, 1, 1, 10, 'Sale', 86, 'ORD-000047', 7800.00, 1.00, 1020.00, 1019.00, 'Online Storefront order completed: ORD-000047', NULL, '2026-09-27 12:41:34', '2026-09-27 12:41:34'),
+(140, 1, 1, 19, 'Sale', 87, 'ORD-000048', 1000.00, 1.00, 1596.00, 1595.00, 'Online Storefront order completed: ORD-000048', NULL, '2026-09-27 20:45:24', '2026-09-27 20:45:24'),
+(141, 1, 1, 1, 'Sale', 88, 'ORD-000049', 500.00, 2.00, 975.02, 973.02, 'Online Storefront order completed: ORD-000049', NULL, '2026-09-27 20:57:54', '2026-09-27 20:57:54'),
+(142, 1, 1, 10, 'Sale', 93, 'ORD-000054', 7800.00, 1.00, 1019.00, 1018.00, 'Online Storefront order completed: ORD-000054', NULL, '2026-09-27 22:51:27', '2026-09-27 22:51:27'),
+(143, 1, 1, 9, 'Sale', 94, 'ORD-000055', 500.00, 1.00, 70.00, 69.00, 'Online Storefront order completed: ORD-000055', NULL, '2026-09-27 23:00:03', '2026-09-27 23:00:03'),
+(144, 1, 1, 7, 'Sale', 95, 'ORD-000056', 900.00, 1.00, 84.00, 83.00, 'Online Storefront order completed: ORD-000056', NULL, '2026-09-27 23:07:29', '2026-09-27 23:07:29'),
+(145, 1, 1, 10, 'Sale', 96, 'ORD-000057', 7800.00, 1.00, 1018.00, 1017.00, 'Online Storefront order completed: ORD-000057', NULL, '2026-09-27 23:11:25', '2026-09-27 23:11:25'),
+(146, 1, 1, 5, 'Sale', 97, 'ORD-000058', 180.00, 4.00, 80.00, 76.00, 'Online Storefront order completed: ORD-000058', NULL, '2026-09-27 23:17:12', '2026-09-27 23:17:12');
 
 -- --------------------------------------------------------
 
@@ -3499,7 +3808,8 @@ CREATE TABLE `storefronts` (
 
 INSERT INTO `storefronts` (`id`, `company_id`, `name`, `slug`, `status`, `enabled_at`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 (1, 5, 'Gadget Padi', 'gadget-padi', 'Active', '2026-09-26 20:46:04', 21, 21, '2026-09-26 20:02:57', '2026-09-26 20:48:43'),
-(2, 4, 'JustRite Mart', 'justrite-mart', 'Active', '2026-09-26 20:53:54', 20, 20, '2026-09-26 20:53:38', '2026-09-26 20:53:54');
+(2, 4, 'JustRite Mart', 'justrite-mart', 'Active', '2026-09-26 20:53:54', 20, 20, '2026-09-26 20:53:38', '2026-09-26 20:53:54'),
+(3, 1, 'Emmanex Supermarket', 'emmanex', 'Active', '2026-09-26 21:35:17', 1, 1, '2026-09-26 21:35:03', '2026-09-26 21:35:17');
 
 -- --------------------------------------------------------
 
@@ -3902,7 +4212,27 @@ ALTER TABLE `cash_drawer_transactions`
 ALTER TABLE `companies`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `companies_company_code_unique` (`company_code`),
-  ADD UNIQUE KEY `companies_slug_unique` (`slug`);
+  ADD UNIQUE KEY `companies_slug_unique` (`slug`),
+  ADD KEY `companies_last_activity_at_index` (`last_activity_at`),
+  ADD KEY `companies_lifecycle_status_index` (`lifecycle_status`);
+
+--
+-- Indexes for table `company_archives`
+--
+ALTER TABLE `company_archives`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_archives_requested_by_foreign` (`requested_by`),
+  ADD KEY `company_archives_original_company_id_index` (`original_company_id`),
+  ADD KEY `company_archives_status_index` (`status`);
+
+--
+-- Indexes for table `company_lifecycle_events`
+--
+ALTER TABLE `company_lifecycle_events`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_lifecycle_events_platform_admin_id_foreign` (`platform_admin_id`),
+  ADD KEY `company_lifecycle_events_company_id_index` (`company_id`),
+  ADD KEY `company_lifecycle_events_archive_id_index` (`archive_id`);
 
 --
 -- Indexes for table `currencies`
@@ -3929,6 +4259,13 @@ ALTER TABLE `customer_groups`
   ADD UNIQUE KEY `customer_groups_company_id_code_unique` (`company_id`,`code`),
   ADD KEY `customer_groups_created_by_foreign` (`created_by`),
   ADD KEY `customer_groups_updated_by_foreign` (`updated_by`);
+
+--
+-- Indexes for table `data_lifecycle_settings`
+--
+ALTER TABLE `data_lifecycle_settings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `data_lifecycle_settings_updated_by_foreign` (`updated_by`);
 
 --
 -- Indexes for table `discounts`
@@ -4028,6 +4365,7 @@ ALTER TABLE `migrations`
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `orders_company_id_order_no_unique` (`company_id`,`order_no`),
+  ADD UNIQUE KEY `orders_public_token_unique` (`public_token`),
   ADD KEY `orders_branch_id_foreign` (`branch_id`),
   ADD KEY `orders_customer_id_foreign` (`customer_id`),
   ADD KEY `orders_cashier_id_foreign` (`cashier_id`),
@@ -4079,6 +4417,13 @@ ALTER TABLE `payment_methods`
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `permissions_company_id_name_unique` (`company_id`,`name`);
+
+--
+-- Indexes for table `platform_admins`
+--
+ALTER TABLE `platform_admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `platform_admins_email_unique` (`email`);
 
 --
 -- Indexes for table `products`
@@ -4246,6 +4591,20 @@ ALTER TABLE `settings`
   ADD KEY `settings_default_customer_id_foreign` (`default_customer_id`);
 
 --
+-- Indexes for table `shipping_locations`
+--
+ALTER TABLE `shipping_locations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `shipping_locations_company_id_status_index` (`company_id`,`status`);
+
+--
+-- Indexes for table `shipping_settings`
+--
+ALTER TABLE `shipping_settings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `shipping_settings_company_id_foreign` (`company_id`);
+
+--
 -- Indexes for table `stock_counts`
 --
 ALTER TABLE `stock_counts`
@@ -4401,7 +4760,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=367;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=377;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -4428,6 +4787,18 @@ ALTER TABLE `companies`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `company_archives`
+--
+ALTER TABLE `company_archives`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `company_lifecycle_events`
+--
+ALTER TABLE `company_lifecycle_events`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
@@ -4437,13 +4808,19 @@ ALTER TABLE `currencies`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `customer_groups`
 --
 ALTER TABLE `customer_groups`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `data_lifecycle_settings`
+--
+ALTER TABLE `data_lifecycle_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `discounts`
@@ -4479,13 +4856,13 @@ ALTER TABLE `goods_received_items`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -4497,25 +4874,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -4527,7 +4904,13 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=486;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=500;
+
+--
+-- AUTO_INCREMENT for table `platform_admins`
+--
+ALTER TABLE `platform_admins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -4614,6 +4997,18 @@ ALTER TABLE `settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `shipping_locations`
+--
+ALTER TABLE `shipping_locations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `shipping_settings`
+--
+ALTER TABLE `shipping_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `stock_counts`
 --
 ALTER TABLE `stock_counts`
@@ -4629,13 +5024,13 @@ ALTER TABLE `stock_count_items`
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `storefronts`
 --
 ALTER TABLE `storefronts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -4739,6 +5134,18 @@ ALTER TABLE `cash_drawer_transactions`
   ADD CONSTRAINT `cash_drawer_transactions_terminal_id_foreign` FOREIGN KEY (`terminal_id`) REFERENCES `terminals` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `company_archives`
+--
+ALTER TABLE `company_archives`
+  ADD CONSTRAINT `company_archives_requested_by_foreign` FOREIGN KEY (`requested_by`) REFERENCES `platform_admins` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `company_lifecycle_events`
+--
+ALTER TABLE `company_lifecycle_events`
+  ADD CONSTRAINT `company_lifecycle_events_platform_admin_id_foreign` FOREIGN KEY (`platform_admin_id`) REFERENCES `platform_admins` (`id`) ON DELETE SET NULL;
+
+--
 -- Constraints for table `customers`
 --
 ALTER TABLE `customers`
@@ -4755,6 +5162,12 @@ ALTER TABLE `customer_groups`
   ADD CONSTRAINT `customer_groups_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `customer_groups_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `customer_groups_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `data_lifecycle_settings`
+--
+ALTER TABLE `data_lifecycle_settings`
+  ADD CONSTRAINT `data_lifecycle_settings_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `platform_admins` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `discounts`
@@ -4811,7 +5224,7 @@ ALTER TABLE `invoice_items`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `orders_cashier_id_foreign` FOREIGN KEY (`cashier_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_cashier_id_foreign` FOREIGN KEY (`cashier_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `orders_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `orders_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `orders_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL,
@@ -4837,7 +5250,7 @@ ALTER TABLE `payments`
   ADD CONSTRAINT `payments_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `payments_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `payments_payment_method_id_foreign` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`),
-  ADD CONSTRAINT `payments_received_by_foreign` FOREIGN KEY (`received_by`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `payments_received_by_foreign` FOREIGN KEY (`received_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `payments_terminal_id_foreign` FOREIGN KEY (`terminal_id`) REFERENCES `terminals` (`id`) ON DELETE SET NULL;
 
 --
@@ -4977,6 +5390,18 @@ ALTER TABLE `sales_return_payments`
 ALTER TABLE `settings`
   ADD CONSTRAINT `settings_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `settings_default_customer_id_foreign` FOREIGN KEY (`default_customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `shipping_locations`
+--
+ALTER TABLE `shipping_locations`
+  ADD CONSTRAINT `shipping_locations_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `shipping_settings`
+--
+ALTER TABLE `shipping_settings`
+  ADD CONSTRAINT `shipping_settings_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `stock_counts`

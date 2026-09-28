@@ -315,6 +315,62 @@
 
                             @endpermission
 
+                             @if(
+                                $storefront
+                                &&
+                                $product->status
+                            )
+
+                                @php
+
+                                    $productUrl = route(
+                                        'storefront.public.product',
+                                        [
+                                            'storefrontSlug' =>
+                                                $storefront->slug,
+
+                                            'productCode' =>
+                                                $product->product_code,
+                                        ]
+                                    );
+
+                                @endphp
+
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{{ $productUrl }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i class="bi bi-box-arrow-up-right me-2"></i>
+
+                                        View Online
+                                    </a>
+                                </li>
+
+
+                                <li>
+
+                                    <button
+                                        type="button"
+                                        class="dropdown-item"
+                                        onclick="Products.copyProductLink(
+                                            @js($productUrl)
+                                        )"
+                                    >
+
+                                        <i class="bi bi-link-45deg me-2"></i>
+
+                                        Copy Product Link
+
+                                    </button>
+
+                                </li>
+
+                            @endif
+
 
                             @permission('products.update')
 
@@ -356,9 +412,7 @@
 
                                 </li>
 
-                            @endpermission
-
-
+                            @endpermission    
 
                         </ul>
 
@@ -381,7 +435,7 @@
             <tr>
 
 
-                <td colspan="6">
+                <td colspan="7">
 
 
                     <div class="product-empty-state">

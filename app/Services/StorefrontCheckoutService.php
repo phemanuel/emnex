@@ -14,11 +14,15 @@ use App\Models\Product;
 use App\Models\ProductStock;
 use App\Models\StockMovement;
 use App\Models\Storefront;
+use App\Models\ShippingLocation;
+use App\Models\ShippingSetting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use RuntimeException;
+
+use App\Jobs\SendStorefrontOrderConfirmation;
 
 class StorefrontCheckoutService
 {
@@ -120,7 +124,9 @@ class StorefrontCheckoutService
 
     public function quote(
         Storefront $storefront,
-        array $items
+        array $items,
+        ?int $shippingLocationId = null,
+        bool $requireShippingResolved = false
     ): array {
 
         if (empty($items)) {
@@ -360,14 +366,26 @@ class StorefrontCheckoutService
 
         }
 
-
-        $grandTotal =
-            max(
-                0,
-                $subtotal
-                - $discountTotal
-                + $taxTotal
+        $shipping =
+            $this->resolveShipping(
+                $storefront,
+                $shippingLocationId,
+                $requireShippingResolved
             );
+
+
+        $shippingFee =
+            (float) $shipping['fee'];
+
+
+       $grandTotal =
+        max(
+            0,
+            $subtotal
+            - $discountTotal
+            + $taxTotal
+            + $shippingFee
+        );
 
 
         return [
@@ -410,8 +428,193 @@ class StorefrontCheckoutService
                     2
                 ),
 
+            'shipping_enabled' =>
+                $shipping['enabled'],
+
+            'shipping_mode' =>
+                $shipping['method'],
+
+            'shipping_fee' =>
+                round(
+                    $shippingFee,
+                    2
+                ),
+
+            'shipping_resolved' =>
+                $shipping['resolved'],
+
+            'shipping_location' =>
+                $shipping['location'],
+
         ];
 
+    }
+
+    protected function resolveShipping(
+    Storefront $storefront,
+        ?int $shippingLocationId = null,
+        bool $requireResolved = false
+    ): array {
+
+        $settings =
+            ShippingSetting::query()
+                ->where(
+                    'company_id',
+                    $storefront->company_id
+                )
+                ->first();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Shipping Disabled
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !$settings ||
+            !$settings->enabled
+        ) {
+
+            return [
+                'enabled' =>
+                    false,
+
+                'method' =>
+                    null,
+
+                'fee' =>
+                    0,
+
+                'resolved' =>
+                    true,
+
+                'location' =>
+                    null,
+            ];
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Manual Address
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $settings->shipping_mode === 'manual'
+        ) {
+
+            return [
+                'enabled' =>
+                    true,
+
+                'method' =>
+                    'manual',
+
+                'fee' =>
+                    (float)
+                    $settings->manual_shipping_fee,
+
+                'resolved' =>
+                    true,
+
+                'location' =>
+                    null,
+            ];
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Predefined Location
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$shippingLocationId) {
+
+            if ($requireResolved) {
+
+                throw ValidationException::withMessages([
+                    'shipping_location_id' =>
+                        'Please select a shipping location.',
+                ]);
+
+            }
+
+
+            return [
+                'enabled' =>
+                    true,
+
+                'method' =>
+                    'location',
+
+                'fee' =>
+                    0,
+
+                'resolved' =>
+                    false,
+
+                'location' =>
+                    null,
+            ];
+
+        }
+
+
+        $location =
+            ShippingLocation::query()
+                ->where(
+                    'company_id',
+                    $storefront->company_id
+                )
+                ->where(
+                    'status',
+                    true
+                )
+                ->find(
+                    $shippingLocationId
+                );
+
+
+        if (!$location) {
+
+            throw ValidationException::withMessages([
+                'shipping_location_id' =>
+                    'The selected shipping location is unavailable.',
+            ]);
+
+        }
+
+
+        return [
+            'enabled' =>
+                true,
+
+            'method' =>
+                'location',
+
+            'fee' =>
+                (float)
+                $location->shipping_fee,
+
+            'resolved' =>
+                true,
+
+            'location' => [
+                'id' =>
+                    $location->id,
+
+                'name' =>
+                    $location->name,
+
+                'description' =>
+                    $location->description,
+            ],
+        ];
     }
 
 
@@ -434,11 +637,18 @@ class StorefrontCheckoutService
                 $items
             ) {
 
-                $quote =
-                    $this->quote(
-                        $storefront,
-                        $items
-                    );
+               $quote =
+                $this->quote(
+                    $storefront,
+                    $items,
+                    isset(
+                        $customerData['shipping_location_id']
+                    )
+                        ? (int)
+                            $customerData['shipping_location_id']
+                        : null,
+                    true
+                );
 
 
                 $headOffice =
@@ -492,6 +702,9 @@ class StorefrontCheckoutService
 
                         'order_no' =>
                             $orderNo,
+
+                        'public_token' =>
+                             Str::random(64),
 
                         'subtotal' =>
                             $quote['subtotal'],
@@ -552,6 +765,45 @@ class StorefrontCheckoutService
 
                         'updated_by' =>
                             null,
+
+                        'shipping_method' =>
+                            $quote['shipping_mode'],
+
+
+                        'shipping_location_id' =>
+                            $quote['shipping_location']['id']
+                                ?? null,
+
+
+                        'shipping_location_name' =>
+                            $quote['shipping_location']['name']
+                                ?? null,
+
+
+                        'shipping_address' =>
+                            $quote['shipping_mode'] === 'manual'
+                                ? ($customerData['address'] ?? null)
+                                : null,
+
+
+                        'shipping_city' =>
+                            $quote['shipping_mode'] === 'manual'
+                                ? ($customerData['city'] ?? null)
+                                : null,
+
+
+                        'shipping_state' =>
+                            $quote['shipping_mode'] === 'manual'
+                                ? ($customerData['state'] ?? null)
+                                : null,
+
+
+                        'shipping_fee' =>
+                            $quote['shipping_fee'],
+
+
+                        'fulfilment_status' =>
+                            'Pending',
 
                     ]);
 
@@ -811,21 +1063,32 @@ class StorefrontCheckoutService
 
 
         $fullAddress =
-            collect([
-                trim(
+        collect([
+
+            trim(
+                (string) (
                     $data['address']
-                ),
+                    ?? ''
+                )
+            ),
 
-                trim(
+            trim(
+                (string) (
                     $data['city']
-                ),
+                    ?? ''
+                )
+            ),
 
-                trim(
+            trim(
+                (string) (
                     $data['state']
-                ),
-            ])
-            ->filter()
-            ->implode(', ');
+                    ?? ''
+                )
+            ),
+
+        ])
+        ->filter()
+        ->implode(', ');
 
 
         if ($customer) {
@@ -1764,6 +2027,22 @@ class StorefrontCheckoutService
                         ]);
 
                 }
+
+                $orderId =
+                    $order->id;
+
+
+                DB::afterCommit(
+                    function () use (
+                        $orderId
+                    ) {
+
+                        SendStorefrontOrderConfirmation::dispatch(
+                            $orderId
+                        );
+
+                    }
+                );
 
 
                 return $order

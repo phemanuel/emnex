@@ -936,6 +936,116 @@ const Products = {
         }
     },
 
+    /*
+    |--------------------------------------------------------------------------
+    | Copy Product Link
+    |--------------------------------------------------------------------------
+    */
+
+    async copyProductLink(url)
+    {
+        try {
+
+            if (!url) {
+
+                showToast(
+                    'Product link is not available.',
+                    'danger'
+                );
+
+                return;
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Modern Clipboard API
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                navigator.clipboard &&
+                window.isSecureContext
+            ) {
+
+                await navigator.clipboard.writeText(
+                    url
+                );
+
+            }
+            else {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Fallback
+                |--------------------------------------------------------------------------
+                */
+
+                const textarea =
+                    document.createElement(
+                        'textarea'
+                    );
+
+                textarea.value =
+                    url;
+
+                textarea.style.position =
+                    'fixed';
+
+                textarea.style.opacity =
+                    '0';
+
+                textarea.style.pointerEvents =
+                    'none';
+
+                document.body.appendChild(
+                    textarea
+                );
+
+                textarea.focus();
+
+                textarea.select();
+
+                const copied =
+                    document.execCommand(
+                        'copy'
+                    );
+
+                textarea.remove();
+
+
+                if (!copied) {
+
+                    throw new Error(
+                        'Clipboard copy failed.'
+                    );
+
+                }
+
+            }
+
+
+            showToast(
+                'Product link copied.',
+                'success'
+            );
+
+        }
+        catch (error) {
+
+            console.error(
+                'Unable to copy product link:',
+                error
+            );
+
+            showToast(
+                'Unable to copy product link.',
+                'danger'
+            );
+
+        }
+    },
+
 
     /*
     |--------------------------------------------------------------------------
