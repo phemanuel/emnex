@@ -395,8 +395,7 @@
                                     required
                                 >
 
-                            </div>
-
+                            </div>   
 
                             <div class="form-text">
 
@@ -416,6 +415,261 @@
                             </div>
 
                         </div>
+
+                        {{-- ============================================================
+                                STOREFRONT THEME
+                            ============================================================= --}}
+
+                            <div class="storefront-form-group storefront-theme-group">
+
+                                <div class="storefront-theme-heading">
+
+                                    <div>
+
+                                        <label class="form-label">
+                                            Store theme
+                                        </label>
+
+                                        <p>
+                                            Choose how your online store should
+                                            look to customers.
+                                        </p>
+
+                                    </div>
+
+
+                                    <span class="storefront-theme-current">
+
+                                        Current:
+
+                                        <strong>
+                                            {{ ucfirst(
+                                                $storefront->theme_key
+                                                ?? 'editorial'
+                                            ) }}
+                                        </strong>
+
+                                    </span>
+
+                                </div>
+
+
+
+                                @php
+
+                                    $storefrontThemes = [
+
+                                        'editorial' => [
+
+                                            'name' =>
+                                                'Editorial',
+
+                                            'description' =>
+                                                'Magazine-inspired shopping with expressive typography and storytelling.',
+
+                                            'icon' =>
+                                                'bi-journal-richtext',
+
+                                            'tone' =>
+                                                'editorial',
+
+                                        ],
+
+
+                                        'modern' => [
+
+                                            'name' =>
+                                                'Modern',
+
+                                            'description' =>
+                                                'Clean, familiar ecommerce with polished cards and easy navigation.',
+
+                                            'icon' =>
+                                                'bi-grid-1x2',
+
+                                            'tone' =>
+                                                'modern',
+
+                                        ],
+
+
+                                        'marketplace' => [
+
+                                            'name' =>
+                                                'Marketplace',
+
+                                            'description' =>
+                                                'Product-dense shopping built for larger catalogues and frequent browsing.',
+
+                                            'icon' =>
+                                                'bi-shop-window',
+
+                                            'tone' =>
+                                                'marketplace',
+
+                                        ],
+
+
+                                        'boutique' => [
+
+                                            'name' =>
+                                                'Boutique',
+
+                                            'description' =>
+                                                'Contemporary premium retail with curated collections and modern styling.',
+
+                                            'icon' =>
+                                                'bi-stars',
+
+                                            'tone' =>
+                                                'boutique',
+
+                                        ],
+
+                                    ];
+
+
+                                    $selectedTheme =
+                                        old(
+                                            'theme_key',
+                                            $storefront->theme_key
+                                                ?? 'editorial'
+                                        );
+
+                                @endphp
+
+
+
+                                <div class="storefront-theme-grid">
+
+                                    @foreach(
+                                        $storefrontThemes
+                                        as $themeKey => $theme
+                                    )
+
+                                        <label
+                                            class="
+                                                storefront-theme-option
+                                                storefront-theme-option--{{ $theme['tone'] }}
+                                                {{ $selectedTheme === $themeKey
+                                                    ? 'is-selected'
+                                                    : ''
+                                                }}
+                                            "
+                                        >
+
+                                            <input
+                                                type="radio"
+                                                name="theme_key"
+                                                value="{{ $themeKey }}"
+                                                class="storefront-theme-input"
+                                                {{ $selectedTheme === $themeKey
+                                                    ? 'checked'
+                                                    : ''
+                                                }}
+                                                required
+                                            >
+
+
+                                            <div class="storefront-theme-preview">
+
+
+                                                <div class="storefront-theme-preview-top">
+
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+
+                                                </div>
+
+
+                                                <div class="storefront-theme-preview-body">
+
+                                                    <div class="storefront-theme-preview-copy">
+
+                                                        <span></span>
+                                                        <strong></strong>
+                                                        <small></small>
+
+                                                    </div>
+
+
+                                                    <div class="storefront-theme-preview-image">
+
+                                                        <i class="bi {{ $theme['icon'] }}"></i>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="storefront-theme-preview-products">
+
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div class="storefront-theme-option-content">
+
+                                                <div class="storefront-theme-option-title">
+
+                                                    <div>
+
+                                                        <strong>
+                                                            {{ $theme['name'] }}
+                                                        </strong>
+
+                                                        @if($selectedTheme === $themeKey)
+
+                                                            <span class="storefront-theme-active-badge">
+                                                                Active
+                                                            </span>
+
+                                                        @endif
+
+                                                    </div>
+
+
+                                                    <span class="storefront-theme-check">
+
+                                                        <i class="bi bi-check-lg"></i>
+
+                                                    </span>
+
+                                                </div>
+
+
+                                                <p>
+                                                    {{ $theme['description'] }}
+                                                </p>
+
+                                            </div>
+
+                                        </label>
+
+                                    @endforeach
+
+                                </div>
+
+
+
+                                <div
+                                    class="invalid-feedback d-block"
+                                    data-error-for="theme_key"
+                                >
+                                    @error('theme_key')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+
+                            </div>
 
 
                         <div class="storefront-form-actions">

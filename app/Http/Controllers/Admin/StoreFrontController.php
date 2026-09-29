@@ -52,12 +52,17 @@ class StorefrontController extends Controller
     /**
      * Update basic Storefront configuration.
      */
-    public function update(Request $request): JsonResponse
-    {
-        $storefront = $this->currentStorefront();
+    public function update(
+        Request $request
+    ): JsonResponse {
 
-        /*
-         * Normalise the public slug before validation.
+        $storefront =
+            $this->currentStorefront();
+
+
+        /**
+         * Normalise the public slug
+         * before validation.
          */
         $request->merge([
             'slug' => Str::slug(
@@ -65,49 +70,93 @@ class StorefrontController extends Controller
             ),
         ]);
 
-        $validated = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-            ],
 
-            'slug' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique(
-                    'storefronts',
-                    'slug'
-                )->ignore($storefront->id),
-            ],
-        ]);
+        $validated =
+            $request->validate([
+
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                ],
+
+                'slug' => [
+                    'required',
+                    'string',
+                    'max:255',
+
+                    Rule::unique(
+                        'storefronts',
+                        'slug'
+                    )->ignore(
+                        $storefront->id
+                    ),
+                ],
+
+                'theme_key' => [
+                    'required',
+                    'string',
+
+                    Rule::in([
+                        'editorial',
+                        'modern',
+                        'marketplace',
+                        'boutique',
+                    ]),
+                ],
+
+            ]);
+
 
         $storefront->update([
-            'name' => $validated['name'],
-            'slug' => $validated['slug'],
-            'updated_by' => auth()->id(),
+
+            'name' =>
+                $validated['name'],
+
+            'slug' =>
+                $validated['slug'],
+
+            'theme_key' =>
+                $validated['theme_key'],
+
+            'updated_by' =>
+                auth()->id(),
+
         ]);
 
+
         return response()->json([
+
             'success' => true,
 
             'message' =>
-                'Storefront details updated successfully.',
+                'Storefront settings updated successfully.',
 
             'data' => [
-                'id' => $storefront->id,
 
-                'name' => $storefront->name,
+                'id' =>
+                    $storefront->id,
 
-                'slug' => $storefront->slug,
+                'name' =>
+                    $storefront->name,
 
-                'status' => $storefront->status,
+                'slug' =>
+                    $storefront->slug,
 
-                'public_url' => url(
-                    '/store/' . $storefront->slug
-                ),
+                'theme_key' =>
+                    $storefront->theme_key,
+
+                'status' =>
+                    $storefront->status,
+
+                'public_url' =>
+                    url(
+                        '/store/' .
+                        $storefront->slug
+                    ),
+
             ],
+
         ]);
     }
 

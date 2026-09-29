@@ -231,6 +231,42 @@ window.StorefrontManager = {
                 }
             );
 
+            document
+            .querySelectorAll(
+                '.storefront-theme-input'
+            )
+            .forEach(input => {
+
+                input.addEventListener(
+                    'change',
+                    () => {
+
+                        document
+                            .querySelectorAll(
+                                '.storefront-theme-option'
+                            )
+                            .forEach(option => {
+
+                                option.classList.remove(
+                                    'is-selected'
+                                );
+
+                            });
+
+
+                        input
+                            .closest(
+                                '.storefront-theme-option'
+                            )
+                            ?.classList.add(
+                                'is-selected'
+                            );
+
+                    }
+                );
+
+            });
+
 
         /**
          * Clear field validation while typing.
