@@ -18,6 +18,7 @@ class Storefront extends Model
         'name',
         'slug',
         'status',
+        'theme_key',
         'enabled_at',
         'created_by',
         'updated_by',

@@ -11,9 +11,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Services\StorefrontThemeService;
 
 class PublicStorefrontController extends Controller
 {
+     public function __construct(
+        protected StorefrontThemeService $themeService
+    ) {
+    }
     /**
      * |--------------------------------------------------------------------------
      * Storefront Homepage
@@ -112,8 +117,11 @@ class PublicStorefrontController extends Controller
             ->withQueryString();
 
 
-        return view(
-            'storefront.public.home',
+       return view(
+            $this->themeService->view(
+                $storefront,
+                'home'
+            ),
             [
                 'storefront' =>
                     $storefront,
@@ -250,7 +258,10 @@ class PublicStorefrontController extends Controller
 
 
         return view(
-            'storefront.public.category',
+            $this->themeService->view(
+                $storefront,
+                'category'
+            ),
             [
                 'storefront' =>
                     $storefront,
@@ -387,7 +398,10 @@ class PublicStorefrontController extends Controller
 
 
         return view(
-            'storefront.public.product',
+            $this->themeService->view(
+                $storefront,
+                'product'
+            ),
             [
                 'storefront' =>
                     $storefront,
@@ -699,7 +713,10 @@ class PublicStorefrontController extends Controller
 
 
         return view(
-            'storefront.public.cart',
+            $this->themeService->view(
+                $storefront,
+                'cart'
+            ),
             [
                 'storefront' =>
                     $storefront,

@@ -226,64 +226,153 @@ window.StorefrontCheckout = {
 
     getCartItems() {
 
-        /*
-         * The existing PublicStorefront module owns the cart.
-         */
+    /*
+    |--------------------------------------------------------------------------
+    | Public Storefront Cart
+    |--------------------------------------------------------------------------
+    |
+    | PublicStorefront owns the cart. If it has already been initialized,
+    | use its current state.
+    |
+    */
 
-        if (
-            window.PublicStorefront &&
-            typeof window.PublicStorefront.getCheckoutItems ===
-                'function'
-        ) {
+    if (
+        window.PublicStorefront &&
+        typeof window.PublicStorefront.getCheckoutItems ===
+            'function'
+    ) {
 
-            return window.PublicStorefront
+        const items =
+            window.PublicStorefront
                 .getCheckoutItems();
 
-        }
 
+        if (
+            Array.isArray(items) &&
+            items.length
+        ) {
 
-        /*
-         * Fallback when state is publicly available.
-         */
-
-        const cart =
-            window.PublicStorefront
-                ?.state
-                ?.cart;
-
-
-        if (Array.isArray(cart)) {
-
-            return cart
-                .map(item => ({
-
-                    id:
-                        Number(
-                            item.id ??
-                            item.product_id
-                        ),
-
-                    quantity:
-                        Number(
-                            item.quantity ??
-                            item.qty ??
-                            1
-                        ),
-
-                }))
-                .filter(
-                    item =>
-                        item.id > 0 &&
-                        item.quantity > 0
-                );
+            return items;
 
         }
 
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public Storefront State
+    |--------------------------------------------------------------------------
+    */
+
+    const cart =
+        window.PublicStorefront
+            ?.state
+            ?.cart;
+
+
+    if (
+        Array.isArray(cart) &&
+        cart.length
+    ) {
+
+        return cart
+            .map(item => ({
+
+                id:
+                    Number(
+                        item.id ??
+                        item.product_id
+                    ),
+
+                quantity:
+                    Number(
+                        item.quantity ??
+                        item.qty ??
+                        1
+                    ),
+
+            }))
+            .filter(
+                item =>
+                    item.id > 0 &&
+                    item.quantity > 0
+            );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | LocalStorage Fallback
+    |--------------------------------------------------------------------------
+    |
+    | Checkout may initialize before PublicStorefront has loaded its cart.
+    | Read the exact same storefront cart directly as a safe fallback.
+    |
+    */
+
+    try {
+
+        const storefrontSlug =
+            this.elements.root
+                ?.dataset
+                ?.storefrontSlug;
+
+
+        if (!storefrontSlug) {
+            return [];
+        }
+
+
+        const storageKey =
+            'emnex_storefront_cart_' +
+            storefrontSlug;
+
+
+        const storedCart =
+            JSON.parse(
+                localStorage.getItem(
+                    storageKey
+                ) || '[]'
+            );
+
+
+        if (!Array.isArray(storedCart)) {
+            return [];
+        }
+
+
+        return storedCart
+            .map(item => ({
+
+                id:
+                    Number(
+                        item.id ??
+                        item.product_id
+                    ),
+
+                quantity:
+                    Number(
+                        item.quantity ??
+                        item.qty ??
+                        1
+                    ),
+
+            }))
+            .filter(
+                item =>
+                    item.id > 0 &&
+                    item.quantity > 0
+            );
+
+    } catch (error) {
 
         return [];
 
-    },
+    }
 
+},
 
     /*
     |--------------------------------------------------------------------------

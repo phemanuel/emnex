@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Storefront;
 
 use App\Http\Controllers\Controller;
 use App\Services\StorefrontCheckoutService;
+use App\Services\StorefrontThemeService;
 use App\Models\ShippingLocation;
 use App\Models\ShippingSetting;
 use Illuminate\Contracts\View\View as ViewContract;
@@ -16,7 +17,8 @@ use Throwable;
 class StorefrontCheckoutController extends Controller
 {
     public function __construct(
-        protected StorefrontCheckoutService $checkoutService
+        protected StorefrontCheckoutService $checkoutService,
+        protected StorefrontThemeService $themeService
     ) {
     }
 
@@ -86,27 +88,30 @@ class StorefrontCheckoutController extends Controller
 
 
         return view(
-            'storefront.public.checkout',
-            [
-                'storefront' =>
-                    $storefront,
+        $this->themeService->view(
+            $storefront,
+            'checkout'
+        ),
+        [
+            'storefront' =>
+                $storefront,
 
-                'company' =>
-                    $storefront->company,
+            'company' =>
+                $storefront->company,
 
-                'shippingSettings' =>
-                    $shippingSettings,
+            'shippingSettings' =>
+                $shippingSettings,
 
-                'shippingLocations' =>
-                    $shippingLocations,
+            'shippingLocations' =>
+                $shippingLocations,
 
-                'currencySymbol' =>
-                    $storefront
-                        ->company
-                        ->currency_symbol
-                    ?: '₦',
-            ]
-        );
+            'currencySymbol' =>
+                $storefront
+                    ->company
+                    ->currency_symbol
+                ?: '₦',
+        ]
+    );
     }
 
     /*
@@ -467,7 +472,10 @@ class StorefrontCheckoutController extends Controller
         if (!$reference) {
 
             return view(
-                'storefront.public.checkout-failed',
+                $this->themeService->view(
+                    $storefront,
+                    'checkout-failed'
+                ),
                 [
 
                     'storefront' =>
@@ -503,7 +511,10 @@ class StorefrontCheckoutController extends Controller
 
 
             return view(
-                'storefront.public.checkout-success',
+                $this->themeService->view(
+                    $storefront,
+                    'checkout-success'
+                ),
                 [
 
                     'storefront' =>
@@ -532,7 +543,10 @@ class StorefrontCheckoutController extends Controller
 
 
             return view(
-                'storefront.public.checkout-failed',
+                $this->themeService->view(
+                    $storefront,
+                    'checkout-failed'
+                ),
                 [
 
                     'storefront' =>
