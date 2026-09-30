@@ -286,42 +286,57 @@
                                             <span class="text-danger">*</span>
                                         </label>
 
-                                        <select
-                                            class="form-select"
-                                            id="businessType"
-                                            name="business_type"
-                                            required
-                                        >
-                                            <option value="">Select business type</option>
+                                        {{-- Business Type --}}
 
-                                            <option value="Retail Store">Retail Store</option>
-                                            <option value="Supermarket">Supermarket</option>
-                                            <option value="Convenience Store">Convenience Store</option>
-                                            <option value="Mini Mart">Mini Mart</option>
-                                            <option value="Grocery Store">Grocery Store</option>
-                                            <option value="Pharmacy">Pharmacy</option>
-                                            <option value="Electronics Store">Electronics Store</option>
-                                            <option value="Mobile & Digital Accessories">Mobile & Digital Accessories</option>
-                                            <option value="Fashion & Clothing">Fashion & Clothing</option>
-                                            <option value="Beauty & Cosmetics">Beauty & Cosmetics</option>
-                                            <option value="Restaurant">Restaurant</option>
-                                            <option value="Cafe & Coffee Shop">Cafe & Coffee Shop</option>
-                                            <option value="Bakery">Bakery</option>
-                                            <option value="Fast Food">Fast Food</option>
-                                            <option value="Wholesale">Wholesale</option>
-                                            <option value="Distributor">Distributor</option>
-                                            <option value="Hardware & Building Materials">
-                                                Hardware & Building Materials
-                                            </option>
-                                            <option value="Auto Parts">Auto Parts</option>
-                                            <option value="Furniture & Home Goods">
-                                                Furniture & Home Goods
-                                            </option>
-                                            <option value="General Merchandise">
-                                                General Merchandise
-                                            </option>
-                                            <option value="Other">Other</option>
-                                        </select>
+                                        <div class="col-md-6">
+
+                                            <label
+                                                for="businessType"
+                                                class="form-label"
+                                            >
+                                                Business Type
+
+                                                <span class="text-danger">
+                                                    *
+                                                </span>
+                                            </label>
+
+
+                                            <select
+                                                class="form-select"
+                                                id="businessType"
+                                                name="business_type"
+                                                required
+                                            >
+
+                                                <option value="">
+                                                    Select business type
+                                                </option>
+
+
+                                                @foreach($businessTypes as $businessType)
+
+                                                    <option
+                                                        value="{{ $businessType }}"
+                                                        @selected(
+                                                            old('business_type')
+                                                            === $businessType
+                                                        )
+                                                    >
+                                                        {{ $businessType }}
+                                                    </option>
+
+                                                @endforeach
+
+                                            </select>
+
+
+                                            <div
+                                                class="invalid-feedback"
+                                                data-error-for="business_type"
+                                            ></div>
+
+                                        </div>
 
                                         <div class="invalid-feedback">
                                             Please select your business type.

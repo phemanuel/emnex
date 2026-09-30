@@ -681,6 +681,9 @@ Route::prefix('products')
 
         Route::put('/{product}/maximum-stock', 'updateMaximumStock')
         ->name('maximum-stock');
+
+        Route::delete('/{product}/images/{productImage}', [ProductController::class,'destroyImage',])
+        ->name('products.images.destroy');
       
         /*
         |--------------------------------------------------------------------------

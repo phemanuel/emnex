@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2026 at 02:18 AM
+-- Generation Time: Sep 29, 2026 at 09:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -742,7 +742,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `company_id`, `customer_group_id`, `branch_id`, `customer_code`, `first_name`, `last_name`, `email`, `phone`, `address`, `credit_limit`, `current_balance`, `customer_type`, `loyalty_points`, `last_purchase_date`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '08104786432', 'Alaro, Ibadan, Oyo', 50000.00, 0.00, 'Online', 0, '2026-09-28', 1, 1, NULL, '2026-08-16 02:50:25', '2026-09-27 23:17:12', NULL),
+(6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '08104786432', 'Alaro, Ibadan, Oyo', 50000.00, 0.00, 'Online', 0, '2026-09-29', 1, 1, NULL, '2026-08-16 02:50:25', '2026-09-29 12:18:50', NULL),
 (9, 1, 7, NULL, 'CUS-00007', 'Clement', 'Elugbaju', 'clement@gmail.com', '07038899203', 'Ibadan', 5000000.00, 0.00, 'Business', 0, NULL, 1, 1, NULL, '2026-08-16 10:35:39', '2026-08-16 10:35:39', NULL),
 (10, 1, 6, NULL, 'CUS-00010', 'Miracle', 'Peter', 'miracle.kingsbranding@gmail.com', '08104786432', 'Ibadan', 2000000.00, 0.00, 'Corporate', 0, NULL, 1, 1, NULL, '2026-08-27 13:04:26', '2026-08-27 13:04:26', NULL),
 (11, 1, NULL, NULL, 'CUS-000001', 'Paul', 'Awolola', 'paulawolola@gmail.com', '07032109983', 'Alaro Street, Ibadan, Oyo', 0.00, 0.00, 'Online', 0, '2026-09-26', 1, NULL, NULL, '2026-09-26 22:47:27', '2026-09-26 22:47:47', NULL);
@@ -876,8 +876,8 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (2, 1, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (3, 1, 'customer', 'CUS', NULL, '-', 2, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-26 22:47:27', 0),
 (4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(5, 1, 'order', 'ORD', NULL, '-', 59, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-27 23:17:01', 0),
-(6, 1, 'payment', 'PAY', NULL, '-', 44, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-27 23:17:12', 0),
+(5, 1, 'order', 'ORD', NULL, '-', 61, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-29 12:18:39', 0),
+(6, 1, 'payment', 'PAY', NULL, '-', 46, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-29 12:18:50', 0),
 (7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (8, 1, 'purchase_return', 'PRN', NULL, '-', 5, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-27 09:44:50', 0),
 (9, 1, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
@@ -887,7 +887,7 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (13, 1, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (14, 1, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (15, 1, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(16, 1, 'Invoice', 'INV', NULL, '-', 46, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-27 23:17:01', 0),
+(16, 1, 'Invoice', 'INV', NULL, '-', 48, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-29 12:18:39', 0),
 (17, 1, 'Receipt', 'REC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (18, 1, 'Sales Order', 'SO', NULL, '-', 31, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-04 08:03:52', 0),
 (19, 1, 'Purchase Order', 'PO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
@@ -1100,7 +1100,9 @@ INSERT INTO `invoices` (`id`, `company_id`, `branch_id`, `terminal_id`, `order_i
 (48, 1, 1, NULL, 94, 6, 'INV-000042', '2026-09-27', 700.00, 0.00, 0.00, 6200.00, 6200.00, 0.00, 1.00, 1, 6200.00, 'Paid', 'Active', 'Online Storefront order ORD-000055', NULL, NULL, '2026-09-27 22:59:50', '2026-09-27 23:00:03', NULL),
 (49, 1, 1, NULL, 95, 6, 'INV-000043', '2026-09-28', 1200.00, 0.00, 0.00, 6200.00, 6200.00, 0.00, 1.00, 1, 6200.00, 'Paid', 'Active', 'Online Storefront order ORD-000056', NULL, NULL, '2026-09-27 23:07:21', '2026-09-27 23:07:29', NULL),
 (50, 1, 1, NULL, 96, 6, 'INV-000044', '2026-09-28', 8600.00, 0.00, 0.00, 13600.00, 13600.00, 0.00, 1.00, 1, 13600.00, 'Paid', 'Active', 'Online Storefront order ORD-000057', NULL, NULL, '2026-09-27 23:11:18', '2026-09-27 23:11:25', NULL),
-(51, 1, 1, NULL, 97, 6, 'INV-000045', '2026-09-28', 1000.00, 0.00, 0.00, 2000.00, 2000.00, 0.00, 4.00, 1, 2000.00, 'Paid', 'Active', 'Online Storefront order ORD-000058', NULL, NULL, '2026-09-27 23:17:01', '2026-09-27 23:17:12', NULL);
+(51, 1, 1, NULL, 97, 6, 'INV-000045', '2026-09-28', 1000.00, 0.00, 0.00, 2000.00, 2000.00, 0.00, 4.00, 1, 2000.00, 'Paid', 'Active', 'Online Storefront order ORD-000058', NULL, NULL, '2026-09-27 23:17:01', '2026-09-27 23:17:12', NULL),
+(52, 1, 1, NULL, 98, 6, 'INV-000046', '2026-09-29', 90000.00, 0.00, 0.00, 91000.00, 91000.00, 0.00, 1.00, 1, 91000.00, 'Paid', 'Active', 'Online Storefront order ORD-000059', NULL, NULL, '2026-09-29 12:14:15', '2026-09-29 12:14:29', NULL),
+(53, 1, 1, NULL, 99, 6, 'INV-000047', '2026-09-29', 700.00, 0.00, 0.00, 1700.00, 1700.00, 0.00, 1.00, 1, 1700.00, 'Paid', 'Active', 'Online Storefront order ORD-000060', NULL, NULL, '2026-09-29 12:18:39', '2026-09-29 12:18:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -1191,7 +1193,9 @@ INSERT INTO `invoice_items` (`id`, `company_id`, `invoice_id`, `product_id`, `pr
 (80, 1, 48, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-09-27 22:59:50', '2026-09-27 22:59:50'),
 (81, 1, 49, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-09-27 23:07:21', '2026-09-27 23:07:21'),
 (82, 1, 50, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-27 23:11:18', '2026-09-27 23:11:18'),
-(83, 1, 51, 5, 'Indomie Chicken Noodles', '100000000005', 4.00, 250.00, 0.00, 0.00, 1000.00, '2026-09-27 23:17:01', '2026-09-27 23:17:01');
+(83, 1, 51, 5, 'Indomie Chicken Noodles', '100000000005', 4.00, 250.00, 0.00, 0.00, 1000.00, '2026-09-27 23:17:01', '2026-09-27 23:17:01'),
+(84, 1, 52, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 0.00, 0.00, 90000.00, '2026-09-29 12:14:15', '2026-09-29 12:14:15'),
+(85, 1, 53, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-09-29 12:18:39', '2026-09-29 12:18:39');
 
 -- --------------------------------------------------------
 
@@ -1324,7 +1328,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (81, '2026_09_27_213040_add_storefront_public_fields_to_orders_table', 32),
 (82, '2026_09_27_220804_create_shipping_settings_table', 33),
 (83, '2026_09_27_220814_create_shipping_locations_table', 33),
-(84, '2026_09_27_220831_add_shipping_fields_to_orders_table', 33);
+(84, '2026_09_27_220831_add_shipping_fields_to_orders_table', 33),
+(85, '2026_09_29_110242_add_theme_key_to_storefronts_table', 34);
 
 -- --------------------------------------------------------
 
@@ -1429,7 +1434,9 @@ INSERT INTO `orders` (`id`, `company_id`, `branch_id`, `order_no`, `public_token
 (94, 1, 1, 'ORD-000055', 'Y0eE30j0KK6MkXqyQtF4IS5EjE9WVYUEQzf9SKuJm0VKEKCZUTNgHzFovFZSnoKA', 6, NULL, 700.00, 0.00, NULL, NULL, 0.00, 6200.00, 6200.00, 0.00, 1, 1.00, 0.00, 6200.00, '2026-09-27 23:00:03', '2026-09-27 23:00:11', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 22:59:50', '2026-09-27 23:00:11', NULL, 'location', 2, 'Challenge Terminal 1', NULL, NULL, NULL, 5500.00, 'Pending', NULL, NULL, NULL, NULL),
 (95, 1, 1, 'ORD-000056', 'zy9WFMQW6Gh9KCXs9NHNkuymYU3DWJcwX8Mj40c3djPfEer6NxkWaO7nul7cGQmI', 6, NULL, 1200.00, 0.00, NULL, NULL, 0.00, 6200.00, 6200.00, 0.00, 1, 1.00, 0.00, 6200.00, '2026-09-27 23:07:29', '2026-09-27 23:07:37', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 23:07:21', '2026-09-27 23:07:37', NULL, 'location', 1, 'Apata', NULL, NULL, NULL, 5000.00, 'Pending', NULL, NULL, NULL, NULL),
 (96, 1, 1, 'ORD-000057', '4kqRbr3BUdEUqeZRDHp8x3aOxatAsdpFBztGsH4S1jZur7gLeri1kv2lvTQhULiJ', 6, NULL, 8600.00, 0.00, NULL, NULL, 0.00, 13600.00, 13600.00, 0.00, 1, 1.00, 0.00, 13600.00, '2026-09-27 23:11:25', '2026-09-27 23:11:33', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 23:11:18', '2026-09-27 23:11:33', NULL, 'location', 1, 'Apata', NULL, NULL, NULL, 5000.00, 'Pending', NULL, NULL, NULL, NULL),
-(97, 1, 1, 'ORD-000058', 'ksRsQJU0RsL9tKdENFyQK4Gh6ngw9Uyuc9pEuub8Eo7FoDJwI4hPRLZZPIPdNEyV', 6, NULL, 1000.00, 0.00, NULL, NULL, 0.00, 2000.00, 2000.00, 0.00, 1, 4.00, 0.00, 2000.00, '2026-09-27 23:17:12', '2026-09-27 23:17:18', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 23:17:01', '2026-09-27 23:17:18', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL);
+(97, 1, 1, 'ORD-000058', 'ksRsQJU0RsL9tKdENFyQK4Gh6ngw9Uyuc9pEuub8Eo7FoDJwI4hPRLZZPIPdNEyV', 6, NULL, 1000.00, 0.00, NULL, NULL, 0.00, 2000.00, 2000.00, 0.00, 1, 4.00, 0.00, 2000.00, '2026-09-27 23:17:12', '2026-09-27 23:17:18', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, 1, '2026-09-27 23:17:01', '2026-09-27 23:53:44', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Shipped', NULL, 'The item has been shipped to GIG Logistics', '2026-09-27 23:53:44', NULL),
+(98, 1, 1, 'ORD-000059', 'Fmd5P55HfBSWnNaljwSr6HJzPY9MpqObsiHE8hoUuYMSxWytVJeFFhuY0QtsCPu3', 6, NULL, 90000.00, 0.00, NULL, NULL, 0.00, 91000.00, 91000.00, 0.00, 1, 1.00, 0.00, 91000.00, '2026-09-29 12:14:29', '2026-09-29 12:14:35', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-29 12:14:15', '2026-09-29 12:14:35', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL),
+(99, 1, 1, 'ORD-000060', 'gquv5vXH6A2PkvjuYnXSHyqxdJGGO50wdmWeFIGiArUdanyGPzm4ajJGBnPUvK1b', 6, NULL, 700.00, 0.00, NULL, NULL, 0.00, 1700.00, 1700.00, 0.00, 1, 1.00, 0.00, 1700.00, '2026-09-29 12:18:50', '2026-09-29 12:18:54', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-29 12:18:39', '2026-09-29 12:18:54', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1522,7 +1529,9 @@ INSERT INTO `order_items` (`id`, `company_id`, `order_id`, `product_id`, `produc
 (126, 1, 94, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 500.00, 0.00, 0.00, 700.00, '2026-09-27 22:59:50', '2026-09-27 22:59:50'),
 (127, 1, 95, 7, 'Family Bread', '100000000007', 1.00, 1200.00, 900.00, 0.00, 0.00, 1200.00, '2026-09-27 23:07:21', '2026-09-27 23:07:21'),
 (128, 1, 96, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-27 23:11:18', '2026-09-27 23:11:18'),
-(129, 1, 97, 5, 'Indomie Chicken Noodles', '100000000005', 4.00, 250.00, 180.00, 0.00, 0.00, 1000.00, '2026-09-27 23:17:01', '2026-09-27 23:17:01');
+(129, 1, 97, 5, 'Indomie Chicken Noodles', '100000000005', 4.00, 250.00, 180.00, 0.00, 0.00, 1000.00, '2026-09-27 23:17:01', '2026-09-27 23:17:01'),
+(130, 1, 98, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 82000.00, 0.00, 0.00, 90000.00, '2026-09-29 12:14:15', '2026-09-29 12:14:15'),
+(131, 1, 99, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 500.00, 0.00, 0.00, 700.00, '2026-09-29 12:18:39', '2026-09-29 12:18:39');
 
 -- --------------------------------------------------------
 
@@ -1611,7 +1620,9 @@ INSERT INTO `payments` (`id`, `company_id`, `branch_id`, `order_id`, `customer_i
 (48, 1, 1, 94, 6, NULL, 6200.00, 'Completed', 3, 'Card', '2026-09-28 00:00:03', 'SF-94-DZOPVIZMX5AI', 'Paystack', 'ORD-000055', 'Paystack online payment. Channel: card. Order: ORD-000055', NULL, 'PAY-000040', '2026-09-27 23:00:03', '2026-09-27 23:00:03'),
 (49, 1, 1, 95, 6, NULL, 6200.00, 'Completed', 3, 'Card', '2026-09-28 00:07:29', 'SF-95-3PR9F3C03VG7', 'Paystack', 'ORD-000056', 'Paystack online payment. Channel: card. Order: ORD-000056', NULL, 'PAY-000041', '2026-09-27 23:07:29', '2026-09-27 23:07:29'),
 (50, 1, 1, 96, 6, NULL, 13600.00, 'Completed', 3, 'Card', '2026-09-28 00:11:25', 'SF-96-4GRJHYKKTL5A', 'Paystack', 'ORD-000057', 'Paystack online payment. Channel: card. Order: ORD-000057', NULL, 'PAY-000042', '2026-09-27 23:11:25', '2026-09-27 23:11:25'),
-(51, 1, 1, 97, 6, NULL, 2000.00, 'Completed', 3, 'Card', '2026-09-28 00:17:12', 'SF-97-YIDUCX9FHZ17', 'Paystack', 'ORD-000058', 'Paystack online payment. Channel: card. Order: ORD-000058', NULL, 'PAY-000043', '2026-09-27 23:17:12', '2026-09-27 23:17:12');
+(51, 1, 1, 97, 6, NULL, 2000.00, 'Completed', 3, 'Card', '2026-09-28 00:17:12', 'SF-97-YIDUCX9FHZ17', 'Paystack', 'ORD-000058', 'Paystack online payment. Channel: card. Order: ORD-000058', NULL, 'PAY-000043', '2026-09-27 23:17:12', '2026-09-27 23:17:12'),
+(52, 1, 1, 98, 6, NULL, 91000.00, 'Completed', 3, 'Card', '2026-09-29 13:14:29', 'SF-98-PEQ3WXYDV8NC', 'Paystack', 'ORD-000059', 'Paystack online payment. Channel: card. Order: ORD-000059', NULL, 'PAY-000044', '2026-09-29 12:14:29', '2026-09-29 12:14:29'),
+(53, 1, 1, 99, 6, NULL, 1700.00, 'Completed', 3, 'Card', '2026-09-29 13:18:50', 'SF-99-WAEE1UVAKLVO', 'Paystack', 'ORD-000060', 'Paystack online payment. Channel: card. Order: ORD-000060', NULL, 'PAY-000045', '2026-09-29 12:18:50', '2026-09-29 12:18:50');
 
 -- --------------------------------------------------------
 
@@ -2151,8 +2162,8 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (5, 1, 1, 5, 76.00, 0.00, 76.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 23:17:12'),
 (6, 1, 1, 6, 1525.00, 0.00, 1524.00, 10.00, 1595.00, '2026-07-29 10:37:13', '2026-09-27 20:21:02'),
 (7, 1, 1, 7, 83.00, 0.00, 83.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 23:07:29'),
-(8, 1, 1, 8, 73.00, 0.00, 73.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 20:21:41'),
-(9, 1, 1, 9, 69.00, 0.00, 69.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 23:00:03'),
+(8, 1, 1, 8, 72.00, 0.00, 72.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-29 12:14:29'),
+(9, 1, 1, 9, 68.00, 0.00, 68.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-29 12:18:50'),
 (10, 1, 1, 10, 1017.00, 0.00, 1017.00, 10.00, 1085.00, '2026-07-29 10:37:13', '2026-09-27 23:11:25'),
 (13, 1, 1, 19, 1595.00, 0.00, 1595.00, 100.00, 1635.00, '2026-08-09 17:52:05', '2026-09-27 20:45:24'),
 (20, 1, 6, 19, 5.00, 0.00, 5.00, 100.00, 1635.00, '2026-08-11 09:39:39', '2026-08-22 13:10:17'),
@@ -3465,9 +3476,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('9cRPMthg3WU1B55OtXfflPEhIPMEv4Z2GsEVFNGK', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMEVROXBZVFJaSGZYRVhpdEpSVVBoYjRENW9DWm5OQWhCNXhJYzJCZiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MTA2OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3RvcmUvZW1tYW5leC9vcmRlci9Ec0dKcGppQ3VWVFVRYVl4V3V4MjNNbzNWS2QyaE1KWFhtR04yYVhGNjZiZzlEc3NlOXZ1Y2t0c21sSlFCZTJHIjtzOjU6InJvdXRlIjtzOjI4OiJzdG9yZWZyb250LnB1YmxpYy5vcmRlci5zaG93Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1790546316),
-('Wjua7fBhxfJ78vuP17LRyos1Lhogpetcw3zYnMCL', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYW9GeXNaU2dMbnlNOHphaG9tbVB4UGl5THZQeWFjYlBhU2RXaTU2cyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MTA2OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3RvcmUvZW1tYW5leC9vcmRlci9rc1JzUUpVMFJzTDl0S2RFTkZ5UUs0R2g2bmd3OVV5dWM5cEV1dWI4RW83Rm9ESndJNGhQUkxaWlBJUGRORXlWIjtzOjU6InJvdXRlIjtzOjI4OiJzdG9yZWZyb250LnB1YmxpYy5vcmRlci5zaG93Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1790554656),
-('ylavpfNZlfsekImI5s9yUz8dYFb5wVdsnQLnsMyz', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6Im52RjJDT25HeGpENWw4S0lJQ3V2bnZhdklXMlFlZWFwR0FPT1NwUlMiO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wbGF0Zm9ybSI7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjExNjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3N0b3JlL2VtbWFuZXgvY2hlY2tvdXQvcGF5bWVudC9jYWxsYmFjaz9yZWZlcmVuY2U9U0YtOTctWUlEVUNYOUZIWjE3JnRyeHJlZj1TRi05Ny1ZSURVQ1g5RkhaMTciO3M6NToicm91dGUiO3M6MzU6InN0b3JlZnJvbnQucHVibGljLmNoZWNrb3V0LmNhbGxiYWNrIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjEwOiJjb21wYW55X2lkIjtpOjE7czoxMjoiY29tcGFueV9uYW1lIjtzOjE5OiJFbW1hbmV4IFN1cGVybWFya2V0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6OToiQ09NUC0wMDAxIjtzOjk6ImJyYW5jaF9pZCI7aToxO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1790554638);
+('X7z6fsAk1z3LUmZ4dCxukaPwRBK6Q2UpgKC2zRZB', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IkFDVHdLQ29hcXJkYmlQVWdpSGJDVHlXRFduSVdobjJrSHFDaTR6b2giO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdG9yZWZyb250Ijt9czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdG9yZS9lbW1hbmV4L3Byb2R1Y3QvUFJEMDAwMDEwIjtzOjU6InJvdXRlIjtzOjI1OiJzdG9yZWZyb250LnB1YmxpYy5wcm9kdWN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjEwOiJjb21wYW55X2lkIjtpOjE7czoxMjoiY29tcGFueV9uYW1lIjtzOjE5OiJFbW1hbmV4IFN1cGVybWFya2V0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6OToiQ09NUC0wMDAxIjtzOjk6ImJyYW5jaF9pZCI7aToxO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1790708793);
 
 -- --------------------------------------------------------
 
@@ -3781,7 +3790,9 @@ INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `m
 (143, 1, 1, 9, 'Sale', 94, 'ORD-000055', 500.00, 1.00, 70.00, 69.00, 'Online Storefront order completed: ORD-000055', NULL, '2026-09-27 23:00:03', '2026-09-27 23:00:03'),
 (144, 1, 1, 7, 'Sale', 95, 'ORD-000056', 900.00, 1.00, 84.00, 83.00, 'Online Storefront order completed: ORD-000056', NULL, '2026-09-27 23:07:29', '2026-09-27 23:07:29'),
 (145, 1, 1, 10, 'Sale', 96, 'ORD-000057', 7800.00, 1.00, 1018.00, 1017.00, 'Online Storefront order completed: ORD-000057', NULL, '2026-09-27 23:11:25', '2026-09-27 23:11:25'),
-(146, 1, 1, 5, 'Sale', 97, 'ORD-000058', 180.00, 4.00, 80.00, 76.00, 'Online Storefront order completed: ORD-000058', NULL, '2026-09-27 23:17:12', '2026-09-27 23:17:12');
+(146, 1, 1, 5, 'Sale', 97, 'ORD-000058', 180.00, 4.00, 80.00, 76.00, 'Online Storefront order completed: ORD-000058', NULL, '2026-09-27 23:17:12', '2026-09-27 23:17:12'),
+(147, 1, 1, 8, 'Sale', 98, 'ORD-000059', 82000.00, 1.00, 73.00, 72.00, 'Online Storefront order completed: ORD-000059', NULL, '2026-09-29 12:14:29', '2026-09-29 12:14:29'),
+(148, 1, 1, 9, 'Sale', 99, 'ORD-000060', 500.00, 1.00, 69.00, 68.00, 'Online Storefront order completed: ORD-000060', NULL, '2026-09-29 12:18:50', '2026-09-29 12:18:50');
 
 -- --------------------------------------------------------
 
@@ -3795,6 +3806,7 @@ CREATE TABLE `storefronts` (
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `status` enum('Setup','Active','Disabled') NOT NULL DEFAULT 'Setup',
+  `theme_key` varchar(50) NOT NULL DEFAULT 'editorial',
   `enabled_at` timestamp NULL DEFAULT NULL,
   `created_by` bigint(20) UNSIGNED DEFAULT NULL,
   `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
@@ -3806,10 +3818,10 @@ CREATE TABLE `storefronts` (
 -- Dumping data for table `storefronts`
 --
 
-INSERT INTO `storefronts` (`id`, `company_id`, `name`, `slug`, `status`, `enabled_at`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 5, 'Gadget Padi', 'gadget-padi', 'Active', '2026-09-26 20:46:04', 21, 21, '2026-09-26 20:02:57', '2026-09-26 20:48:43'),
-(2, 4, 'JustRite Mart', 'justrite-mart', 'Active', '2026-09-26 20:53:54', 20, 20, '2026-09-26 20:53:38', '2026-09-26 20:53:54'),
-(3, 1, 'Emmanex Supermarket', 'emmanex', 'Active', '2026-09-26 21:35:17', 1, 1, '2026-09-26 21:35:03', '2026-09-26 21:35:17');
+INSERT INTO `storefronts` (`id`, `company_id`, `name`, `slug`, `status`, `theme_key`, `enabled_at`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 5, 'Gadget Padi', 'gadget-padi', 'Active', 'editorial', '2026-09-26 20:46:04', 21, 21, '2026-09-26 20:02:57', '2026-09-26 20:48:43'),
+(2, 4, 'JustRite Mart', 'justrite-mart', 'Active', 'editorial', '2026-09-26 20:53:54', 20, 20, '2026-09-26 20:53:38', '2026-09-26 20:53:54'),
+(3, 1, 'Emmanex Supermarket', 'emmanex', 'Active', 'boutique', '2026-09-26 21:35:17', 1, 1, '2026-09-26 21:35:03', '2026-09-29 17:52:42');
 
 -- --------------------------------------------------------
 
@@ -4856,13 +4868,13 @@ ALTER TABLE `goods_received_items`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -4874,25 +4886,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -5024,7 +5036,7 @@ ALTER TABLE `stock_count_items`
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `storefronts`

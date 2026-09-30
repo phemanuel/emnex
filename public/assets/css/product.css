@@ -2021,3 +2021,158 @@
 
 }
 
+/*
+|--------------------------------------------------------------------------
+| Product Image Gallery
+|--------------------------------------------------------------------------
+*/
+
+#existing-product-images-section,
+#new-product-images-section {
+    padding-top: 0.25rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Gallery Cards
+|--------------------------------------------------------------------------
+*/
+
+#existing-product-images .card,
+#new-product-images .card {
+    border: 1px solid #e9ecef;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+#existing-product-images .card:hover,
+#new-product-images .card:hover {
+    border-color: #ced4da;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Gallery Images
+|--------------------------------------------------------------------------
+*/
+
+#existing-product-images .card-img-top,
+#new-product-images .card-img-top {
+    width: 100%;
+    height: 160px !important;
+    object-fit: cover !important;
+    background: #f8f9fa;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Gallery Card Body
+|--------------------------------------------------------------------------
+*/
+
+#existing-product-images .card-body,
+#new-product-images .card-body {
+    background: #fff;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Gallery Buttons
+|--------------------------------------------------------------------------
+*/
+
+#existing-product-images .btn,
+#new-product-images .btn {
+    white-space: nowrap;
+}
+
+
+#existing-product-images .btn-outline-danger,
+#new-product-images .btn-outline-danger {
+    width: 38px;
+    flex: 0 0 38px;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Primary Badge
+|--------------------------------------------------------------------------
+*/
+
+#existing-product-images .badge,
+#new-product-images .badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Image Upload Field
+|--------------------------------------------------------------------------
+*/
+
+#images {
+    cursor: pointer;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Gallery Section Headings
+|--------------------------------------------------------------------------
+*/
+
+#existing-product-images-section > .d-flex,
+#new-product-images-section > .d-flex {
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #f0f1f2;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Image Tab Help Box
+|--------------------------------------------------------------------------
+*/
+
+#image-tab .alert-light {
+    background: #fafbfc;
+    border-radius: 0.75rem;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 575.98px) {
+
+    #existing-product-images .card-img-top,
+    #new-product-images .card-img-top {
+        height: 135px !important;
+    }
+
+    #existing-product-images .btn,
+    #new-product-images .btn {
+        font-size: 0.75rem;
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
+    }
+}
+

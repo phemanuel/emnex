@@ -10,13 +10,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Services\BusinessProfileService;
 use Throwable;
 
 class CompanyRegistrationController extends Controller
 {
     public function __construct(
         protected CompanyOnboardingService $onboardingService,
-        protected AuthService $authService
+        protected AuthService $authService,
+        protected BusinessProfileService $businessProfileService
     ) {
     }
 
@@ -28,7 +30,14 @@ class CompanyRegistrationController extends Controller
 
     public function create()
     {
-        return view('onboarding.register');
+        return view(
+            'onboarding.register',
+            [
+                'businessTypes' =>
+                    $this->businessProfileService
+                        ->businessTypes(),
+            ]
+        );
     }
 
     /*
@@ -140,6 +149,11 @@ class CompanyRegistrationController extends Controller
                 'required',
                 'string',
                 'max:100',
+
+                Rule::in(
+                    $this->businessProfileService
+                        ->businessTypes()
+                ),
             ],
 
             'company_email' => [
@@ -253,32 +267,13 @@ class CompanyRegistrationController extends Controller
     {
         return [
             'company_name.required' => 'Please enter your company name.',
-            'business_type' => [
-                'required',
-                Rule::in([
-                    'Retail Store',
-                    'Supermarket',
-                    'Convenience Store',
-                    'Mini Mart',
-                    'Grocery Store',
-                    'Pharmacy',
-                    'Electronics Store',
-                    'Mobile & Digital Accessories',
-                    'Fashion & Clothing',
-                    'Beauty & Cosmetics',
-                    'Restaurant',
-                    'Cafe & Coffee Shop',
-                    'Bakery',
-                    'Fast Food',
-                    'Wholesale',
-                    'Distributor',
-                    'Hardware & Building Materials',
-                    'Auto Parts',
-                    'Furniture & Home Goods',
-                    'General Merchandise',
-                    'Other',
-                ]),
-            ],
+            
+            'business_type.required' =>
+                'Please select your business type.',
+
+            'business_type.in' =>
+                'The selected business type is not supported.',
+
             'company_email.email' => 'Please enter a valid company email address.',
             'company_phone.max' => 'The company phone number is too long.',
 

@@ -1,43 +1,167 @@
-<div class="offcanvas offcanvas-end product-inspector"
-     tabindex="-1"
-     id="productInspector"
-     aria-labelledby="productInspectorLabel">
+@php
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product Capabilities
+    |--------------------------------------------------------------------------
+    */
+
+    $productFieldModes =
+        $productFieldModes
+        ?? [];
+
+
+    $fieldVisible =
+        fn (string $field) =>
+            (
+                $productFieldModes[$field]
+                ?? 'optional'
+            ) !== 'hidden';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product Stock Settings
+    |--------------------------------------------------------------------------
+    */
+
+    $productStockSettings =
+        $productStockSettings
+        ?? [];
+
+
+    $trackStockDefault =
+        (bool) (
+            $productStockSettings['default']
+            ?? true
+        );
+
+
+    $trackStockChangeable =
+        (bool) (
+            $productStockSettings['changeable']
+            ?? false
+        );
+
+
+    $stockFeatureAvailable =
+        $trackStockDefault
+        ||
+        $trackStockChangeable;
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Section Visibility
+    |--------------------------------------------------------------------------
+    */
+
+    $showClassificationSection =
+        $fieldVisible('product_category_id')
+        ||
+        $fieldVisible('unit_id')
+        ||
+        $fieldVisible('tax_rate_id')
+        ||
+        $fieldVisible('discount_id');
+
+
+    $showIdentifiersSection =
+        $fieldVisible('sku')
+        ||
+        $fieldVisible('barcode')
+        ||
+        $fieldVisible('qr_code');
+
+
+    $showPricingSection =
+        $fieldVisible('cost_price')
+        ||
+        $fieldVisible('selling_price');
+
+
+    $showInventorySection =
+        $stockFeatureAvailable
+        ||
+        $fieldVisible('weight')
+        ||
+        $fieldVisible('expiry_date');
+
+
+    $showProductDetailsSection =
+        $fieldVisible('brand')
+        ||
+        $fieldVisible('manufacturer')
+        ||
+        $fieldVisible('description');
+
+@endphp
+
+
+<div
+    class="offcanvas offcanvas-end product-inspector"
+    tabindex="-1"
+    id="productInspector"
+    aria-labelledby="productInspectorLabel"
+>
+
+
+    {{-- =================================================
+        HEADER
+    ================================================= --}}
 
     <div class="offcanvas-header border-bottom">
 
-        <h5 class="offcanvas-title"
-            id="productInspectorLabel">
-
+        <h5
+            class="offcanvas-title"
+            id="productInspectorLabel"
+        >
             Product Details
-
         </h5>
 
-        <button type="button"
-                class="btn-close"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close">
-        </button>
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+        ></button>
 
     </div>
 
+
+
     <div class="offcanvas-body">
 
-        {{-- ===========================================
+
+        {{-- =================================================
             PRODUCT IMAGE
-        ============================================ --}}
+        ================================================= --}}
 
-        <div class="text-center mb-4">
+        @if(
+            $fieldVisible(
+                'image'
+            )
+        )
 
-            <img src="{{ asset('assets/images/no-image.png') }}"
-                 id="inspector-image"
-                 class="inspector-product-image"
-                 alt="Product Image">
+            <div class="text-center mb-4">
 
-        </div>
+                <img
+                    src="{{ asset('assets/images/no-image.png') }}"
+                    id="inspector-image"
+                    class="inspector-product-image"
+                    alt="Product Image"
+                >
 
-        {{-- ===========================================
+            </div>
+
+        @endif
+
+
+
+        {{-- =================================================
             BASIC INFORMATION
-        ============================================ --}}
+        ================================================= --}}
 
         <div class="inspector-section">
 
@@ -45,9 +169,12 @@
                 Basic Information
             </h6>
 
+
             <div class="inspector-row">
 
-                <span>Name</span>
+                <span>
+                    Name
+                </span>
 
                 <strong id="inspector-name">
                     -
@@ -55,9 +182,12 @@
 
             </div>
 
+
             <div class="inspector-row">
 
-                <span>Product Code</span>
+                <span>
+                    Product Code
+                </span>
 
                 <strong id="inspector-product-code">
                     -
@@ -65,9 +195,12 @@
 
             </div>
 
+
             <div class="inspector-row">
 
-                <span>Status</span>
+                <span>
+                    Status
+                </span>
 
                 <span id="inspector-status">
                     -
@@ -77,288 +210,527 @@
 
         </div>
 
-        {{-- ===========================================
+
+
+        {{-- =================================================
             CLASSIFICATION
-        ============================================ --}}
+        ================================================= --}}
 
-        <div class="inspector-section">
+        @if(
+            $showClassificationSection
+        )
 
-            <h6>
-                Classification
-            </h6>
+            <div class="inspector-section">
 
-            <div class="inspector-row">
+                <h6>
+                    Classification
+                </h6>
 
-                <span>Category</span>
 
-                <span id="inspector-category">
-                    -
-                </span>
+                @if(
+                    $fieldVisible(
+                        'product_category_id'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Category
+                        </span>
+
+                        <span id="inspector-category">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'unit_id'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Unit
+                        </span>
+
+                        <span id="inspector-unit">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'tax_rate_id'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Tax Rate
+                        </span>
+
+                        <span id="inspector-tax-rate">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'discount_id'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Discount
+                        </span>
+
+                        <span id="inspector-discount">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
 
             </div>
 
-            <div class="inspector-row">
+        @endif
 
-                <span>Unit</span>
 
-                <span id="inspector-unit">
-                    -
-                </span>
 
-            </div>
-
-            <div class="inspector-row">
-
-                <span>Tax Rate</span>
-
-                <span id="inspector-tax-rate">
-                    -
-                </span>
-
-            </div>
-
-            <div class="inspector-row">
-
-                <span>Discount</span>
-
-                <span id="inspector-discount">
-                    -
-                </span>
-
-            </div>
-
-        </div>
-
-        {{-- ===========================================
+        {{-- =================================================
             IDENTIFIERS
-        ============================================ --}}
+        ================================================= --}}
 
-        <div class="inspector-section">
+        @if(
+            $showIdentifiersSection
+        )
 
-            <h6>
-                Identifiers
-            </h6>
+            <div class="inspector-section">
 
-            <div class="inspector-row">
+                <h6>
+                    Identifiers
+                </h6>
 
-                <span>SKU</span>
 
-                <span id="inspector-sku">
-                    -
-                </span>
+                @if(
+                    $fieldVisible(
+                        'sku'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            SKU
+                        </span>
+
+                        <span id="inspector-sku">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'barcode'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Barcode
+                        </span>
+
+                        <span id="inspector-barcode">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'qr_code'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            QR Code
+                        </span>
+
+                        <span id="inspector-qr-code">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
 
             </div>
 
-            <div class="inspector-row">
+        @endif
 
-                <span>Barcode</span>
 
-                <span id="inspector-barcode">
-                    -
-                </span>
 
-            </div>
-
-            <div class="inspector-row">
-
-                <span>QR Code</span>
-
-                <span id="inspector-qr-code">
-                    -
-                </span>
-
-            </div>
-
-        </div>
-
-                {{-- ===========================================
+        {{-- =================================================
             PRICING
-        ============================================ --}}
+        ================================================= --}}
 
-        <div class="inspector-section">
+        @if(
+            $showPricingSection
+        )
 
-            <h6>
-                Pricing
-            </h6>
+            <div class="inspector-section">
 
-            <div class="inspector-row">
+                <h6>
+                    Pricing
+                </h6>
 
-                <span>Cost Price</span>
 
-                <strong id="inspector-cost-price">
-                    -
-                </strong>
+                @if(
+                    $fieldVisible(
+                        'cost_price'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Cost Price
+                        </span>
+
+                        <strong id="inspector-cost-price">
+                            -
+                        </strong>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'selling_price'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Selling Price
+                        </span>
+
+                        <strong id="inspector-selling-price">
+                            -
+                        </strong>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible('cost_price')
+                    &&
+                    $fieldVisible('selling_price')
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Profit
+                        </span>
+
+                        <strong id="inspector-profit">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Profit Margin
+                        </span>
+
+                        <strong id="inspector-margin">
+                            -
+                        </strong>
+
+                    </div>
+
+                @endif
 
             </div>
 
-            <div class="inspector-row">
-
-                <span>Selling Price</span>
-
-                <strong id="inspector-selling-price">
-                    -
-                </strong>
-
-            </div>
-
-            <div class="inspector-row">
-
-                <span>Profit</span>
-
-                <strong id="inspector-profit">
-                    -
-                </strong>
-
-            </div>
-
-            <div class="inspector-row">
-
-                <span>Profit Margin</span>
-
-                <strong id="inspector-margin">
-                    -
-                </strong>
-
-            </div>
-
-        </div>
+        @endif
 
 
 
-
-
-        {{-- ===========================================
+        {{-- =================================================
             INVENTORY
-        ============================================ --}}
+        ================================================= --}}
 
-        <div class="inspector-section">
+        @if($showInventorySection)
 
-            <h6>
-                Inventory
-            </h6>
+            <div class="inspector-section">
 
-            <div class="inspector-row">
+                <h6>
+                    Inventory
+                </h6>
 
-                <span>Current Stock</span>
 
-                <strong id="inspector-stock">
-                    -
-                </strong>
+                @if($stockFeatureAvailable)
+
+                    <div
+                        class="inspector-row"
+                        data-inspector-stock-quantity
+                    >
+
+                        <span>
+                            Current Stock
+                        </span>
+
+                        <strong id="inspector-stock">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="inspector-row"
+                        data-inspector-stock-status
+                    >
+
+                        <span>
+                            Stock Status
+                        </span>
+
+                        <span id="inspector-stock-status">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    @if(
+                        $fieldVisible(
+                            'minimum_stock'
+                        )
+                    )
+
+                        <div
+                            class="inspector-row"
+                            data-inspector-stock-level
+                        >
+
+                            <span>
+                                Minimum Stock
+                            </span>
+
+                            <span id="inspector-minimum-stock">
+                                -
+                            </span>
+
+                        </div>
+
+                    @endif
+
+
+                    @if(
+                        $fieldVisible(
+                            'maximum_stock'
+                        )
+                    )
+
+                        <div
+                            class="inspector-row"
+                            data-inspector-stock-level
+                        >
+
+                            <span>
+                                Maximum Stock
+                            </span>
+
+                            <span id="inspector-maximum-stock">
+                                -
+                            </span>
+
+                        </div>
+
+                    @endif
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'weight'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Weight
+                        </span>
+
+                        <span id="inspector-weight">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'expiry_date'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Expiry Date
+                        </span>
+
+                        <span id="inspector-expiry-date">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
 
             </div>
 
-            <div class="inspector-row">
-
-                <span>Stock Status</span>
-
-                <span id="inspector-stock-status">
-                    -
-                </span>
-
-            </div>
-
-            <div class="inspector-row">
-
-                <span>Minimum Stock</span>
-
-                <span id="inspector-minimum-stock">
-                    -
-                </span>
-
-            </div>
-
-            <div class="inspector-row">
-
-                <span>Maximum Stock</span>
-
-                <span id="inspector-maximum-stock">
-                    -
-                </span>
-
-            </div>
-
-            <div class="inspector-row">
-
-                <span>Weight</span>
-
-                <span id="inspector-weight">
-                    -
-                </span>
-
-            </div>
-
-            <div class="inspector-row">
-
-                <span>Expiry Date</span>
-
-                <span id="inspector-expiry-date">
-                    -
-                </span>
-
-            </div>
-
-        </div>
+        @endif
 
 
 
-
-
-        {{-- ===========================================
+        {{-- =================================================
             PRODUCT DETAILS
-        ============================================ --}}
+        ================================================= --}}
 
-        <div class="inspector-section">
+        @if(
+            $showProductDetailsSection
+        )
 
-            <h6>
-                Product Details
-            </h6>
+            <div class="inspector-section">
 
-            <div class="inspector-row">
+                <h6>
+                    Product Details
+                </h6>
 
-                <span>Brand</span>
 
-                <span id="inspector-brand">
-                    -
-                </span>
+                @if(
+                    $fieldVisible(
+                        'brand'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Brand
+                        </span>
+
+                        <span id="inspector-brand">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'manufacturer'
+                    )
+                )
+
+                    <div class="inspector-row">
+
+                        <span>
+                            Manufacturer
+                        </span>
+
+                        <span id="inspector-manufacturer">
+                            -
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if(
+                    $fieldVisible(
+                        'description'
+                    )
+                )
+
+                    <div class="mt-3">
+
+                        <label
+                            class="small text-muted d-block mb-2"
+                        >
+                            Description
+                        </label>
+
+
+                        <div
+                            id="inspector-description"
+                            class="inspector-description"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+                @endif
 
             </div>
 
-            <div class="inspector-row">
-
-                <span>Manufacturer</span>
-
-                <span id="inspector-manufacturer">
-                    -
-                </span>
-
-            </div>
-
-            <div class="mt-3">
-
-                <label class="small text-muted d-block mb-2">
-
-                    Description
-
-                </label>
-
-                <div id="inspector-description"
-                     class="inspector-description">
-
-                    -
-
-                </div>
-
-            </div>
-
-        </div>
+        @endif
 
 
 
-
-
-        {{-- ===========================================
+        {{-- =================================================
             SYSTEM INFORMATION
-        ============================================ --}}
+        ================================================= --}}
 
         <div class="inspector-section">
 
@@ -366,9 +738,12 @@
                 System Information
             </h6>
 
+
             <div class="inspector-row">
 
-                <span>Created</span>
+                <span>
+                    Created
+                </span>
 
                 <span id="inspector-created">
                     -
@@ -376,9 +751,12 @@
 
             </div>
 
+
             <div class="inspector-row">
 
-                <span>Last Updated</span>
+                <span>
+                    Last Updated
+                </span>
 
                 <span id="inspector-updated">
                     -
@@ -388,6 +766,7 @@
 
         </div>
 
-    </div> {{-- /.offcanvas-body --}}
 
-</div> {{-- /.offcanvas --}}
+    </div>
+
+</div>

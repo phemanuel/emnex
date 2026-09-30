@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
+
 /**
  * Company Model
  *
@@ -174,7 +175,22 @@ class Company extends Model
 
     public function activityLogs(): HasMany
     {
-        return $this->hasMany(ActivityLog::class);    }
+        return $this->hasMany(ActivityLog::class);    
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Business Profile
+    |--------------------------------------------------------------------------
+    */
+
+    public function businessProfile(): HasOne
+    {
+        return $this->hasOne(
+            CompanyBusinessProfile::class,
+            'company_id'
+        );
+    }
 
     
 

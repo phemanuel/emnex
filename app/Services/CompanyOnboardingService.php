@@ -19,7 +19,8 @@ use RuntimeException;
 class CompanyOnboardingService
 {
      public function __construct(
-        protected StorefrontSetupService $storefrontSetupService
+        protected StorefrontSetupService $storefrontSetupService,
+        protected BusinessProfileService $businessProfileService
     ) {
     }
     /*
@@ -62,10 +63,7 @@ class CompanyOnboardingService
 
                 'address' => $companyData['company_address'] ?? null,
 
-                'logo' => null,                
-
-                'timezone' => $companyData['timezone'] ?? 'Africa/Lagos',
-
+                'logo' => null,    
                 /*
                  * New companies begin on a 30-day trial.
                  */
@@ -85,6 +83,23 @@ class CompanyOnboardingService
 
                 'status' => true,
             ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Business Profile
+            |--------------------------------------------------------------------------
+            |
+            | Resolve the company's operating profile from the selected business type.
+            |
+            | The profile is persisted once during onboarding so future changes to the
+            | descriptive business_type value do not silently alter company behaviour.
+            |
+            */
+
+            $this->businessProfileService
+                ->initializeForCompany(
+                    $company
+                );
 
             /*
              * -----------------------------------------------------------------

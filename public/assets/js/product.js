@@ -28,6 +28,16 @@ const Products = {
     importPreviewData: null,
     importElements: {},
 
+    /*
+    |--------------------------------------------------------------------------
+    | Product Gallery
+    |--------------------------------------------------------------------------
+    */
+
+    selectedProductImages: [],
+    existingProductImageData: [],
+    productImageObjectUrls: [],
+
     elements: {},
 
     imagePlaceholder: '/assets/images/no-image.png',
@@ -102,14 +112,55 @@ const Products = {
                     'product_code'
                 ),
 
-            image:
+            /*
+            |--------------------------------------------------------------------------
+            | Product Gallery
+            |--------------------------------------------------------------------------
+            */
+
+            imagesInput:
                 document.getElementById(
-                    'image'
+                    'images'
                 ),
 
-            imagePreview:
+            existingImagesSection:
                 document.getElementById(
-                    'product-image-preview'
+                    'existing-product-images-section'
+                ),
+
+            existingImagesContainer:
+                document.getElementById(
+                    'existing-product-images'
+                ),
+
+            existingImagesCount:
+                document.getElementById(
+                    'existing-product-images-count'
+                ),
+
+            newImagesSection:
+                document.getElementById(
+                    'new-product-images-section'
+                ),
+
+            newImagesContainer:
+                document.getElementById(
+                    'new-product-images'
+                ),
+
+            newImagesCount:
+                document.getElementById(
+                    'new-product-images-count'
+                ),
+
+            primaryImageIndex:
+                document.getElementById(
+                    'primary_image_index'
+                ),
+
+            primaryImageId:
+                document.getElementById(
+                    'primary_image_id'
                 ),
 
             status:
@@ -135,6 +186,23 @@ const Products = {
             confirmDeleteBtn:
                 document.getElementById(
                     'confirmDeleteBtn'
+                ),
+
+            inventoryTab:
+                document.getElementById(
+                    'inventory-tab'
+                ),
+
+            trackStock:
+                document.getElementById(
+                    'track_stock'
+                ),
+
+            stockControlledFields:
+                Array.from(
+                    document.querySelectorAll(
+                        '[data-stock-controlled-field]'
+                    )
                 ),
 
             /*
@@ -636,19 +704,24 @@ const Products = {
         }
 
 
-        /*
+       /*
         |--------------------------------------------------------------------------
-        | Product Image
+        | Product Images
         |--------------------------------------------------------------------------
         */
 
-        if (this.elements.image) {
+        if (this.elements.imagesInput) {
 
-            this.elements.image.addEventListener(
+            this.elements.imagesInput.addEventListener(
                 'change',
-                e => this.previewImage(e)
-            );
+                event => {
 
+                    this.handleProductImages(
+                        event
+                    );
+
+                }
+            );
         }
 
 
@@ -679,6 +752,25 @@ const Products = {
             this.elements.confirmDeleteBtn.addEventListener(
                 'click',
                 () => this.delete()
+            );
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Track Inventory
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.elements.trackStock) {
+
+            this.elements.trackStock.addEventListener(
+                'change',
+                () => {
+
+                    this.updateProductStockFields();
+
+                }
             );
 
         }
@@ -821,30 +913,130 @@ const Products = {
     */
 
     resetForm()
-    {
+{
+        /*
+        |--------------------------------------------------------------------------
+        | Form
+        |--------------------------------------------------------------------------
+        */
+
         this.elements.form.reset();
 
-        this.elements.productId.value = '';
+        this.elements.productId.value =
+            '';
 
         this.clearValidation();
 
 
         /*
         |--------------------------------------------------------------------------
-        | Reset Image Preview
+        | Reset Gallery State
         |--------------------------------------------------------------------------
         */
 
-        if (this.elements.image) {
+        this.releaseProductImageObjectUrls();
 
-            this.elements.image.value = '';
+        this.selectedProductImages =
+            [];
+
+        this.existingProductImageData =
+            [];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | File Input
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.elements.imagesInput) {
+
+            this.elements.imagesInput.value =
+                '';
 
         }
 
-        if (this.elements.imagePreview) {
 
-            this.elements.imagePreview.src =
-                this.imagePlaceholder;
+        /*
+        |--------------------------------------------------------------------------
+        | Primary Image Values
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.elements.primaryImageIndex) {
+
+            this.elements.primaryImageIndex.value =
+                '';
+
+        }
+
+
+        if (this.elements.primaryImageId) {
+
+            this.elements.primaryImageId.value =
+                '';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Existing Images
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.elements.existingImagesContainer) {
+
+            this.elements.existingImagesContainer.innerHTML =
+                '';
+
+        }
+
+
+        if (this.elements.existingImagesSection) {
+
+            this.elements.existingImagesSection.classList.add(
+                'd-none'
+            );
+
+        }
+
+
+        if (this.elements.existingImagesCount) {
+
+            this.elements.existingImagesCount.textContent =
+                '0 images';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | New Images
+        |--------------------------------------------------------------------------
+        */
+
+        if (this.elements.newImagesContainer) {
+
+            this.elements.newImagesContainer.innerHTML =
+                '';
+
+        }
+
+
+        if (this.elements.newImagesSection) {
+
+            this.elements.newImagesSection.classList.add(
+                'd-none'
+            );
+
+        }
+
+
+        if (this.elements.newImagesCount) {
+
+            this.elements.newImagesCount.textContent =
+                '0 selected';
 
         }
 
@@ -857,16 +1049,41 @@ const Products = {
 
         if (this.elements.status) {
 
-            this.elements.status.checked = true;
+            this.elements.status.checked =
+                true;
 
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Tracking
+        |--------------------------------------------------------------------------
+        */
+
+        this.resetProductStockTracking();
 
 
         /*
         |--------------------------------------------------------------------------
-        | First Tab
+        | Reset Tabs
         |--------------------------------------------------------------------------
         */
+
+        document
+            .querySelectorAll(
+                '.tab-pane'
+            )
+            .forEach(
+                pane => {
+
+                    pane.classList.remove(
+                        'show',
+                        'active'
+                    );
+
+                }
+            );
+
 
         document
             .querySelector(
@@ -877,16 +1094,21 @@ const Products = {
                 'active'
             );
 
+
         document
             .querySelectorAll(
                 '.product-tabs .nav-link'
             )
-            .forEach(tab => {
+            .forEach(
+                tab => {
 
-                tab.classList.remove(
-                    'active'
-                );
-            });
+                    tab.classList.remove(
+                        'active'
+                    );
+
+                }
+            );
+
 
         document
             .querySelector(
@@ -896,7 +1118,6 @@ const Products = {
                 'active'
             );
     },
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1049,33 +1270,1291 @@ const Products = {
 
     /*
     |--------------------------------------------------------------------------
-    | Image Preview
+    | Handle Product Images
     |--------------------------------------------------------------------------
     */
 
-    previewImage(event)
+    handleProductImages(event)
     {
-        const file =
-            event.target.files[0];
+        const incomingFiles =
+            Array.from(
+                event.target.files || []
+            );
 
-        if (!file) {
+
+        if (!incomingFiles.length) {
 
             return;
+
         }
 
-        const reader =
-            new FileReader();
 
-        reader.onload =
-            e => {
+        const validFiles =
+            incomingFiles.filter(
+                file =>
+                    this.validateProductImage(
+                        file
+                    )
+            );
 
-                this.elements.imagePreview.src =
-                    e.target.result;
-            };
 
-        reader.readAsDataURL(file);
+        if (!validFiles.length) {
+
+            this.syncProductImageInput();
+
+            return;
+
+        }
+
+
+        const allowsMultiple =
+            this.allowsMultipleProductImages();
+
+
+        const maxImages =
+            this.getMaxProductImages();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Single Image Business
+        |--------------------------------------------------------------------------
+        |
+        | Selecting a new image replaces the existing image when saved.
+        |
+        */
+
+        if (!allowsMultiple) {
+
+            this.selectedProductImages =
+                [
+                    validFiles[0],
+                ];
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Multiple Image Business
+        |--------------------------------------------------------------------------
+        */
+
+        else {
+
+            const mergedFiles = [
+                ...this.selectedProductImages,
+            ];
+
+
+            validFiles.forEach(
+                file => {
+
+                    const signature =
+                        this.productImageFileSignature(
+                            file
+                        );
+
+
+                    const alreadySelected =
+                        mergedFiles.some(
+                            existingFile =>
+                                this.productImageFileSignature(
+                                    existingFile
+                                ) === signature
+                        );
+
+
+                    if (!alreadySelected) {
+
+                        mergedFiles.push(
+                            file
+                        );
+
+                    }
+
+                }
+            );
+
+
+            const existingCount =
+                this.existingProductImageData
+                    .length;
+
+
+            const availableSlots =
+                Math.max(
+                    0,
+                    maxImages -
+                    existingCount
+                );
+
+
+            if (
+                mergedFiles.length >
+                availableSlots
+            ) {
+
+                showToast(
+                    `This product can have a maximum of ${maxImages} images.`,
+                    'warning'
+                );
+
+            }
+
+
+            this.selectedProductImages =
+                mergedFiles.slice(
+                    0,
+                    availableSlots
+                );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Default Primary
+        |--------------------------------------------------------------------------
+        |
+        | For a brand-new Product with no existing primary image, make the first
+        | newly selected image the default primary image.
+        |
+        */
+
+        if (
+            this.selectedProductImages.length
+            &&
+            !this.hasExistingPrimaryImage()
+            &&
+            !this.elements.primaryImageId?.value
+            &&
+            !this.elements.primaryImageIndex?.value
+        ) {
+
+            this.elements.primaryImageIndex.value =
+                '0';
+
+        }
+
+
+        this.syncProductImageInput();
+
+        this.renderExistingProductImages();
+
+        this.renderNewProductImages();
     },
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Product Image
+    |--------------------------------------------------------------------------
+    */
+
+    validateProductImage(file)
+    {
+        const allowedTypes = [
+            'image/jpeg',
+            'image/png',
+            'image/webp',
+        ];
+
+
+        if (
+            !allowedTypes.includes(
+                file.type
+            )
+        ) {
+
+            showToast(
+                `${file.name} is not a supported image type.`,
+                'warning'
+            );
+
+            return false;
+
+        }
+
+
+        const maxFileSize =
+            2 * 1024 * 1024;
+
+
+        if (
+            file.size >
+            maxFileSize
+        ) {
+
+            showToast(
+                `${file.name} is larger than 2MB.`,
+                'warning'
+            );
+
+            return false;
+
+        }
+
+
+        return true;
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product Image File Signature
+    |--------------------------------------------------------------------------
+    */
+
+    productImageFileSignature(file)
+    {
+        return [
+            file.name,
+            file.size,
+            file.lastModified,
+        ].join(
+            ':'
+        );
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Gallery Capability
+    |--------------------------------------------------------------------------
+    */
+
+    allowsMultipleProductImages()
+    {
+        return (
+            this.elements.imagesInput
+                ?.dataset
+                ?.multipleImages
+            === '1'
+        );
+    },
+
+
+    getMaxProductImages()
+    {
+        const value =
+            parseInt(
+                this.elements.imagesInput
+                    ?.dataset
+                    ?.maxImages
+                || '1',
+                10
+            );
+
+
+        return Number.isNaN(value)
+            ? 1
+            : Math.max(
+                1,
+                value
+            );
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Synchronize File Input
+    |--------------------------------------------------------------------------
+    |
+    | FileList cannot be modified directly, so DataTransfer is used to rebuild
+    | the images[] input after a preview is removed.
+    |
+    */
+
+    syncProductImageInput()
+    {
+        if (!this.elements.imagesInput) {
+
+            return;
+
+        }
+
+
+        const transfer =
+            new DataTransfer();
+
+
+        this.selectedProductImages.forEach(
+            file => {
+
+                transfer.items.add(
+                    file
+                );
+
+            }
+        );
+
+
+        this.elements.imagesInput.files =
+            transfer.files;
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render New Images
+    |--------------------------------------------------------------------------
+    */
+
+    renderNewProductImages()
+    {
+        const container =
+            this.elements.newImagesContainer;
+
+
+        const section =
+            this.elements.newImagesSection;
+
+
+        if (
+            !container ||
+            !section
+        ) {
+
+            return;
+
+        }
+
+
+        this.releaseProductImageObjectUrls();
+
+
+        container.innerHTML =
+            '';
+
+
+        const count =
+            this.selectedProductImages
+                .length;
+
+
+        if (this.elements.newImagesCount) {
+
+            this.elements.newImagesCount.textContent =
+                `${count} selected`;
+
+        }
+
+
+        if (!count) {
+
+            section.classList.add(
+                'd-none'
+            );
+
+            return;
+
+        }
+
+
+        section.classList.remove(
+            'd-none'
+        );
+
+
+        const selectedPrimaryIndex =
+            this.elements.primaryImageIndex
+                ?.value;
+
+
+        this.selectedProductImages.forEach(
+            (file, index) => {
+
+                const imageUrl =
+                    URL.createObjectURL(
+                        file
+                    );
+
+
+                this.productImageObjectUrls.push(
+                    imageUrl
+                );
+
+
+                const isPrimary =
+                    selectedPrimaryIndex !== ''
+                    &&
+                    Number(
+                        selectedPrimaryIndex
+                    ) === index;
+
+
+                const column =
+                    document.createElement(
+                        'div'
+                    );
+
+
+                column.className =
+                    'col-6 col-md-4 col-lg-3';
+
+
+                column.innerHTML = `
+                    <div class="card h-100">
+
+                        <img
+                            src="${imageUrl}"
+                            class="card-img-top"
+                            alt="${this.escapeHtml(file.name)}"
+                            style="
+                                height: 150px;
+                                object-fit: cover;
+                            "
+                        >
+
+                        <div class="card-body p-2">
+
+                            <div
+                                class="small text-truncate mb-2"
+                                title="${this.escapeHtml(file.name)}"
+                            >
+                                ${this.escapeHtml(file.name)}
+                            </div>
+
+                            ${
+                                isPrimary
+                                    ? `
+                                        <span
+                                            class="badge bg-primary mb-2"
+                                        >
+                                            Primary
+                                        </span>
+                                    `
+                                    : ''
+                            }
+
+                            <div class="d-flex gap-2">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-primary flex-grow-1"
+                                    data-new-primary-index="${index}"
+                                >
+                                    ${
+                                        isPrimary
+                                            ? 'Primary'
+                                            : 'Set Primary'
+                                    }
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    data-remove-new-image="${index}"
+                                    title="Remove image"
+                                >
+                                    <i class="bi bi-trash"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+
+
+                container.appendChild(
+                    column
+                );
+
+            }
+        );
+
+
+        container
+            .querySelectorAll(
+                '[data-new-primary-index]'
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        'click',
+                        () => {
+
+                            this.selectNewPrimaryImage(
+                                Number(
+                                    button.dataset
+                                        .newPrimaryIndex
+                                )
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        container
+            .querySelectorAll(
+                '[data-remove-new-image]'
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        'click',
+                        () => {
+
+                            this.removeNewProductImage(
+                                Number(
+                                    button.dataset
+                                        .removeNewImage
+                                )
+                            );
+
+                        }
+                    );
+
+                }
+            );
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render Existing Images
+    |--------------------------------------------------------------------------
+    */
+
+    renderExistingProductImages(images = null)
+    {
+        if (
+            Array.isArray(images)
+        ) {
+
+            this.existingProductImageData =
+                images;
+
+        }
+
+
+        const container =
+            this.elements.existingImagesContainer;
+
+
+        const section =
+            this.elements.existingImagesSection;
+
+
+        if (
+            !container ||
+            !section
+        ) {
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            '';
+
+
+        const count =
+            this.existingProductImageData
+                .length;
+
+
+        if (
+            this.elements.existingImagesCount
+        ) {
+
+            this.elements.existingImagesCount.textContent =
+                `${count} ${
+                    count === 1
+                        ? 'image'
+                        : 'images'
+                }`;
+
+        }
+
+
+        if (!count) {
+
+            section.classList.add(
+                'd-none'
+            );
+
+            return;
+
+        }
+
+
+        section.classList.remove(
+            'd-none'
+        );
+
+
+        const selectedExistingId =
+            this.elements.primaryImageId
+                ?.value;
+
+
+        const selectedNewIndex =
+            this.elements.primaryImageIndex
+                ?.value;
+
+
+        this.existingProductImageData.forEach(
+            image => {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Image URL
+                |--------------------------------------------------------------------------
+                */
+
+                const imageUrl =
+                    image.image_url
+                    ??
+                    image.url
+                    ??
+                    (
+                        image.image
+                            ? '/uploads/products/'
+                                + encodeURIComponent(
+                                    image.image
+                                )
+                            : this.imagePlaceholder
+                    );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Primary State
+                |--------------------------------------------------------------------------
+                */
+
+                let isPrimary =
+                    false;
+
+
+                if (
+                    selectedNewIndex !== ''
+                ) {
+
+                    isPrimary =
+                        false;
+
+                }
+                else if (
+                    selectedExistingId !== ''
+                ) {
+
+                    isPrimary =
+                        Number(
+                            selectedExistingId
+                        ) === Number(
+                            image.id
+                        );
+
+                }
+                else {
+
+                    isPrimary =
+                        Boolean(
+                            image.is_primary
+                        );
+
+                }
+
+
+                const column =
+                    document.createElement(
+                        'div'
+                    );
+
+
+                column.className =
+                    'col-6 col-md-4 col-lg-3';
+
+
+                column.innerHTML = `
+                    <div class="card h-100">
+
+                        <img
+                            src="${imageUrl}"
+                            class="card-img-top"
+                            alt="Product image"
+                            style="
+                                height: 150px;
+                                object-fit: cover;
+                            "
+                        >
+
+                        <div class="card-body p-2">
+
+                            ${
+                                isPrimary
+                                    ? `
+                                        <span
+                                            class="badge bg-primary mb-2"
+                                        >
+                                            Primary
+                                        </span>
+                                    `
+                                    : `
+                                        <span
+                                            class="badge bg-light text-dark border mb-2"
+                                        >
+                                            Gallery
+                                        </span>
+                                    `
+                            }
+
+                            ${
+                                image.id
+                                    ? `
+                                        <div class="d-flex gap-2">
+
+                                            ${
+                                                image.id
+                                                    ? `
+                                                        <button
+                                                            type="button"
+                                                            class="btn btn-sm btn-outline-primary flex-grow-1"
+                                                            data-existing-primary-id="${image.id}"
+                                                        >
+                                                            ${
+                                                                isPrimary
+                                                                    ? 'Primary'
+                                                                    : 'Set Primary'
+                                                            }
+                                                        </button>
+
+                                                        <button
+                                                            type="button"
+                                                            class="btn btn-sm btn-outline-danger"
+                                                            data-delete-existing-image="${image.id}"
+                                                            title="Remove image"
+                                                        >
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    `
+                                                    : ''
+                                            }
+
+                                        </div>
+                                    `
+                                    : ''
+                            }
+
+                        </div>
+
+                    </div>
+                `;
+
+
+                container.appendChild(
+                    column
+                );
+
+            }
+        );
+
+
+        container
+            .querySelectorAll(
+                '[data-existing-primary-id]'
+            )
+
+            
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        'click',
+                        () => {
+
+                            this.selectExistingPrimaryImage(
+                                Number(
+                                    button.dataset
+                                        .existingPrimaryId
+                                )
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Delete Existing Image
+            |--------------------------------------------------------------------------
+            */
+
+            container
+                .querySelectorAll(
+                    '[data-delete-existing-image]'
+                )
+                .forEach(
+                    button => {
+
+                        button.addEventListener(
+                            'click',
+                            () => {
+
+                                this.deleteExistingProductImage(
+                                    Number(
+                                        button.dataset
+                                            .deleteExistingImage
+                                    )
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Select New Primary Image
+    |--------------------------------------------------------------------------
+    */
+
+    selectNewPrimaryImage(index)
+    {
+        if (
+            index < 0
+            ||
+            index >=
+                this.selectedProductImages.length
+        ) {
+
+            return;
+
+        }
+
+
+        if (this.elements.primaryImageIndex) {
+
+            this.elements.primaryImageIndex.value =
+                String(
+                    index
+                );
+
+        }
+
+
+        if (this.elements.primaryImageId) {
+
+            this.elements.primaryImageId.value =
+                '';
+
+        }
+
+
+        this.renderExistingProductImages();
+
+        this.renderNewProductImages();
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Select Existing Primary Image
+    |--------------------------------------------------------------------------
+    */
+
+    selectExistingPrimaryImage(imageId)
+    {
+        if (!imageId) {
+
+            return;
+
+        }
+
+
+        const exists =
+            this.existingProductImageData
+                .some(
+                    image =>
+                        Number(
+                            image.id
+                        ) === Number(
+                            imageId
+                        )
+                );
+
+
+        if (!exists) {
+
+            return;
+
+        }
+
+
+        if (this.elements.primaryImageId) {
+
+            this.elements.primaryImageId.value =
+                String(
+                    imageId
+                );
+
+        }
+
+
+        if (this.elements.primaryImageIndex) {
+
+            this.elements.primaryImageIndex.value =
+                '';
+
+        }
+
+
+        this.renderExistingProductImages();
+
+        this.renderNewProductImages();
+    },
+
+    /*
+    |--------------------------------------------------------------------------
+    | Delete Existing Product Image
+    |--------------------------------------------------------------------------
+    */
+
+    async deleteExistingProductImage(imageId)
+    {
+        if (
+            !imageId
+            ||
+            !this.currentId
+        ) {
+
+            return;
+
+        }
+
+
+        const image =
+            this.existingProductImageData
+                .find(
+                    item =>
+                        Number(
+                            item.id
+                        ) === Number(
+                            imageId
+                        )
+                );
+
+
+        if (!image) {
+
+            return;
+
+        }
+
+
+        const confirmed =
+            window.confirm(
+                'Remove this image from the product?'
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+
+                    '/products/'
+                    + this.currentId
+                    + '/images/'
+                    + imageId,
+
+                    {
+                        method:
+                            'DELETE',
+
+                        headers: {
+
+                            'X-CSRF-TOKEN':
+                                this.csrfToken,
+
+                            Accept:
+                                'application/json',
+
+                            'X-Requested-With':
+                                'XMLHttpRequest',
+
+                        },
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                showToast(
+                    result.message
+                        || 'Unable to remove product image.',
+                    result.type
+                        || 'danger'
+                );
+
+                return;
+
+            }
+
+
+            if (!result.success) {
+
+                showToast(
+                    result.message,
+                    result.type
+                        || 'danger'
+                );
+
+                return;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update Local Gallery
+            |--------------------------------------------------------------------------
+            */
+
+            this.existingProductImageData =
+                result.data?.images
+                ?? [];
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Clear Selection If Deleted Image Was Selected
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                Number(
+                    this.elements.primaryImageId
+                        ?.value
+                    || 0
+                ) === Number(
+                    imageId
+                )
+            ) {
+
+                this.elements.primaryImageId.value =
+                    '';
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Re-render Gallery
+            |--------------------------------------------------------------------------
+            */
+
+            this.renderExistingProductImages();
+
+            this.renderNewProductImages();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Refresh Product Table
+            |--------------------------------------------------------------------------
+            |
+            | Important if the deleted image was the primary cover image.
+            |
+            */
+
+            await this.loadTable();
+
+
+            showToast(
+                result.message,
+                result.type
+                    || 'success'
+            );
+
+        }
+        catch (error) {
+
+            console.error(
+                'Product image deletion failed:',
+                error
+            );
+
+
+            showToast(
+                'Unable to remove product image.',
+                'danger'
+            );
+        }
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Remove Newly Selected Image
+    |--------------------------------------------------------------------------
+    */
+
+    removeNewProductImage(index)
+    {
+        if (
+            index < 0
+            ||
+            index >=
+                this.selectedProductImages.length
+        ) {
+
+            return;
+
+        }
+
+
+        const primaryIndexValue =
+            this.elements.primaryImageIndex
+                ?.value;
+
+
+        const primaryIndex =
+            primaryIndexValue === ''
+                ? null
+                : Number(
+                    primaryIndexValue
+                );
+
+
+        this.selectedProductImages.splice(
+            index,
+            1
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Adjust Primary Index
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            primaryIndex !== null
+        ) {
+
+            if (
+                primaryIndex === index
+            ) {
+
+                this.elements.primaryImageIndex.value =
+                    '';
+
+            }
+            else if (
+                primaryIndex > index
+            ) {
+
+                this.elements.primaryImageIndex.value =
+                    String(
+                        primaryIndex - 1
+                    );
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Default New Primary
+        |--------------------------------------------------------------------------
+        |
+        | Only needed when there is no existing primary image.
+        |
+        */
+
+        if (
+            this.selectedProductImages.length
+            &&
+            !this.hasExistingPrimaryImage()
+            &&
+            !this.elements.primaryImageId?.value
+            &&
+            !this.elements.primaryImageIndex?.value
+        ) {
+
+            this.elements.primaryImageIndex.value =
+                '0';
+
+        }
+
+
+        this.syncProductImageInput();
+
+        this.renderExistingProductImages();
+
+        this.renderNewProductImages();
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Existing Primary Image Check
+    |--------------------------------------------------------------------------
+    */
+
+    hasExistingPrimaryImage()
+    {
+        return this.existingProductImageData
+            .some(
+                image =>
+                    Boolean(
+                        image.is_primary
+                    )
+            );
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Release Preview URLs
+    |--------------------------------------------------------------------------
+    */
+
+    releaseProductImageObjectUrls()
+    {
+        this.productImageObjectUrls
+            .forEach(
+                imageUrl => {
+
+                    URL.revokeObjectURL(
+                        imageUrl
+                    );
+
+                }
+            );
+
+
+        this.productImageObjectUrls =
+            [];
+    },
 
     /*
     |--------------------------------------------------------------------------
@@ -1317,36 +2796,64 @@ const Products = {
 
     populateForm(product)
     {
+        /*
+        |--------------------------------------------------------------------------
+        | Product ID
+        |--------------------------------------------------------------------------
+        */
+
         this.elements.productId.value =
             product.id;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Standard Product Fields
+        |--------------------------------------------------------------------------
+        */
 
         Object.keys(product).forEach(
             key => {
 
-                let field =
+                const field =
                     document.getElementById(
                         key
                     );
 
+
                 if (!field) {
 
                     return;
+
                 }
 
 
                 /*
                 |--------------------------------------------------------------------------
-                | NEVER SET FILE INPUT
+                | Never Set File Inputs
                 |--------------------------------------------------------------------------
                 */
 
-                if (field.type === 'file') {
+                if (
+                    field.type ===
+                    'file'
+                ) {
 
                     return;
+
                 }
 
 
-                if (field.type === 'checkbox') {
+                /*
+                |--------------------------------------------------------------------------
+                | Checkbox
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    field.type ===
+                    'checkbox'
+                ) {
 
                     field.checked =
                         Boolean(
@@ -1354,45 +2861,136 @@ const Products = {
                         );
 
                     return;
+
                 }
 
 
+                /*
+                |--------------------------------------------------------------------------
+                | Standard Field
+                |--------------------------------------------------------------------------
+                */
+
                 field.value =
-                    product[key] ?? '';
+                    product[key]
+                    ?? '';
+
             }
         );
 
-
         /*
         |--------------------------------------------------------------------------
-        | Image Preview
+        | Stock Tracking
         |--------------------------------------------------------------------------
         */
 
-        if (product.image_url) {
-
-            this.elements.imagePreview.src =
-                product.image_url;
-
-        }
-        else {
-
-            this.elements.imagePreview.src =
-                this.imagePlaceholder;
-        }
+        this.updateProductStockFields();
 
 
         /*
         |--------------------------------------------------------------------------
-        | Always clear file input
+        | Reset New Uploads
         |--------------------------------------------------------------------------
         */
 
-        if (this.elements.image) {
+        this.releaseProductImageObjectUrls();
 
-            this.elements.image.value = '';
+        this.selectedProductImages =
+            [];
+
+
+        if (this.elements.imagesInput) {
+
+            this.elements.imagesInput.value =
+                '';
 
         }
+
+
+        if (this.elements.primaryImageIndex) {
+
+            this.elements.primaryImageIndex.value =
+                '';
+
+        }
+
+
+        if (this.elements.primaryImageId) {
+
+            this.elements.primaryImageId.value =
+                '';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Existing Gallery
+        |--------------------------------------------------------------------------
+        |
+        | Preferred format:
+        |
+        | product.images = [
+        |     {
+        |         id: 1,
+        |         image: 'filename.jpg',
+        |         image_url: '/uploads/products/filename.jpg',
+        |         is_primary: true,
+        |         sort_order: 0
+        |     }
+        | ]
+        |
+        */
+
+
+        let existingImages =
+            Array.isArray(
+                product.images
+            )
+                ? product.images
+                : [];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Legacy Fallback
+        |--------------------------------------------------------------------------
+        |
+        | Until the edit endpoint is updated to return product.images, continue
+        | showing the existing products.image cover.
+        |
+        */
+
+        if (
+            !existingImages.length
+            &&
+            product.image_url
+        ) {
+
+            existingImages = [
+                {
+                    id: null,
+                    image:
+                        product.image
+                        ?? null,
+                    image_url:
+                        product.image_url,
+                    is_primary:
+                        true,
+                    sort_order:
+                        0,
+                },
+            ];
+
+        }
+
+
+        this.renderExistingProductImages(
+            existingImages
+        );
+
+
+        this.renderNewProductImages();
     },
 
 
@@ -1451,7 +3049,7 @@ const Products = {
     },
 
 
-    /*
+   /*
     |--------------------------------------------------------------------------
     | Populate Inspector
     |--------------------------------------------------------------------------
@@ -1462,93 +3060,384 @@ const Products = {
         const i =
             this.elements.inspector;
 
-        i.image.src =
-            product.image_url;
+        const tracksStock =
+            product.tracks_stock !== false;
 
-        i.name.textContent =
-            product.name ?? '-';
 
-        i.code.textContent =
-            product.product_code ?? '-';
+        document
+            .querySelectorAll(
+                '[data-inspector-stock-quantity]'
+            )
+            .forEach(
+                element => {
 
-        i.status.innerHTML =
-            product.status
+                    element.classList.toggle(
+                        'd-none',
+                        !tracksStock
+                    );
 
-                ? '<span class="badge bg-success">Active</span>'
+                }
+            );
 
-                : '<span class="badge bg-danger">Inactive</span>';
 
-        i.sku.textContent =
-            product.sku ?? '-';
+        document
+            .querySelectorAll(
+                '[data-inspector-stock-level]'
+            )
+            .forEach(
+                element => {
 
-        i.barcode.textContent =
-            product.barcode ?? '-';
+                    element.classList.toggle(
+                        'd-none',
+                        !tracksStock
+                    );
 
-        i.qr.textContent =
-            product.qr_code ?? '-';
+                }
+            );
 
-        i.description.textContent =
-            product.description ?? '-';
 
-        i.category.textContent =
-            product.category ?? '-';
+        /*
+        |--------------------------------------------------------------------------
+        | Safe Text Setter
+        |--------------------------------------------------------------------------
+        |
+        | Capability-controlled Blade elements may not exist.
+        |
+        | Example:
+        | Electronics may not render Unit, QR Code or Expiry Date.
+        |
+        */
 
-        i.unit.textContent =
-            product.unit ?? '-';
+        const setText =
+            (
+                element,
+                value,
+                fallback = '-'
+            ) => {
 
-        i.tax.textContent =
-            product.tax_rate ?? '-';
+                if (!element) {
 
-        i.discount.textContent =
-            product.discount ?? '-';
+                    return;
 
-        i.brand.textContent =
-            product.brand ?? '-';
+                }
 
-        i.manufacturer.textContent =
-            product.manufacturer ?? '-';
 
-        i.cost.textContent =
-            product.cost_price;
+                element.textContent =
+                    value !== null
+                    &&
+                    value !== undefined
+                    &&
+                    value !== ''
+                        ? value
+                        : fallback;
 
-        i.selling.textContent =
-            product.selling_price;
+            };
 
-        i.profit.textContent =
-            product.profit_amount;
 
-        i.margin.textContent =
-            product.profit_margin;
+        /*
+        |--------------------------------------------------------------------------
+        | Safe HTML Setter
+        |--------------------------------------------------------------------------
+        */
 
-        i.stock.textContent =
-            product.stock;
+        const setHtml =
+            (
+                element,
+                value
+            ) => {
 
-        i.stockStatus.innerHTML =
-            '<span class="badge ' +
-            product.stock_badge +
-            '">' +
-            product.stock_status +
-            '</span>';
+                if (!element) {
 
-        i.minimum.textContent =
-            product.minimum_stock;
+                    return;
 
-        i.maximum.textContent =
-            product.maximum_stock;
+                }
 
-        i.weight.textContent =
-            product.weight;
 
-        i.expiry.textContent =
-            product.expiry_date;
+                element.innerHTML =
+                    value ?? '';
 
-        i.created.textContent =
-            product.created_at;
+            };
 
-        i.updated.textContent =
-            product.updated_at;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Product Image
+        |--------------------------------------------------------------------------
+        */
+
+        if (i.image) {
+
+            i.image.src =
+                product.image_url
+                || this.imagePlaceholder;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Basic Information
+        |--------------------------------------------------------------------------
+        */
+
+        setText(
+            i.name,
+            product.name
+        );
+
+
+        setText(
+            i.code,
+            product.product_code
+        );
+
+
+        if (i.status) {
+
+            setHtml(
+                i.status,
+
+                product.status
+                    ? `
+                        <span class="badge bg-success">
+                            Active
+                        </span>
+                    `
+                    : `
+                        <span class="badge bg-danger">
+                            Inactive
+                        </span>
+                    `
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Identifiers
+        |--------------------------------------------------------------------------
+        */
+
+        setText(
+            i.sku,
+            product.sku
+        );
+
+
+        setText(
+            i.barcode,
+            product.barcode
+        );
+
+
+        setText(
+            i.qr,
+            product.qr_code
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Classification
+        |--------------------------------------------------------------------------
+        */
+
+        setText(
+            i.category,
+            product.category
+        );
+
+
+        setText(
+            i.unit,
+            product.unit
+        );
+
+
+        setText(
+            i.tax,
+            product.tax_rate
+        );
+
+
+        setText(
+            i.discount,
+            product.discount
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Product Details
+        |--------------------------------------------------------------------------
+        */
+
+        setText(
+            i.brand,
+            product.brand
+        );
+
+
+        setText(
+            i.manufacturer,
+            product.manufacturer
+        );
+
+
+        setText(
+            i.description,
+            product.description
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pricing
+        |--------------------------------------------------------------------------
+        */
+
+        setText(
+            i.cost,
+            product.cost_price
+        );
+
+
+        setText(
+            i.selling,
+            product.selling_price
+        );
+
+
+        setText(
+            i.profit,
+            product.profit_amount
+        );
+
+
+        setText(
+            i.margin,
+            product.profit_margin
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Inventory
+        |--------------------------------------------------------------------------
+        */
+
+        if (tracksStock) {
+
+            setText(
+                i.stock,
+                product.stock
+            );
+
+
+            setText(
+                i.minimum,
+                product.minimum_stock
+            );
+
+
+            setText(
+                i.maximum,
+                product.maximum_stock
+            );
+
+
+            if (i.stockStatus) {
+
+                const stockBadge =
+                    product.stock_badge
+                    ?? 'bg-secondary';
+
+
+                const stockStatus =
+                    product.stock_status
+                    ?? '-';
+
+
+                setHtml(
+                    i.stockStatus,
+                    `
+                        <span class="badge ${stockBadge}">
+                            ${this.escapeHtml(
+                                stockStatus
+                            )}
+                        </span>
+                    `
+                );
+
+            }
+
+        }
+        else {
+
+            setText(
+                i.stock,
+                '-'
+            );
+
+
+            setText(
+                i.minimum,
+                '-'
+            );
+
+
+            setText(
+                i.maximum,
+                '-'
+            );
+
+
+            if (i.stockStatus) {
+
+                setHtml(
+                    i.stockStatus,
+                    `
+                        <span class="badge bg-secondary">
+                            Not tracked
+                        </span>
+                    `
+                );
+
+            }
+
+        }
+
+
+        setText(
+            i.weight,
+            product.weight
+        );
+
+
+        setText(
+            i.expiry,
+            product.expiry_date
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | System Information
+        |--------------------------------------------------------------------------
+        */
+
+        setText(
+            i.created,
+            product.created_at
+        );
+
+
+        setText(
+            i.updated,
+            product.updated_at
+        );
     },
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1755,37 +3644,95 @@ const Products = {
 
     showValidationErrors(errors)
     {
-        Object.keys(errors).forEach(
+        Object.keys(
+            errors
+        ).forEach(
             key => {
+
+                /*
+                |--------------------------------------------------------------------------
+                | Gallery Validation Keys
+                |--------------------------------------------------------------------------
+                |
+                | images.0
+                | images.1
+                | image      (temporary legacy rule)
+                |
+                | should all display against #images.
+                |
+                */
+
+                let fieldKey =
+                    key;
+
+
+                if (
+                    key === 'image'
+                    ||
+                    key.startsWith(
+                        'images.'
+                    )
+                ) {
+
+                    fieldKey =
+                        'images';
+
+                }
+
 
                 const field =
                     document.getElementById(
-                        key
+                        fieldKey
                     );
+
 
                 if (!field) {
 
                     return;
+
                 }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Avoid Duplicate Feedback
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    field.classList.contains(
+                        'is-invalid'
+                    )
+                ) {
+
+                    return;
+
+                }
+
 
                 field.classList.add(
                     'is-invalid'
                 );
 
-                let feedback =
+
+                const feedback =
                     document.createElement(
                         'div'
                     );
 
+
                 feedback.className =
                     'invalid-feedback';
+
 
                 feedback.innerText =
                     errors[key][0];
 
+
                 field.parentNode.appendChild(
                     feedback
                 );
+
             }
         );
     },
@@ -2914,6 +4861,116 @@ const Products = {
             this.elements.importPreviewStatusMessage,
             message
         );
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Stock Tracking
+    |--------------------------------------------------------------------------
+    */
+
+    productTracksStockByDefault()
+    {
+        return (
+            this.elements.inventoryTab
+                ?.dataset
+                ?.trackStockDefault
+            ?? '1'
+        ) === '1';
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Current Stock Tracking State
+    |--------------------------------------------------------------------------
+    */
+
+    productTracksStock()
+    {
+        if (this.elements.trackStock) {
+
+            return Boolean(
+                this.elements.trackStock.checked
+            );
+
+        }
+
+
+        return this.productTracksStockByDefault();
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update Stock Fields
+    |--------------------------------------------------------------------------
+    */
+
+    updateProductStockFields()
+    {
+        const tracksStock =
+            this.productTracksStock();
+
+
+        (
+            this.elements.stockControlledFields
+            ?? []
+        ).forEach(
+            wrapper => {
+
+                wrapper.classList.toggle(
+                    'd-none',
+                    !tracksStock
+                );
+
+
+                wrapper
+                    .querySelectorAll(
+                        'input, select, textarea'
+                    )
+                    .forEach(
+                        field => {
+
+                            const required =
+                                field.dataset
+                                    .stockRequired
+                                === '1';
+
+
+                            field.required =
+                                tracksStock
+                                &&
+                                required;
+
+                        }
+                    );
+
+            }
+        );
+    },
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Stock Tracking
+    |--------------------------------------------------------------------------
+    */
+
+    resetProductStockTracking()
+    {
+        if (
+            this.elements.trackStock
+        ) {
+
+            this.elements.trackStock.checked =
+                this.productTracksStockByDefault();
+
+        }
+
+
+        this.updateProductStockFields();
     },
 
 

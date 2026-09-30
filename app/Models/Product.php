@@ -20,35 +20,65 @@ class Product extends Model
     */
 
     protected $fillable = [
+
         'company_id',
+
         'product_category_id',
+
         'unit_id',
+
         'tax_rate_id',
+
         'discount_id',
 
+
         'product_code',
+
         'sku',
+
         'barcode',
+
         'qr_code',
 
+
         'name',
+
         'description',
+
         'image',
 
+
         'brand',
+
         'manufacturer',
 
+
         'cost_price',
+
         'selling_price',
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Behaviour
+        |--------------------------------------------------------------------------
+        */
+
+        'track_stock',
+
+
         'minimum_stock',
+
         'maximum_stock',
+
 
         'weight',
 
         'expiry_date',
 
+
         'status',
+
     ];
 
 
@@ -62,23 +92,72 @@ class Product extends Model
     {
         return [
 
-            'company_id'         => 'integer',
-            'product_category_id' => 'integer',
-            'unit_id'            => 'integer',
-            'tax_rate_id'        => 'integer',
-            'discount_id'        => 'integer',
+            'company_id' =>
+                'integer',
 
-            'cost_price'         => 'decimal:2',
-            'selling_price'      => 'decimal:2',
+            'product_category_id' =>
+                'integer',
 
-            'minimum_stock'      => 'decimal:2',
-            'maximum_stock'      => 'decimal:2',
+            'unit_id' =>
+                'integer',
 
-            'weight'             => 'decimal:2',
+            'tax_rate_id' =>
+                'integer',
 
-            'expiry_date'        => 'date',
+            'discount_id' =>
+                'integer',
 
-            'status'             => 'boolean',
+
+            /*
+            |--------------------------------------------------------------------------
+            | Pricing
+            |--------------------------------------------------------------------------
+            */
+
+            'cost_price' =>
+                'decimal:2',
+
+            'selling_price' =>
+                'decimal:2',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Stock
+            |--------------------------------------------------------------------------
+            */
+
+            'track_stock' =>
+                'boolean',
+
+            'minimum_stock' =>
+                'decimal:2',
+
+            'maximum_stock' =>
+                'decimal:2',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Product Details
+            |--------------------------------------------------------------------------
+            */
+
+            'weight' =>
+                'decimal:2',
+
+            'expiry_date' =>
+                'date',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Status
+            |--------------------------------------------------------------------------
+            */
+
+            'status' =>
+                'boolean',
 
         ];
     }
@@ -200,6 +279,54 @@ class Product extends Model
         );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Product Images
+    |--------------------------------------------------------------------------
+    |
+    | Full ordered image gallery for the product.
+    |
+    */
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(
+            ProductImage::class,
+            'product_id'
+        )
+            ->orderBy(
+                'sort_order'
+            )
+            ->orderBy(
+                'id'
+            );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Primary Image
+    |--------------------------------------------------------------------------
+    |
+    | The primary gallery image represents the cover image.
+    |
+    | products.image remains synchronized with this image for compatibility
+    | with existing EMNEX code.
+    |
+    */
+
+    public function primaryImage(): HasOne
+    {
+        return $this->hasOne(
+            ProductImage::class,
+            'product_id'
+        )
+            ->where(
+                'is_primary',
+                true
+            );
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -268,6 +395,18 @@ class Product extends Model
     public function isActive(): bool
     {
         return (bool) $this->status;
+    }
+
+    /**
+     * Determine whether inventory quantities are tracked for this product.
+     */
+   public function tracksStock(): bool
+    {
+        if ($this->track_stock === null) {
+            return true;
+        }
+
+        return (bool) $this->track_stock;
     }
 
 

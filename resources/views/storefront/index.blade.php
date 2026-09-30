@@ -460,74 +460,38 @@
                                     $storefrontThemes = [
 
                                         'editorial' => [
-
-                                            'name' =>
-                                                'Editorial',
-
+                                            'name' => 'Editorial',
                                             'description' =>
-                                                'Magazine-inspired shopping with expressive typography and storytelling.',
-
-                                            'icon' =>
-                                                'bi-journal-richtext',
-
-                                            'tone' =>
-                                                'editorial',
-
+                                                'Magazine-inspired shopping with warm tones, serif typography and story-led layouts.',
+                                            'icon' => 'bi-journal-richtext',
+                                            'tone' => 'editorial',
                                         ],
-
 
                                         'modern' => [
-
-                                            'name' =>
-                                                'Modern',
-
+                                            'name' => 'Modern',
                                             'description' =>
-                                                'Clean, familiar ecommerce with polished cards and easy navigation.',
-
-                                            'icon' =>
-                                                'bi-grid-1x2',
-
-                                            'tone' =>
-                                                'modern',
-
+                                                'Clean black-and-white ecommerce with simple structure and polished product cards.',
+                                            'icon' => 'bi-grid-1x2',
+                                            'tone' => 'modern',
                                         ],
-
 
                                         'marketplace' => [
-
-                                            'name' =>
-                                                'Marketplace',
-
+                                            'name' => 'Marketplace',
                                             'description' =>
-                                                'Product-dense shopping built for larger catalogues and frequent browsing.',
-
-                                            'icon' =>
-                                                'bi-shop-window',
-
-                                            'tone' =>
-                                                'marketplace',
-
+                                                'Blue-accented, product-dense shopping built for larger catalogues and fast browsing.',
+                                            'icon' => 'bi-shop-window',
+                                            'tone' => 'marketplace',
                                         ],
 
-
                                         'boutique' => [
-
-                                            'name' =>
-                                                'Boutique',
-
+                                            'name' => 'Boutique',
                                             'description' =>
-                                                'Contemporary premium retail with curated collections and modern styling.',
-
-                                            'icon' =>
-                                                'bi-stars',
-
-                                            'tone' =>
-                                                'boutique',
-
+                                                'Premium contemporary retail with burgundy accents, curated collections and modern styling.',
+                                            'icon' => 'bi-stars',
+                                            'tone' => 'boutique',
                                         ],
 
                                     ];
-
 
                                     $selectedTheme =
                                         old(
