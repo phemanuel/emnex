@@ -320,7 +320,6 @@ class PublicStorefrontController extends Controller
             $this->getHeadOffice(
                 $storefront->company_id
             );
-    
 
 
         /*
@@ -334,6 +333,9 @@ class PublicStorefrontController extends Controller
                 $storefront,
                 $headOffice
             )
+            ->with([
+                'images',
+            ])
             ->where(
                 'product_code',
                 $productCode
@@ -343,21 +345,35 @@ class PublicStorefrontController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Head Office Stock
+        | Stock Behaviour
         |--------------------------------------------------------------------------
         */
 
+        $tracksStock =
+            $product->tracksStock();
+
+
         $stock =
-            $product
-                ->stocks
-                ->first();
+            $tracksStock
+                ? $product
+                    ->stocks
+                    ->first()
+                : null;
 
 
         $availableQuantity =
-            (float) (
-                $stock?->available_quantity
-                ?? 0
-            );
+            $tracksStock
+                ? (float) (
+                    $stock?->available_quantity
+                    ?? 0
+                )
+                : null;
+
+
+        $isAvailable =
+            !$tracksStock
+            ||
+            $availableQuantity > 0;
 
 
         /*
@@ -403,6 +419,7 @@ class PublicStorefrontController extends Controller
                 'product'
             ),
             [
+
                 'storefront' =>
                     $storefront,
 
@@ -418,8 +435,14 @@ class PublicStorefrontController extends Controller
                 'stock' =>
                     $stock,
 
+                'tracksStock' =>
+                    $tracksStock,
+
                 'availableQuantity' =>
                     $availableQuantity,
+
+                'isAvailable' =>
+                    $isAvailable,
 
                 'relatedProducts' =>
                     $relatedProducts,
@@ -428,11 +451,11 @@ class PublicStorefrontController extends Controller
                     $this->currencySymbol(
                         $storefront
                     ),
+
             ]
         );
 
     }
-
 
     /**
      * |--------------------------------------------------------------------------
@@ -485,6 +508,7 @@ class PublicStorefrontController extends Controller
         */
 
         if (
+            !$storefront ||
             $storefront->status !==
             'Active'
         ) {
@@ -602,18 +626,38 @@ class PublicStorefrontController extends Controller
                             $currencySymbol
                         ) {
 
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Stock Behaviour
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $tracksStock =
+                                $product->tracksStock();
+
+
                             $stock =
-                                $product
-                                    ->stocks
-                                    ->first();
+                                $tracksStock
+                                    ? $product
+                                        ->stocks
+                                        ->first()
+                                    : null;
 
 
                             $availableQuantity =
-                                (float) (
-                                    $stock
-                                        ?->available_quantity
-                                    ?? 0
-                                );
+                                $tracksStock
+                                    ? (float) (
+                                        $stock
+                                            ?->available_quantity
+                                        ?? 0
+                                    )
+                                    : null;
+
+
+                            $isAvailable =
+                                !$tracksStock
+                                ||
+                                $availableQuantity > 0;
 
 
                             return [
@@ -649,12 +693,20 @@ class PublicStorefrontController extends Controller
                                     $product
                                         ->imageUrl(),
 
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Stock Information
+                                |--------------------------------------------------------------------------
+                                */
+
+                                'tracks_stock' =>
+                                    $tracksStock,
+
                                 'available_quantity' =>
                                     $availableQuantity,
 
                                 'in_stock' =>
-                                    $availableQuantity
-                                    > 0,
+                                    $isAvailable,
 
                                 'url' =>
                                     route(

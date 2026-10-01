@@ -1,25 +1,55 @@
 @php
 
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Behaviour
+    |--------------------------------------------------------------------------
+    */
+
+    $tracksStock =
+        $product->tracksStock();
+
+
     $stock =
-        $product
-            ->stocks
-            ->first();
+        $tracksStock
+            ? $product
+                ->stocks
+                ->first()
+            : null;
+
 
     $available =
-        (float) (
-            $stock?->available_quantity
-            ?? 0
-        );
+        $tracksStock
+            ? (float) (
+                $stock?->available_quantity
+                ?? 0
+            )
+            : null;
 
-    $inStock =
+
+    $isAvailable =
+        !$tracksStock
+        ||
         $available > 0;
 
+
     $lowStock =
-        $inStock
+        $tracksStock
+        &&
+        $isAvailable
         &&
         $available <=
-            (float) $product->minimum_stock;
+            (float) (
+                $product->minimum_stock
+                ?? 0
+            );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product URL
+    |--------------------------------------------------------------------------
+    */
 
     $productUrl =
         route(
@@ -57,12 +87,19 @@
         </a>
 
 
-
         {{-- Status --}}
 
         <div class="modern-product-badges">
 
-            @if(!$inStock)
+            @if(!$tracksStock)
+
+                <span class="modern-product-badge is-available">
+
+                    Available
+
+                </span>
+
+            @elseif(!$isAvailable)
 
                 <span class="modern-product-badge is-out">
 
@@ -91,7 +128,6 @@
         </div>
 
 
-
         {{-- View Product --}}
 
         <a
@@ -107,7 +143,6 @@
     </div>
 
 
-
     {{-- Product Content --}}
 
     <div class="modern-product-content">
@@ -121,13 +156,11 @@
                     {{ $product->brand }}
                 </span>
 
-
             @elseif($product->category)
 
                 <span>
                     {{ $product->category->name }}
                 </span>
-
 
             @else
 
@@ -140,7 +173,6 @@
         </div>
 
 
-
         <h3 class="modern-product-name">
 
             <a href="{{ $productUrl }}">
@@ -150,7 +182,6 @@
             </a>
 
         </h3>
-
 
 
         @if(
@@ -166,7 +197,6 @@
             </span>
 
         @endif
-
 
 
         <div class="modern-product-purchase">
@@ -190,29 +220,41 @@
             </div>
 
 
-
             <button
                 type="button"
                 class="modern-product-add"
+
                 data-cart-add
+
                 data-product-id="{{ $product->id }}"
+
                 data-product-code="{{ $product->product_code }}"
+
                 data-product-name="{{ $product->name }}"
+
                 data-product-price="{{ (float) $product->selling_price }}"
+
                 data-product-image="{{ $product->imageUrl() }}"
+
                 data-product-url="{{ $productUrl }}"
-                data-product-stock="{{ $available }}"
-                @disabled(!$inStock)
+
+                data-product-tracks-stock="{{ $tracksStock ? '1' : '0' }}"
+
+                data-product-stock="{{ $tracksStock
+                    ? $available
+                    : ''
+                }}"
+
+                @disabled(!$isAvailable)
             >
 
-                @if($inStock)
+                @if($isAvailable)
 
                     <i class="bi bi-plus-lg"></i>
 
                     <span>
                         Add
                     </span>
-
 
                 @else
 

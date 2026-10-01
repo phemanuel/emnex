@@ -416,6 +416,33 @@ window.PublicStorefront = {
             }
         );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Product Gallery
+        |--------------------------------------------------------------------------
+        */
+
+        document
+            .querySelectorAll(
+                '[data-product-gallery-thumb]'
+            )
+            .forEach(
+                thumbnail => {
+
+                    thumbnail.addEventListener(
+                        'click',
+                        () => {
+
+                            this.changeProductGalleryImage(
+                                thumbnail
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
     },
 
 
@@ -499,14 +526,25 @@ window.PublicStorefront = {
 
     addFromButton(button) {
 
+        const tracksStock =
+            button.dataset
+                .productTracksStock !== '0';
+
+
         const stock =
-            Number(
-                button.dataset.productStock
-                || 0
-            );
+            tracksStock
+                ? Number(
+                    button.dataset
+                        .productStock
+                    || 0
+                )
+                : null;
 
 
-        if (stock <= 0) {
+        if (
+            tracksStock &&
+            stock <= 0
+        ) {
 
             this.showToast(
                 'This product is currently out of stock.',
@@ -571,6 +609,9 @@ window.PublicStorefront = {
                 button.dataset
                     .productUrl,
 
+            tracksStock:
+                tracksStock,
+
             stock:
                 stock,
 
@@ -585,67 +626,92 @@ window.PublicStorefront = {
     },
 
 
-    addToCart(
-        product,
-        quantity = 1
-    ) {
+   addToCart(
+    product,
+    quantity = 1
+) {
 
-        quantity =
-            Math.max(
-                1,
-                Number(quantity)
-            );
-
-
-        const existing =
-            this.state.cart.find(
-                item =>
-                    item.id ===
-                    product.id
-            );
-
-
-        if (existing) {
-
-            existing.stock =
-                product.stock;
-
-
-            existing.quantity =
-                Math.min(
-                    existing.quantity +
-                    quantity,
-                    product.stock
-                );
-
-        } else {
-
-            this.state.cart.push({
-                ...product,
-
-                quantity:
-                    Math.min(
-                        quantity,
-                        product.stock
-                    ),
-            });
-
-        }
-
-
-        this.saveCart();
-
-
-        this.showToast(
-            `${product.name} added to cart.`,
-            'success'
+    quantity =
+        Math.max(
+            1,
+            Number(quantity)
         );
 
 
-        this.openCartDrawer();
+    const existing =
+        this.state.cart.find(
+            item =>
+                item.id ===
+                product.id
+        );
 
-    },
 
+    const tracksStock =
+        product.tracksStock !== false;
+
+
+    if (existing) {
+
+        existing.tracksStock =
+            tracksStock;
+
+        existing.stock =
+            product.stock;
+
+
+        const nextQuantity =
+            Number(
+                existing.quantity
+            )
+            +
+            quantity;
+
+
+        existing.quantity =
+            tracksStock
+                ? Math.min(
+                    nextQuantity,
+                    Number(
+                        product.stock
+                        || 0
+                    )
+                )
+                : nextQuantity;
+
+    } else {
+
+        this.state.cart.push({
+
+            ...product,
+
+            quantity:
+                tracksStock
+                    ? Math.min(
+                        quantity,
+                        Number(
+                            product.stock
+                            || 0
+                        )
+                    )
+                    : quantity,
+
+        });
+
+    }
+
+
+    this.saveCart();
+
+
+    this.showToast(
+        `${product.name} added to cart.`,
+        'success'
+    );
+
+
+    this.openCartDrawer();
+
+},
 
     updateCartCount() {
 
@@ -904,6 +970,94 @@ window.PublicStorefront = {
 
     },
 
+    /*
+    |--------------------------------------------------------------------------
+    | Change Product Gallery Image
+    |--------------------------------------------------------------------------
+    */
+
+    changeProductGalleryImage(
+        thumbnail
+    ) {
+
+        const mainImage =
+            document.getElementById(
+                'storefrontProductMainImage'
+            );
+
+
+        if (
+            !mainImage ||
+            !thumbnail
+        ) {
+
+            return;
+
+        }
+
+
+        const imageUrl =
+            thumbnail.dataset.image;
+
+
+        if (!imageUrl) {
+
+            return;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Main Image
+        |--------------------------------------------------------------------------
+        */
+
+        mainImage.src =
+            imageUrl;
+
+
+        mainImage.alt =
+            thumbnail.dataset.imageAlt
+            ||
+            mainImage.alt;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Active Thumbnail
+        |--------------------------------------------------------------------------
+        */
+
+        document
+            .querySelectorAll(
+                '[data-product-gallery-thumb]'
+            )
+            .forEach(
+                item => {
+
+                    const active =
+                        item === thumbnail;
+
+
+                    item.classList.toggle(
+                        'is-active',
+                        active
+                    );
+
+
+                    item.setAttribute(
+                        'aria-pressed',
+                        active
+                            ? 'true'
+                            : 'false'
+                    );
+
+                }
+            );
+
+    },
+
 
     bindDrawerEvents() {
 
@@ -1012,53 +1166,60 @@ window.PublicStorefront = {
     },
 
 
-    changeCartQuantity(
-        productId,
-        quantity
-    ) {
+   changeCartQuantity(
+    productId,
+    quantity
+) {
 
-        const item =
-            this.state.cart.find(
-                row =>
-                    row.id ===
-                    productId
-            );
-
-
-        if (!item) {
-            return;
-        }
-
-
-        quantity =
-            Number(quantity);
-
-
-        if (quantity <= 0) {
-
-            this.removeCartItem(
+    const item =
+        this.state.cart.find(
+            row =>
+                row.id ===
                 productId
-            );
-
-            return;
-
-        }
+        );
 
 
-        item.quantity =
-            Math.min(
+    if (!item) {
+        return;
+    }
+
+
+    quantity =
+        Number(quantity);
+
+
+    if (quantity <= 0) {
+
+        this.removeCartItem(
+            productId
+        );
+
+        return;
+
+    }
+
+
+    const tracksStock =
+        item.tracksStock !== false;
+
+
+    item.quantity =
+        tracksStock
+            ? Math.min(
                 quantity,
                 Number(
                     item.stock
+                    || 0
                 )
-            );
+            )
+            : quantity;
 
 
-        this.saveCart();
+    this.saveCart();
 
-        this.renderCartPage();
+    this.renderCartPage();
 
-    },
+},
 
 
     removeCartItem(
@@ -1245,7 +1406,7 @@ window.PublicStorefront = {
                         type="number"
                         value="${item.quantity}"
                         min="1"
-                        max="${item.stock}"
+                        ${item.tracksStock === false ? '': `max="${item.stock}"`}
                         data-cart-quantity="${item.id}"
                     >
 

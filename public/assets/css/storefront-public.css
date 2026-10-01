@@ -1702,16 +1702,24 @@ img {
 .shop-product-detail-visual {
     position: sticky;
 
-    top: 150px;
+    top: 165px;
+
+    min-width: 0;
 }
 
 
-.shop-product-detail-image {
-    aspect-ratio: 1 / 1;
+/* ================================================================
+   PRODUCT GALLERY - MAIN IMAGE
+================================================================ */
 
-    max-height: 580px;
+.shop-product-detail-image {
+    position: relative;
+
+    aspect-ratio:
+        1 / 1;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -1726,11 +1734,91 @@ img {
     width: 100%;
     height: 100%;
 
-    padding: 32px;
+    padding: 55px;
 
     object-fit: contain;
+
+    transition:
+        opacity .2s ease,
+        transform .3s ease;
 }
 
+/* ================================================================
+   PRODUCT GALLERY - THUMBNAILS
+================================================================ */
+
+.shop-product-gallery-thumbnails {
+    margin-top: 14px;
+
+    display: flex;
+
+    gap: 10px;
+
+    overflow-x: auto;
+
+    padding:
+        0 0 5px;
+
+    scrollbar-width:
+        thin;
+
+    scroll-behavior:
+        smooth;
+}
+
+
+.shop-product-gallery-thumbnail {
+    width: 82px;
+    height: 82px;
+
+    flex:
+        0 0 82px;
+
+    padding: 7px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        var(--shop-line);
+
+    background:
+        #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        border-color .2s ease,
+        opacity .2s ease,
+        background .2s ease;
+}
+
+
+.shop-product-gallery-thumbnail:hover {
+    border-color:
+        var(--shop-muted);
+}
+
+
+.shop-product-gallery-thumbnail.is-active {
+    border-color:
+        var(--shop-ink);
+
+    background:
+        var(--shop-wash);
+}
+
+
+.shop-product-gallery-thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    object-fit:
+        contain;
+}
 
 .shop-product-detail-info {
     padding-top: 12px;
@@ -4003,6 +4091,23 @@ img {
         padding: 22px;
     }
 
+    .shop-product-gallery-thumbnails {
+    margin-top: 10px;
+
+    gap: 8px;
+}
+
+
+.shop-product-gallery-thumbnail {
+    width: 68px;
+    height: 68px;
+
+    flex:
+        0 0 68px;
+
+    padding: 5px;
+}
+
 
     .shop-product-buy {
         grid-template-columns:
@@ -4222,3 +4327,4 @@ img {
 .shop-cart-empty[hidden] {
     display: none !important;
 }
+

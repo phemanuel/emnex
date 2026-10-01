@@ -122,7 +122,7 @@ class StorefrontCheckoutService
     |
     */
 
-    public function quote(
+   public function quote(
         Storefront $storefront,
         array $items,
         ?int $shippingLocationId = null,
@@ -137,6 +137,7 @@ class StorefrontCheckoutService
             ]);
 
         }
+
 
         $headOffice =
             $this->getHeadOffice(
@@ -193,6 +194,12 @@ class StorefrontCheckoutService
             }
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Product
+            |--------------------------------------------------------------------------
+            */
+
             $product =
                 Product::query()
                     ->where(
@@ -218,46 +225,69 @@ class StorefrontCheckoutService
             }
 
 
-            $stock =
-                ProductStock::query()
-                    ->where(
-                        'company_id',
-                        $storefront->company_id
-                    )
-                    ->where(
-                        'branch_id',
-                        $headOffice->id
-                    )
-                    ->where(
-                        'product_id',
-                        $product->id
-                    )
-                    ->first();
+            /*
+            |--------------------------------------------------------------------------
+            | Stock Behaviour
+            |--------------------------------------------------------------------------
+            |
+            | Only stock-tracked products depend on Head Office ProductStock.
+            |
+            | Non-stock products can be sold without a ProductStock record.
+            |
+            */
+
+            $tracksStock =
+                $product->tracksStock();
 
 
             $availableQuantity =
-                (float) (
-                    $stock?->available_quantity
-                    ?? 0
-                );
+                null;
 
 
-            if (
-                $quantity >
-                $availableQuantity
-            ) {
+            if ($tracksStock) {
 
-                throw ValidationException::withMessages([
-                    'items' =>
-                        '"' .
-                        $product->name .
-                        '" only has ' .
-                        number_format(
-                            $availableQuantity,
-                            0
-                        ) .
-                        ' available.',
-                ]);
+                $stock =
+                    ProductStock::query()
+                        ->where(
+                            'company_id',
+                            $storefront->company_id
+                        )
+                        ->where(
+                            'branch_id',
+                            $headOffice->id
+                        )
+                        ->where(
+                            'product_id',
+                            $product->id
+                        )
+                        ->first();
+
+
+                $availableQuantity =
+                    (float) (
+                        $stock?->available_quantity
+                        ?? 0
+                    );
+
+
+                if (
+                    $quantity >
+                    $availableQuantity
+                ) {
+
+                    throw ValidationException::withMessages([
+                        'items' =>
+                            '"' .
+                            $product->name .
+                            '" only has ' .
+                            number_format(
+                                $availableQuantity,
+                                0
+                            ) .
+                            ' available.',
+                    ]);
+
+                }
 
             }
 
@@ -343,6 +373,15 @@ class StorefrontCheckoutService
                 'quantity' =>
                     $quantity,
 
+                /*
+                |--------------------------------------------------------------------------
+                | Stock Information
+                |--------------------------------------------------------------------------
+                */
+
+                'tracks_stock' =>
+                    $tracksStock,
+
                 'available_quantity' =>
                     $availableQuantity,
 
@@ -366,6 +405,13 @@ class StorefrontCheckoutService
 
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Shipping
+        |--------------------------------------------------------------------------
+        */
+
         $shipping =
             $this->resolveShipping(
                 $storefront,
@@ -375,17 +421,24 @@ class StorefrontCheckoutService
 
 
         $shippingFee =
-            (float) $shipping['fee'];
+            (float)
+            $shipping['fee'];
 
 
-       $grandTotal =
-        max(
-            0,
-            $subtotal
-            - $discountTotal
-            + $taxTotal
-            + $shippingFee
-        );
+        /*
+        |--------------------------------------------------------------------------
+        | Grand Total
+        |--------------------------------------------------------------------------
+        */
+
+        $grandTotal =
+            max(
+                0,
+                $subtotal
+                - $discountTotal
+                + $taxTotal
+                + $shippingFee
+            );
 
 
         return [
@@ -449,7 +502,6 @@ class StorefrontCheckoutService
         ];
 
     }
-
     protected function resolveShipping(
     Storefront $storefront,
         ?int $shippingLocationId = null,
@@ -1625,6 +1677,25 @@ class StorefrontCheckoutService
                         throw new RuntimeException(
                             'A product in this order no longer exists.'
                         );
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Non-Stock Product
+                    |--------------------------------------------------------------------------
+                    |
+                    | The item remains part of the Order, Invoice and Payment.
+                    |
+                    | However, products that do not track inventory have no ProductStock
+                    | balance to reduce and must not create a StockMovement.
+                    |
+                    */
+
+                    if (!$product->tracksStock()) {
+
+                        continue;
 
                     }
 

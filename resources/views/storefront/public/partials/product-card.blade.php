@@ -1,18 +1,43 @@
 @php
 
+    $tracksStock =
+        $product->tracksStock();
+
+
     $stock =
-        $product
-            ->stocks
-            ->first();
+        $tracksStock
+            ? $product
+                ->stocks
+                ->first()
+            : null;
+
 
     $available =
-        (float) (
-            $stock?->available_quantity
-            ?? 0
-        );
+        $tracksStock
+            ? (float) (
+                $stock?->available_quantity
+                ?? 0
+            )
+            : null;
 
-    $inStock =
+
+    $isAvailable =
+        !$tracksStock
+        ||
         $available > 0;
+
+
+    $isLowStock =
+        $tracksStock
+        &&
+        $available > 0
+        &&
+        $available <=
+            (float) (
+                $product->minimum_stock
+                ?? 0
+            );
+
 
     $productUrl =
         route(
@@ -44,23 +69,19 @@
         >
 
 
-        @if(!$inStock)
-
-            <span class="shop-product-status is-out">
-
-                Sold out
-
-            </span>
-
-        @elseif(
-            $available <=
-            (float) $product->minimum_stock
+        @if(
+            $tracksStock &&
+            !$isAvailable
         )
 
+            <span class="shop-product-status is-out">
+                Sold out
+            </span>
+
+        @elseif($isLowStock)
+
             <span class="shop-product-status is-low">
-
                 Low stock
-
             </span>
 
         @endif
@@ -77,9 +98,7 @@
             @if($product->brand)
 
                 <span class="shop-product-brand">
-
                     {{ $product->brand }}
-
                 </span>
 
             @endif
@@ -88,9 +107,7 @@
             <h3>
 
                 <a href="{{ $productUrl }}">
-
                     {{ $product->name }}
-
                 </a>
 
             </h3>
@@ -99,9 +116,7 @@
             @if($product->category)
 
                 <span class="shop-product-category">
-
                     {{ $product->category->name }}
-
                 </span>
 
             @endif
@@ -125,17 +140,26 @@
             <span
                 class="
                     shop-product-availability
-                    {{ $inStock
+                    {{ $isAvailable
                         ? 'is-in'
                         : 'is-out'
                     }}
                 "
             >
 
-                {{ $inStock
-                    ? 'Available'
-                    : 'Unavailable'
-                }}
+                @if(!$tracksStock)
+
+                    Available to order
+
+                @elseif($isAvailable)
+
+                    Available
+
+                @else
+
+                    Unavailable
+
+                @endif
 
             </span>
 
@@ -150,11 +174,12 @@
                 data-product-price="{{ (float) $product->selling_price }}"
                 data-product-image="{{ $product->imageUrl() }}"
                 data-product-url="{{ $productUrl }}"
-                data-product-stock="{{ $available }}"
-                @disabled(!$inStock)
+                data-product-tracks-stock="{{ $tracksStock ? '1' : '0' }}"
+                data-product-stock="{{ $tracksStock ? $available : '' }}"
+                @disabled(!$isAvailable)
             >
 
-                @if($inStock)
+                @if($isAvailable)
 
                     Add +
 

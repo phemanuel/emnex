@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2026 at 09:13 PM
+-- Generation Time: Oct 01, 2026 at 07:17 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -440,7 +440,35 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (373, 1, 1, 1, 'Products', 'Updated', 'Updated product: Family Bread', 'Product', 7, '{\"id\":7,\"company_id\":1,\"product_category_id\":3,\"product_code\":\"PRD000007\",\"barcode\":\"100000000007\",\"sku\":\"BREAD001\",\"qr_code\":null,\"name\":\"Family Bread\",\"description\":null,\"image\":null,\"cost_price\":\"900.00\",\"selling_price\":\"1200.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Local\",\"manufacturer\":\"Bakery\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":7,\"company_id\":1,\"product_category_id\":3,\"product_code\":\"PRD000007\",\"barcode\":\"100000000007\",\"sku\":\"BREAD001\",\"qr_code\":null,\"name\":\"Family Bread\",\"description\":null,\"image\":\"1790544083_6ab988d35c62a.jpeg\",\"cost_price\":\"900.00\",\"selling_price\":\"1200.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Local\",\"manufacturer\":\"Bakery\",\"expiry_date\":\"2026-10-18T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:21:23.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/7', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:21:23', '2026-09-27 20:21:23'),
 (374, 1, 1, 1, 'Products', 'Updated', 'Updated product: Mama Gold Rice 50kg', 'Product', 8, '{\"id\":8,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000008\",\"barcode\":\"100000000008\",\"sku\":\"RICE50KG\",\"qr_code\":null,\"name\":\"Mama Gold Rice 50kg\",\"description\":null,\"image\":null,\"cost_price\":\"82000.00\",\"selling_price\":\"90000.00\",\"discount_id\":1,\"unit_id\":11,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Mama Gold\",\"manufacturer\":\"Mama Gold\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":8,\"company_id\":1,\"product_category_id\":2,\"product_code\":\"PRD000008\",\"barcode\":\"100000000008\",\"sku\":\"RICE50KG\",\"qr_code\":null,\"name\":\"Mama Gold Rice 50kg\",\"description\":null,\"image\":\"1790544101_6ab988e5e3018.jpeg\",\"cost_price\":\"82000.00\",\"selling_price\":\"90000.00\",\"discount_id\":1,\"unit_id\":11,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Mama Gold\",\"manufacturer\":\"Mama Gold\",\"expiry_date\":\"2032-10-31T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:21:41.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/8', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:21:41', '2026-09-27 20:21:41'),
 (375, 1, 1, 1, 'Products', 'Updated', 'Updated product: Premier Soap', 'Product', 9, '{\"id\":9,\"company_id\":1,\"product_category_id\":7,\"product_code\":\"PRD000009\",\"barcode\":\"100000000009\",\"sku\":\"SOAP001\",\"qr_code\":null,\"name\":\"Premier Soap\",\"description\":null,\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Premier\",\"manufacturer\":\"PZ\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-07-29T11:37:13.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":9,\"company_id\":1,\"product_category_id\":7,\"product_code\":\"PRD000009\",\"barcode\":\"100000000009\",\"sku\":\"SOAP001\",\"qr_code\":null,\"name\":\"Premier Soap\",\"description\":null,\"image\":\"1790544120_6ab988f8b0af7.jpg\",\"cost_price\":\"500.00\",\"selling_price\":\"700.00\",\"discount_id\":1,\"unit_id\":1,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Premier\",\"manufacturer\":\"PZ\",\"expiry_date\":\"2028-11-30T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"500.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:22:00.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/9', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:22:00', '2026-09-27 20:22:00'),
-(376, 1, 1, 1, 'Products', 'Updated', 'Updated product: Pampers Size 3', 'Product', 10, '{\"id\":10,\"company_id\":1,\"product_category_id\":9,\"product_code\":\"PRD000010\",\"barcode\":\"100000000010\",\"sku\":\"PAMP001\",\"qr_code\":null,\"name\":\"Pampers Size 3\",\"description\":null,\"image\":null,\"cost_price\":\"7800.00\",\"selling_price\":\"8600.00\",\"discount_id\":1,\"unit_id\":2,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Pampers\",\"manufacturer\":\"P&G\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1085.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T14:16:04.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":10,\"company_id\":1,\"product_category_id\":9,\"product_code\":\"PRD000010\",\"barcode\":\"100000000010\",\"sku\":\"PAMP001\",\"qr_code\":null,\"name\":\"Pampers Size 3\",\"description\":null,\"image\":\"1790544154_6ab9891a6b244.jpeg\",\"cost_price\":\"7800.00\",\"selling_price\":\"8600.00\",\"discount_id\":1,\"unit_id\":2,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Pampers\",\"manufacturer\":\"P&G\",\"expiry_date\":\"2028-10-11T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1085.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:22:34.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/10', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:22:34', '2026-09-27 20:22:34');
+(376, 1, 1, 1, 'Products', 'Updated', 'Updated product: Pampers Size 3', 'Product', 10, '{\"id\":10,\"company_id\":1,\"product_category_id\":9,\"product_code\":\"PRD000010\",\"barcode\":\"100000000010\",\"sku\":\"PAMP001\",\"qr_code\":null,\"name\":\"Pampers Size 3\",\"description\":null,\"image\":null,\"cost_price\":\"7800.00\",\"selling_price\":\"8600.00\",\"discount_id\":1,\"unit_id\":2,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Pampers\",\"manufacturer\":\"P&G\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1085.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-08-22T14:16:04.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', '{\"id\":10,\"company_id\":1,\"product_category_id\":9,\"product_code\":\"PRD000010\",\"barcode\":\"100000000010\",\"sku\":\"PAMP001\",\"qr_code\":null,\"name\":\"Pampers Size 3\",\"description\":null,\"image\":\"1790544154_6ab9891a6b244.jpeg\",\"cost_price\":\"7800.00\",\"selling_price\":\"8600.00\",\"discount_id\":1,\"unit_id\":2,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Pampers\",\"manufacturer\":\"P&G\",\"expiry_date\":\"2028-10-11T00:00:00.000000Z\",\"taxable\":1,\"tax_rate_id\":2,\"status\":true,\"minimum_stock\":\"10.00\",\"maximum_stock\":\"1085.00\",\"weight\":null,\"dimensions\":null,\"created_by\":1,\"updated_by\":1,\"created_at\":\"2026-07-29T11:37:13.000000Z\",\"updated_at\":\"2026-09-27T21:22:34.000000Z\",\"deleted_at\":null,\"reorder_level\":\"20.00\"}', 'products/10', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-27 20:22:34', '2026-09-27 20:22:34'),
+(377, 5, 12, 21, 'Product Categories', 'Created', 'Created product category: Microphones', 'ProductCategory', 17, NULL, '{\"id\":17,\"company_id\":5,\"category_code\":\"CAT000001\",\"name\":\"Microphones\",\"description\":null,\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":21,\"updated_by\":21,\"created_at\":\"2026-09-30T14:27:43.000000Z\",\"updated_at\":\"2026-09-30T14:27:43.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 13:27:43', '2026-09-30 13:27:43'),
+(378, 5, 12, 21, 'Units', 'Created', 'Created unit: Piece', 'Unit', 16, NULL, NULL, 'units', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 13:27:59', '2026-09-30 13:27:59'),
+(379, 5, 12, 21, 'Products', 'Created', 'Created product: Lapel Microphone', 'Product', 22, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 13:30:05', '2026-09-30 13:30:05'),
+(380, 5, 12, 21, 'Products', 'Updated', 'Updated product: Lapel Microphone', 'Product', 22, '{\"id\":22,\"company_id\":5,\"product_category_id\":17,\"product_code\":\"PRD000001\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Lapel Microphone\",\"description\":\"Lapel Microphone\",\"image\":\"1790778605_6abd1ceddd8b6.jpeg\",\"cost_price\":\"10000.00\",\"selling_price\":\"20000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Sony\",\"manufacturer\":\"Made in China\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-30T14:30:05.000000Z\",\"updated_at\":\"2026-09-30T14:30:29.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":22,\"company_id\":5,\"product_category_id\":17,\"product_code\":\"PRD000001\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Lapel Microphone\",\"description\":\"Lapel Microphone\",\"image\":\"1790778605_6abd1ceddd8b6.jpeg\",\"cost_price\":\"10000.00\",\"selling_price\":\"20000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Sony\",\"manufacturer\":\"Made in China\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-30T14:30:05.000000Z\",\"updated_at\":\"2026-09-30T14:30:29.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/22', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 13:30:31', '2026-09-30 13:30:31'),
+(381, 5, 12, 21, 'Products', 'Updated', 'Updated product: Lapel Microphone', 'Product', 22, '{\"id\":22,\"company_id\":5,\"product_category_id\":17,\"product_code\":\"PRD000001\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Lapel Microphone\",\"description\":\"Lapel Microphone\",\"image\":\"1790778605_6abd1ceddd8b6.jpeg\",\"cost_price\":\"10000.00\",\"selling_price\":\"20000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Sony\",\"manufacturer\":\"Made in China\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-30T14:30:05.000000Z\",\"updated_at\":\"2026-09-30T14:30:29.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":22,\"company_id\":5,\"product_category_id\":17,\"product_code\":\"PRD000001\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Lapel Microphone\",\"description\":\"Lapel Microphone\",\"image\":\"1790778605_6abd1ceddd8b6.jpeg\",\"cost_price\":\"10000.00\",\"selling_price\":\"20000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Sony\",\"manufacturer\":\"Made in China\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-30T14:30:05.000000Z\",\"updated_at\":\"2026-09-30T14:30:29.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/22', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 13:30:49', '2026-09-30 13:30:49'),
+(382, 5, 12, 21, 'Products', 'Updated', 'Updated product: Lapel Microphone', 'Product', 22, '{\"id\":22,\"company_id\":5,\"product_category_id\":17,\"product_code\":\"PRD000001\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Lapel Microphone\",\"description\":\"Lapel Microphone\",\"image\":\"1790778605_6abd1ceddd8b6.jpeg\",\"cost_price\":\"10000.00\",\"selling_price\":\"20000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Sony\",\"manufacturer\":\"Made in China\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-30T14:30:05.000000Z\",\"updated_at\":\"2026-09-30T14:30:29.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":22,\"company_id\":5,\"product_category_id\":17,\"product_code\":\"PRD000001\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Lapel Microphone\",\"description\":\"Lapel Microphone\",\"image\":\"1790778649_6abd1d193c93d.jpeg\",\"cost_price\":\"10000.00\",\"selling_price\":\"20000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":1,\"brand\":\"Sony\",\"manufacturer\":\"Made in China\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-30T14:30:05.000000Z\",\"updated_at\":\"2026-09-30T14:30:57.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/22', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 13:30:57', '2026-09-30 13:30:57'),
+(383, 5, 12, 21, 'Products', 'Updated', 'Updated product: Lapel Microphone', 'Product', 22, '{\"id\":22,\"company_id\":5,\"product_category_id\":17,\"product_code\":\"PRD000001\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Lapel Microphone\",\"description\":\"Lapel Microphone\",\"image\":\"1790778649_6abd1d193c93d.jpeg\",\"cost_price\":\"10000.00\",\"selling_price\":\"20000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":true,\"brand\":\"Sony\",\"manufacturer\":\"Made in China\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-30T14:30:05.000000Z\",\"updated_at\":\"2026-09-30T14:30:57.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":22,\"company_id\":5,\"product_category_id\":17,\"product_code\":\"PRD000001\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Lapel Microphone\",\"description\":\"Lapel Microphone\",\"image\":\"1790778649_6abd1d193c93d.jpeg\",\"cost_price\":\"10000.00\",\"selling_price\":\"20000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":true,\"brand\":\"Sony\",\"manufacturer\":\"Made in China\",\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"5.00\",\"maximum_stock\":\"1000.00\",\"weight\":null,\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-09-30T14:30:05.000000Z\",\"updated_at\":\"2026-09-30T14:30:57.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/22', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 14:53:16', '2026-09-30 14:53:16'),
+(384, 5, 12, 21, 'Product Categories', 'Created', 'Created product category: Tripod Stand', 'ProductCategory', 18, NULL, '{\"id\":18,\"company_id\":5,\"category_code\":\"CAT000002\",\"name\":\"Tripod Stand\",\"description\":null,\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":21,\"updated_by\":21,\"created_at\":\"2026-10-01T00:38:32.000000Z\",\"updated_at\":\"2026-10-01T00:38:32.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 23:38:32', '2026-09-30 23:38:32'),
+(385, 5, 12, 21, 'Products', 'Created', 'Created product: Sony 10 Inch Tripod Stand', 'Product', 23, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 23:44:54', '2026-09-30 23:44:54'),
+(386, 5, 12, 21, 'Product Categories', 'Created', 'Created product category: Installation', 'ProductCategory', 19, NULL, '{\"id\":19,\"company_id\":5,\"category_code\":\"CAT000003\",\"name\":\"Installation\",\"description\":null,\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":21,\"updated_by\":21,\"created_at\":\"2026-10-01T00:46:42.000000Z\",\"updated_at\":\"2026-10-01T00:46:42.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-09-30 23:46:42', '2026-09-30 23:46:42'),
+(387, 5, 12, 21, 'Products', 'Updated', 'Updated product: Sony 15 Inch Tripod Stand', 'Product', 23, '{\"id\":23,\"company_id\":5,\"product_category_id\":18,\"product_code\":\"PRD000002\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Sony 10 Inch Tripod Stand\",\"description\":null,\"image\":\"1790815494_6abdad0695002.jpg\",\"cost_price\":\"9000.00\",\"selling_price\":\"15000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":true,\"brand\":null,\"manufacturer\":null,\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"0.00\",\"maximum_stock\":\"1000.00\",\"weight\":\"0.00\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-10-01T00:44:54.000000Z\",\"updated_at\":\"2026-10-01T00:44:54.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":23,\"company_id\":5,\"product_category_id\":18,\"product_code\":\"PRD000002\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Sony 15 Inch Tripod Stand\",\"description\":null,\"image\":\"1790815494_6abdad0695002.jpg\",\"cost_price\":\"9000.00\",\"selling_price\":\"15000.00\",\"discount_id\":null,\"unit_id\":null,\"shelf_location\":null,\"track_stock\":true,\"brand\":null,\"manufacturer\":null,\"expiry_date\":null,\"taxable\":1,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"0.00\",\"maximum_stock\":\"1000.00\",\"weight\":\"0.00\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-10-01T00:44:54.000000Z\",\"updated_at\":\"2026-10-01T01:03:19.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/23', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 00:03:19', '2026-10-01 00:03:19'),
+(388, 5, 12, 21, 'Products', 'Created', 'Created product: Installation Service', 'Product', 24, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 00:05:21', '2026-10-01 00:05:21'),
+(389, 5, 12, 21, 'Product Categories', 'Updated', 'Updated category: Services', 'ProductCategory', 19, '{\"id\":19,\"company_id\":5,\"category_code\":\"CAT000003\",\"name\":\"Installation\",\"description\":null,\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":21,\"updated_by\":21,\"created_at\":\"2026-10-01T00:46:42.000000Z\",\"updated_at\":\"2026-10-01T00:46:42.000000Z\",\"deleted_at\":null}', '{\"id\":19,\"company_id\":5,\"category_code\":\"CAT000003\",\"name\":\"Services\",\"description\":null,\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":21,\"updated_by\":21,\"created_at\":\"2026-10-01T00:46:42.000000Z\",\"updated_at\":\"2026-10-01T01:31:26.000000Z\",\"deleted_at\":null}', 'product-categories/19', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 00:31:26', '2026-10-01 00:31:26'),
+(390, 5, 12, 21, 'Product Categories', 'Created', 'Created product category: Accessories', 'ProductCategory', 20, NULL, '{\"id\":20,\"company_id\":5,\"category_code\":\"CAT000004\",\"name\":\"Accessories\",\"description\":null,\"parent_id\":null,\"image\":null,\"sort_order\":0,\"status\":true,\"created_by\":21,\"updated_by\":21,\"created_at\":\"2026-10-01T01:34:25.000000Z\",\"updated_at\":\"2026-10-01T01:34:25.000000Z\",\"deleted_at\":null}', 'product-categories', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 00:34:25', '2026-10-01 00:34:25'),
+(391, 5, 12, 21, 'Products', 'Imported', '2 product(s) imported successfully.', NULL, NULL, NULL, '{\"company_id\":5,\"count\":2,\"products\":[{\"id\":26,\"product_code\":\"PRD-000001\",\"name\":\"Bluetooth Speaker\",\"sku\":\"BTS-001\",\"track_stock\":true},{\"id\":27,\"product_code\":\"PRD-000002\",\"name\":\"Gadget Installation\",\"sku\":\"INST-001\",\"track_stock\":false}]}', 'products/import', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 00:45:32', '2026-10-01 00:45:32'),
+(392, 5, 12, 21, 'Suppliers', 'Created', 'Created supplier: Sony', 'Supplier', 3, NULL, '{\"company_id\":5,\"supplier_code\":\"SUP-00001\",\"name\":\"Sony\",\"contact_person\":\"Mt Chang\",\"email\":\"chang.uweng@sony.com\",\"phone\":\"45999920202\",\"alternate_phone\":null,\"address\":\"China\",\"city\":\"Pyeonyang\",\"state\":\"Pyeonyang\",\"country\":\"China\",\"tax_number\":null,\"payment_terms\":\"30 days\",\"credit_limit\":\"0.00\",\"current_balance\":\"0.00\",\"notes\":null,\"status\":true,\"created_by\":21,\"updated_by\":21,\"updated_at\":\"2026-10-01T03:19:07.000000Z\",\"created_at\":\"2026-10-01T03:19:07.000000Z\",\"id\":3}', 'purchase/suppliers', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 02:19:07', '2026-10-01 02:19:07'),
+(393, 5, 12, 21, 'purchases', 'create', 'Created purchase order: PO-202610-00001', 'PurchaseOrder', 5, NULL, '{\"company_id\":5,\"branch_id\":12,\"supplier_id\":3,\"order_number\":\"PO-202610-00001\",\"order_date\":\"2026-10-01T00:00:00.000000Z\",\"expected_date\":\"2026-10-31T00:00:00.000000Z\",\"status\":\"Draft\",\"subtotal\":\"120000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"120000.00\",\"notes\":null,\"created_by\":21,\"updated_at\":\"2026-10-01T03:19:54.000000Z\",\"created_at\":\"2026-10-01T03:19:54.000000Z\",\"id\":5}', 'purchase/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 02:19:54', '2026-10-01 02:19:54'),
+(394, 5, 12, 21, 'Stock', 'Updated', 'Stock adjusted for product ID 26 at branch ID 12', 'ProductStock', 44, '{\"quantity\":5}', '{\"quantity\":4}', 'stock', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 02:22:28', '2026-10-01 02:22:28'),
+(395, 5, 12, 21, 'Stock', 'Updated', 'Stock adjusted for product ID 26 at branch ID 12', 'ProductStock', 44, '{\"quantity\":4}', '{\"quantity\":5}', 'stock', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 14:30:41', '2026-10-01 14:30:41'),
+(396, 5, 12, 21, 'Stock Count', 'Created', 'Created stock count SC-000001', 'StockCount', 4, NULL, '{\"company_id\":5,\"branch_id\":12,\"reference_no\":\"SC-000001\",\"count_date\":\"2026-10-01T00:00:00.000000Z\",\"status\":\"Draft\",\"notes\":null,\"created_by\":21,\"updated_at\":\"2026-10-01T15:38:36.000000Z\",\"created_at\":\"2026-10-01T15:38:36.000000Z\",\"id\":4}', 'stock-count', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 14:38:36', '2026-10-01 14:38:36'),
+(397, 5, 12, 21, 'Stock Count', 'Started', 'Started stock count SC-000001', 'StockCount', 4, '{\"status\":\"Draft\"}', '{\"status\":\"In Progress\"}', 'stock-count/4/start', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 14:38:47', '2026-10-01 14:38:47'),
+(398, 5, 12, 21, 'Stock Count', 'Completed', 'Completed stock count SC-000001', 'StockCount', 4, '{\"status\":\"In Progress\"}', '{\"status\":\"Completed\",\"completed_by\":21,\"completed_at\":\"2026-10-01T15:39:23.000000Z\"}', 'stock-count/4/complete', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 14:39:23', '2026-10-01 14:39:23'),
+(399, 5, 12, 21, 'purchases', 'submit', 'Submitted purchase order for approval: PO-202610-00001', 'PurchaseOrder', 5, '{\"id\":5,\"company_id\":5,\"branch_id\":12,\"supplier_id\":3,\"order_number\":\"PO-202610-00001\",\"order_date\":\"2026-10-01T00:00:00.000000Z\",\"expected_date\":\"2026-10-31T00:00:00.000000Z\",\"status\":\"Draft\",\"subtotal\":\"120000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"120000.00\",\"notes\":null,\"created_by\":21,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-10-01T03:19:54.000000Z\",\"updated_at\":\"2026-10-01T03:19:54.000000Z\",\"deleted_at\":null,\"items\":[{\"id\":17,\"purchase_order_id\":5,\"product_id\":26,\"quantity\":\"10.00\",\"unit_cost\":\"12000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"120000.00\",\"created_at\":\"2026-10-01T03:19:54.000000Z\",\"updated_at\":\"2026-10-01T03:19:54.000000Z\"}],\"supplier\":{\"id\":3,\"company_id\":5,\"supplier_code\":\"SUP-00001\",\"name\":\"Sony\",\"contact_person\":\"Mt Chang\",\"email\":\"chang.uweng@sony.com\",\"phone\":\"45999920202\",\"alternate_phone\":null,\"address\":\"China\",\"city\":\"Pyeonyang\",\"state\":\"Pyeonyang\",\"country\":\"China\",\"tax_number\":null,\"payment_terms\":\"30 days\",\"credit_limit\":\"0.00\",\"current_balance\":\"0.00\",\"notes\":null,\"status\":true,\"created_by\":21,\"updated_by\":21,\"created_at\":\"2026-10-01T03:19:07.000000Z\",\"updated_at\":\"2026-10-01T03:19:07.000000Z\",\"deleted_at\":null},\"branch\":{\"id\":12,\"company_id\":5,\"branch_code\":\"BR818641\",\"name\":\"Head Office\",\"phone\":\"08104196102\",\"email\":\"gadgetpadi@gmail.com\",\"address\":\"Ibadan\",\"is_head_office\":true,\"status\":true,\"created_at\":\"2026-09-26T21:02:55.000000Z\",\"updated_at\":\"2026-09-26T21:02:55.000000Z\",\"deleted_at\":null}}', '{\"id\":5,\"company_id\":5,\"branch_id\":12,\"supplier_id\":3,\"order_number\":\"PO-202610-00001\",\"order_date\":\"2026-10-01T00:00:00.000000Z\",\"expected_date\":\"2026-10-31T00:00:00.000000Z\",\"status\":\"Pending\",\"subtotal\":\"120000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"120000.00\",\"notes\":null,\"created_by\":21,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-10-01T03:19:54.000000Z\",\"updated_at\":\"2026-10-01T15:41:42.000000Z\",\"deleted_at\":null}', 'purchase/orders/5/submit', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 14:41:42', '2026-10-01 14:41:42'),
+(400, 5, 12, 21, 'purchases', 'approve', 'Approved purchase order: PO-202610-00001', 'PurchaseOrder', 5, '{\"id\":5,\"company_id\":5,\"branch_id\":12,\"supplier_id\":3,\"order_number\":\"PO-202610-00001\",\"order_date\":\"2026-10-01T00:00:00.000000Z\",\"expected_date\":\"2026-10-31T00:00:00.000000Z\",\"status\":\"Pending\",\"subtotal\":\"120000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"120000.00\",\"notes\":null,\"created_by\":21,\"approved_by\":null,\"approved_at\":null,\"created_at\":\"2026-10-01T03:19:54.000000Z\",\"updated_at\":\"2026-10-01T15:41:42.000000Z\",\"deleted_at\":null,\"items\":[{\"id\":17,\"purchase_order_id\":5,\"product_id\":26,\"quantity\":\"10.00\",\"unit_cost\":\"12000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"120000.00\",\"created_at\":\"2026-10-01T03:19:54.000000Z\",\"updated_at\":\"2026-10-01T03:19:54.000000Z\"}],\"supplier\":{\"id\":3,\"company_id\":5,\"supplier_code\":\"SUP-00001\",\"name\":\"Sony\",\"contact_person\":\"Mt Chang\",\"email\":\"chang.uweng@sony.com\",\"phone\":\"45999920202\",\"alternate_phone\":null,\"address\":\"China\",\"city\":\"Pyeonyang\",\"state\":\"Pyeonyang\",\"country\":\"China\",\"tax_number\":null,\"payment_terms\":\"30 days\",\"credit_limit\":\"0.00\",\"current_balance\":\"0.00\",\"notes\":null,\"status\":true,\"created_by\":21,\"updated_by\":21,\"created_at\":\"2026-10-01T03:19:07.000000Z\",\"updated_at\":\"2026-10-01T03:19:07.000000Z\",\"deleted_at\":null},\"branch\":{\"id\":12,\"company_id\":5,\"branch_code\":\"BR818641\",\"name\":\"Head Office\",\"phone\":\"08104196102\",\"email\":\"gadgetpadi@gmail.com\",\"address\":\"Ibadan\",\"is_head_office\":true,\"status\":true,\"created_at\":\"2026-09-26T21:02:55.000000Z\",\"updated_at\":\"2026-09-26T21:02:55.000000Z\",\"deleted_at\":null}}', '{\"id\":5,\"company_id\":5,\"branch_id\":12,\"supplier_id\":3,\"order_number\":\"PO-202610-00001\",\"order_date\":\"2026-10-01T00:00:00.000000Z\",\"expected_date\":\"2026-10-31T00:00:00.000000Z\",\"status\":\"approved\",\"subtotal\":\"120000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"shipping\":\"0.00\",\"total\":\"120000.00\",\"notes\":null,\"created_by\":21,\"approved_by\":21,\"approved_at\":\"2026-10-01T15:42:04.000000Z\",\"created_at\":\"2026-10-01T03:19:54.000000Z\",\"updated_at\":\"2026-10-01T15:42:04.000000Z\",\"deleted_at\":null}', 'purchase/orders/5/approve', 'PATCH', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 14:42:04', '2026-10-01 14:42:04'),
+(401, 5, 12, 21, 'purchases', 'create', 'Created goods received: GR-000001', 'GoodsReceived', 8, NULL, '{\"company_id\":5,\"branch_id\":12,\"purchase_order_id\":5,\"supplier_id\":3,\"receipt_number\":\"GR-000001\",\"received_date\":\"2026-10-02T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"received_by\":21,\"updated_at\":\"2026-10-01T16:06:51.000000Z\",\"created_at\":\"2026-10-01T16:06:51.000000Z\",\"id\":8}', 'purchase/received', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 15:06:51', '2026-10-01 15:06:51'),
+(402, 5, 12, 21, 'purchases', 'create', 'Created purchase return: PRN-000001', 'PurchaseReturn', 9, NULL, '{\"company_id\":5,\"branch_id\":12,\"supplier_id\":3,\"purchase_order_id\":5,\"return_number\":\"PRN-000001\",\"return_date\":\"2026-10-05T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"created_by\":21,\"reason\":\"5 units were already damaged\",\"updated_at\":\"2026-10-01T16:08:11.000000Z\",\"created_at\":\"2026-10-01T16:08:11.000000Z\",\"id\":9}', 'purchase/returns', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 15:08:11', '2026-10-01 15:08:11'),
+(403, 1, 1, 1, 'Authorization', 'Permissions Updated', 'Updated permissions for role Owner', 'Role', 1, '{\"permissions\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93]}', '{\"permissions\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,492,493,491]}', 'roles/1/permissions', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 16:00:21', '2026-10-01 16:00:21'),
+(404, 5, 12, 21, 'Authorization', 'Permissions Updated', 'Updated permissions for role Owner', 'Role', 37, '{\"permissions\":[388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,482,483,484,485]}', '{\"permissions\":[388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,482,483,484,485,498,499,497]}', 'roles/37/permissions', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 16:01:00', '2026-10-01 16:01:00');
 
 -- --------------------------------------------------------
 
@@ -639,7 +667,7 @@ CREATE TABLE `companies` (
 INSERT INTO `companies` (`id`, `company_code`, `name`, `slug`, `email`, `phone`, `address`, `logo`, `currency`, `currency_symbol`, `timezone`, `subscription_start`, `subscription_end`, `subscription_status`, `business_type`, `registration_no`, `tin`, `status`, `last_activity_at`, `lifecycle_status`, `archive_eligible_at`, `archive_scheduled_at`, `archived_at`, `lifecycle_locked`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'COMP-0001', 'Emmanex Supermarket', 'emmanex-supermarket', 'info@emmanexitconsult.com', '08012345678', 'Lagos, Nigeria', '1788343028_emmanex-logo.png', 'NGN', '₦', 'Africa/Lagos', '2026-07-29', '2027-07-29', 'Active', 'Retail Supermarket', 'RC123456', 'TIN123456789', 1, '2026-09-26 23:06:08', 'Active', '2026-10-26 23:06:08', NULL, NULL, 0, '2026-07-29 10:37:09', '2026-09-27 00:55:55', NULL),
 (4, 'COMP-243658', 'JustRite Mart', 'justrite-mart', 'justritemart@gmail.com', '08012345678', '12, Alakia, Off New Ife Road.', NULL, 'NGN', '₦', 'Africa/Lagos', '2026-09-17', '2026-10-17', 'Trial', 'Mini Mart', NULL, NULL, 1, '2026-09-17 12:10:34', 'Active', '2026-10-17 12:10:34', NULL, NULL, 0, '2026-09-17 12:10:34', '2026-09-27 00:55:55', NULL),
-(5, 'COMP-313117', 'Gadget Padi', 'gadget-padi', 'gadgetpadi@gmail.com', '08104196102', 'Ibadan', NULL, 'NGN', '₦', 'Africa/Lagos', '2026-09-26', '2026-10-26', 'Trial', 'Mobile & Digital Accessories', NULL, NULL, 1, '2026-09-26 20:02:55', 'Active', '2026-10-26 20:02:55', NULL, NULL, 0, '2026-09-26 20:02:55', '2026-09-27 00:55:55', NULL);
+(5, 'COMP-313117', 'Gadget Plus', 'gadget-plus', 'gadgetplus@gmail.com', '08104196102', 'Ibadan', NULL, 'NGN', '₦', 'Africa/Lagos', '2026-09-26', '2026-10-26', 'Trial', 'Mobile & Digital Accessories', NULL, NULL, 1, '2026-09-26 20:02:55', 'Active', '2026-10-26 20:02:55', NULL, NULL, 0, '2026-09-26 20:02:55', '2026-09-27 00:55:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -670,6 +698,30 @@ CREATE TABLE `company_archives` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_business_profiles`
+--
+
+CREATE TABLE `company_business_profiles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `profile_key` varchar(100) NOT NULL,
+  `capability_overrides` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`capability_overrides`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `company_business_profiles`
+--
+
+INSERT INTO `company_business_profiles` (`id`, `company_id`, `profile_key`, `capability_overrides`, `created_at`, `updated_at`) VALUES
+(1, 1, 'general_retail', NULL, '2026-09-30 11:37:15', '2026-09-30 11:37:15'),
+(2, 4, 'grocery', NULL, '2026-09-30 11:37:15', '2026-09-30 11:37:15'),
+(3, 5, 'electronics', NULL, '2026-09-30 11:37:16', '2026-09-30 11:37:16');
 
 -- --------------------------------------------------------
 
@@ -745,7 +797,8 @@ INSERT INTO `customers` (`id`, `company_id`, `customer_group_id`, `branch_id`, `
 (6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '08104786432', 'Alaro, Ibadan, Oyo', 50000.00, 0.00, 'Online', 0, '2026-09-29', 1, 1, NULL, '2026-08-16 02:50:25', '2026-09-29 12:18:50', NULL),
 (9, 1, 7, NULL, 'CUS-00007', 'Clement', 'Elugbaju', 'clement@gmail.com', '07038899203', 'Ibadan', 5000000.00, 0.00, 'Business', 0, NULL, 1, 1, NULL, '2026-08-16 10:35:39', '2026-08-16 10:35:39', NULL),
 (10, 1, 6, NULL, 'CUS-00010', 'Miracle', 'Peter', 'miracle.kingsbranding@gmail.com', '08104786432', 'Ibadan', 2000000.00, 0.00, 'Corporate', 0, NULL, 1, 1, NULL, '2026-08-27 13:04:26', '2026-08-27 13:04:26', NULL),
-(11, 1, NULL, NULL, 'CUS-000001', 'Paul', 'Awolola', 'paulawolola@gmail.com', '07032109983', 'Alaro Street, Ibadan, Oyo', 0.00, 0.00, 'Online', 0, '2026-09-26', 1, NULL, NULL, '2026-09-26 22:47:27', '2026-09-26 22:47:47', NULL);
+(11, 1, NULL, NULL, 'CUS-000001', 'Paul', 'Awolola', 'paulawolola@gmail.com', '07032109983', 'Alaro Street, Ibadan, Oyo', 0.00, 0.00, 'Online', 0, '2026-09-26', 1, NULL, NULL, '2026-09-26 22:47:27', '2026-09-26 22:47:47', NULL),
+(15, 5, NULL, NULL, 'CUS-000001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '07034657383', 'Alaro, Ibadan, Oyo', 0.00, 0.00, 'Online', 0, '2026-10-01', 1, NULL, NULL, '2026-10-01 16:10:59', '2026-10-01 16:16:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -917,23 +970,24 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (44, 4, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
 (45, 4, 'goods_received', 'GR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-17 12:10:35', '2026-09-17 12:10:35', 0),
 (46, 5, 'category', 'CAT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:56', '2026-09-26 20:02:56', 0),
-(47, 5, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
-(48, 5, 'customer', 'CUS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(47, 5, 'product', 'PRD', NULL, '-', 3, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-10-01 00:45:32', 0),
+(48, 5, 'customer', 'CUS', NULL, '-', 2, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-10-01 16:10:59', 0),
 (49, 5, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
-(50, 5, 'order', 'ORD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
-(51, 5, 'payment', 'PAY', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(50, 5, 'order', 'ORD', NULL, '-', 3, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-10-01 16:16:03', 0),
+(51, 5, 'payment', 'PAY', NULL, '-', 2, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-10-01 16:16:28', 0),
 (52, 5, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
-(53, 5, 'purchase_return', 'PRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(53, 5, 'purchase_return', 'PRN', NULL, '-', 2, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-10-01 15:08:11', 0),
 (54, 5, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
 (55, 5, 'stock_movement', 'STM', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
 (56, 5, 'stock_adjustment', 'ADJ', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
 (57, 5, 'stock_transfer', 'ST', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
-(58, 5, 'stock_count', 'SC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
+(58, 5, 'stock_count', 'SC', NULL, '-', 2, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-10-01 14:38:36', 0),
 (59, 5, 'expense', 'EXP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
 (60, 5, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
 (61, 5, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
 (62, 5, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0),
-(63, 5, 'goods_received', 'GR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-09-26 20:02:57', 0);
+(63, 5, 'goods_received', 'GR', NULL, '-', 2, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-10-01 15:06:51', 0),
+(64, 5, 'invoice', 'INV', NULL, '-', 3, 6, 'Never', NULL, 1, '2026-09-26 20:02:57', '2026-10-01 16:16:03', 0);
 
 -- --------------------------------------------------------
 
@@ -981,7 +1035,8 @@ INSERT INTO `goods_received` (`id`, `company_id`, `branch_id`, `purchase_order_i
 (4, 1, 1, 3, 1, 'GR-000003', '2026-08-23', 'Completed', NULL, 1, '2026-08-22 12:51:24', '2026-08-22 12:51:24'),
 (5, 1, 1, 3, 1, 'GR-000004', '2026-08-22', 'Completed', NULL, 1, '2026-08-22 13:03:30', '2026-08-22 13:03:30'),
 (6, 1, 1, 3, 1, 'GR-000005', '2026-08-22', 'Completed', NULL, 1, '2026-08-22 13:14:09', '2026-08-22 13:14:09'),
-(7, 1, 1, 3, 1, 'GR-000006', '2026-08-22', 'Completed', NULL, 1, '2026-08-22 13:16:15', '2026-08-22 13:16:15');
+(7, 1, 1, 3, 1, 'GR-000006', '2026-08-22', 'Completed', NULL, 1, '2026-08-22 13:16:15', '2026-08-22 13:16:15'),
+(8, 5, 12, 5, 3, 'GR-000001', '2026-10-02', 'Completed', NULL, 21, '2026-10-01 15:06:51', '2026-10-01 15:06:51');
 
 -- --------------------------------------------------------
 
@@ -1015,7 +1070,8 @@ INSERT INTO `goods_received_items` (`id`, `goods_received_id`, `purchase_order_i
 (16, 4, 12, 6, 1500.00, 1100.00, 1450.00, 1595000.00, '2026-08-22 12:51:24', '2026-08-22 12:51:24'),
 (17, 5, 13, 2, 2000.00, 1600.00, 500.00, 800000.00, '2026-08-22 13:03:30', '2026-08-22 13:03:30'),
 (18, 6, 14, 19, 1500.00, 1350.00, 1000.00, 1350000.00, '2026-08-22 13:14:09', '2026-08-22 13:14:09'),
-(19, 7, 15, 10, 1000.00, 600.00, 7800.00, 4680000.00, '2026-08-22 13:16:15', '2026-08-22 13:16:15');
+(19, 7, 15, 10, 1000.00, 600.00, 7800.00, 4680000.00, '2026-08-22 13:16:15', '2026-08-22 13:16:15'),
+(20, 8, 17, 26, 10.00, 10.00, 12000.00, 120000.00, '2026-10-01 15:06:51', '2026-10-01 15:06:51');
 
 -- --------------------------------------------------------
 
@@ -1102,7 +1158,9 @@ INSERT INTO `invoices` (`id`, `company_id`, `branch_id`, `terminal_id`, `order_i
 (50, 1, 1, NULL, 96, 6, 'INV-000044', '2026-09-28', 8600.00, 0.00, 0.00, 13600.00, 13600.00, 0.00, 1.00, 1, 13600.00, 'Paid', 'Active', 'Online Storefront order ORD-000057', NULL, NULL, '2026-09-27 23:11:18', '2026-09-27 23:11:25', NULL),
 (51, 1, 1, NULL, 97, 6, 'INV-000045', '2026-09-28', 1000.00, 0.00, 0.00, 2000.00, 2000.00, 0.00, 4.00, 1, 2000.00, 'Paid', 'Active', 'Online Storefront order ORD-000058', NULL, NULL, '2026-09-27 23:17:01', '2026-09-27 23:17:12', NULL),
 (52, 1, 1, NULL, 98, 6, 'INV-000046', '2026-09-29', 90000.00, 0.00, 0.00, 91000.00, 91000.00, 0.00, 1.00, 1, 91000.00, 'Paid', 'Active', 'Online Storefront order ORD-000059', NULL, NULL, '2026-09-29 12:14:15', '2026-09-29 12:14:29', NULL),
-(53, 1, 1, NULL, 99, 6, 'INV-000047', '2026-09-29', 700.00, 0.00, 0.00, 1700.00, 1700.00, 0.00, 1.00, 1, 1700.00, 'Paid', 'Active', 'Online Storefront order ORD-000060', NULL, NULL, '2026-09-29 12:18:39', '2026-09-29 12:18:50', NULL);
+(53, 1, 1, NULL, 99, 6, 'INV-000047', '2026-09-29', 700.00, 0.00, 0.00, 1700.00, 1700.00, 0.00, 1.00, 1, 1700.00, 'Paid', 'Active', 'Online Storefront order ORD-000060', NULL, NULL, '2026-09-29 12:18:39', '2026-09-29 12:18:50', NULL),
+(54, 5, 12, NULL, 100, 15, 'INV-000001', '2026-10-01', 12000.00, 0.00, 0.00, 17000.00, 0.00, 17000.00, 1.00, 1, 17000.00, 'Pending', 'Active', 'Online Storefront order ORD-000001', NULL, NULL, '2026-10-01 16:10:59', '2026-10-01 16:10:59', NULL),
+(55, 5, 12, NULL, 101, 15, 'INV-000002', '2026-10-01', 12000.00, 0.00, 0.00, 17000.00, 17000.00, 0.00, 1.00, 1, 17000.00, 'Paid', 'Active', 'Online Storefront order ORD-000002', NULL, NULL, '2026-10-01 16:16:03', '2026-10-01 16:16:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -1195,7 +1253,9 @@ INSERT INTO `invoice_items` (`id`, `company_id`, `invoice_id`, `product_id`, `pr
 (82, 1, 50, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 0.00, 0.00, 8600.00, '2026-09-27 23:11:18', '2026-09-27 23:11:18'),
 (83, 1, 51, 5, 'Indomie Chicken Noodles', '100000000005', 4.00, 250.00, 0.00, 0.00, 1000.00, '2026-09-27 23:17:01', '2026-09-27 23:17:01'),
 (84, 1, 52, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 0.00, 0.00, 90000.00, '2026-09-29 12:14:15', '2026-09-29 12:14:15'),
-(85, 1, 53, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-09-29 12:18:39', '2026-09-29 12:18:39');
+(85, 1, 53, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-09-29 12:18:39', '2026-09-29 12:18:39'),
+(86, 5, 54, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:10:59', '2026-10-01 16:10:59'),
+(87, 5, 55, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:16:03', '2026-10-01 16:16:03');
 
 -- --------------------------------------------------------
 
@@ -1329,7 +1389,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (82, '2026_09_27_220804_create_shipping_settings_table', 33),
 (83, '2026_09_27_220814_create_shipping_locations_table', 33),
 (84, '2026_09_27_220831_add_shipping_fields_to_orders_table', 33),
-(85, '2026_09_29_110242_add_theme_key_to_storefronts_table', 34);
+(85, '2026_09_29_110242_add_theme_key_to_storefronts_table', 34),
+(86, '2026_09_30_122125_create_company_business_profiles_table', 35),
+(87, '2026_09_30_132520_create_product_images_table', 36);
 
 -- --------------------------------------------------------
 
@@ -1436,7 +1498,9 @@ INSERT INTO `orders` (`id`, `company_id`, `branch_id`, `order_no`, `public_token
 (96, 1, 1, 'ORD-000057', '4kqRbr3BUdEUqeZRDHp8x3aOxatAsdpFBztGsH4S1jZur7gLeri1kv2lvTQhULiJ', 6, NULL, 8600.00, 0.00, NULL, NULL, 0.00, 13600.00, 13600.00, 0.00, 1, 1.00, 0.00, 13600.00, '2026-09-27 23:11:25', '2026-09-27 23:11:33', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-27 23:11:18', '2026-09-27 23:11:33', NULL, 'location', 1, 'Apata', NULL, NULL, NULL, 5000.00, 'Pending', NULL, NULL, NULL, NULL),
 (97, 1, 1, 'ORD-000058', 'ksRsQJU0RsL9tKdENFyQK4Gh6ngw9Uyuc9pEuub8Eo7FoDJwI4hPRLZZPIPdNEyV', 6, NULL, 1000.00, 0.00, NULL, NULL, 0.00, 2000.00, 2000.00, 0.00, 1, 4.00, 0.00, 2000.00, '2026-09-27 23:17:12', '2026-09-27 23:17:18', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, 1, '2026-09-27 23:17:01', '2026-09-27 23:53:44', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Shipped', NULL, 'The item has been shipped to GIG Logistics', '2026-09-27 23:53:44', NULL),
 (98, 1, 1, 'ORD-000059', 'Fmd5P55HfBSWnNaljwSr6HJzPY9MpqObsiHE8hoUuYMSxWytVJeFFhuY0QtsCPu3', 6, NULL, 90000.00, 0.00, NULL, NULL, 0.00, 91000.00, 91000.00, 0.00, 1, 1.00, 0.00, 91000.00, '2026-09-29 12:14:29', '2026-09-29 12:14:35', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-29 12:14:15', '2026-09-29 12:14:35', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL),
-(99, 1, 1, 'ORD-000060', 'gquv5vXH6A2PkvjuYnXSHyqxdJGGO50wdmWeFIGiArUdanyGPzm4ajJGBnPUvK1b', 6, NULL, 700.00, 0.00, NULL, NULL, 0.00, 1700.00, 1700.00, 0.00, 1, 1.00, 0.00, 1700.00, '2026-09-29 12:18:50', '2026-09-29 12:18:54', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-29 12:18:39', '2026-09-29 12:18:54', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL);
+(99, 1, 1, 'ORD-000060', 'gquv5vXH6A2PkvjuYnXSHyqxdJGGO50wdmWeFIGiArUdanyGPzm4ajJGBnPUvK1b', 6, NULL, 700.00, 0.00, NULL, NULL, 0.00, 1700.00, 1700.00, 0.00, 1, 1.00, 0.00, 1700.00, '2026-09-29 12:18:50', '2026-09-29 12:18:54', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-29 12:18:39', '2026-09-29 12:18:54', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL),
+(100, 5, 12, 'ORD-000001', 'F547Dl1dbd9BEtnQwaK6nvX7Dfy4Cncpqac6QjRGESU36QJDf0KQT9w9UfrKTNtq', 15, NULL, 12000.00, 0.00, NULL, NULL, 0.00, 17000.00, 0.00, 17000.00, 1, 1.00, 0.00, 17000.00, NULL, NULL, 'Pending', 'Draft', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-10-01 16:10:59', '2026-10-01 16:10:59', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 5000.00, 'Pending', NULL, NULL, NULL, NULL),
+(101, 5, 12, 'ORD-000002', 'hfYEdHZ6O3JkCasrwRQH8Gw31koAOFtZu5SfJzxprx2PhDswlcLsvRgt5AGgXU5x', 15, NULL, 12000.00, 0.00, NULL, NULL, 0.00, 17000.00, 17000.00, 0.00, 1, 1.00, 0.00, 17000.00, '2026-10-01 16:16:28', '2026-10-01 16:16:39', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-10-01 16:16:03', '2026-10-01 16:16:39', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 5000.00, 'Pending', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1531,7 +1595,9 @@ INSERT INTO `order_items` (`id`, `company_id`, `order_id`, `product_id`, `produc
 (128, 1, 96, 10, 'Pampers Size 3', '100000000010', 1.00, 8600.00, 7800.00, 0.00, 0.00, 8600.00, '2026-09-27 23:11:18', '2026-09-27 23:11:18'),
 (129, 1, 97, 5, 'Indomie Chicken Noodles', '100000000005', 4.00, 250.00, 180.00, 0.00, 0.00, 1000.00, '2026-09-27 23:17:01', '2026-09-27 23:17:01'),
 (130, 1, 98, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 82000.00, 0.00, 0.00, 90000.00, '2026-09-29 12:14:15', '2026-09-29 12:14:15'),
-(131, 1, 99, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 500.00, 0.00, 0.00, 700.00, '2026-09-29 12:18:39', '2026-09-29 12:18:39');
+(131, 1, 99, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 500.00, 0.00, 0.00, 700.00, '2026-09-29 12:18:39', '2026-09-29 12:18:39'),
+(132, 5, 100, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 5000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:10:59', '2026-10-01 16:10:59'),
+(133, 5, 101, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 5000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:16:03', '2026-10-01 16:16:03');
 
 -- --------------------------------------------------------
 
@@ -1622,7 +1688,8 @@ INSERT INTO `payments` (`id`, `company_id`, `branch_id`, `order_id`, `customer_i
 (50, 1, 1, 96, 6, NULL, 13600.00, 'Completed', 3, 'Card', '2026-09-28 00:11:25', 'SF-96-4GRJHYKKTL5A', 'Paystack', 'ORD-000057', 'Paystack online payment. Channel: card. Order: ORD-000057', NULL, 'PAY-000042', '2026-09-27 23:11:25', '2026-09-27 23:11:25'),
 (51, 1, 1, 97, 6, NULL, 2000.00, 'Completed', 3, 'Card', '2026-09-28 00:17:12', 'SF-97-YIDUCX9FHZ17', 'Paystack', 'ORD-000058', 'Paystack online payment. Channel: card. Order: ORD-000058', NULL, 'PAY-000043', '2026-09-27 23:17:12', '2026-09-27 23:17:12'),
 (52, 1, 1, 98, 6, NULL, 91000.00, 'Completed', 3, 'Card', '2026-09-29 13:14:29', 'SF-98-PEQ3WXYDV8NC', 'Paystack', 'ORD-000059', 'Paystack online payment. Channel: card. Order: ORD-000059', NULL, 'PAY-000044', '2026-09-29 12:14:29', '2026-09-29 12:14:29'),
-(53, 1, 1, 99, 6, NULL, 1700.00, 'Completed', 3, 'Card', '2026-09-29 13:18:50', 'SF-99-WAEE1UVAKLVO', 'Paystack', 'ORD-000060', 'Paystack online payment. Channel: card. Order: ORD-000060', NULL, 'PAY-000045', '2026-09-29 12:18:50', '2026-09-29 12:18:50');
+(53, 1, 1, 99, 6, NULL, 1700.00, 'Completed', 3, 'Card', '2026-09-29 13:18:50', 'SF-99-WAEE1UVAKLVO', 'Paystack', 'ORD-000060', 'Paystack online payment. Channel: card. Order: ORD-000060', NULL, 'PAY-000045', '2026-09-29 12:18:50', '2026-09-29 12:18:50'),
+(55, 5, 12, 101, 15, NULL, 17000.00, 'Completed', 17, 'Card', '2026-10-01 17:16:28', 'SF-101-RIS9LNFCUOZQ', 'Paystack', 'ORD-000002', 'Paystack online payment. Channel: card. Order: ORD-000002', NULL, 'PAY-000001', '2026-10-01 16:16:28', '2026-10-01 16:16:28');
 
 -- --------------------------------------------------------
 
@@ -2086,7 +2153,12 @@ INSERT INTO `products` (`id`, `company_id`, `product_category_id`, `product_code
 (10, 1, 9, 'PRD000010', '100000000010', 'PAMP001', NULL, 'Pampers Size 3', NULL, '1790544154_6ab9891a6b244.jpeg', 7800.00, 8600.00, 1, 2, NULL, 1, 'Pampers', 'P&G', '2028-10-11', 1, 2, 1, 10.00, 1085.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:22:34', NULL, 20.00),
 (19, 1, 5, 'PRD000011', 'TH123456', NULL, NULL, 'Three Crown Evaporated Milk', 'Three Crown Evaporated Milk', '1786301525_6a78cc5535908.png', 1000.00, 1200.00, NULL, 5, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-11-25', 1, NULL, 1, 100.00, 1635.00, NULL, NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-22 13:10:17', NULL, 0.00),
 (20, 4, 15, 'PRD-000001', '12345', 'SKU-0001', 'QR-0001', 'Three Crown', 'Three Crown', '1789995718_6ab12ac629c4e.png', 5000.00, 7500.00, 6, 15, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 11:55:14', '2026-09-21 12:01:58', NULL, 0.00),
-(21, 4, 16, 'PRD-000002', '452345', 'SKU-0002', 'QR-0002', 'Dangote Sugar 1kg', 'Dangote Sugar 1kg', '1789996254_6ab12cde96345.jpeg', 180.00, 250.00, 6, 15, NULL, 1, 'Dangote', 'Dangote', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 12:09:46', '2026-09-21 12:10:54', NULL, 0.00);
+(21, 4, 16, 'PRD-000002', '452345', 'SKU-0002', 'QR-0002', 'Dangote Sugar 1kg', 'Dangote Sugar 1kg', '1789996254_6ab12cde96345.jpeg', 180.00, 250.00, 6, 15, NULL, 1, 'Dangote', 'Dangote', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 12:09:46', '2026-09-21 12:10:54', NULL, 0.00),
+(22, 5, 17, 'PRD000001', NULL, NULL, NULL, 'Lapel Microphone', 'Lapel Microphone', '1790778649_6abd1d193c93d.jpeg', 10000.00, 20000.00, NULL, NULL, NULL, 1, 'Sony', 'Made in China', NULL, 1, NULL, 1, 5.00, 1000.00, NULL, NULL, NULL, NULL, '2026-09-30 13:30:05', '2026-09-30 13:30:57', NULL, 0.00),
+(23, 5, 18, 'PRD000002', NULL, NULL, NULL, 'Sony 15 Inch Tripod Stand', NULL, '1790815494_6abdad0695002.jpg', 9000.00, 15000.00, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, 1, 0.00, 1000.00, 0.00, NULL, NULL, NULL, '2026-09-30 23:44:54', '2026-10-01 00:03:19', NULL, 0.00),
+(24, 5, 19, 'PRD000003', NULL, NULL, NULL, 'Installation Service', NULL, NULL, 5000.00, 12000.00, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 1, 0.00, NULL, 0.00, NULL, NULL, NULL, '2026-10-01 00:05:21', '2026-10-01 00:05:21', NULL, 0.00),
+(26, 5, 20, 'PRD-000001', NULL, 'BTS-001', NULL, 'Bluetooth Speaker', NULL, NULL, 12000.00, 18000.00, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, 1, 2.00, 20.00, 0.50, NULL, NULL, NULL, '2026-10-01 00:45:32', '2026-10-01 00:45:32', NULL, 0.00),
+(27, 5, 19, 'PRD-000002', NULL, 'INST-001', NULL, 'Gadget Installation', NULL, NULL, 5000.00, 12000.00, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 1, 0.00, NULL, NULL, NULL, NULL, NULL, '2026-10-01 00:45:32', '2026-10-01 00:45:32', NULL, 0.00);
 
 -- --------------------------------------------------------
 
@@ -2128,7 +2200,40 @@ INSERT INTO `product_categories` (`id`, `company_id`, `category_code`, `name`, `
 (10, 1, 'CAT000010', 'Stationery', 'Office and school supplies.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
 (14, 1, 'CAT000011', 'TEXT', 'TEXT', NULL, NULL, 0, 1, 1, 1, '2026-08-02 14:53:48', '2026-08-04 08:48:45', '2026-08-04 08:48:45'),
 (15, 4, 'CAT000001', 'Dairy', 'Dairy', NULL, NULL, 0, 1, 20, 20, '2026-09-21 09:22:40', '2026-09-21 09:22:40', NULL),
-(16, 4, 'CAT000002', 'Groceries', 'Groceries', NULL, NULL, 0, 1, 20, 20, '2026-09-21 12:09:24', '2026-09-21 12:09:24', NULL);
+(16, 4, 'CAT000002', 'Groceries', 'Groceries', NULL, NULL, 0, 1, 20, 20, '2026-09-21 12:09:24', '2026-09-21 12:09:24', NULL),
+(17, 5, 'CAT000001', 'Microphones', NULL, NULL, NULL, 0, 1, 21, 21, '2026-09-30 13:27:43', '2026-09-30 13:27:43', NULL),
+(18, 5, 'CAT000002', 'Tripod Stand', NULL, NULL, NULL, 0, 1, 21, 21, '2026-09-30 23:38:32', '2026-09-30 23:38:32', NULL),
+(19, 5, 'CAT000003', 'Services', NULL, NULL, NULL, 0, 1, 21, 21, '2026-09-30 23:46:42', '2026-10-01 00:31:26', NULL),
+(20, 5, 'CAT000004', 'Accessories', NULL, NULL, NULL, 0, 1, 21, 21, '2026-10-01 00:34:25', '2026-10-01 00:34:25', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_images`
+--
+
+CREATE TABLE `product_images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `is_primary` tinyint(1) NOT NULL DEFAULT 0,
+  `sort_order` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `company_id`, `product_id`, `image`, `is_primary`, `sort_order`, `created_at`, `updated_at`) VALUES
+(1, 1, 19, '1786301525_6a78cc5535908.png', 1, 0, '2026-09-30 13:18:32', '2026-09-30 13:18:32'),
+(2, 5, 22, '1790778605_6abd1ceddd8b6.jpeg', 0, 0, '2026-09-30 13:30:05', '2026-09-30 13:30:57'),
+(3, 5, 22, '1790778605_6abd1cedde3c2.jpeg', 0, 1, '2026-09-30 13:30:05', '2026-09-30 13:30:57'),
+(5, 5, 22, '1790778649_6abd1d193c93d.jpeg', 1, 2, '2026-09-30 13:30:49', '2026-09-30 13:30:57'),
+(6, 5, 23, '1790815494_6abdad0695002.jpg', 1, 0, '2026-09-30 23:44:54', '2026-09-30 23:44:54'),
+(7, 5, 23, '1790815494_6abdad069733a.jpeg', 0, 1, '2026-09-30 23:44:54', '2026-09-30 23:44:54');
 
 -- --------------------------------------------------------
 
@@ -2186,7 +2291,10 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (37, 1, 2, 2, 7.00, 0.00, 7.00, 10.00, 2100.00, '2026-08-31 10:05:07', '2026-09-27 20:19:45'),
 (38, 1, 2, 1, 8.00, 0.00, 8.00, 10.00, 2000.00, '2026-08-31 10:05:07', '2026-09-27 20:14:49'),
 (39, 4, 11, 20, 25.00, 0.00, 25.00, 10.00, 100.00, '2026-09-21 11:55:14', '2026-09-21 12:01:58'),
-(40, 4, 11, 21, 25.00, 0.00, 25.00, 10.00, 100.00, '2026-09-21 12:09:46', '2026-09-21 12:10:54');
+(40, 4, 11, 21, 25.00, 0.00, 25.00, 10.00, 100.00, '2026-09-21 12:09:46', '2026-09-21 12:10:54'),
+(41, 5, 12, 22, 50.00, 0.00, 50.00, 5.00, 1000.00, '2026-09-30 13:30:05', '2026-09-30 14:53:16'),
+(42, 5, 12, 23, 10.00, 0.00, 10.00, 0.00, 1000.00, '2026-09-30 23:44:54', '2026-10-01 00:03:19'),
+(44, 5, 12, 26, 10.00, 0.00, 10.00, 2.00, 20.00, '2026-10-01 00:45:32', '2026-10-01 15:08:11');
 
 -- --------------------------------------------------------
 
@@ -2224,7 +2332,8 @@ CREATE TABLE `purchase_orders` (
 INSERT INTO `purchase_orders` (`id`, `company_id`, `branch_id`, `supplier_id`, `order_number`, `order_date`, `expected_date`, `status`, `subtotal`, `discount`, `tax`, `shipping`, `total`, `notes`, `created_by`, `approved_by`, `approved_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 1, 1, 'PO-202608-00001', '2026-08-17', '2026-08-28', 'Draft', 3450000.00, 0.00, 0.00, 0.00, 3450000.00, NULL, 1, NULL, NULL, '2026-08-16 14:16:43', '2026-08-17 11:54:28', '2026-08-17 11:54:28'),
 (3, 1, 1, 1, 'PO-202608-00002', '2026-08-17', '2026-08-31', 'Completed', 12975000.00, 0.00, 0.00, 0.00, 12975000.00, '5 products - 12,975,000', 1, 1, '2026-08-17 14:12:56', '2026-08-17 12:06:44', '2026-08-22 13:16:15', NULL),
-(4, 1, 1, 2, 'PO-202608-00003', '2026-08-18', '2026-09-01', 'cancelled', 1000000.00, 0.00, 0.00, 0.00, 1000000.00, NULL, 1, NULL, NULL, '2026-08-18 11:55:29', '2026-08-18 11:55:43', NULL);
+(4, 1, 1, 2, 'PO-202608-00003', '2026-08-18', '2026-09-01', 'cancelled', 1000000.00, 0.00, 0.00, 0.00, 1000000.00, NULL, 1, NULL, NULL, '2026-08-18 11:55:29', '2026-08-18 11:55:43', NULL),
+(5, 5, 12, 3, 'PO-202610-00001', '2026-10-01', '2026-10-31', 'Completed', 120000.00, 0.00, 0.00, 0.00, 120000.00, NULL, 21, 21, '2026-10-01 14:42:04', '2026-10-01 02:19:54', '2026-10-01 15:06:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -2258,7 +2367,8 @@ INSERT INTO `purchase_order_items` (`id`, `purchase_order_id`, `product_id`, `qu
 (13, 3, 2, 2000.00, 500.00, 0.00, 0.00, 1000000.00, '2026-08-17 12:07:24', '2026-08-17 12:07:24'),
 (14, 3, 19, 1500.00, 1000.00, 0.00, 0.00, 1500000.00, '2026-08-17 12:07:24', '2026-08-17 12:07:24'),
 (15, 3, 10, 1000.00, 7800.00, 0.00, 0.00, 7800000.00, '2026-08-17 12:07:24', '2026-08-17 12:07:24'),
-(16, 4, 2, 2000.00, 500.00, 0.00, 0.00, 1000000.00, '2026-08-18 11:55:29', '2026-08-18 11:55:29');
+(16, 4, 2, 2000.00, 500.00, 0.00, 0.00, 1000000.00, '2026-08-18 11:55:29', '2026-08-18 11:55:29'),
+(17, 5, 26, 10.00, 12000.00, 0.00, 0.00, 120000.00, '2026-10-01 02:19:54', '2026-10-01 02:19:54');
 
 -- --------------------------------------------------------
 
@@ -2294,7 +2404,8 @@ INSERT INTO `purchase_returns` (`id`, `company_id`, `branch_id`, `supplier_id`, 
 (5, 1, 1, 1, 3, NULL, 'PRN-000001', '2026-08-26', 'Completed', 'Expired', 'Expired Products', 1, NULL, NULL, '2026-08-26 10:23:49', '2026-08-26 10:23:49', NULL),
 (6, 1, 1, 1, 3, NULL, 'PRN-000002', '2026-08-26', 'Completed', 'Damage', 'Damaged Products', 1, NULL, NULL, '2026-08-26 11:35:10', '2026-08-26 11:35:10', NULL),
 (7, 1, 1, 1, 3, NULL, 'PRN-000003', '2026-08-26', 'Completed', 'Damage', 'Damaged Products', 1, NULL, NULL, '2026-08-26 12:05:19', '2026-08-26 12:05:19', NULL),
-(8, 1, 1, 1, 3, NULL, 'PRN-000004', '2026-08-27', 'Completed', 'Expired', '50 items returned each for Pampers and Fanta 50cl', 1, NULL, NULL, '2026-08-27 09:44:50', '2026-08-27 09:44:50', NULL);
+(8, 1, 1, 1, 3, NULL, 'PRN-000004', '2026-08-27', 'Completed', 'Expired', '50 items returned each for Pampers and Fanta 50cl', 1, NULL, NULL, '2026-08-27 09:44:50', '2026-08-27 09:44:50', NULL),
+(9, 5, 12, 3, 5, NULL, 'PRN-000001', '2026-10-05', 'Completed', '5 units were already damaged', NULL, 21, NULL, NULL, '2026-10-01 15:08:11', '2026-10-01 15:08:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -2323,7 +2434,8 @@ INSERT INTO `purchase_return_items` (`id`, `purchase_return_id`, `goods_received
 (6, 6, 11, 1, 50.00, 500.00, 25000.00, '2026-08-26 11:35:10', '2026-08-26 11:35:10'),
 (7, 7, 12, 6, 50.00, 1450.00, 72500.00, '2026-08-26 12:05:19', '2026-08-26 12:05:19'),
 (8, 8, 13, 2, 50.00, 500.00, 25000.00, '2026-08-27 09:44:50', '2026-08-27 09:44:50'),
-(9, 8, 15, 10, 50.00, 7800.00, 390000.00, '2026-08-27 09:44:50', '2026-08-27 09:44:50');
+(9, 8, 15, 10, 50.00, 7800.00, 390000.00, '2026-08-27 09:44:50', '2026-08-27 09:44:50'),
+(10, 9, 20, 26, 5.00, 12000.00, 60000.00, '2026-10-01 15:08:11', '2026-10-01 15:08:11');
 
 -- --------------------------------------------------------
 
@@ -2392,99 +2504,99 @@ CREATE TABLE `role_permissions` (
 --
 
 INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(2, 1, 1, 2, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(3, 1, 1, 3, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(4, 1, 1, 4, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(5, 1, 1, 5, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(6, 1, 1, 6, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(7, 1, 1, 7, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(8, 1, 1, 8, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(9, 1, 1, 9, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(10, 1, 1, 10, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(11, 1, 1, 11, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(12, 1, 1, 12, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(13, 1, 1, 13, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(14, 1, 1, 14, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(15, 1, 1, 15, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(16, 1, 1, 16, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(17, 1, 1, 17, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(18, 1, 1, 18, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(19, 1, 1, 19, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(20, 1, 1, 20, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(21, 1, 1, 21, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(22, 1, 1, 22, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(23, 1, 1, 23, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(24, 1, 1, 24, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(25, 1, 1, 25, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(26, 1, 1, 26, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(27, 1, 1, 27, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(28, 1, 1, 28, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(29, 1, 1, 29, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(30, 1, 1, 30, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(31, 1, 1, 31, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(32, 1, 1, 32, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(33, 1, 1, 33, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(34, 1, 1, 34, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(35, 1, 1, 35, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(36, 1, 1, 36, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(37, 1, 1, 37, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(38, 1, 1, 38, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(39, 1, 1, 39, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(40, 1, 1, 40, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(41, 1, 1, 41, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(42, 1, 1, 42, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(43, 1, 1, 43, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(44, 1, 1, 44, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(45, 1, 1, 45, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(46, 1, 1, 46, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(47, 1, 1, 47, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(48, 1, 1, 48, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(49, 1, 1, 49, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(50, 1, 1, 50, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(51, 1, 1, 51, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(52, 1, 1, 52, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(53, 1, 1, 53, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(54, 1, 1, 54, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(55, 1, 1, 55, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(56, 1, 1, 56, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(57, 1, 1, 57, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(58, 1, 1, 58, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(59, 1, 1, 59, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(60, 1, 1, 60, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(61, 1, 1, 61, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(62, 1, 1, 62, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(63, 1, 1, 63, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(64, 1, 1, 64, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(65, 1, 1, 65, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(66, 1, 1, 66, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(67, 1, 1, 67, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(68, 1, 1, 68, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(69, 1, 1, 69, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(70, 1, 1, 70, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(71, 1, 1, 71, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(72, 1, 1, 72, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(73, 1, 1, 73, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(74, 1, 1, 74, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(75, 1, 1, 75, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(76, 1, 1, 76, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(77, 1, 1, 77, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(78, 1, 1, 78, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(79, 1, 1, 79, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(80, 1, 1, 80, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(81, 1, 1, 81, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(82, 1, 1, 82, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(83, 1, 1, 83, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(84, 1, 1, 84, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(85, 1, 1, 85, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(86, 1, 1, 86, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(87, 1, 1, 87, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(88, 1, 1, 88, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(89, 1, 1, 89, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(90, 1, 1, 90, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(91, 1, 1, 91, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(92, 1, 1, 92, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
-(93, 1, 1, 93, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
+(1, 1, 1, 1, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(2, 1, 1, 2, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(3, 1, 1, 3, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(4, 1, 1, 4, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(5, 1, 1, 5, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(6, 1, 1, 6, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(7, 1, 1, 7, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(8, 1, 1, 8, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(9, 1, 1, 9, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(10, 1, 1, 10, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(11, 1, 1, 11, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(12, 1, 1, 12, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(13, 1, 1, 13, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(14, 1, 1, 14, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(15, 1, 1, 15, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(16, 1, 1, 16, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(17, 1, 1, 17, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(18, 1, 1, 18, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(19, 1, 1, 19, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(20, 1, 1, 20, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(21, 1, 1, 21, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(22, 1, 1, 22, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(23, 1, 1, 23, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(24, 1, 1, 24, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(25, 1, 1, 25, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(26, 1, 1, 26, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(27, 1, 1, 27, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(28, 1, 1, 28, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(29, 1, 1, 29, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(30, 1, 1, 30, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(31, 1, 1, 31, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(32, 1, 1, 32, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(33, 1, 1, 33, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(34, 1, 1, 34, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(35, 1, 1, 35, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(36, 1, 1, 36, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(37, 1, 1, 37, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(38, 1, 1, 38, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(39, 1, 1, 39, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(40, 1, 1, 40, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(41, 1, 1, 41, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(42, 1, 1, 42, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(43, 1, 1, 43, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(44, 1, 1, 44, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(45, 1, 1, 45, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(46, 1, 1, 46, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(47, 1, 1, 47, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(48, 1, 1, 48, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(49, 1, 1, 49, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(50, 1, 1, 50, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(51, 1, 1, 51, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(52, 1, 1, 52, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(53, 1, 1, 53, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(54, 1, 1, 54, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(55, 1, 1, 55, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(56, 1, 1, 56, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(57, 1, 1, 57, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(58, 1, 1, 58, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(59, 1, 1, 59, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(60, 1, 1, 60, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(61, 1, 1, 61, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(62, 1, 1, 62, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(63, 1, 1, 63, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(64, 1, 1, 64, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(65, 1, 1, 65, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(66, 1, 1, 66, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(67, 1, 1, 67, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(68, 1, 1, 68, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(69, 1, 1, 69, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(70, 1, 1, 70, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(71, 1, 1, 71, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(72, 1, 1, 72, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(73, 1, 1, 73, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(74, 1, 1, 74, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(75, 1, 1, 75, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(76, 1, 1, 76, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(77, 1, 1, 77, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(78, 1, 1, 78, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(79, 1, 1, 79, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(80, 1, 1, 80, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(81, 1, 1, 81, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(82, 1, 1, 82, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(83, 1, 1, 83, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(84, 1, 1, 84, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(85, 1, 1, 85, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(86, 1, 1, 86, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(87, 1, 1, 87, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(88, 1, 1, 88, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(89, 1, 1, 89, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(90, 1, 1, 90, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(91, 1, 1, 91, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(92, 1, 1, 92, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
+(93, 1, 1, 93, '2026-07-29 11:20:42', '2026-10-01 16:00:21'),
 (94, 1, 2, 1, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
 (95, 1, 2, 2, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
 (96, 1, 2, 3, '2026-07-29 11:20:42', '2026-07-29 11:20:42'),
@@ -3006,104 +3118,104 @@ INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, 
 (1268, 4, 36, 374, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
 (1269, 4, 36, 375, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
 (1270, 4, 36, 376, '2026-09-17 12:10:35', '2026-09-17 12:10:35'),
-(1271, 5, 37, 388, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1272, 5, 37, 389, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1273, 5, 37, 390, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1274, 5, 37, 391, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1275, 5, 37, 392, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1276, 5, 37, 393, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1277, 5, 37, 394, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1278, 5, 37, 395, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1279, 5, 37, 396, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1280, 5, 37, 397, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1281, 5, 37, 398, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1282, 5, 37, 399, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1283, 5, 37, 400, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1284, 5, 37, 401, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1285, 5, 37, 402, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1286, 5, 37, 403, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1287, 5, 37, 404, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1288, 5, 37, 405, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1289, 5, 37, 406, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1290, 5, 37, 407, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1291, 5, 37, 408, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1292, 5, 37, 409, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1293, 5, 37, 410, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1294, 5, 37, 411, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1295, 5, 37, 412, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1296, 5, 37, 413, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1297, 5, 37, 414, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1298, 5, 37, 415, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1299, 5, 37, 416, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1300, 5, 37, 417, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1301, 5, 37, 418, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1302, 5, 37, 419, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1303, 5, 37, 420, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1304, 5, 37, 421, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1305, 5, 37, 422, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1306, 5, 37, 423, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1307, 5, 37, 424, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1308, 5, 37, 425, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1309, 5, 37, 426, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1310, 5, 37, 427, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1311, 5, 37, 428, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1312, 5, 37, 429, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1313, 5, 37, 430, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1314, 5, 37, 431, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1315, 5, 37, 432, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1316, 5, 37, 433, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1317, 5, 37, 434, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1318, 5, 37, 435, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1319, 5, 37, 436, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1320, 5, 37, 437, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1321, 5, 37, 438, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1322, 5, 37, 439, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1323, 5, 37, 440, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1324, 5, 37, 441, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1325, 5, 37, 442, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1326, 5, 37, 443, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1327, 5, 37, 444, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1328, 5, 37, 445, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1329, 5, 37, 446, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1330, 5, 37, 447, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1331, 5, 37, 448, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1332, 5, 37, 449, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1333, 5, 37, 450, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1334, 5, 37, 451, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1335, 5, 37, 452, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1336, 5, 37, 453, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1337, 5, 37, 454, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1338, 5, 37, 455, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1339, 5, 37, 456, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1340, 5, 37, 457, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1341, 5, 37, 458, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1342, 5, 37, 459, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1343, 5, 37, 460, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1344, 5, 37, 461, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1345, 5, 37, 462, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1346, 5, 37, 463, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1347, 5, 37, 464, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1348, 5, 37, 465, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1349, 5, 37, 466, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1350, 5, 37, 467, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1351, 5, 37, 468, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1352, 5, 37, 469, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1353, 5, 37, 470, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1354, 5, 37, 471, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1355, 5, 37, 472, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1356, 5, 37, 473, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1357, 5, 37, 474, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1358, 5, 37, 475, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1359, 5, 37, 476, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1360, 5, 37, 477, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1361, 5, 37, 478, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1362, 5, 37, 479, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1363, 5, 37, 480, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1364, 5, 37, 481, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1365, 5, 37, 482, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1366, 5, 37, 483, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1367, 5, 37, 484, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1368, 5, 37, 485, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1271, 5, 37, 388, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1272, 5, 37, 389, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1273, 5, 37, 390, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1274, 5, 37, 391, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1275, 5, 37, 392, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1276, 5, 37, 393, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1277, 5, 37, 394, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1278, 5, 37, 395, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1279, 5, 37, 396, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1280, 5, 37, 397, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1281, 5, 37, 398, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1282, 5, 37, 399, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1283, 5, 37, 400, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1284, 5, 37, 401, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1285, 5, 37, 402, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1286, 5, 37, 403, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1287, 5, 37, 404, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1288, 5, 37, 405, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1289, 5, 37, 406, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1290, 5, 37, 407, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1291, 5, 37, 408, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1292, 5, 37, 409, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1293, 5, 37, 410, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1294, 5, 37, 411, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1295, 5, 37, 412, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1296, 5, 37, 413, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1297, 5, 37, 414, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1298, 5, 37, 415, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1299, 5, 37, 416, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1300, 5, 37, 417, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1301, 5, 37, 418, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1302, 5, 37, 419, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1303, 5, 37, 420, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1304, 5, 37, 421, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1305, 5, 37, 422, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1306, 5, 37, 423, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1307, 5, 37, 424, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1308, 5, 37, 425, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1309, 5, 37, 426, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1310, 5, 37, 427, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1311, 5, 37, 428, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1312, 5, 37, 429, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1313, 5, 37, 430, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1314, 5, 37, 431, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1315, 5, 37, 432, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1316, 5, 37, 433, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1317, 5, 37, 434, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1318, 5, 37, 435, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1319, 5, 37, 436, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1320, 5, 37, 437, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1321, 5, 37, 438, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1322, 5, 37, 439, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1323, 5, 37, 440, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1324, 5, 37, 441, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1325, 5, 37, 442, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1326, 5, 37, 443, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1327, 5, 37, 444, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1328, 5, 37, 445, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1329, 5, 37, 446, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1330, 5, 37, 447, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1331, 5, 37, 448, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1332, 5, 37, 449, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1333, 5, 37, 450, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1334, 5, 37, 451, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1335, 5, 37, 452, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1336, 5, 37, 453, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1337, 5, 37, 454, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1338, 5, 37, 455, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1339, 5, 37, 456, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1340, 5, 37, 457, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1341, 5, 37, 458, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1342, 5, 37, 459, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1343, 5, 37, 460, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1344, 5, 37, 461, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1345, 5, 37, 462, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1346, 5, 37, 463, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1347, 5, 37, 464, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1348, 5, 37, 465, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1349, 5, 37, 466, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1350, 5, 37, 467, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1351, 5, 37, 468, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1352, 5, 37, 469, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1353, 5, 37, 470, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1354, 5, 37, 471, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1355, 5, 37, 472, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1356, 5, 37, 473, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1357, 5, 37, 474, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1358, 5, 37, 475, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1359, 5, 37, 476, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1360, 5, 37, 477, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1361, 5, 37, 478, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1362, 5, 37, 479, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1363, 5, 37, 480, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1364, 5, 37, 481, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1365, 5, 37, 482, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1366, 5, 37, 483, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1367, 5, 37, 484, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
+(1368, 5, 37, 485, '2026-09-26 20:02:56', '2026-10-01 16:01:00'),
 (1369, 5, 38, 388, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
 (1370, 5, 38, 389, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
 (1371, 5, 38, 390, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
@@ -3325,7 +3437,13 @@ INSERT INTO `role_permissions` (`id`, `company_id`, `role_id`, `permission_id`, 
 (1586, 5, 43, 471, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
 (1587, 5, 43, 472, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
 (1588, 5, 43, 473, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
-(1589, 5, 43, 474, '2026-09-26 20:02:56', '2026-09-26 20:02:56');
+(1589, 5, 43, 474, '2026-09-26 20:02:56', '2026-09-26 20:02:56'),
+(1590, 1, 1, 492, '2026-10-01 16:00:21', '2026-10-01 16:00:21'),
+(1591, 1, 1, 493, '2026-10-01 16:00:21', '2026-10-01 16:00:21'),
+(1592, 1, 1, 491, '2026-10-01 16:00:21', '2026-10-01 16:00:21'),
+(1593, 5, 37, 498, '2026-10-01 16:01:00', '2026-10-01 16:01:00'),
+(1594, 5, 37, 499, '2026-10-01 16:01:00', '2026-10-01 16:01:00'),
+(1595, 5, 37, 497, '2026-10-01 16:01:00', '2026-10-01 16:01:00');
 
 -- --------------------------------------------------------
 
@@ -3476,7 +3594,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('X7z6fsAk1z3LUmZ4dCxukaPwRBK6Q2UpgKC2zRZB', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'YToxMjp7czo2OiJfdG9rZW4iO3M6NDA6IkFDVHdLQ29hcXJkYmlQVWdpSGJDVHlXRFduSVdobjJrSHFDaTR6b2giO3M6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdG9yZWZyb250Ijt9czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdG9yZS9lbW1hbmV4L3Byb2R1Y3QvUFJEMDAwMDEwIjtzOjU6InJvdXRlIjtzOjI1OiJzdG9yZWZyb250LnB1YmxpYy5wcm9kdWN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjEwOiJjb21wYW55X2lkIjtpOjE7czoxMjoiY29tcGFueV9uYW1lIjtzOjE5OiJFbW1hbmV4IFN1cGVybWFya2V0IjtzOjEyOiJjb21wYW55X2NvZGUiO3M6OToiQ09NUC0wMDAxIjtzOjk6ImJyYW5jaF9pZCI7aToxO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1790708793);
+('ZdxsCFAFueYJrklTFZoj2SKbUo4MCfLZyfZ8LeQX', 21, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6Imw4Ym9FeGZlSW1ncHFiR3RFVUIzWm9oVTdhRkhPS1Q1RDBGSVBKOUkiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjEyMjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3N0b3JlL2dhZGdldC1wbHVzL2NoZWNrb3V0L3BheW1lbnQvY2FsbGJhY2s/cmVmZXJlbmNlPVNGLTEwMS1SSVM5TE5GQ1VPWlEmdHJ4cmVmPVNGLTEwMS1SSVM5TE5GQ1VPWlEiO3M6NToicm91dGUiO3M6MzU6InN0b3JlZnJvbnQucHVibGljLmNoZWNrb3V0LmNhbGxiYWNrIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjE7czoxMDoiY29tcGFueV9pZCI7aTo1O3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxMToiR2FkZ2V0IFBsdXMiO3M6MTI6ImNvbXBhbnlfY29kZSI7czoxMToiQ09NUC0zMTMxMTciO3M6OToiYnJhbmNoX2lkIjtpOjEyO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1790874999);
 
 -- --------------------------------------------------------
 
@@ -3579,7 +3697,8 @@ CREATE TABLE `shipping_settings` (
 --
 
 INSERT INTO `shipping_settings` (`id`, `company_id`, `enabled`, `shipping_mode`, `manual_shipping_fee`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'manual', 1000.00, 1, 1, '2026-09-27 21:32:05', '2026-09-27 23:16:25');
+(1, 1, 1, 'manual', 1000.00, 1, 1, '2026-09-27 21:32:05', '2026-09-27 23:16:25'),
+(2, 5, 1, 'manual', 5000.00, 21, 21, '2026-09-27 21:32:05', '2026-10-01 16:01:20');
 
 -- --------------------------------------------------------
 
@@ -3607,7 +3726,8 @@ CREATE TABLE `stock_counts` (
 --
 
 INSERT INTO `stock_counts` (`id`, `company_id`, `branch_id`, `reference_no`, `count_date`, `status`, `notes`, `created_by`, `completed_by`, `completed_at`, `created_at`, `updated_at`) VALUES
-(3, 1, 4, 'SC-000003', '2026-08-15', 'Completed', 'Test stock count', 1, 1, '2026-08-15 11:11:39', '2026-08-15 08:53:31', '2026-08-15 11:11:39');
+(3, 1, 4, 'SC-000003', '2026-08-15', 'Completed', 'Test stock count', 1, 1, '2026-08-15 11:11:39', '2026-08-15 08:53:31', '2026-08-15 11:11:39'),
+(4, 5, 12, 'SC-000001', '2026-10-01', 'Completed', NULL, 21, 21, '2026-10-01 14:39:23', '2026-10-01 14:38:36', '2026-10-01 14:39:23');
 
 -- --------------------------------------------------------
 
@@ -3637,7 +3757,10 @@ INSERT INTO `stock_count_items` (`id`, `stock_count_id`, `product_id`, `system_q
 (2, 3, 6, 5.00, 4.00, -1.00, 1450.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39'),
 (3, 3, 7, 5.00, 4.00, -1.00, 900.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39'),
 (4, 3, 8, 5.00, 3.00, -2.00, 82000.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39'),
-(5, 3, 9, 10.00, 9.00, -1.00, 500.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39');
+(5, 3, 9, 10.00, 9.00, -1.00, 500.00, NULL, '2026-08-15 10:11:18', '2026-08-15 11:11:39'),
+(6, 4, 22, 50.00, 50.00, 0.00, 10000.00, NULL, '2026-10-01 14:38:47', '2026-10-01 14:39:23'),
+(7, 4, 23, 10.00, 10.00, 0.00, 9000.00, NULL, '2026-10-01 14:38:47', '2026-10-01 14:39:23'),
+(8, 4, 26, 5.00, 5.00, 0.00, 12000.00, NULL, '2026-10-01 14:38:47', '2026-10-01 14:39:23');
 
 -- --------------------------------------------------------
 
@@ -3650,7 +3773,7 @@ CREATE TABLE `stock_movements` (
   `company_id` bigint(20) UNSIGNED NOT NULL,
   `branch_id` bigint(20) UNSIGNED NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
-  `movement_type` enum('Opening Stock','Purchase','Sale','Return','Adjustment','Transfer In','Transfer Out','Damage','Expired') NOT NULL,
+  `movement_type` enum('Opening Stock','Purchase','Sale','Return','Adjustment','Transfer In','Transfer Out','Damage','Expired','Adjustment In','Adjustment Out') NOT NULL,
   `order_id` bigint(20) UNSIGNED DEFAULT NULL,
   `reference_no` varchar(255) DEFAULT NULL,
   `unit_cost` decimal(15,2) NOT NULL DEFAULT 0.00,
@@ -3792,7 +3915,14 @@ INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `m
 (145, 1, 1, 10, 'Sale', 96, 'ORD-000057', 7800.00, 1.00, 1018.00, 1017.00, 'Online Storefront order completed: ORD-000057', NULL, '2026-09-27 23:11:25', '2026-09-27 23:11:25'),
 (146, 1, 1, 5, 'Sale', 97, 'ORD-000058', 180.00, 4.00, 80.00, 76.00, 'Online Storefront order completed: ORD-000058', NULL, '2026-09-27 23:17:12', '2026-09-27 23:17:12'),
 (147, 1, 1, 8, 'Sale', 98, 'ORD-000059', 82000.00, 1.00, 73.00, 72.00, 'Online Storefront order completed: ORD-000059', NULL, '2026-09-29 12:14:29', '2026-09-29 12:14:29'),
-(148, 1, 1, 9, 'Sale', 99, 'ORD-000060', 500.00, 1.00, 69.00, 68.00, 'Online Storefront order completed: ORD-000060', NULL, '2026-09-29 12:18:50', '2026-09-29 12:18:50');
+(148, 1, 1, 9, 'Sale', 99, 'ORD-000060', 500.00, 1.00, 69.00, 68.00, 'Online Storefront order completed: ORD-000060', NULL, '2026-09-29 12:18:50', '2026-09-29 12:18:50'),
+(149, 5, 12, 26, 'Damage', NULL, NULL, 12000.00, 1.00, 5.00, 4.00, NULL, NULL, '2026-10-01 02:22:28', '2026-10-01 02:22:28'),
+(150, 5, 12, 26, 'Adjustment In', NULL, NULL, 12000.00, 1.00, 4.00, 5.00, 'The physical qty is 5, and the sytem qty is 4, we have 1 extra physically, so I am adding 1.', NULL, '2026-10-01 14:30:41', '2026-10-01 14:30:41'),
+(151, 5, 12, 22, 'Adjustment', NULL, 'SC-000001', 10000.00, 0.00, 50.00, 50.00, 'Stock Count adjustment - SC-000001', 21, '2026-10-01 14:39:23', '2026-10-01 14:39:23'),
+(152, 5, 12, 23, 'Adjustment', NULL, 'SC-000001', 9000.00, 0.00, 10.00, 10.00, 'Stock Count adjustment - SC-000001', 21, '2026-10-01 14:39:23', '2026-10-01 14:39:23'),
+(153, 5, 12, 26, 'Adjustment', NULL, 'SC-000001', 12000.00, 0.00, 5.00, 5.00, 'Stock Count adjustment - SC-000001', 21, '2026-10-01 14:39:23', '2026-10-01 14:39:23'),
+(154, 5, 12, 26, 'Purchase', NULL, 'GR-000001', 12000.00, 10.00, 5.00, 15.00, 'Goods received against purchase order PO-202610-00001', 21, '2026-10-01 15:06:51', '2026-10-01 15:06:51'),
+(155, 5, 12, 26, 'Return', NULL, 'PRN-000001', 12000.00, -5.00, 15.00, 10.00, 'Purchase return against purchase order PO-202610-00001', 21, '2026-10-01 15:08:11', '2026-10-01 15:08:11');
 
 -- --------------------------------------------------------
 
@@ -3819,7 +3949,7 @@ CREATE TABLE `storefronts` (
 --
 
 INSERT INTO `storefronts` (`id`, `company_id`, `name`, `slug`, `status`, `theme_key`, `enabled_at`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 5, 'Gadget Padi', 'gadget-padi', 'Active', 'editorial', '2026-09-26 20:46:04', 21, 21, '2026-09-26 20:02:57', '2026-09-26 20:48:43'),
+(1, 5, 'Gadget Plus', 'gadget-plus', 'Active', 'editorial', '2026-09-26 20:46:04', 21, 21, '2026-09-26 20:02:57', '2026-09-29 18:35:04'),
 (2, 4, 'JustRite Mart', 'justrite-mart', 'Active', 'editorial', '2026-09-26 20:53:54', 20, 20, '2026-09-26 20:53:38', '2026-09-26 20:53:54'),
 (3, 1, 'Emmanex Supermarket', 'emmanex', 'Active', 'boutique', '2026-09-26 21:35:17', 1, 1, '2026-09-26 21:35:03', '2026-09-29 17:52:42');
 
@@ -3861,7 +3991,8 @@ CREATE TABLE `suppliers` (
 
 INSERT INTO `suppliers` (`id`, `company_id`, `supplier_code`, `name`, `contact_person`, `email`, `phone`, `alternate_phone`, `address`, `city`, `state`, `country`, `tax_number`, `payment_terms`, `credit_limit`, `current_balance`, `notes`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 'SUP-00001', 'Friezland Group of Companies', 'Mr Adeleke Abayomi', 'info@friezland.com', '07032109983', '07032109983', '17, Ojokoro avenue, abeokuta, Ogun State.', 'Abeokuta', 'Ogun', 'Nigeria', '29839393', '30 days', 1000000.00, 0.00, 'Friezland.', 1, 1, 1, '2026-08-16 11:27:31', '2026-08-16 11:27:31', NULL),
-(2, 1, 'SUP-00002', 'Nigerian Breweries', 'Mrs Afonja Omowunmi', 'info@nigbreweries.com', '08034271855', '08034271855', 'Nigerial Breweries, Off Alakia Road, Ibadan', 'Ibadan', 'Oyo', 'Nigeria', '09030922', '30 days', 2000000.00, 0.00, 'Nigerian Breweries.', 1, 1, 1, '2026-08-16 11:35:20', '2026-08-16 11:45:37', NULL);
+(2, 1, 'SUP-00002', 'Nigerian Breweries', 'Mrs Afonja Omowunmi', 'info@nigbreweries.com', '08034271855', '08034271855', 'Nigerial Breweries, Off Alakia Road, Ibadan', 'Ibadan', 'Oyo', 'Nigeria', '09030922', '30 days', 2000000.00, 0.00, 'Nigerian Breweries.', 1, 1, 1, '2026-08-16 11:35:20', '2026-08-16 11:45:37', NULL),
+(3, 5, 'SUP-00001', 'Sony', 'Mt Chang', 'chang.uweng@sony.com', '45999920202', NULL, 'China', 'Pyeonyang', 'Pyeonyang', 'China', NULL, '30 days', 0.00, 0.00, NULL, 1, 21, 21, '2026-10-01 02:19:07', '2026-10-01 02:19:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -4099,7 +4230,8 @@ INSERT INTO `units` (`id`, `company_id`, `unit_code`, `name`, `short_name`, `des
 (12, 1, 'UNT000012', 'Roll', 'ROL', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
 (13, 1, 'UNT000013', 'Box', 'BOX', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
 (14, 1, 'UNT000014', 'Text', 'TXT', 'Text', 1, 1, 1, '2026-08-03 14:02:30', '2026-08-04 08:48:18', '2026-08-04 08:48:18'),
-(15, 4, 'UNT000001', 'Piece', 'PCS', 'Piece', 1, 20, 20, '2026-09-21 08:58:45', '2026-09-21 08:58:45', NULL);
+(15, 4, 'UNT000001', 'Piece', 'PCS', 'Piece', 1, 20, 20, '2026-09-21 08:58:45', '2026-09-21 08:58:45', NULL),
+(16, 5, 'UNT000001', 'Piece', 'PCS', NULL, 1, 21, 21, '2026-09-30 13:27:59', '2026-09-30 13:27:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -4156,7 +4288,7 @@ INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `employee_no`, 
 (15, 1, 2, 5, 'CH-2026-001', 'Paul', 'Olusogo', 'Awolola', 'paul', 'bizcare@gmail.com', 0, NULL, 0, '07038899203', '$2y$12$Sstz2CJuURgxEXVIu/DD3.yNOZrTmaT/UcICvHI7J4Qa5RX/e4AYu', NULL, 'Male', '1987-11-25', '2026-07-06', 'Adelu, Ido, Ibadan.', 'Transfered from Ajah branch', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-07-30 00:35:56', '2026-08-30 16:02:34', NULL),
 (17, 1, 2, 3, 'MG-2026-001', 'Maxwell', 'Akinkunmi', 'Akinyooye', 'maxwell', 'maxwell@gmail.com', 0, NULL, 0, '08034271855', '$2y$12$YS766Mx5bkWAuuDym1EBy.OtUEY3ZGb0OJ7pkrLEZtXraADh8iMf.', NULL, 'Male', '2017-09-27', '2026-08-03', 'Ibadan', 'Branch manager of lekki branch.', 1, NULL, NULL, NULL, 1, NULL, NULL, '2026-08-09 07:43:51', '2026-08-31 05:55:33', NULL),
 (20, 4, 11, 30, 'EMP349474', 'Maxwell', NULL, 'Akinkunmi', 'maxwell', 'maxwell@yahoo.com', 0, NULL, 0, '07034657383', '$2y$12$DnDbvBNCMCu.7hVSTvvNQ.JO2HhoafnjfpozoB1WoZy8okDawKHHS', NULL, NULL, NULL, '2026-09-17', NULL, NULL, 1, NULL, NULL, NULL, 0, '2026-09-17 12:10:35', NULL, '2026-09-17 12:10:35', '2026-09-17 12:10:35', NULL),
-(21, 5, 12, 37, 'EMP610845', 'Miracle', NULL, 'Peter', 'miracle', 'miracle.kingsbranding@gmail.com', 0, NULL, 0, '08104196102', '$2y$12$NsRo4hk8yz7zCsjcECKGU.r1X9mzpR.aL2chVg5abmvy9Q724eThC', NULL, NULL, NULL, '2026-09-26', NULL, NULL, 1, NULL, NULL, NULL, 0, '2026-09-26 20:02:56', NULL, '2026-09-26 20:02:56', '2026-09-26 20:02:56', NULL);
+(21, 5, 12, 37, 'EMP610845', 'Favour', NULL, 'Peter', 'favour', 'favour@gmail.com', 0, NULL, 0, '08104196102', '$2y$12$NsRo4hk8yz7zCsjcECKGU.r1X9mzpR.aL2chVg5abmvy9Q724eThC', NULL, NULL, NULL, '2026-09-26', NULL, NULL, 1, NULL, NULL, NULL, 0, '2026-09-26 20:02:56', NULL, '2026-09-26 20:02:56', '2026-09-26 20:02:56', NULL);
 
 --
 -- Indexes for dumped tables
@@ -4236,6 +4368,14 @@ ALTER TABLE `company_archives`
   ADD KEY `company_archives_requested_by_foreign` (`requested_by`),
   ADD KEY `company_archives_original_company_id_index` (`original_company_id`),
   ADD KEY `company_archives_status_index` (`status`);
+
+--
+-- Indexes for table `company_business_profiles`
+--
+ALTER TABLE `company_business_profiles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `company_business_profiles_company_id_unique` (`company_id`),
+  ADD KEY `company_business_profiles_profile_key_index` (`profile_key`);
 
 --
 -- Indexes for table `company_lifecycle_events`
@@ -4407,7 +4547,7 @@ ALTER TABLE `password_reset_tokens`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `payments_payment_number_unique` (`payment_number`),
+  ADD UNIQUE KEY `payments_company_payment_number_unique` (`company_id`,`payment_number`),
   ADD KEY `payments_company_id_foreign` (`company_id`),
   ADD KEY `payments_branch_id_foreign` (`branch_id`),
   ADD KEY `payments_order_id_foreign` (`order_id`),
@@ -4461,6 +4601,15 @@ ALTER TABLE `product_categories`
   ADD KEY `product_categories_parent_id_foreign` (`parent_id`),
   ADD KEY `product_categories_created_by_foreign` (`created_by`),
   ADD KEY `product_categories_updated_by_foreign` (`updated_by`);
+
+--
+-- Indexes for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_images_company_id_product_id_index` (`company_id`,`product_id`),
+  ADD KEY `product_images_product_id_sort_order_index` (`product_id`,`sort_order`),
+  ADD KEY `product_images_product_id_is_primary_index` (`product_id`,`is_primary`);
 
 --
 -- Indexes for table `product_stocks`
@@ -4772,7 +4921,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=377;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=405;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -4805,6 +4954,12 @@ ALTER TABLE `company_archives`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `company_business_profiles`
+--
+ALTER TABLE `company_business_profiles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `company_lifecycle_events`
 --
 ALTER TABLE `company_lifecycle_events`
@@ -4820,7 +4975,7 @@ ALTER TABLE `currencies`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `customer_groups`
@@ -4844,7 +4999,7 @@ ALTER TABLE `discounts`
 -- AUTO_INCREMENT for table `document_sequences`
 --
 ALTER TABLE `document_sequences`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -4856,25 +5011,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `goods_received`
 --
 ALTER TABLE `goods_received`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `goods_received_items`
 --
 ALTER TABLE `goods_received_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -4886,25 +5041,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -4928,43 +5083,49 @@ ALTER TABLE `platform_admins`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `product_images`
+--
+ALTER TABLE `product_images`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `product_stocks`
 --
 ALTER TABLE `product_stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `purchase_orders`
 --
 ALTER TABLE `purchase_orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_items`
 --
 ALTER TABLE `purchase_order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `purchase_returns`
 --
 ALTER TABLE `purchase_returns`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `purchase_return_items`
 --
 ALTER TABLE `purchase_return_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -4976,7 +5137,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `role_permissions`
 --
 ALTER TABLE `role_permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1590;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1596;
 
 --
 -- AUTO_INCREMENT for table `sales_orders`
@@ -5018,25 +5179,25 @@ ALTER TABLE `shipping_locations`
 -- AUTO_INCREMENT for table `shipping_settings`
 --
 ALTER TABLE `shipping_settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `stock_counts`
 --
 ALTER TABLE `stock_counts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `stock_count_items`
 --
 ALTER TABLE `stock_count_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `storefronts`
@@ -5048,7 +5209,7 @@ ALTER TABLE `storefronts`
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sync_devices`
@@ -5096,7 +5257,7 @@ ALTER TABLE `terminal_assignments`
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -5150,6 +5311,12 @@ ALTER TABLE `cash_drawer_transactions`
 --
 ALTER TABLE `company_archives`
   ADD CONSTRAINT `company_archives_requested_by_foreign` FOREIGN KEY (`requested_by`) REFERENCES `platform_admins` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `company_business_profiles`
+--
+ALTER TABLE `company_business_profiles`
+  ADD CONSTRAINT `company_business_profiles_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `company_lifecycle_events`
@@ -5297,6 +5464,13 @@ ALTER TABLE `product_categories`
   ADD CONSTRAINT `product_categories_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `product_categories_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `product_categories` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `product_categories_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD CONSTRAINT `product_images_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_images_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `product_stocks`

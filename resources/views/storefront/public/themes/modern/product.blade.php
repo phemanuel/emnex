@@ -13,6 +13,12 @@
 
 @php
 
+    /*
+    |--------------------------------------------------------------------------
+    | Product URL
+    |--------------------------------------------------------------------------
+    */
+
     $productUrl =
         route(
             'storefront.public.product',
@@ -26,15 +32,68 @@
         );
 
 
-    $inStock =
-        $availableQuantity > 0;
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Behaviour
+    |--------------------------------------------------------------------------
+    */
+
+    $tracksStock =
+        $product->tracksStock();
+
+
+    $isAvailable =
+        !$tracksStock
+        ||
+        (
+            $availableQuantity !== null
+            &&
+            $availableQuantity > 0
+        );
 
 
     $lowStock =
-        $inStock
+        $tracksStock
+        &&
+        $isAvailable
         &&
         $availableQuantity <=
-            (float) $product->minimum_stock;
+            (float) (
+                $product->minimum_stock
+                ?? 0
+            );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product Gallery
+    |--------------------------------------------------------------------------
+    */
+
+    $galleryImages =
+        $product->images;
+
+
+    $primaryGalleryImage =
+        $galleryImages
+            ->firstWhere(
+                'is_primary',
+                true
+            )
+        ?? $galleryImages->first();
+
+
+    $mainImageUrl =
+        $primaryGalleryImage
+            ? asset(
+                'uploads/products/' .
+                $primaryGalleryImage->image
+            )
+            : $product->imageUrl();
+
+
+    $galleryCount =
+        $galleryImages->count();
 
 @endphp
 
@@ -100,7 +159,6 @@
         </div>
 
 
-
         {{-- ====================================================
             MAIN PRODUCT AREA
         ===================================================== --}}
@@ -112,7 +170,10 @@
                 PRODUCT VISUAL
             ================================================= --}}
 
-            <div class="modern-product-gallery">
+            <div
+                class="modern-product-gallery"
+                data-product-gallery
+            >
 
 
                 <div class="modern-product-main-image">
@@ -122,7 +183,17 @@
 
                     <div class="modern-product-image-status">
 
-                        @if(!$inStock)
+                        @if(!$tracksStock)
+
+                            <span class="is-in">
+
+                                <i class="bi bi-check-circle"></i>
+
+                                Available
+
+                            </span>
+
+                        @elseif(!$isAvailable)
 
                             <span class="is-out">
 
@@ -131,7 +202,6 @@
                                 Sold out
 
                             </span>
-
 
                         @elseif($lowStock)
 
@@ -142,7 +212,6 @@
                                 Low stock
 
                             </span>
-
 
                         @else
 
@@ -160,12 +229,75 @@
 
 
                     <img
-                        src="{{ $product->imageUrl() }}"
+                        id="storefrontProductMainImage"
+                        src="{{ $mainImageUrl }}"
                         alt="{{ $product->name }}"
                     >
 
                 </div>
 
+
+                {{-- ============================================
+                    THUMBNAILS
+                ============================================= --}}
+
+                @if($galleryCount > 1)
+
+                    <div
+                        class="modern-product-gallery-thumbnails"
+                        aria-label="Product images"
+                    >
+
+                        @foreach($galleryImages as $image)
+
+                            @php
+
+                                $imageUrl =
+                                    asset(
+                                        'uploads/products/' .
+                                        $image->image
+                                    );
+
+
+                                $isActive =
+                                    $primaryGalleryImage
+                                    &&
+                                    $primaryGalleryImage->id ===
+                                        $image->id;
+
+                            @endphp
+
+
+                            <button
+                                type="button"
+                                class="
+                                    modern-product-gallery-thumbnail
+
+                                    {{ $isActive
+                                        ? 'is-active'
+                                        : ''
+                                    }}
+                                "
+                                data-product-gallery-thumb
+                                data-image="{{ $imageUrl }}"
+                                data-image-alt="{{ $product->name }}"
+                                aria-label="View image {{ $loop->iteration }}"
+                                aria-pressed="{{ $isActive ? 'true' : 'false' }}"
+                            >
+
+                                <img
+                                    src="{{ $imageUrl }}"
+                                    alt=""
+                                    loading="lazy"
+                                >
+
+                            </button>
+
+                        @endforeach
+
+                    </div>
+
+                @endif
 
 
                 {{-- Image Footer --}}
@@ -174,9 +306,12 @@
 
                     <span>
 
-                        <i class="bi bi-arrows-angle-expand"></i>
+                        <i class="bi bi-images"></i>
 
-                        Product image
+                        {{ $galleryCount > 1
+                            ? $galleryCount . ' product images'
+                            : 'Product image'
+                        }}
 
                     </span>
 
@@ -190,7 +325,6 @@
                 </div>
 
             </div>
-
 
 
             {{-- ================================================
@@ -227,7 +361,6 @@
                     <h1>
                         {{ $product->name }}
                     </h1>
-
 
 
                     <div class="modern-product-reference">
@@ -268,7 +401,6 @@
                 </div>
 
 
-
                 {{-- Price --}}
 
                 <div class="modern-product-price-block">
@@ -289,27 +421,33 @@
                 </div>
 
 
-
-                {{-- Stock Information --}}
+                {{-- ============================================
+                    AVAILABILITY
+                ============================================= --}}
 
                 <div
                     class="
                         modern-product-stock-box
 
-                        {{ $inStock
-                            ? (
-                                $lowStock
-                                    ? 'is-low'
-                                    : 'is-in'
-                            )
-                            : 'is-out'
-                        }}
+                        @if(!$tracksStock)
+                            is-in
+                        @elseif(!$isAvailable)
+                            is-out
+                        @elseif($lowStock)
+                            is-low
+                        @else
+                            is-in
+                        @endif
                     "
                 >
 
                     <span class="modern-product-stock-icon">
 
-                        @if(!$inStock)
+                        @if(!$tracksStock)
+
+                            <i class="bi bi-check-lg"></i>
+
+                        @elseif(!$isAvailable)
 
                             <i class="bi bi-x-lg"></i>
 
@@ -330,7 +468,11 @@
 
                         <strong>
 
-                            @if(!$inStock)
+                            @if(!$tracksStock)
+
+                                Available to order
+
+                            @elseif(!$isAvailable)
 
                                 Currently unavailable
 
@@ -349,7 +491,11 @@
 
                         <p>
 
-                            @if(!$inStock)
+                            @if(!$tracksStock)
+
+                                This item can be ordered directly online.
+
+                            @elseif(!$isAvailable)
 
                                 This product cannot currently
                                 be added to your cart.
@@ -373,7 +519,6 @@
                 </div>
 
 
-
                 {{-- Short Description --}}
 
                 @if($product->description)
@@ -394,12 +539,11 @@
                 @endif
 
 
-
                 {{-- ============================================
                     BUY AREA
                 ============================================= --}}
 
-                @if($inStock)
+                @if($isAvailable)
 
                     <div class="modern-product-buy-box">
 
@@ -427,7 +571,10 @@
                                     id="productQuantity"
                                     value="1"
                                     min="1"
-                                    max="{{ $availableQuantity }}"
+
+                                    @if($tracksStock)
+                                        max="{{ $availableQuantity }}"
+                                    @endif
                                 >
 
 
@@ -442,7 +589,6 @@
                             </div>
 
                         </div>
-
 
 
                         <button
@@ -463,7 +609,12 @@
 
                             data-product-url="{{ $productUrl }}"
 
-                            data-product-stock="{{ $availableQuantity }}"
+                            data-product-tracks-stock="{{ $tracksStock ? '1' : '0' }}"
+
+                            data-product-stock="{{ $tracksStock
+                                ? $availableQuantity
+                                : ''
+                            }}"
 
                             data-quantity-source="productQuantity"
                         >
@@ -535,7 +686,6 @@
                 @endif
 
 
-
                 {{-- ============================================
                     SHOPPING ASSURANCES
                 ============================================= --}}
@@ -567,29 +717,57 @@
                     </div>
 
 
-
-                    <div>
-
-                        <span>
-
-                            <i class="bi bi-box-seam"></i>
-
-                        </span>
-
+                    @if($tracksStock)
 
                         <div>
 
-                            <strong>
-                                Live inventory
-                            </strong>
+                            <span>
 
-                            <small>
-                                Current online availability
-                            </small>
+                                <i class="bi bi-box-seam"></i>
+
+                            </span>
+
+
+                            <div>
+
+                                <strong>
+                                    Live inventory
+                                </strong>
+
+                                <small>
+                                    Current online availability
+                                </small>
+
+                            </div>
 
                         </div>
 
-                    </div>
+                    @else
+
+                        <div>
+
+                            <span>
+
+                                <i class="bi bi-bag-check"></i>
+
+                            </span>
+
+
+                            <div>
+
+                                <strong>
+                                    Available to order
+                                </strong>
+
+                                <small>
+                                    Order directly through the store
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    @endif
 
                 </div>
 
@@ -600,7 +778,6 @@
     </div>
 
 </section>
-
 
 
 {{-- ============================================================
@@ -654,8 +831,10 @@
                         <i class="bi bi-file-text"></i>
 
                         <p>
+
                             No additional description has
                             been provided for this product.
+
                         </p>
 
                     </div>
@@ -663,7 +842,6 @@
                 @endif
 
             </div>
-
 
 
             {{-- ================================================
@@ -702,7 +880,6 @@
                     </div>
 
 
-
                     @if($product->sku)
 
                         <div>
@@ -718,7 +895,6 @@
                         </div>
 
                     @endif
-
 
 
                     @if($product->category)
@@ -743,6 +919,7 @@
                                     ]
                                 ) }}"
                             >
+
                                 {{ $product->category->name }}
 
                                 <i class="bi bi-arrow-up-right"></i>
@@ -752,7 +929,6 @@
                         </div>
 
                     @endif
-
 
 
                     @if($product->brand)
@@ -772,7 +948,6 @@
                     @endif
 
 
-
                     @if($product->manufacturer)
 
                         <div>
@@ -790,7 +965,6 @@
                     @endif
 
 
-
                     <div>
 
                         <span>
@@ -800,17 +974,27 @@
                         <strong
                             class="
                                 modern-product-spec-stock
-                                {{ $inStock
+
+                                {{ $isAvailable
                                     ? 'is-in'
                                     : 'is-out'
                                 }}
                             "
                         >
 
-                            {{ $inStock
-                                ? 'In stock'
-                                : 'Unavailable'
-                            }}
+                            @if(!$tracksStock)
+
+                                Available to order
+
+                            @elseif($isAvailable)
+
+                                In stock
+
+                            @else
+
+                                Unavailable
+
+                            @endif
 
                         </strong>
 
@@ -825,7 +1009,6 @@
     </div>
 
 </section>
-
 
 
 {{-- ============================================================
@@ -864,7 +1047,6 @@
             </div>
 
 
-
             <div class="modern-product-support-item">
 
                 <span>
@@ -881,14 +1063,13 @@
                     </strong>
 
                     <p>
-                        Add available products and adjust
+                        Add available items and adjust
                         quantities before checkout.
                     </p>
 
                 </div>
 
             </div>
-
 
 
             <div class="modern-product-support-item">
@@ -922,90 +1103,88 @@
 </section>
 
 
-
 {{-- ============================================================
     RELATED PRODUCTS
 ============================================================= --}}
 
 @if($relatedProducts->count())
 
-<section class="modern-related-products">
+    <section class="modern-related-products">
 
-    <div class="modern-container">
+        <div class="modern-container">
 
 
-        <div class="modern-home-section-head">
+            <div class="modern-home-section-head">
 
-            <div>
+                <div>
 
-                <span>
-                    Keep browsing
-                </span>
+                    <span>
+                        Keep browsing
+                    </span>
 
-                <h2>
-                    You may also like
-                </h2>
+                    <h2>
+                        You may also like
+                    </h2>
+
+                </div>
+
+
+                @if($product->category)
+
+                    <a
+                        href="{{ route(
+                            'storefront.public.category',
+                            [
+                                'storefrontSlug' =>
+                                    $storefront->slug,
+
+                                'categoryCode' =>
+                                    $product
+                                        ->category
+                                        ->category_code,
+                            ]
+                        ) }}"
+                    >
+
+                        View category
+
+                        <i class="bi bi-arrow-right"></i>
+
+                    </a>
+
+                @endif
 
             </div>
 
 
-            @if($product->category)
+            <div class="modern-product-grid">
 
-                <a
-                    href="{{ route(
-                        'storefront.public.category',
-                        [
-                            'storefrontSlug' =>
-                                $storefront->slug,
-
-                            'categoryCode' =>
-                                $product
-                                    ->category
-                                    ->category_code,
-                        ]
-                    ) }}"
-                >
-
-                    View category
-
-                    <i class="bi bi-arrow-right"></i>
-
-                </a>
-
-            @endif
-
-        </div>
-
-
-
-        <div class="modern-product-grid">
-
-            @foreach(
-                $relatedProducts
-                as $relatedProduct
-            )
-
-                @include(
-                    'storefront.public.themes.modern.partials.product-card',
-                    [
-                        'product' =>
-                            $relatedProduct,
-
-                        'storefront' =>
-                            $storefront,
-
-                        'currencySymbol' =>
-                            $currencySymbol,
-                    ]
+                @foreach(
+                    $relatedProducts
+                    as $relatedProduct
                 )
 
-            @endforeach
+                    @include(
+                        'storefront.public.themes.modern.partials.product-card',
+                        [
+                            'product' =>
+                                $relatedProduct,
+
+                            'storefront' =>
+                                $storefront,
+
+                            'currencySymbol' =>
+                                $currencySymbol,
+                        ]
+                    )
+
+                @endforeach
+
+            </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 @endif
 

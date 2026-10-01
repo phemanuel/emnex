@@ -8850,3 +8850,141 @@ body.modern-store-body button {
     }
 
 }
+/* ================================================================
+   MODERN PRODUCT GALLERY THUMBNAILS
+================================================================ */
+
+.modern-product-gallery-thumbnails {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 78px;
+
+    gap: 10px;
+
+    margin-top: 14px;
+    padding: 2px 0 5px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+}
+
+
+.modern-product-gallery-thumbnail {
+    width: 78px;
+    height: 78px;
+
+    padding: 7px;
+
+    flex: 0 0 auto;
+
+    border:
+        1px solid
+        rgba(15, 23, 42, .12);
+
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
+}
+
+
+.modern-product-gallery-thumbnail:hover {
+    border-color:
+        rgba(15, 23, 42, .32);
+
+    transform:
+        translateY(-1px);
+}
+
+
+.modern-product-gallery-thumbnail.is-active {
+    border-color:
+        var(
+            --primary,
+            #111827
+        );
+
+    box-shadow:
+        0 0 0 2px
+        rgba(15, 23, 42, .06);
+}
+
+
+.modern-product-gallery-thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    border-radius: 8px;
+}
+
+
+.modern-product-main-image
+#storefrontProductMainImage {
+    transition:
+        opacity .18s ease;
+}
+
+
+/* ================================================================
+   TABLET
+================================================================ */
+
+@media (max-width: 768px) {
+
+    .modern-product-gallery-thumbnails {
+        grid-auto-columns: 66px;
+
+        gap: 8px;
+
+        margin-top: 11px;
+    }
+
+
+    .modern-product-gallery-thumbnail {
+        width: 66px;
+        height: 66px;
+
+        padding: 6px;
+
+        border-radius: 12px;
+    }
+
+}
+
+
+/* ================================================================
+   MOBILE
+================================================================ */
+
+@media (max-width: 480px) {
+
+    .modern-product-gallery-thumbnails {
+        grid-auto-columns: 58px;
+
+        gap: 7px;
+    }
+
+
+    .modern-product-gallery-thumbnail {
+        width: 58px;
+        height: 58px;
+
+        padding: 5px;
+
+        border-radius: 10px;
+    }
+
+}

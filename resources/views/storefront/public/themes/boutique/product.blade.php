@@ -16,13 +16,43 @@
 
 @php
 
-    $inStock =
-        $availableQuantity > 0;
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Behaviour
+    |--------------------------------------------------------------------------
+    */
+
+    $tracksStock =
+        $product->tracksStock();
+
+
+    $isAvailable =
+        !$tracksStock
+        ||
+        (
+            $availableQuantity !== null
+            &&
+            $availableQuantity > 0
+        );
+
 
     $lowStock =
-        $inStock &&
+        $tracksStock
+        &&
+        $isAvailable
+        &&
         $availableQuantity <=
-        (float) $product->minimum_stock;
+            (float) (
+                $product->minimum_stock
+                ?? 0
+            );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product URL
+    |--------------------------------------------------------------------------
+    */
 
     $productUrl =
         route(
@@ -35,6 +65,38 @@
                     $product->product_code,
             ]
         );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product Gallery
+    |--------------------------------------------------------------------------
+    */
+
+    $galleryImages =
+        $product->images;
+
+
+    $primaryGalleryImage =
+        $galleryImages
+            ->firstWhere(
+                'is_primary',
+                true
+            )
+        ?? $galleryImages->first();
+
+
+    $mainImageUrl =
+        $primaryGalleryImage
+            ? asset(
+                'uploads/products/' .
+                $primaryGalleryImage->image
+            )
+            : $product->imageUrl();
+
+
+    $galleryCount =
+        $galleryImages->count();
 
 @endphp
 
@@ -98,17 +160,25 @@
 
             {{-- IMAGE --}}
 
-            <div class="bq-product__visual">
+            <div
+                class="bq-product__visual"
+                data-product-gallery
+            >
 
                 <div class="bq-product__image">
 
                     <img
-                        src="{{ $product->imageUrl() }}"
+                        id="storefrontProductMainImage"
+                        src="{{ $mainImageUrl }}"
                         alt="{{ $product->name }}"
                     >
 
 
-                    @if(!$inStock)
+                    @if(
+                        $tracksStock
+                        &&
+                        !$isAvailable
+                    )
 
                         <span class="bq-product__badge bq-product__badge--out">
                             Sold out
@@ -123,6 +193,67 @@
                     @endif
 
                 </div>
+
+
+                {{-- GALLERY THUMBNAILS --}}
+
+                @if($galleryCount > 1)
+
+                    <div
+                        class="bq-product__thumbnails"
+                        aria-label="Product images"
+                    >
+
+                        @foreach($galleryImages as $image)
+
+                            @php
+
+                                $imageUrl =
+                                    asset(
+                                        'uploads/products/' .
+                                        $image->image
+                                    );
+
+
+                                $isActive =
+                                    $primaryGalleryImage
+                                    &&
+                                    $primaryGalleryImage->id ===
+                                        $image->id;
+
+                            @endphp
+
+
+                            <button
+                                type="button"
+                                class="
+                                    bq-product__thumbnail
+
+                                    {{ $isActive
+                                        ? 'is-active'
+                                        : ''
+                                    }}
+                                "
+                                data-product-gallery-thumb
+                                data-image="{{ $imageUrl }}"
+                                data-image-alt="{{ $product->name }}"
+                                aria-label="View image {{ $loop->iteration }}"
+                                aria-pressed="{{ $isActive ? 'true' : 'false' }}"
+                            >
+
+                                <img
+                                    src="{{ $imageUrl }}"
+                                    alt=""
+                                    loading="lazy"
+                                >
+
+                            </button>
+
+                        @endforeach
+
+                    </div>
+
+                @endif
 
             </div>
 
@@ -186,12 +317,13 @@
 
 
 
-                {{-- STOCK --}}
+                {{-- STOCK / AVAILABILITY --}}
 
                 <div
                     class="
                         bq-product__stock
-                        {{ $inStock
+
+                        {{ $isAvailable
                             ? 'is-in'
                             : 'is-out'
                         }}
@@ -200,10 +332,20 @@
 
                     <span></span>
 
-                    {{ $inStock
-                        ? 'Available'
-                        : 'Currently unavailable'
-                    }}
+
+                    @if(!$tracksStock)
+
+                        Available to order
+
+                    @elseif($isAvailable)
+
+                        Available
+
+                    @else
+
+                        Currently unavailable
+
+                    @endif
 
                 </div>
 
@@ -232,7 +374,7 @@
                 <div class="bq-product__buy">
 
 
-                    @if($inStock)
+                    @if($isAvailable)
 
                         <div class="bq-product__buy-row">
 
@@ -247,15 +389,21 @@
                                     <i class="bi bi-dash"></i>
                                 </button>
 
+
                                 <input
                                     type="number"
                                     id="productQuantity"
                                     value="1"
                                     min="1"
-                                    max="{{ $availableQuantity }}"
+
+                                    @if($tracksStock)
+                                        max="{{ $availableQuantity }}"
+                                    @endif
+
                                     inputmode="numeric"
                                     aria-label="Quantity"
                                 >
+
 
                                 <button
                                     type="button"
@@ -272,14 +420,28 @@
                             <button
                                 type="button"
                                 class="bq-product__add"
+
                                 data-cart-add
+
                                 data-product-id="{{ $product->id }}"
+
                                 data-product-code="{{ $product->product_code }}"
+
                                 data-product-name="{{ $product->name }}"
+
                                 data-product-price="{{ (float) $product->selling_price }}"
+
                                 data-product-image="{{ $product->imageUrl() }}"
+
                                 data-product-url="{{ $productUrl }}"
-                                data-product-stock="{{ $availableQuantity }}"
+
+                                data-product-tracks-stock="{{ $tracksStock ? '1' : '0' }}"
+
+                                data-product-stock="{{ $tracksStock
+                                    ? $availableQuantity
+                                    : ''
+                                }}"
+
                                 data-quantity-source="productQuantity"
                             >
 
@@ -290,6 +452,7 @@
                             </button>
 
                         </div>
+
 
                     @else
 
@@ -328,21 +491,43 @@
                     </div>
 
 
-                    <div>
+                    @if($tracksStock)
 
-                        <i class="bi bi-bag-check"></i>
+                        <div>
 
-                        <span>
+                            <i class="bi bi-bag-check"></i>
 
-                            <strong>
-                                Current availability
-                            </strong>
+                            <span>
 
-                            Stock is checked again at checkout.
+                                <strong>
+                                    Current availability
+                                </strong>
 
-                        </span>
+                                Stock is checked again at checkout.
 
-                    </div>
+                            </span>
+
+                        </div>
+
+                    @else
+
+                        <div>
+
+                            <i class="bi bi-bag-check"></i>
+
+                            <span>
+
+                                <strong>
+                                    Available to order
+                                </strong>
+
+                                This item can be ordered directly online.
+
+                            </span>
+
+                        </div>
+
+                    @endif
 
                 </div>
 
@@ -442,57 +627,57 @@
 
 @if($relatedProducts->count())
 
-<section class="bq-related">
+    <section class="bq-related">
 
-    <div class="bq-shell">
+        <div class="bq-shell">
 
 
-        <div class="bq-section-heading">
+            <div class="bq-section-heading">
 
-            <div>
+                <div>
 
-                <span class="bq-eyebrow">
-                    You may also like
-                </span>
+                    <span class="bq-eyebrow">
+                        You may also like
+                    </span>
 
-                <h2>
-                    More to explore
-                </h2>
+                    <h2>
+                        More to explore
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="bq-product-grid">
+
+                @foreach(
+                    $relatedProducts
+                    as $relatedProduct
+                )
+
+                    @include(
+                        'storefront.public.themes.boutique.partials.product-card',
+                        [
+                            'product' =>
+                                $relatedProduct,
+
+                            'storefront' =>
+                                $storefront,
+
+                            'currencySymbol' =>
+                                $currencySymbol,
+                        ]
+                    )
+
+                @endforeach
 
             </div>
 
         </div>
 
-
-
-        <div class="bq-product-grid">
-
-            @foreach(
-                $relatedProducts
-                as $relatedProduct
-            )
-
-                @include(
-                    'storefront.public.themes.boutique.partials.product-card',
-                    [
-                        'product' =>
-                            $relatedProduct,
-
-                        'storefront' =>
-                            $storefront,
-
-                        'currencySymbol' =>
-                            $currencySymbol,
-                    ]
-                )
-
-            @endforeach
-
-        </div>
-
-    </div>
-
-</section>
+    </section>
 
 @endif
 

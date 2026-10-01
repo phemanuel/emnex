@@ -9,83 +9,83 @@
     <!-- LEFT SIDE -->
     <div class="login-banner">
 
-    <div class="overlay"></div>
+        <div class="overlay"></div>
 
 
-    <!-- TOP BRAND -->
-    <div class="banner-brand">
+        <!-- TOP BRAND -->
+        <div class="banner-brand">
 
 
-        <div class="emnex-logo">
+            <div class="emnex-logo">
 
-            <i class="bi bi-grid-1x2-fill"></i>
+                <i class="bi bi-grid-1x2-fill"></i>
+
+            </div>
+
+
+            <div class="brand-text">
+
+                <span>
+                    EMNEX
+                </span>
+
+                <small>
+                    POS
+                </small>
+
+            </div>
+
 
         </div>
 
 
-        <div class="brand-text">
 
-            <span>
-                EMNEX
-            </span>
+        <!-- BOTTOM INFORMATION -->
 
-            <small>
-                POS
-            </small>
-
-        </div>
+        <div class="banner-content">
 
 
-    </div>
+            <div class="brand-card">
 
 
+                <h1>
+                    Enterprise Retail Solution
+                </h1>
 
 
-
-    <!-- BOTTOM INFORMATION -->
-
-    <div class="banner-content">
-
-
-        <div class="brand-card">
+                <p>
+                    Everything you need to run your business
+                    efficiently from one powerful platform.
+                </p>
 
 
-            <h1>
-                Enterprise Retail Solution
-            </h1>
+                <div class="features">
 
 
-            <p>
-                Everything you need to run your business
-                efficiently from one powerful platform.
-            </p>
+                    <div class="feature-item">
+                        <i class="bi bi-box-seam"></i>
+                        Inventory
+                    </div>
 
 
-
-            <div class="features">
-
-
-                <div class="feature-item">
-                    <i class="bi bi-box-seam"></i>
-                    Inventory
-                </div>
+                    <div class="feature-item">
+                        <i class="bi bi-diagram-3"></i>
+                        Multi Branch
+                    </div>
 
 
-                <div class="feature-item">
-                    <i class="bi bi-diagram-3"></i>
-                    Multi Branch
-                </div>
+                    <div class="feature-item">
+                        <i class="bi bi-bar-chart"></i>
+                        Analytics
+                    </div>
 
 
-                <div class="feature-item">
-                    <i class="bi bi-bar-chart"></i>
-                    Analytics
-                </div>
+                    <div class="feature-item">
+                        <i class="bi bi-people"></i>
+                        Customers
+                    </div>
 
 
-                <div class="feature-item">
-                    <i class="bi bi-people"></i>
-                    Customers
                 </div>
 
 
@@ -94,11 +94,7 @@
 
         </div>
 
-
     </div>
-   </div>
-
-
 
 
 
@@ -131,62 +127,46 @@
 
             </div>
 
+
             @if ($errors->any())
+
                 <div class="alert alert-danger">
+
                     <ul class="mb-0">
+
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+
+                            <li>
+                                {{ $error }}
+                            </li>
+
                         @endforeach
+
                     </ul>
+
                 </div>
+
             @endif
 
-            <form method="POST" action="{{ route('login.store') }}" id="loginForm">
+
+            <form
+                method="POST"
+                action="{{ route('login.store') }}"
+                id="loginForm"
+            >
 
                 @csrf
 
 
-
-                <!-- Company Code -->
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-                        Company Code
-                    </label>
-
-
-                    <div class="input-group">
-
-                        <span class="input-group-text">
-
-                            <i class="bi bi-building"></i>
-
-                        </span>
-
-
-                        <input 
-                            type="text"
-                            name="company_code"
-                            class="form-control"
-                            placeholder="Enter company code"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-
-
-
-                <!-- Username -->
+                <!-- Username or Email -->
 
                 <div class="mb-3">
 
-                    <label class="form-label">
-                        Username
+                    <label
+                        class="form-label"
+                        for="login"
+                    >
+                        Email or Username
                     </label>
 
 
@@ -199,20 +179,21 @@
                         </span>
 
 
-                        <input 
+                        <input
                             type="text"
-                            name="username"
+                            name="login"
+                            id="login"
                             class="form-control"
-                            placeholder="Enter username"
+                            value="{{ old('login') }}"
+                            placeholder="Enter email or username"
+                            autocomplete="username"
                             required
+                            autofocus
                         >
 
                     </div>
 
-
                 </div>
-
-
 
 
 
@@ -221,10 +202,12 @@
                 <div class="mb-3">
 
 
-                    <label class="form-label">
+                    <label
+                        class="form-label"
+                        for="password"
+                    >
                         Password
                     </label>
-
 
 
                     <div class="input-group">
@@ -237,22 +220,22 @@
                         </span>
 
 
-
-                        <input 
+                        <input
                             type="password"
                             name="password"
                             id="password"
                             class="form-control"
                             placeholder="Enter password"
+                            autocomplete="current-password"
                             required
                         >
 
 
-
-                        <button 
+                        <button
                             class="btn btn-outline-secondary"
                             type="button"
                             id="togglePassword"
+                            aria-label="Show or hide password"
                         >
 
                             <i class="bi bi-eye"></i>
@@ -267,38 +250,38 @@
 
 
 
-
-
                 <div class="d-flex justify-content-between mb-4">
 
 
                     <div class="form-check">
 
 
-                        <input 
+                        <input
                             class="form-check-input"
                             type="checkbox"
                             name="remember"
                             id="remember"
+
+                            @checked(old('remember'))
                         >
 
 
-                        <label class="form-check-label"
-                               for="remember">
-
+                        <label
+                            class="form-check-label"
+                            for="remember"
+                        >
                             Remember me
-
                         </label>
 
 
                     </div>
 
 
-
-                    <a href="#" class="small">
-
+                    <a
+                        href="#"
+                        class="small"
+                    >
                         Forgot password?
-
                     </a>
 
 
@@ -306,10 +289,8 @@
 
 
 
-
-
-
-                <button 
+                <button
+                    type="submit"
                     class="btn login-btn w-100"
                     id="loginButton"
                 >
@@ -322,8 +303,7 @@
                     </span>
 
 
-
-                    <span 
+                    <span
                         class="spinner-border spinner-border-sm d-none"
                         id="loginSpinner"
                     ></span>
@@ -332,17 +312,13 @@
                 </button>
 
 
-
             </form>
-
 
 
         </div>
 
 
-
     </div>
-
 
 
 </div>

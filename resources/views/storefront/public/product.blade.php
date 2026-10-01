@@ -63,18 +63,135 @@
         <div class="shop-product-detail-grid">
 
 
-            {{-- Product Visual --}}
+            {{-- ============================================================
+                PRODUCT GALLERY
+            ============================================================= --}}
 
-            <div class="shop-product-detail-visual">
+            @php
+
+                /*
+                |--------------------------------------------------------------------------
+                | Gallery Images
+                |--------------------------------------------------------------------------
+                |
+                | images() is already ordered by sort_order in the Product model.
+                |
+                */
+
+                $galleryImages =
+                    $product->images;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Primary Gallery Image
+                |--------------------------------------------------------------------------
+                */
+
+                $primaryGalleryImage =
+                    $galleryImages
+                        ->firstWhere(
+                            'is_primary',
+                            true
+                        )
+                    ?? $galleryImages->first();
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Initial Main Image
+                |--------------------------------------------------------------------------
+                |
+                | Fall back to the existing Product image helper so legacy products
+                | without relational gallery records still work normally.
+                |
+                */
+
+                $mainImageUrl =
+                    $primaryGalleryImage
+                        ? asset(
+                            'uploads/products/' .
+                            $primaryGalleryImage->image
+                        )
+                        : $product->imageUrl();
+
+            @endphp
+
+
+            <div
+                class="shop-product-detail-visual"
+                data-product-gallery
+            >
+
+                {{-- MAIN IMAGE --}}
 
                 <div class="shop-product-detail-image">
 
                     <img
-                        src="{{ $product->imageUrl() }}"
+                        id="storefrontProductMainImage"
+                        src="{{ $mainImageUrl }}"
                         alt="{{ $product->name }}"
                     >
 
                 </div>
+
+
+                {{-- THUMBNAILS --}}
+
+                @if($galleryImages->count() > 1)
+
+                    <div
+                        class="shop-product-gallery-thumbnails"
+                        aria-label="Product images"
+                    >
+
+                        @foreach($galleryImages as $image)
+
+                            @php
+
+                                $imageUrl =
+                                    asset(
+                                        'uploads/products/' .
+                                        $image->image
+                                    );
+
+                                $isActive =
+                                    $primaryGalleryImage &&
+                                    $primaryGalleryImage->id ===
+                                    $image->id;
+
+                            @endphp
+
+
+                            <button
+                                type="button"
+                                class="
+                                    shop-product-gallery-thumbnail
+                                    {{ $isActive
+                                        ? 'is-active'
+                                        : ''
+                                    }}
+                                "
+                                data-product-gallery-thumb
+                                data-image="{{ $imageUrl }}"
+                                data-image-alt="{{ $product->name }}"
+                                aria-label="View image {{ $loop->iteration }}"
+                                aria-pressed="{{ $isActive ? 'true' : 'false' }}"
+                            >
+
+                                <img
+                                    src="{{ $imageUrl }}"
+                                    alt=""
+                                    loading="lazy"
+                                >
+
+                            </button>
+
+                        @endforeach
+
+                    </div>
+
+                @endif
 
             </div>
 
@@ -125,10 +242,42 @@
                 </div>
 
 
+                {{-- ============================================================
+                    PRODUCT AVAILABILITY
+                ============================================================= --}}
+
+                @php
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Stock Behaviour
+                    |--------------------------------------------------------------------------
+                    |
+                    | Non-stock products such as services do not require a ProductStock
+                    | record and therefore must not be treated as unavailable.
+                    |
+                    */
+
+                    $tracksStock =
+                        $product->tracksStock();
+
+
+                    $isAvailable =
+                        !$tracksStock
+                        ||
+                        (
+                            $availableQuantity !== null
+                            &&
+                            $availableQuantity > 0
+                        );
+
+                @endphp
+
+
                 <div
                     class="
                         shop-product-detail-stock
-                        {{ $availableQuantity > 0
+                        {{ $isAvailable
                             ? 'is-in'
                             : 'is-out'
                         }}
@@ -137,13 +286,27 @@
 
                     <span></span>
 
-                    {{ $availableQuantity > 0
-                        ? 'Available'
-                        : 'Currently unavailable'
-                    }}
+
+                    @if(!$tracksStock)
+
+                        Available to order
+
+                    @elseif($isAvailable)
+
+                        Available
+
+                    @else
+
+                        Currently unavailable
+
+                    @endif
 
                 </div>
 
+
+                {{-- ============================================================
+                    DESCRIPTION
+                ============================================================= --}}
 
                 @if($product->description)
 
@@ -160,7 +323,11 @@
                 @endif
 
 
-                @if($availableQuantity > 0)
+                {{-- ============================================================
+                    PURCHASE ACTION
+                ============================================================= --}}
+
+                @if($isAvailable)
 
                     <div class="shop-product-buy">
 
@@ -180,7 +347,9 @@
                                 id="productQuantity"
                                 value="1"
                                 min="1"
-                                max="{{ $availableQuantity }}"
+                                @if($tracksStock)
+                                    max="{{ $availableQuantity }}"
+                                @endif
                             >
 
 
@@ -197,12 +366,19 @@
                         <button
                             type="button"
                             class="shop-add-to-bag"
+
                             data-cart-add
+
                             data-product-id="{{ $product->id }}"
+
                             data-product-code="{{ $product->product_code }}"
+
                             data-product-name="{{ $product->name }}"
+
                             data-product-price="{{ (float) $product->selling_price }}"
+
                             data-product-image="{{ $product->imageUrl() }}"
+
                             data-product-url="{{ route(
                                 'storefront.public.product',
                                 [
@@ -213,7 +389,14 @@
                                         $product->product_code,
                                 ]
                             ) }}"
-                            data-product-stock="{{ $availableQuantity }}"
+
+                            data-product-tracks-stock="{{ $tracksStock ? '1' : '0' }}"
+
+                            data-product-stock="{{ $tracksStock
+                                ? $availableQuantity
+                                : ''
+                            }}"
+
                             data-quantity-source="productQuantity"
                         >
                             Add to bag
@@ -235,6 +418,10 @@
                 @endif
 
 
+                {{-- ============================================================
+                    PRODUCT ASSURANCE
+                ============================================================= --}}
+
                 <div class="shop-product-assurance">
 
 
@@ -255,21 +442,43 @@
                     </div>
 
 
-                    <div>
+                    @if($tracksStock)
 
-                        <i class="bi bi-box-seam"></i>
+                        <div>
 
-                        <span>
+                            <i class="bi bi-box-seam"></i>
 
-                            <strong>
-                                Live availability
-                            </strong>
+                            <span>
 
-                            Availability reflects current store stock.
+                                <strong>
+                                    Live availability
+                                </strong>
 
-                        </span>
+                                Availability reflects current store stock.
 
-                    </div>
+                            </span>
+
+                        </div>
+
+                    @else
+
+                        <div>
+
+                            <i class="bi bi-bag-check"></i>
+
+                            <span>
+
+                                <strong>
+                                    Available to order
+                                </strong>
+
+                                This item can be ordered directly online.
+
+                            </span>
+
+                        </div>
+
+                    @endif
 
 
                 </div>

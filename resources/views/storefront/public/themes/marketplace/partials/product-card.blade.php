@@ -1,28 +1,55 @@
 @php
 
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Behaviour
+    |--------------------------------------------------------------------------
+    */
+
+    $tracksStock =
+        $product->tracksStock();
+
+
     $stock =
-        $product
-            ->stocks
-            ->first();
+        $tracksStock
+            ? $product
+                ->stocks
+                ->first()
+            : null;
 
 
     $available =
-        (float) (
-            $stock?->available_quantity
-            ?? 0
-        );
+        $tracksStock
+            ? (float) (
+                $stock?->available_quantity
+                ?? 0
+            )
+            : null;
 
 
-    $inStock =
+    $isAvailable =
+        !$tracksStock
+        ||
         $available > 0;
 
 
     $lowStock =
-        $inStock
+        $tracksStock
+        &&
+        $isAvailable
         &&
         $available <=
-            (float) $product->minimum_stock;
+            (float) (
+                $product->minimum_stock
+                ?? 0
+            );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product URL
+    |--------------------------------------------------------------------------
+    */
 
     $productUrl =
         route(
@@ -37,7 +64,6 @@
         );
 
 @endphp
-
 
 
 <article class="marketplace-product-card">
@@ -64,13 +90,21 @@
         </a>
 
 
-
         {{-- Availability --}}
 
         <div class="marketplace-product-status">
 
 
-            @if(!$inStock)
+            @if(!$tracksStock)
+
+                <span class="is-in">
+
+                    Available
+
+                </span>
+
+
+            @elseif(!$isAvailable)
 
                 <span class="is-out">
 
@@ -101,7 +135,6 @@
         </div>
 
 
-
         {{-- Quick open --}}
 
         <a
@@ -115,7 +148,6 @@
         </a>
 
     </div>
-
 
 
     {{-- ========================================================
@@ -157,7 +189,6 @@
             @endif
 
 
-
             <small>
 
                 {{ $product->product_code }}
@@ -165,7 +196,6 @@
             </small>
 
         </div>
-
 
 
         <h3 class="marketplace-product-name">
@@ -177,7 +207,6 @@
             </a>
 
         </h3>
-
 
 
         @if(
@@ -193,7 +222,6 @@
             </span>
 
         @endif
-
 
 
         {{-- Price --}}
@@ -213,7 +241,6 @@
         </div>
 
 
-
         {{-- ====================================================
             ACTION
         ===================================================== --}}
@@ -229,7 +256,6 @@
                 Details
 
             </a>
-
 
 
             <button
@@ -250,13 +276,18 @@
 
                 data-product-url="{{ $productUrl }}"
 
-                data-product-stock="{{ $available }}"
+                data-product-tracks-stock="{{ $tracksStock ? '1' : '0' }}"
 
-                @disabled(!$inStock)
+                data-product-stock="{{ $tracksStock
+                    ? $available
+                    : ''
+                }}"
+
+                @disabled(!$isAvailable)
             >
 
 
-                @if($inStock)
+                @if($isAvailable)
 
                     <i class="bi bi-cart-plus"></i>
 

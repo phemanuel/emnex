@@ -405,7 +405,9 @@ class StorefrontCheckoutController extends Controller
                         false,
 
                     'message' =>
-                        'We could not start your payment. Please try again.',
+                        config('app.debug')
+                            ? $exception->getMessage()
+                            : 'We could not start your payment. Please try again.',
 
                 ],
                 422

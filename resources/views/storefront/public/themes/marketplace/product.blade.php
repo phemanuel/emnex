@@ -13,16 +13,43 @@
 
 @php
 
-    $inStock =
-        $availableQuantity > 0;
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Behaviour
+    |--------------------------------------------------------------------------
+    */
+
+    $tracksStock =
+        $product->tracksStock();
+
+
+    $isAvailable =
+        !$tracksStock
+        ||
+        (
+            $availableQuantity !== null
+            &&
+            $availableQuantity > 0
+        );
 
 
     $lowStock =
-        $inStock
+        $tracksStock
+        &&
+        $isAvailable
         &&
         $availableQuantity <=
-            (float) $product->minimum_stock;
+            (float) (
+                $product->minimum_stock
+                ?? 0
+            );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product URL
+    |--------------------------------------------------------------------------
+    */
 
     $productUrl =
         route(
@@ -35,6 +62,38 @@
                     $product->product_code,
             ]
         );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product Gallery
+    |--------------------------------------------------------------------------
+    */
+
+    $galleryImages =
+        $product->images;
+
+
+    $primaryGalleryImage =
+        $galleryImages
+            ->firstWhere(
+                'is_primary',
+                true
+            )
+        ?? $galleryImages->first();
+
+
+    $mainImageUrl =
+        $primaryGalleryImage
+            ? asset(
+                'uploads/products/' .
+                $primaryGalleryImage->image
+            )
+            : $product->imageUrl();
+
+
+    $galleryCount =
+        $galleryImages->count();
 
 @endphp
 
@@ -101,7 +160,6 @@
 </section>
 
 
-
 {{-- ============================================================
     PRODUCT MAIN
 ============================================================= --}}
@@ -117,16 +175,27 @@
                 IMAGE PANEL
             ================================================== --}}
 
-            <div class="marketplace-product-gallery">
-
+            <div
+                class="marketplace-product-gallery"
+                data-product-gallery
+            >
 
                 <div class="marketplace-product-image-panel">
 
 
                     <div class="marketplace-product-image-status">
 
+                        @if(!$tracksStock)
 
-                        @if(!$inStock)
+                            <span class="is-in">
+
+                                <i class="bi bi-check-circle"></i>
+
+                                Available
+
+                            </span>
+
+                        @elseif(!$isAvailable)
 
                             <span class="is-out">
 
@@ -135,7 +204,6 @@
                                 Sold out
 
                             </span>
-
 
                         @elseif($lowStock)
 
@@ -146,7 +214,6 @@
                                 Low stock
 
                             </span>
-
 
                         @else
 
@@ -163,24 +230,88 @@
                     </div>
 
 
-
                     <img
-                        src="{{ $product->imageUrl() }}"
+                        id="storefrontProductMainImage"
+                        src="{{ $mainImageUrl }}"
                         alt="{{ $product->name }}"
                     >
 
                 </div>
 
 
+                {{-- =================================================
+                    GALLERY THUMBNAILS
+                ================================================== --}}
+
+                @if($galleryCount > 1)
+
+                    <div
+                        class="marketplace-product-gallery-thumbnails"
+                        aria-label="Product images"
+                    >
+
+                        @foreach($galleryImages as $image)
+
+                            @php
+
+                                $imageUrl =
+                                    asset(
+                                        'uploads/products/' .
+                                        $image->image
+                                    );
+
+
+                                $isActive =
+                                    $primaryGalleryImage
+                                    &&
+                                    $primaryGalleryImage->id ===
+                                        $image->id;
+
+                            @endphp
+
+
+                            <button
+                                type="button"
+                                class="
+                                    marketplace-product-gallery-thumbnail
+
+                                    {{ $isActive
+                                        ? 'is-active'
+                                        : ''
+                                    }}
+                                "
+                                data-product-gallery-thumb
+                                data-image="{{ $imageUrl }}"
+                                data-image-alt="{{ $product->name }}"
+                                aria-label="View image {{ $loop->iteration }}"
+                                aria-pressed="{{ $isActive ? 'true' : 'false' }}"
+                            >
+
+                                <img
+                                    src="{{ $imageUrl }}"
+                                    alt=""
+                                    loading="lazy"
+                                >
+
+                            </button>
+
+                        @endforeach
+
+                    </div>
+
+                @endif
+
 
                 <div class="marketplace-product-image-footer">
 
-
                     <span>
 
-                        <i class="bi bi-image"></i>
+                        <i class="bi bi-images"></i>
 
-                        Product image
+                        {{ $galleryCount > 1
+                            ? $galleryCount . ' product images'
+                            : 'Product image'
+                        }}
 
                     </span>
 
@@ -192,7 +323,6 @@
                 </div>
 
             </div>
-
 
 
             {{-- =================================================
@@ -220,15 +350,12 @@
                     @endif
 
 
-
                     <h1>
                         {{ $product->name }}
                     </h1>
 
 
-
                     <div class="marketplace-product-identifiers">
-
 
                         <span>
 
@@ -260,7 +387,6 @@
                 </div>
 
 
-
                 {{-- Price --}}
 
                 <div class="marketplace-product-price-block">
@@ -282,27 +408,31 @@
                 </div>
 
 
-
                 {{-- Availability --}}
 
                 <div
                     class="
                         marketplace-product-availability
 
-                        {{ !$inStock
-                            ? 'is-out'
-                            : (
-                                $lowStock
-                                    ? 'is-low'
-                                    : 'is-in'
-                            )
-                        }}
+                        @if(!$tracksStock)
+                            is-in
+                        @elseif(!$isAvailable)
+                            is-out
+                        @elseif($lowStock)
+                            is-low
+                        @else
+                            is-in
+                        @endif
                     "
                 >
 
                     <span>
 
-                        @if(!$inStock)
+                        @if(!$tracksStock)
+
+                            <i class="bi bi-check-lg"></i>
+
+                        @elseif(!$isAvailable)
 
                             <i class="bi bi-x-lg"></i>
 
@@ -321,10 +451,13 @@
 
                     <div>
 
-
                         <strong>
 
-                            @if(!$inStock)
+                            @if(!$tracksStock)
+
+                                Available to order
+
+                            @elseif(!$isAvailable)
 
                                 Currently unavailable
 
@@ -343,7 +476,11 @@
 
                         <small>
 
-                            @if(!$inStock)
+                            @if(!$tracksStock)
+
+                                This item can be ordered directly online.
+
+                            @elseif(!$isAvailable)
 
                                 This item cannot currently
                                 be added to your cart.
@@ -365,7 +502,6 @@
                 </div>
 
 
-
                 {{-- Description Preview --}}
 
                 @if($product->description)
@@ -384,7 +520,6 @@
                     </div>
 
                 @endif
-
 
 
                 {{-- Product Metadata --}}
@@ -427,7 +562,6 @@
                     @endif
 
 
-
                     @if($product->brand)
 
                         <div>
@@ -443,7 +577,6 @@
                         </div>
 
                     @endif
-
 
 
                     @if($product->manufacturer)
@@ -463,7 +596,6 @@
                     @endif
 
 
-
                     <div>
 
                         <span>
@@ -473,17 +605,26 @@
 
                         <strong
                             class="
-                                {{ $inStock
+                                {{ $isAvailable
                                     ? 'is-in'
                                     : 'is-out'
                                 }}
                             "
                         >
 
-                            {{ $inStock
-                                ? 'In stock'
-                                : 'Unavailable'
-                            }}
+                            @if(!$tracksStock)
+
+                                Available to order
+
+                            @elseif($isAvailable)
+
+                                In stock
+
+                            @else
+
+                                Unavailable
+
+                            @endif
 
                         </strong>
 
@@ -492,7 +633,6 @@
                 </div>
 
             </div>
-
 
 
             {{-- =================================================
@@ -526,8 +666,7 @@
                 </div>
 
 
-
-                @if($inStock)
+                @if($isAvailable)
 
 
                     <div class="marketplace-buy-stock is-in">
@@ -537,15 +676,22 @@
                         <span>
 
                             <strong>
-                                In stock
+
+                                {{ $tracksStock
+                                    ? 'In stock'
+                                    : 'Available to order'
+                                }}
+
                             </strong>
 
-                            Available for online ordering
+                            {{ $tracksStock
+                                ? 'Available for online ordering'
+                                : 'Ready for online ordering'
+                            }}
 
                         </span>
 
                     </div>
-
 
 
                     {{-- Quantity --}}
@@ -572,15 +718,16 @@
                             </button>
 
 
-
                             <input
                                 type="number"
                                 id="productQuantity"
                                 value="1"
                                 min="1"
-                                max="{{ $availableQuantity }}"
-                            >
 
+                                @if($tracksStock)
+                                    max="{{ $availableQuantity }}"
+                                @endif
+                            >
 
 
                             <button
@@ -596,7 +743,6 @@
                         </div>
 
                     </div>
-
 
 
                     {{-- Add to cart --}}
@@ -619,7 +765,12 @@
 
                         data-product-url="{{ $productUrl }}"
 
-                        data-product-stock="{{ $availableQuantity }}"
+                        data-product-tracks-stock="{{ $tracksStock ? '1' : '0' }}"
+
+                        data-product-stock="{{ $tracksStock
+                            ? $availableQuantity
+                            : ''
+                        }}"
 
                         data-quantity-source="productQuantity"
                     >
@@ -665,7 +816,6 @@
                     </div>
 
 
-
                     <button
                         type="button"
                         class="
@@ -695,7 +845,6 @@
                 @endif
 
 
-
                 {{-- Shopping reassurance --}}
 
                 <div class="marketplace-buy-benefits">
@@ -718,23 +867,43 @@
                     </div>
 
 
+                    @if($tracksStock)
 
-                    <div>
+                        <div>
 
-                        <i class="bi bi-box-seam"></i>
+                            <i class="bi bi-box-seam"></i>
 
-                        <span>
+                            <span>
 
-                            <strong>
-                                Live availability
-                            </strong>
+                                <strong>
+                                    Live availability
+                                </strong>
 
-                            Current online stock
+                                Current online stock
 
-                        </span>
+                            </span>
 
-                    </div>
+                        </div>
 
+                    @else
+
+                        <div>
+
+                            <i class="bi bi-bag-check"></i>
+
+                            <span>
+
+                                <strong>
+                                    Available to order
+                                </strong>
+
+                                No inventory limit required
+
+                            </span>
+
+                        </div>
+
+                    @endif
 
 
                     <div>
@@ -762,7 +931,6 @@
     </div>
 
 </section>
-
 
 
 {{-- ============================================================
@@ -814,8 +982,10 @@
                         <i class="bi bi-file-text"></i>
 
                         <span>
+
                             No additional description
                             has been provided.
+
                         </span>
 
                     </div>
@@ -823,7 +993,6 @@
                 @endif
 
             </div>
-
 
 
             {{-- Specifications --}}
@@ -844,7 +1013,6 @@
                 </div>
 
 
-
                 <div class="marketplace-specification-list">
 
 
@@ -859,7 +1027,6 @@
                         </strong>
 
                     </div>
-
 
 
                     @if($product->sku)
@@ -879,7 +1046,6 @@
                     @endif
 
 
-
                     @if($product->category)
 
                         <div>
@@ -895,7 +1061,6 @@
                         </div>
 
                     @endif
-
 
 
                     @if($product->brand)
@@ -915,7 +1080,6 @@
                     @endif
 
 
-
                     @if($product->manufacturer)
 
                         <div>
@@ -933,7 +1097,6 @@
                     @endif
 
 
-
                     <div>
 
                         <span>
@@ -945,17 +1108,26 @@
                             class="
                                 marketplace-spec-stock
 
-                                {{ $inStock
+                                {{ $isAvailable
                                     ? 'is-in'
                                     : 'is-out'
                                 }}
                             "
                         >
 
-                            {{ $inStock
-                                ? 'Available'
-                                : 'Unavailable'
-                            }}
+                            @if(!$tracksStock)
+
+                                Available to order
+
+                            @elseif($isAvailable)
+
+                                Available
+
+                            @else
+
+                                Unavailable
+
+                            @endif
 
                         </strong>
 
@@ -972,91 +1144,89 @@
 </section>
 
 
-
 {{-- ============================================================
     RELATED PRODUCTS
 ============================================================= --}}
 
 @if($relatedProducts->count())
 
-<section class="marketplace-related-products">
+    <section class="marketplace-related-products">
 
-    <div class="marketplace-container">
-
-
-        <div class="marketplace-section-heading">
+        <div class="marketplace-container">
 
 
-            <div>
+            <div class="marketplace-section-heading">
 
-                <span>
-                    More in this department
-                </span>
 
-                <h2>
-                    Related products
-                </h2>
+                <div>
+
+                    <span>
+                        More in this department
+                    </span>
+
+                    <h2>
+                        Related products
+                    </h2>
+
+                </div>
+
+
+                @if($product->category)
+
+                    <a
+                        href="{{ route(
+                            'storefront.public.category',
+                            [
+                                'storefrontSlug' =>
+                                    $storefront->slug,
+
+                                'categoryCode' =>
+                                    $product
+                                        ->category
+                                        ->category_code,
+                            ]
+                        ) }}"
+                    >
+
+                        View category
+
+                        <i class="bi bi-arrow-right"></i>
+
+                    </a>
+
+                @endif
 
             </div>
 
 
-            @if($product->category)
+            <div class="marketplace-product-grid">
 
-                <a
-                    href="{{ route(
-                        'storefront.public.category',
-                        [
-                            'storefrontSlug' =>
-                                $storefront->slug,
-
-                            'categoryCode' =>
-                                $product
-                                    ->category
-                                    ->category_code,
-                        ]
-                    ) }}"
-                >
-
-                    View category
-
-                    <i class="bi bi-arrow-right"></i>
-
-                </a>
-
-            @endif
-
-        </div>
-
-
-
-        <div class="marketplace-product-grid">
-
-            @foreach(
-                $relatedProducts
-                as $relatedProduct
-            )
-
-                @include(
-                    'storefront.public.themes.marketplace.partials.product-card',
-                    [
-                        'product' =>
-                            $relatedProduct,
-
-                        'storefront' =>
-                            $storefront,
-
-                        'currencySymbol' =>
-                            $currencySymbol,
-                    ]
+                @foreach(
+                    $relatedProducts
+                    as $relatedProduct
                 )
 
-            @endforeach
+                    @include(
+                        'storefront.public.themes.marketplace.partials.product-card',
+                        [
+                            'product' =>
+                                $relatedProduct,
+
+                            'storefront' =>
+                                $storefront,
+
+                            'currencySymbol' =>
+                                $currencySymbol,
+                        ]
+                    )
+
+                @endforeach
+
+            </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 @endif
 

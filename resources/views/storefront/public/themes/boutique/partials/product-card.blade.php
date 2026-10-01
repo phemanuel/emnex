@@ -1,23 +1,55 @@
 @php
 
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Behaviour
+    |--------------------------------------------------------------------------
+    */
+
+    $tracksStock =
+        $product->tracksStock();
+
+
     $stock =
-        $product
-            ->stocks
-            ->first();
+        $tracksStock
+            ? $product
+                ->stocks
+                ->first()
+            : null;
+
 
     $available =
-        (float) (
-            $stock?->available_quantity
-            ?? 0
-        );
+        $tracksStock
+            ? (float) (
+                $stock?->available_quantity
+                ?? 0
+            )
+            : null;
 
-    $inStock =
+
+    $isAvailable =
+        !$tracksStock
+        ||
         $available > 0;
 
+
     $lowStock =
-        $inStock &&
+        $tracksStock
+        &&
+        $isAvailable
+        &&
         $available <=
-        (float) $product->minimum_stock;
+            (float) (
+                $product->minimum_stock
+                ?? 0
+            );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product URL
+    |--------------------------------------------------------------------------
+    */
 
     $productUrl =
         route(
@@ -56,7 +88,11 @@
 
 
 
-        @if(!$inStock)
+        @if(
+            $tracksStock
+            &&
+            !$isAvailable
+        )
 
             <span class="bq-card__badge bq-card__badge--out">
                 Sold out
@@ -75,19 +111,34 @@
         <button
             type="button"
             class="bq-card__quick-add"
+
             data-cart-add
+
             data-product-id="{{ $product->id }}"
+
             data-product-code="{{ $product->product_code }}"
+
             data-product-name="{{ $product->name }}"
+
             data-product-price="{{ (float) $product->selling_price }}"
+
             data-product-image="{{ $product->imageUrl() }}"
+
             data-product-url="{{ $productUrl }}"
-            data-product-stock="{{ $available }}"
+
+            data-product-tracks-stock="{{ $tracksStock ? '1' : '0' }}"
+
+            data-product-stock="{{ $tracksStock
+                ? $available
+                : ''
+            }}"
+
             aria-label="Add {{ $product->name }} to bag"
-            @disabled(!$inStock)
+
+            @disabled(!$isAvailable)
         >
 
-            @if($inStock)
+            @if($isAvailable)
 
                 <i class="bi bi-plus-lg"></i>
 

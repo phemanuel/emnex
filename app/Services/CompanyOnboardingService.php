@@ -772,6 +772,10 @@ class CompanyOnboardingService
                 'prefix' => 'ORD',
             ],
             [
+                'document_type' => 'invoice',
+                'prefix' => 'INV',
+            ],
+            [
                 'document_type' => 'payment',
                 'prefix' => 'PAY',
             ],
