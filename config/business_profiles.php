@@ -150,7 +150,7 @@ return [
                 | non-stock products before companies can freely disable stock
                 | tracking.
                 */
-                'changeable' => false,
+                'changeable' => true,
             ],
 
             'fields' => [
@@ -259,6 +259,12 @@ return [
 
                 ],
 
+
+                'track_stock' => [
+                    'default' => true,
+                    'changeable' => true,
+                ],
+
                 'fields' => [
 
                     'unit_id' =>
@@ -298,6 +304,11 @@ return [
                     'max_images' =>
                         3,
 
+                ],
+
+                'track_stock' => [
+                    'default' => true,
+                    'changeable' => false,
                 ],
 
                 'fields' => [
@@ -355,6 +366,11 @@ return [
                         'max_images' =>
                             4,
 
+                    ],
+
+                    'track_stock' => [
+                        'default' => true,
+                        'changeable' => false,
                     ],
 
                 'fields' => [
@@ -481,6 +497,11 @@ return [
 
                 ],
 
+                'track_stock' => [
+                    'default' => true,
+                    'changeable' => true,
+                ],
+
                 'fields' => [
 
                     'sku' =>
@@ -546,6 +567,11 @@ return [
 
                 ],
 
+                'track_stock' => [
+                    'default' => true,
+                    'changeable' => true,
+                ],
+
                 'fields' => [
 
                     'unit_id' =>
@@ -594,6 +620,11 @@ return [
                     'max_images' =>
                         5,
 
+                ],
+
+                'track_stock' => [
+                    'default' => false,
+                    'changeable' => true,
                 ],
 
                 'fields' => [
@@ -661,6 +692,11 @@ return [
 
                 ],
 
+                'track_stock' => [
+                    'default' => true,
+                    'changeable' => false,
+                ],
+
                 'fields' => [
 
                     'unit_id' =>
@@ -712,6 +748,11 @@ return [
                     'max_images' =>
                         8,
 
+                ],
+
+                'track_stock' => [
+                    'default' => true,
+                    'changeable' => true,
                 ],
 
                 'fields' => [

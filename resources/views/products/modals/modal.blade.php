@@ -856,6 +856,7 @@
                                         min="0"
                                         id="maximum_stock"
                                         name="maximum_stock"
+                                        value="1000"
                                         class="form-control"
                                         data-stock-required="{{ $fieldRequired('maximum_stock') ? '1' : '0' }}"
                                         @required(
@@ -881,6 +882,7 @@
                                     class="col-md-6
                                         {{ !$trackStockDefault ? 'd-none' : '' }}"
                                     data-stock-controlled-field
+                                    data-create-only-stock-field
                                 >
 
                                     <label class="form-label">
@@ -905,11 +907,6 @@
                                         value="0"
                                         class="form-control"
                                         data-stock-required="{{ $fieldRequired('opening_stock') ? '1' : '0' }}"
-                                        @required(
-                                            $trackStockDefault
-                                            &&
-                                            $fieldRequired('opening_stock')
-                                        )
                                     >
 
 
@@ -952,6 +949,7 @@
                                         min="0"
                                         id="weight"
                                         name="weight"
+                                        value="0"
                                         class="form-control"
                                         @required(
                                             $fieldRequired('weight')

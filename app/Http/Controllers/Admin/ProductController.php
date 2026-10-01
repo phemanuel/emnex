@@ -2692,6 +2692,7 @@ class ProductController extends BaseController
                 'message' =>
                     'You do not have permission to view products.',
             ], 403);
+
         }
 
 
@@ -2713,6 +2714,7 @@ class ProductController extends BaseController
                     'type' => 'danger',
                     'message' => 'Product not found.',
                 ], 404);
+
             }
 
 
@@ -2725,8 +2727,10 @@ class ProductController extends BaseController
             $user =
                 auth()->user();
 
+
             $role =
                 $user->role?->code;
+
 
             $canManageAllBranches =
                 in_array(
@@ -2737,6 +2741,7 @@ class ProductController extends BaseController
                     ],
                     true
                 );
+
 
             $currentBranchId =
                 $user->branch_id;
@@ -2798,6 +2803,7 @@ class ProductController extends BaseController
                         'type' => 'danger',
                         'message' => 'Product not found.',
                     ], 404);
+
                 }
 
             }
@@ -2824,8 +2830,7 @@ class ProductController extends BaseController
             |--------------------------------------------------------------------------
             */
 
-            $relationships =
-                [];
+            $relationships = [];
 
 
             if (
@@ -2927,11 +2932,13 @@ class ProductController extends BaseController
 
             $stock =
                 $tracksStock
+
                     ? (float) $product
                         ->stocks
                         ->sum(
                             'quantity'
                         )
+
                     : null;
 
 
@@ -2939,13 +2946,23 @@ class ProductController extends BaseController
             |--------------------------------------------------------------------------
             | Stock Status
             |--------------------------------------------------------------------------
+            |
+            | Keep the status label, background class and text colour explicit.
+            | This prevents the inspector CSS from accidentally making the badge
+            | text unreadable.
+            |
             */
 
             $stockStatus =
                 'Not tracked';
 
+
             $stockBadge =
                 'bg-secondary';
+
+
+            $stockTextColor =
+                '#ffffff';
 
 
             if ($tracksStock) {
@@ -2962,8 +2979,13 @@ class ProductController extends BaseController
                     $stockStatus =
                         'Out of Stock';
 
+
                     $stockBadge =
-                        'stock-danger';
+                        'bg-danger';
+
+
+                    $stockTextColor =
+                        '#ffffff';
 
                 }
                 elseif (
@@ -2974,8 +2996,13 @@ class ProductController extends BaseController
                     $stockStatus =
                         'Low Stock';
 
+
                     $stockBadge =
-                        'stock-warning';
+                        'bg-warning';
+
+
+                    $stockTextColor =
+                        '#212529';
 
                 }
                 else {
@@ -2983,8 +3010,13 @@ class ProductController extends BaseController
                     $stockStatus =
                         'In Stock';
 
+
                     $stockBadge =
-                        'stock-success';
+                        'bg-success';
+
+
+                    $stockTextColor =
+                        '#ffffff';
 
                 }
 
@@ -3019,6 +3051,9 @@ class ProductController extends BaseController
 
                 'stock_badge' =>
                     $stockBadge,
+
+                'stock_text_color' =>
+                    $stockTextColor,
 
                 'created_at' =>
                     optional(
@@ -3273,11 +3308,13 @@ class ProductController extends BaseController
 
                     $data['minimum_stock'] =
                         $product->minimum_stock !== null
+
                             ? number_format(
                                 (float)
                                 $product->minimum_stock,
                                 2
                             )
+
                             : '-';
 
                 }
@@ -3291,11 +3328,13 @@ class ProductController extends BaseController
 
                     $data['maximum_stock'] =
                         $product->maximum_stock !== null
+
                             ? number_format(
                                 (float)
                                 $product->maximum_stock,
                                 2
                             )
+
                             : '-';
 
                 }
@@ -3317,11 +3356,13 @@ class ProductController extends BaseController
 
                 $data['weight'] =
                     $product->weight !== null
+
                         ? number_format(
                             (float)
                             $product->weight,
                             2
                         )
+
                         : '-';
 
             }
@@ -3401,8 +3442,11 @@ class ProductController extends BaseController
                     'Unable to load product details.',
 
             ], 500);
+
         }
     }
+
+
     /**
      * Toggle product status.
      */
@@ -4080,7 +4124,9 @@ class ProductController extends BaseController
         );
 
         return $this->productImportService
-            ->downloadExcelTemplate();
+        ->downloadExcelTemplate(
+            $this->company
+        );
     }
 
 
@@ -4095,7 +4141,9 @@ class ProductController extends BaseController
         );
 
         return $this->productImportService
-            ->downloadCsvTemplate();
+        ->downloadCsvTemplate(
+            $this->company
+        );
     }
 
   
@@ -4134,6 +4182,7 @@ class ProductController extends BaseController
                         'errors' => 0,
                         'can_import' => false,
                     ],
+                    'columns' =>$preview['columns'] ?? [],
                     'rows' => $preview['rows'] ?? [],
                 ],
             ]);

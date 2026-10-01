@@ -289,6 +289,11 @@ cacheElements()
             'stockInspectorUnit'
         );
 
+    this.stockInspectorUnitRow =
+        document.getElementById(
+            'stockInspectorUnitRow'
+        );
+
 
     this.stockInspectorBranch =
         document.getElementById(
@@ -1031,7 +1036,7 @@ populateInspector(stock)
     
     /*
     |--------------------------------------------------------------------------
-    | Unit Price
+    | Selling Price
     |--------------------------------------------------------------------------
     */
 
@@ -1068,9 +1073,6 @@ populateInspector(stock)
 
     }
 
-
-
-
     if(this.stockInspectorSku)
     {
 
@@ -1079,9 +1081,6 @@ populateInspector(stock)
 
     }
 
-
-
-
     if(this.stockInspectorBarcode)
     {
 
@@ -1089,8 +1088,6 @@ populateInspector(stock)
             product.barcode ?? '-';
 
     }
-
-
 
 
     if(this.stockInspectorCategory)
@@ -1102,19 +1099,23 @@ populateInspector(stock)
     }
 
 
-
-
-    if(this.stockInspectorUnit)
+    if (this.stockInspectorUnitRow)
     {
-
-        this.stockInspectorUnit.innerText =
-            product.unit?.name ?? '-';
-
+        this.stockInspectorUnitRow.classList.toggle(
+            'd-none',
+            product.show_unit === false
+        );
     }
 
 
-
-
+    if (
+        this.stockInspectorUnit &&
+        product.show_unit !== false
+    )
+    {
+        this.stockInspectorUnit.innerText =
+            product.unit?.name ?? '-';
+    }
 
     if(this.stockInspectorBranch)
     {
@@ -1394,6 +1395,14 @@ async loadProducts(page = 1)
         return;
     }
 
+    const showUnit =
+        document
+            .querySelector(
+                '.stock-product-table'
+            )
+            ?.dataset
+            .showUnit === '1';
+
 
     const branchId =
         this.productBranchFilter?.value ?? '';
@@ -1465,7 +1474,7 @@ async loadProducts(page = 1)
                 <tr>
 
                     <td
-                        colspan="5"
+                        colspan="${showUnit ? 5 : 4}"
                         class="text-center text-muted py-4">
 
                         <i class="bi bi-box-seam fs-3 d-block mb-2"></i>
@@ -1526,11 +1535,14 @@ async loadProducts(page = 1)
                             </td>
 
 
-                            <td>
-
-                                ${product.unit?.name ?? '-'}
-
-                            </td>
+                            ${showUnit
+                                ? `
+                                    <td>
+                                        ${product.unit?.name ?? '-'}
+                                    </td>
+                                `
+                                : ''
+                            }
 
 
 

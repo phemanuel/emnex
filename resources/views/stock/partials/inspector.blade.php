@@ -42,7 +42,7 @@
     <div class="stock-inspector-unit-price px-3 py-3">
 
         <span class="text-muted small d-block mb-1">
-            Unit Price
+            Selling Price
         </span>
 
         <strong
@@ -241,20 +241,18 @@
 
             </div>
 
-            <div class="inspector-row">
-
+            <div
+                class="inspector-row"
+                id="stockInspectorUnitRow"
+            >
 
                 <span>
                     Unit
                 </span>
 
-
                 <strong id="stockInspectorUnit">
-
                     -
-
                 </strong>
-
 
             </div>
 

@@ -913,210 +913,223 @@ const Products = {
     */
 
     resetForm()
-{
-        /*
-        |--------------------------------------------------------------------------
-        | Form
-        |--------------------------------------------------------------------------
-        */
+    {
+            /*
+            |--------------------------------------------------------------------------
+            | Form
+            |--------------------------------------------------------------------------
+            */
 
-        this.elements.form.reset();
+            this.elements.form.reset();
 
-        this.elements.productId.value =
-            '';
-
-        this.clearValidation();
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Reset Gallery State
-        |--------------------------------------------------------------------------
-        */
-
-        this.releaseProductImageObjectUrls();
-
-        this.selectedProductImages =
-            [];
-
-        this.existingProductImageData =
-            [];
+            const openingStock =
+                document.getElementById(
+                    'opening_stock'
+                );
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | File Input
-        |--------------------------------------------------------------------------
-        */
+            if (openingStock) {
 
-        if (this.elements.imagesInput) {
+                openingStock.value =
+                    '0';
 
-            this.elements.imagesInput.value =
+            }
+
+            this.elements.productId.value =
                 '';
 
-        }
+            this.clearValidation();
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Primary Image Values
-        |--------------------------------------------------------------------------
-        */
+            /*
+            |--------------------------------------------------------------------------
+            | Reset Gallery State
+            |--------------------------------------------------------------------------
+            */
 
-        if (this.elements.primaryImageIndex) {
+            this.releaseProductImageObjectUrls();
 
-            this.elements.primaryImageIndex.value =
-                '';
+            this.selectedProductImages =
+                [];
 
-        }
-
-
-        if (this.elements.primaryImageId) {
-
-            this.elements.primaryImageId.value =
-                '';
-
-        }
+            this.existingProductImageData =
+                [];
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Existing Images
-        |--------------------------------------------------------------------------
-        */
+            /*
+            |--------------------------------------------------------------------------
+            | File Input
+            |--------------------------------------------------------------------------
+            */
 
-        if (this.elements.existingImagesContainer) {
+            if (this.elements.imagesInput) {
 
-            this.elements.existingImagesContainer.innerHTML =
-                '';
+                this.elements.imagesInput.value =
+                    '';
 
-        }
-
-
-        if (this.elements.existingImagesSection) {
-
-            this.elements.existingImagesSection.classList.add(
-                'd-none'
-            );
-
-        }
+            }
 
 
-        if (this.elements.existingImagesCount) {
+            /*
+            |--------------------------------------------------------------------------
+            | Primary Image Values
+            |--------------------------------------------------------------------------
+            */
 
-            this.elements.existingImagesCount.textContent =
-                '0 images';
+            if (this.elements.primaryImageIndex) {
 
-        }
+                this.elements.primaryImageIndex.value =
+                    '';
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | New Images
-        |--------------------------------------------------------------------------
-        */
-
-        if (this.elements.newImagesContainer) {
-
-            this.elements.newImagesContainer.innerHTML =
-                '';
-
-        }
+            }
 
 
-        if (this.elements.newImagesSection) {
+            if (this.elements.primaryImageId) {
 
-            this.elements.newImagesSection.classList.add(
-                'd-none'
-            );
+                this.elements.primaryImageId.value =
+                    '';
 
-        }
-
-
-        if (this.elements.newImagesCount) {
-
-            this.elements.newImagesCount.textContent =
-                '0 selected';
-
-        }
+            }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Default Status
-        |--------------------------------------------------------------------------
-        */
+            /*
+            |--------------------------------------------------------------------------
+            | Existing Images
+            |--------------------------------------------------------------------------
+            */
 
-        if (this.elements.status) {
+            if (this.elements.existingImagesContainer) {
 
-            this.elements.status.checked =
-                true;
+                this.elements.existingImagesContainer.innerHTML =
+                    '';
 
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Stock Tracking
-        |--------------------------------------------------------------------------
-        */
-
-        this.resetProductStockTracking();
+            }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Reset Tabs
-        |--------------------------------------------------------------------------
-        */
+            if (this.elements.existingImagesSection) {
 
-        document
-            .querySelectorAll(
-                '.tab-pane'
-            )
-            .forEach(
-                pane => {
+                this.elements.existingImagesSection.classList.add(
+                    'd-none'
+                );
 
-                    pane.classList.remove(
-                        'show',
-                        'active'
-                    );
-
-                }
-            );
+            }
 
 
-        document
-            .querySelector(
-                '#general-tab'
-            )
-            ?.classList.add(
-                'show',
-                'active'
-            );
+            if (this.elements.existingImagesCount) {
+
+                this.elements.existingImagesCount.textContent =
+                    '0 images';
+
+            }
 
 
-        document
-            .querySelectorAll(
-                '.product-tabs .nav-link'
-            )
-            .forEach(
-                tab => {
+            /*
+            |--------------------------------------------------------------------------
+            | New Images
+            |--------------------------------------------------------------------------
+            */
 
-                    tab.classList.remove(
-                        'active'
-                    );
+            if (this.elements.newImagesContainer) {
 
-                }
-            );
+                this.elements.newImagesContainer.innerHTML =
+                    '';
+
+            }
 
 
-        document
-            .querySelector(
-                '.product-tabs .nav-link'
-            )
-            ?.classList.add(
-                'active'
-            );
+            if (this.elements.newImagesSection) {
+
+                this.elements.newImagesSection.classList.add(
+                    'd-none'
+                );
+
+            }
+
+
+            if (this.elements.newImagesCount) {
+
+                this.elements.newImagesCount.textContent =
+                    '0 selected';
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Default Status
+            |--------------------------------------------------------------------------
+            */
+
+            if (this.elements.status) {
+
+                this.elements.status.checked =
+                    true;
+
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Stock Tracking
+            |--------------------------------------------------------------------------
+            */
+
+            this.resetProductStockTracking();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Reset Tabs
+            |--------------------------------------------------------------------------
+            */
+
+            document
+                .querySelectorAll(
+                    '.tab-pane'
+                )
+                .forEach(
+                    pane => {
+
+                        pane.classList.remove(
+                            'show',
+                            'active'
+                        );
+
+                    }
+                );
+
+
+            document
+                .querySelector(
+                    '#general-tab'
+                )
+                ?.classList.add(
+                    'show',
+                    'active'
+                );
+
+
+            document
+                .querySelectorAll(
+                    '.product-tabs .nav-link'
+                )
+                .forEach(
+                    tab => {
+
+                        tab.classList.remove(
+                            'active'
+                        );
+
+                    }
+                );
+
+
+            document
+                .querySelector(
+                    '.product-tabs .nav-link'
+                )
+                ?.classList.add(
+                    'active'
+                );
     },
 
     /*
@@ -3048,6 +3061,63 @@ const Products = {
         }
     },
 
+    /*
+    |--------------------------------------------------------------------------
+    | Render Inspector Badge
+    |--------------------------------------------------------------------------
+    */
+
+    renderInspectorBadge(
+        target,
+        text,
+        backgroundClass,
+        textColor
+    )
+    {
+        if (!target) {
+
+            return;
+
+        }
+
+
+        const badge =
+            document.createElement(
+                'span'
+            );
+
+
+        badge.className =
+            'badge ' +
+            backgroundClass;
+
+
+        badge.textContent =
+            text;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Explicit Text Colour
+        |--------------------------------------------------------------------------
+        |
+        | Some existing inspector styling is overriding Bootstrap's badge colour.
+        | Using an inline important declaration ensures the badge remains readable.
+        |
+        */
+
+        badge.style.setProperty(
+            'color',
+            textColor,
+            'important'
+        );
+
+
+        target.replaceChildren(
+            badge
+        );
+    },
+
 
    /*
     |--------------------------------------------------------------------------
@@ -3060,108 +3130,10 @@ const Products = {
         const i =
             this.elements.inspector;
 
-        const tracksStock =
-            product.tracks_stock !== false;
-
-
-        document
-            .querySelectorAll(
-                '[data-inspector-stock-quantity]'
-            )
-            .forEach(
-                element => {
-
-                    element.classList.toggle(
-                        'd-none',
-                        !tracksStock
-                    );
-
-                }
-            );
-
-
-        document
-            .querySelectorAll(
-                '[data-inspector-stock-level]'
-            )
-            .forEach(
-                element => {
-
-                    element.classList.toggle(
-                        'd-none',
-                        !tracksStock
-                    );
-
-                }
-            );
-
 
         /*
         |--------------------------------------------------------------------------
-        | Safe Text Setter
-        |--------------------------------------------------------------------------
-        |
-        | Capability-controlled Blade elements may not exist.
-        |
-        | Example:
-        | Electronics may not render Unit, QR Code or Expiry Date.
-        |
-        */
-
-        const setText =
-            (
-                element,
-                value,
-                fallback = '-'
-            ) => {
-
-                if (!element) {
-
-                    return;
-
-                }
-
-
-                element.textContent =
-                    value !== null
-                    &&
-                    value !== undefined
-                    &&
-                    value !== ''
-                        ? value
-                        : fallback;
-
-            };
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Safe HTML Setter
-        |--------------------------------------------------------------------------
-        */
-
-        const setHtml =
-            (
-                element,
-                value
-            ) => {
-
-                if (!element) {
-
-                    return;
-
-                }
-
-
-                element.innerHTML =
-                    value ?? '';
-
-            };
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Product Image
+        | Image
         |--------------------------------------------------------------------------
         */
 
@@ -3169,48 +3141,57 @@ const Products = {
 
             i.image.src =
                 product.image_url
-                || this.imagePlaceholder;
+                ||
+                this.imagePlaceholder;
 
         }
 
 
         /*
         |--------------------------------------------------------------------------
-        | Basic Information
+        | Basic Details
         |--------------------------------------------------------------------------
         */
 
-        setText(
-            i.name,
-            product.name
-        );
+        if (i.name) {
 
-
-        setText(
-            i.code,
-            product.product_code
-        );
-
-
-        if (i.status) {
-
-            setHtml(
-                i.status,
-
-                product.status
-                    ? `
-                        <span class="badge bg-success">
-                            Active
-                        </span>
-                    `
-                    : `
-                        <span class="badge bg-danger">
-                            Inactive
-                        </span>
-                    `
-            );
+            i.name.textContent =
+                product.name
+                ?? '-';
 
         }
+
+
+        if (i.code) {
+
+            i.code.textContent =
+                product.product_code
+                ?? '-';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Product Status
+        |--------------------------------------------------------------------------
+        */
+
+        this.renderInspectorBadge(
+
+            i.status,
+
+            product.status
+                ? 'Active'
+                : 'Inactive',
+
+            product.status
+                ? 'bg-success'
+                : 'bg-danger',
+
+            '#ffffff'
+
+        );
 
 
         /*
@@ -3219,22 +3200,46 @@ const Products = {
         |--------------------------------------------------------------------------
         */
 
-        setText(
-            i.sku,
-            product.sku
-        );
+        if (i.sku) {
+
+            i.sku.textContent =
+                product.sku
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.barcode,
-            product.barcode
-        );
+        if (i.barcode) {
+
+            i.barcode.textContent =
+                product.barcode
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.qr,
-            product.qr_code
-        );
+        if (i.qr) {
+
+            i.qr.textContent =
+                product.qr_code
+                ?? '-';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Description
+        |--------------------------------------------------------------------------
+        */
+
+        if (i.description) {
+
+            i.description.textContent =
+                product.description
+                ?? '-';
+
+        }
 
 
         /*
@@ -3243,28 +3248,40 @@ const Products = {
         |--------------------------------------------------------------------------
         */
 
-        setText(
-            i.category,
-            product.category
-        );
+        if (i.category) {
+
+            i.category.textContent =
+                product.category
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.unit,
-            product.unit
-        );
+        if (i.unit) {
+
+            i.unit.textContent =
+                product.unit
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.tax,
-            product.tax_rate
-        );
+        if (i.tax) {
+
+            i.tax.textContent =
+                product.tax_rate
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.discount,
-            product.discount
-        );
+        if (i.discount) {
+
+            i.discount.textContent =
+                product.discount
+                ?? '-';
+
+        }
 
 
         /*
@@ -3273,22 +3290,22 @@ const Products = {
         |--------------------------------------------------------------------------
         */
 
-        setText(
-            i.brand,
-            product.brand
-        );
+        if (i.brand) {
+
+            i.brand.textContent =
+                product.brand
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.manufacturer,
-            product.manufacturer
-        );
+        if (i.manufacturer) {
 
+            i.manufacturer.textContent =
+                product.manufacturer
+                ?? '-';
 
-        setText(
-            i.description,
-            product.description
-        );
+        }
 
 
         /*
@@ -3297,148 +3314,220 @@ const Products = {
         |--------------------------------------------------------------------------
         */
 
-        setText(
-            i.cost,
-            product.cost_price
-        );
+        if (i.cost) {
+
+            i.cost.textContent =
+                product.cost_price
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.selling,
-            product.selling_price
-        );
+        if (i.selling) {
+
+            i.selling.textContent =
+                product.selling_price
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.profit,
-            product.profit_amount
-        );
+        if (i.profit) {
+
+            i.profit.textContent =
+                product.profit_amount
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.margin,
-            product.profit_margin
+        if (i.margin) {
+
+            i.margin.textContent =
+                product.profit_margin
+                ?? '-';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Behaviour
+        |--------------------------------------------------------------------------
+        */
+
+        const tracksStock =
+            product.tracks_stock
+            !== false;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Quantity
+        |--------------------------------------------------------------------------
+        */
+
+        if (i.stock) {
+
+            i.stock.textContent =
+                tracksStock
+
+                    ? (
+                        product.stock
+                        ?? '-'
+                    )
+
+                    : 'Not tracked';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Status
+        |--------------------------------------------------------------------------
+        */
+
+        const stockStatus =
+            String(
+                product.stock_status
+                ?? ''
+            ).trim()
+            ||
+            (
+                tracksStock
+                    ? '-'
+                    : 'Not tracked'
+            );
+
+
+        const stockBadge =
+            product.stock_badge
+            ||
+            (
+                tracksStock
+                    ? 'bg-secondary'
+                    : 'bg-secondary'
+            );
+
+
+        const stockTextColor =
+            product.stock_text_color
+            ||
+            (
+                stockStatus
+                    .toLowerCase()
+                    === 'low stock'
+
+                    ? '#212529'
+
+                    : '#ffffff'
+            );
+
+
+        this.renderInspectorBadge(
+
+            i.stockStatus,
+
+            stockStatus,
+
+            stockBadge,
+
+            stockTextColor
+
         );
 
 
         /*
         |--------------------------------------------------------------------------
-        | Inventory
+        | Minimum / Maximum Stock
         |--------------------------------------------------------------------------
         */
 
-        if (tracksStock) {
+        if (i.minimum) {
 
-            setText(
-                i.stock,
-                product.stock
-            );
+            i.minimum.textContent =
+                tracksStock
 
+                    ? (
+                        product.minimum_stock
+                        ?? '-'
+                    )
 
-            setText(
-                i.minimum,
-                product.minimum_stock
-            );
-
-
-            setText(
-                i.maximum,
-                product.maximum_stock
-            );
-
-
-            if (i.stockStatus) {
-
-                const stockBadge =
-                    product.stock_badge
-                    ?? 'bg-secondary';
-
-
-                const stockStatus =
-                    product.stock_status
-                    ?? '-';
-
-
-                setHtml(
-                    i.stockStatus,
-                    `
-                        <span class="badge ${stockBadge}">
-                            ${this.escapeHtml(
-                                stockStatus
-                            )}
-                        </span>
-                    `
-                );
-
-            }
-
-        }
-        else {
-
-            setText(
-                i.stock,
-                '-'
-            );
-
-
-            setText(
-                i.minimum,
-                '-'
-            );
-
-
-            setText(
-                i.maximum,
-                '-'
-            );
-
-
-            if (i.stockStatus) {
-
-                setHtml(
-                    i.stockStatus,
-                    `
-                        <span class="badge bg-secondary">
-                            Not tracked
-                        </span>
-                    `
-                );
-
-            }
+                    : '-';
 
         }
 
 
-        setText(
-            i.weight,
-            product.weight
-        );
+        if (i.maximum) {
 
+            i.maximum.textContent =
+                tracksStock
 
-        setText(
-            i.expiry,
-            product.expiry_date
-        );
+                    ? (
+                        product.maximum_stock
+                        ?? '-'
+                    )
+
+                    : '-';
+
+        }
 
 
         /*
         |--------------------------------------------------------------------------
-        | System Information
+        | Weight
         |--------------------------------------------------------------------------
         */
 
-        setText(
-            i.created,
-            product.created_at
-        );
+        if (i.weight) {
+
+            i.weight.textContent =
+                product.weight
+                ?? '-';
+
+        }
 
 
-        setText(
-            i.updated,
-            product.updated_at
-        );
+        /*
+        |--------------------------------------------------------------------------
+        | Expiry
+        |--------------------------------------------------------------------------
+        */
+
+        if (i.expiry) {
+
+            i.expiry.textContent =
+                product.expiry_date
+                ?? '-';
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Audit Dates
+        |--------------------------------------------------------------------------
+        */
+
+        if (i.created) {
+
+            i.created.textContent =
+                product.created_at
+                ?? '-';
+
+        }
+
+
+        if (i.updated) {
+
+            i.updated.textContent =
+                product.updated_at
+                ?? '-';
+
+        }
+
     },
-
     /*
     |--------------------------------------------------------------------------
     | Open Status Modal
@@ -4467,11 +4556,33 @@ const Products = {
 
         /*
         |--------------------------------------------------------------------------
+        | Preview Columns
+        |--------------------------------------------------------------------------
+        */
+
+        const columns =
+            Array.isArray(
+                data.columns
+            )
+                ? data.columns
+                : [];
+
+
+        this.renderImportPreviewColumns(
+            columns
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
         | Preview Rows
         |--------------------------------------------------------------------------
         */
 
-        this.renderImportPreviewRows(rows);
+        this.renderImportPreviewRows(
+            rows,
+            columns
+        );
 
         /*
         |--------------------------------------------------------------------------
@@ -4570,28 +4681,137 @@ const Products = {
         }
     },
 
+    /*
+    |--------------------------------------------------------------------------
+    | Render Import Preview Columns
+    |--------------------------------------------------------------------------
+    */
+
+    renderImportPreviewColumns(columns)
+    {
+        const tbody =
+            this.elements.importPreviewTableBody;
+
+
+        if (!tbody) {
+
+            return;
+
+        }
+
+
+        const table =
+            tbody.closest(
+                'table'
+            );
+
+
+        const thead =
+            table?.querySelector(
+                'thead'
+            );
+
+
+        if (!thead) {
+
+            return;
+
+        }
+
+
+        const previewColumns =
+            Array.isArray(columns)
+            &&
+            columns.length
+                ? columns
+                : this.defaultImportPreviewColumns();
+
+
+        const headings =
+            previewColumns
+                .map(
+                    column => {
+
+                        return `
+                            <th scope="col">
+                                ${this.escapeHtml(
+                                    String(
+                                        column.label
+                                        ?? column.key
+                                        ?? ''
+                                    )
+                                )}
+                            </th>
+                        `;
+
+                    }
+                )
+                .join('');
+
+
+        thead.innerHTML = `
+            <tr>
+                ${headings}
+            </tr>
+        `;
+    },
+
 
     /**
      * |--------------------------------------------------------------------------
      * | Render Preview Rows
      * |--------------------------------------------------------------------------
      */
-    
-    renderImportPreviewRows(rows)
+    renderImportPreviewRows(
+        rows,
+        columns = []
+    )
     {
         const tbody =
             this.elements.importPreviewTableBody;
 
+
         if (!tbody) {
+
             return;
+
         }
 
-        tbody.innerHTML = '';
 
-        if (!Array.isArray(rows) || rows.length === 0) {
+        const previewColumns =
+            Array.isArray(columns)
+            &&
+            columns.length
+                ? columns
+                : this.defaultImportPreviewColumns();
+
+
+        const columnCount =
+            previewColumns.length;
+
+
+        tbody.innerHTML =
+            '';
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Empty State
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !Array.isArray(rows)
+            ||
+            rows.length === 0
+        ) {
+
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="10" class="text-center py-4">
+                    <td
+                        colspan="${columnCount}"
+                        class="text-center py-4"
+                    >
                         <div class="text-muted">
                             No product rows were found in the import file.
                         </div>
@@ -4599,220 +4819,539 @@ const Products = {
                 </tr>
             `;
 
+
             return;
+
         }
 
-        rows.forEach((row, index) => {
 
-            const display =
-                row.display || {};
+        /*
+        |--------------------------------------------------------------------------
+        | Rows
+        |--------------------------------------------------------------------------
+        */
 
-            const normalized =
-                row.normalized || {};
+        rows.forEach(
+            (row, index) => {
 
-            const rowNumber =
-                row.row ??
-                row.row_number ??
-                (index + 2);
+                const display =
+                    row.display
+                    || {};
 
-            const status =
-                row.status ??
-                'valid';
 
-            const name =
-                display.name ??
-                normalized.name ??
-                row.name ??
-                row.data?.name ??
-                '-';
+                const normalized =
+                    row.normalized
+                    || {};
 
-            const sku =
-                display.sku ??
-                normalized.sku ??
-                row.sku ??
-                row.data?.sku ??
-                '-';
 
-            const category =
-                display.category ??
-                normalized.category ??
-                row.category ??
-                row.data?.category ??
-                '-';
+                /*
+                |--------------------------------------------------------------------------
+                | Validation State
+                |--------------------------------------------------------------------------
+                */
 
-            const unit =
-                display.unit ??
-                normalized.unit ??
-                row.unit ??
-                row.data?.unit ??
-                '-';
+                const errors =
+                    Array.isArray(
+                        row.errors
+                    )
+                        ? row.errors
+                        : [];
 
-            const costPrice =
-                display.cost_price ??
-                normalized.cost_price ??
-                row.cost_price ??
-                row.data?.cost_price ??
-                '-';
 
-            const sellingPrice =
-                display.selling_price ??
-                normalized.selling_price ??
-                row.selling_price ??
-                row.data?.selling_price ??
-                '-';
+                const warnings =
+                    Array.isArray(
+                        row.warnings
+                    )
+                        ? row.warnings
+                        : [];
 
-            const openingStock =
-                display.opening_stock ??
-                normalized.opening_stock ??
-                row.opening_stock ??
-                row.data?.opening_stock ??
-                0;
 
-            const errors =
-                Array.isArray(row.errors)
-                    ? row.errors
-                    : [];
+                const status =
+                    row.status
+                    ?? 'valid';
 
-            const warnings =
-                Array.isArray(row.warnings)
-                    ? row.warnings
-                    : [];
 
-            const hasErrors =
-                errors.length > 0 ||
-                status === 'error';
+                const hasErrors =
+                    errors.length > 0
+                    ||
+                    status === 'error';
 
-            const hasWarnings =
-                warnings.length > 0 ||
-                status === 'warning';
 
-            let statusBadge = '';
+                const hasWarnings =
+                    warnings.length > 0
+                    ||
+                    status === 'warning';
 
-            if (hasErrors) {
-                statusBadge = `
-                    <span class="badge rounded-pill text-bg-danger">
-                        <i class="bi bi-x-circle me-1"></i>
-                        Error
-                    </span>
-                `;
-            }
-            else if (hasWarnings) {
-                statusBadge = `
-                    <span class="badge rounded-pill text-bg-warning">
-                        <i class="bi bi-exclamation-triangle me-1"></i>
-                        Warning
-                    </span>
-                `;
-            }
-            else {
-                statusBadge = `
-                    <span class="badge rounded-pill text-bg-success">
-                        <i class="bi bi-check-circle me-1"></i>
-                        Valid
-                    </span>
-                `;
-            }
 
-            const validationMessages = [];
+                /*
+                |--------------------------------------------------------------------------
+                | Status Badge
+                |--------------------------------------------------------------------------
+                */
 
-            errors.forEach(error => {
-                if (error) {
-                    validationMessages.push(`
-                        <div class="text-danger">
+                let statusBadge =
+                    '';
+
+
+                if (hasErrors) {
+
+                    statusBadge = `
+                        <span class="badge rounded-pill text-bg-danger">
                             <i class="bi bi-x-circle me-1"></i>
-                            ${this.escapeHtml(error)}
-                        </div>
-                    `);
-                }
-            });
+                            Error
+                        </span>
+                    `;
 
-            warnings.forEach(warning => {
-                if (warning) {
-                    validationMessages.push(`
-                        <div class="text-warning">
+                }
+                else if (hasWarnings) {
+
+                    statusBadge = `
+                        <span class="badge rounded-pill text-bg-warning">
                             <i class="bi bi-exclamation-triangle me-1"></i>
-                            ${this.escapeHtml(warning)}
-                        </div>
-                    `);
+                            Warning
+                        </span>
+                    `;
+
                 }
-            });
+                else {
 
-            if (validationMessages.length === 0) {
-                validationMessages.push(`
-                    <span class="text-success">
-                        <i class="bi bi-check2-circle me-1"></i>
-                        Valid
-                    </span>
-                `);
+                    statusBadge = `
+                        <span class="badge rounded-pill text-bg-success">
+                            <i class="bi bi-check-circle me-1"></i>
+                            Valid
+                        </span>
+                    `;
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Validation Messages
+                |--------------------------------------------------------------------------
+                */
+
+                const validationMessages =
+                    [];
+
+
+                errors.forEach(
+                    error => {
+
+                        if (!error) {
+
+                            return;
+
+                        }
+
+
+                        validationMessages.push(`
+                            <div class="text-danger">
+                                <i class="bi bi-x-circle me-1"></i>
+                                ${this.escapeHtml(
+                                    String(error)
+                                )}
+                            </div>
+                        `);
+
+                    }
+                );
+
+
+                warnings.forEach(
+                    warning => {
+
+                        if (!warning) {
+
+                            return;
+
+                        }
+
+
+                        validationMessages.push(`
+                            <div class="text-warning">
+                                <i class="bi bi-exclamation-triangle me-1"></i>
+                                ${this.escapeHtml(
+                                    String(warning)
+                                )}
+                            </div>
+                        `);
+
+                    }
+                );
+
+
+                if (
+                    validationMessages.length
+                    === 0
+                ) {
+
+                    validationMessages.push(`
+                        <span class="text-success">
+                            <i class="bi bi-check2-circle me-1"></i>
+                            Valid
+                        </span>
+                    `);
+
+                }
+
+
+                const validationHtml =
+                    validationMessages.join(
+                        ''
+                    );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Row Styling
+                |--------------------------------------------------------------------------
+                */
+
+                const rowClass =
+                    hasErrors
+                        ? 'product-import-row-error'
+                        : hasWarnings
+                            ? 'product-import-row-warning'
+                            : '';
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Build Dynamic Cells
+                |--------------------------------------------------------------------------
+                */
+
+                const cells =
+                    previewColumns
+                        .map(
+                            column => {
+
+                                const key =
+                                    column.key;
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Row Number
+                                |--------------------------------------------------------------------------
+                                */
+
+                                if (
+                                    key === 'row'
+                                ) {
+
+                                    const rowNumber =
+                                        row.row
+                                        ??
+                                        row.row_number
+                                        ??
+                                        (
+                                            index
+                                            + 2
+                                        );
+
+
+                                    return `
+                                        <td>
+                                            <span class="product-import-row-number">
+                                                ${this.escapeHtml(
+                                                    String(
+                                                        rowNumber
+                                                    )
+                                                )}
+                                            </span>
+                                        </td>
+                                    `;
+
+                                }
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Status
+                                |--------------------------------------------------------------------------
+                                */
+
+                                if (
+                                    key === 'status'
+                                ) {
+
+                                    return `
+                                        <td>
+                                            ${statusBadge}
+                                        </td>
+                                    `;
+
+                                }
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Validation
+                                |--------------------------------------------------------------------------
+                                */
+
+                                if (
+                                    key ===
+                                    'validation'
+                                ) {
+
+                                    return `
+                                        <td>
+                                            <div class="product-import-validation">
+                                                ${validationHtml}
+                                            </div>
+                                        </td>
+                                    `;
+
+                                }
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Track Inventory
+                                |--------------------------------------------------------------------------
+                                */
+
+                                if (
+                                    key ===
+                                    'track_stock'
+                                ) {
+
+                                    const tracksStock =
+                                        display.track_stock
+                                        ??
+                                        normalized.track_stock
+                                        ??
+                                        true;
+
+
+                                    return `
+                                        <td>
+                                            ${
+                                                tracksStock
+                                                    ? `
+                                                        <span class="badge bg-light text-dark border">
+                                                            Yes
+                                                        </span>
+                                                    `
+                                                    : `
+                                                        <span class="badge bg-secondary">
+                                                            No
+                                                        </span>
+                                                    `
+                                            }
+                                        </td>
+                                    `;
+
+                                }
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Opening Stock
+                                |--------------------------------------------------------------------------
+                                */
+
+                                if (
+                                    key ===
+                                    'opening_stock'
+                                ) {
+
+                                    const tracksStock =
+                                        display.track_stock
+                                        ??
+                                        normalized.track_stock
+                                        ??
+                                        true;
+
+
+                                    const openingStock =
+                                        tracksStock
+                                            ? (
+                                                display.opening_stock
+                                                ??
+                                                normalized.opening_stock
+                                                ??
+                                                0
+                                            )
+                                            : '—';
+
+
+                                    return `
+                                        <td>
+                                            ${this.escapeHtml(
+                                                String(
+                                                    openingStock
+                                                )
+                                            )}
+                                        </td>
+                                    `;
+
+                                }
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Product Name
+                                |--------------------------------------------------------------------------
+                                */
+
+                                if (
+                                    key === 'name'
+                                ) {
+
+                                    const name =
+                                        display.name
+                                        ??
+                                        normalized.name
+                                        ??
+                                        row.name
+                                        ??
+                                        row.data?.name
+                                        ??
+                                        '-';
+
+
+                                    return `
+                                        <td>
+                                            <div class="product-import-product-cell">
+                                                <strong>
+                                                    ${this.escapeHtml(
+                                                        String(name)
+                                                    )}
+                                                </strong>
+                                            </div>
+                                        </td>
+                                    `;
+
+                                }
+
+
+                                /*
+                                |--------------------------------------------------------------------------
+                                | Standard Dynamic Value
+                                |--------------------------------------------------------------------------
+                                */
+
+                                const value =
+                                    display[key]
+                                    ??
+                                    normalized[key]
+                                    ??
+                                    row[key]
+                                    ??
+                                    row.data?.[key]
+                                    ??
+                                    '-';
+
+
+                                const className =
+                                    key === 'sku'
+                                        ||
+                                        key === 'barcode'
+                                            ? 'product-import-mono'
+                                            : '';
+
+
+                                return `
+                                    <td>
+                                        <span class="${className}">
+                                            ${this.escapeHtml(
+                                                String(value)
+                                            )}
+                                        </span>
+                                    </td>
+                                `;
+
+                            }
+                        )
+                        .join(
+                            ''
+                        );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Render Row
+                |--------------------------------------------------------------------------
+                */
+
+                tbody.insertAdjacentHTML(
+                    'beforeend',
+                    `
+                        <tr class="${rowClass}">
+                            ${cells}
+                        </tr>
+                    `
+                );
+
             }
+        );
+    },
 
-            const validationHtml =
-                validationMessages.join('');
+    /*
+    |--------------------------------------------------------------------------
+    | Default Import Preview Columns
+    |--------------------------------------------------------------------------
+    */
 
-            const rowClass =
-                hasErrors
-                    ? 'product-import-row-error'
-                    : hasWarnings
-                        ? 'product-import-row-warning'
-                        : '';
+    defaultImportPreviewColumns()
+    {
+        return [
 
-            tbody.insertAdjacentHTML(
-                'beforeend',
-                `
-                    <tr class="${rowClass}">
-                        <td>
-                            <span class="product-import-row-number">
-                                ${this.escapeHtml(String(rowNumber))}
-                            </span>
-                        </td>
+            {
+                key: 'row',
+                label: 'Row'
+            },
 
-                        <td>
-                            ${statusBadge}
-                        </td>
+            {
+                key: 'status',
+                label: 'Status'
+            },
 
-                        <td>
-                            <div class="product-import-product-cell">
-                                <strong>
-                                    ${this.escapeHtml(String(name))}
-                                </strong>
-                            </div>
-                        </td>
+            {
+                key: 'name',
+                label: 'Product'
+            },
 
-                        <td>
-                            <span class="product-import-mono">
-                                ${this.escapeHtml(String(sku))}
-                            </span>
-                        </td>
+            {
+                key: 'sku',
+                label: 'SKU'
+            },
 
-                        <td>
-                            ${this.escapeHtml(String(category))}
-                        </td>
+            {
+                key: 'category',
+                label: 'Category'
+            },
 
-                        <td>
-                            ${this.escapeHtml(String(unit))}
-                        </td>
+            {
+                key: 'unit',
+                label: 'Unit'
+            },
 
-                        <td>
-                            ${this.escapeHtml(String(costPrice))}
-                        </td>
+            {
+                key: 'cost_price',
+                label: 'Cost'
+            },
 
-                        <td>
-                            ${this.escapeHtml(String(sellingPrice))}
-                        </td>
+            {
+                key: 'selling_price',
+                label: 'Selling'
+            },
 
-                        <td>
-                            ${this.escapeHtml(String(openingStock))}
-                        </td>
+            {
+                key: 'opening_stock',
+                label: 'Opening Stock'
+            },
 
-                        <td>
-                            <div class="product-import-validation">
-                                ${validationHtml}
-                            </div>
-                        </td>
-                    </tr>
-                `
-            );
-        });
+            {
+                key: 'validation',
+                label: 'Validation'
+            },
+
+        ];
     },
 
 
@@ -4914,15 +5453,52 @@ const Products = {
             this.productTracksStock();
 
 
+        const isEdit =
+            Boolean(
+                this.currentId
+            );
+
+
         (
             this.elements.stockControlledFields
             ?? []
         ).forEach(
             wrapper => {
 
+                const createOnly =
+                    wrapper.hasAttribute(
+                        'data-create-only-stock-field'
+                    );
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Field Visibility
+                |--------------------------------------------------------------------------
+                |
+                | Normal stock fields:
+                |   Create + tracked = visible
+                |   Edit   + tracked = visible
+                |
+                | Opening Stock:
+                |   Create + tracked = visible
+                |   Edit             = hidden
+                |
+                */
+
+                const active =
+                    tracksStock
+                    &&
+                    !(
+                        isEdit
+                        &&
+                        createOnly
+                    );
+
+
                 wrapper.classList.toggle(
                     'd-none',
-                    !tracksStock
+                    !active
                 );
 
 
@@ -4939,10 +5515,41 @@ const Products = {
                                 === '1';
 
 
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Disabled Fields
+                            |--------------------------------------------------------------------------
+                            |
+                            | Hidden stock fields should not be submitted.
+                            |
+                            */
+
+                            field.disabled =
+                                !active;
+
+
                             field.required =
-                                tracksStock
+                                active
                                 &&
                                 required;
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Opening Stock On Edit
+                            |--------------------------------------------------------------------------
+                            */
+
+                            if (
+                                createOnly
+                                &&
+                                isEdit
+                            ) {
+
+                                field.value =
+                                    '';
+
+                            }
 
                         }
                     );

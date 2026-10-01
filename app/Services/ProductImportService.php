@@ -126,14 +126,27 @@ class ProductImportService
     |--------------------------------------------------------------------------
     */
 
-    /**
+   /**
      * Download Excel import template.
      */
-    public function downloadExcelTemplate()
-    {
+    public function downloadExcelTemplate(
+        Company $company
+    ) {
+
+        $headings =
+            $this->importHeadingsForCompany(
+                $company
+            );
+
+
         return Excel::download(
-            new ProductImportTemplateExport(),
+
+            new ProductImportTemplateExport(
+                $headings
+            ),
+
             'products-import-template.xlsx'
+
         );
     }
 
@@ -141,12 +154,26 @@ class ProductImportService
     /**
      * Download CSV import template.
      */
-    public function downloadCsvTemplate()
-    {
+    public function downloadCsvTemplate(
+        Company $company
+    ) {
+
+        $headings =
+            $this->importHeadingsForCompany(
+                $company
+            );
+
+
         return Excel::download(
-            new ProductImportTemplateExport(),
+
+            new ProductImportTemplateExport(
+                $headings
+            ),
+
             'products-import-template.csv',
+
             ExcelFormat::CSV
+
         );
     }
 
@@ -262,9 +289,13 @@ class ProductImportService
         }
 
         return [
+
             'summary' => [
+
                 'total' =>
-                    count($validatedRows),
+                    count(
+                        $validatedRows
+                    ),
 
                 'valid' =>
                     $validCount,
@@ -277,10 +308,17 @@ class ProductImportService
 
                 'can_import' =>
                     $errorCount === 0,
+
             ],
+
+            'columns' =>
+                $this->previewColumnsForCompany(
+                    $company
+                ),
 
             'rows' =>
                 $validatedRows,
+
         ];
     }
 
@@ -290,7 +328,6 @@ class ProductImportService
     | Import
     |--------------------------------------------------------------------------
     */
-
     /**
      * Import products from a validated spreadsheet.
      *
@@ -303,11 +340,24 @@ class ProductImportService
         $user
     ): array {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Company
+        |--------------------------------------------------------------------------
+        */
+
         $company =
-        Company::query()
-            ->findOrFail(
-                $companyId
-            );
+            Company::query()
+                ->findOrFail(
+                    $companyId
+                );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Read File
+        |--------------------------------------------------------------------------
+        */
 
         $rows =
             $this->readFile(
@@ -315,18 +365,30 @@ class ProductImportService
                 $company
             );
 
+
         if (empty($rows)) {
+
             throw ValidationException::withMessages([
+
                 'file' =>
                     'The import file does not contain any product rows.',
+
             ]);
+
         }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Import Transaction
+        |--------------------------------------------------------------------------
+        */
 
         return DB::transaction(
             function () use (
                 $rows,
-                $companyId,
-                $user
+                $company,
+                $companyId
             ) {
 
                 /*
@@ -344,6 +406,7 @@ class ProductImportService
                 $validatedRows = [];
 
                 $seenSkus = [];
+
                 $seenBarcodes = [];
 
 
@@ -353,7 +416,9 @@ class ProductImportService
                 |--------------------------------------------------------------------------
                 */
 
-                foreach ($rows as $row) {
+                foreach (
+                    $rows as $row
+                ) {
 
                     $result =
                         $this->validateRow(
@@ -366,16 +431,20 @@ class ProductImportService
 
 
                     if (
-                        $result['status'] === 'error'
+                        $result['status']
+                        === 'error'
                     ) {
 
                         throw ValidationException::withMessages([
+
                             "row_{$result['row']}" =>
                                 implode(
                                     ' ',
                                     $result['errors']
                                 ),
+
                         ]);
+
                     }
 
 
@@ -383,24 +452,49 @@ class ProductImportService
                         $result;
 
 
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Track Uploaded SKU
+                    |--------------------------------------------------------------------------
+                    */
+
                     if (
                         !empty(
-                            $result['normalized']['sku']
+                            $result[
+                                'normalized'
+                            ]['sku']
                         )
                     ) {
+
                         $seenSkus[] =
-                            $result['normalized']['sku'];
+                            $result[
+                                'normalized'
+                            ]['sku'];
+
                     }
 
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Track Uploaded Barcode
+                    |--------------------------------------------------------------------------
+                    */
 
                     if (
                         !empty(
-                            $result['normalized']['barcode']
+                            $result[
+                                'normalized'
+                            ]['barcode']
                         )
                     ) {
+
                         $seenBarcodes[] =
-                            $result['normalized']['barcode'];
+                            $result[
+                                'normalized'
+                            ]['barcode'];
+
                     }
+
                 }
 
 
@@ -412,29 +506,64 @@ class ProductImportService
 
                 $sequence =
                     DocumentSequence::query()
+
                         ->where(
                             'company_id',
                             $companyId
                         )
+
                         ->where(
                             'document_type',
                             'product'
                         )
+
                         ->where(
                             'status',
                             true
                         )
+
                         ->lockForUpdate()
+
                         ->first();
 
 
                 if (!$sequence) {
 
                     throw ValidationException::withMessages([
+
                         'file' =>
                             'The product document sequence is not configured for this company.',
+
                     ]);
+
                 }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Determine Whether Head Office Is Required
+                |--------------------------------------------------------------------------
+                |
+                | An import containing only non-stock products does not need a
+                | ProductStock record and therefore does not need Head Office.
+                |
+                */
+
+                $requiresHeadOffice =
+                    collect(
+                        $validatedRows
+                    )->contains(
+                        function ($result) {
+
+                            return (bool) (
+                                $result[
+                                    'normalized'
+                                ]['track_stock']
+                                ?? true
+                            );
+
+                        }
+                    );
 
 
                 /*
@@ -444,21 +573,35 @@ class ProductImportService
                 */
 
                 $headOffice =
-                    Branch::query()
-                        ->where(
-                            'company_id',
-                            $companyId
-                        )
-                        ->headOffice()
-                        ->first();
+                    null;
 
 
-                if (!$headOffice) {
+                if ($requiresHeadOffice) {
 
-                    throw ValidationException::withMessages([
-                        'file' =>
-                            'A Head Office branch could not be found for this company.',
-                    ]);
+                    $headOffice =
+                        Branch::query()
+
+                            ->where(
+                                'company_id',
+                                $companyId
+                            )
+
+                            ->headOffice()
+
+                            ->first();
+
+
+                    if (!$headOffice) {
+
+                        throw ValidationException::withMessages([
+
+                            'file' =>
+                                'A Head Office branch could not be found for this company.',
+
+                        ]);
+
+                    }
+
                 }
 
 
@@ -468,17 +611,23 @@ class ProductImportService
                 |--------------------------------------------------------------------------
                 */
 
-                $imported = 0;
+                $imported =
+                    0;
 
-                $products = [];
+
+                $products =
+                    [];
 
 
                 foreach (
-                    $validatedRows as $result
+                    $validatedRows
+                    as $result
                 ) {
 
                     $data =
-                        $result['normalized'];
+                        $result[
+                            'normalized'
+                        ];
 
 
                     /*
@@ -491,6 +640,7 @@ class ProductImportService
                         $sequence->formattedNumber(
                             $sequence->current_number
                         );
+
 
                     $sequence->current_number++;
 
@@ -507,13 +657,19 @@ class ProductImportService
                             $companyId,
 
                         'product_category_id' =>
-                            $data['product_category_id'],
+                            $data[
+                                'product_category_id'
+                            ],
 
                         'unit_id' =>
-                            $data['unit_id'],
+                            $data[
+                                'unit_id'
+                            ],
 
                         'discount_id' =>
-                            $data['discount_id'],
+                            $data[
+                                'discount_id'
+                            ],
 
                         'product_code' =>
                             $productCode,
@@ -545,22 +701,55 @@ class ProductImportService
                         'selling_price' =>
                             $data['selling_price'],
 
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Stock Behaviour
+                        |--------------------------------------------------------------------------
+                        */
+
+                        'track_stock' =>
+                            (bool) (
+                                $data[
+                                    'track_stock'
+                                ]
+                                ?? true
+                            ),
+
                         'minimum_stock' =>
-                            $data['minimum_stock'],
+                            $data[
+                                'minimum_stock'
+                            ],
 
                         'maximum_stock' =>
-                            $data['maximum_stock'],
+                            $data[
+                                'maximum_stock'
+                            ],
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | Product Details
+                        |--------------------------------------------------------------------------
+                        */
 
                         'weight' =>
                             $data['weight'],
 
                         'expiry_date' =>
-                            $data['expiry_date'],
+                            $data[
+                                'expiry_date'
+                            ],
 
                         'status' =>
                             $data['status'],
+
                     ];
 
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Create Product
+                    |--------------------------------------------------------------------------
+                    */
 
                     $product =
                         Product::create(
@@ -572,38 +761,74 @@ class ProductImportService
                     |--------------------------------------------------------------------------
                     | Head Office Opening Stock
                     |--------------------------------------------------------------------------
+                    |
+                    | Non-stock products deliberately have no ProductStock row.
+                    |
                     */
 
-                    $openingStock =
-                        $data['opening_stock'];
+                    if (
+                        $product->tracksStock()
+                    ) {
+
+                        if (!$headOffice) {
+
+                            throw ValidationException::withMessages([
+
+                                'file' =>
+                                    'A Head Office branch could not be found for this company.',
+
+                            ]);
+
+                        }
 
 
-                    ProductStock::create([
+                        $openingStock =
+                            max(
+                                0,
+                                (float) (
+                                    $data[
+                                        'opening_stock'
+                                    ]
+                                    ?? 0
+                                )
+                            );
 
-                        'company_id' =>
-                            $companyId,
 
-                        'branch_id' =>
-                            $headOffice->id,
+                        ProductStock::create([
 
-                        'product_id' =>
-                            $product->id,
+                            'company_id' =>
+                                $companyId,
 
-                        'quantity' =>
-                            $openingStock,
+                            'branch_id' =>
+                                $headOffice->id,
 
-                        'reserved_quantity' =>
-                            0,
+                            'product_id' =>
+                                $product->id,
 
-                        'available_quantity' =>
-                            $openingStock,
+                            'quantity' =>
+                                $openingStock,
 
-                        'reorder_level' =>
-                            $data['minimum_stock'],
+                            'reserved_quantity' =>
+                                0,
 
-                        'maximum_stock' =>
-                            $data['maximum_stock'],
-                    ]);
+                            'available_quantity' =>
+                                $openingStock,
+
+                            'reorder_level' =>
+                                $data[
+                                    'minimum_stock'
+                                ]
+                                ?? 0,
+
+                            'maximum_stock' =>
+                                $data[
+                                    'maximum_stock'
+                                ]
+                                ?? null,
+
+                        ]);
+
+                    }
 
 
                     /*
@@ -625,10 +850,15 @@ class ProductImportService
 
                         'sku' =>
                             $product->sku,
+
+                        'track_stock' =>
+                            $product->tracksStock(),
+
                     ];
 
 
                     $imported++;
+
                 }
 
 
@@ -648,12 +878,19 @@ class ProductImportService
                 */
 
                 $this->activityLogger->log(
+
                     'Products',
+
                     'Imported',
+
                     "{$imported} product(s) imported successfully.",
+
                     null,
+
                     null,
+
                     [
+
                         'company_id' =>
                             $companyId,
 
@@ -662,7 +899,9 @@ class ProductImportService
 
                         'products' =>
                             $products,
+
                     ]
+
                 );
 
 
@@ -673,12 +912,15 @@ class ProductImportService
                 */
 
                 return [
+
                     'imported' =>
                         $imported,
 
                     'products' =>
                         $products,
+
                 ];
+
             }
         );
     }
@@ -869,16 +1111,15 @@ class ProductImportService
     ): string {
 
         $header =
-            trim((string) $header);
+            trim(
+                (string) $header
+            );
 
 
         /*
         |--------------------------------------------------------------------------
         | Remove UTF-8 BOM
         |--------------------------------------------------------------------------
-        |
-        | This protects CSV headers from invisible BOM characters.
-        |
         */
 
         $header =
@@ -906,13 +1147,30 @@ class ProductImportService
             );
 
 
-        return preg_replace(
-            '/[^a-z0-9_]/',
-            '',
-            $header
-        );
-    }
+        $header =
+            preg_replace(
+                '/[^a-z0-9_]/',
+                '',
+                $header
+            );
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Friendly Header Aliases
+        |--------------------------------------------------------------------------
+        */
+
+        return match ($header) {
+
+            'track_inventory' =>
+                'track_stock',
+
+            default =>
+                $header,
+
+        };
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -1025,12 +1283,24 @@ class ProductImportService
         string $column
     ): bool {
 
+        /*
+        |--------------------------------------------------------------------------
+        | Universal Column
+        |--------------------------------------------------------------------------
+        */
+
         if ($column === 'status') {
 
             return true;
 
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Track Inventory
+        |--------------------------------------------------------------------------
+        */
 
         if ($column === 'track_stock') {
 
@@ -1041,6 +1311,49 @@ class ProductImportService
 
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Fields
+        |--------------------------------------------------------------------------
+        |
+        | If this profile never tracks inventory and tracking cannot be changed,
+        | stock columns should not appear in the spreadsheet at all.
+        |
+        */
+
+        if (
+            in_array(
+                $column,
+                [
+                    'minimum_stock',
+                    'maximum_stock',
+                    'opening_stock',
+                ],
+                true
+            )
+            &&
+            !$this->businessProfileService
+                ->productTracksStockByDefault(
+                    $company
+                )
+            &&
+            !$this->businessProfileService
+                ->productStockTrackingIsChangeable(
+                    $company
+                )
+        ) {
+
+            return false;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Profile Field
+        |--------------------------------------------------------------------------
+        */
 
         $field =
             $this->profileFieldForImportColumn(
@@ -1062,6 +1375,42 @@ class ProductImportService
             );
     }
 
+    /**
+     * Get import columns available for this company.
+     */
+    protected function importColumnsForCompany(
+        Company $company
+    ): array {
+
+        return array_values(
+            array_filter(
+                $this->columns,
+                fn (string $column): bool =>
+                    $this->importColumnVisible(
+                        $company,
+                        $column
+                    )
+            )
+        );
+    }
+
+
+    /**
+     * Build human-readable spreadsheet headings.
+     */
+    protected function importHeadingsForCompany(
+        Company $company
+    ): array {
+
+        return array_map(
+            fn (string $column): string =>
+                $this->columnLabels[$column]
+                ?? $column,
+            $this->importColumnsForCompany(
+                $company
+            )
+        );
+    }
 
     /**
      * Determine whether an import column is required.
@@ -1431,7 +1780,7 @@ class ProductImportService
     |--------------------------------------------------------------------------
     */
 
-    /**
+   /**
      * Validate and normalize a single import row.
      */
     protected function validateRow(
@@ -1442,70 +1791,96 @@ class ProductImportService
         array &$seenBarcodes
     ): array {
 
-    $companyId =
-    $company->id;
-
-
-    $fieldVisible =
-        fn (string $field): bool =>
-            $this->businessProfileService
-                ->productFieldVisible(
-                    $company,
-                    $field
-                );
-
-
-    $fieldRequired =
-        fn (string $field): bool =>
-            $this->businessProfileService
-                ->productFieldRequired(
-                    $company,
-                    $field
-                );
-
-
-    $trackStockDefault =
-        $this->businessProfileService
-            ->productTracksStockByDefault(
-                $company
-            );
-
-
-    $trackStockChangeable =
-        $this->businessProfileService
-            ->productStockTrackingIsChangeable(
-                $company
-            );
-
-
-    $tracksStock =
-        $trackStockDefault;
-
-
-    if ($trackStockChangeable) {
-
-        $tracksStock =
-            $this->trackStockValue(
-                $row['track_stock']
-                    ?? null,
-                $trackStockDefault
-            );
-
-
-        if ($tracksStock === null) {
-
-            $errors[] =
-                'Track Inventory must be Yes or No.';
-
-            $tracksStock =
-                $trackStockDefault;
-
-        }
-
-    }
+        /*
+        |--------------------------------------------------------------------------
+        | Validation State
+        |--------------------------------------------------------------------------
+        */
 
         $errors = [];
         $warnings = [];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Company
+        |--------------------------------------------------------------------------
+        */
+
+        $companyId =
+            $company->id;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Product Capabilities
+        |--------------------------------------------------------------------------
+        */
+
+        $fieldVisible =
+            fn (string $field): bool =>
+                $this->businessProfileService
+                    ->productFieldVisible(
+                        $company,
+                        $field
+                    );
+
+
+        $fieldRequired =
+            fn (string $field): bool =>
+                $this->businessProfileService
+                    ->productFieldRequired(
+                        $company,
+                        $field
+                    );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stock Behaviour
+        |--------------------------------------------------------------------------
+        */
+
+        $trackStockDefault =
+            $this->businessProfileService
+                ->productTracksStockByDefault(
+                    $company
+                );
+
+
+        $trackStockChangeable =
+            $this->businessProfileService
+                ->productStockTrackingIsChangeable(
+                    $company
+                );
+
+
+        $tracksStock =
+            $trackStockDefault;
+
+
+        if ($trackStockChangeable) {
+
+            $tracksStock =
+                $this->trackStockValue(
+                    $row['track_stock']
+                        ?? null,
+                    $trackStockDefault
+                );
+
+
+            if ($tracksStock === null) {
+
+                $errors[] =
+                    'Track Inventory must be Yes or No.';
+
+
+                $tracksStock =
+                    $trackStockDefault;
+
+            }
+
+        }
 
 
         /*
@@ -1561,10 +1936,24 @@ class ProductImportService
                     $row['selling_price'] ?? null
                 ),
 
+            /*
+            |--------------------------------------------------------------------------
+            | Minimum Stock
+            |--------------------------------------------------------------------------
+            |
+            | products.minimum_stock is not nullable.
+            |
+            | Validation still decides whether the user was required to provide a
+            | value. This 0 is only the safe persisted fallback for optional/hidden
+            | or non-stock products.
+            |
+            */
+
             'minimum_stock' =>
                 $this->numericValue(
                     $row['minimum_stock'] ?? null
-                ),
+                )
+                ?? 0,
 
             'maximum_stock' =>
                 $this->numericValue(
@@ -1592,55 +1981,225 @@ class ProductImportService
                 ),
 
             'track_stock' =>
-                 (bool) $tracksStock,
+                (bool) $tracksStock,
+
         ];
 
 
         /*
         |--------------------------------------------------------------------------
-        | Required Fields
+        | Remove Hidden Field Values
+        |--------------------------------------------------------------------------
+        |
+        | Hidden business-profile fields must not be imported merely because an
+        | older spreadsheet happens to contain them.
+        |
+        */
+
+        foreach (
+            [
+                'sku',
+                'barcode',
+                'qr_code',
+                'description',
+                'brand',
+                'manufacturer',
+                'cost_price',
+                'selling_price',
+                'weight',
+                'expiry_date',
+            ]
+            as $field
+        ) {
+
+            if (
+                !$fieldVisible(
+                    $field
+                )
+            ) {
+
+                $normalized[$field] =
+                    null;
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Hidden / Disabled Stock Fields
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !$tracksStock
+            ||
+            !$fieldVisible(
+                'minimum_stock'
+            )
+        ) {
+
+            $normalized['minimum_stock'] =
+                null;
+
+        }
+
+
+        if (
+            !$tracksStock
+            ||
+            !$fieldVisible(
+                'maximum_stock'
+            )
+        ) {
+
+            $normalized['maximum_stock'] =
+                null;
+
+        }
+
+
+        if (
+            !$tracksStock
+            ||
+            !$fieldVisible(
+                'opening_stock'
+            )
+        ) {
+
+            $normalized['opening_stock'] =
+                0;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Required String Fields
         |--------------------------------------------------------------------------
         */
 
         $requiredStringFields = [
 
-            'name' =>
-                [
-                    'profile' => 'name',
-                    'label' => 'Name',
-                    'value' =>
-                        $normalized['name'],
-                ],
+            'name' => [
+                'profile' =>
+                    'name',
 
-            'category' =>
-                [
-                    'profile' =>
-                        'product_category_id',
+                'label' =>
+                    'Name',
 
-                    'label' =>
-                        'Category',
+                'value' =>
+                    $normalized['name'],
+            ],
 
-                    'value' =>
-                        $this->stringValue(
-                            $row['category']
+            'sku' => [
+                'profile' =>
+                    'sku',
+
+                'label' =>
+                    'SKU',
+
+                'value' =>
+                    $normalized['sku'],
+            ],
+
+            'barcode' => [
+                'profile' =>
+                    'barcode',
+
+                'label' =>
+                    'Barcode',
+
+                'value' =>
+                    $normalized['barcode'],
+            ],
+
+            'qr_code' => [
+                'profile' =>
+                    'qr_code',
+
+                'label' =>
+                    'QR Code',
+
+                'value' =>
+                    $normalized['qr_code'],
+            ],
+
+            'description' => [
+                'profile' =>
+                    'description',
+
+                'label' =>
+                    'Description',
+
+                'value' =>
+                    $normalized['description'],
+            ],
+
+            'brand' => [
+                'profile' =>
+                    'brand',
+
+                'label' =>
+                    'Brand',
+
+                'value' =>
+                    $normalized['brand'],
+            ],
+
+            'manufacturer' => [
+                'profile' =>
+                    'manufacturer',
+
+                'label' =>
+                    'Manufacturer',
+
+                'value' =>
+                    $normalized['manufacturer'],
+            ],
+
+            'category' => [
+                'profile' =>
+                    'product_category_id',
+
+                'label' =>
+                    'Category',
+
+                'value' =>
+                    $this->stringValue(
+                        $row['category']
                             ?? null
-                        ),
-                ],
+                    ),
+            ],
 
-            'unit' =>
-                [
-                    'profile' =>
-                        'unit_id',
+            'unit' => [
+                'profile' =>
+                    'unit_id',
 
-                    'label' =>
-                        'Unit',
+                'label' =>
+                    'Unit',
 
-                    'value' =>
-                        $this->stringValue(
-                            $row['unit']
+                'value' =>
+                    $this->stringValue(
+                        $row['unit']
                             ?? null
-                        ),
-                ],
+                    ),
+            ],
+
+            'discount' => [
+                'profile' =>
+                    'discount_id',
+
+                'label' =>
+                    'Discount',
+
+                'value' =>
+                    $this->stringValue(
+                        $row['discount']
+                            ?? null
+                    ),
+            ],
 
         ];
 
@@ -1686,7 +2245,7 @@ class ProductImportService
         }
 
 
-       /*
+        /*
         |--------------------------------------------------------------------------
         | Numeric Fields
         |--------------------------------------------------------------------------
@@ -1758,7 +2317,6 @@ class ProductImportService
 
                     'opening_stock' =>
                         'Opening stock',
-
                 ]
                 as $field => $label
             ) {
@@ -1794,8 +2352,14 @@ class ProductImportService
         }
         else {
 
+            /*
+            |--------------------------------------------------------------------------
+            | Non-stock Product Defaults
+            |--------------------------------------------------------------------------
+            */
+
             $normalized['minimum_stock'] =
-                null;
+                0;
 
             $normalized['maximum_stock'] =
                 null;
@@ -1804,7 +2368,6 @@ class ProductImportService
                 0;
 
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -1839,21 +2402,46 @@ class ProductImportService
             $fieldVisible(
                 'expiry_date'
             )
-            &&
-            ($row['expiry_date'] ?? null) !== null
-            &&
-            trim(
-                (string) (
-                    $row['expiry_date']
-                    ?? ''
-                )
-            ) !== ''
-            &&
-            $normalized['expiry_date'] === null
         ) {
 
-            $errors[] =
-                'Expiry date is invalid.';
+            $rawExpiryDate =
+                $row['expiry_date']
+                    ?? null;
+
+
+            if (
+                $fieldRequired(
+                    'expiry_date'
+                )
+                &&
+                (
+                    $rawExpiryDate === null
+                    ||
+                    trim(
+                        (string) $rawExpiryDate
+                    ) === ''
+                )
+            ) {
+
+                $errors[] =
+                    'Expiry date is required.';
+
+            }
+            elseif (
+                $rawExpiryDate !== null
+                &&
+                trim(
+                    (string) $rawExpiryDate
+                ) !== ''
+                &&
+                $normalized['expiry_date']
+                    === null
+            ) {
+
+                $errors[] =
+                    'Expiry date is invalid.';
+
+            }
 
         }
 
@@ -1865,9 +2453,14 @@ class ProductImportService
         */
 
         $categoryName =
-            $this->stringValue(
-                $row['category'] ?? null
-            );
+            $fieldVisible(
+                'product_category_id'
+            )
+                ? $this->stringValue(
+                    $row['category']
+                        ?? null
+                )
+                : null;
 
 
         $category =
@@ -1882,11 +2475,13 @@ class ProductImportService
 
         if (
             $categoryName !== null
-            && !$category
+            &&
+            !$category
         ) {
 
             $errors[] =
                 "Category '{$categoryName}' does not exist for this company.";
+
         }
 
 
@@ -1901,9 +2496,14 @@ class ProductImportService
         */
 
         $unitName =
-            $this->stringValue(
-                $row['unit'] ?? null
-            );
+            $fieldVisible(
+                'unit_id'
+            )
+                ? $this->stringValue(
+                    $row['unit']
+                        ?? null
+                )
+                : null;
 
 
         $unit =
@@ -1918,16 +2518,18 @@ class ProductImportService
 
         if (
             $unitName !== null
-            && !$unit
+            &&
+            !$unit
         ) {
 
             $errors[] =
                 "Unit '{$unitName}' does not exist for this company.";
+
         }
 
 
         $normalized['unit_id'] =
-            $unit?->id;   
+            $unit?->id;
 
 
         /*
@@ -1937,9 +2539,14 @@ class ProductImportService
         */
 
         $discountName =
-            $this->stringValue(
-                $row['discount'] ?? null
-            );
+            $fieldVisible(
+                'discount_id'
+            )
+                ? $this->stringValue(
+                    $row['discount']
+                        ?? null
+                )
+                : null;
 
 
         $discount =
@@ -1954,11 +2561,13 @@ class ProductImportService
 
         if (
             $discountName !== null
-            && !$discount
+            &&
+            !$discount
         ) {
 
             $errors[] =
                 "Discount '{$discountName}' does not exist for this company.";
+
         }
 
 
@@ -1973,6 +2582,10 @@ class ProductImportService
         */
 
         if (
+            $fieldVisible(
+                'sku'
+            )
+            &&
             !empty(
                 $normalized['sku']
             )
@@ -1992,19 +2605,23 @@ class ProductImportService
 
                 $errors[] =
                     "SKU '{$sku}' appears more than once in this file.";
+
             }
 
 
             $existingSku =
                 Product::withTrashed()
+
                     ->where(
                         'company_id',
                         $companyId
                     )
+
                     ->where(
                         'sku',
                         $sku
                     )
+
                     ->exists();
 
 
@@ -2012,7 +2629,9 @@ class ProductImportService
 
                 $errors[] =
                     "SKU '{$sku}' already exists.";
+
             }
+
         }
 
 
@@ -2023,6 +2642,10 @@ class ProductImportService
         */
 
         if (
+            $fieldVisible(
+                'barcode'
+            )
+            &&
             !empty(
                 $normalized['barcode']
             )
@@ -2042,19 +2665,23 @@ class ProductImportService
 
                 $errors[] =
                     "Barcode '{$barcode}' appears more than once in this file.";
+
             }
 
 
             $existingBarcode =
                 Product::withTrashed()
+
                     ->where(
                         'company_id',
                         $companyId
                     )
+
                     ->where(
                         'barcode',
                         $barcode
                     )
+
                     ->exists();
 
 
@@ -2062,7 +2689,9 @@ class ProductImportService
 
                 $errors[] =
                     "Barcode '{$barcode}' already exists.";
+
             }
+
         }
 
 
@@ -2072,16 +2701,29 @@ class ProductImportService
         |--------------------------------------------------------------------------
         */
 
-        $status = 'valid';
+        $status =
+            'valid';
 
 
-        if (!empty($errors)) {
+        if (
+            !empty(
+                $errors
+            )
+        ) {
 
-            $status = 'error';
+            $status =
+                'error';
 
-        } elseif (!empty($warnings)) {
+        }
+        elseif (
+            !empty(
+                $warnings
+            )
+        ) {
 
-            $status = 'warning';
+            $status =
+                'warning';
+
         }
 
 
@@ -2094,7 +2736,8 @@ class ProductImportService
         return [
 
             'row' =>
-                $row['row'] ?? null,
+                $row['row']
+                    ?? null,
 
             'status' =>
                 $status,
@@ -2134,6 +2777,9 @@ class ProductImportService
                 'selling_price' =>
                     $normalized['selling_price'],
 
+                'track_stock' =>
+                    $tracksStock,
+
                 'minimum_stock' =>
                     $normalized['minimum_stock'],
 
@@ -2145,10 +2791,11 @@ class ProductImportService
 
                 'status' =>
                     $normalized['status'],
+
             ],
+
         ];
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -2379,5 +3026,129 @@ class ProductImportService
             $errors[] =
                 "{$label} cannot be negative.";
         }
+    }
+
+    /**
+     * Get the columns that should appear in the import preview.
+     */
+    protected function previewColumnsForCompany(
+        Company $company
+    ): array {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Universal Columns
+        |--------------------------------------------------------------------------
+        */
+
+        $columns = [
+
+            [
+                'key' =>
+                    'row',
+
+                'label' =>
+                    'Row',
+            ],
+
+            [
+                'key' =>
+                    'status',
+
+                'label' =>
+                    'Status',
+            ],
+
+            [
+                'key' =>
+                    'name',
+
+                'label' =>
+                    'Product',
+            ],
+
+        ];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Business-aware Product Columns
+        |--------------------------------------------------------------------------
+        */
+
+        $availableColumns = [
+
+            'sku' =>
+                'SKU',
+
+            'category' =>
+                'Category',
+
+            'unit' =>
+                'Unit',
+
+            'cost_price' =>
+                'Cost',
+
+            'selling_price' =>
+                'Selling',
+
+            'track_stock' =>
+                'Track Inventory',
+
+            'opening_stock' =>
+                'Opening Stock',
+
+        ];
+
+
+        foreach (
+            $availableColumns
+            as $column => $label
+        ) {
+
+            if (
+                !$this->importColumnVisible(
+                    $company,
+                    $column
+                )
+            ) {
+
+                continue;
+
+            }
+
+
+            $columns[] = [
+
+                'key' =>
+                    $column,
+
+                'label' =>
+                    $label,
+
+            ];
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
+        */
+
+        $columns[] = [
+
+            'key' =>
+                'validation',
+
+            'label' =>
+                'Validation',
+
+        ];
+
+
+        return $columns;
     }
 }

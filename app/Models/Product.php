@@ -452,6 +452,22 @@ class Product extends Model
      */
     public function isOutOfStock(): bool
     {
+        /*
+        |--------------------------------------------------------------------------
+        | Non-stock Products
+        |--------------------------------------------------------------------------
+        |
+        | Products that do not track inventory can never be out of stock.
+        |
+        */
+
+        if (!$this->tracksStock()) {
+
+            return false;
+
+        }
+
+
         return $this->totalStock() <= 0;
     }
 
@@ -461,8 +477,116 @@ class Product extends Model
      */
     public function isLowStock(): bool
     {
-        return $this->totalStock()
-            <= (float) $this->minimum_stock;
+        /*
+        |--------------------------------------------------------------------------
+        | Non-stock Products
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$this->tracksStock()) {
+
+            return false;
+
+        }
+
+
+        $stock =
+            $this->totalStock();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Out Of Stock Is Not Low Stock
+        |--------------------------------------------------------------------------
+        |
+        | Zero stock belongs exclusively to the Out of Stock KPI.
+        |
+        */
+
+        if ($stock <= 0) {
+
+            return false;
+
+        }
+
+
+        return $stock
+            <= (float) (
+                $this->minimum_stock
+                ?? 0
+            );
+    }
+
+
+    /**
+     * Stock status.
+     */
+    public function stockStatus(): string
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Non-stock Product
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$this->tracksStock()) {
+
+            return 'Not tracked';
+
+        }
+
+
+        if ($this->isOutOfStock()) {
+
+            return 'Out of Stock';
+
+        }
+
+
+        if ($this->isLowStock()) {
+
+            return 'Low Stock';
+
+        }
+
+
+        return 'In Stock';
+    }
+
+
+    /**
+     * Stock badge class.
+     */
+    public function stockBadge(): string
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Non-stock Product
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$this->tracksStock()) {
+
+            return 'secondary';
+
+        }
+
+
+        if ($this->isOutOfStock()) {
+
+            return 'danger';
+
+        }
+
+
+        if ($this->isLowStock()) {
+
+            return 'warning';
+
+        }
+
+
+        return 'success';
     }
 
  
@@ -506,41 +630,7 @@ class Product extends Model
             ) * 100,
             2
         );
-    }
-
-
-    /**
-     * Stock status.
-     */
-    public function stockStatus(): string
-    {
-        if ($this->isOutOfStock()) {
-            return 'Out of Stock';
-        }
-
-        if ($this->isLowStock()) {
-            return 'Low Stock';
-        }
-
-        return 'In Stock';
-    }
-
-
-    /**
-     * Stock badge class.
-     */
-    public function stockBadge(): string
-    {
-        if ($this->isOutOfStock()) {
-            return 'danger';
-        }
-
-        if ($this->isLowStock()) {
-            return 'warning';
-        }
-
-        return 'success';
-    }
+    }   
 
 
     /**

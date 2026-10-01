@@ -291,7 +291,10 @@
                         <div class="stock-product-table-wrapper">
 
 
-                            <table class="table stock-product-table align-middle mb-0">
+                            <table
+                                class="table stock-product-table align-middle mb-0"
+                                data-show-unit="{{ $showUnit ? '1' : '0' }}"
+                            >
 
                                 <thead>
 
@@ -302,15 +305,19 @@
                                         </th>
 
                                         <th>
-                                            Stock
+                                            Category
                                         </th>
 
-                                        <th>
-                                           Units
-                                        </th>
+                                        @if($showUnit)
+
+                                            <th>
+                                                Unit
+                                            </th>
+
+                                        @endif
 
                                         <th>
-                                            Price
+                                            Selling Price
                                         </th>
 
                                         <th class="text-end">
@@ -327,7 +334,7 @@
                                     <tr>
 
                                         <td
-                                            colspan="4"
+                                           colspan="{{ $showUnit ? 5 : 4 }}"
                                             class="text-center py-5">
 
                                             <div class="stock-table-empty">
@@ -620,19 +627,19 @@
                                         </option>
 
 
-                                        <option value="Opening Stock">
+                                        <!-- <option value="Opening Stock">
                                             Opening Stock
-                                        </option>
+                                        </option> -->
 
 
-                                        <option value="Purchase">
+                                        <!-- <option value="Purchase">
                                             Purchase
                                         </option>
 
 
                                         <option value="Return">
                                             Return
-                                        </option>
+                                        </option> -->
 
 
                                         <!-- <option value="Transfer In">
