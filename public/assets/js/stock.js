@@ -493,6 +493,8 @@ bindEvents()
         'change',
         () => {
 
+            this.updateMovementHelp();
+
             this.validateAdjustmentForm();
 
         }
@@ -1738,12 +1740,46 @@ async loadProducts(page = 1)
 },
 
 
-/*
-|--------------------------------------------------------------------------
-| Load Adjustment Filters
-|--------------------------------------------------------------------------
-*/
+    updateMovementHelp()
+    {
+        if (!this.adjustmentType)
+        {
+            return;
+        }
 
+        const help =
+            document.getElementById(
+                'stockMovementHelp'
+            );
+
+        if (!help)
+        {
+            return;
+        }
+
+        const messages = {
+
+            'Adjustment In':
+                'Use this to manually increase stock when correcting an understated or missing quantity. Do not use it for purchases, transfers or returns.',
+
+            'Adjustment Out':
+                'Use this to manually reduce stock when correcting an overstated quantity or other inventory discrepancy. Do not use it for purchases, transfers, damage or expiry.',
+
+            'Damage':
+                'Use this when stock has been damaged and can no longer be sold or used.',
+
+            'Expired':
+                'Use this when stock has expired and must be removed from available inventory.',
+
+        };
+
+        help.textContent =
+            messages[
+                this.adjustmentType.value
+            ]
+            ??
+            'Select a movement type to see when it should be used.';
+    },
 
 /*
 |--------------------------------------------------------------------------
@@ -2241,6 +2277,8 @@ clearSelection()
 
         this.adjustmentType.value =
             '';
+
+        this.updateMovementHelp();
 
     }
 

@@ -1234,16 +1234,15 @@
 
         <div class="purchase-workspace-card">
 
-            <div class="purchase-toolbar">
+            <div class="purchase-toolbar purchase-returns-toolbar">
 
-                <div class="purchase-toolbar-left">
+                <div class="purchase-returns-filters">
 
-                    <div class="input-group purchase-search">
+                    {{-- SEARCH --}}
+                    <div class="input-group purchase-search purchase-returns-search">
 
-                        <span class="input-group-text bg-white">
-
+                        <span class="input-group-text">
                             <i class="bi bi-search"></i>
-
                         </span>
 
                         <input
@@ -1257,82 +1256,96 @@
                     </div>
 
 
-                    <select
-                        class="form-select"
-                        id="purchaseReturnsBranch"
-                    >
+                    {{-- BRANCH --}}
+                    <div class="purchase-filter-field">
 
-                        <option value="">
-                            All Branches
-                        </option>
+                        <select
+                            class="form-select"
+                            id="purchaseReturnsBranch"
+                        >
 
-                        @foreach($branches as $branch)
-
-                            <option
-                                value="{{ $branch->id }}"
-                            >
-                                {{ $branch->name }}
+                            <option value="">
+                                All Branches
                             </option>
 
-                        @endforeach
+                            @foreach($branches as $branch)
 
-                    </select>
+                                <option value="{{ $branch->id }}">
+                                    {{ $branch->name }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
 
 
-                    <select
-                        class="form-select"
-                        id="purchaseReturnsSupplier"
-                    >
+                    {{-- SUPPLIER --}}
+                    <div class="purchase-filter-field">
 
-                        <option value="">
-                            All Suppliers
-                        </option>
+                        <select
+                            class="form-select"
+                            id="purchaseReturnsSupplier"
+                        >
 
-                        @foreach($suppliers as $supplier)
-
-                            <option
-                                value="{{ $supplier->id }}"
-                            >
-                                {{ $supplier->name }}
+                            <option value="">
+                                All Suppliers
                             </option>
 
-                        @endforeach
+                            @foreach($suppliers as $supplier)
 
-                    </select>
+                                <option value="{{ $supplier->id }}">
+                                    {{ $supplier->name }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
 
 
-                    <select
-                        class="form-select"
-                        id="purchaseReturnsStatus"
-                    >
+                    {{-- STATUS --}}
+                    <div class="purchase-filter-field purchase-status-filter">
 
-                        <option value="">
-                            All Statuses
-                        </option>
+                        <select
+                            class="form-select"
+                            id="purchaseReturnsStatus"
+                        >
 
-                        <option value="pending">
-                            Pending
-                        </option>
+                            <option value="">
+                                All Statuses
+                            </option>
 
-                        <option value="completed">
-                            Completed
-                        </option>
+                            <option value="Pending">
+                                Pending
+                            </option>
 
-                    </select>
+                            <option value="Completed">
+                                Completed
+                            </option>
+
+                        </select>
+
+                    </div>
 
                 </div>
 
 
-                <button
-                    type="button"
-                    class="btn btn-light border"
-                    id="purchaseReturnsRefresh"
-                    title="Refresh"
-                >
+                {{-- REFRESH --}}
+                <div class="purchase-toolbar-actions">
 
-                    <i class="bi bi-arrow-clockwise"></i>
+                    <button
+                        type="button"
+                        class="btn purchase-refresh-btn"
+                        id="purchaseReturnsRefresh"
+                        title="Refresh purchase returns"
+                    >
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
 
-                </button>
+                </div>
 
             </div>
 

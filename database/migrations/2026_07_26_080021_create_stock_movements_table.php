@@ -33,6 +33,8 @@ return new class extends Migration
                 'Sale',
                 'Return',
                 'Adjustment',
+                'Adjustment In',
+                'Adjustment Out',
                 'Transfer',
                 'Damage',
                 'Expired'

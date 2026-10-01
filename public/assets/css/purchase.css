@@ -2993,3 +2993,182 @@
 .purchase-tab-returns.active::before {
     background: #f97316;
 }
+
+/* =========================================================
+   PURCHASE RETURNS TOOLBAR
+========================================================= */
+
+.purchase-returns-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 18px;
+    border-bottom: 1px solid #e9ecef;
+    background: #fff;
+}
+
+.purchase-returns-filters {
+    flex: 1;
+    display: grid;
+    grid-template-columns:
+        minmax(240px, 1.8fr)
+        minmax(150px, 1fr)
+        minmax(170px, 1fr)
+        minmax(140px, 0.8fr);
+    gap: 12px;
+    align-items: center;
+    min-width: 0;
+}
+
+
+/* Search */
+
+.purchase-returns-search {
+    min-width: 0;
+}
+
+.purchase-returns-search .input-group-text {
+    background: #fff;
+    border-color: #dee2e6;
+    border-right: 0;
+    color: #6c757d;
+    padding-left: 14px;
+    padding-right: 10px;
+}
+
+.purchase-returns-search .form-control {
+    border-left: 0;
+    padding-left: 4px;
+}
+
+.purchase-returns-search .form-control:focus {
+    box-shadow: none;
+    border-color: #dee2e6;
+}
+
+.purchase-returns-search:focus-within .input-group-text,
+.purchase-returns-search:focus-within .form-control {
+    border-color: #86b7fe;
+}
+
+
+/* Filters */
+
+.purchase-filter-field {
+    min-width: 0;
+}
+
+.purchase-filter-field .form-select {
+    width: 100%;
+    min-height: 42px;
+    border-color: #dee2e6;
+    background-color: #fff;
+    font-size: 0.875rem;
+}
+
+.purchase-returns-search .form-control,
+.purchase-returns-search .input-group-text {
+    min-height: 42px;
+}
+
+
+/* Refresh */
+
+.purchase-toolbar-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.purchase-refresh-btn {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    background: #fff;
+    color: #495057;
+    border-radius: 8px;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.purchase-refresh-btn:hover {
+    background: #f8f9fa;
+    border-color: #ced4da;
+    color: #212529;
+}
+
+.purchase-refresh-btn i {
+    font-size: 1rem;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1199.98px) {
+
+    .purchase-returns-filters {
+        grid-template-columns:
+            minmax(240px, 2fr)
+            repeat(3, minmax(140px, 1fr));
+    }
+
+}
+
+
+@media (max-width: 991.98px) {
+
+    .purchase-returns-toolbar {
+        align-items: flex-start;
+    }
+
+    .purchase-returns-filters {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .purchase-returns-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .purchase-returns-filters {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .purchase-toolbar-actions {
+        justify-content: flex-end;
+    }
+
+}
+
+
+@media (max-width: 575.98px) {
+
+    .purchase-returns-toolbar {
+        padding: 14px;
+    }
+
+    .purchase-toolbar-actions {
+        justify-content: stretch;
+    }
+
+    .purchase-refresh-btn {
+        width: 100%;
+    }
+
+}

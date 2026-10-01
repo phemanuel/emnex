@@ -2423,48 +2423,60 @@ public function orderDetails(
         int $id
     ): JsonResponse {
 
-        if (! canAccess('purchases.approve')) {
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (!canAccess('purchases.approve')) {
 
             return response()->json([
-
-                'success' =>
-                    false,
-
+                'success' => false,
                 'message' =>
                     'You do not have permission to approve purchase orders.',
-
             ], 403);
 
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Purchase Order
+        |--------------------------------------------------------------------------
+        */
+
         $order =
             PurchaseOrder::query()
+
                 ->where(
                     'company_id',
                     $this->companyId
                 )
+
                 ->with([
                     'items',
                     'supplier',
                     'branch',
                 ])
-                ->find($id);
+
+                ->find(
+                    $id
+                );
+
 
         if (!$order) {
 
             return response()->json([
-
-                'success' =>
-                    false,
-
+                'success' => false,
                 'message' =>
                     'Purchase order not found.',
-
             ], 404);
 
         }
 
-       /*
+
+        /*
         |--------------------------------------------------------------------------
         | Validate Status
         |--------------------------------------------------------------------------
@@ -2479,38 +2491,51 @@ public function orderDetails(
         ) {
 
             return response()->json([
-
-                'success' =>
-                    false,
-
+                'success' => false,
                 'message' =>
                     'Only pending purchase orders can be approved.',
-
             ], 422);
 
         }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Validate Items
+        |--------------------------------------------------------------------------
+        */
 
         if ($order->items->isEmpty()) {
 
             return response()->json([
-
-                'success' =>
-                    false,
-
+                'success' => false,
                 'message' =>
                     'A purchase order must contain at least one item before approval.',
-
             ], 422);
 
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Capture Old Values
+        |--------------------------------------------------------------------------
+        */
+
         $oldValues =
             $order->toArray();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Approve Purchase Order
+        |--------------------------------------------------------------------------
+        */
 
         $order->update([
 
             'status' =>
-                'approved',
+                'Approved',
 
             'approved_by' =>
                 auth()->id(),
@@ -2519,6 +2544,13 @@ public function orderDetails(
                 now(),
 
         ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Activity Log
+        |--------------------------------------------------------------------------
+        */
 
         $this->activityLogger->log(
 
@@ -2537,6 +2569,13 @@ public function orderDetails(
 
         );
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Response
+        |--------------------------------------------------------------------------
+        */
+
         return response()->json([
 
             'success' =>
@@ -2550,7 +2589,6 @@ public function orderDetails(
 
         ]);
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -2659,7 +2697,7 @@ public function orderDetails(
         $order->update([
 
             'status' =>
-                'cancelled',
+                'Cancelled',
 
         ]);
 

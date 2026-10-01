@@ -1498,7 +1498,7 @@ class StockController extends BaseController
                 ],
 
                 'reason' => [
-                    'nullable',
+                    'required',
                     'string',
                     'max:255',
                 ],

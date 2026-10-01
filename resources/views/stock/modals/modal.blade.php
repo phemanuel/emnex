@@ -620,40 +620,24 @@
 
                                     <select
                                         class="form-select"
-                                        id="stockType">
+                                        id="stockType"
+                                    >
 
                                         <option value="">
                                             Select movement type
                                         </option>
 
-
-                                        <!-- <option value="Opening Stock">
-                                            Opening Stock
-                                        </option> -->
-
-
-                                        <!-- <option value="Purchase">
-                                            Purchase
+                                        <option value="Adjustment In">
+                                            Adjustment In
                                         </option>
 
-
-                                        <option value="Return">
-                                            Return
-                                        </option> -->
-
-
-                                        <!-- <option value="Transfer In">
-                                            Transfer In
+                                        <option value="Adjustment Out">
+                                            Adjustment Out
                                         </option>
-
-                                        <option value="Transfer Out">
-                                            Transfer Out
-                                        </option> -->
 
                                         <option value="Damage">
                                             Damage
                                         </option>
-
 
                                         <option value="Expired">
                                             Expired
@@ -662,16 +646,12 @@
                                     </select>
 
 
-                                    <div class="movement-help">
+                                    <div class="movement-help mt-2">
 
                                         <i class="bi bi-info-circle"></i>
 
-
                                         <span id="stockMovementHelp">
-
-                                            Select the reason for this
-                                            stock movement.
-
+                                            Select a movement type to see when it should be used.
                                         </span>
 
                                     </div>
@@ -721,6 +701,10 @@
                                     <label class="form-label">
 
                                         Reason / Remarks
+
+                                        <span class="text-danger">
+                                            *
+                                        </span>
 
                                     </label>
 
