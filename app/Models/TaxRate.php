@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Concerns\HasSyncUuid;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * TaxRate Model
@@ -15,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class TaxRate extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, HasSyncUuid;
 
     /*
     |--------------------------------------------------------------------------

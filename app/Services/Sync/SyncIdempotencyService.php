@@ -87,5 +87,27 @@ class SyncIdempotencyService
 
         return $mutation->response;
     }
+
+    /**
+     * Prepare a previously failed mutation for another processing attempt.
+     */
+    public function retry(
+        SyncMutation $mutation
+    ): SyncMutation {
+        if ($mutation->status !== 'failed') {
+            throw new \LogicException(
+                "Only failed synchronization mutations can be retried."
+            );
+        }
+
+        $mutation->forceFill([
+            'status' => 'processing',
+            'response' => null,
+            'error' => null,
+            'processed_at' => null,
+        ])->save();
+
+        return $mutation;
+    }
 }
 
