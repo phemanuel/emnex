@@ -292,111 +292,362 @@ class DiscountController extends BaseController
     /**
      * Update the specified discount.
      */
-    public function update(Request $request, Discount $discount)
-    {
-        if (! canAccess('discounts.update')) {
+   public function update(
+        Request $request,
+        Discount $discount
+    ) {
+        /*
+        |--------------------------------------------------------------------------
+        | Permission
+        |--------------------------------------------------------------------------
+        */
+
+        if (!canAccess('discounts.update')) {
+
             return response()->json([
                 'status' => false,
-                'message' => 'You do not have permission to edit discounts.'
+                'message' =>
+                    'You do not have permission to edit discounts.',
             ], 403);
         }
+
+
         try {
 
-            if ($discount->company_id !== $this->companyId) {
+            /*
+            |--------------------------------------------------------------------------
+            | Company Check
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                $discount->company_id
+                !== $this->companyId
+            ) {
 
                 return response()->json([
-                    'success' => false,
-                    'type'    => 'danger',
-                    'message' => 'Discount not found.',
-                ], 404);
 
+                    'success' =>
+                        false,
+
+                    'type' =>
+                        'danger',
+
+                    'message' =>
+                        'Discount not found.',
+
+                ], 404);
             }
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Normalize Boolean
+            |--------------------------------------------------------------------------
+            */
+
             $request->merge([
-                'is_automatic' => $request->boolean('is_automatic'),
+
+                'is_automatic' =>
+                    $request->boolean(
+                        'is_automatic'
+                    ),
+
             ]);
 
-            $validated = $request->validate([
-                'name'         => ['required', 'string', 'max:255'],
-                'type'         => ['required', 'in:Percentage,Fixed'],
-                'value'        => ['required', 'numeric', 'min:0'],
-                'start_date'   => ['required', 'date'],
-                'end_date'     => ['required', 'date', 'after_or_equal:start_date'],
-                'is_automatic' => ['nullable', 'boolean'],
-            ]);
-            
+
+            /*
+            |--------------------------------------------------------------------------
+            | Validate
+            |--------------------------------------------------------------------------
+            */
+
+            $validated =
+                $request->validate([
+
+                    'name' => [
+                        'required',
+                        'string',
+                        'max:255',
+                    ],
+
+                    'type' => [
+                        'required',
+                        'in:Percentage,Fixed',
+                    ],
+
+                    'value' => [
+                        'required',
+                        'numeric',
+                        'min:0',
+                    ],
+
+                    'start_date' => [
+                        'required',
+                        'date',
+                    ],
+
+                    'end_date' => [
+                        'required',
+                        'date',
+                        'after_or_equal:start_date',
+                    ],
+
+                    'is_automatic' => [
+                        'nullable',
+                        'boolean',
+                    ],
+
+                ]);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Normalize Name
+            |--------------------------------------------------------------------------
+            */
+
+            $name =
+                trim(
+                    $validated['name']
+                );
+
 
             DB::beginTransaction();
+
 
             /*
             |--------------------------------------------------------------------------
             | Duplicate Check
             |--------------------------------------------------------------------------
+            |
+            | Include soft-deleted Discounts because company_id + name remains
+            | unique at database level even after soft deletion.
+            |
             */
 
-            $duplicate = Discount::where('company_id', $this->companyId)
-                ->whereRaw('LOWER(name) = ?', [strtolower(trim($validated['name']))])
-                ->where('id', '!=', $discount->id)
-                ->exists();
+            $duplicate =
+                Discount::withTrashed()
+                    ->where(
+                        'company_id',
+                        $this->companyId
+                    )
+                    ->whereRaw(
+                        'LOWER(name) = ?',
+                        [
+                            strtolower($name),
+                        ]
+                    )
+                    ->where(
+                        'id',
+                        '!=',
+                        $discount->id
+                    )
+                    ->exists();
+
 
             if ($duplicate) {
 
                 DB::rollBack();
 
-                return response()->json([
-                    'success' => false,
-                    'type'    => 'warning',
-                    'message' => 'A discount with this name already exists.',
-                ]);
 
+                return response()->json([
+
+                    'success' =>
+                        false,
+
+                    'type' =>
+                        'warning',
+
+                    'message' =>
+                        'A discount with this name already exists.',
+
+                ], 422);
             }
 
-            $oldValues = $discount->toArray();
+
+            /*
+            |--------------------------------------------------------------------------
+            | Old Values
+            |--------------------------------------------------------------------------
+            */
+
+            $oldValues =
+                $discount->toArray();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update Discount
+            |--------------------------------------------------------------------------
+            */
 
             $discount->update([
-                'name'         => trim($validated['name']),
-                'type'         => $validated['type'],
-                'value'        => $validated['value'],
-                'start_date'   => $validated['start_date'],
-                'end_date'     => $validated['end_date'],
-                'is_automatic' => $validated['is_automatic'] ?? false,
+
+                'name' =>
+                    $name,
+
+                'type' =>
+                    $validated['type'],
+
+                'value' =>
+                    $validated['value'],
+
+                'start_date' =>
+                    $validated['start_date'],
+
+                'end_date' =>
+                    $validated['end_date'],
+
+                'is_automatic' =>
+                    $validated['is_automatic']
+                    ?? false,
+
             ]);
 
-            $newValues = $discount->fresh()->toArray();
+
+            /*
+            |--------------------------------------------------------------------------
+            | Refresh
+            |--------------------------------------------------------------------------
+            */
+
+            $discount->refresh();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | New Values
+            |--------------------------------------------------------------------------
+            */
+
+            $newValues =
+                $discount->toArray();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Activity Log
+            |--------------------------------------------------------------------------
+            */
 
             $this->activityLogger->log(
+
                 'Discounts',
+
                 'Updated',
-                'Updated discount: ' . $discount->name,
+
+                'Updated discount: '
+                    . $discount->name,
+
                 $discount,
+
                 $oldValues,
+
                 $newValues
+
             );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Commit
+            |--------------------------------------------------------------------------
+            */
 
             DB::commit();
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
             return response()->json([
-                'success' => true,
-                'type'    => 'success',
-                'message' => 'Discount updated successfully.',
+
+                'success' =>
+                    true,
+
+                'type' =>
+                    'success',
+
+                'message' =>
+                    'Discount updated successfully.',
+
             ]);
+
+
+        } catch (
+            \Illuminate\Validation\ValidationException $e
+        ) {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Do Not Convert Validation Errors To 500
+            |--------------------------------------------------------------------------
+            */
+
+            if (DB::transactionLevel() > 0) {
+                DB::rollBack();
+            }
+
+            throw $e;
+
 
         } catch (Throwable $e) {
 
-            DB::rollBack();
+            /*
+            |--------------------------------------------------------------------------
+            | Rollback
+            |--------------------------------------------------------------------------
+            */
 
-            Log::error('Discount update failed.', [
-                'company_id' => $this->companyId,
-                'discount_id'=> $discount->id ?? null,
-                'error'      => $e->getMessage(),
-            ]);
+            if (DB::transactionLevel() > 0) {
+                DB::rollBack();
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Log Failure
+            |--------------------------------------------------------------------------
+            */
+
+            Log::error(
+                'Discount update failed.',
+                [
+                    'company_id' =>
+                        $this->companyId,
+
+                    'discount_id' =>
+                        $discount->id
+                        ?? null,
+
+                    'error' =>
+                        $e->getMessage(),
+                ]
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
 
             return response()->json([
-                'success' => false,
-                'type'    => 'danger',
-                'message' => 'Unable to update discount.',
-            ], 500);
 
+                'success' =>
+                    false,
+
+                'type' =>
+                    'danger',
+
+                'message' =>
+                    'Unable to update discount.',
+
+            ], 500);
         }
     }
 

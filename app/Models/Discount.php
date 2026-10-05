@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\CurrencyHelper;
+use App\Models\Concerns\HasSyncUuid;
 
 /**
  * Discount Model
@@ -17,7 +18,7 @@ use App\Helpers\CurrencyHelper;
  */
 class Discount extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasSyncUuid;
 
     /*
     |--------------------------------------------------------------------------
