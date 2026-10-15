@@ -4,6 +4,11 @@ namespace App\Services\Sync;
 
 use App\Contracts\Sync\SyncHandler;
 use InvalidArgumentException;
+use App\Services\Sync\Handlers\ProductSyncHandler;
+use App\Services\Sync\Handlers\UnitSyncHandler;
+use App\Services\Sync\Handlers\TaxRateSyncHandler;
+use App\Services\Sync\Handlers\DiscountSyncHandler;
+use App\Services\Sync\Handlers\ProductCategorySyncHandler;
 
 class SyncHandlerResolver
 {
@@ -13,7 +18,18 @@ class SyncHandlerResolver
      * Entity name => Handler class
      */
     protected array $handlers = [
-        //
+
+        'product' =>
+            ProductSyncHandler::class,
+        'unit' => 
+            UnitSyncHandler::class,
+        'tax_rate' => 
+            TaxRateSyncHandler::class,
+        'discount' => 
+            DiscountSyncHandler::class,
+        'product_category' => 
+            ProductCategorySyncHandler::class,
+
     ];
 
 

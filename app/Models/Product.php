@@ -58,6 +58,10 @@ class Product extends Model
 
         'selling_price',
 
+        'taxable',
+        
+        'dimensions',
+
 
         /*
         |--------------------------------------------------------------------------
@@ -159,6 +163,8 @@ class Product extends Model
 
             'status' =>
                 'boolean',
+
+            'taxable' => 'boolean',
 
         ];
     }

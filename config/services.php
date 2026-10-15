@@ -47,6 +47,10 @@ return [
 
         'device_token' => env('SYNC_DEVICE_TOKEN'),
 
+        'outbound_enabled' => env('SYNC_OUTBOUND_ENABLED', false),
+
+        'device_uuid' => env('SYNC_DEVICE_UUID'),
+
         /*
         |--------------------------------------------------------------------------
         | HTTP Settings

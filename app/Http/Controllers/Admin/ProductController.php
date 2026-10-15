@@ -24,6 +24,8 @@ use App\Services\ProductImportService;
 use App\Models\Storefront;
 use App\Models\ProductImage;
 use App\Services\ProductImageService;
+use App\Models\SyncDevice;
+use App\Services\Sync\ProductSyncQueueService;
 
 
 class ProductController extends BaseController
@@ -33,6 +35,7 @@ class ProductController extends BaseController
     protected ProductImportService $productImportService;
     protected BusinessProfileService $businessProfileService;
     protected ProductImageService $productImageService;
+    protected ProductSyncQueueService $productSyncQueueService;
 
 
     // public function __construct(ActivityLogger $activityLogger)
@@ -46,7 +49,8 @@ class ProductController extends BaseController
         ActivityLogger $activityLogger,
         ProductImportService $productImportService,
         BusinessProfileService $businessProfileService,
-        ProductImageService $productImageService
+        ProductImageService $productImageService,
+        ProductSyncQueueService $productSyncQueueService
     ) {
         parent::__construct();
 
@@ -61,6 +65,9 @@ class ProductController extends BaseController
 
         $this->productImageService =
             $productImageService;
+
+        $this->productSyncQueueService =
+            $productSyncQueueService;
     }
 
     /**
@@ -944,41 +951,22 @@ class ProductController extends BaseController
                             |--------------------------------------------------------------------------
                             | Create / Restore Head Office Stock
                             |--------------------------------------------------------------------------
+                            |
+                            | syncProductStockState() handles:
+                            |
+                            | - Head Office ProductStock creation/restoration
+                            | - opening quantity
+                            | - reserved quantity
+                            | - available quantity
+                            | - reorder level
+                            | - maximum stock
+                            |
                             */
 
                             $this->syncProductStockState(
                                 $duplicate,
                                 $openingStock
                             );
-
-
-                            /*
-                            |--------------------------------------------------------------------------
-                            | Opening Stock
-                            |--------------------------------------------------------------------------
-                            */
-
-                            $productStock->quantity =
-                                $openingStock;
-
-                            $productStock->reserved_quantity =
-                                0;
-
-                            $productStock->available_quantity =
-                                $openingStock;
-
-                            $productStock->reorder_level =
-                                $validated[
-                                    'minimum_stock'
-                                ] ?? 0;
-
-                            $productStock->maximum_stock =
-                                $validated[
-                                    'maximum_stock'
-                                ] ?? null;
-
-
-                            $productStock->save();
 
 
                             /*
@@ -1026,6 +1014,32 @@ class ProductController extends BaseController
                             */
 
                             $duplicate->refresh();
+
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Queue Outbound Synchronization
+                            |--------------------------------------------------------------------------
+                            |
+                            | A restored Product is sent as CREATE.
+                            |
+                            | The Central ProductSyncHandler uses sync_uuid and therefore
+                            | restores the existing Central Product instead of creating
+                            | a duplicate.
+                            |
+                            */
+
+                            $syncDevice =
+                                $this->outboundSyncDevice();
+
+                            if ($syncDevice) {
+
+                                $this->productSyncQueueService
+                                    ->create(
+                                        $syncDevice,
+                                        $duplicate
+                                    );
+                            }
 
 
                             $newValues =
@@ -1119,8 +1133,14 @@ class ProductController extends BaseController
 
             /*
             |--------------------------------------------------------------------------
-            | Create Product + Stock + Images
+            | Create Product + Stock + Images + Sync Queue
             |--------------------------------------------------------------------------
+            |
+            | All local business state and the outbound queue mutation are committed
+            | together.
+            |
+            | No HTTP request to Central happens here.
+            |
             */
 
             $product = null;
@@ -1195,6 +1215,44 @@ class ProductController extends BaseController
                             'primary_index'
                         ]
                     );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Refresh Product
+                    |--------------------------------------------------------------------------
+                    |
+                    | Ensure the payload builder receives the final persisted Product
+                    | state after stock/image processing.
+                    |
+                    */
+
+                    $product->refresh();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Queue Outbound Synchronization
+                    |--------------------------------------------------------------------------
+                    |
+                    | This only writes a local sync_queue record.
+                    |
+                    | It does not contact Central, so Product creation continues to work
+                    | while the Internet or Central server is unavailable.
+                    |
+                    */
+
+                    $syncDevice =
+                        $this->outboundSyncDevice();
+
+                    if ($syncDevice) {
+
+                        $this->productSyncQueueService
+                            ->create(
+                                $syncDevice,
+                                $product
+                            );
+                    }
                 }
             );
 
@@ -2435,10 +2493,10 @@ class ProductController extends BaseController
                 );
 
             $validated['track_stock'] =
-            $this->resolveProductTrackStock(
-                $request,
-                $product
-            );
+                $this->resolveProductTrackStock(
+                    $request,
+                    $product
+                );
 
 
             /*
@@ -2527,7 +2585,7 @@ class ProductController extends BaseController
 
             /*
             |--------------------------------------------------------------------------
-            | Update Product + Stock + Images
+            | Update Product + Stock + Images + Sync Queue
             |--------------------------------------------------------------------------
             */
 
@@ -2551,24 +2609,23 @@ class ProductController extends BaseController
 
                     /*
                     |--------------------------------------------------------------------------
-                    | Synchronize Product Stock Limits
+                    | Synchronize Product Stock State
                     |--------------------------------------------------------------------------
+                    |
+                    | No opening stock is supplied here, so existing quantities remain
+                    | untouched while stock limits/state are synchronized.
+                    |
                     */
 
                     $this->syncProductStockState(
                         $product
                     );
+
+
                     /*
                     |--------------------------------------------------------------------------
                     | Add New Product Images
                     |--------------------------------------------------------------------------
-                    |
-                    | For businesses that support multiple images, new uploads are
-                    | added to the existing gallery.
-                    |
-                    | For single-image businesses, saveProductImages() replaces the
-                    | existing image using ProductImageService.
-                    |
                     */
 
                     $this->saveProductImages(
@@ -2584,10 +2641,6 @@ class ProductController extends BaseController
                     |--------------------------------------------------------------------------
                     | Existing Primary Image
                     |--------------------------------------------------------------------------
-                    |
-                    | If the user selected one of the already-saved gallery images
-                    | as the new cover image, update it here.
-                    |
                     */
 
                     $this->setExistingPrimaryImage(
@@ -2596,6 +2649,39 @@ class ProductController extends BaseController
                             'primary_image_id'
                         ]
                     );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Refresh Product
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $product->refresh();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Queue Outbound Synchronization
+                    |--------------------------------------------------------------------------
+                    |
+                    | This writes only to the local sync queue.
+                    |
+                    | It does not contact Central during the Product request.
+                    |
+                    */
+
+                    $syncDevice =
+                        $this->outboundSyncDevice();
+
+                    if ($syncDevice) {
+
+                        $this->productSyncQueueService
+                            ->update(
+                                $syncDevice,
+                                $product
+                            );
+                    }
                 }
             );
 
@@ -2644,12 +2730,6 @@ class ProductController extends BaseController
             ]);
 
         } catch (ValidationException $e) {
-
-            /*
-            |--------------------------------------------------------------------------
-            | Laravel Validation Response
-            |--------------------------------------------------------------------------
-            */
 
             throw $e;
 
@@ -3593,23 +3673,49 @@ class ProductController extends BaseController
 
             /*
             |--------------------------------------------------------------------------
-            | Soft Delete Product
+            | Delete Product + Queue Synchronization
             |--------------------------------------------------------------------------
             |
-            | Do NOT delete product_images or physical image files here.
+            | Both operations happen in the same local database transaction.
             |
-            | The Product model uses SoftDeletes, and EMNEX supports restoring
-            | previously deleted products.
-            |
-            | Keeping the gallery intact means the product can be restored with
-            | all of its existing images still available.
+            | No HTTP request is made here.
             |
             */
 
             DB::transaction(
                 function () use ($product) {
 
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Soft Delete Product
+                    |--------------------------------------------------------------------------
+                    |
+                    | Do NOT remove product images or physical files.
+                    |
+                    | The Product can still be restored later.
+                    |
+                    */
+
                     $product->delete();
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Queue Outbound Synchronization
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $syncDevice =
+                        $this->outboundSyncDevice();
+
+                    if ($syncDevice) {
+
+                        $this->productSyncQueueService
+                            ->delete(
+                                $syncDevice,
+                                $product
+                            );
+                    }
                 }
             );
 
@@ -4847,7 +4953,52 @@ class ProductController extends BaseController
             ]);
     }
 
+    private function outboundSyncDevice(): ?SyncDevice
+    {
+        if (
+            ! config(
+                'services.sync.outbound_enabled',
+                false
+            )
+        ) {
+            return null;
+        }
 
+        $deviceUuid =
+            config(
+                'services.sync.device_uuid'
+            );
+
+        if (!$deviceUuid) {
+            throw new \RuntimeException(
+                'Outbound synchronization is enabled but no sync device UUID is configured.'
+            );
+        }
+
+        $device =
+            SyncDevice::query()
+                ->where(
+                    'company_id',
+                    $this->companyId
+                )
+                ->where(
+                    'device_uuid',
+                    $deviceUuid
+                )
+                ->where(
+                    'is_active',
+                    true
+                )
+                ->first();
+
+        if (!$device) {
+            throw new \RuntimeException(
+                'The configured synchronization device could not be found or is inactive.'
+            );
+        }
+
+        return $device;
+    }
 
 
 }
