@@ -1300,6 +1300,7 @@
                 <div class="dashboard-low-stock-list">
 
                     @forelse($lowStockProducts as $stock)
+                        @continue(!$stock->product)
 
                         <div class="dashboard-low-stock-item">
 
@@ -1319,7 +1320,7 @@
 
                                 <span class="dashboard-low-stock-product-name">
 
-                                    {{ $stock->product->name }}
+                                   {{ $stock->product->name }}
 
                                 </span>
 

@@ -577,6 +577,7 @@ class DashboardController extends Controller
 
             $lowStockProducts =
                 (clone $stockQuery)
+                    ->whereHas('product')
                     ->lowStock()
                     ->with('product')
                     ->orderBy('quantity')

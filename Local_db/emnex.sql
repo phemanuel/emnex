@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2026 at 07:17 PM
+-- Generation Time: Oct 19, 2026 at 01:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -468,7 +468,20 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 (401, 5, 12, 21, 'purchases', 'create', 'Created goods received: GR-000001', 'GoodsReceived', 8, NULL, '{\"company_id\":5,\"branch_id\":12,\"purchase_order_id\":5,\"supplier_id\":3,\"receipt_number\":\"GR-000001\",\"received_date\":\"2026-10-02T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"received_by\":21,\"updated_at\":\"2026-10-01T16:06:51.000000Z\",\"created_at\":\"2026-10-01T16:06:51.000000Z\",\"id\":8}', 'purchase/received', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 15:06:51', '2026-10-01 15:06:51'),
 (402, 5, 12, 21, 'purchases', 'create', 'Created purchase return: PRN-000001', 'PurchaseReturn', 9, NULL, '{\"company_id\":5,\"branch_id\":12,\"supplier_id\":3,\"purchase_order_id\":5,\"return_number\":\"PRN-000001\",\"return_date\":\"2026-10-05T00:00:00.000000Z\",\"status\":\"Completed\",\"notes\":null,\"created_by\":21,\"reason\":\"5 units were already damaged\",\"updated_at\":\"2026-10-01T16:08:11.000000Z\",\"created_at\":\"2026-10-01T16:08:11.000000Z\",\"id\":9}', 'purchase/returns', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 15:08:11', '2026-10-01 15:08:11'),
 (403, 1, 1, 1, 'Authorization', 'Permissions Updated', 'Updated permissions for role Owner', 'Role', 1, '{\"permissions\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93]}', '{\"permissions\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,492,493,491]}', 'roles/1/permissions', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 16:00:21', '2026-10-01 16:00:21'),
-(404, 5, 12, 21, 'Authorization', 'Permissions Updated', 'Updated permissions for role Owner', 'Role', 37, '{\"permissions\":[388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,482,483,484,485]}', '{\"permissions\":[388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,482,483,484,485,498,499,497]}', 'roles/37/permissions', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 16:01:00', '2026-10-01 16:01:00');
+(404, 5, 12, 21, 'Authorization', 'Permissions Updated', 'Updated permissions for role Owner', 'Role', 37, '{\"permissions\":[388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,482,483,484,485]}', '{\"permissions\":[388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,443,444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,482,483,484,485,498,499,497]}', 'roles/37/permissions', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-01 16:01:00', '2026-10-01 16:01:00'),
+(405, 1, 1, 1, 'Products', 'Created', 'Created product: Sync UI Test Product', 'Product', 31, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-15 12:54:26', '2026-10-15 12:54:26'),
+(406, 1, 1, 1, 'Products', 'Created', 'Created product: Sync UI Test Product 2', 'Product', 32, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-15 13:26:58', '2026-10-15 13:26:58'),
+(407, 1, 1, 1, 'Products', 'Updated', 'Updated product: Sync UI Test Product 2 - Updated', 'Product', 32, '{\"id\":32,\"sync_uuid\":\"85606043-8b75-4f12-87c4-7af42f60561c\",\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD1791204745\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Sync UI Test Product 2\",\"description\":\"Sync UI Test Product 2\",\"image\":null,\"cost_price\":\"670.00\",\"selling_price\":\"1000.00\",\"discount_id\":null,\"unit_id\":4,\"shelf_location\":null,\"track_stock\":true,\"brand\":null,\"manufacturer\":null,\"expiry_date\":\"2026-10-25T00:00:00.000000Z\",\"taxable\":true,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"0.00\",\"maximum_stock\":\"1000.00\",\"weight\":\"0.00\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-10-15T14:26:58.000000Z\",\"updated_at\":\"2026-10-15T14:26:58.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":32,\"sync_uuid\":\"85606043-8b75-4f12-87c4-7af42f60561c\",\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD1791204745\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Sync UI Test Product 2 - Updated\",\"description\":\"Sync UI Test Product 2\",\"image\":null,\"cost_price\":\"670.00\",\"selling_price\":\"1000.00\",\"discount_id\":null,\"unit_id\":4,\"shelf_location\":null,\"track_stock\":true,\"brand\":null,\"manufacturer\":null,\"expiry_date\":\"2026-10-25T00:00:00.000000Z\",\"taxable\":true,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"0.00\",\"maximum_stock\":\"1000.00\",\"weight\":\"0.00\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-10-15T14:26:58.000000Z\",\"updated_at\":\"2026-10-15T14:31:00.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products/32', 'PUT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-15 13:31:00', '2026-10-15 13:31:00'),
+(408, 1, 1, 1, 'Products', 'Deleted', 'Deleted product: Sync UI Test Product 2 - Updated', 'Product', 32, '{\"id\":32,\"sync_uuid\":\"85606043-8b75-4f12-87c4-7af42f60561c\",\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD1791204745\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Sync UI Test Product 2 - Updated\",\"description\":\"Sync UI Test Product 2\",\"image\":null,\"cost_price\":\"670.00\",\"selling_price\":\"1000.00\",\"discount_id\":null,\"unit_id\":4,\"shelf_location\":null,\"track_stock\":true,\"brand\":null,\"manufacturer\":null,\"expiry_date\":\"2026-10-25T00:00:00.000000Z\",\"taxable\":true,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"0.00\",\"maximum_stock\":\"1000.00\",\"weight\":\"0.00\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-10-15T14:26:58.000000Z\",\"updated_at\":\"2026-10-15T14:31:00.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', NULL, 'products/32', 'DELETE', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-15 13:38:04', '2026-10-15 13:38:04'),
+(409, 1, 2, 15, 'cash_drawer', 'Closed', 'Closed cash drawer.', 'CashDrawer', 9, '{\"id\":9,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":15,\"closed_by\":null,\"opening_balance\":\"12320.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"12320.00\",\"actual_balance\":\"0.00\",\"variance\":\"0.00\",\"status\":\"Open\",\"opened_at\":\"2026-09-14T14:30:09.000000Z\",\"closed_at\":null,\"opening_remarks\":null,\"closing_remarks\":null,\"created_at\":\"2026-09-14T14:30:09.000000Z\",\"updated_at\":\"2026-09-14T14:30:09.000000Z\"}', '{\"id\":9,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"closed_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"opening_balance\":\"12320.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"12320.00\",\"actual_balance\":\"12320.00\",\"variance\":\"0.00\",\"status\":\"Closed\",\"opened_at\":\"2026-09-14T14:30:09.000000Z\",\"closed_at\":\"2026-10-15T15:04:59.000000Z\",\"opening_remarks\":null,\"closing_remarks\":null,\"created_at\":\"2026-09-14T14:30:09.000000Z\",\"updated_at\":\"2026-10-15T15:04:59.000000Z\",\"branch\":{\"id\":2,\"company_id\":1,\"branch_code\":\"BR002\",\"name\":\"Lekki Branch\",\"phone\":\"08087654321\",\"email\":\"lekki@emmanexitconsult.com\",\"address\":\"Lekki, Lagos\",\"is_head_office\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null},\"terminal\":{\"id\":14,\"company_id\":1,\"branch_id\":2,\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"deleted_at\":null}}', 'cash-drawer/9/close', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-15 14:04:59', '2026-10-15 14:04:59'),
+(410, 1, 2, 15, 'cash_drawer', 'Opened', 'Opened cash drawer.', 'CashDrawer', 10, NULL, '{\"id\":10,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"closed_by\":null,\"opening_balance\":\"10450.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"10450.00\",\"actual_balance\":\"0.00\",\"variance\":\"0.00\",\"status\":\"Open\",\"opened_at\":\"2026-10-15T15:05:09.000000Z\",\"closed_at\":null,\"opening_remarks\":null,\"closing_remarks\":null,\"created_at\":\"2026-10-15T15:05:09.000000Z\",\"updated_at\":\"2026-10-15T15:05:09.000000Z\",\"branch\":{\"id\":2,\"company_id\":1,\"branch_code\":\"BR002\",\"name\":\"Lekki Branch\",\"phone\":\"08087654321\",\"email\":\"lekki@emmanexitconsult.com\",\"address\":\"Lekki, Lagos\",\"is_head_office\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null},\"terminal\":{\"id\":14,\"company_id\":1,\"branch_id\":2,\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"deleted_at\":null}}', 'cash-drawer/open', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-15 14:05:09', '2026-10-15 14:05:09'),
+(411, 1, 2, 15, 'pos', 'sale_completed', 'POS sale ORD-000061 completed.', 'Order', 102, NULL, '{\"id\":102,\"company_id\":1,\"branch_id\":2,\"order_no\":\"ORD-000061\",\"public_token\":null,\"customer_id\":null,\"cashier_id\":15,\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"90.00\",\"total\":\"1200.00\",\"amount_paid\":\"1290.00\",\"balance\":\"0.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"1290.00\",\"completed_at\":\"2026-10-15T15:06:46.000000Z\",\"confirmation_email_sent_at\":null,\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":14,\"receipt_printed\":false,\"remarks\":null,\"created_by\":15,\"updated_by\":15,\"created_at\":\"2026-10-15T15:06:46.000000Z\",\"updated_at\":\"2026-10-15T15:06:46.000000Z\",\"deleted_at\":null,\"shipping_method\":null,\"shipping_location_id\":null,\"shipping_location_name\":null,\"shipping_address\":null,\"shipping_city\":null,\"shipping_state\":null,\"shipping_fee\":\"0.00\",\"fulfilment_status\":null,\"tracking_reference\":null,\"shipping_notes\":null,\"shipped_at\":null,\"delivered_at\":null,\"order_items\":[{\"id\":134,\"company_id\":1,\"order_id\":102,\"product_id\":19,\"product_name\":\"Three Crown Evaporated Milk\",\"product_barcode\":\"TH123456\",\"quantity\":\"1.00\",\"unit_price\":\"1200.00\",\"unit_cost\":\"1000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"1200.00\",\"created_at\":\"2026-10-15T15:06:46.000000Z\",\"updated_at\":\"2026-10-15T15:06:46.000000Z\"}],\"payments\":[{\"id\":56,\"company_id\":1,\"branch_id\":2,\"order_id\":102,\"customer_id\":null,\"terminal_id\":14,\"amount\":\"1290.00\",\"payment_status\":\"Completed\",\"payment_method_id\":1,\"payment_method\":\"Cash\",\"payment_date\":\"2026-10-15T15:06:46.000000Z\",\"transaction_reference\":null,\"payment_gateway\":null,\"reference_no\":null,\"remarks\":null,\"received_by\":15,\"payment_number\":\"PAY-000046\",\"created_at\":\"2026-10-15T15:06:46.000000Z\",\"updated_at\":\"2026-10-15T15:06:46.000000Z\"}],\"invoice\":{\"id\":56,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"order_id\":102,\"customer_id\":null,\"invoice_no\":\"INV-000048\",\"invoice_date\":\"2026-10-15T00:00:00.000000Z\",\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"tax\":\"90.00\",\"total\":\"1200.00\",\"amount_paid\":\"1290.00\",\"balance\":\"0.00\",\"total_quantity\":\"1.00\",\"total_items\":1,\"grand_total\":\"1290.00\",\"payment_status\":\"Paid\",\"invoice_status\":\"Active\",\"remarks\":null,\"created_by\":15,\"updated_by\":15,\"created_at\":\"2026-10-15T15:06:46.000000Z\",\"updated_at\":\"2026-10-15T15:06:46.000000Z\",\"deleted_at\":null}}', 'pos/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-15 14:06:46', '2026-10-15 14:06:46');
+INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module`, `action`, `description`, `record_type`, `record_id`, `old_values`, `new_values`, `url`, `method`, `user_agent`, `terminal_id`, `ip_address`, `browser`, `platform`, `device`, `created_at`, `updated_at`) VALUES
+(412, 1, 2, 15, 'cash_drawer', 'Closed', 'Closed cash drawer.', 'CashDrawer', 10, '{\"id\":10,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":15,\"closed_by\":null,\"opening_balance\":\"10450.00\",\"cash_sales\":\"1290.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"11740.00\",\"actual_balance\":\"0.00\",\"variance\":\"0.00\",\"status\":\"Open\",\"opened_at\":\"2026-10-15T15:05:09.000000Z\",\"closed_at\":null,\"opening_remarks\":null,\"closing_remarks\":null,\"created_at\":\"2026-10-15T15:05:09.000000Z\",\"updated_at\":\"2026-10-15T15:06:46.000000Z\"}', '{\"id\":10,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"closed_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"opening_balance\":\"10450.00\",\"cash_sales\":\"1290.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"11740.00\",\"actual_balance\":\"11740.00\",\"variance\":\"0.00\",\"status\":\"Closed\",\"opened_at\":\"2026-10-15T15:05:09.000000Z\",\"closed_at\":\"2026-10-15T15:07:43.000000Z\",\"opening_remarks\":null,\"closing_remarks\":null,\"created_at\":\"2026-10-15T15:05:09.000000Z\",\"updated_at\":\"2026-10-15T15:07:43.000000Z\",\"branch\":{\"id\":2,\"company_id\":1,\"branch_code\":\"BR002\",\"name\":\"Lekki Branch\",\"phone\":\"08087654321\",\"email\":\"lekki@emmanexitconsult.com\",\"address\":\"Lekki, Lagos\",\"is_head_office\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null},\"terminal\":{\"id\":14,\"company_id\":1,\"branch_id\":2,\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"deleted_at\":null}}', 'cash-drawer/10/close', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-15 14:07:43', '2026-10-15 14:07:43'),
+(413, 1, 1, 1, 'Products', 'Restored', 'Restored product: POS Non-Stock Test', 'Product', 32, '{\"id\":32,\"sync_uuid\":\"85606043-8b75-4f12-87c4-7af42f60561c\",\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD1791204745\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"Sync UI Test Product 2 - Updated\",\"description\":\"Sync UI Test Product 2\",\"image\":null,\"cost_price\":\"670.00\",\"selling_price\":\"1000.00\",\"discount_id\":null,\"unit_id\":4,\"shelf_location\":null,\"track_stock\":true,\"brand\":null,\"manufacturer\":null,\"expiry_date\":\"2026-10-25T00:00:00.000000Z\",\"taxable\":true,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"0.00\",\"maximum_stock\":\"1000.00\",\"weight\":\"0.00\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-10-15T14:26:58.000000Z\",\"updated_at\":\"2026-10-19T08:51:14.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', '{\"id\":32,\"sync_uuid\":\"85606043-8b75-4f12-87c4-7af42f60561c\",\"company_id\":1,\"product_category_id\":1,\"product_code\":\"PRD1791204745\",\"barcode\":null,\"sku\":null,\"qr_code\":null,\"name\":\"POS Non-Stock Test\",\"description\":\"POS Non-Stock Test\",\"image\":null,\"cost_price\":\"500.00\",\"selling_price\":\"1000.00\",\"discount_id\":null,\"unit_id\":3,\"shelf_location\":null,\"track_stock\":false,\"brand\":null,\"manufacturer\":null,\"expiry_date\":null,\"taxable\":true,\"tax_rate_id\":null,\"status\":true,\"minimum_stock\":\"0.00\",\"maximum_stock\":\"1000.00\",\"weight\":\"0.00\",\"dimensions\":null,\"created_by\":null,\"updated_by\":null,\"created_at\":\"2026-10-15T14:26:58.000000Z\",\"updated_at\":\"2026-10-19T08:51:14.000000Z\",\"deleted_at\":null,\"reorder_level\":\"0.00\"}', 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-19 07:51:14', '2026-10-19 07:51:14'),
+(414, 1, 2, 15, 'cash_drawer', 'Opened', 'Opened cash drawer.', 'CashDrawer', 11, NULL, '{\"id\":11,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"opened_by\":{\"id\":15,\"company_id\":1,\"branch_id\":2,\"role_id\":5,\"employee_no\":\"CH-2026-001\",\"first_name\":\"Paul\",\"other_name\":\"Olusogo\",\"last_name\":\"Awolola\",\"username\":\"paul\",\"email\":\"bizcare@gmail.com\",\"is_owner\":false,\"email_verified_at\":null,\"two_factor_enabled\":false,\"phone\":\"07038899203\",\"profile_photo\":null,\"gender\":\"Male\",\"date_of_birth\":\"1987-11-25T00:00:00.000000Z\",\"employment_date\":\"2026-07-06T00:00:00.000000Z\",\"address\":\"Adelu, Ido, Ibadan.\",\"notes\":\"Transfered from Ajah branch\",\"status\":true,\"last_login_at\":null,\"last_activity_at\":null,\"last_login_ip\":null,\"force_password_change\":true,\"password_changed_at\":null,\"created_at\":\"2026-07-30T01:35:56.000000Z\",\"updated_at\":\"2026-08-30T17:02:34.000000Z\",\"deleted_at\":null},\"closed_by\":null,\"opening_balance\":\"5000.00\",\"cash_sales\":\"0.00\",\"cash_in\":\"0.00\",\"cash_out\":\"0.00\",\"cash_refunds\":\"0.00\",\"expected_balance\":\"5000.00\",\"actual_balance\":\"0.00\",\"variance\":\"0.00\",\"status\":\"Open\",\"opened_at\":\"2026-10-19T08:56:10.000000Z\",\"closed_at\":null,\"opening_remarks\":null,\"closing_remarks\":null,\"created_at\":\"2026-10-19T08:56:10.000000Z\",\"updated_at\":\"2026-10-19T08:56:10.000000Z\",\"branch\":{\"id\":2,\"company_id\":1,\"branch_code\":\"BR002\",\"name\":\"Lekki Branch\",\"phone\":\"08087654321\",\"email\":\"lekki@emmanexitconsult.com\",\"address\":\"Lekki, Lagos\",\"is_head_office\":false,\"status\":true,\"created_at\":\"2026-07-29T11:37:09.000000Z\",\"updated_at\":\"2026-07-29T11:37:09.000000Z\",\"deleted_at\":null},\"terminal\":{\"id\":14,\"company_id\":1,\"branch_id\":2,\"terminal_code\":\"Lek-Pos3\",\"terminal_name\":\"Lekki-Pos3\",\"description\":null,\"device_name\":\"Desktop POS\",\"ip_address\":null,\"status\":true,\"last_seen_at\":null,\"created_at\":\"2026-08-30T16:20:14.000000Z\",\"updated_at\":\"2026-08-30T16:20:14.000000Z\",\"deleted_at\":null}}', 'cash-drawer/open', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-19 07:56:10', '2026-10-19 07:56:10'),
+(415, 1, 1, 1, 'Products', 'Created', 'Created product: POS Zero Stock Test', 'Product', 33, NULL, NULL, 'products', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-19 08:26:06', '2026-10-19 08:26:06'),
+(416, 1, 2, 15, 'pos', 'sale_completed', 'POS sale ORD-000064 completed.', 'Order', 105, NULL, '{\"id\":105,\"company_id\":1,\"branch_id\":2,\"order_no\":\"ORD-000064\",\"public_token\":null,\"customer_id\":null,\"cashier_id\":15,\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"discount_id\":null,\"tax_rate_id\":null,\"tax\":\"90.00\",\"total\":\"1200.00\",\"amount_paid\":\"1290.00\",\"balance\":\"0.00\",\"total_items\":1,\"total_quantity\":\"1.00\",\"change_given\":\"0.00\",\"grand_total\":\"1290.00\",\"completed_at\":\"2026-10-19T09:34:02.000000Z\",\"confirmation_email_sent_at\":null,\"payment_status\":\"Paid\",\"order_status\":\"Completed\",\"sales_channel\":\"POS\",\"terminal_id\":14,\"receipt_printed\":false,\"remarks\":null,\"created_by\":15,\"updated_by\":15,\"created_at\":\"2026-10-19T09:34:02.000000Z\",\"updated_at\":\"2026-10-19T09:34:02.000000Z\",\"deleted_at\":null,\"shipping_method\":null,\"shipping_location_id\":null,\"shipping_location_name\":null,\"shipping_address\":null,\"shipping_city\":null,\"shipping_state\":null,\"shipping_fee\":\"0.00\",\"fulfilment_status\":null,\"tracking_reference\":null,\"shipping_notes\":null,\"shipped_at\":null,\"delivered_at\":null,\"order_items\":[{\"id\":137,\"company_id\":1,\"order_id\":105,\"product_id\":19,\"product_name\":\"Three Crown Evaporated Milk\",\"product_barcode\":\"TH123456\",\"quantity\":\"1.00\",\"unit_price\":\"1200.00\",\"unit_cost\":\"1000.00\",\"discount\":\"0.00\",\"tax\":\"0.00\",\"total\":\"1200.00\",\"created_at\":\"2026-10-19T09:34:02.000000Z\",\"updated_at\":\"2026-10-19T09:34:02.000000Z\"}],\"payments\":[{\"id\":58,\"company_id\":1,\"branch_id\":2,\"order_id\":105,\"customer_id\":null,\"terminal_id\":14,\"amount\":\"1290.00\",\"payment_status\":\"Completed\",\"payment_method_id\":1,\"payment_method\":\"Cash\",\"payment_date\":\"2026-10-19T09:34:02.000000Z\",\"transaction_reference\":null,\"payment_gateway\":null,\"reference_no\":null,\"remarks\":null,\"received_by\":15,\"payment_number\":\"PAY-000048\",\"created_at\":\"2026-10-19T09:34:02.000000Z\",\"updated_at\":\"2026-10-19T09:34:02.000000Z\"}],\"invoice\":{\"id\":59,\"company_id\":1,\"branch_id\":2,\"terminal_id\":14,\"order_id\":105,\"customer_id\":null,\"invoice_no\":\"INV-000051\",\"invoice_date\":\"2026-10-19T00:00:00.000000Z\",\"subtotal\":\"1200.00\",\"discount\":\"0.00\",\"tax\":\"90.00\",\"total\":\"1200.00\",\"amount_paid\":\"1290.00\",\"balance\":\"0.00\",\"total_quantity\":\"1.00\",\"total_items\":1,\"grand_total\":\"1290.00\",\"payment_status\":\"Paid\",\"invoice_status\":\"Active\",\"remarks\":null,\"created_by\":15,\"updated_by\":15,\"created_at\":\"2026-10-19T09:34:02.000000Z\",\"updated_at\":\"2026-10-19T09:34:02.000000Z\",\"deleted_at\":null}}', 'pos/orders', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', NULL, '127.0.0.1', NULL, NULL, NULL, '2026-10-19 08:34:02', '2026-10-19 08:34:02');
 
 -- --------------------------------------------------------
 
@@ -478,6 +491,7 @@ INSERT INTO `activity_logs` (`id`, `company_id`, `branch_id`, `user_id`, `module
 
 CREATE TABLE `branches` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `sync_uuid` char(36) DEFAULT NULL,
   `company_id` bigint(20) UNSIGNED NOT NULL,
   `branch_code` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -495,13 +509,13 @@ CREATE TABLE `branches` (
 -- Dumping data for table `branches`
 --
 
-INSERT INTO `branches` (`id`, `company_id`, `branch_code`, `name`, `phone`, `email`, `address`, `is_head_office`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'BR001', 'Head Office', '08012345678', 'headoffice@emmanexitconsult.com', 'Lagos, Nigeria', 1, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(2, 1, 'BR002', 'Lekki Branch', '08087654321', 'lekki@emmanexitconsult.com', 'Lekki, Lagos', 0, 1, '2026-07-29 10:37:09', '2026-07-29 10:37:09', NULL),
-(4, 1, 'BR003', 'Ajah Outlet New', '07034657383', 'ajah@emmanexitconsult.com', 'Agbado, Ajah express way, Lagos.', 0, 1, '2026-07-31 14:47:21', '2026-08-01 20:36:13', NULL),
-(6, 1, 'BR004', 'Ikorodu Outlet', '07038899203', 'Ikd@emmanexitconsult.com', 'Odogunyan, Ikorodu, Lagos.', 0, 1, '2026-07-31 14:52:50', '2026-08-01 21:41:51', NULL),
-(11, 4, 'BR789649', 'Head Office', '08012345678', 'justritemart@gmail.com', '12, Alakia, Off New Ife Road.', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
-(12, 5, 'BR818641', 'Head Office', '08104196102', 'gadgetpadi@gmail.com', 'Ibadan', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL);
+INSERT INTO `branches` (`id`, `sync_uuid`, `company_id`, `branch_code`, `name`, `phone`, `email`, `address`, `is_head_office`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '4e4add8f-63ff-4171-9c6a-f750458b806b', 1, 'BR001', 'Head Office', '08012345678', 'headoffice@emmanexitconsult.com', 'Lagos, Nigeria', 1, 1, '2026-07-29 10:37:09', '2026-10-19 08:53:06', NULL),
+(2, '187a46bb-189a-486d-b576-007001a8a150', 1, 'BR002', 'Lekki Branch', '08087654321', 'lekki@emmanexitconsult.com', 'Lekki, Lagos', 0, 1, '2026-07-29 10:37:09', '2026-10-19 08:53:06', NULL),
+(4, '13e586f9-fd0b-40ac-93ef-c963baad42e5', 1, 'BR003', 'Ajah Outlet New', '07034657383', 'ajah@emmanexitconsult.com', 'Agbado, Ajah express way, Lagos.', 0, 1, '2026-07-31 14:47:21', '2026-10-19 08:53:06', NULL),
+(6, '84782dc7-722f-4676-b30e-e994c0c19e81', 1, 'BR004', 'Ikorodu Outlet', '07038899203', 'Ikd@emmanexitconsult.com', 'Odogunyan, Ikorodu, Lagos.', 0, 1, '2026-07-31 14:52:50', '2026-10-19 08:53:06', NULL),
+(11, NULL, 4, 'BR789649', 'Head Office', '08012345678', 'justritemart@gmail.com', '12, Alakia, Off New Ife Road.', 1, 1, '2026-09-17 12:10:34', '2026-09-17 12:10:34', NULL),
+(12, NULL, 5, 'BR818641', 'Head Office', '08104196102', 'gadgetpadi@gmail.com', 'Ibadan', 1, 1, '2026-09-26 20:02:55', '2026-09-26 20:02:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -568,7 +582,9 @@ INSERT INTO `cash_drawers` (`id`, `company_id`, `branch_id`, `terminal_id`, `ope
 (6, 1, 2, 14, 15, 15, 23250.00, 107600.00, 5000.00, 2500.00, 0.00, 133350.00, 133350.00, 0.00, 'Closed', '2026-09-03 11:27:46', '2026-09-04 07:05:50', 'I met 23,250 in the drawer as at 10am today.', NULL, '2026-09-03 11:27:46', '2026-09-04 07:05:50'),
 (7, 1, 2, 14, 15, 15, 22340.00, 11502.50, 0.00, 0.00, 0.00, 33842.50, 33842.50, 0.00, 'Closed', '2026-09-04 07:06:06', '2026-09-12 21:08:10', NULL, NULL, '2026-09-04 07:06:06', '2026-09-12 21:08:10'),
 (8, 1, 2, 14, 15, 15, 34350.00, 0.00, 0.00, 0.00, 0.00, 34350.00, 34350.00, 0.00, 'Closed', '2026-09-12 21:33:16', '2026-09-12 22:06:56', NULL, NULL, '2026-09-12 21:33:16', '2026-09-12 22:06:56'),
-(9, 1, 2, 14, 15, NULL, 12320.00, 0.00, 0.00, 0.00, 0.00, 12320.00, 0.00, 0.00, 'Open', '2026-09-14 13:30:09', NULL, NULL, NULL, '2026-09-14 13:30:09', '2026-09-14 13:30:09');
+(9, 1, 2, 14, 15, 15, 12320.00, 0.00, 0.00, 0.00, 0.00, 12320.00, 12320.00, 0.00, 'Closed', '2026-09-14 13:30:09', '2026-10-15 14:04:59', NULL, NULL, '2026-09-14 13:30:09', '2026-10-15 14:04:59'),
+(10, 1, 2, 14, 15, 15, 10450.00, 1290.00, 0.00, 0.00, 0.00, 11740.00, 11740.00, 0.00, 'Closed', '2026-10-15 14:05:09', '2026-10-15 14:07:43', NULL, NULL, '2026-10-15 14:05:09', '2026-10-15 14:07:43'),
+(11, 1, 2, 14, 15, NULL, 5000.00, 1290.00, 0.00, 0.00, 0.00, 6290.00, 0.00, 0.00, 'Open', '2026-10-19 07:56:10', NULL, NULL, NULL, '2026-10-19 07:56:10', '2026-10-19 08:34:02');
 
 -- --------------------------------------------------------
 
@@ -622,7 +638,11 @@ INSERT INTO `cash_drawer_transactions` (`id`, `company_id`, `branch_id`, `termin
 (23, 1, 2, 14, 7, 30, 75, 15, 'Sale', 752.50, 23845.00, 24597.50, 'ORD-000036', NULL, '2026-09-04 08:17:39', '2026-09-04 08:17:39'),
 (24, 1, 2, 14, 7, 33, 78, 15, 'Sale', 9245.00, 24597.50, 33842.50, 'ORD-000039', NULL, '2026-09-04 08:57:18', '2026-09-04 08:57:18'),
 (25, 1, 2, 14, 8, NULL, NULL, 15, 'Opening', 34350.00, 0.00, 34350.00, NULL, 'Cash drawer opened.', '2026-09-12 21:33:16', '2026-09-12 21:33:16'),
-(26, 1, 2, 14, 9, NULL, NULL, 15, 'Opening', 12320.00, 0.00, 12320.00, NULL, 'Cash drawer opened.', '2026-09-14 13:30:09', '2026-09-14 13:30:09');
+(26, 1, 2, 14, 9, NULL, NULL, 15, 'Opening', 12320.00, 0.00, 12320.00, NULL, 'Cash drawer opened.', '2026-09-14 13:30:09', '2026-09-14 13:30:09'),
+(27, 1, 2, 14, 10, NULL, NULL, 15, 'Opening', 10450.00, 0.00, 10450.00, NULL, 'Cash drawer opened.', '2026-10-15 14:05:09', '2026-10-15 14:05:09'),
+(28, 1, 2, 14, 10, 56, 102, 15, 'Sale', 1290.00, 10450.00, 11740.00, 'ORD-000061', NULL, '2026-10-15 14:06:46', '2026-10-15 14:06:46'),
+(29, 1, 2, 14, 11, NULL, NULL, 15, 'Opening', 5000.00, 0.00, 5000.00, NULL, 'Cash drawer opened.', '2026-10-19 07:56:10', '2026-10-19 07:56:10'),
+(30, 1, 2, 14, 11, 58, 105, 15, 'Sale', 1290.00, 5000.00, 6290.00, 'ORD-000064', NULL, '2026-10-19 08:34:02', '2026-10-19 08:34:02');
 
 -- --------------------------------------------------------
 
@@ -794,7 +814,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `company_id`, `customer_group_id`, `branch_id`, `customer_code`, `first_name`, `last_name`, `email`, `phone`, `address`, `credit_limit`, `current_balance`, `customer_type`, `loyalty_points`, `last_purchase_date`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '08104786432', 'Alaro, Ibadan, Oyo', 50000.00, 0.00, 'Online', 0, '2026-09-29', 1, 1, NULL, '2026-08-16 02:50:25', '2026-09-29 12:18:50', NULL),
+(6, 1, 2, NULL, 'CUS-00001', 'Femi', 'Akinyooye', 'emmakinyooye@gmail.com', '07032109983', 'Alaro, Ibadan, Oyo', 50000.00, 0.00, 'Online', 0, '2026-10-19', 1, 1, NULL, '2026-08-16 02:50:25', '2026-10-19 07:58:08', NULL),
 (9, 1, 7, NULL, 'CUS-00007', 'Clement', 'Elugbaju', 'clement@gmail.com', '07038899203', 'Ibadan', 5000000.00, 0.00, 'Business', 0, NULL, 1, 1, NULL, '2026-08-16 10:35:39', '2026-08-16 10:35:39', NULL),
 (10, 1, 6, NULL, 'CUS-00010', 'Miracle', 'Peter', 'miracle.kingsbranding@gmail.com', '08104786432', 'Ibadan', 2000000.00, 0.00, 'Corporate', 0, NULL, 1, 1, NULL, '2026-08-27 13:04:26', '2026-08-27 13:04:26', NULL),
 (11, 1, NULL, NULL, 'CUS-000001', 'Paul', 'Awolola', 'paulawolola@gmail.com', '07032109983', 'Alaro Street, Ibadan, Oyo', 0.00, 0.00, 'Online', 0, '2026-09-26', 1, NULL, NULL, '2026-09-26 22:47:27', '2026-09-26 22:47:47', NULL),
@@ -872,6 +892,7 @@ INSERT INTO `data_lifecycle_settings` (`id`, `enabled`, `inactivity_days`, `grac
 
 CREATE TABLE `discounts` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `sync_uuid` char(36) NOT NULL,
   `company_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `is_automatic` tinyint(1) NOT NULL DEFAULT 0,
@@ -889,13 +910,13 @@ CREATE TABLE `discounts` (
 -- Dumping data for table `discounts`
 --
 
-INSERT INTO `discounts` (`id`, `company_id`, `name`, `is_automatic`, `type`, `value`, `start_date`, `end_date`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'No Discount', 1, 'Percentage', 0.00, '2026-07-29', '2036-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(2, 1, 'Opening Promotion', 1, 'Percentage', 5.00, '2026-07-29', '2026-08-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(3, 1, 'Manager Discount', 0, 'Percentage', 10.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(4, 1, 'Special Customer', 0, 'Fixed', 500.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(5, 1, 'Test Discount', 1, 'Percentage', 2.00, '2026-08-04', '2026-08-31', 1, '2026-08-04 10:06:31', '2026-08-04 10:30:03', '2026-08-04 10:30:03'),
-(6, 4, 'None', 0, 'Percentage', 0.00, '2026-09-21', '2026-09-30', 1, '2026-09-21 09:24:17', '2026-09-21 09:24:17', NULL);
+INSERT INTO `discounts` (`id`, `sync_uuid`, `company_id`, `name`, `is_automatic`, `type`, `value`, `start_date`, `end_date`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '241fce75-1371-4e36-821e-d2186e9716d2', 1, 'No Discount', 1, 'Percentage', 0.00, '2026-07-29', '2036-07-29', 1, '2026-07-29 10:37:13', '2026-10-14 10:56:49', NULL),
+(2, 'b4527c22-fe3e-4a9a-88f0-f517eeac14a7', 1, 'Opening Promotion', 1, 'Percentage', 5.00, '2026-07-29', '2026-08-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(3, 'b8755aac-1105-4c40-9712-4f8407dd0d71', 1, 'Manager Discount', 0, 'Percentage', 10.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(4, '6504361d-38a3-4258-907d-aa03aa7862a1', 1, 'Special Customer', 0, 'Fixed', 500.00, '2026-07-29', '2027-07-29', 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(5, '2aefe17c-d672-4025-a1e2-bab6fbd10fb9', 1, 'Test Discount', 1, 'Percentage', 2.00, '2026-08-04', '2026-08-31', 1, '2026-08-04 10:06:31', '2026-08-04 10:30:03', '2026-08-04 10:30:03'),
+(6, '2bb80b42-3439-4c4d-9776-0f30f7532d7d', 4, 'None', 0, 'Percentage', 0.00, '2026-09-21', '2026-09-30', 1, '2026-09-21 09:24:17', '2026-09-21 09:24:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -929,8 +950,8 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (2, 1, 'product', 'PRD', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (3, 1, 'customer', 'CUS', NULL, '-', 2, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-26 22:47:27', 0),
 (4, 1, 'supplier', 'SUP', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(5, 1, 'order', 'ORD', NULL, '-', 61, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-29 12:18:39', 0),
-(6, 1, 'payment', 'PAY', NULL, '-', 46, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-09-29 12:18:50', 0),
+(5, 1, 'order', 'ORD', NULL, '-', 65, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-10-19 08:34:02', 0),
+(6, 1, 'payment', 'PAY', NULL, '-', 49, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-10-19 08:34:02', 0),
 (7, 1, 'purchase', 'PUR', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (8, 1, 'purchase_return', 'PRN', NULL, '-', 5, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-27 09:44:50', 0),
 (9, 1, 'sales_return', 'SRN', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
@@ -940,7 +961,7 @@ INSERT INTO `document_sequences` (`id`, `company_id`, `document_type`, `prefix`,
 (13, 1, 'unit', 'UNT', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (14, 1, 'tax', 'TAX', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
 (15, 1, 'discount', 'DIS', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-03 13:22:19', '2026-08-03 13:22:19', 0),
-(16, 1, 'Invoice', 'INV', NULL, '-', 48, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-29 12:18:39', 0),
+(16, 1, 'Invoice', 'INV', NULL, '-', 52, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-10-19 08:34:02', 0),
 (17, 1, 'Receipt', 'REC', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
 (18, 1, 'Sales Order', 'SO', NULL, '-', 31, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-09-04 08:03:52', 0),
 (19, 1, 'Purchase Order', 'PO', NULL, '-', 1, 6, 'Never', NULL, 1, '2026-08-09 11:49:56', '2026-08-09 11:49:56', 0),
@@ -1160,7 +1181,11 @@ INSERT INTO `invoices` (`id`, `company_id`, `branch_id`, `terminal_id`, `order_i
 (52, 1, 1, NULL, 98, 6, 'INV-000046', '2026-09-29', 90000.00, 0.00, 0.00, 91000.00, 91000.00, 0.00, 1.00, 1, 91000.00, 'Paid', 'Active', 'Online Storefront order ORD-000059', NULL, NULL, '2026-09-29 12:14:15', '2026-09-29 12:14:29', NULL),
 (53, 1, 1, NULL, 99, 6, 'INV-000047', '2026-09-29', 700.00, 0.00, 0.00, 1700.00, 1700.00, 0.00, 1.00, 1, 1700.00, 'Paid', 'Active', 'Online Storefront order ORD-000060', NULL, NULL, '2026-09-29 12:18:39', '2026-09-29 12:18:50', NULL),
 (54, 5, 12, NULL, 100, 15, 'INV-000001', '2026-10-01', 12000.00, 0.00, 0.00, 17000.00, 0.00, 17000.00, 1.00, 1, 17000.00, 'Pending', 'Active', 'Online Storefront order ORD-000001', NULL, NULL, '2026-10-01 16:10:59', '2026-10-01 16:10:59', NULL),
-(55, 5, 12, NULL, 101, 15, 'INV-000002', '2026-10-01', 12000.00, 0.00, 0.00, 17000.00, 17000.00, 0.00, 1.00, 1, 17000.00, 'Paid', 'Active', 'Online Storefront order ORD-000002', NULL, NULL, '2026-10-01 16:16:03', '2026-10-01 16:16:28', NULL);
+(55, 5, 12, NULL, 101, 15, 'INV-000002', '2026-10-01', 12000.00, 0.00, 0.00, 17000.00, 17000.00, 0.00, 1.00, 1, 17000.00, 'Paid', 'Active', 'Online Storefront order ORD-000002', NULL, NULL, '2026-10-01 16:16:03', '2026-10-01 16:16:28', NULL),
+(56, 1, 2, 14, 102, NULL, 'INV-000048', '2026-10-15', 1200.00, 0.00, 90.00, 1200.00, 1290.00, 0.00, 1.00, 1, 1290.00, 'Paid', 'Active', NULL, 15, 15, '2026-10-15 14:06:46', '2026-10-15 14:06:46', NULL),
+(57, 1, 1, NULL, 103, 6, 'INV-000049', '2026-10-19', 1000.00, 0.00, 0.00, 2000.00, 0.00, 2000.00, 1.00, 1, 2000.00, 'Pending', 'Active', 'Online Storefront order ORD-000062', NULL, NULL, '2026-10-19 07:57:31', '2026-10-19 07:57:31', NULL),
+(58, 1, 1, NULL, 104, 6, 'INV-000050', '2026-10-19', 1000.00, 0.00, 0.00, 2000.00, 2000.00, 0.00, 1.00, 1, 2000.00, 'Paid', 'Active', 'Online Storefront order ORD-000063', NULL, NULL, '2026-10-19 07:57:55', '2026-10-19 07:58:08', NULL),
+(59, 1, 2, 14, 105, NULL, 'INV-000051', '2026-10-19', 1200.00, 0.00, 90.00, 1200.00, 1290.00, 0.00, 1.00, 1, 1290.00, 'Paid', 'Active', NULL, 15, 15, '2026-10-19 08:34:02', '2026-10-19 08:34:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -1255,7 +1280,11 @@ INSERT INTO `invoice_items` (`id`, `company_id`, `invoice_id`, `product_id`, `pr
 (84, 1, 52, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 0.00, 0.00, 90000.00, '2026-09-29 12:14:15', '2026-09-29 12:14:15'),
 (85, 1, 53, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 0.00, 0.00, 700.00, '2026-09-29 12:18:39', '2026-09-29 12:18:39'),
 (86, 5, 54, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:10:59', '2026-10-01 16:10:59'),
-(87, 5, 55, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:16:03', '2026-10-01 16:16:03');
+(87, 5, 55, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:16:03', '2026-10-01 16:16:03'),
+(88, 1, 56, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-10-15 14:06:46', '2026-10-15 14:06:46'),
+(89, 1, 57, 32, 'POS Non-Stock Test', NULL, 1.00, 1000.00, 0.00, 0.00, 1000.00, '2026-10-19 07:57:31', '2026-10-19 07:57:31'),
+(90, 1, 58, 32, 'POS Non-Stock Test', NULL, 1.00, 1000.00, 0.00, 0.00, 1000.00, '2026-10-19 07:57:55', '2026-10-19 07:57:55'),
+(91, 1, 59, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 0.00, 0.00, 1200.00, '2026-10-19 08:34:02', '2026-10-19 08:34:02');
 
 -- --------------------------------------------------------
 
@@ -1391,7 +1420,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (84, '2026_09_27_220831_add_shipping_fields_to_orders_table', 33),
 (85, '2026_09_29_110242_add_theme_key_to_storefronts_table', 34),
 (86, '2026_09_30_122125_create_company_business_profiles_table', 35),
-(87, '2026_09_30_132520_create_product_images_table', 36);
+(87, '2026_09_30_132520_create_product_images_table', 36),
+(88, '2026_10_05_123224_add_sync_uuid_to_products_table', 37),
+(89, '2026_10_05_133940_add_sync_uuid_to_product_categories_table', 38),
+(90, '2026_10_05_135458_add_sync_uuid_to_units_table', 39),
+(91, '2026_10_05_140157_add_sync_uuid_and_soft_deletes_to_tax_rates_table', 40),
+(92, '2026_10_05_141549_add_sync_uuid_to_discounts_table', 41),
+(93, '2026_10_19_094551_add_sync_uuid_to_branches_table', 42);
 
 -- --------------------------------------------------------
 
@@ -1500,7 +1535,11 @@ INSERT INTO `orders` (`id`, `company_id`, `branch_id`, `order_no`, `public_token
 (98, 1, 1, 'ORD-000059', 'Fmd5P55HfBSWnNaljwSr6HJzPY9MpqObsiHE8hoUuYMSxWytVJeFFhuY0QtsCPu3', 6, NULL, 90000.00, 0.00, NULL, NULL, 0.00, 91000.00, 91000.00, 0.00, 1, 1.00, 0.00, 91000.00, '2026-09-29 12:14:29', '2026-09-29 12:14:35', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-29 12:14:15', '2026-09-29 12:14:35', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL),
 (99, 1, 1, 'ORD-000060', 'gquv5vXH6A2PkvjuYnXSHyqxdJGGO50wdmWeFIGiArUdanyGPzm4ajJGBnPUvK1b', 6, NULL, 700.00, 0.00, NULL, NULL, 0.00, 1700.00, 1700.00, 0.00, 1, 1.00, 0.00, 1700.00, '2026-09-29 12:18:50', '2026-09-29 12:18:54', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-09-29 12:18:39', '2026-09-29 12:18:54', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL),
 (100, 5, 12, 'ORD-000001', 'F547Dl1dbd9BEtnQwaK6nvX7Dfy4Cncpqac6QjRGESU36QJDf0KQT9w9UfrKTNtq', 15, NULL, 12000.00, 0.00, NULL, NULL, 0.00, 17000.00, 0.00, 17000.00, 1, 1.00, 0.00, 17000.00, NULL, NULL, 'Pending', 'Draft', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-10-01 16:10:59', '2026-10-01 16:10:59', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 5000.00, 'Pending', NULL, NULL, NULL, NULL),
-(101, 5, 12, 'ORD-000002', 'hfYEdHZ6O3JkCasrwRQH8Gw31koAOFtZu5SfJzxprx2PhDswlcLsvRgt5AGgXU5x', 15, NULL, 12000.00, 0.00, NULL, NULL, 0.00, 17000.00, 17000.00, 0.00, 1, 1.00, 0.00, 17000.00, '2026-10-01 16:16:28', '2026-10-01 16:16:39', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-10-01 16:16:03', '2026-10-01 16:16:39', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 5000.00, 'Pending', NULL, NULL, NULL, NULL);
+(101, 5, 12, 'ORD-000002', 'hfYEdHZ6O3JkCasrwRQH8Gw31koAOFtZu5SfJzxprx2PhDswlcLsvRgt5AGgXU5x', 15, NULL, 12000.00, 0.00, NULL, NULL, 0.00, 17000.00, 17000.00, 0.00, 1, 1.00, 0.00, 17000.00, '2026-10-01 16:16:28', '2026-10-01 16:16:39', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-10-01 16:16:03', '2026-10-01 16:16:39', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 5000.00, 'Pending', NULL, NULL, NULL, NULL),
+(102, 1, 2, 'ORD-000061', NULL, NULL, 15, 1200.00, 0.00, NULL, NULL, 90.00, 1200.00, 1290.00, 0.00, 1, 1.00, 0.00, 1290.00, '2026-10-15 14:06:46', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-10-15 14:06:46', '2026-10-15 14:06:46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL),
+(103, 1, 1, 'ORD-000062', 'HnWcsBu7Hx26ZOCQL7ZIbGN8mAe775eomtDYwPAueZI5kLWlbaVhIa3MrGvHW6t0', 6, NULL, 1000.00, 0.00, NULL, NULL, 0.00, 2000.00, 0.00, 2000.00, 1, 1.00, 0.00, 2000.00, NULL, NULL, 'Pending', 'Draft', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-10-19 07:57:31', '2026-10-19 07:57:31', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL),
+(104, 1, 1, 'ORD-000063', '4n2o3nKze27gXKw1RzJXkRkt6x7KZEyBRmDMNzZLPQcDzmFF8XUGMYl9SoA6zEvD', 6, NULL, 1000.00, 0.00, NULL, NULL, 0.00, 2000.00, 2000.00, 0.00, 1, 1.00, 0.00, 2000.00, '2026-10-19 07:58:08', '2026-10-19 07:58:15', 'Paid', 'Completed', 'Online', NULL, 0, 'Online Storefront checkout.', NULL, NULL, '2026-10-19 07:57:55', '2026-10-19 07:58:15', NULL, 'manual', NULL, NULL, 'Alaro', 'Ibadan', 'Oyo', 1000.00, 'Pending', NULL, NULL, NULL, NULL),
+(105, 1, 2, 'ORD-000064', NULL, NULL, 15, 1200.00, 0.00, NULL, NULL, 90.00, 1200.00, 1290.00, 0.00, 1, 1.00, 0.00, 1290.00, '2026-10-19 08:34:02', NULL, 'Paid', 'Completed', 'POS', 14, 0, NULL, 15, 15, '2026-10-19 08:34:02', '2026-10-19 08:34:02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1597,7 +1636,11 @@ INSERT INTO `order_items` (`id`, `company_id`, `order_id`, `product_id`, `produc
 (130, 1, 98, 8, 'Mama Gold Rice 50kg', '100000000008', 1.00, 90000.00, 82000.00, 0.00, 0.00, 90000.00, '2026-09-29 12:14:15', '2026-09-29 12:14:15'),
 (131, 1, 99, 9, 'Premier Soap', '100000000009', 1.00, 700.00, 500.00, 0.00, 0.00, 700.00, '2026-09-29 12:18:39', '2026-09-29 12:18:39'),
 (132, 5, 100, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 5000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:10:59', '2026-10-01 16:10:59'),
-(133, 5, 101, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 5000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:16:03', '2026-10-01 16:16:03');
+(133, 5, 101, 27, 'Gadget Installation', NULL, 1.00, 12000.00, 5000.00, 0.00, 0.00, 12000.00, '2026-10-01 16:16:03', '2026-10-01 16:16:03'),
+(134, 1, 102, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 1000.00, 0.00, 0.00, 1200.00, '2026-10-15 14:06:46', '2026-10-15 14:06:46'),
+(135, 1, 103, 32, 'POS Non-Stock Test', NULL, 1.00, 1000.00, 500.00, 0.00, 0.00, 1000.00, '2026-10-19 07:57:31', '2026-10-19 07:57:31'),
+(136, 1, 104, 32, 'POS Non-Stock Test', NULL, 1.00, 1000.00, 500.00, 0.00, 0.00, 1000.00, '2026-10-19 07:57:55', '2026-10-19 07:57:55'),
+(137, 1, 105, 19, 'Three Crown Evaporated Milk', 'TH123456', 1.00, 1200.00, 1000.00, 0.00, 0.00, 1200.00, '2026-10-19 08:34:02', '2026-10-19 08:34:02');
 
 -- --------------------------------------------------------
 
@@ -1689,7 +1732,10 @@ INSERT INTO `payments` (`id`, `company_id`, `branch_id`, `order_id`, `customer_i
 (51, 1, 1, 97, 6, NULL, 2000.00, 'Completed', 3, 'Card', '2026-09-28 00:17:12', 'SF-97-YIDUCX9FHZ17', 'Paystack', 'ORD-000058', 'Paystack online payment. Channel: card. Order: ORD-000058', NULL, 'PAY-000043', '2026-09-27 23:17:12', '2026-09-27 23:17:12'),
 (52, 1, 1, 98, 6, NULL, 91000.00, 'Completed', 3, 'Card', '2026-09-29 13:14:29', 'SF-98-PEQ3WXYDV8NC', 'Paystack', 'ORD-000059', 'Paystack online payment. Channel: card. Order: ORD-000059', NULL, 'PAY-000044', '2026-09-29 12:14:29', '2026-09-29 12:14:29'),
 (53, 1, 1, 99, 6, NULL, 1700.00, 'Completed', 3, 'Card', '2026-09-29 13:18:50', 'SF-99-WAEE1UVAKLVO', 'Paystack', 'ORD-000060', 'Paystack online payment. Channel: card. Order: ORD-000060', NULL, 'PAY-000045', '2026-09-29 12:18:50', '2026-09-29 12:18:50'),
-(55, 5, 12, 101, 15, NULL, 17000.00, 'Completed', 17, 'Card', '2026-10-01 17:16:28', 'SF-101-RIS9LNFCUOZQ', 'Paystack', 'ORD-000002', 'Paystack online payment. Channel: card. Order: ORD-000002', NULL, 'PAY-000001', '2026-10-01 16:16:28', '2026-10-01 16:16:28');
+(55, 5, 12, 101, 15, NULL, 17000.00, 'Completed', 17, 'Card', '2026-10-01 17:16:28', 'SF-101-RIS9LNFCUOZQ', 'Paystack', 'ORD-000002', 'Paystack online payment. Channel: card. Order: ORD-000002', NULL, 'PAY-000001', '2026-10-01 16:16:28', '2026-10-01 16:16:28'),
+(56, 1, 2, 102, NULL, 14, 1290.00, 'Completed', 1, 'Cash', '2026-10-15 15:06:46', NULL, NULL, NULL, NULL, 15, 'PAY-000046', '2026-10-15 14:06:46', '2026-10-15 14:06:46'),
+(57, 1, 1, 104, 6, NULL, 2000.00, 'Completed', 3, 'Card', '2026-10-19 08:58:08', 'SF-104-M6TJIIECHPZ6', 'Paystack', 'ORD-000063', 'Paystack online payment. Channel: card. Order: ORD-000063', NULL, 'PAY-000047', '2026-10-19 07:58:08', '2026-10-19 07:58:08'),
+(58, 1, 2, 105, NULL, 14, 1290.00, 'Completed', 1, 'Cash', '2026-10-19 09:34:02', NULL, NULL, NULL, NULL, 15, 'PAY-000048', '2026-10-19 08:34:02', '2026-10-19 08:34:02');
 
 -- --------------------------------------------------------
 
@@ -2103,6 +2149,7 @@ INSERT INTO `platform_admins` (`id`, `first_name`, `last_name`, `email`, `passwo
 
 CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `sync_uuid` char(36) NOT NULL,
   `company_id` bigint(20) UNSIGNED NOT NULL,
   `product_category_id` bigint(20) UNSIGNED NOT NULL,
   `product_code` varchar(255) NOT NULL,
@@ -2140,25 +2187,30 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `company_id`, `product_category_id`, `product_code`, `barcode`, `sku`, `qr_code`, `name`, `description`, `image`, `cost_price`, `selling_price`, `discount_id`, `unit_id`, `shelf_location`, `track_stock`, `brand`, `manufacturer`, `expiry_date`, `taxable`, `tax_rate_id`, `status`, `minimum_stock`, `maximum_stock`, `weight`, `dimensions`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`, `reorder_level`) VALUES
-(1, 1, 1, 'PRD000001', '100000000001', 'COKE50CL', NULL, 'Coca-Cola 50cl', NULL, '1790543689_6ab98749371c7.jpg', 500.00, 700.00, 1, 1, NULL, 1, 'Coca-Cola', 'NBC', '2026-09-23', 1, 2, 1, 10.00, 2000.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:14:49', NULL, 20.00),
-(2, 1, 1, 'PRD000002', '100000000002', 'FANTA50CL', NULL, 'Fanta 50cl', NULL, '1790543985_6ab9887108da1.jpeg', 500.00, 700.00, 1, 1, NULL, 1, 'Fanta', 'NBC', '2026-09-27', 1, 2, 1, 10.00, 2100.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:19:45', NULL, 20.00),
-(3, 1, 1, 'PRD000003', '100000000003', 'SPRITE50CL', NULL, 'Sprite 50cl', NULL, '1790544002_6ab9888210fe1.jpeg', 500.00, 700.00, 1, 1, NULL, 1, 'Sprite', 'NBC', '2026-09-27', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:20:02', NULL, 20.00),
-(4, 1, 5, 'PRD000004', '100000000004', 'PEAK500', NULL, 'Peak Milk 500g', 'Peak Milk 500g', '1790544024_6ab988982f02b.jpeg', 4200.00, 4800.00, 1, 1, NULL, 1, 'Peak', 'FrieslandCampina', '2030-10-27', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:20:24', NULL, 20.00),
-(5, 1, 2, 'PRD000005', '100000000005', 'INDM70', NULL, 'Indomie Chicken Noodles', NULL, '1790544043_6ab988ab3d54f.jpeg', 180.00, 250.00, 1, 1, NULL, 1, 'Indomie', 'Dufil', '2029-10-25', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:20:43', NULL, 20.00),
-(6, 1, 2, 'PRD000006', '100000000006', 'SUG1KG', NULL, 'Dangote Sugar 1kg', NULL, '1790544062_6ab988bedab7b.jpeg', 1450.00, 1650.00, 1, 1, NULL, 1, 'Dangote', 'Dangote', '2030-09-26', 1, 2, 1, 10.00, 1595.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:21:02', NULL, 20.00),
-(7, 1, 3, 'PRD000007', '100000000007', 'BREAD001', NULL, 'Family Bread', NULL, '1790544083_6ab988d35c62a.jpeg', 900.00, 1200.00, 1, 1, NULL, 1, 'Local', 'Bakery', '2026-10-18', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:21:23', NULL, 20.00),
-(8, 1, 2, 'PRD000008', '100000000008', 'RICE50KG', NULL, 'Mama Gold Rice 50kg', NULL, '1790544101_6ab988e5e3018.jpeg', 82000.00, 90000.00, 1, 11, NULL, 1, 'Mama Gold', 'Mama Gold', '2032-10-31', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:21:41', NULL, 20.00),
-(9, 1, 7, 'PRD000009', '100000000009', 'SOAP001', NULL, 'Premier Soap', NULL, '1790544120_6ab988f8b0af7.jpg', 500.00, 700.00, 1, 1, NULL, 1, 'Premier', 'PZ', '2028-11-30', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:22:00', NULL, 20.00),
-(10, 1, 9, 'PRD000010', '100000000010', 'PAMP001', NULL, 'Pampers Size 3', NULL, '1790544154_6ab9891a6b244.jpeg', 7800.00, 8600.00, 1, 2, NULL, 1, 'Pampers', 'P&G', '2028-10-11', 1, 2, 1, 10.00, 1085.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:22:34', NULL, 20.00),
-(19, 1, 5, 'PRD000011', 'TH123456', NULL, NULL, 'Three Crown Evaporated Milk', 'Three Crown Evaporated Milk', '1786301525_6a78cc5535908.png', 1000.00, 1200.00, NULL, 5, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-11-25', 1, NULL, 1, 100.00, 1635.00, NULL, NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-22 13:10:17', NULL, 0.00),
-(20, 4, 15, 'PRD-000001', '12345', 'SKU-0001', 'QR-0001', 'Three Crown', 'Three Crown', '1789995718_6ab12ac629c4e.png', 5000.00, 7500.00, 6, 15, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 11:55:14', '2026-09-21 12:01:58', NULL, 0.00),
-(21, 4, 16, 'PRD-000002', '452345', 'SKU-0002', 'QR-0002', 'Dangote Sugar 1kg', 'Dangote Sugar 1kg', '1789996254_6ab12cde96345.jpeg', 180.00, 250.00, 6, 15, NULL, 1, 'Dangote', 'Dangote', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 12:09:46', '2026-09-21 12:10:54', NULL, 0.00),
-(22, 5, 17, 'PRD000001', NULL, NULL, NULL, 'Lapel Microphone', 'Lapel Microphone', '1790778649_6abd1d193c93d.jpeg', 10000.00, 20000.00, NULL, NULL, NULL, 1, 'Sony', 'Made in China', NULL, 1, NULL, 1, 5.00, 1000.00, NULL, NULL, NULL, NULL, '2026-09-30 13:30:05', '2026-09-30 13:30:57', NULL, 0.00),
-(23, 5, 18, 'PRD000002', NULL, NULL, NULL, 'Sony 15 Inch Tripod Stand', NULL, '1790815494_6abdad0695002.jpg', 9000.00, 15000.00, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, 1, 0.00, 1000.00, 0.00, NULL, NULL, NULL, '2026-09-30 23:44:54', '2026-10-01 00:03:19', NULL, 0.00),
-(24, 5, 19, 'PRD000003', NULL, NULL, NULL, 'Installation Service', NULL, NULL, 5000.00, 12000.00, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 1, 0.00, NULL, 0.00, NULL, NULL, NULL, '2026-10-01 00:05:21', '2026-10-01 00:05:21', NULL, 0.00),
-(26, 5, 20, 'PRD-000001', NULL, 'BTS-001', NULL, 'Bluetooth Speaker', NULL, NULL, 12000.00, 18000.00, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, 1, 2.00, 20.00, 0.50, NULL, NULL, NULL, '2026-10-01 00:45:32', '2026-10-01 00:45:32', NULL, 0.00),
-(27, 5, 19, 'PRD-000002', NULL, 'INST-001', NULL, 'Gadget Installation', NULL, NULL, 5000.00, 12000.00, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 1, 0.00, NULL, NULL, NULL, NULL, NULL, '2026-10-01 00:45:32', '2026-10-01 00:45:32', NULL, 0.00);
+INSERT INTO `products` (`id`, `sync_uuid`, `company_id`, `product_category_id`, `product_code`, `barcode`, `sku`, `qr_code`, `name`, `description`, `image`, `cost_price`, `selling_price`, `discount_id`, `unit_id`, `shelf_location`, `track_stock`, `brand`, `manufacturer`, `expiry_date`, `taxable`, `tax_rate_id`, `status`, `minimum_stock`, `maximum_stock`, `weight`, `dimensions`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`, `reorder_level`) VALUES
+(1, '26b06031-8503-4b3f-aa34-64f5bff690bd', 1, 1, 'PRD000001', '100000000001', 'COKE50CL', NULL, 'Coca-Cola 50cl', NULL, '1790543689_6ab98749371c7.jpg', 500.00, 700.00, 1, 1, NULL, 1, 'Coca-Cola', 'NBC', '2026-09-23', 1, 2, 1, 10.00, 2000.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-10-15 10:39:17', NULL, 20.00),
+(2, '4f2a0d7c-65bf-4a23-bd55-b7aff1f19fa8', 1, 1, 'PRD000002', '100000000002', 'FANTA50CL', NULL, 'Fanta 50cl', NULL, '1790543985_6ab9887108da1.jpeg', 500.00, 700.00, 1, 1, NULL, 1, 'Fanta', 'NBC', '2026-09-27', 1, 2, 1, 10.00, 2100.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:19:45', NULL, 20.00),
+(3, '6f193465-04a1-49b7-804d-0d511bb39bc2', 1, 1, 'PRD000003', '100000000003', 'SPRITE50CL', NULL, 'Sprite 50cl', NULL, '1790544002_6ab9888210fe1.jpeg', 500.00, 700.00, 1, 1, NULL, 1, 'Sprite', 'NBC', '2026-09-27', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:20:02', NULL, 20.00),
+(4, 'c4b2804f-4835-42c9-9089-7b2f13654a5f', 1, 5, 'PRD000004', '100000000004', 'PEAK500', NULL, 'Peak Milk 500g', 'Peak Milk 500g', '1790544024_6ab988982f02b.jpeg', 4200.00, 4800.00, 1, 1, NULL, 1, 'Peak', 'FrieslandCampina', '2030-10-27', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:20:24', NULL, 20.00),
+(5, '1a7405f3-a8a9-439f-bea9-2f4b98d563c1', 1, 2, 'PRD000005', '100000000005', 'INDM70', NULL, 'Indomie Chicken Noodles', NULL, '1790544043_6ab988ab3d54f.jpeg', 180.00, 250.00, 1, 1, NULL, 1, 'Indomie', 'Dufil', '2029-10-25', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:20:43', NULL, 20.00),
+(6, 'c81f448b-e360-4692-be8e-025fb547c4b8', 1, 2, 'PRD000006', '100000000006', 'SUG1KG', NULL, 'Dangote Sugar 1kg', NULL, '1790544062_6ab988bedab7b.jpeg', 1450.00, 1650.00, 1, 1, NULL, 1, 'Dangote', 'Dangote', '2030-09-26', 1, 2, 1, 10.00, 1595.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:21:02', NULL, 20.00),
+(7, 'e8a7278c-413c-4f60-ba2e-1b33785d85d5', 1, 3, 'PRD000007', '100000000007', 'BREAD001', NULL, 'Family Bread', NULL, '1790544083_6ab988d35c62a.jpeg', 900.00, 1200.00, 1, 1, NULL, 1, 'Local', 'Bakery', '2026-10-18', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:21:23', NULL, 20.00),
+(8, '68bf653a-d65e-4064-a40d-c1b8e312524b', 1, 2, 'PRD000008', '100000000008', 'RICE50KG', NULL, 'Mama Gold Rice 50kg', NULL, '1790544101_6ab988e5e3018.jpeg', 82000.00, 90000.00, 1, 11, NULL, 1, 'Mama Gold', 'Mama Gold', '2032-10-31', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:21:41', NULL, 20.00),
+(9, 'd6aae0f3-bea4-4122-9ce2-b95e8656a275', 1, 7, 'PRD000009', '100000000009', 'SOAP001', NULL, 'Premier Soap', NULL, '1790544120_6ab988f8b0af7.jpg', 500.00, 700.00, 1, 1, NULL, 1, 'Premier', 'PZ', '2028-11-30', 1, 2, 1, 10.00, 500.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:22:00', NULL, 20.00),
+(10, 'b294df23-fd95-4a05-b3bd-d5e40f306a39', 1, 9, 'PRD000010', '100000000010', 'PAMP001', NULL, 'Pampers Size 3', NULL, '1790544154_6ab9891a6b244.jpeg', 7800.00, 8600.00, 1, 2, NULL, 1, 'Pampers', 'P&G', '2028-10-11', 1, 2, 1, 10.00, 1085.00, NULL, NULL, 1, 1, '2026-07-29 10:37:13', '2026-09-27 20:22:34', NULL, 20.00),
+(19, 'b4c04317-0179-47c0-a932-e353479e38fb', 1, 5, 'PRD000011', 'TH123456', NULL, NULL, 'Three Crown Evaporated Milk', 'Three Crown Evaporated Milk', '1786301525_6a78cc5535908.png', 1000.00, 1200.00, NULL, 5, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-11-25', 1, NULL, 1, 100.00, 1635.00, NULL, NULL, NULL, NULL, '2026-08-09 17:52:05', '2026-08-22 13:10:17', NULL, 0.00),
+(20, 'b81a3521-b6fe-4f38-9c5e-bee1fa21a99b', 4, 15, 'PRD-000001', '12345', 'SKU-0001', 'QR-0001', 'Three Crown', 'Three Crown', '1789995718_6ab12ac629c4e.png', 5000.00, 7500.00, 6, 15, NULL, 1, 'Three Crown', 'Three Crown Ltd', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 11:55:14', '2026-09-21 12:01:58', NULL, 0.00),
+(21, '86aae632-bc3a-42f6-a5d7-a6a1341f9f8c', 4, 16, 'PRD-000002', '452345', 'SKU-0002', 'QR-0002', 'Dangote Sugar 1kg', 'Dangote Sugar 1kg', '1789996254_6ab12cde96345.jpeg', 180.00, 250.00, 6, 15, NULL, 1, 'Dangote', 'Dangote', '2027-12-31', 1, NULL, 1, 10.00, 100.00, 0.50, NULL, NULL, NULL, '2026-09-21 12:09:46', '2026-09-21 12:10:54', NULL, 0.00),
+(22, 'c48cb7d1-6f73-483d-a559-918e4bd7499a', 5, 17, 'PRD000001', NULL, NULL, NULL, 'Lapel Microphone', 'Lapel Microphone', '1790778649_6abd1d193c93d.jpeg', 10000.00, 20000.00, NULL, NULL, NULL, 1, 'Sony', 'Made in China', NULL, 1, NULL, 1, 5.00, 1000.00, NULL, NULL, NULL, NULL, '2026-09-30 13:30:05', '2026-09-30 13:30:57', NULL, 0.00),
+(23, '66625769-3ce9-4185-bfb4-189a00413786', 5, 18, 'PRD000002', NULL, NULL, NULL, 'Sony 15 Inch Tripod Stand', NULL, '1790815494_6abdad0695002.jpg', 9000.00, 15000.00, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, 1, 0.00, 1000.00, 0.00, NULL, NULL, NULL, '2026-09-30 23:44:54', '2026-10-01 00:03:19', NULL, 0.00),
+(24, '1d9f962f-4cf5-4862-9e0d-27ca05737c65', 5, 19, 'PRD000003', NULL, NULL, NULL, 'Installation Service', NULL, NULL, 5000.00, 12000.00, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 1, 0.00, NULL, 0.00, NULL, NULL, NULL, '2026-10-01 00:05:21', '2026-10-01 00:05:21', NULL, 0.00),
+(26, '402ae431-712d-4661-83f2-2f9bcaf5b7e9', 5, 20, 'PRD-000001', NULL, 'BTS-001', NULL, 'Bluetooth Speaker', NULL, NULL, 12000.00, 18000.00, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, 1, 2.00, 20.00, 0.50, NULL, NULL, NULL, '2026-10-01 00:45:32', '2026-10-01 00:45:32', NULL, 0.00),
+(27, '44efdc1a-4cb4-4bbc-a345-fc6d937e6fba', 5, 19, 'PRD-000002', NULL, 'INST-001', NULL, 'Gadget Installation', NULL, NULL, 5000.00, 12000.00, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 1, 0.00, NULL, NULL, NULL, NULL, NULL, '2026-10-01 00:45:32', '2026-10-01 00:45:32', NULL, 0.00),
+(29, 'cbeb32ac-22d8-4d5c-8f0f-4ab48f63d463', 1, 1, 'SYNC-TEST-IN-1791204743', NULL, NULL, NULL, 'Coca-Cola 50cl', NULL, '1790543689_6ab98749371c7.jpg', 500.00, 700.00, 1, 1, NULL, 1, 'Coca-Cola', 'NBC', '2026-09-23', 1, 2, 1, 10.00, 2000.00, NULL, NULL, 1, 1, '2026-10-05 11:53:18', '2026-10-05 11:53:18', NULL, 20.00),
+(30, '4b1c50ab-8523-465d-b155-bd59f4fe9056', 1, 1, 'SYNCDEL-AIHF6KBL', NULL, 'SYNCDEL-QMYRYTXJ', NULL, 'Sync Delete Test Product', NULL, NULL, 500.00, 700.00, 1, 1, NULL, 1, 'Coca-Cola', 'NBC', '2026-09-23', 1, 2, 1, 10.00, 2000.00, NULL, NULL, 1, 1, '2026-10-15 10:44:08', '2026-10-15 12:25:36', '2026-10-15 12:25:36', 20.00),
+(31, '23307c5e-5971-40a3-bbe7-f638eadcd19c', 1, 3, 'PRD1791204744', NULL, NULL, NULL, 'Sync UI Test Product', 'Sync UI Test Product', NULL, 500.00, 700.00, NULL, 1, NULL, 1, NULL, NULL, '2026-10-24', 1, NULL, 1, 0.00, 1000.00, 0.00, NULL, NULL, NULL, '2026-10-15 12:54:26', '2026-10-15 12:54:26', NULL, 0.00),
+(32, '85606043-8b75-4f12-87c4-7af42f60561c', 1, 1, 'PRD1791204745', NULL, NULL, NULL, 'POS Non-Stock Test', 'POS Non-Stock Test', NULL, 500.00, 1000.00, NULL, 3, NULL, 0, NULL, NULL, NULL, 1, NULL, 1, 0.00, 1000.00, 0.00, NULL, NULL, NULL, '2026-10-15 13:26:58', '2026-10-19 07:51:14', NULL, 0.00),
+(33, '8ab11a9d-9622-4171-9d35-42b0e1e2056e', 1, 10, 'PRD1791204746', NULL, NULL, NULL, 'POS Zero Stock Test', NULL, NULL, 200.00, 400.00, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, NULL, 1, 0.00, 1000.00, 0.00, NULL, NULL, NULL, '2026-10-19 08:26:06', '2026-10-19 08:26:06', NULL, 0.00);
 
 -- --------------------------------------------------------
 
@@ -2168,6 +2220,7 @@ INSERT INTO `products` (`id`, `company_id`, `product_category_id`, `product_code
 
 CREATE TABLE `product_categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `sync_uuid` char(36) NOT NULL,
   `company_id` bigint(20) UNSIGNED NOT NULL,
   `category_code` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -2187,24 +2240,24 @@ CREATE TABLE `product_categories` (
 -- Dumping data for table `product_categories`
 --
 
-INSERT INTO `product_categories` (`id`, `company_id`, `category_code`, `name`, `description`, `parent_id`, `image`, `sort_order`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'CAT000001', 'Beverages', 'Soft drinks, juices, bottled water and energy drinks.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(2, 1, 'CAT000002', 'Groceries', 'Rice, beans, pasta, noodles and food items.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(3, 1, 'CAT000003', 'Bakery', 'Bread, cakes and pastries.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(4, 1, 'CAT000004', 'Frozen Foods', 'Frozen meat, fish and poultry.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(5, 1, 'CAT000005', 'Dairy', 'Milk, butter, cheese and yoghurt.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(6, 1, 'CAT000006', 'Snacks', 'Biscuits, chocolates and confectioneries.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(7, 1, 'CAT000007', 'Household', 'Cleaning materials and home essentials.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(8, 1, 'CAT000008', 'Toiletries', 'Personal care and hygiene products.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(9, 1, 'CAT000009', 'Baby Products', 'Baby food, diapers and accessories.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(10, 1, 'CAT000010', 'Stationery', 'Office and school supplies.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
-(14, 1, 'CAT000011', 'TEXT', 'TEXT', NULL, NULL, 0, 1, 1, 1, '2026-08-02 14:53:48', '2026-08-04 08:48:45', '2026-08-04 08:48:45'),
-(15, 4, 'CAT000001', 'Dairy', 'Dairy', NULL, NULL, 0, 1, 20, 20, '2026-09-21 09:22:40', '2026-09-21 09:22:40', NULL),
-(16, 4, 'CAT000002', 'Groceries', 'Groceries', NULL, NULL, 0, 1, 20, 20, '2026-09-21 12:09:24', '2026-09-21 12:09:24', NULL),
-(17, 5, 'CAT000001', 'Microphones', NULL, NULL, NULL, 0, 1, 21, 21, '2026-09-30 13:27:43', '2026-09-30 13:27:43', NULL),
-(18, 5, 'CAT000002', 'Tripod Stand', NULL, NULL, NULL, 0, 1, 21, 21, '2026-09-30 23:38:32', '2026-09-30 23:38:32', NULL),
-(19, 5, 'CAT000003', 'Services', NULL, NULL, NULL, 0, 1, 21, 21, '2026-09-30 23:46:42', '2026-10-01 00:31:26', NULL),
-(20, 5, 'CAT000004', 'Accessories', NULL, NULL, NULL, 0, 1, 21, 21, '2026-10-01 00:34:25', '2026-10-01 00:34:25', NULL);
+INSERT INTO `product_categories` (`id`, `sync_uuid`, `company_id`, `category_code`, `name`, `description`, `parent_id`, `image`, `sort_order`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'c8b72c13-63dc-4161-8b4e-aff839f037e1', 1, 'CAT000001', 'Beverages', 'Soft drinks, juices, bottled water and energy drinks.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(2, 'b2cf7c93-46c7-4760-aa66-b8046aa65934', 1, 'CAT000002', 'Groceries', 'Rice, beans, pasta, noodles and food items.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(3, '28e5b911-b7fe-4993-bc1b-70707054198f', 1, 'CAT000003', 'Bakery', 'Bread, cakes and pastries.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(4, 'e754d0c1-ed71-476f-8457-0694d379f2bb', 1, 'CAT000004', 'Frozen Foods', 'Frozen meat, fish and poultry.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(5, '006f5ba5-7812-4ebc-807f-3e171cff6f61', 1, 'CAT000005', 'Dairy', 'Milk, butter, cheese and yoghurt.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(6, 'f0b7abc4-3fce-4ca4-a96d-6fa98af985c6', 1, 'CAT000006', 'Snacks', 'Biscuits, chocolates and confectioneries.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(7, 'ef76c88c-be01-486d-8706-e94a72712d10', 1, 'CAT000007', 'Household', 'Cleaning materials and home essentials.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(8, '8e2a764d-e9b4-4520-83e2-16e1019dd171', 1, 'CAT000008', 'Toiletries', 'Personal care and hygiene products.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(9, 'bf3c153d-4c96-4b29-995a-8dbb302f6a0e', 1, 'CAT000009', 'Baby Products', 'Baby food, diapers and accessories.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(10, '1c9bbd18-c79d-47be-bdce-d6c6eebcf92b', 1, 'CAT000010', 'Stationery', 'Office and school supplies.', NULL, NULL, 0, 1, 1, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(14, '21c11ded-aac5-48bb-98e4-5bd4ad4f8389', 1, 'CAT000011', 'TEXT', 'TEXT', NULL, NULL, 0, 1, 1, 1, '2026-08-02 14:53:48', '2026-08-04 08:48:45', '2026-08-04 08:48:45'),
+(15, '98451436-5c04-4191-9986-1579dc78bec0', 4, 'CAT000001', 'Dairy', 'Dairy', NULL, NULL, 0, 1, 20, 20, '2026-09-21 09:22:40', '2026-09-21 09:22:40', NULL),
+(16, '3e965209-07a7-489a-b6eb-182abd3b37cc', 4, 'CAT000002', 'Groceries', 'Groceries', NULL, NULL, 0, 1, 20, 20, '2026-09-21 12:09:24', '2026-09-21 12:09:24', NULL),
+(17, 'bda3bc2e-f77c-46eb-9c45-90f64a6fa042', 5, 'CAT000001', 'Microphones', NULL, NULL, NULL, 0, 1, 21, 21, '2026-09-30 13:27:43', '2026-09-30 13:27:43', NULL),
+(18, 'd66e45df-4fbe-4236-bf84-a48df4385b06', 5, 'CAT000002', 'Tripod Stand', NULL, NULL, NULL, 0, 1, 21, 21, '2026-09-30 23:38:32', '2026-09-30 23:38:32', NULL),
+(19, 'efe0b15c-9763-4187-b06a-232aec09a5e2', 5, 'CAT000003', 'Services', NULL, NULL, NULL, 0, 1, 21, 21, '2026-09-30 23:46:42', '2026-10-01 00:31:26', NULL),
+(20, 'f8b33b27-b5b4-4f63-86c9-d4cdfbb7b040', 5, 'CAT000004', 'Accessories', NULL, NULL, NULL, 0, 1, 21, 21, '2026-10-01 00:34:25', '2026-10-01 00:34:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -2260,7 +2313,7 @@ CREATE TABLE `product_stocks` (
 --
 
 INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `quantity`, `reserved_quantity`, `available_quantity`, `reorder_level`, `maximum_stock`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 973.02, 0.00, 973.02, 10.00, 2000.00, '2026-07-29 10:37:13', '2026-09-27 20:57:54'),
+(1, 1, 1, 1, 973.02, 0.00, 973.02, 10.00, 2000.00, '2026-07-29 10:37:13', '2026-10-14 11:21:23'),
 (2, 1, 1, 2, 2040.00, 0.00, 2040.00, 10.00, 2100.00, '2026-07-29 10:37:13', '2026-09-27 20:19:45'),
 (3, 1, 1, 3, 90.00, 0.00, 90.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 20:20:02'),
 (4, 1, 1, 4, 88.00, 0.00, 88.00, 10.00, 500.00, '2026-07-29 10:37:13', '2026-09-27 20:20:24'),
@@ -2279,7 +2332,7 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (25, 1, 4, 7, 4.00, 0.00, 4.00, 10.00, 500.00, '2026-08-14 10:15:11', '2026-09-27 20:21:23'),
 (26, 1, 4, 6, 1.00, 0.00, 1.00, 10.00, 1595.00, '2026-08-14 10:15:11', '2026-09-27 20:21:02'),
 (27, 1, 4, 5, 15.00, 0.00, 10.00, 10.00, 500.00, '2026-08-14 10:15:11', '2026-09-27 20:20:43'),
-(28, 1, 2, 19, 6.00, 0.00, 6.00, 100.00, 1635.00, '2026-08-31 10:05:07', '2026-09-14 13:30:52'),
+(28, 1, 2, 19, 4.00, 0.00, 4.00, 100.00, 1635.00, '2026-08-31 10:05:07', '2026-10-19 08:34:02'),
 (29, 1, 2, 10, 6.00, 0.00, 6.00, 10.00, 1085.00, '2026-08-31 10:05:07', '2026-09-27 20:22:34'),
 (30, 1, 2, 9, 5.00, 0.00, 5.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:22:00'),
 (31, 1, 2, 8, 8.00, 0.00, 8.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:21:41'),
@@ -2289,12 +2342,14 @@ INSERT INTO `product_stocks` (`id`, `company_id`, `branch_id`, `product_id`, `qu
 (35, 1, 2, 4, 9.00, 0.00, 9.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:20:24'),
 (36, 1, 2, 3, 9.00, 0.00, 9.00, 10.00, 500.00, '2026-08-31 10:05:07', '2026-09-27 20:20:02'),
 (37, 1, 2, 2, 7.00, 0.00, 7.00, 10.00, 2100.00, '2026-08-31 10:05:07', '2026-09-27 20:19:45'),
-(38, 1, 2, 1, 8.00, 0.00, 8.00, 10.00, 2000.00, '2026-08-31 10:05:07', '2026-09-27 20:14:49'),
+(38, 1, 2, 1, 8.00, 0.00, 8.00, 10.00, 2000.00, '2026-08-31 10:05:07', '2026-10-14 11:21:23'),
 (39, 4, 11, 20, 25.00, 0.00, 25.00, 10.00, 100.00, '2026-09-21 11:55:14', '2026-09-21 12:01:58'),
 (40, 4, 11, 21, 25.00, 0.00, 25.00, 10.00, 100.00, '2026-09-21 12:09:46', '2026-09-21 12:10:54'),
 (41, 5, 12, 22, 50.00, 0.00, 50.00, 5.00, 1000.00, '2026-09-30 13:30:05', '2026-09-30 14:53:16'),
 (42, 5, 12, 23, 10.00, 0.00, 10.00, 0.00, 1000.00, '2026-09-30 23:44:54', '2026-10-01 00:03:19'),
-(44, 5, 12, 26, 10.00, 0.00, 10.00, 2.00, 20.00, '2026-10-01 00:45:32', '2026-10-01 15:08:11');
+(44, 5, 12, 26, 10.00, 0.00, 10.00, 2.00, 20.00, '2026-10-01 00:45:32', '2026-10-01 15:08:11'),
+(45, 1, 1, 31, 50.00, 0.00, 50.00, 0.00, 1000.00, '2026-10-15 12:54:26', '2026-10-15 12:54:26'),
+(47, 1, 1, 33, 0.00, 0.00, 0.00, 0.00, 1000.00, '2026-10-19 08:26:06', '2026-10-19 08:26:06');
 
 -- --------------------------------------------------------
 
@@ -3594,7 +3649,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ZdxsCFAFueYJrklTFZoj2SKbUo4MCfLZyfZ8LeQX', 21, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'YToxMTp7czo2OiJfdG9rZW4iO3M6NDA6Imw4Ym9FeGZlSW1ncHFiR3RFVUIzWm9oVTdhRkhPS1Q1RDBGSVBKOUkiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjEyMjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3N0b3JlL2dhZGdldC1wbHVzL2NoZWNrb3V0L3BheW1lbnQvY2FsbGJhY2s/cmVmZXJlbmNlPVNGLTEwMS1SSVM5TE5GQ1VPWlEmdHJ4cmVmPVNGLTEwMS1SSVM5TE5GQ1VPWlEiO3M6NToicm91dGUiO3M6MzU6InN0b3JlZnJvbnQucHVibGljLmNoZWNrb3V0LmNhbGxiYWNrIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjE7czoxMDoiY29tcGFueV9pZCI7aTo1O3M6MTI6ImNvbXBhbnlfbmFtZSI7czoxMToiR2FkZ2V0IFBsdXMiO3M6MTI6ImNvbXBhbnlfY29kZSI7czoxMToiQ09NUC0zMTMxMTciO3M6OToiYnJhbmNoX2lkIjtpOjEyO3M6ODoiY3VycmVuY3kiO3M6MzoiTkdOIjtzOjE1OiJjdXJyZW5jeV9zeW1ib2wiO3M6Mzoi4oKmIjtzOjg6InRpbWV6b25lIjtzOjEyOiJBZnJpY2EvTGFnb3MiO30=', 1790874999);
+('tA7R0sgUN2buh0uz7PxA6WR5Qe7v6UhdG7ZJsFfE', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQWttaDQ5ZGYwQjVLWU9SWVZHZllOMjB2NzU5YmxUZ2wxSTVyNXJ4RSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fX0=', 1792402453);
 
 -- --------------------------------------------------------
 
@@ -3922,7 +3977,9 @@ INSERT INTO `stock_movements` (`id`, `company_id`, `branch_id`, `product_id`, `m
 (152, 5, 12, 23, 'Adjustment', NULL, 'SC-000001', 9000.00, 0.00, 10.00, 10.00, 'Stock Count adjustment - SC-000001', 21, '2026-10-01 14:39:23', '2026-10-01 14:39:23'),
 (153, 5, 12, 26, 'Adjustment', NULL, 'SC-000001', 12000.00, 0.00, 5.00, 5.00, 'Stock Count adjustment - SC-000001', 21, '2026-10-01 14:39:23', '2026-10-01 14:39:23'),
 (154, 5, 12, 26, 'Purchase', NULL, 'GR-000001', 12000.00, 10.00, 5.00, 15.00, 'Goods received against purchase order PO-202610-00001', 21, '2026-10-01 15:06:51', '2026-10-01 15:06:51'),
-(155, 5, 12, 26, 'Return', NULL, 'PRN-000001', 12000.00, -5.00, 15.00, 10.00, 'Purchase return against purchase order PO-202610-00001', 21, '2026-10-01 15:08:11', '2026-10-01 15:08:11');
+(155, 5, 12, 26, 'Return', NULL, 'PRN-000001', 12000.00, -5.00, 15.00, 10.00, 'Purchase return against purchase order PO-202610-00001', 21, '2026-10-01 15:08:11', '2026-10-01 15:08:11'),
+(156, 1, 2, 19, 'Sale', 102, 'ORD-000061', 1000.00, 1.00, 6.00, 5.00, 'POS Sale', 15, '2026-10-15 14:06:46', '2026-10-15 14:06:46'),
+(157, 1, 2, 19, 'Sale', 105, 'ORD-000064', 1000.00, 1.00, 5.00, 4.00, 'POS Sale', 15, '2026-10-19 08:34:02', '2026-10-19 08:34:02');
 
 -- --------------------------------------------------------
 
@@ -4024,7 +4081,7 @@ CREATE TABLE `sync_devices` (
 --
 
 INSERT INTO `sync_devices` (`id`, `company_id`, `branch_id`, `terminal_id`, `device_uuid`, `device_name`, `device_type`, `app_version`, `database_version`, `sync_token_hash`, `token_created_at`, `is_active`, `last_seen_at`, `last_sync_at`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, NULL, '1c77e876-5fd7-4306-b8d5-8ff3ee1ea905', 'EMNEX Sync Test Device', 'local', '1.0.0', '1.0.0', '$2y$12$pduDpZNlFml7eufd.mr49O/KxLhJBHvra6rweqdeYy0vouqAKRe3u', '2026-09-22 08:17:42', 1, '2026-09-22 08:17:42', NULL, '2026-09-22 08:17:42', '2026-09-22 08:17:42');
+(1, 1, NULL, NULL, '1c77e876-5fd7-4306-b8d5-8ff3ee1ea905', 'EMNEX Sync Test Device', 'local', '1.0.0', '1.0.0', '$2y$12$jhEWsOVyP8DPSAdfDknfceqgvjsbeXdUczcS2/rphVzWtLFZqDBLS', '2026-10-14 09:05:00', 1, '2026-10-14 11:14:50', NULL, '2026-09-22 08:17:42', '2026-10-14 11:14:50');
 
 -- --------------------------------------------------------
 
@@ -4049,6 +4106,21 @@ CREATE TABLE `sync_logs` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sync_logs`
+--
+
+INSERT INTO `sync_logs` (`id`, `company_id`, `device_id`, `mutation_uuid`, `entity_sync_uuid`, `entity`, `operation`, `direction`, `status`, `message`, `error`, `duration_ms`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'ac9c093c-db7f-45ab-b60d-92b70f8acc9a', 'b3e4ffac-8ad7-4bd7-9611-019be8342ded', 'test', 'create', 'push', 'completed', 'Mutation accepted by synchronization foundation.', NULL, 19, '2026-10-05 12:11:06', '2026-10-05 12:11:06'),
+(2, 1, 1, 'ac9c093c-db7f-45ab-b60d-92b70f8acc9a', 'b3e4ffac-8ad7-4bd7-9611-019be8342ded', 'test', 'create', 'push', 'duplicate', 'Mutation accepted by synchronization foundation.', NULL, 2, '2026-10-05 12:11:34', '2026-10-05 12:11:34'),
+(3, 1, 1, 'ac9c093c-db7f-45ab-b60d-92b70f8acc9a', 'b3e4ffac-8ad7-4bd7-9611-019be8342ded', 'test', 'create', 'push', 'completed', 'Mutation accepted by synchronization foundation.', NULL, 13, '2026-10-05 12:14:20', '2026-10-05 12:14:20'),
+(4, 1, 1, '89d2fa21-d51e-4a9e-96de-3072678617f5', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'product', 'update', 'push', 'completed', 'Mutation processed successfully.', NULL, 124, '2026-10-14 09:08:30', '2026-10-14 09:08:30'),
+(5, 1, 1, '89d2fa21-d51e-4a9e-96de-3072678617f5', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'product', 'update', 'push', 'duplicate', 'Mutation processed successfully.', NULL, 3, '2026-10-14 09:11:30', '2026-10-14 09:11:30'),
+(6, 1, 1, 'af15b050-c107-4e7c-9b32-b47b9b9e5dc4', 'c61e9eee-5d6d-4ee4-908d-0b658a65a01e', 'unit', 'update', 'push', 'completed', 'Mutation processed successfully.', NULL, 37, '2026-10-14 10:37:46', '2026-10-14 10:37:46'),
+(7, 1, 1, 'e3cef118-b61f-440d-b2e4-d14850bc696a', '01480936-e702-41ab-b5bc-209b893d7b12', 'tax_rate', 'update', 'push', 'completed', 'Mutation processed successfully.', NULL, 29, '2026-10-14 10:49:19', '2026-10-14 10:49:19'),
+(8, 1, 1, '1c4f7566-69a4-441d-b41a-dcb4ac1951ba', '241fce75-1371-4e36-821e-d2186e9716d2', 'discount', 'update', 'push', 'completed', 'Mutation processed successfully.', NULL, 32, '2026-10-14 10:56:49', '2026-10-14 10:56:49'),
+(9, 1, 1, '0f53fde8-b563-4d01-9693-2a634bae9a33', 'c8b72c13-63dc-4161-8b4e-aff839f037e1', 'product_category', 'update', 'push', 'completed', 'Mutation processed successfully.', NULL, 31, '2026-10-14 11:14:50', '2026-10-14 11:14:50');
+
 -- --------------------------------------------------------
 
 --
@@ -4071,6 +4143,18 @@ CREATE TABLE `sync_mutations` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sync_mutations`
+--
+
+INSERT INTO `sync_mutations` (`id`, `company_id`, `device_id`, `mutation_uuid`, `entity`, `entity_sync_uuid`, `operation`, `payload`, `response`, `status`, `error`, `processed_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'ac9c093c-db7f-45ab-b60d-92b70f8acc9a', 'test', 'b3e4ffac-8ad7-4bd7-9611-019be8342ded', 'create', '{\"message\":\"Handler architecture test\"}', '{\"mutation_uuid\":\"ac9c093c-db7f-45ab-b60d-92b70f8acc9a\",\"entity_sync_uuid\":\"b3e4ffac-8ad7-4bd7-9611-019be8342ded\",\"accepted\":true,\"processed\":false,\"message\":\"Mutation accepted by synchronization foundation.\"}', 'completed', NULL, '2026-10-05 12:14:20', '2026-10-05 12:11:06', '2026-10-05 12:14:20'),
+(2, 1, 1, '89d2fa21-d51e-4a9e-96de-3072678617f5', 'product', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"PRD000001\",\"sku\":\"COKE50CL\",\"barcode\":\"100000000001\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true}', '{\"mutation_uuid\":\"89d2fa21-d51e-4a9e-96de-3072678617f5\",\"entity_sync_uuid\":\"26b06031-8503-4b3f-aa34-64f5bff690bd\",\"accepted\":true,\"processed\":true,\"result\":{\"entity\":\"product\",\"sync_uuid\":\"26b06031-8503-4b3f-aa34-64f5bff690bd\",\"action\":\"updated\"},\"message\":\"Mutation processed successfully.\"}', 'completed', NULL, '2026-10-14 09:08:30', '2026-10-14 09:08:30', '2026-10-14 09:08:30'),
+(3, 1, 1, 'af15b050-c107-4e7c-9b32-b47b9b9e5dc4', 'unit', 'c61e9eee-5d6d-4ee4-908d-0b658a65a01e', 'update', '{\"unit_code\":\"UNT000001\",\"name\":\"Piece\",\"short_name\":\"PCS\",\"description\":\"Piece\",\"status\":true}', '{\"mutation_uuid\":\"af15b050-c107-4e7c-9b32-b47b9b9e5dc4\",\"entity_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"accepted\":true,\"processed\":true,\"result\":{\"entity\":\"unit\",\"sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"action\":\"updated\"},\"message\":\"Mutation processed successfully.\"}', 'completed', NULL, '2026-10-14 10:37:46', '2026-10-14 10:37:46', '2026-10-14 10:37:46'),
+(4, 1, 1, 'e3cef118-b61f-440d-b2e4-d14850bc696a', 'tax_rate', '01480936-e702-41ab-b5bc-209b893d7b12', 'update', '{\"name\":\"No Tax\",\"rate\":0,\"status\":true}', '{\"mutation_uuid\":\"e3cef118-b61f-440d-b2e4-d14850bc696a\",\"entity_sync_uuid\":\"01480936-e702-41ab-b5bc-209b893d7b12\",\"accepted\":true,\"processed\":true,\"result\":{\"entity\":\"tax_rate\",\"sync_uuid\":\"01480936-e702-41ab-b5bc-209b893d7b12\",\"action\":\"updated\"},\"message\":\"Mutation processed successfully.\"}', 'completed', NULL, '2026-10-14 10:49:19', '2026-10-14 10:49:19', '2026-10-14 10:49:19'),
+(5, 1, 1, '1c4f7566-69a4-441d-b41a-dcb4ac1951ba', 'discount', '241fce75-1371-4e36-821e-d2186e9716d2', 'update', '{\"name\":\"No Discount\",\"type\":\"Percentage\",\"value\":0,\"start_date\":\"2026-07-29\",\"end_date\":\"2036-07-29\",\"is_automatic\":true,\"status\":true}', '{\"mutation_uuid\":\"1c4f7566-69a4-441d-b41a-dcb4ac1951ba\",\"entity_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"accepted\":true,\"processed\":true,\"result\":{\"entity\":\"discount\",\"sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"action\":\"updated\"},\"message\":\"Mutation processed successfully.\"}', 'completed', NULL, '2026-10-14 10:56:49', '2026-10-14 10:56:49', '2026-10-14 10:56:49'),
+(6, 1, 1, '0f53fde8-b563-4d01-9693-2a634bae9a33', 'product_category', 'c8b72c13-63dc-4161-8b4e-aff839f037e1', 'update', '{\"category_code\":\"CAT000001\",\"name\":\"Beverages\",\"description\":\"Soft drinks, juices, bottled water and energy drinks.\",\"parent_sync_uuid\":null,\"sort_order\":0,\"status\":true}', '{\"mutation_uuid\":\"0f53fde8-b563-4d01-9693-2a634bae9a33\",\"entity_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"accepted\":true,\"processed\":true,\"result\":{\"entity\":\"product_category\",\"sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"action\":\"updated\"},\"message\":\"Mutation processed successfully.\"}', 'completed', NULL, '2026-10-14 11:14:50', '2026-10-14 11:14:50', '2026-10-14 11:14:50');
 
 -- --------------------------------------------------------
 
@@ -4098,6 +4182,43 @@ CREATE TABLE `sync_queue` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sync_queue`
+--
+
+INSERT INTO `sync_queue` (`id`, `company_id`, `device_id`, `mutation_uuid`, `entity`, `entity_sync_uuid`, `operation`, `payload`, `status`, `attempts`, `available_at`, `processing_started_at`, `processed_at`, `failed_at`, `last_error`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '89d2fa21-d51e-4a9e-96de-3072678617f5', 'product', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"PRD000001\",\"sku\":\"COKE50CL\",\"barcode\":\"100000000001\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true}', 'completed', 3, '2026-10-14 09:11:20', '2026-10-14 09:11:29', '2026-10-14 09:11:30', NULL, NULL, '2026-10-14 08:53:20', '2026-10-14 09:11:30'),
+(2, 1, 1, 'af15b050-c107-4e7c-9b32-b47b9b9e5dc4', 'unit', 'c61e9eee-5d6d-4ee4-908d-0b658a65a01e', 'update', '{\"unit_code\":\"UNT000001\",\"name\":\"Piece\",\"short_name\":\"PCS\",\"description\":\"Piece\",\"status\":true}', 'completed', 1, '2026-10-14 10:36:36', '2026-10-14 10:37:43', '2026-10-14 10:37:47', NULL, NULL, '2026-10-14 10:36:36', '2026-10-14 10:37:47'),
+(3, 1, 1, 'e3cef118-b61f-440d-b2e4-d14850bc696a', 'tax_rate', '01480936-e702-41ab-b5bc-209b893d7b12', 'update', '{\"name\":\"No Tax\",\"rate\":0,\"status\":true}', 'completed', 1, '2026-10-14 10:44:11', '2026-10-14 10:49:18', '2026-10-14 10:49:19', NULL, NULL, '2026-10-14 10:44:11', '2026-10-14 10:49:19'),
+(4, 1, 1, '1c4f7566-69a4-441d-b41a-dcb4ac1951ba', 'discount', '241fce75-1371-4e36-821e-d2186e9716d2', 'update', '{\"name\":\"No Discount\",\"type\":\"Percentage\",\"value\":0,\"start_date\":\"2026-07-29\",\"end_date\":\"2036-07-29\",\"is_automatic\":true,\"status\":true}', 'completed', 1, '2026-10-14 10:55:58', '2026-10-14 10:56:48', '2026-10-14 10:56:50', NULL, NULL, '2026-10-14 10:55:58', '2026-10-14 10:56:50'),
+(5, 1, 1, '0f53fde8-b563-4d01-9693-2a634bae9a33', 'product_category', 'c8b72c13-63dc-4161-8b4e-aff839f037e1', 'update', '{\"category_code\":\"CAT000001\",\"name\":\"Beverages\",\"description\":\"Soft drinks, juices, bottled water and energy drinks.\",\"parent_sync_uuid\":null,\"sort_order\":0,\"status\":true}', 'completed', 1, '2026-10-14 11:14:10', '2026-10-14 11:14:49', '2026-10-14 11:14:50', NULL, NULL, '2026-10-14 11:14:10', '2026-10-14 11:14:50'),
+(6, 1, 1, 'e75c5b6d-214c-431c-8cd2-2fd4f2d1d9f8', 'unit', 'c61e9eee-5d6d-4ee4-908d-0b658a65a01e', 'create', '{\"unit_code\":\"UNT000001\",\"name\":\"Piece\",\"short_name\":\"PCS\",\"description\":\"Piece\",\"status\":true}', 'completed', 3, '2026-10-14 13:03:26', '2026-10-14 13:04:06', '2026-10-14 13:04:08', NULL, NULL, '2026-10-14 12:32:32', '2026-10-14 13:04:08'),
+(7, 1, 1, '7e68f13b-7ab8-411c-8f74-077585a5a448', 'tax_rate', '01480936-e702-41ab-b5bc-209b893d7b12', 'create', '{\"name\":\"No Tax\",\"rate\":0,\"status\":true}', 'completed', 1, '2026-10-14 13:19:05', '2026-10-14 13:19:27', '2026-10-14 13:19:28', NULL, NULL, '2026-10-14 13:19:05', '2026-10-14 13:19:28'),
+(8, 1, 1, '85f8360a-c164-441b-8464-27e0c898e1d3', 'discount', '241fce75-1371-4e36-821e-d2186e9716d2', 'create', '{\"name\":\"No Discount\",\"type\":\"Percentage\",\"value\":0,\"start_date\":\"2026-07-29\",\"end_date\":\"2036-07-29\",\"is_automatic\":true,\"status\":true}', 'completed', 1, '2026-10-14 13:22:16', '2026-10-14 13:22:46', '2026-10-14 13:22:47', NULL, NULL, '2026-10-14 13:22:16', '2026-10-14 13:22:47'),
+(9, 1, 1, '7438bd2e-d2df-4a6a-bfb8-2aea84cdec1d', 'product_category', 'c8b72c13-63dc-4161-8b4e-aff839f037e1', 'create', '{\"category_code\":\"CAT000001\",\"name\":\"Beverages\",\"description\":\"Soft drinks, juices, bottled water and energy drinks.\",\"parent_sync_uuid\":null,\"sort_order\":0,\"status\":true}', 'completed', 1, '2026-10-14 13:25:16', '2026-10-14 13:26:03', '2026-10-14 13:26:03', NULL, NULL, '2026-10-14 13:25:16', '2026-10-14 13:26:03'),
+(10, 1, 1, '64cc3fdc-3a23-4e29-9050-45e6c9d3099f', 'product_category', 'c8b72c13-63dc-4161-8b4e-aff839f037e1', 'create', '{\"category_code\":\"CAT000001\",\"name\":\"Beverages\",\"description\":\"Soft drinks, juices, bottled water and energy drinks.\",\"parent_sync_uuid\":null,\"sort_order\":0,\"status\":true}', 'completed', 1, '2026-10-14 13:34:59', '2026-10-14 13:36:07', '2026-10-14 13:36:08', NULL, NULL, '2026-10-14 13:34:59', '2026-10-14 13:36:08'),
+(11, 1, 1, '6e34202d-d5fa-49d1-9037-b9b3b1f523d5', 'unit', 'c61e9eee-5d6d-4ee4-908d-0b658a65a01e', 'create', '{\"unit_code\":\"UNT000001\",\"name\":\"Piece\",\"short_name\":\"PCS\",\"description\":\"Piece\",\"status\":true}', 'completed', 1, '2026-10-14 13:35:16', '2026-10-14 13:36:08', '2026-10-14 13:36:09', NULL, NULL, '2026-10-14 13:35:16', '2026-10-14 13:36:09'),
+(12, 1, 1, '239e9cd3-0498-4bc4-814c-44d9d441c5e7', 'tax_rate', '1c7b5633-9d09-4cf7-9342-35cb611ae171', 'create', '{\"name\":\"VAT 7.5%\",\"rate\":7.5,\"status\":true}', 'completed', 1, '2026-10-14 13:35:25', '2026-10-14 13:36:09', '2026-10-14 13:36:10', NULL, NULL, '2026-10-14 13:35:25', '2026-10-14 13:36:10'),
+(13, 1, 1, '04bc184c-ee13-40b8-bebc-2892201bd08a', 'discount', '241fce75-1371-4e36-821e-d2186e9716d2', 'create', '{\"name\":\"No Discount\",\"type\":\"Percentage\",\"value\":0,\"start_date\":\"2026-07-29\",\"end_date\":\"2036-07-29\",\"is_automatic\":true,\"status\":true}', 'completed', 1, '2026-10-14 13:35:41', '2026-10-14 13:36:10', '2026-10-14 13:36:11', NULL, NULL, '2026-10-14 13:35:41', '2026-10-14 13:36:11'),
+(14, 1, 1, '793faf91-33f1-403e-8726-418ac63770a5', 'product', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'create', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"PRD000001\",\"sku\":\"COKE50CL\",\"barcode\":\"100000000001\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true}', 'completed', 1, '2026-10-14 13:38:43', '2026-10-14 13:41:11', '2026-10-14 13:41:12', NULL, NULL, '2026-10-14 13:38:43', '2026-10-14 13:41:12'),
+(15, 1, 1, '6bd8c140-bc9a-4043-9378-5516ecd6ec15', 'product', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"PRD000001\",\"sku\":\"COKE50CL\",\"barcode\":\"100000000001\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true,\"taxable\":true,\"dimensions\":\"500ml bottle\"}', 'completed', 1, '2026-10-15 09:37:55', '2026-10-15 09:38:59', '2026-10-15 09:39:07', NULL, NULL, '2026-10-15 09:37:55', '2026-10-15 09:39:07'),
+(16, 1, 1, '316790fd-52c0-48e2-bb02-3ab3c904a461', 'product', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"PRD000001\",\"sku\":\"COKE50CL\",\"barcode\":\"100000000001\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true,\"taxable\":true,\"dimensions\":\"500ml bottle\"}', 'completed', 1, '2026-10-15 09:43:31', '2026-10-15 09:44:15', '2026-10-15 09:44:16', NULL, NULL, '2026-10-15 09:43:31', '2026-10-15 09:44:16'),
+(17, 1, 1, '974d0357-944a-4ddf-8ed4-4870a8478a0d', 'product', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"PRD000001\",\"sku\":\"COKE50CL\",\"barcode\":\"100000000001\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true,\"taxable\":true,\"dimensions\":\"500ml bottle\"}', 'completed', 1, '2026-10-15 09:48:53', '2026-10-15 09:49:46', '2026-10-15 09:49:47', NULL, NULL, '2026-10-15 09:48:53', '2026-10-15 09:49:47'),
+(18, 1, 1, 'ffba251f-750e-4349-9275-ed0043e66928', 'product', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"PRD000001\",\"sku\":\"COKE50CL\",\"barcode\":\"100000000001\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true,\"taxable\":true,\"dimensions\":null}', 'completed', 1, '2026-10-15 10:24:00', '2026-10-15 10:24:50', '2026-10-15 10:24:51', NULL, NULL, '2026-10-15 10:24:00', '2026-10-15 10:24:51'),
+(19, 1, 1, 'bae02da4-d0e8-48e5-95fb-03c070c67692', 'product', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"PRD000001\",\"sku\":\"COKE50CL\",\"barcode\":\"100000000001\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":11,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true,\"taxable\":true,\"dimensions\":null}', 'completed', 1, '2026-10-15 10:30:56', '2026-10-15 10:33:36', '2026-10-15 10:33:37', NULL, NULL, '2026-10-15 10:30:56', '2026-10-15 10:33:37'),
+(20, 1, 1, '7d3ff52d-4104-4684-85d8-7e676575096f', 'product', '26b06031-8503-4b3f-aa34-64f5bff690bd', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"PRD000001\",\"sku\":\"COKE50CL\",\"barcode\":\"100000000001\",\"qr_code\":null,\"name\":\"Coca-Cola 50cl\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true,\"taxable\":true,\"dimensions\":null}', 'completed', 1, '2026-10-15 10:40:14', '2026-10-15 10:40:59', '2026-10-15 10:41:00', NULL, NULL, '2026-10-15 10:40:14', '2026-10-15 10:41:00'),
+(21, 1, 1, '8c743f58-56db-434c-a90b-a5e1b069372f', 'product', '4b1c50ab-8523-465d-b155-bd59f4fe9056', 'create', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"SYNCDEL-AIHF6KBL\",\"sku\":\"SYNCDEL-QMYRYTXJ\",\"barcode\":null,\"qr_code\":null,\"name\":\"Sync Delete Test Product\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true,\"taxable\":true,\"dimensions\":null}', 'completed', 1, '2026-10-15 10:44:56', '2026-10-15 10:50:17', '2026-10-15 10:50:18', NULL, NULL, '2026-10-15 10:44:56', '2026-10-15 10:50:18'),
+(22, 1, 1, '38261e7a-d2b2-424a-951a-ae42cd9953e8', 'product', '4b1c50ab-8523-465d-b155-bd59f4fe9056', 'delete', '[]', 'completed', 1, '2026-10-15 10:57:35', '2026-10-15 10:58:52', '2026-10-15 10:58:52', NULL, NULL, '2026-10-15 10:57:35', '2026-10-15 10:58:52'),
+(23, 1, 1, '6ace5987-288c-49e5-b728-2d34cc29e693', 'product', '4b1c50ab-8523-465d-b155-bd59f4fe9056', 'delete', '[]', 'completed', 1, '2026-10-15 11:01:13', '2026-10-15 11:01:54', '2026-10-15 11:01:54', NULL, NULL, '2026-10-15 11:01:13', '2026-10-15 11:01:54'),
+(24, 1, 1, '8dea154c-34a6-40b4-bf6e-4e2d739073dd', 'product', '4b1c50ab-8523-465d-b155-bd59f4fe9056', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"SYNCDEL-AIHF6KBL\",\"sku\":\"SYNCDEL-QMYRYTXJ\",\"barcode\":null,\"qr_code\":null,\"name\":\"Sync Delete Test Product\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true,\"taxable\":true,\"dimensions\":null}', 'failed', 1, '2026-10-15 11:05:10', '2026-10-15 11:04:39', NULL, '2026-10-15 11:04:40', 'The mutation could not be processed.', '2026-10-15 11:04:01', '2026-10-15 11:04:40'),
+(25, 1, 1, 'e8f69f1c-f7f5-41a9-8506-5347a7c52250', 'product', '4b1c50ab-8523-465d-b155-bd59f4fe9056', 'create', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":\"1c7b5633-9d09-4cf7-9342-35cb611ae171\",\"discount_sync_uuid\":\"241fce75-1371-4e36-821e-d2186e9716d2\",\"product_code\":\"SYNCDEL-AIHF6KBL\",\"sku\":\"SYNCDEL-QMYRYTXJ\",\"barcode\":null,\"qr_code\":null,\"name\":\"Sync Delete Test Product\",\"description\":null,\"brand\":\"Coca-Cola\",\"manufacturer\":\"NBC\",\"cost_price\":500,\"selling_price\":700,\"track_stock\":true,\"minimum_stock\":10,\"maximum_stock\":2000,\"weight\":null,\"expiry_date\":\"2026-09-23\",\"status\":true,\"taxable\":true,\"dimensions\":null}', 'completed', 1, '2026-10-15 11:52:57', '2026-10-15 11:53:45', '2026-10-15 11:53:46', NULL, NULL, '2026-10-15 11:52:57', '2026-10-15 11:53:46'),
+(26, 1, 1, '23876392-f6fc-41a3-ad84-00bfff9e6a84', 'product', '4b1c50ab-8523-465d-b155-bd59f4fe9056', 'delete', '[]', 'completed', 1, '2026-10-15 12:26:08', '2026-10-15 12:26:52', '2026-10-15 12:26:53', NULL, NULL, '2026-10-15 12:26:08', '2026-10-15 12:26:53'),
+(27, 1, 1, 'd994243c-3b9f-42b0-962b-12d65ee45e89', 'product', '85606043-8b75-4f12-87c4-7af42f60561c', 'create', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"6ebfcee6-3750-4486-b35e-4bc53037506e\",\"tax_rate_sync_uuid\":null,\"discount_sync_uuid\":null,\"product_code\":\"PRD1791204745\",\"sku\":null,\"barcode\":null,\"qr_code\":null,\"name\":\"Sync UI Test Product 2\",\"description\":\"Sync UI Test Product 2\",\"brand\":null,\"manufacturer\":null,\"cost_price\":670,\"selling_price\":1000,\"track_stock\":true,\"minimum_stock\":0,\"maximum_stock\":1000,\"weight\":0,\"expiry_date\":\"2026-10-25\",\"status\":true,\"taxable\":true,\"dimensions\":null}', 'pending', 0, '2026-10-15 13:26:58', NULL, NULL, NULL, NULL, '2026-10-15 13:26:58', '2026-10-15 13:26:58'),
+(28, 1, 1, '817a6dfb-f8d3-4206-a2c3-8ae8d02c31f6', 'product', '85606043-8b75-4f12-87c4-7af42f60561c', 'update', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"6ebfcee6-3750-4486-b35e-4bc53037506e\",\"tax_rate_sync_uuid\":null,\"discount_sync_uuid\":null,\"product_code\":\"PRD1791204745\",\"sku\":null,\"barcode\":null,\"qr_code\":null,\"name\":\"Sync UI Test Product 2 - Updated\",\"description\":\"Sync UI Test Product 2\",\"brand\":null,\"manufacturer\":null,\"cost_price\":670,\"selling_price\":1000,\"track_stock\":true,\"minimum_stock\":0,\"maximum_stock\":1000,\"weight\":0,\"expiry_date\":\"2026-10-25\",\"status\":true,\"taxable\":true,\"dimensions\":null}', 'pending', 0, '2026-10-15 13:31:00', NULL, NULL, NULL, NULL, '2026-10-15 13:31:00', '2026-10-15 13:31:00'),
+(29, 1, 1, 'd4d97c2b-e616-41fb-a353-727247683a3d', 'product', '85606043-8b75-4f12-87c4-7af42f60561c', 'delete', '[]', 'pending', 0, '2026-10-15 13:38:04', NULL, NULL, NULL, NULL, '2026-10-15 13:38:04', '2026-10-15 13:38:04'),
+(30, 1, 1, '97fd12a1-edb0-4033-95f2-021ef1bb4364', 'product', '85606043-8b75-4f12-87c4-7af42f60561c', 'create', '{\"product_category_sync_uuid\":\"c8b72c13-63dc-4161-8b4e-aff839f037e1\",\"unit_sync_uuid\":\"599991be-8672-429e-af9c-c138ea716f85\",\"tax_rate_sync_uuid\":null,\"discount_sync_uuid\":null,\"product_code\":\"PRD1791204745\",\"sku\":null,\"barcode\":null,\"qr_code\":null,\"name\":\"POS Non-Stock Test\",\"description\":\"POS Non-Stock Test\",\"brand\":null,\"manufacturer\":null,\"cost_price\":500,\"selling_price\":1000,\"track_stock\":false,\"minimum_stock\":0,\"maximum_stock\":1000,\"weight\":0,\"expiry_date\":null,\"status\":true,\"taxable\":true,\"dimensions\":null}', 'pending', 0, '2026-10-19 07:51:14', NULL, NULL, NULL, NULL, '2026-10-19 07:51:14', '2026-10-19 07:51:14'),
+(31, 1, 1, '626726fb-4e73-4b01-932e-8462bc225c41', 'product', '8ab11a9d-9622-4171-9d35-42b0e1e2056e', 'create', '{\"product_category_sync_uuid\":\"1c9bbd18-c79d-47be-bdce-d6c6eebcf92b\",\"unit_sync_uuid\":\"c61e9eee-5d6d-4ee4-908d-0b658a65a01e\",\"tax_rate_sync_uuid\":null,\"discount_sync_uuid\":null,\"product_code\":\"PRD1791204746\",\"sku\":null,\"barcode\":null,\"qr_code\":null,\"name\":\"POS Zero Stock Test\",\"description\":null,\"brand\":null,\"manufacturer\":null,\"cost_price\":200,\"selling_price\":400,\"track_stock\":true,\"minimum_stock\":0,\"maximum_stock\":1000,\"weight\":0,\"expiry_date\":null,\"status\":true,\"taxable\":true,\"dimensions\":null}', 'pending', 0, '2026-10-19 08:26:06', NULL, NULL, NULL, NULL, '2026-10-19 08:26:06', '2026-10-19 08:26:06');
+
 -- --------------------------------------------------------
 
 --
@@ -4106,23 +4227,25 @@ CREATE TABLE `sync_queue` (
 
 CREATE TABLE `tax_rates` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `sync_uuid` char(36) NOT NULL,
   `company_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `rate` decimal(5,2) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tax_rates`
 --
 
-INSERT INTO `tax_rates` (`id`, `company_id`, `name`, `rate`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'No Tax', 0.00, 1, '2026-07-29 10:37:13', '2026-08-04 08:49:18'),
-(2, 1, 'VAT 7.5%', 7.50, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(3, 1, 'VAT 15%', 15.00, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13'),
-(4, 1, 'Luxury Tax', 10.00, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13');
+INSERT INTO `tax_rates` (`id`, `sync_uuid`, `company_id`, `name`, `rate`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '01480936-e702-41ab-b5bc-209b893d7b12', 1, 'No Tax', 0.00, 1, '2026-07-29 10:37:13', '2026-08-04 08:49:18', NULL),
+(2, '1c7b5633-9d09-4cf7-9342-35cb611ae171', 1, 'VAT 7.5%', 7.50, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(3, 'ff40c148-73f2-4290-94d0-6c62b3c02397', 1, 'VAT 15%', 15.00, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL),
+(4, '2af13b17-4cd5-4aa5-9120-115229d04ed6', 1, 'Luxury Tax', 10.00, 1, '2026-07-29 10:37:13', '2026-07-29 10:37:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -4198,6 +4321,7 @@ INSERT INTO `terminal_assignments` (`id`, `company_id`, `branch_id`, `terminal_i
 
 CREATE TABLE `units` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `sync_uuid` char(36) NOT NULL,
   `company_id` bigint(20) UNSIGNED NOT NULL,
   `unit_code` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -4215,23 +4339,23 @@ CREATE TABLE `units` (
 -- Dumping data for table `units`
 --
 
-INSERT INTO `units` (`id`, `company_id`, `unit_code`, `name`, `short_name`, `description`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'UNT000001', 'Piece', 'PCS', 'Piece', 1, NULL, 1, '2026-07-29 10:37:13', '2026-08-03 14:02:59', NULL),
-(2, 1, 'UNT000002', 'Pack', 'PK', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(3, 1, 'UNT000003', 'Carton', 'CTN', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(4, 1, 'UNT000004', 'Bottle', 'BTL', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(5, 1, 'UNT000005', 'Can', 'CAN', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(6, 1, 'UNT000006', 'Kilogram', 'KG', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(7, 1, 'UNT000007', 'Gram', 'G', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(8, 1, 'UNT000008', 'Litre', 'LTR', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(9, 1, 'UNT000009', 'Millilitre', 'ML', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(10, 1, 'UNT000010', 'Dozen', 'DOZ', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(11, 1, 'UNT000011', 'Bag', 'BAG', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(12, 1, 'UNT000012', 'Roll', 'ROL', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(13, 1, 'UNT000013', 'Box', 'BOX', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
-(14, 1, 'UNT000014', 'Text', 'TXT', 'Text', 1, 1, 1, '2026-08-03 14:02:30', '2026-08-04 08:48:18', '2026-08-04 08:48:18'),
-(15, 4, 'UNT000001', 'Piece', 'PCS', 'Piece', 1, 20, 20, '2026-09-21 08:58:45', '2026-09-21 08:58:45', NULL),
-(16, 5, 'UNT000001', 'Piece', 'PCS', NULL, 1, 21, 21, '2026-09-30 13:27:59', '2026-09-30 13:27:59', NULL);
+INSERT INTO `units` (`id`, `sync_uuid`, `company_id`, `unit_code`, `name`, `short_name`, `description`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'c61e9eee-5d6d-4ee4-908d-0b658a65a01e', 1, 'UNT000001', 'Piece', 'PCS', 'Piece', 1, NULL, 1, '2026-07-29 10:37:13', '2026-08-03 14:02:59', NULL),
+(2, '95b2e1b2-a5fa-478b-b8b0-d46d14442199', 1, 'UNT000002', 'Pack', 'PK', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(3, '599991be-8672-429e-af9c-c138ea716f85', 1, 'UNT000003', 'Carton', 'CTN', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(4, '6ebfcee6-3750-4486-b35e-4bc53037506e', 1, 'UNT000004', 'Bottle', 'BTL', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(5, '926d6bd6-f059-460a-b403-1c8c3645f93a', 1, 'UNT000005', 'Can', 'CAN', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(6, '08241d4f-8804-4457-b9a6-597230ea9b55', 1, 'UNT000006', 'Kilogram', 'KG', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(7, 'abcaa7cb-7111-45e9-81b9-66ed31d01b7d', 1, 'UNT000007', 'Gram', 'G', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(8, '66877ff9-81f9-4ffa-beca-b8b1a6955e4d', 1, 'UNT000008', 'Litre', 'LTR', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(9, '2d58a692-893b-4c24-a7a8-1bffaecaa76a', 1, 'UNT000009', 'Millilitre', 'ML', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(10, '015fec75-4f36-4f6c-b45d-f1169659889f', 1, 'UNT000010', 'Dozen', 'DOZ', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(11, 'f1f6b671-5e51-4d84-8894-1c5259f214e0', 1, 'UNT000011', 'Bag', 'BAG', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(12, '41e02fc6-9a5f-4956-8f3a-26b0ebe7d8d1', 1, 'UNT000012', 'Roll', 'ROL', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(13, 'ac4486fa-eed9-4359-8f75-a2853e945e68', 1, 'UNT000013', 'Box', 'BOX', NULL, 1, NULL, NULL, '2026-07-29 10:37:13', '2026-08-03 13:35:02', NULL),
+(14, '480510ab-d9cb-4993-a8d6-73bee5e9840c', 1, 'UNT000014', 'Text', 'TXT', 'Text', 1, 1, 1, '2026-08-03 14:02:30', '2026-08-04 08:48:18', '2026-08-04 08:48:18'),
+(15, '5e52b345-4126-4257-b6de-9cf647bfd88f', 4, 'UNT000001', 'Piece', 'PCS', 'Piece', 1, 20, 20, '2026-09-21 08:58:45', '2026-09-21 08:58:45', NULL),
+(16, '7b35b281-d2ec-4ec1-a297-058970f10195', 5, 'UNT000001', 'Piece', 'PCS', NULL, 1, 21, 21, '2026-09-30 13:27:59', '2026-09-30 13:27:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -4310,7 +4434,8 @@ ALTER TABLE `activity_logs`
 ALTER TABLE `branches`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `branches_company_id_name_unique` (`company_id`,`name`),
-  ADD UNIQUE KEY `branches_branch_code_unique` (`branch_code`);
+  ADD UNIQUE KEY `branches_branch_code_unique` (`branch_code`),
+  ADD UNIQUE KEY `branches_company_id_sync_uuid_unique` (`company_id`,`sync_uuid`);
 
 --
 -- Indexes for table `cache`
@@ -4424,7 +4549,8 @@ ALTER TABLE `data_lifecycle_settings`
 --
 ALTER TABLE `discounts`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `discounts_company_id_name_unique` (`company_id`,`name`);
+  ADD UNIQUE KEY `discounts_company_id_name_unique` (`company_id`,`name`),
+  ADD UNIQUE KEY `discounts_sync_uuid_unique` (`sync_uuid`);
 
 --
 -- Indexes for table `document_sequences`
@@ -4585,6 +4711,7 @@ ALTER TABLE `products`
   ADD UNIQUE KEY `products_company_id_product_code_unique` (`company_id`,`product_code`),
   ADD UNIQUE KEY `products_company_id_barcode_unique` (`company_id`,`barcode`),
   ADD UNIQUE KEY `products_company_id_sku_unique` (`company_id`,`sku`),
+  ADD UNIQUE KEY `products_sync_uuid_unique` (`sync_uuid`),
   ADD KEY `products_product_category_id_foreign` (`product_category_id`),
   ADD KEY `products_discount_id_foreign` (`discount_id`),
   ADD KEY `products_unit_id_foreign` (`unit_id`),
@@ -4598,6 +4725,7 @@ ALTER TABLE `products`
 ALTER TABLE `product_categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `product_categories_company_id_name_unique` (`company_id`,`name`),
+  ADD UNIQUE KEY `product_categories_sync_uuid_unique` (`sync_uuid`),
   ADD KEY `product_categories_parent_id_foreign` (`parent_id`),
   ADD KEY `product_categories_created_by_foreign` (`created_by`),
   ADD KEY `product_categories_updated_by_foreign` (`updated_by`);
@@ -4867,7 +4995,8 @@ ALTER TABLE `sync_queue`
 --
 ALTER TABLE `tax_rates`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `tax_rates_company_id_name_unique` (`company_id`,`name`);
+  ADD UNIQUE KEY `tax_rates_company_id_name_unique` (`company_id`,`name`),
+  ADD UNIQUE KEY `tax_rates_sync_uuid_unique` (`sync_uuid`);
 
 --
 -- Indexes for table `terminals`
@@ -4900,6 +5029,7 @@ ALTER TABLE `units`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `units_company_id_name_unique` (`company_id`,`name`),
   ADD UNIQUE KEY `units_company_id_short_name_unique` (`company_id`,`short_name`),
+  ADD UNIQUE KEY `units_sync_uuid_unique` (`sync_uuid`),
   ADD KEY `units_created_by_foreign` (`created_by`),
   ADD KEY `units_updated_by_foreign` (`updated_by`);
 
@@ -4921,7 +5051,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=405;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=417;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -4933,13 +5063,13 @@ ALTER TABLE `branches`
 -- AUTO_INCREMENT for table `cash_drawers`
 --
 ALTER TABLE `cash_drawers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `cash_drawer_transactions`
 --
 ALTER TABLE `cash_drawer_transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `companies`
@@ -5023,13 +5153,13 @@ ALTER TABLE `goods_received_items`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -5041,25 +5171,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -5083,13 +5213,13 @@ ALTER TABLE `platform_admins`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `product_images`
@@ -5101,7 +5231,7 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `product_stocks`
 --
 ALTER TABLE `product_stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `purchase_orders`
@@ -5197,7 +5327,7 @@ ALTER TABLE `stock_count_items`
 -- AUTO_INCREMENT for table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
 
 --
 -- AUTO_INCREMENT for table `storefronts`
@@ -5221,19 +5351,19 @@ ALTER TABLE `sync_devices`
 -- AUTO_INCREMENT for table `sync_logs`
 --
 ALTER TABLE `sync_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `sync_mutations`
 --
 ALTER TABLE `sync_mutations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sync_queue`
 --
 ALTER TABLE `sync_queue`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tax_rates`

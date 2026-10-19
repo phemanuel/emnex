@@ -1529,10 +1529,6 @@ class PosController extends BaseController
         }
 
 
-        $user =
-            auth()->user();
-
-
         $terminalAssignment =
             $this->currentTerminalAssignment();
 
@@ -1551,6 +1547,22 @@ class PosController extends BaseController
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | POS-Saleable Products
+        |--------------------------------------------------------------------------
+        |
+        | POS may only sell:
+        |
+        | - Active products
+        | - Products that track inventory
+        | - Products with available stock in this terminal's branch
+        |
+        | Non-stock/service products remain available through the Storefront,
+        | but must never appear on the POS terminal.
+        |
+        */
+
         $query =
             Product::query()
 
@@ -1561,7 +1573,46 @@ class PosController extends BaseController
 
                 ->where(
                     'status',
-                    '1'
+                    true
+                )
+
+                ->where(
+                    function ($query) {
+
+                        $query
+                            ->where(
+                                'track_stock',
+                                true
+                            )
+                            ->orWhereNull(
+                                'track_stock'
+                            );
+
+                    }
+                )
+
+                ->whereHas(
+                    'stocks',
+                    function ($stockQuery) use (
+                        $terminalAssignment
+                    ) {
+
+                        $stockQuery
+                            ->where(
+                                'company_id',
+                                $this->companyId
+                            )
+                            ->where(
+                                'branch_id',
+                                $terminalAssignment->branch_id
+                            )
+                            ->where(
+                                'available_quantity',
+                                '>',
+                                0
+                            );
+
+                    }
                 );
 
 
@@ -1589,25 +1640,21 @@ class PosController extends BaseController
                 ) {
 
                     $q
-
                         ->where(
                             'name',
                             'like',
                             '%' . $search . '%'
                         )
-
                         ->orWhere(
                             'sku',
                             'like',
                             '%' . $search . '%'
                         )
-
                         ->orWhere(
                             'barcode',
                             'like',
                             '%' . $search . '%'
                         )
-
                         ->orWhere(
                             'product_code',
                             'like',
@@ -1766,18 +1813,15 @@ class PosController extends BaseController
                         'category' => [
 
                             'id' =>
-                                $product->productCategory?->id,
+                                $product->category?->id,
 
                             'name' =>
-                                $product->productCategory?->name,
+                                $product->category?->name,
 
                         ],
 
                         'stock' =>
-                            (float) (
-                                $stock?->available_quantity
-                                ?? 0
-                            ),
+                            (float) $stock->available_quantity,
 
                     ];
 
@@ -1813,7 +1857,6 @@ class PosController extends BaseController
         ]);
 
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -1880,6 +1923,12 @@ class PosController extends BaseController
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | POS-Saleable Product
+        |--------------------------------------------------------------------------
+        */
+
         $product =
             Product::query()
 
@@ -1893,9 +1942,53 @@ class PosController extends BaseController
                     $id
                 )
 
+                ->where(
+                    'status',
+                    true
+                )
+
+                ->where(
+                    function ($query) {
+
+                        $query
+                            ->where(
+                                'track_stock',
+                                true
+                            )
+                            ->orWhereNull(
+                                'track_stock'
+                            );
+
+                    }
+                )
+
+                ->whereHas(
+                    'stocks',
+                    function ($stockQuery) use (
+                        $assignment
+                    ) {
+
+                        $stockQuery
+                            ->where(
+                                'company_id',
+                                $this->companyId
+                            )
+                            ->where(
+                                'branch_id',
+                                $assignment->branch_id
+                            )
+                            ->where(
+                                'available_quantity',
+                                '>',
+                                0
+                            );
+
+                    }
+                )
+
                 ->with([
                     'unit',
-                    'productCategory',
+                    'category',
                 ])
 
                 ->first();
@@ -1909,7 +2002,7 @@ class PosController extends BaseController
                     false,
 
                 'message' =>
-                    'Product not found.',
+                    'This product is not available for POS sale.',
 
             ], 404);
         }
@@ -1931,6 +2024,12 @@ class PosController extends BaseController
                 ->where(
                     'product_id',
                     $product->id
+                )
+
+                ->where(
+                    'available_quantity',
+                    '>',
+                    0
                 )
 
                 ->first();
@@ -1968,10 +2067,7 @@ class PosController extends BaseController
                     (float) $product->selling_price,
 
                 'stock' =>
-                    (float) (
-                        $stock?->available_quantity
-                        ?? 0
-                    ),
+                    (float) $stock->available_quantity,
 
                 'unit' => [
 
@@ -1986,10 +2082,10 @@ class PosController extends BaseController
                 'category' => [
 
                     'id' =>
-                        $product->productCategory?->id,
+                        $product->category?->id,
 
                     'name' =>
-                        $product->productCategory?->name,
+                        $product->category?->name,
 
                 ],
 
@@ -2045,6 +2141,12 @@ class PosController extends BaseController
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | POS-Saleable Product
+        |--------------------------------------------------------------------------
+        */
+
         $product =
             Product::query()
 
@@ -2058,10 +2160,49 @@ class PosController extends BaseController
                     $barcode
                 )
 
-                ->with([
-                    'unit',
-                    'productCategory',
-                ])
+                ->where(
+                    'status',
+                    true
+                )
+
+                ->where(
+                    function ($query) {
+
+                        $query
+                            ->where(
+                                'track_stock',
+                                true
+                            )
+                            ->orWhereNull(
+                                'track_stock'
+                            );
+
+                    }
+                )
+
+                ->whereHas(
+                    'stocks',
+                    function ($stockQuery) use (
+                        $assignment
+                    ) {
+
+                        $stockQuery
+                            ->where(
+                                'company_id',
+                                $this->companyId
+                            )
+                            ->where(
+                                'branch_id',
+                                $assignment->branch_id
+                            )
+                            ->where(
+                                'available_quantity',
+                                '>',
+                                0
+                            );
+
+                    }
+                )
 
                 ->first();
 
@@ -2074,7 +2215,7 @@ class PosController extends BaseController
                     false,
 
                 'message' =>
-                    'No product was found for this barcode.',
+                    'This product is not available for POS sale.',
 
             ], 404);
         }
@@ -2096,6 +2237,12 @@ class PosController extends BaseController
                 ->where(
                     'product_id',
                     $product->id
+                )
+
+                ->where(
+                    'available_quantity',
+                    '>',
+                    0
                 )
 
                 ->first();
@@ -2127,10 +2274,7 @@ class PosController extends BaseController
                     (float) $product->selling_price,
 
                 'stock' =>
-                    (float) (
-                        $stock?->available_quantity
-                        ?? 0
-                    ),
+                    (float) $stock->available_quantity,
 
                 'image' =>
                     $product->image,
@@ -2983,89 +3127,85 @@ class PosController extends BaseController
 
                             /*
                             |--------------------------------------------------------------------------
-                            | Stock Tracking
+                            | POS Inventory Requirement
                             |--------------------------------------------------------------------------
                             |
-                            | Non-stock/service products do not require ProductStock.
+                            | The POS terminal only sells inventory-tracked products.
+                            |
+                            | Non-stock/service products may be sold through the Storefront,
+                            | but they are not valid POS sale items.
                             |
                             */
 
-                            $tracksStock =
-                                $product
-                                    ->tracksStock();
+                            if (! $product->tracksStock()) {
 
+                                throw ValidationException::withMessages([
 
-                            $stock =
-                                null;
+                                    'items' => [
+                                        "{$product->name} is not available for POS sales.",
+                                    ],
+
+                                ]);
+
+                            }
 
 
                             /*
                             |--------------------------------------------------------------------------
-                            | Lock And Validate Inventory
+                            | Branch Stock
                             |--------------------------------------------------------------------------
-                            |
-                            | Only inventory-tracked products enter this branch.
-                            |
                             */
 
-                            if ($tracksStock) {
+                            $stock =
+                                ProductStock::query()
 
-                                $stock =
-                                    ProductStock::query()
+                                    ->where(
+                                        'company_id',
+                                        $companyId
+                                    )
 
-                                        ->where(
-                                            'company_id',
-                                            $companyId
-                                        )
+                                    ->where(
+                                        'branch_id',
+                                        $branch->id
+                                    )
 
-                                        ->where(
-                                            'branch_id',
-                                            $branch->id
-                                        )
+                                    ->where(
+                                        'product_id',
+                                        $product->id
+                                    )
 
-                                        ->where(
-                                            'product_id',
-                                            $product->id
-                                        )
+                                    ->lockForUpdate()
 
-                                        ->lockForUpdate()
-
-                                        ->first();
+                                    ->first();
 
 
-                                if (! $stock) {
+                            if (! $stock) {
 
-                                    throw ValidationException::withMessages([
+                                throw ValidationException::withMessages([
 
-                                        'items' => [
-                                            "No stock record exists for {$product->name}.",
-                                        ],
+                                    'items' => [
+                                        "{$product->name} is not available at this branch.",
+                                    ],
 
-                                    ]);
-
-                                }
-
-
-                                if (
-                                    (float)
-                                        $stock
-                                            ->available_quantity
-                                    <
-                                    $quantity
-                                ) {
-
-                                    throw ValidationException::withMessages([
-
-                                        'items' => [
-                                            "Insufficient stock for {$product->name}.",
-                                        ],
-
-                                    ]);
-
-                                }
+                                ]);
 
                             }
 
+
+                            if (
+                                (float) $stock->available_quantity
+                                < $quantity
+                            ) {
+
+                                throw ValidationException::withMessages([
+
+                                    'items' => [
+                                        "Insufficient stock for {$product->name}.",
+                                    ],
+
+                                ]);
+
+                            }
 
                             /*
                             |--------------------------------------------------------------------------
@@ -3077,9 +3217,6 @@ class PosController extends BaseController
 
                                 'product' =>
                                     $product,
-
-                                'tracks_stock' =>
-                                    $tracksStock,
 
                                 'stock' =>
                                     $stock,
@@ -3789,16 +3926,7 @@ class PosController extends BaseController
                             | No ProductStock mutation or StockMovement should exist.
                             |
                             */
-
-                            if (
-                                ! $item[
-                                    'tracks_stock'
-                                ]
-                            ) {
-
-                                continue;
-
-                            }
+                           
 
 
                             $product =

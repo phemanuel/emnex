@@ -9,6 +9,8 @@ use App\Services\Sync\Handlers\UnitSyncHandler;
 use App\Services\Sync\Handlers\TaxRateSyncHandler;
 use App\Services\Sync\Handlers\DiscountSyncHandler;
 use App\Services\Sync\Handlers\ProductCategorySyncHandler;
+use App\Services\Sync\Handlers\BranchSyncHandler;
+use App\Services\Sync\Handlers\TerminalSyncHandler;
 
 class SyncHandlerResolver
 {
@@ -29,6 +31,10 @@ class SyncHandlerResolver
             DiscountSyncHandler::class,
         'product_category' => 
             ProductCategorySyncHandler::class,
+        'branch' =>
+            BranchSyncHandler::class,
+        'terminal' =>
+            TerminalSyncHandler::class,
 
     ];
 

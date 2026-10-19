@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Customer;
+use App\Models\Concerns\HasSyncUuid;
 
 /**
  * Branch Model
@@ -17,7 +18,7 @@ use App\Models\Customer;
  */
 class Branch extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasSyncUuid;
 
     /*
     |--------------------------------------------------------------------------
