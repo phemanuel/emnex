@@ -27,17 +27,27 @@ use Illuminate\Validation\ValidationException;
 use App\Services\ActivityLogger;
 use App\Services\DocumentNumberService;
 use Illuminate\View\View;
+use App\Models\SyncDevice;
+use App\Services\Sync\CompletedSaleSyncQueueService;
 
 class PosController extends BaseController
 {
      protected ActivityLogger $activityLogger;
 
+    protected CompletedSaleSyncQueueService $completedSaleSyncQueueService;
 
-    public function __construct(ActivityLogger $activityLogger)
-    {
+
+    public function __construct(
+        ActivityLogger $activityLogger,
+        CompletedSaleSyncQueueService $completedSaleSyncQueueService
+    ) {
         parent::__construct();
 
-        $this->activityLogger = $activityLogger;
+        $this->activityLogger =
+            $activityLogger;
+
+        $this->completedSaleSyncQueueService =
+            $completedSaleSyncQueueService;
     }
     /*
     |--------------------------------------------------------------------------
@@ -4117,6 +4127,24 @@ class PosController extends BaseController
 
             /*
             |--------------------------------------------------------------------------
+            | Queue Completed Sale For Synchronization
+            |--------------------------------------------------------------------------
+            |
+            | Synchronization capture happens only after the POS transaction has
+            | committed successfully.
+            |
+            | A sync queue problem must never cause a successfully completed sale
+            | to be reported to the cashier as failed.
+            |
+            */
+
+            $this->queueCompletedSaleForSync(
+                $result['order']
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
             | Today's Sales Count
             |--------------------------------------------------------------------------
             */
@@ -7545,6 +7573,153 @@ $data =
         
 
         ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Outbound Sync Device
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return the configured outbound synchronization device.
+     */
+    protected function outboundSyncDevice(): ?SyncDevice
+    {
+        if (
+            ! (bool) config(
+                'services.sync.outbound_enabled',
+                false
+            )
+        ) {
+            return null;
+        }
+
+        $deviceUuid =
+            trim(
+                (string) config(
+                    'services.sync.device_uuid',
+                    ''
+                )
+            );
+
+        if ($deviceUuid === '') {
+            return null;
+        }
+
+        return SyncDevice::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+            ->where(
+                'device_uuid',
+                $deviceUuid
+            )
+            ->where(
+                'is_active',
+                true
+            )
+            ->first();
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Queue Completed Sale For Sync
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Queue a successfully completed POS sale for outbound synchronization.
+     *
+     * Synchronization failure must never invalidate the completed POS sale.
+     */
+    protected function queueCompletedSaleForSync(
+        Order $order
+    ): void {
+        $syncDevice =
+            $this->outboundSyncDevice();
+
+        if (! $syncDevice) {
+            return;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Customer Sync Dependency
+        |--------------------------------------------------------------------------
+        |
+        | Customer synchronization has not been implemented yet.
+        | Do not queue customer-linked sales until that dependency exists.
+        |
+        */
+
+        if ($order->customer_id !== null) {
+            Log::warning(
+                'Completed POS sale was not queued for synchronization because customer synchronization is not yet available.',
+                [
+                    'company_id' =>
+                        $this->companyId,
+
+                    'order_id' =>
+                        $order->id,
+
+                    'order_no' =>
+                        $order->order_no,
+
+                    'sync_uuid' =>
+                        $order->sync_uuid,
+
+                    'customer_id' =>
+                        $order->customer_id,
+                ]
+            );
+
+            return;
+        }
+
+        try {
+            $order->refresh();
+
+            $this->completedSaleSyncQueueService
+                ->create(
+                    $syncDevice,
+                    $order
+                );
+
+        } catch (\Throwable $e) {
+            /*
+            |--------------------------------------------------------------------------
+            | Do Not Fail The Sale
+            |--------------------------------------------------------------------------
+            |
+            | The POS transaction has already completed successfully.
+            | A synchronization queue failure is an infrastructure problem,
+            | not a reason to tell the cashier that the sale failed.
+            |
+            */
+
+            Log::error(
+                'Failed to queue completed POS sale for synchronization.',
+                [
+                    'company_id' =>
+                        $this->companyId,
+
+                    'order_id' =>
+                        $order->id,
+
+                    'order_no' =>
+                        $order->order_no,
+
+                    'sync_uuid' =>
+                        $order->sync_uuid,
+
+                    'error' =>
+                        $e->getMessage(),
+                ]
+            );
+        }
     }
 
 

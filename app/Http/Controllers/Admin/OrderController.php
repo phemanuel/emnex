@@ -29,20 +29,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Services\DocumentNumberService;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\SyncDevice;
+use App\Services\Sync\CompletedSaleSyncQueueService;
 
 
 class OrderController extends BaseController
 {
     protected ActivityLogger $activityLogger;
 
+    protected CompletedSaleSyncQueueService $completedSaleSyncQueueService;
 
-    public function __construct(ActivityLogger $activityLogger)
-    {
+
+    public function __construct(
+        ActivityLogger $activityLogger,
+        CompletedSaleSyncQueueService $completedSaleSyncQueueService
+    ) {
         parent::__construct();
 
-        $this->activityLogger = $activityLogger;
+        $this->activityLogger =
+            $activityLogger;
+
+        $this->completedSaleSyncQueueService =
+            $completedSaleSyncQueueService;
     }
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Index
     |--------------------------------------------------------------------------
@@ -5891,6 +5901,16 @@ public function storeCustomer(
                     }
                 );
 
+                /*
+                |--------------------------------------------------------------------------
+                | Queue Completed Sale For Synchronization
+                |--------------------------------------------------------------------------
+                */
+
+                $this->queueCompletedSaleForSync(
+                    $result['order']
+                );
+
 
             /*
             |--------------------------------------------------------------------------
@@ -7318,6 +7338,19 @@ public function storeCustomer(
                     }
                 );
 
+                /*
+                |--------------------------------------------------------------------------
+                | Queue Sale If Payment Completed The Order
+                |--------------------------------------------------------------------------
+                */
+
+                if ($result['is_completed']) {
+
+                    $this->queueCompletedSaleForSync(
+                        $result['order']
+                    );
+                }
+
 
             /*
             |--------------------------------------------------------------------------
@@ -7440,6 +7473,145 @@ public function storeCustomer(
 
         }
 
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Outbound Sync Device
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Return the configured outbound synchronization device.
+     */
+    protected function outboundSyncDevice(): ?SyncDevice
+    {
+        if (
+            ! (bool) config(
+                'services.sync.outbound_enabled',
+                false
+            )
+        ) {
+            return null;
+        }
+
+        $deviceUuid =
+            trim(
+                (string) config(
+                    'services.sync.device_uuid',
+                    ''
+                )
+            );
+
+        if ($deviceUuid === '') {
+            return null;
+        }
+
+        return SyncDevice::query()
+            ->where(
+                'company_id',
+                $this->companyId
+            )
+            ->where(
+                'device_uuid',
+                $deviceUuid
+            )
+            ->where(
+                'is_active',
+                true
+            )
+            ->first();
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Queue Completed Sale For Sync
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Queue a completed sales order for outbound synchronization.
+     *
+     * Queue failure must never invalidate a successfully completed sale.
+     */
+    protected function queueCompletedSaleForSync(
+        Order $order
+    ): void {
+        $syncDevice =
+            $this->outboundSyncDevice();
+
+        if (! $syncDevice) {
+            return;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Customer Sync Dependency
+        |--------------------------------------------------------------------------
+        |
+        | Customer synchronization is not implemented yet.
+        | Customer-linked completed orders are therefore not queued yet.
+        |
+        */
+
+        if ($order->customer_id !== null) {
+
+            Log::warning(
+                'Completed sales order was not queued for synchronization because customer synchronization is not yet available.',
+                [
+                    'company_id' =>
+                        $this->companyId,
+
+                    'order_id' =>
+                        $order->id,
+
+                    'order_no' =>
+                        $order->order_no,
+
+                    'sync_uuid' =>
+                        $order->sync_uuid,
+
+                    'customer_id' =>
+                        $order->customer_id,
+                ]
+            );
+
+            return;
+        }
+
+        try {
+
+            $order->refresh();
+
+            $this->completedSaleSyncQueueService
+                ->create(
+                    $syncDevice,
+                    $order
+                );
+
+        } catch (\Throwable $e) {
+
+            Log::error(
+                'Failed to queue completed sales order for synchronization.',
+                [
+                    'company_id' =>
+                        $this->companyId,
+
+                    'order_id' =>
+                        $order->id,
+
+                    'order_no' =>
+                        $order->order_no,
+
+                    'sync_uuid' =>
+                        $order->sync_uuid,
+
+                    'error' =>
+                        $e->getMessage(),
+                ]
+            );
+        }
     }
 
 

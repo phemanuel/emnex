@@ -11,6 +11,7 @@ use App\Services\Sync\Handlers\DiscountSyncHandler;
 use App\Services\Sync\Handlers\ProductCategorySyncHandler;
 use App\Services\Sync\Handlers\BranchSyncHandler;
 use App\Services\Sync\Handlers\TerminalSyncHandler;
+use App\Services\Sync\Handlers\CompletedSaleSyncHandler;
 
 class SyncHandlerResolver
 {
@@ -35,6 +36,8 @@ class SyncHandlerResolver
             BranchSyncHandler::class,
         'terminal' =>
             TerminalSyncHandler::class,
+        'sale' => 
+            CompletedSaleSyncHandler::class,
 
     ];
 
